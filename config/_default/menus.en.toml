@@ -1,0 +1,22 @@
+# Main Menu - displayed in the header
+# This overrides the theme's default menu
+
+[[main]]
+  name = "NDSI"
+  pageRef = "ndsi"
+  weight = 10
+
+[[main]]
+  name = "Software"
+  pageRef = "software"
+  weight = 20
+
+[[main]]
+  name = "Projects"
+  pageRef = "projects"
+  weight = 30
+
+[[main]]
+  name = "Blog"
+  pageRef = "blog"
+  weight = 40

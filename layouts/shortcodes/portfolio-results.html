@@ -1,0 +1,254 @@
+{{/* Portfolio Results - displays assessment from localStorage */}}
+
+<div id="portfolio-results">
+  <!-- No portfolio message -->
+  <div id="no-portfolio" class="text-center py-12">
+    <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
+      No portfolio selected yet.
+    </p>
+    <a href="/ndsi/portfolio/" class="inline-block px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+      Select Your Software →
+    </a>
+  </div>
+
+  <!-- Results container (hidden by default) -->
+  <div id="results-content" class="hidden">
+
+    <!-- Summary Card -->
+    <div id="summary-card" class="p-6 rounded-lg mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 id="level-title" class="text-2xl font-bold mb-1"></h2>
+          <p id="level-description" class="text-neutral-600 dark:text-neutral-400"></p>
+        </div>
+        <div class="text-right">
+          <div class="text-3xl font-bold" id="avg-score">-</div>
+          <div class="text-sm text-neutral-500">Average Risk Score</div>
+        </div>
+      </div>
+
+      <!-- Score bar -->
+      <div class="mt-4 h-3 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
+        <div id="score-bar" class="h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+      </div>
+
+      <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
+        <div>
+          <div id="tool-count" class="text-xl font-semibold">0</div>
+          <div class="text-neutral-500">Tools</div>
+        </div>
+        <div>
+          <div id="cloud-act-count" class="text-xl font-semibold text-red-600">0</div>
+          <div class="text-neutral-500">CLOUD Act</div>
+        </div>
+        <div>
+          <div id="high-risk-count" class="text-xl font-semibold text-orange-600">0</div>
+          <div class="text-neutral-500">High Risk</div>
+        </div>
+        <div>
+          <div id="low-risk-count" class="text-xl font-semibold text-green-600">0</div>
+          <div class="text-neutral-500">Low Risk</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tools by Risk Level -->
+    <div class="mb-8">
+      <h3 class="text-xl font-semibold mb-4">Your Tools by Risk Level</h3>
+
+      <div id="high-risk-tools" class="mb-4 hidden">
+        <h4 class="font-medium text-red-700 dark:text-red-400 mb-2">High Risk</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="high-risk-list"></div>
+      </div>
+
+      <div id="elevated-risk-tools" class="mb-4 hidden">
+        <h4 class="font-medium text-orange-700 dark:text-orange-400 mb-2">Elevated Risk</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="elevated-risk-list"></div>
+      </div>
+
+      <div id="moderate-risk-tools" class="mb-4 hidden">
+        <h4 class="font-medium text-yellow-700 dark:text-yellow-400 mb-2">Moderate Risk</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="moderate-risk-list"></div>
+      </div>
+
+      <div id="low-risk-tools" class="mb-4 hidden">
+        <h4 class="font-medium text-green-700 dark:text-green-400 mb-2">Low Risk</h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="low-risk-list"></div>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div id="recommendations" class="mb-8">
+      <h3 class="text-xl font-semibold mb-4">Recommendations</h3>
+      <ul id="recommendations-list" class="space-y-2"></ul>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-wrap gap-4">
+      <a href="/ndsi/portfolio/" class="px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg hover:border-primary-500">
+        ← Edit Portfolio
+      </a>
+      <a href="/software/" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
+        Browse Alternatives
+      </a>
+      <button id="clear-portfolio" class="px-4 py-2 text-red-600 hover:text-red-700">
+        Clear Portfolio
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const noPortfolio = document.getElementById('no-portfolio');
+  const resultsContent = document.getElementById('results-content');
+
+  // Level configurations
+  const levels = {
+    sovereign: {
+      title: 'Sovereign Portfolio',
+      description: 'Your software portfolio has strong sovereignty controls.',
+      bgClass: 'bg-green-100 dark:bg-green-900/30',
+      barClass: 'bg-green-500'
+    },
+    resilient: {
+      title: 'Resilient Portfolio',
+      description: 'Good awareness with some dependencies to address.',
+      bgClass: 'bg-yellow-100 dark:bg-yellow-900/30',
+      barClass: 'bg-yellow-500'
+    },
+    aware: {
+      title: 'Aware Portfolio',
+      description: 'Significant dependencies identified. Exit strategies needed.',
+      bgClass: 'bg-orange-100 dark:bg-orange-900/30',
+      barClass: 'bg-orange-500'
+    },
+    dependent: {
+      title: 'Dependent Portfolio',
+      description: 'High foreign dependency. Priority action needed.',
+      bgClass: 'bg-red-100 dark:bg-red-900/30',
+      barClass: 'bg-red-500'
+    }
+  };
+
+  function getLevel(avgScore) {
+    if (avgScore <= 1.5) return 'sovereign';
+    if (avgScore <= 2.5) return 'resilient';
+    if (avgScore <= 3.5) return 'aware';
+    return 'dependent';
+  }
+
+  function createToolCard(tool) {
+    return `
+      <a href="/software/${tool.id}/" class="flex items-center justify-between p-2 bg-neutral-50 dark:bg-neutral-800 rounded border border-neutral-200 dark:border-neutral-700 hover:border-primary-500">
+        <span class="font-medium">${tool.name}</span>
+        <span class="text-sm text-neutral-500">${tool.score.toFixed(1)}</span>
+      </a>
+    `;
+  }
+
+  function render() {
+    const saved = localStorage.getItem('ndsi-portfolio');
+
+    if (!saved) {
+      noPortfolio.classList.remove('hidden');
+      resultsContent.classList.add('hidden');
+      return;
+    }
+
+    let portfolio;
+    try {
+      portfolio = JSON.parse(saved);
+    } catch (e) {
+      noPortfolio.classList.remove('hidden');
+      resultsContent.classList.add('hidden');
+      return;
+    }
+
+    if (!portfolio || portfolio.length === 0) {
+      noPortfolio.classList.remove('hidden');
+      resultsContent.classList.add('hidden');
+      return;
+    }
+
+    noPortfolio.classList.add('hidden');
+    resultsContent.classList.remove('hidden');
+
+    // Calculate stats
+    const totalScore = portfolio.reduce((sum, t) => sum + t.score, 0);
+    const avgScore = totalScore / portfolio.length;
+    const level = getLevel(avgScore);
+    const config = levels[level];
+
+    // Group by risk
+    const byRisk = {
+      high: portfolio.filter(t => t.level === 'high' || t.level === 'critical'),
+      elevated: portfolio.filter(t => t.level === 'elevated'),
+      moderate: portfolio.filter(t => t.level === 'moderate'),
+      low: portfolio.filter(t => t.level === 'low')
+    };
+
+    // Update summary card
+    const summaryCard = document.getElementById('summary-card');
+    summaryCard.className = `p-6 rounded-lg mb-8 ${config.bgClass}`;
+
+    document.getElementById('level-title').textContent = config.title;
+    document.getElementById('level-description').textContent = config.description;
+    document.getElementById('avg-score').textContent = avgScore.toFixed(1) + '/5.0';
+
+    const scoreBar = document.getElementById('score-bar');
+    scoreBar.className = `h-full rounded-full transition-all duration-500 ${config.barClass}`;
+    scoreBar.style.width = (avgScore / 5 * 100) + '%';
+
+    document.getElementById('tool-count').textContent = portfolio.length;
+    document.getElementById('cloud-act-count').textContent = byRisk.high.length + byRisk.elevated.length;
+    document.getElementById('high-risk-count').textContent = byRisk.high.length + byRisk.elevated.length;
+    document.getElementById('low-risk-count').textContent = byRisk.low.length;
+
+    // Render tool lists
+    function renderList(containerId, listId, tools) {
+      const container = document.getElementById(containerId);
+      const list = document.getElementById(listId);
+      if (tools.length > 0) {
+        container.classList.remove('hidden');
+        list.innerHTML = tools.map(createToolCard).join('');
+      } else {
+        container.classList.add('hidden');
+      }
+    }
+
+    renderList('high-risk-tools', 'high-risk-list', byRisk.high);
+    renderList('elevated-risk-tools', 'elevated-risk-list', byRisk.elevated);
+    renderList('moderate-risk-tools', 'moderate-risk-list', byRisk.moderate);
+    renderList('low-risk-tools', 'low-risk-list', byRisk.low);
+
+    // Recommendations
+    const recs = [];
+    if (byRisk.high.length > 0) {
+      recs.push(`<li class="p-3 bg-red-50 dark:bg-red-900/20 rounded">🔴 <strong>Priority:</strong> Review ${byRisk.high.map(t => t.name).join(', ')} - these have the highest risk. Consider EU/Norwegian alternatives.</li>`);
+    }
+    if (byRisk.elevated.length > 0) {
+      recs.push(`<li class="p-3 bg-orange-50 dark:bg-orange-900/20 rounded">🟠 Document exit strategies for ${byRisk.elevated.map(t => t.name).join(', ')}.</li>`);
+    }
+    if (byRisk.moderate.length > 0) {
+      recs.push(`<li class="p-3 bg-yellow-50 dark:bg-yellow-900/20 rounded">🟡 Review data residency settings for ${byRisk.moderate.map(t => t.name).join(', ')}.</li>`);
+    }
+    if (byRisk.low.length > 0) {
+      recs.push(`<li class="p-3 bg-green-50 dark:bg-green-900/20 rounded">🟢 Good choice: ${byRisk.low.map(t => t.name).join(', ')} have low sovereignty risk.</li>`);
+    }
+
+    document.getElementById('recommendations-list').innerHTML = recs.join('');
+  }
+
+  // Clear portfolio button
+  document.getElementById('clear-portfolio').addEventListener('click', function() {
+    if (confirm('Clear your portfolio? This cannot be undone.')) {
+      localStorage.removeItem('ndsi-portfolio');
+      render();
+    }
+  });
+
+  // Initial render
+  render();
+})();
+</script>

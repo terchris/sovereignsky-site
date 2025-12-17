@@ -1,0 +1,46 @@
+{{- $name := .name -}}
+{{- $code := .code -}}
+{{- $score := .score -}}
+{{- $rationale := .rationale -}}
+{{- $weight := .weight -}}
+
+{{- /* Color classes based on score (1-5 scale, lower is better for risk) */ -}}
+{{- $bgClass := "bg-neutral-50 dark:bg-neutral-800" -}}
+{{- $scoreClass := "text-neutral-600 dark:text-neutral-400" -}}
+{{- $barClass := "bg-neutral-400" -}}
+
+{{- if le $score 1.5 -}}
+  {{- $scoreClass = "text-green-600 dark:text-green-400" -}}
+  {{- $barClass = "bg-green-500" -}}
+{{- else if le $score 2.5 -}}
+  {{- $scoreClass = "text-yellow-600 dark:text-yellow-400" -}}
+  {{- $barClass = "bg-yellow-500" -}}
+{{- else if le $score 3.5 -}}
+  {{- $scoreClass = "text-orange-600 dark:text-orange-400" -}}
+  {{- $barClass = "bg-orange-500" -}}
+{{- else -}}
+  {{- $scoreClass = "text-red-600 dark:text-red-400" -}}
+  {{- $barClass = "bg-red-500" -}}
+{{- end -}}
+
+<div class="dimension-card {{ $bgClass }} rounded-lg p-4 border border-neutral-200 dark:border-neutral-700">
+  <div class="flex items-start justify-between mb-2">
+    <div>
+      <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $code }}</span>
+      <h3 class="font-semibold text-neutral-800 dark:text-neutral-200">{{ $name }}</h3>
+    </div>
+    <div class="text-right">
+      <span class="text-lg font-bold {{ $scoreClass }}">{{ printf "%.1f" $score }}</span>
+      <span class="text-xs text-neutral-500 dark:text-neutral-400 block">Weight: {{ $weight }}</span>
+    </div>
+  </div>
+
+  <!-- Score bar -->
+  <div class="h-1.5 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden mb-2">
+    <div class="{{ $barClass }} h-full rounded-full" style="width: {{ mul (div $score 5.0) 100 }}%"></div>
+  </div>
+
+  {{ if $rationale }}
+  <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ $rationale }}</p>
+  {{ end }}
+</div>

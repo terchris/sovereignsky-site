@@ -1,0 +1,55 @@
+# SovereignSky Website Configuration
+baseURL = "https://sovereignsky.no/"
+languageCode = "en"
+title = "SovereignSky"
+theme = "congo"
+
+# Enable useful features
+enableRobotsTXT = true
+enableGitInfo = true
+
+[params]
+  # Site description for SEO
+  description = "Secure developer access to internal services without exposing your network"
+
+
+  # Social sharing
+  [params.social]
+    twitter = ""
+    linkedin = ""
+    github = "https://github.com/your-org/sovereignsky"
+
+  # Article/page settings
+  [params.article]
+    showDate = true
+    showReadingTime = true
+    showTableOfContents = true
+    showTaxonomies = true
+
+  # List page settings (blog listing)
+  [params.list]
+    showSummary = true
+    showTableOfContents = false
+
+  # Homepage
+  [params.homepage]
+    layout = "page"
+    showRecent = true
+
+# Menu is defined in config/_default/menus.en.toml
+
+# Markdown rendering
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow HTML in markdown
+  [markup.highlight]
+    style = "dracula"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+# Build settings
+[build]
+  writeStats = true
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SurveyJS Test</title>
+  <link href="https://unpkg.com/survey-jquery@1.12.20/defaultV2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>SurveyJS Test</h1>
+  <div id="surveyContainer"></div>
+
+  <script src="https://unpkg.com/survey-jquery@1.12.20/survey.jquery.min.js"></script>
+  <script>
+    const surveyJson = {
+      title: "Test Survey",
+      elements: [
+        {
+          type: "radiogroup",
+          name: "q1",
+          title: "Who provides your cloud services?",
+          choices: [
+            "Norwegian company",
+            "EU company",
+            "US company",
+            "Don't know"
+          ]
+        }
+      ]
+    };
+
+    const survey = new Survey.Model(surveyJson);
+    $("#surveyContainer").Survey({ model: survey });
+  </script>
+</body>
+</html>

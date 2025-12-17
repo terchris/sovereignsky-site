@@ -1,0 +1,140 @@
+{{ define "main" }}
+<div class="software-database max-w-6xl mx-auto">
+
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">Software Sovereignty Database</h1>
+    <p class="text-lg text-neutral-600 dark:text-neutral-300">
+      Assess the digital sovereignty risk of common software tools used in Norwegian organizations.
+    </p>
+  </header>
+
+  <!-- Filters -->
+  <div class="filters mb-8 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
+
+    <!-- Search -->
+    <div class="mb-4">
+      <input
+        type="text"
+        id="software-search"
+        placeholder="Search software..."
+        class="w-full px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+      >
+    </div>
+
+    <!-- Risk Level Filter -->
+    <div class="mb-4">
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Risk Level:</span>
+      <div class="inline-flex flex-wrap gap-2 mt-2">
+        <button class="filter-btn risk-filter active" data-risk="all">All</button>
+        <button class="filter-btn risk-filter" data-risk="low">Low</button>
+        <button class="filter-btn risk-filter" data-risk="moderate">Moderate</button>
+        <button class="filter-btn risk-filter" data-risk="elevated">Elevated</button>
+        <button class="filter-btn risk-filter" data-risk="high">High</button>
+        <button class="filter-btn risk-filter" data-risk="critical">Critical</button>
+      </div>
+    </div>
+
+    <!-- Country Filter -->
+    <div class="mb-4">
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Vendor Country:</span>
+      <div class="inline-flex flex-wrap gap-2 mt-2">
+        <button class="filter-btn country-filter active" data-country="all">All</button>
+        <button class="filter-btn country-filter" data-country="NO">Norway</button>
+        <button class="filter-btn country-filter" data-country="EU">EU/EEA</button>
+        <button class="filter-btn country-filter" data-country="US">USA</button>
+      </div>
+    </div>
+
+    <!-- Use Area Filter -->
+    <div>
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Use Area:</span>
+      <select id="use-area-filter" class="mt-2 px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900">
+        <option value="all">All Areas</option>
+        {{ range site.Data.software.use_areas }}
+        <option value="{{ .id }}">{{ .name }}</option>
+        {{ end }}
+      </select>
+    </div>
+
+  </div>
+
+  <!-- Results count -->
+  <div class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+    Showing <span id="result-count">{{ len site.Data.software.products }}</span> of {{ len site.Data.software.products }} products
+  </div>
+
+  <!-- Product Grid -->
+  <div id="software-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{ range site.Data.software.products }}
+    <article
+      class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors"
+      data-name="{{ .name | lower }}"
+      data-vendor="{{ .vendor.name | lower }}"
+      data-risk="{{ .sovereignty.level }}"
+      data-country="{{ .vendor.country }}"
+      data-use-areas="{{ delimit .use_areas "," }}"
+    >
+      <a href="/software/{{ .slug }}/" class="block">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-2">
+            {{ partial "country-flag" .vendor.country }}
+            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ .vendor.name }}</span>
+          </div>
+          {{ if .sovereignty.cloud_act }}
+          <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs px-2 py-0.5 rounded">CLOUD Act</span>
+          {{ end }}
+        </div>
+
+        <!-- Name -->
+        <h2 class="text-lg font-semibold mb-2">{{ .name }}</h2>
+
+        <!-- Description -->
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">{{ .description }}</p>
+
+        <!-- Score badge -->
+        {{ partial "sovereignty-badge" .sovereignty }}
+
+        <!-- Use areas -->
+        <div class="mt-3 flex flex-wrap gap-1">
+          {{ range .use_areas }}
+          {{ $area := index (where site.Data.software.use_areas "id" .) 0 }}
+          {{ if $area }}
+          <span class="text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 rounded">
+            {{ $area.name }}
+          </span>
+          {{ end }}
+          {{ end }}
+        </div>
+      </a>
+    </article>
+    {{ end }}
+  </div>
+
+  <!-- No results message -->
+  <div id="no-results" class="hidden text-center py-8 text-neutral-500 dark:text-neutral-400">
+    No software matches your filters. Try adjusting your search criteria.
+  </div>
+
+</div>
+
+<style>
+.filter-btn {
+  @apply px-3 py-1 text-sm rounded-full border border-neutral-300 dark:border-neutral-600
+         bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300
+         hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400
+         transition-colors;
+}
+.filter-btn.active {
+  @apply bg-primary-500 border-primary-500 text-white;
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
+
+<script src="/js/software-filters.js"></script>
+{{ end }}

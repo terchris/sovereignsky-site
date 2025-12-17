@@ -1,0 +1,222 @@
+{{ define "main" }}
+{{ $softwareId := .Params.software_id }}
+{{ $data := index (where site.Data.software.products "id" $softwareId) 0 }}
+
+<article class="software-detail max-w-4xl mx-auto">
+
+  <!-- Header -->
+  <header class="mb-8">
+    <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 mb-2">
+      {{ partial "country-flag" $data.vendor.country }}
+      <span>{{ $data.vendor.name }}</span>
+      {{ if $data.sovereignty.cloud_act }}
+      <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs px-2 py-0.5 rounded">CLOUD Act</span>
+      {{ end }}
+    </div>
+
+    <h1 class="text-3xl font-bold mb-4">{{ $data.name }}</h1>
+
+    <p class="text-lg text-neutral-600 dark:text-neutral-300 mb-4">{{ $data.description }}</p>
+
+    <!-- Score badge -->
+    {{ partial "sovereignty-badge" $data.sovereignty }}
+  </header>
+
+  <!-- Jurisdiction warning -->
+  {{ if eq $data.sovereignty.jurisdiction_gate "fail" }}
+  <div class="bg-amber-50 dark:bg-amber-900/30 border-l-4 border-amber-500 p-4 mb-8">
+    <p class="font-semibold text-amber-800 dark:text-amber-200">⚠️ Jurisdiction Risk</p>
+    <p class="text-amber-700 dark:text-amber-300 text-sm">
+      This vendor is subject to {{ if $data.sovereignty.cloud_act }}the US CLOUD Act{{ end }},
+      which allows foreign authorities to compel data disclosure.
+    </p>
+  </div>
+  {{ end }}
+
+  <!-- Key concerns -->
+  {{ if $data.key_concerns }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Key Concerns</h2>
+    <ul class="list-disc list-inside space-y-2 text-neutral-700 dark:text-neutral-300">
+      {{ range $data.key_concerns }}
+      <li>{{ . }}</li>
+      {{ end }}
+    </ul>
+  </section>
+  {{ end }}
+
+  <!-- Dimension breakdown -->
+  {{ if $data.sovereignty.dimensions }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Detailed Assessment</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {{ $dims := $data.sovereignty.dimensions }}
+
+      {{ partial "dimension-card" (dict "name" "Strategic" "code" "SOV-1" "score" $dims.sov1_strategic.score "rationale" $dims.sov1_strategic.rationale "weight" "15%") }}
+      {{ partial "dimension-card" (dict "name" "Legal" "code" "SOV-2" "score" $dims.sov2_legal.score "rationale" $dims.sov2_legal.rationale "weight" "15%") }}
+      {{ partial "dimension-card" (dict "name" "Data" "code" "SOV-3" "score" $dims.sov3_data.score "rationale" $dims.sov3_data.rationale "weight" "10%") }}
+      {{ partial "dimension-card" (dict "name" "Operational" "code" "SOV-4" "score" $dims.sov4_operational.score "rationale" $dims.sov4_operational.rationale "weight" "15%") }}
+      {{ partial "dimension-card" (dict "name" "Supply Chain" "code" "SOV-5" "score" $dims.sov5_supply_chain.score "rationale" $dims.sov5_supply_chain.rationale "weight" "15%") }}
+      {{ partial "dimension-card" (dict "name" "Technology" "code" "SOV-6" "score" $dims.sov6_technology.score "rationale" $dims.sov6_technology.rationale "weight" "20%") }}
+      {{ partial "dimension-card" (dict "name" "Security" "code" "SOV-7" "score" $dims.sov7_security.score "rationale" $dims.sov7_security.rationale "weight" "5%") }}
+      {{ partial "dimension-card" (dict "name" "Environment" "code" "SOV-8" "score" $dims.sov8_environment.score "rationale" $dims.sov8_environment.rationale "weight" "5%") }}
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- Mitigations -->
+  {{ if $data.mitigations }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">What You Can Do</h2>
+
+    <div class="space-y-4">
+      {{ range $data.mitigations }}
+      <div class="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4">
+        <h3 class="font-semibold mb-2">{{ .title }}</h3>
+        <p class="text-neutral-600 dark:text-neutral-400 text-sm mb-3">{{ .description }}</p>
+
+        <div class="flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 rounded {{ if eq .effort "low" }}bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200{{ else if eq .effort "medium" }}bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200{{ else }}bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200{{ end }}">
+            Effort: {{ .effort | title }}
+          </span>
+          <span class="px-2 py-1 rounded {{ if eq .impact "high" }}bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200{{ else if eq .impact "medium" }}bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200{{ else }}bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200{{ end }}">
+            Impact: {{ .impact | title }}
+          </span>
+          {{ if .requires_license }}
+          <span class="px-2 py-1 rounded bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+            Requires: {{ .requires_license }}
+          </span>
+          {{ end }}
+        </div>
+
+        {{ if .url }}
+        <a href="{{ .url }}" target="_blank" rel="noopener" class="inline-block mt-3 text-sm text-primary-600 dark:text-primary-400 hover:underline">
+          Learn more →
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- Alternatives -->
+  {{ if $data.alternatives }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Norwegian and European Alternatives</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {{ range $data.alternatives }}
+      {{ $alt := index (where site.Data.software.products "id" .id) 0 }}
+      <a href="/software/{{ .id }}/" class="block border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors">
+        <div class="flex items-center gap-2 mb-2">
+          {{ partial "country-flag" .country }}
+          <span class="font-semibold">{{ .name }}</span>
+        </div>
+
+        {{ if .covers }}
+        <p class="text-xs text-green-600 dark:text-green-400 mb-1">
+          ✓ Covers: {{ delimit .covers ", " }}
+        </p>
+        {{ end }}
+
+        {{ if .does_not_cover }}
+        <p class="text-xs text-neutral-500">
+          ✗ Missing: {{ delimit .does_not_cover ", " }}
+        </p>
+        {{ end }}
+
+        {{ if $alt }}
+        <div class="mt-2">
+          {{ partial "sovereignty-badge" $alt.sovereignty }}
+        </div>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- Data residency -->
+  {{ if $data.data_residency }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Data Residency</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Regions</span>
+        <span class="font-medium">{{ delimit $data.data_residency.regions ", " }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Norway Available</span>
+        <span class="font-medium">{{ if $data.data_residency.norway_available }}Yes{{ else }}No{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">EU Data Boundary</span>
+        <span class="font-medium">{{ if $data.data_residency.eu_data_boundary }}Yes{{ else }}No{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Self-Hosted</span>
+        <span class="font-medium">{{ if $data.data_residency.self_hosted }}Yes{{ else }}No{{ end }}</span>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- Technical details -->
+  {{ if $data.technical }}
+  <section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Technical Details</h2>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Open Source</span>
+        <span class="font-medium">{{ if $data.technical.open_source }}Yes{{ else }}No{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Customer-Managed Keys</span>
+        <span class="font-medium">{{ if $data.technical.customer_managed_keys }}Yes{{ else }}No{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Export Formats</span>
+        <span class="font-medium">{{ if $data.technical.export_formats }}{{ delimit $data.technical.export_formats ", " }}{{ else }}None{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">Export Completeness</span>
+        <span class="font-medium">{{ $data.technical.export_completeness | title }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">SSO Support</span>
+        <span class="font-medium">{{ if $data.technical.sso_support }}Yes{{ else }}No{{ end }}</span>
+      </div>
+      <div>
+        <span class="text-neutral-500 dark:text-neutral-400 block">API Available</span>
+        <span class="font-medium">{{ if $data.technical.api_available }}Yes{{ else }}No{{ end }}</span>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+
+  <!-- Sources -->
+  {{ if $data.meta.sources }}
+  <section class="mb-8 text-sm">
+    <h2 class="text-lg font-semibold mb-2">Sources</h2>
+    <ul class="space-y-1">
+      {{ range $data.meta.sources }}
+      <li>
+        <a href="{{ . }}" target="_blank" rel="noopener" class="text-primary-600 dark:text-primary-400 hover:underline break-all">{{ . }}</a>
+      </li>
+      {{ end }}
+    </ul>
+    <p class="text-neutral-500 dark:text-neutral-400 mt-2">Last reviewed: {{ $data.meta.last_reviewed }}</p>
+  </section>
+  {{ end }}
+
+  <!-- Back link -->
+  <div class="border-t border-neutral-200 dark:border-neutral-700 pt-6">
+    <a href="/software/" class="text-primary-600 dark:text-primary-400 hover:underline">
+      ← Back to Software Database
+    </a>
+  </div>
+
+</article>
+{{ end }}
