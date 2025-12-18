@@ -1,5 +1,5 @@
 ---
-title: "Digital Sovereignty Survey"
+title: "Norwegian Digital Sovereignty Survey"
 description: "Find out how dependent your organization is on foreign cloud providers"
 summary: "Answer 11 questions and discover your NDSI level. Get a clear picture of your digital sovereignty risks and concrete recommendations for improvement."
 weight: 1

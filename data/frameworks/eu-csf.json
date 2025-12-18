@@ -1,0 +1,193 @@
+{
+  "id": "eu-csf",
+  "name": "EU Cloud Sovereignty Framework",
+  "version": "1.0",
+  "description": "European Union framework for assessing cloud service sovereignty based on 8 dimensions",
+  "source": "European Commission / Interoperable Europe",
+  "scoring": {
+    "min": 0,
+    "max": 5,
+    "calculation": "average",
+    "labels": {
+      "0": "No risk",
+      "1": "Minimal risk",
+      "2": "Low risk",
+      "3": "Moderate risk",
+      "4": "Significant risk",
+      "5": "Critical risk"
+    },
+    "guidance": {
+      "0": "No identified risk or concern. Full sovereignty maintained.",
+      "1": "Minimal risk, easily mitigated. Minor dependencies that don't affect sovereignty.",
+      "2": "Low risk, standard mitigations available. Some foreign dependencies but manageable.",
+      "3": "Moderate risk, requires attention. Notable sovereignty concerns that need addressing.",
+      "4": "Significant risk, requires action plan. Serious sovereignty gaps affecting data/operations.",
+      "5": "Critical risk, may be unacceptable. Fundamental sovereignty issues, consider alternatives."
+    }
+  },
+  "levels": {
+    "low": {
+      "max_avg": 1.0,
+      "label": "Low Risk",
+      "color": "green",
+      "description": "Minimal sovereignty concerns. Provider aligns well with EU interests.",
+      "recommendation": "Suitable for most use cases including sensitive data with standard controls."
+    },
+    "moderate": {
+      "max_avg": 2.0,
+      "label": "Moderate Risk",
+      "color": "yellow",
+      "description": "Some sovereignty concerns that can be addressed with available mitigations.",
+      "recommendation": "Acceptable for general use. Review mitigations before handling sensitive data."
+    },
+    "elevated": {
+      "max_avg": 2.5,
+      "label": "Elevated Risk",
+      "color": "orange",
+      "description": "Notable sovereignty gaps requiring active management and monitoring.",
+      "recommendation": "Use with caution. Implement mitigations and have exit strategy ready."
+    },
+    "significant": {
+      "max_avg": 3.5,
+      "label": "Significant Risk",
+      "color": "red",
+      "description": "Serious sovereignty concerns affecting data control and legal exposure.",
+      "recommendation": "Avoid for sensitive data. Evaluate alternatives. Requires risk acceptance."
+    },
+    "high": {
+      "max_avg": 5.0,
+      "label": "High Risk",
+      "color": "darkred",
+      "description": "Critical sovereignty issues. High exposure to foreign jurisdiction and vendor lock-in.",
+      "recommendation": "Not recommended. Seek alternatives or accept significant residual risk."
+    }
+  },
+  "dimensions": [
+    {
+      "id": "strategic",
+      "code": "SOV-1",
+      "name": "Strategic Autonomy",
+      "description": "Assessment of strategic dependency on the cloud service provider, including market dominance, geopolitical alignment, and long-term availability risks",
+      "weight": 1.0,
+      "considerations": [
+        "Vendor market position and dominance",
+        "Geopolitical alignment with EU interests",
+        "Risk of service discontinuation",
+        "Dependency on single provider"
+      ]
+    },
+    {
+      "id": "legal",
+      "code": "SOV-2",
+      "name": "Legal Jurisdiction",
+      "description": "Exposure to foreign legal frameworks that may compel data access or conflict with EU/national law",
+      "weight": 1.0,
+      "considerations": [
+        "Vendor headquarter jurisdiction",
+        "Applicable data access laws (CLOUD Act, FISA, etc.)",
+        "Conflict with GDPR and EU law",
+        "Legal enforceability of contracts"
+      ]
+    },
+    {
+      "id": "data",
+      "code": "SOV-3",
+      "name": "Data Sovereignty",
+      "description": "Control over data location, access, encryption, and lifecycle management",
+      "weight": 1.0,
+      "considerations": [
+        "Data residency options",
+        "Encryption and key management",
+        "Access controls and audit logging",
+        "Data lifecycle and deletion"
+      ]
+    },
+    {
+      "id": "operational",
+      "code": "SOV-4",
+      "name": "Operational Sovereignty",
+      "description": "Ability to maintain operations independently of the vendor, including self-hosting and operational control",
+      "weight": 1.0,
+      "considerations": [
+        "Self-hosting capability",
+        "Operational independence",
+        "Service continuity guarantees",
+        "Disaster recovery options"
+      ]
+    },
+    {
+      "id": "supply_chain",
+      "code": "SOV-5",
+      "name": "Supply Chain",
+      "description": "Dependencies and risks in the vendor's supply chain, including subprocessors and infrastructure providers",
+      "weight": 1.0,
+      "considerations": [
+        "Subprocessor dependencies",
+        "Infrastructure provider risks",
+        "Third-party component risks",
+        "Supply chain transparency"
+      ]
+    },
+    {
+      "id": "technology",
+      "code": "SOV-6",
+      "name": "Technology Independence",
+      "description": "Degree of vendor lock-in and ability to migrate to alternative solutions",
+      "weight": 1.0,
+      "considerations": [
+        "Use of open standards",
+        "Data portability",
+        "API openness",
+        "Migration complexity"
+      ]
+    },
+    {
+      "id": "security",
+      "code": "SOV-7",
+      "name": "Security",
+      "description": "Security certifications, practices, and compliance with security standards",
+      "weight": 1.0,
+      "considerations": [
+        "Security certifications (ISO 27001, SOC 2, etc.)",
+        "Security practices and controls",
+        "Vulnerability management",
+        "Incident response"
+      ]
+    },
+    {
+      "id": "environment",
+      "code": "SOV-8",
+      "name": "Environmental Sustainability",
+      "description": "Environmental impact, energy efficiency, and sustainability commitments",
+      "weight": 1.0,
+      "considerations": [
+        "Carbon footprint",
+        "Renewable energy usage",
+        "Energy efficiency",
+        "Environmental certifications"
+      ]
+    }
+  ],
+  "derived_fields": {
+    "cloud_act": {
+      "description": "True if vendor country is subject to US CLOUD Act",
+      "rule": "vendor.country == 'US'"
+    },
+    "schrems_ii": {
+      "description": "True if data transfers raise Schrems II concerns",
+      "rule": "vendor.country in ['US', 'CN', 'RU']"
+    },
+    "level": {
+      "description": "Calculated from average of dimension scores",
+      "rule": "average(scores) -> levels"
+    }
+  },
+  "meta": {
+    "created": "2025-12-18",
+    "reference_url": "https://interoperable-europe.ec.europa.eu/",
+    "sources": [
+      "https://commission.europa.eu/",
+      "https://interoperable-europe.ec.europa.eu/collection/cloud-edge-and-digital-sovereignty"
+    ]
+  }
+}

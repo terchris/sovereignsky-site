@@ -4,6 +4,9 @@ description: "Assess the digital sovereignty risk of common software tools used 
 date: 2025-12-17
 layout: list
 type: software
+outputs:
+  - HTML
+  - JSON
 ---
 
 Browse our database of software tools commonly used by Norwegian organizations. Each tool has been assessed using the Norwegian Digital Sovereignty Index (NDSI) framework, providing insights into:

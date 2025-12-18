@@ -1,0 +1,642 @@
+{
+  "products": [
+    {
+      "id": "ms-teams",
+      "slug": "teams",
+      "name": "Microsoft Teams",
+      "description": "Collaboration platform with chat, video and file sharing, part of Microsoft 365",
+      "use_areas": ["communication", "collaboration"],
+      "vendor_id": "microsoft",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US headquarters, publicly traded company with global dominance" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act. EU Data Boundary does not reduce legal exposure." },
+            "data": { "score": 2, "rationale": "Norway/EU data storage available. Customer Key possible." },
+            "operational": { "score": 2, "rationale": "Requires Microsoft infrastructure. No self-hosting." },
+            "supply_chain": { "score": 2, "rationale": "Dependent on Azure, complex supply chain" },
+            "technology": { "score": 3, "rationale": "Proprietary, strong lock-in to Microsoft 365" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 2, strong security features" },
+            "environment": { "score": 1, "rationale": "Microsoft carbon-negative commitment" },
+            "national_security": { "score": 2, "rationale": "Widely used in Norwegian public sector, potential single point of failure" },
+            "local_presence": { "score": 1, "rationale": "Strong Norwegian partner network and local support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Strong vendor dependency",
+        "Tight integration with Microsoft 365 ecosystem"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable EU Data Boundary",
+          "description": "Ensure data is stored and processed within EU/EEA",
+          "effort": "low",
+          "impact": "medium",
+          "url": "https://learn.microsoft.com/en-us/privacy/eudb/eu-data-boundary-learn"
+        },
+        {
+          "title": "Implement Customer Key",
+          "description": "Use your own encryption keys via Azure Key Vault",
+          "effort": "high",
+          "impact": "medium",
+          "requires_license": "Microsoft 365 E5",
+          "url": "https://learn.microsoft.com/en-us/purview/customer-key-overview"
+        }
+      ],
+
+      "alternatives": ["pexip", "whereby", "element"],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.microsoft.com/en-us/trust-center",
+          "https://learn.microsoft.com/en-us/compliance/"
+        ]
+      }
+    },
+
+    {
+      "id": "pexip",
+      "slug": "pexip",
+      "name": "Pexip",
+      "description": "Norwegian video conferencing solution with self-hosting capability and interoperability",
+      "use_areas": ["communication"],
+      "vendor_id": "pexip",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian headquarters, Norwegian ownership" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, not CLOUD Act" },
+            "data": { "score": 0, "rationale": "Self-hosting possible, full control over data" },
+            "operational": { "score": 1, "rationale": "Can be operated internally or in Norwegian cloud" },
+            "supply_chain": { "score": 2, "rationale": "Some dependency on subcontractors" },
+            "technology": { "score": 1, "rationale": "Interoperable, standard protocols" },
+            "security": { "score": 1, "rationale": "ISO 27001, approved by public sector" },
+            "environment": { "score": 1, "rationale": "Norwegian data centers with renewable energy" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, no foreign jurisdiction concerns" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Norway, local support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Smaller ecosystem than Teams/Zoom",
+        "Requires more technical expertise for self-hosting"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": true
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://pexip.com/trust-security"]
+      }
+    },
+
+    {
+      "id": "salesforce",
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "description": "World's leading CRM platform for sales, service and marketing",
+      "use_areas": ["sales"],
+      "vendor_id": "salesforce",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US headquarters, dominant market position" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act, extensive data collection" },
+            "data": { "score": 2, "rationale": "EU data storage available, Hyperforce for regional control" },
+            "operational": { "score": 3, "rationale": "No self-hosting, completely cloud-dependent" },
+            "supply_chain": { "score": 3, "rationale": "Complex supply chain, many acquisitions" },
+            "technology": { "score": 3, "rationale": "Highly proprietary, high lock-in" },
+            "security": { "score": 2, "rationale": "Good security, but complex compliance" },
+            "environment": { "score": 2, "rationale": "Climate commitments, but high energy usage" },
+            "national_security": { "score": 2, "rationale": "Customer data potentially accessible to US authorities" },
+            "local_presence": { "score": 2, "rationale": "Partners available but limited Norwegian presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Extremely high vendor dependency",
+        "Complex and expensive migration away",
+        "Extensive data collection"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Hyperforce on EU region",
+          "description": "Deploy on Hyperforce with EU data residency for better data control",
+          "effort": "medium",
+          "impact": "medium"
+        },
+        {
+          "title": "Implement Platform Encryption",
+          "description": "Encrypt sensitive fields with your own keys",
+          "effort": "high",
+          "impact": "medium",
+          "requires_license": "Shield Platform Encryption"
+        }
+      ],
+
+      "alternatives": ["superoffice"],
+
+      "hosting": {
+        "norway": false,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": ["https://trust.salesforce.com", "https://compliance.salesforce.com"]
+      }
+    },
+
+    {
+      "id": "superoffice",
+      "slug": "superoffice",
+      "name": "SuperOffice",
+      "description": "Scandinavian CRM solution focused on user-friendliness and European data storage",
+      "use_areas": ["sales"],
+      "vendor_id": "superoffice",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company with Scandinavian focus" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian/EU law" },
+            "data": { "score": 1, "rationale": "EU data storage, good data control" },
+            "operational": { "score": 1, "rationale": "On-premise and cloud available" },
+            "supply_chain": { "score": 2, "rationale": "Some third-party dependencies" },
+            "technology": { "score": 1, "rationale": "Moderate lock-in, good export" },
+            "security": { "score": 1, "rationale": "ISO 27001, GDPR-focused" },
+            "environment": { "score": 1, "rationale": "European data centers" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, no foreign jurisdiction" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Norway" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Smaller ecosystem than Salesforce",
+        "Fewer integrations available"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": true
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.superoffice.com/trust-center/"]
+      }
+    },
+
+    {
+      "id": "tripletex",
+      "slug": "tripletex",
+      "name": "Tripletex",
+      "description": "Norwegian cloud-based accounting system for SMB with automation and integrations",
+      "use_areas": ["finance"],
+      "vendor_id": "tripletex",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, part of Visma group" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law" },
+            "data": { "score": 0, "rationale": "Data stored in Norway" },
+            "operational": { "score": 1, "rationale": "Cloud-only, but Norwegian operations" },
+            "supply_chain": { "score": 1, "rationale": "Part of Visma, controlled chain" },
+            "technology": { "score": 1, "rationale": "Good API, standard export formats" },
+            "security": { "score": 1, "rationale": "Good security for Norwegian accounting requirements" },
+            "environment": { "score": 1, "rationale": "Norwegian data centers" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, financial data stays in Norway" },
+            "local_presence": { "score": 0, "rationale": "Full Norwegian presence and support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Cloud-only (no on-premise)",
+        "Limited for large enterprise"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://tripletex.no/sikkerhet"]
+      }
+    },
+
+    {
+      "id": "slack",
+      "slug": "slack",
+      "name": "Slack",
+      "description": "Team messaging platform with channels, integrations and search",
+      "use_areas": ["communication", "collaboration"],
+      "vendor_id": "salesforce",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "Owned by Salesforce (US), previously independent" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act via Salesforce" },
+            "data": { "score": 2, "rationale": "EU data residency available" },
+            "operational": { "score": 2, "rationale": "Cloud-only, good uptime" },
+            "supply_chain": { "score": 2, "rationale": "Part of Salesforce ecosystem" },
+            "technology": { "score": 2, "rationale": "Good API, but some lock-in" },
+            "security": { "score": 2, "rationale": "EKM available for enterprise" },
+            "environment": { "score": 2, "rationale": "Salesforce environmental commitments" },
+            "national_security": { "score": 2, "rationale": "Communication data subject to US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "No dedicated Norwegian support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Owned by Salesforce (CLOUD Act)",
+        "All data in the cloud",
+        "Enterprise features require expensive license"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable Enterprise Key Management (EKM)",
+          "description": "Manage your own encryption keys via AWS KMS",
+          "effort": "high",
+          "impact": "medium",
+          "requires_license": "Enterprise Grid"
+        },
+        {
+          "title": "Use EU data residency",
+          "description": "Select EU region for data storage",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["element"],
+
+      "hosting": {
+        "norway": false,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://slack.com/trust", "https://slack.com/security"]
+      }
+    },
+
+    {
+      "id": "github",
+      "slug": "github",
+      "name": "GitHub",
+      "description": "World's largest platform for code hosting, version control and developer collaboration",
+      "use_areas": ["dev"],
+      "vendor_id": "microsoft",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "Owned by Microsoft since 2018" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act via Microsoft" },
+            "data": { "score": 2, "rationale": "EU data residency in beta" },
+            "operational": { "score": 2, "rationale": "Cloud-only, but git is distributed" },
+            "supply_chain": { "score": 2, "rationale": "Part of Microsoft, Azure Actions" },
+            "technology": { "score": 1, "rationale": "Git is open standard, easy migration" },
+            "security": { "score": 2, "rationale": "Good security, 2FA, audit logs" },
+            "environment": { "score": 2, "rationale": "Microsoft environmental commitments" },
+            "national_security": { "score": 3, "rationale": "Source code potentially accessible to US authorities" },
+            "local_presence": { "score": 2, "rationale": "No dedicated Norwegian support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Owned by Microsoft (CLOUD Act)",
+        "Source code potentially accessible to US authorities",
+        "Actions runners in US by default"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use GitHub Enterprise with EU residency",
+          "description": "Select EU data residency for better control",
+          "effort": "medium",
+          "impact": "medium",
+          "requires_license": "GitHub Enterprise Cloud"
+        },
+        {
+          "title": "Self-hosted runners",
+          "description": "Run CI/CD on your own servers in Norway/EU",
+          "effort": "medium",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["gitlab"],
+
+      "hosting": {
+        "norway": false,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://github.com/security", "https://docs.github.com/en/enterprise-cloud@latest/admin/overview/about-data-residency"]
+      }
+    },
+
+    {
+      "id": "gitlab",
+      "slug": "gitlab",
+      "name": "GitLab",
+      "description": "Complete DevOps platform with code hosting, CI/CD and security scanning",
+      "use_areas": ["dev"],
+      "vendor_id": "gitlab",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 2, "rationale": "US headquarters, publicly traded" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 1, "rationale": "Self-hosting possible, full data control" },
+            "operational": { "score": 1, "rationale": "Can be fully self-operated" },
+            "supply_chain": { "score": 2, "rationale": "Some dependencies, but open core" },
+            "technology": { "score": 1, "rationale": "Open source core, good portability" },
+            "security": { "score": 2, "rationale": "Good security, built-in SAST/DAST" },
+            "environment": { "score": 2, "rationale": "Remote-first company" },
+            "national_security": { "score": 1, "rationale": "Self-hosted option avoids US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "No dedicated Norwegian support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "SaaS version under CLOUD Act",
+        "Premium features require paid license"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use GitLab Self-Managed",
+          "description": "Host GitLab on your own servers in Norway/EU",
+          "effort": "high",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["github"],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": true
+      },
+
+      "open_source": true,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://about.gitlab.com/security/", "https://docs.gitlab.com/ee/subscriptions/gitlab_dedicated/"]
+      }
+    },
+
+    {
+      "id": "whereby",
+      "slug": "whereby",
+      "name": "Whereby",
+      "description": "Norwegian video conferencing solution focused on simplicity and user-friendliness",
+      "use_areas": ["communication"],
+      "vendor_id": "whereby",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, spinoff from Telenor" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law" },
+            "data": { "score": 1, "rationale": "EU data storage, GDPR-focused" },
+            "operational": { "score": 1, "rationale": "Cloud-only" },
+            "supply_chain": { "score": 2, "rationale": "Some cloud dependencies" },
+            "technology": { "score": 1, "rationale": "WebRTC-based, open standard" },
+            "security": { "score": 1, "rationale": "End-to-end encryption available" },
+            "environment": { "score": 1, "rationale": "European infrastructure" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, no foreign jurisdiction" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Norway" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Less feature-rich than Teams/Zoom",
+        "Cloud-only"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": false,
+        "eu": true,
+        "self_hosted": false
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": ["https://whereby.com/information/security"]
+      }
+    },
+
+    {
+      "id": "jira",
+      "slug": "jira",
+      "name": "Jira",
+      "description": "Atlassian's project management tool for agile teams and software development",
+      "use_areas": ["project"],
+      "vendor_id": "atlassian",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 2, "rationale": "US-incorporated, Australian origin" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act as US company" },
+            "data": { "score": 2, "rationale": "EU data residency available (realm)" },
+            "operational": { "score": 2, "rationale": "Data Center version for self-hosting" },
+            "supply_chain": { "score": 2, "rationale": "AWS-based cloud" },
+            "technology": { "score": 2, "rationale": "Proprietary, moderate lock-in" },
+            "security": { "score": 2, "rationale": "SOC 2, ISO 27001" },
+            "environment": { "score": 2, "rationale": "Climate pledge" },
+            "national_security": { "score": 2, "rationale": "Project data subject to US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "Partners available, no direct Norwegian presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "CLOUD Act exposure",
+        "Forced migration from Server to Cloud",
+        "Data Center requires own operations"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Jira Data Center",
+          "description": "Host Jira on your own servers or in Norwegian cloud",
+          "effort": "high",
+          "impact": "high",
+          "requires_license": "Data Center"
+        },
+        {
+          "title": "Select EU realm",
+          "description": "Use EU data residency in Jira Cloud",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": true
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.atlassian.com/trust", "https://www.atlassian.com/trust/compliance"]
+      }
+    },
+
+    {
+      "id": "element",
+      "slug": "element",
+      "name": "Element/Matrix",
+      "description": "Open source communication platform based on the Matrix protocol",
+      "use_areas": ["communication"],
+      "vendor_id": "element",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-01",
+          "scores": {
+            "strategic": { "score": 1, "rationale": "UK company, open source" },
+            "legal": { "score": 1, "rationale": "UK with EU adequacy, can be self-hosted" },
+            "data": { "score": 0, "rationale": "Full control with self-hosting" },
+            "operational": { "score": 0, "rationale": "Can be fully self-operated" },
+            "supply_chain": { "score": 1, "rationale": "Open protocol, many providers" },
+            "technology": { "score": 0, "rationale": "Open source and standard" },
+            "security": { "score": 1, "rationale": "End-to-end encryption, audited" },
+            "environment": { "score": 2, "rationale": "Varies by hosting" },
+            "national_security": { "score": 0, "rationale": "Self-hosted option with full control" },
+            "local_presence": { "score": 2, "rationale": "No Norwegian presence, community support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Requires technical expertise for self-hosting",
+        "Less polished UX than Teams/Slack",
+        "Fewer integrations"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "norway": true,
+        "eu": true,
+        "self_hosted": true
+      },
+
+      "open_source": true,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://element.io/security", "https://matrix.org"]
+      }
+    }
+  ]
+}

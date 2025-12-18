@@ -1,0 +1,128 @@
+[
+  {
+    "id": "salesforce",
+    "slug": "salesforce",
+    "name": "Salesforce",
+    "description": "World's leading CRM platform for sales, service and marketing",
+    "vendor_id": "salesforce",
+    "vendor_name": "Salesforce, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "significant",
+    "cloud_act": true,
+    "use_areas": [
+      "sales"
+    ],
+    "use_area_names": [
+      "Sales & CRM"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/salesforce/"
+  },
+  {
+    "id": "superoffice",
+    "slug": "superoffice",
+    "name": "SuperOffice",
+    "description": "Scandinavian CRM solution focused on user-friendliness and European data storage",
+    "vendor_id": "superoffice",
+    "vendor_name": "SuperOffice AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "cloud_act": false,
+    "use_areas": [
+      "sales"
+    ],
+    "use_area_names": [
+      "Sales & CRM"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/superoffice/"
+  },
+  {
+    "id": "tripletex",
+    "slug": "tripletex",
+    "name": "Tripletex",
+    "description": "Norwegian cloud-based accounting system for SMB with automation and integrations",
+    "vendor_id": "tripletex",
+    "vendor_name": "Tripletex AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "cloud_act": false,
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/tripletex/"
+  },
+  {
+    "id": "github",
+    "slug": "github",
+    "name": "GitHub",
+    "description": "World's largest platform for code hosting, version control and developer collaboration",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "cloud_act": true,
+    "use_areas": [
+      "dev"
+    ],
+    "use_area_names": [
+      "Development & IT"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/github/"
+  },
+  {
+    "id": "gitlab",
+    "slug": "gitlab",
+    "name": "GitLab",
+    "description": "Complete DevOps platform with code hosting, CI/CD and security scanning",
+    "vendor_id": "gitlab",
+    "vendor_name": "GitLab Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "moderate",
+    "cloud_act": true,
+    "use_areas": [
+      "dev"
+    ],
+    "use_area_names": [
+      "Development & IT"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/gitlab/"
+  },
+  {
+    "id": "jira",
+    "slug": "jira",
+    "name": "Jira",
+    "description": "Atlassian's project management tool for agile teams and software development",
+    "vendor_id": "atlassian",
+    "vendor_name": "Atlassian Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "cloud_act": true,
+    "use_areas": [
+      "project"
+    ],
+    "use_area_names": [
+      "Project Management"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/jira/"
+  }
+]

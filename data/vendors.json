@@ -1,0 +1,67 @@
+{
+  "vendors": [
+    {
+      "id": "microsoft",
+      "name": "Microsoft Corporation",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://microsoft.com"
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://salesforce.com"
+    },
+    {
+      "id": "atlassian",
+      "name": "Atlassian Corporation",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://atlassian.com"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://gitlab.com"
+    },
+    {
+      "id": "pexip",
+      "name": "Pexip Holding ASA",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://pexip.com"
+    },
+    {
+      "id": "whereby",
+      "name": "Whereby AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://whereby.com"
+    },
+    {
+      "id": "superoffice",
+      "name": "SuperOffice AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://superoffice.com"
+    },
+    {
+      "id": "tripletex",
+      "name": "Tripletex AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://tripletex.no"
+    },
+    {
+      "id": "element",
+      "name": "Element (New Vector Ltd)",
+      "country": "UK",
+      "country_name": "United Kingdom",
+      "website": "https://element.io"
+    }
+  ]
+}

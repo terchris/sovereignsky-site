@@ -2,15 +2,36 @@
 title: "Whereby"
 description: "Norwegian video conferencing solution focused on simplicity and user-friendliness"
 software_id: "whereby"
-vendor: "Whereby AS"
-country: "NO"
+vendor_id: "whereby"
+vendor_name: "Whereby AS"
+vendor_country: "NO"
+vendor_country_name: "Norway"
 risk_level: "low"
-sovereignty_score: 0.9
+risk_label: "Low Risk"
 cloud_act: false
-use_areas: ["communication"]
-date: 2025-12-17
+schrems_ii: false
+open_source: false
+data_portability: "partial"
+date: 2025-12-18
 layout: single
 type: software
+
+# Hosting options
+hosting_norway: false
+hosting_eu: true
+hosting_self: false
+
+# Taxonomies for Hugo filtering
+risk_levels:
+  - "low"
+vendor_countries:
+  - "NO"
+use_areas:
+  - "communication"
+
+# Display metadata
+use_area_names:
+  - "Communication"
 ---
 
-<!-- Content is rendered from data/software.json via layouts/software/single.html -->
+<!-- Content is rendered from data/products.json via layouts/software/single.html -->

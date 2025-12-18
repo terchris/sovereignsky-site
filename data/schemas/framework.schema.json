@@ -1,0 +1,200 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "framework.schema.json",
+  "title": "Sovereignty Assessment Framework",
+  "description": "Schema for sovereignty assessment frameworks (EU-CSF, NDSI, etc.)",
+  "type": "object",
+  "required": ["id", "name", "version", "description", "scoring", "levels", "dimensions"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the framework (lowercase, hyphenated)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the framework"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of the framework",
+      "pattern": "^[0-9]+\\.[0-9]+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the framework and its purpose"
+    },
+    "source": {
+      "type": "string",
+      "description": "Organization or body that created the framework"
+    },
+    "scoring": {
+      "type": "object",
+      "description": "Scoring configuration",
+      "required": ["min", "max", "labels", "calculation", "guidance"],
+      "properties": {
+        "min": {
+          "type": "integer",
+          "description": "Minimum score value"
+        },
+        "max": {
+          "type": "integer",
+          "description": "Maximum score value"
+        },
+        "labels": {
+          "type": "object",
+          "description": "Human-readable labels for each score value",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "calculation": {
+          "type": "string",
+          "description": "Method for calculating overall level",
+          "enum": ["average", "weighted_average", "max"]
+        },
+        "guidance": {
+          "type": "object",
+          "description": "Guidelines for assigning each score value",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "levels": {
+      "type": "object",
+      "description": "Risk level definitions based on score averages",
+      "additionalProperties": {
+        "$ref": "#/$defs/level"
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "description": "Assessment dimensions",
+      "items": {
+        "$ref": "#/$defs/dimension"
+      },
+      "minItems": 1
+    },
+    "derived_fields": {
+      "type": "object",
+      "description": "Fields calculated at build time",
+      "additionalProperties": {
+        "$ref": "#/$defs/derived_field"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the framework",
+      "properties": {
+        "created": {
+          "type": "string",
+          "description": "Date framework was created (YYYY-MM-DD)",
+          "format": "date"
+        },
+        "author": {
+          "type": "string",
+          "description": "Author or organization"
+        },
+        "reference_url": {
+          "type": "string",
+          "description": "URL to official framework documentation",
+          "format": "uri"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Source URLs",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "level": {
+      "type": "object",
+      "description": "A risk level definition",
+      "required": ["max_avg", "label", "description"],
+      "properties": {
+        "max_avg": {
+          "type": "number",
+          "description": "Maximum average score for this level"
+        },
+        "label": {
+          "type": "string",
+          "description": "Human-readable label"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this risk level means in practice"
+        },
+        "color": {
+          "type": "string",
+          "description": "Display color for this level"
+        },
+        "recommendation": {
+          "type": "string",
+          "description": "General recommendation for products at this level"
+        }
+      }
+    },
+    "dimension": {
+      "type": "object",
+      "description": "An assessment dimension",
+      "required": ["id", "name", "description"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the dimension",
+          "pattern": "^[a-z_]+$"
+        },
+        "code": {
+          "type": "string",
+          "description": "Official code (e.g., SOV-1)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this dimension assesses"
+        },
+        "source": {
+          "type": "string",
+          "description": "Origin framework if inherited (e.g., eu-csf, ndsi)"
+        },
+        "weight": {
+          "type": "number",
+          "description": "Weight for calculating overall score (default 1.0)",
+          "minimum": 0
+        },
+        "considerations": {
+          "type": "array",
+          "description": "Factors to consider when scoring",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "derived_field": {
+      "type": "object",
+      "description": "A field calculated at build time",
+      "required": ["description", "rule"],
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "What this field represents"
+        },
+        "rule": {
+          "type": "string",
+          "description": "Calculation rule (pseudo-code)"
+        }
+      }
+    }
+  }
+}

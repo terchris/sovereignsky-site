@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "software-product.schema.json",
+  "title": "Software Product",
+  "description": "Schema for software products in the SovereignSky sovereignty database",
+  "type": "object",
+  "required": ["id", "slug", "name", "description", "use_areas", "vendor", "sovereignty"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the product (lowercase, hyphenated)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier for the product page",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the product"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the product (1-2 sentences)"
+    },
+    "use_areas": {
+      "type": "array",
+      "description": "Categories this product belongs to",
+      "items": {
+        "type": "string",
+        "enum": ["communication", "collaboration", "project", "office", "finance", "hr", "sales", "dev", "storage"]
+      },
+      "minItems": 1
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional tags for future search/filtering",
+      "items": {
+        "type": "string"
+      }
+    },
+    "vendor": {
+      "type": "object",
+      "description": "Information about the product vendor",
+      "required": ["id", "name", "country"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the vendor (lowercase, hyphenated)",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Legal name of the vendor company"
+        },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code of vendor headquarters",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "country_name": {
+          "type": "string",
+          "description": "Human-readable country name"
+        },
+        "website": {
+          "type": "string",
+          "description": "Vendor website URL",
+          "format": "uri"
+        }
+      }
+    },
+    "sovereignty": {
+      "type": "object",
+      "description": "Digital sovereignty assessment",
+      "required": ["level", "cloud_act"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Overall sovereignty risk level",
+          "enum": ["low", "moderate", "elevated", "significant", "high", "critical"]
+        },
+        "cloud_act": {
+          "type": "boolean",
+          "description": "Whether vendor is subject to US CLOUD Act"
+        },
+        "schrems_ii": {
+          "type": "boolean",
+          "description": "Whether there are Schrems II compliance concerns"
+        },
+        "dimensions": {
+          "type": "object",
+          "description": "Detailed scoring per EU Cloud Sovereignty Framework dimension",
+          "properties": {
+            "sov1_strategic": { "$ref": "#/$defs/dimension" },
+            "sov2_legal": { "$ref": "#/$defs/dimension" },
+            "sov3_data": { "$ref": "#/$defs/dimension" },
+            "sov4_operational": { "$ref": "#/$defs/dimension" },
+            "sov5_supply_chain": { "$ref": "#/$defs/dimension" },
+            "sov6_technology": { "$ref": "#/$defs/dimension" },
+            "sov7_security": { "$ref": "#/$defs/dimension" },
+            "sov8_environment": { "$ref": "#/$defs/dimension" }
+          }
+        }
+      }
+    },
+    "key_concerns": {
+      "type": "array",
+      "description": "Main sovereignty concerns for this product",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mitigations": {
+      "type": "array",
+      "description": "Possible actions to reduce sovereignty risk",
+      "items": {
+        "$ref": "#/$defs/mitigation"
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "description": "Alternative products with better sovereignty",
+      "items": {
+        "$ref": "#/$defs/alternative"
+      }
+    },
+    "data_residency": {
+      "type": "object",
+      "description": "Data storage and residency options",
+      "properties": {
+        "norway_available": {
+          "type": "boolean",
+          "description": "Can data be stored in Norway?"
+        },
+        "eu_available": {
+          "type": "boolean",
+          "description": "Can data be stored in EU/EEA?"
+        },
+        "self_hosted": {
+          "type": "boolean",
+          "description": "Can the product be self-hosted?"
+        }
+      }
+    },
+    "technical": {
+      "type": "object",
+      "description": "Technical characteristics",
+      "properties": {
+        "deployment": {
+          "type": "array",
+          "description": "Available deployment options",
+          "items": {
+            "type": "string",
+            "enum": ["cloud", "on-premise", "hybrid"]
+          }
+        },
+        "open_source": {
+          "type": "boolean",
+          "description": "Is the product open source?"
+        },
+        "sso_support": {
+          "type": "boolean",
+          "description": "Does it support SSO/SAML?"
+        },
+        "api_available": {
+          "type": "boolean",
+          "description": "Is there a public API?"
+        },
+        "export_formats": {
+          "type": "array",
+          "description": "Available data export formats",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about this assessment",
+      "properties": {
+        "last_reviewed": {
+          "type": "string",
+          "description": "Date of last review (YYYY-MM-DD)",
+          "format": "date"
+        },
+        "sources": {
+          "type": "array",
+          "description": "URLs used as sources for this assessment",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "object",
+      "description": "A sovereignty dimension score",
+      "required": ["score"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "description": "Risk score (0=no risk, 5=critical risk)",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Brief explanation of the score"
+        }
+      }
+    },
+    "mitigation": {
+      "type": "object",
+      "description": "A risk mitigation action",
+      "required": ["title", "description"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Short title for the mitigation"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this mitigation involves"
+        },
+        "effort": {
+          "type": "string",
+          "description": "Implementation effort required",
+          "enum": ["low", "medium", "high"]
+        },
+        "impact": {
+          "type": "string",
+          "description": "Impact on sovereignty risk",
+          "enum": ["low", "medium", "high"]
+        },
+        "requires_license": {
+          "type": "string",
+          "description": "License tier required (if any)"
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to documentation",
+          "format": "uri"
+        }
+      }
+    },
+    "alternative": {
+      "type": "object",
+      "description": "An alternative product",
+      "required": ["id", "name", "country"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Product ID (if in database)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Product name"
+        },
+        "country": {
+          "type": "string",
+          "description": "Vendor country code"
+        },
+        "covers": {
+          "type": "array",
+          "description": "Features this alternative covers",
+          "items": { "type": "string" }
+        },
+        "gaps": {
+          "type": "array",
+          "description": "Features this alternative lacks",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

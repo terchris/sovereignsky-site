@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "vendor.schema.json",
+  "title": "Software Vendor",
+  "description": "Schema for software vendors in the SovereignSky sovereignty database",
+  "type": "object",
+  "required": ["id", "name", "country"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the vendor (lowercase, hyphenated)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Legal name of the vendor company"
+    },
+    "country": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code of vendor headquarters",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "country_name": {
+      "type": "string",
+      "description": "Human-readable country name"
+    },
+    "website": {
+      "type": "string",
+      "description": "Vendor website URL",
+      "format": "uri"
+    }
+  }
+}

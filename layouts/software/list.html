@@ -1,132 +1,132 @@
 {{ define "main" }}
-<div class="software-database max-w-6xl mx-auto">
+<div class="max-w-6xl mx-auto" id="software-app">
 
   <header class="mb-8">
-    <h1 class="text-3xl font-bold mb-4">Software Sovereignty Database</h1>
-    <p class="text-lg text-neutral-600 dark:text-neutral-300">
-      Assess the digital sovereignty risk of common software tools used in Norwegian organizations.
-    </p>
+    <h1 class="text-3xl font-bold mb-4">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="text-lg text-neutral-600 dark:text-neutral-300">{{ . }}</p>
+    {{ end }}
   </header>
 
-  <!-- Filters -->
-  <div class="filters mb-8 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
-
-    <!-- Search -->
-    <div class="mb-4">
+  <!-- Search and Filters -->
+  <div class="mb-6 space-y-4">
+    <!-- Search Box -->
+    <div class="relative">
       <input
         type="text"
         id="software-search"
-        placeholder="Search software..."
-        class="w-full px-4 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+        placeholder="Search software by name, vendor, or description..."
+        class="w-full px-4 py-3 pl-10 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-base"
       >
+      <svg class="absolute left-3 top-3.5 h-5 w-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
     </div>
 
-    <!-- Risk Level Filter -->
-    <div class="mb-4">
-      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Risk Level:</span>
-      <div class="inline-flex flex-wrap gap-2 mt-2">
-        <button class="filter-btn risk-filter active" data-risk="all">All</button>
-        <button class="filter-btn risk-filter" data-risk="low">Low</button>
-        <button class="filter-btn risk-filter" data-risk="moderate">Moderate</button>
-        <button class="filter-btn risk-filter" data-risk="elevated">Elevated</button>
-        <button class="filter-btn risk-filter" data-risk="high">High</button>
-        <button class="filter-btn risk-filter" data-risk="critical">Critical</button>
+    <!-- Filter Bar -->
+    <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg space-y-3">
+      <!-- Risk Level Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Risk Level:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn risk-filter active" data-filter="risk" data-value="all">All</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="low">Low</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="moderate">Moderate</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="elevated">Elevated</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="significant">Significant</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="high">High</button>
+        </div>
+      </div>
+
+      <!-- Country Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Country:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn country-filter active" data-filter="country" data-value="all">All</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="NO">Norway</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="US">USA</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="UK">UK</button>
+        </div>
+      </div>
+
+      <!-- Use Area Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Use Area:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn area-filter active" data-filter="area" data-value="all">All</button>
+          {{ range site.Data.useAreas }}
+          <button class="filter-btn area-filter" data-filter="area" data-value="{{ .id }}">{{ .name }}</button>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- Active Filters & Clear -->
+      <div id="active-filters" class="hidden flex items-center gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+        <span class="text-sm text-neutral-500 dark:text-neutral-400">Active filters:</span>
+        <div id="filter-tags" class="flex flex-wrap gap-1"></div>
+        <button id="clear-filters" class="text-sm text-primary-600 dark:text-primary-400 hover:underline ml-2">Clear all</button>
       </div>
     </div>
-
-    <!-- Country Filter -->
-    <div class="mb-4">
-      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Vendor Country:</span>
-      <div class="inline-flex flex-wrap gap-2 mt-2">
-        <button class="filter-btn country-filter active" data-country="all">All</button>
-        <button class="filter-btn country-filter" data-country="NO">Norway</button>
-        <button class="filter-btn country-filter" data-country="EU">EU/EEA</button>
-        <button class="filter-btn country-filter" data-country="US">USA</button>
-      </div>
-    </div>
-
-    <!-- Use Area Filter -->
-    <div>
-      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Use Area:</span>
-      <select id="use-area-filter" class="mt-2 px-3 py-2 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900">
-        <option value="all">All Areas</option>
-        {{ range site.Data.software.use_areas }}
-        <option value="{{ .id }}">{{ .name }}</option>
-        {{ end }}
-      </select>
-    </div>
-
   </div>
 
-  <!-- Results count -->
-  <div class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
-    Showing <span id="result-count">{{ len site.Data.software.products }}</span> of {{ len site.Data.software.products }} products
+  <!-- Results count and pagination info -->
+  <div class="flex justify-between items-center mb-4">
+    <div class="text-sm text-neutral-600 dark:text-neutral-400">
+      Showing <span id="showing-count">0</span> of <span id="total-count">0</span> products
+    </div>
+    <div id="pagination-info" class="text-sm text-neutral-600 dark:text-neutral-400"></div>
   </div>
 
   <!-- Product Grid -->
   <div id="software-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    {{ range site.Data.software.products }}
-    <article
-      class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors"
-      data-name="{{ .name | lower }}"
-      data-vendor="{{ .vendor.name | lower }}"
-      data-risk="{{ .sovereignty.level }}"
-      data-country="{{ .vendor.country }}"
-      data-use-areas="{{ delimit .use_areas "," }}"
-    >
-      <a href="/software/{{ .slug }}/" class="block">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            {{ partial "country-flag" .vendor.country }}
-            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ .vendor.name }}</span>
-          </div>
-          {{ if .sovereignty.cloud_act }}
-          <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs px-2 py-0.5 rounded">CLOUD Act</span>
-          {{ end }}
-        </div>
-
-        <!-- Name -->
-        <h2 class="text-lg font-semibold mb-2">{{ .name }}</h2>
-
-        <!-- Description -->
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">{{ .description }}</p>
-
-        <!-- Score badge -->
-        {{ partial "sovereignty-badge" .sovereignty }}
-
-        <!-- Use areas -->
-        <div class="mt-3 flex flex-wrap gap-1">
-          {{ range .use_areas }}
-          {{ $area := index (where site.Data.software.use_areas "id" .) 0 }}
-          {{ if $area }}
-          <span class="text-xs bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 px-2 py-0.5 rounded">
-            {{ $area.name }}
-          </span>
-          {{ end }}
-          {{ end }}
-        </div>
-      </a>
-    </article>
-    {{ end }}
+    <!-- Products loaded via JavaScript -->
   </div>
 
-  <!-- No results message -->
-  <div id="no-results" class="hidden text-center py-8 text-neutral-500 dark:text-neutral-400">
-    No software matches your filters. Try adjusting your search criteria.
+  <!-- No results -->
+  <div id="no-results" class="hidden text-center py-12 text-neutral-500 dark:text-neutral-400">
+    <p class="text-lg mb-2">No software matches your search.</p>
+    <p class="text-sm">Try adjusting your filters or search terms.</p>
+  </div>
+
+  <!-- Pagination -->
+  <div id="pagination" class="flex justify-center items-center gap-2 mt-8">
+    <!-- Pagination buttons added via JavaScript -->
   </div>
 
 </div>
 
+<!-- Inline JSON data for initial load (generated by Node.js script) -->
+<script id="software-data" type="application/json">
+{{ site.Data.productsList | jsonify | safeJS }}
+</script>
+
 <style>
 .filter-btn {
-  @apply px-3 py-1 text-sm rounded-full border border-neutral-300 dark:border-neutral-600
-         bg-white dark:bg-neutral-900 text-neutral-700 dark:text-neutral-300
-         hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400
-         transition-colors;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(212, 212, 212);
+  background-color: white;
+  color: rgb(64, 64, 64);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.dark .filter-btn {
+  border-color: rgb(82, 82, 82);
+  background-color: rgb(23, 23, 23);
+  color: rgb(212, 212, 212);
+}
+.filter-btn:hover {
+  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-600));
+}
+.dark .filter-btn:hover {
+  color: rgb(var(--color-primary-400));
 }
 .filter-btn.active {
-  @apply bg-primary-500 border-primary-500 text-white;
+  background-color: rgb(var(--color-primary-500));
+  border-color: rgb(var(--color-primary-500));
+  color: white;
 }
 .line-clamp-2 {
   display: -webkit-box;
@@ -134,7 +134,321 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.page-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(212, 212, 212);
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.dark .page-btn {
+  border-color: rgb(82, 82, 82);
+  background: rgb(23, 23, 23);
+  color: rgb(212, 212, 212);
+}
+.page-btn:hover:not(:disabled) {
+  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-600));
+}
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page-btn.active {
+  background-color: rgb(var(--color-primary-500));
+  border-color: rgb(var(--color-primary-500));
+  color: white;
+}
 </style>
 
-<script src="/js/software-filters.js"></script>
+<script>
+(function() {
+  // Configuration
+  const ITEMS_PER_PAGE = 24;
+
+  // Country flags
+  const FLAGS = {
+    'NO': '🇳🇴', 'US': '🇺🇸', 'UK': '🇬🇧', 'DE': '🇩🇪', 'FR': '🇫🇷',
+    'SE': '🇸🇪', 'DK': '🇩🇰', 'FI': '🇫🇮', 'NL': '🇳🇱', 'EU': '🇪🇺'
+  };
+
+  // Risk level colors
+  const RISK_COLORS = {
+    'low': { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-800 dark:text-green-300', border: 'border-green-300 dark:border-green-700' },
+    'moderate': { bg: 'bg-yellow-100 dark:bg-yellow-900/40', text: 'text-yellow-800 dark:text-yellow-300', border: 'border-yellow-300 dark:border-yellow-700' },
+    'significant': { bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-800 dark:text-orange-300', border: 'border-orange-300 dark:border-orange-700' },
+    'elevated': { bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-800 dark:text-orange-300', border: 'border-orange-300 dark:border-orange-700' },
+    'high': { bg: 'bg-red-100 dark:bg-red-900/40', text: 'text-red-800 dark:text-red-300', border: 'border-red-300 dark:border-red-700' },
+    'critical': { bg: 'bg-red-200 dark:bg-red-900/60', text: 'text-red-900 dark:text-red-200', border: 'border-red-400 dark:border-red-600' }
+  };
+
+  // State
+  let allProducts = [];
+  let filteredProducts = [];
+  let currentPage = 1;
+  let filters = { risk: 'all', country: 'all', area: 'all', search: '' };
+
+  // DOM elements
+  const grid = document.getElementById('software-grid');
+  const searchInput = document.getElementById('software-search');
+  const noResults = document.getElementById('no-results');
+  const pagination = document.getElementById('pagination');
+  const showingCount = document.getElementById('showing-count');
+  const totalCount = document.getElementById('total-count');
+  const paginationInfo = document.getElementById('pagination-info');
+  const activeFiltersDiv = document.getElementById('active-filters');
+  const filterTags = document.getElementById('filter-tags');
+
+  // Load data
+  function init() {
+    const dataEl = document.getElementById('software-data');
+    allProducts = JSON.parse(dataEl.textContent);
+
+    // Parse URL parameters
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('risk')) filters.risk = params.get('risk');
+    if (params.get('country')) filters.country = params.get('country');
+    if (params.get('area')) filters.area = params.get('area');
+    if (params.get('q')) {
+      filters.search = params.get('q');
+      searchInput.value = filters.search;
+    }
+    if (params.get('page')) currentPage = parseInt(params.get('page')) || 1;
+
+    // Update filter button states
+    updateFilterButtons();
+
+    // Apply filters and render
+    applyFilters();
+
+    // Set up event listeners
+    setupEventListeners();
+  }
+
+  function setupEventListeners() {
+    // Search input with debounce
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        filters.search = e.target.value.toLowerCase();
+        currentPage = 1;
+        applyFilters();
+        updateURL();
+      }, 300);
+    });
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterType = btn.dataset.filter;
+        const value = btn.dataset.value;
+
+        // Update filter state
+        if (filterType === 'risk') filters.risk = value;
+        if (filterType === 'country') filters.country = value;
+        if (filterType === 'area') filters.area = value;
+
+        // Update button states
+        document.querySelectorAll(`.${filterType}-filter`).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        currentPage = 1;
+        applyFilters();
+        updateURL();
+      });
+    });
+
+    // Clear filters button
+    document.getElementById('clear-filters').addEventListener('click', () => {
+      filters = { risk: 'all', country: 'all', area: 'all', search: '' };
+      searchInput.value = '';
+      currentPage = 1;
+      updateFilterButtons();
+      applyFilters();
+      updateURL();
+    });
+  }
+
+  function updateFilterButtons() {
+    // Risk
+    document.querySelectorAll('.risk-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.risk);
+    });
+    // Country
+    document.querySelectorAll('.country-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.country);
+    });
+    // Area
+    document.querySelectorAll('.area-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.area);
+    });
+  }
+
+  function applyFilters() {
+    filteredProducts = allProducts.filter(p => {
+      // Risk filter
+      if (filters.risk !== 'all' && p.risk_level !== filters.risk) return false;
+      // Country filter
+      if (filters.country !== 'all' && p.vendor_country !== filters.country) return false;
+      // Area filter
+      if (filters.area !== 'all' && !p.use_areas.includes(filters.area)) return false;
+      // Search filter
+      if (filters.search) {
+        const searchStr = `${p.name} ${p.vendor_name} ${p.description}`.toLowerCase();
+        if (!searchStr.includes(filters.search)) return false;
+      }
+      return true;
+    });
+
+    render();
+    updateActiveFiltersDisplay();
+  }
+
+  function updateActiveFiltersDisplay() {
+    const hasActiveFilters = filters.risk !== 'all' || filters.country !== 'all' ||
+                              filters.area !== 'all' || filters.search;
+    activeFiltersDiv.classList.toggle('hidden', !hasActiveFilters);
+
+    if (hasActiveFilters) {
+      let tags = '';
+      if (filters.search) tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">Search: "${filters.search}"</span>`;
+      if (filters.risk !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.risk} risk</span>`;
+      if (filters.country !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.country}</span>`;
+      if (filters.area !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.area}</span>`;
+      filterTags.innerHTML = tags;
+    }
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (filters.risk !== 'all') params.set('risk', filters.risk);
+    if (filters.country !== 'all') params.set('country', filters.country);
+    if (filters.area !== 'all') params.set('area', filters.area);
+    if (filters.search) params.set('q', filters.search);
+    if (currentPage > 1) params.set('page', currentPage);
+
+    const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+
+  function render() {
+    const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+    const pageProducts = filteredProducts.slice(start, end);
+
+    // Update counts
+    totalCount.textContent = filteredProducts.length;
+    showingCount.textContent = pageProducts.length;
+    paginationInfo.textContent = totalPages > 1 ? `Page ${currentPage} of ${totalPages}` : '';
+
+    // Show/hide no results
+    noResults.classList.toggle('hidden', pageProducts.length > 0);
+    grid.classList.toggle('hidden', pageProducts.length === 0);
+
+    // Render products
+    grid.innerHTML = pageProducts.map(p => renderCard(p)).join('');
+
+    // Render pagination
+    renderPagination(totalPages);
+  }
+
+  function renderCard(p) {
+    const colors = RISK_COLORS[p.risk_level] || RISK_COLORS['moderate'];
+    const flag = FLAGS[p.vendor_country] || '🏳️';
+
+    return `
+      <article class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden hover:shadow-lg transition-all bg-white dark:bg-neutral-900">
+        <a href="${p.url}" class="block">
+          <div class="flex items-center justify-between px-4 py-2 ${colors.bg} border-b ${colors.border}">
+            <span class="text-xs font-semibold uppercase tracking-wide ${colors.text}">
+              ${p.risk_level} Risk
+            </span>
+            ${p.cloud_act ? '<span class="text-xs font-medium text-red-700 dark:text-red-400">CLOUD Act</span>' : ''}
+          </div>
+          <div class="p-4">
+            <div class="mb-3">
+              <h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-1">${escapeHtml(p.name)}</h2>
+              <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
+                <span>${flag}</span>
+                <span>${escapeHtml(p.vendor_country_name)}</span>
+                <span class="text-neutral-300 dark:text-neutral-600">•</span>
+                <span>${escapeHtml(p.vendor_name)}</span>
+              </div>
+            </div>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2">${escapeHtml(p.description)}</p>
+            <div class="flex flex-wrap gap-1.5">
+              ${p.use_area_names.map(a => `<span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">${escapeHtml(a)}</span>`).join('')}
+            </div>
+          </div>
+        </a>
+      </article>
+    `;
+  }
+
+  function renderPagination(totalPages) {
+    if (totalPages <= 1) {
+      pagination.innerHTML = '';
+      return;
+    }
+
+    let html = '';
+
+    // Previous button
+    html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">← Prev</button>`;
+
+    // Page numbers (show max 7 pages with ellipsis)
+    const pages = getPaginationPages(currentPage, totalPages);
+    pages.forEach(p => {
+      if (p === '...') {
+        html += `<span class="px-2 text-neutral-400">...</span>`;
+      } else {
+        html += `<button class="page-btn ${p === currentPage ? 'active' : ''}" data-page="${p}">${p}</button>`;
+      }
+    });
+
+    // Next button
+    html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">Next →</button>`;
+
+    pagination.innerHTML = html;
+
+    // Add click handlers
+    pagination.querySelectorAll('.page-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!btn.disabled) {
+          currentPage = parseInt(btn.dataset.page);
+          render();
+          updateURL();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  function getPaginationPages(current, total) {
+    if (total <= 7) return Array.from({length: total}, (_, i) => i + 1);
+
+    if (current <= 4) return [1, 2, 3, 4, 5, '...', total];
+    if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+    return [1, '...', current - 1, current, current + 1, '...', total];
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 {{ end }}

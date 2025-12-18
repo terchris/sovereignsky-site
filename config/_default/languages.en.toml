@@ -1,0 +1,19 @@
+# SovereignSky English Language Configuration
+
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "SovereignSky"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Practical resources for Nordic digital sovereignty"
+  copyright = "SovereignSky"
+
+[params.author]
+  name = "SovereignSky"
+  headline = "Navigate Digital Sovereignty"
+  bio = "Practical resources for Nordic digital sovereignty"

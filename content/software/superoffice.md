@@ -2,15 +2,36 @@
 title: "SuperOffice"
 description: "Scandinavian CRM solution focused on user-friendliness and European data storage"
 software_id: "superoffice"
-vendor: "SuperOffice AS"
-country: "NO"
+vendor_id: "superoffice"
+vendor_name: "SuperOffice AS"
+vendor_country: "NO"
+vendor_country_name: "Norway"
 risk_level: "low"
-sovereignty_score: 0.9
+risk_label: "Low Risk"
 cloud_act: false
-use_areas: ["sales"]
-date: 2025-12-17
+schrems_ii: false
+open_source: false
+data_portability: "full"
+date: 2025-12-18
 layout: single
 type: software
+
+# Hosting options
+hosting_norway: true
+hosting_eu: true
+hosting_self: true
+
+# Taxonomies for Hugo filtering
+risk_levels:
+  - "low"
+vendor_countries:
+  - "NO"
+use_areas:
+  - "sales"
+
+# Display metadata
+use_area_names:
+  - "Sales & CRM"
 ---
 
-<!-- Content is rendered from data/software.json via layouts/software/single.html -->
+<!-- Content is rendered from data/products.json via layouts/software/single.html -->

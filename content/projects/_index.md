@@ -1,6 +1,8 @@
 ---
 title: "Projects"
 description: "Open source projects for digital sovereignty and secure infrastructure"
+showHero: true
+heroStyle: "big"
 ---
 
 ## Want to Contribute?

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "communication",
+    "name": "Communication",
+    "icon": "message-circle",
+    "description": "Email, chat, video and other communication tools"
+  },
+  {
+    "id": "collaboration",
+    "name": "Collaboration & Documentation",
+    "icon": "files",
+    "description": "Wiki, file sharing and collaboration tools"
+  },
+  {
+    "id": "project",
+    "name": "Project Management",
+    "icon": "kanban",
+    "description": "Task and project management tools"
+  },
+  {
+    "id": "office",
+    "name": "Office Suite",
+    "icon": "file-text",
+    "description": "Word processing, spreadsheets, presentations"
+  },
+  {
+    "id": "finance",
+    "name": "Finance & Accounting",
+    "icon": "calculator",
+    "description": "Invoicing, accounting, payroll"
+  },
+  {
+    "id": "hr",
+    "name": "HR & People",
+    "icon": "users",
+    "description": "Employee data, absence, recruitment"
+  },
+  {
+    "id": "sales",
+    "name": "Sales & CRM",
+    "icon": "handshake",
+    "description": "CRM and sales tools"
+  },
+  {
+    "id": "dev",
+    "name": "Development & IT",
+    "icon": "code",
+    "description": "Code, deploy, monitoring"
+  },
+  {
+    "id": "storage",
+    "name": "Storage & Security",
+    "icon": "shield",
+    "description": "Backup, access control, security"
+  }
+]
