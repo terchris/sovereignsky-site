@@ -1,6 +1,7 @@
 {
   "provider_id": "basefarm",
   "provider_name": "Basefarm (Orange Business)",
+  "updated": "2025-12-19",
   "vendor_country_id": "NO",
   "vendor_website": "https://digital.orange-business.com",
   "regions": [
@@ -27,7 +28,6 @@
     }
   ],
   "meta": {
-    "updated": "2025-12-19",
     "source": "https://digital.orange-business.com"
   }
 }

@@ -1,6 +1,7 @@
 {
   "provider_id": "greenmountain",
   "provider_name": "Green Mountain",
+  "updated": "2025-12-19",
   "vendor_country_id": "NO",
   "vendor_website": "https://greenmountain.no",
   "regions": [
@@ -48,7 +49,6 @@
     }
   ],
   "meta": {
-    "updated": "2025-12-19",
     "source": "https://greenmountain.no/data-centers/"
   }
 }

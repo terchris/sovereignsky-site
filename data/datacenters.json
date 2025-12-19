@@ -3,6 +3,7 @@
     {
       "provider_id": "aws",
       "provider_name": "Amazon Web Services",
+      "updated": "2025-12-19",
       "vendor_country_id": "US",
       "vendor_website": "https://aws.amazon.com",
       "regions": [
@@ -298,13 +299,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/"
       }
     },
     {
       "provider_id": "gcp",
       "provider_name": "Google Cloud Platform",
+      "updated": "2025-12-19",
       "vendor_country_id": "US",
       "vendor_website": "https://cloud.google.com",
       "regions": [
@@ -710,13 +711,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://cloud.google.com/about/locations"
       }
     },
     {
       "provider_id": "azure",
       "provider_name": "Microsoft Azure",
+      "updated": "2025-12-19",
       "vendor_country_id": "US",
       "vendor_website": "https://azure.microsoft.com",
       "regions": [
@@ -1182,13 +1183,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://azure.microsoft.com/explore/global-infrastructure/geographies/"
       }
     },
     {
       "provider_id": "exoscale",
       "provider_name": "Exoscale",
+      "updated": "2025-12-19",
       "vendor_country_id": "CH",
       "vendor_website": "https://www.exoscale.com",
       "regions": [
@@ -1264,13 +1265,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://www.exoscale.com/datacenters/"
       }
     },
     {
       "provider_id": "hetzner",
       "provider_name": "Hetzner",
+      "updated": "2025-12-19",
       "vendor_country_id": "DE",
       "vendor_website": "https://www.hetzner.com",
       "regions": [
@@ -1336,13 +1337,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://www.hetzner.com/unternehmen/rechenzentrum"
       }
     },
     {
       "provider_id": "ovh",
       "provider_name": "OVHcloud",
+      "updated": "2025-12-19",
       "vendor_country_id": "FR",
       "vendor_website": "https://www.ovhcloud.com",
       "regions": [
@@ -1448,13 +1449,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://www.ovhcloud.com/en/about-us/global-infrastructure/"
       }
     },
     {
       "provider_id": "scaleway",
       "provider_name": "Scaleway",
+      "updated": "2025-12-19",
       "vendor_country_id": "FR",
       "vendor_website": "https://www.scaleway.com",
       "regions": [
@@ -1490,13 +1491,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://www.scaleway.com/en/about-us/"
       }
     },
     {
       "provider_id": "basefarm",
       "provider_name": "Basefarm (Orange Business)",
+      "updated": "2025-12-19",
       "vendor_country_id": "NO",
       "vendor_website": "https://digital.orange-business.com",
       "regions": [
@@ -1532,13 +1533,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://digital.orange-business.com"
       }
     },
     {
       "provider_id": "greenmountain",
       "provider_name": "Green Mountain",
+      "updated": "2025-12-19",
       "vendor_country_id": "NO",
       "vendor_website": "https://greenmountain.no",
       "regions": [
@@ -1604,13 +1605,13 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://greenmountain.no/data-centers/"
       }
     },
     {
       "provider_id": "safespring",
       "provider_name": "Safespring",
+      "updated": "2025-12-19",
       "vendor_country_id": "SE",
       "vendor_website": "https://www.safespring.com",
       "regions": [
@@ -1646,7 +1647,6 @@
         }
       ],
       "meta": {
-        "updated": "2025-12-19",
         "source": "https://www.safespring.com/om-safespring/datacenter/"
       }
     }

@@ -4,7 +4,14 @@
   "title": "SovereignSky Datacenter Provider",
   "description": "Schema for datacenter provider files in data/datacenters/",
   "type": "object",
-  "required": ["provider_id", "provider_name", "vendor_country_id", "regions", "meta"],
+  "required": [
+    "provider_id",
+    "provider_name",
+    "updated",
+    "vendor_country_id",
+    "regions",
+    "meta"
+  ],
   "additionalProperties": false,
   "properties": {
     "provider_id": {
@@ -15,6 +22,11 @@
     "provider_name": {
       "type": "string",
       "description": "Display name of the provider"
+    },
+    "updated": {
+      "type": "string",
+      "description": "Date this file was last verified/updated",
+      "format": "date"
     },
     "vendor_country_id": {
       "type": "string",
@@ -36,14 +48,11 @@
     "meta": {
       "type": "object",
       "description": "Metadata about this provider file",
-      "required": ["updated", "source"],
+      "required": [
+        "source"
+      ],
       "additionalProperties": false,
       "properties": {
-        "updated": {
-          "type": "string",
-          "description": "Date this file was last verified/updated",
-          "format": "date"
-        },
         "source": {
           "type": "string",
           "description": "URL to official source used to populate/verify this data",
@@ -55,7 +64,11 @@
   "definitions": {
     "region": {
       "type": "object",
-      "required": ["region_id", "region_name", "country_id"],
+      "required": [
+        "region_id",
+        "region_name",
+        "country_id"
+      ],
       "additionalProperties": false,
       "properties": {
         "region_id": {

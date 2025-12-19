@@ -1,6 +1,7 @@
 {
   "provider_id": "safespring",
   "provider_name": "Safespring",
+  "updated": "2025-12-19",
   "vendor_country_id": "SE",
   "vendor_website": "https://www.safespring.com",
   "regions": [
@@ -27,7 +28,6 @@
     }
   ],
   "meta": {
-    "updated": "2025-12-19",
     "source": "https://www.safespring.com/om-safespring/datacenter/"
   }
 }

@@ -28,11 +28,30 @@ function main() {
     const filePath = path.join(DATACENTERS_DIR, file);
     const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
 
-    providers.push(data);
-    const regionCount = data.regions ? data.regions.length : 0;
+    // Normalize provider shape:
+    // - promote meta.updated -> updated (top-level)
+    // - keep remaining meta fields (e.g. source) under meta
+    const updated = (data && data.updated) ? data.updated : (data && data.meta ? data.meta.updated : undefined);
+    const meta = (data && data.meta) ? { ...data.meta } : undefined;
+    if (meta && Object.prototype.hasOwnProperty.call(meta, 'updated')) {
+      delete meta.updated;
+    }
+
+    const provider = {
+      provider_id: data.provider_id,
+      provider_name: data.provider_name,
+      updated: updated,
+      vendor_country_id: data.vendor_country_id,
+      vendor_website: data.vendor_website,
+      regions: data.regions || [],
+      ...(meta ? { meta } : {})
+    };
+
+    providers.push(provider);
+    const regionCount = provider.regions ? provider.regions.length : 0;
     totalRegions += regionCount;
 
-    console.log(`  ${data.provider_name}: ${regionCount} regions`);
+    console.log(`  ${provider.provider_name}: ${regionCount} regions`);
   });
 
   // Sort providers: US hyperscalers first, then EU, then Nordic (by name within each group)

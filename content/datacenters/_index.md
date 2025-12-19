@@ -11,6 +11,10 @@ Where your cloud provider stores data matters less than where the provider is he
 
 {{< datacenter-map >}}
 
+## Datacenter Providers
+
+{{< datacenter-providers >}}
+
 ## Understanding Jurisdiction Exposure
 
 ### The Problem
