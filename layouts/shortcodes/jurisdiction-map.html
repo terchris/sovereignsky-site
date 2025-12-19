@@ -1,0 +1,326 @@
+{{/*
+  Jurisdiction Map - Shows laws by country using ECharts
+  Usage: {{< jurisdiction-map >}}
+
+  Reads from data/regions.json and data/jurisdictions.json
+  Colors countries by risk_level field
+*/}}
+
+{{ $regions := site.Data.regions }}
+{{ $jurisdictions := site.Data.jurisdictions }}
+
+{{/* Get risk level definitions */}}
+{{ $riskLevels := $jurisdictions.risk_levels }}
+
+{{/* Build country data for the map */}}
+{{ $mapData := slice }}
+
+{{ range $regions }}
+  {{/* Map risk_level to numeric value for visualization */}}
+  {{ $riskValue := 0 }}
+  {{ $riskLabel := "Unknown" }}
+  {{ $riskColor := "#9ca3af" }}
+
+  {{ if eq .risk_level "low" }}
+    {{ $riskValue = 0 }}
+    {{ $riskLabel = "Low Risk" }}
+    {{ $riskColor = index $riskLevels "low" "map_color" }}
+  {{ else if eq .risk_level "moderate" }}
+    {{ $riskValue = 1 }}
+    {{ $riskLabel = "Moderate Risk" }}
+    {{ $riskColor = index $riskLevels "moderate" "map_color" }}
+  {{ else if eq .risk_level "elevated" }}
+    {{ $riskValue = 2 }}
+    {{ $riskLabel = "Elevated Risk" }}
+    {{ $riskColor = index $riskLevels "elevated" "map_color" }}
+  {{ else if eq .risk_level "high" }}
+    {{ $riskValue = 3 }}
+    {{ $riskLabel = "High Risk" }}
+    {{ $riskColor = index $riskLevels "high" "map_color" }}
+  {{ else if eq .risk_level "sanctioned" }}
+    {{ $riskValue = 4 }}
+    {{ $riskLabel = "Sanctioned" }}
+    {{ $riskColor = index $riskLevels "sanctioned" "map_color" }}
+  {{ end }}
+
+  {{/* Map ISO 2-letter to ECharts GeoJSON country names */}}
+  {{ $countryName := .name }}
+  {{ if eq .id "US" }}{{ $countryName = "United States" }}{{ end }}
+  {{ if eq .id "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
+  {{ if eq .id "KR" }}{{ $countryName = "Korea" }}{{ end }}
+  {{ if eq .id "RU" }}{{ $countryName = "Russia" }}{{ end }}
+  {{ if eq .id "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
+
+  {{/* Build membership list */}}
+  {{ $memberships := slice }}
+  {{ if .eu_member }}{{ $memberships = $memberships | append "EU" }}{{ end }}
+  {{ if .eea_member }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
+  {{ if .adequacy_decision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
+
+  {{ $item := dict "name" $countryName "value" $riskValue "id" .id "slug" .slug "riskLabel" $riskLabel "riskColor" $riskColor "laws" .national_laws "flag" .flag "originalName" .name "blocs" .blocs "memberships" $memberships }}
+  {{ $mapData = $mapData | append $item }}
+{{ end }}
+
+<div id="jurisdiction-map" style="width: 100%; height: 500px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 8px;"></div>
+
+<div id="map-loading" class="text-center py-8">
+  <p class="text-neutral-500">Loading map...</p>
+</div>
+
+<div id="law-details" class="mt-6 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg" style="display: none;">
+  <h3 id="law-country-name" class="text-xl font-bold mb-3"></h3>
+  <div id="law-risk-badge" class="mb-3"></div>
+  <div id="law-memberships" class="mb-3"></div>
+  <div id="law-list"></div>
+  <div id="law-link" class="mt-4"></div>
+</div>
+
+<script>
+(function() {
+  var chartDom = document.getElementById('jurisdiction-map');
+  var loadingDiv = document.getElementById('map-loading');
+
+  // Region data from Hugo
+  var regionsData = {{ $mapData | jsonify | safeJS }};
+
+  // Risk level colors from jurisdictions.json
+  var riskColors = {
+    low: '{{ index $riskLevels "low" "map_color" }}',
+    moderate: '{{ index $riskLevels "moderate" "map_color" }}',
+    elevated: '{{ index $riskLevels "elevated" "map_color" }}',
+    high: '{{ index $riskLevels "high" "map_color" }}',
+    sanctioned: '{{ index $riskLevels "sanctioned" "map_color" }}'
+  };
+
+  // Fetch world GeoJSON and initialize map (local copy to avoid CORS issues)
+  fetch('/data/world.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(worldJson) {
+      // Register the map
+      echarts.registerMap('world', worldJson);
+
+      // Hide loading
+      loadingDiv.style.display = 'none';
+
+      // Initialize chart
+      var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+      // Create data array for ECharts
+      var mapData = regionsData.map(function(item) {
+        return {
+          name: item.name,
+          value: item.value,
+          id: item.id,
+          slug: item.slug,
+          riskLabel: item.riskLabel,
+          laws: item.laws || [],
+          flag: item.flag,
+          originalName: item.originalName,
+          blocs: item.blocs || [],
+          memberships: item.memberships || []
+        };
+      });
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      var option = {
+        title: {
+          text: 'Data Sovereignty Risk by Jurisdiction',
+          subtext: 'Click a country to see details • Scroll to zoom • Drag to pan',
+          left: 'center',
+          top: 10,
+          textStyle: {
+            color: isDark ? '#e5e5e5' : '#333',
+            fontSize: 18
+          },
+          subtextStyle: {
+            color: isDark ? '#a3a3a3' : '#666',
+            fontSize: 12
+          }
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: function(params) {
+            if (params.data && params.data.value !== undefined) {
+              var displayName = params.data.originalName || params.name;
+              var laws = params.data.laws || [];
+              var lawCount = laws.length;
+              var memberships = params.data.memberships || [];
+              var membershipStr = memberships.length > 0 ? '<br/>' + memberships.join(' • ') : '';
+              var lawStr = lawCount > 0 ? '<br/>⚠️ ' + lawCount + ' national law(s)' : '<br/>✅ No concerning laws';
+              return '<strong>' + (params.data.flag || '') + ' ' + displayName + '</strong><br/>' +
+                     'Risk: <span style="font-weight:bold">' + params.data.riskLabel + '</span>' +
+                     membershipStr + lawStr;
+            }
+            return params.name;
+          }
+        },
+        visualMap: {
+          min: 0,
+          max: 4,
+          left: 'left',
+          bottom: 20,
+          text: ['High Risk', 'Low Risk'],
+          textStyle: {
+            color: isDark ? '#e5e5e5' : '#333'
+          },
+          inRange: {
+            color: [riskColors.low, riskColors.moderate, riskColors.elevated, riskColors.high, riskColors.sanctioned]
+          },
+          calculable: false,
+          show: true
+        },
+        series: [
+          {
+            name: 'Jurisdiction Risk',
+            type: 'map',
+            map: 'world',
+            roam: true,
+            zoom: 1.2,
+            center: [10, 50],
+            scaleLimit: {
+              min: 1,
+              max: 8
+            },
+            label: {
+              show: false
+            },
+            emphasis: {
+              label: {
+                show: true,
+                color: '#fff',
+                fontSize: 10
+              },
+              itemStyle: {
+                areaColor: '#3b82f6'
+              }
+            },
+            itemStyle: {
+              areaColor: isDark ? '#404040' : '#e5e5e5',
+              borderColor: isDark ? '#525252' : '#d4d4d4',
+              borderWidth: 0.5
+            },
+            select: {
+              disabled: true
+            },
+            data: mapData
+          }
+        ]
+      };
+
+      myChart.setOption(option);
+
+      // Click handler to show law details
+      myChart.on('click', function(params) {
+        var detailsDiv = document.getElementById('law-details');
+        var countryName = document.getElementById('law-country-name');
+        var riskBadge = document.getElementById('law-risk-badge');
+        var membershipsDiv = document.getElementById('law-memberships');
+        var lawList = document.getElementById('law-list');
+        var lawLink = document.getElementById('law-link');
+
+        if (params.data) {
+          var displayName = params.data.originalName || params.name;
+          countryName.innerHTML = (params.data.flag || '') + ' ' + displayName;
+
+          // Risk badge
+          var badgeColors = {
+            'Low Risk': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+            'Moderate Risk': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+            'Elevated Risk': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+            'High Risk': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+            'Sanctioned': 'bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-100',
+            'Unknown': 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+          };
+          var badgeClass = badgeColors[params.data.riskLabel] || badgeColors['Unknown'];
+          riskBadge.innerHTML = '<span class="inline-block px-3 py-1 rounded-full text-sm font-medium ' + badgeClass + '">' + params.data.riskLabel + '</span>';
+
+          // Memberships
+          var memberships = params.data.memberships || [];
+          if (memberships.length > 0) {
+            var memberBadges = memberships.map(function(m) {
+              return '<span class="inline-block px-2 py-1 mr-2 mb-2 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">' + m + '</span>';
+            }).join('');
+            membershipsDiv.innerHTML = '<div class="flex flex-wrap">' + memberBadges + '</div>';
+          } else {
+            membershipsDiv.innerHTML = '';
+          }
+
+          // National laws
+          var laws = params.data.laws || [];
+          if (laws.length > 0) {
+            var html = '<h4 class="font-semibold mb-3">National Laws:</h4><div class="space-y-4">';
+            laws.forEach(function(law) {
+              var severityColors = {
+                'protective': { border: 'border-green-500', text: 'text-green-600 dark:text-green-400', label: '🛡️ Protective' },
+                'neutral': { border: 'border-gray-400', text: 'text-gray-600 dark:text-gray-400', label: '⚖️ Neutral' },
+                'medium': { border: 'border-yellow-500', text: 'text-yellow-600 dark:text-yellow-400', label: '⚠️ Medium Concern' },
+                'high': { border: 'border-red-500', text: 'text-red-600 dark:text-red-400', label: '🚨 High Concern' }
+              };
+              var severity = severityColors[law.severity] || severityColors['neutral'];
+              html += '<div class="border-l-4 ' + severity.border + ' pl-4 py-2">';
+              html += '<h5 class="font-bold">' + law.name + ' <span class="font-normal text-neutral-500">(' + law.year + ')</span></h5>';
+              html += '<p class="text-sm text-neutral-500 dark:text-neutral-400 italic">' + law.full_name + '</p>';
+              html += '<p class="mt-2">' + law.summary + '</p>';
+              html += '<p class="mt-2 text-sm font-medium ' + severity.text + '">' + severity.label + '</p>';
+              if (law.url) {
+                html += '<a href="' + law.url + '" target="_blank" rel="noopener" class="inline-block mt-2 text-sm text-primary-600 dark:text-primary-400 hover:underline">Read the law →</a>';
+              }
+              html += '</div>';
+            });
+            html += '</div>';
+            lawList.innerHTML = html;
+          } else {
+            lawList.innerHTML = '<p class="text-neutral-500 dark:text-neutral-400">No national laws of concern identified. See full jurisdiction page for bloc-level laws.</p>';
+          }
+
+          // Link to full page
+          if (params.data.slug) {
+            lawLink.innerHTML = '<a href="/laws/' + params.data.slug + '/" class="inline-block px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors">View full jurisdiction details →</a>';
+          } else {
+            lawLink.innerHTML = '';
+          }
+
+          detailsDiv.style.display = 'block';
+          detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      });
+
+      // Responsive resize
+      window.addEventListener('resize', function() {
+        myChart.resize();
+      });
+
+      // Handle dark mode toggle
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            var isDark = document.documentElement.classList.contains('dark');
+            myChart.setOption({
+              title: {
+                textStyle: { color: isDark ? '#e5e5e5' : '#333' },
+                subtextStyle: { color: isDark ? '#a3a3a3' : '#666' }
+              },
+              visualMap: {
+                textStyle: { color: isDark ? '#e5e5e5' : '#333' }
+              },
+              series: [{
+                itemStyle: {
+                  areaColor: isDark ? '#404040' : '#e5e5e5',
+                  borderColor: isDark ? '#525252' : '#d4d4d4'
+                }
+              }]
+            });
+          }
+        });
+      });
+      observer.observe(document.documentElement, { attributes: true });
+    })
+    .catch(function(error) {
+      console.error('Failed to load world map:', error);
+      loadingDiv.innerHTML = '<p class="text-red-500">Failed to load map. Please refresh the page.</p>';
+    });
+})();
+</script>

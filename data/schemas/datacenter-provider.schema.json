@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.no/schemas/datacenter-provider.schema.json",
+  "title": "SovereignSky Datacenter Provider",
+  "description": "Schema for datacenter provider files in data/datacenters/",
+  "type": "object",
+  "required": ["provider_id", "provider_name", "vendor_country_id", "regions", "meta"],
+  "additionalProperties": false,
+  "properties": {
+    "provider_id": {
+      "type": "string",
+      "description": "Unique identifier for the provider (lowercase, used in filenames)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "provider_name": {
+      "type": "string",
+      "description": "Display name of the provider"
+    },
+    "vendor_country_id": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 code of the vendor's legal jurisdiction (HQ country)",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "vendor_website": {
+      "type": "string",
+      "description": "Provider's main website URL",
+      "format": "uri"
+    },
+    "regions": {
+      "type": "array",
+      "description": "List of datacenter regions operated by this provider",
+      "items": {
+        "$ref": "#/definitions/region"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about this provider file",
+      "required": ["updated", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "updated": {
+          "type": "string",
+          "description": "Date this file was last verified/updated",
+          "format": "date"
+        },
+        "source": {
+          "type": "string",
+          "description": "URL to official source used to populate/verify this data",
+          "format": "uri"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "region": {
+      "type": "object",
+      "required": ["region_id", "region_name", "country_id"],
+      "additionalProperties": false,
+      "properties": {
+        "region_id": {
+          "type": "string",
+          "description": "Provider's official region identifier"
+        },
+        "region_name": {
+          "type": "string",
+          "description": "Human-readable region name"
+        },
+        "country_id": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 code where datacenter is physically located",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "city": {
+          "type": "string",
+          "description": "City or area where datacenter is located"
+        },
+        "coordinates": {
+          "type": "array",
+          "description": "Geographic coordinates [latitude, longitude]",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    }
+  }
+}

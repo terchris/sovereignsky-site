@@ -1,0 +1,1660 @@
+{
+  "providers": [
+    {
+      "provider_id": "aws",
+      "provider_name": "Amazon Web Services",
+      "vendor_country_id": "US",
+      "vendor_website": "https://aws.amazon.com",
+      "regions": [
+        {
+          "region_id": "us-east-1",
+          "region_name": "US East (N. Virginia)",
+          "country_id": "US",
+          "city": "Northern Virginia",
+          "coordinates": [
+            38.9519,
+            -77.448
+          ]
+        },
+        {
+          "region_id": "us-east-2",
+          "region_name": "US East (Ohio)",
+          "country_id": "US",
+          "city": "Ohio",
+          "coordinates": [
+            39.9612,
+            -82.9988
+          ]
+        },
+        {
+          "region_id": "us-west-1",
+          "region_name": "US West (N. California)",
+          "country_id": "US",
+          "city": "Northern California",
+          "coordinates": [
+            37.3541,
+            -121.9552
+          ]
+        },
+        {
+          "region_id": "us-west-2",
+          "region_name": "US West (Oregon)",
+          "country_id": "US",
+          "city": "Oregon",
+          "coordinates": [
+            45.8237,
+            -119.702
+          ]
+        },
+        {
+          "region_id": "ca-central-1",
+          "region_name": "Canada (Central)",
+          "country_id": "CA",
+          "city": "Montreal",
+          "coordinates": [
+            45.5017,
+            -73.5673
+          ]
+        },
+        {
+          "region_id": "ca-west-1",
+          "region_name": "Canada West (Calgary)",
+          "country_id": "CA",
+          "city": "Calgary",
+          "coordinates": [
+            51.0447,
+            -114.0719
+          ]
+        },
+        {
+          "region_id": "eu-west-1",
+          "region_name": "Europe (Ireland)",
+          "country_id": "IE",
+          "city": "Dublin",
+          "coordinates": [
+            53.3498,
+            -6.2603
+          ]
+        },
+        {
+          "region_id": "eu-west-2",
+          "region_name": "Europe (London)",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "eu-west-3",
+          "region_name": "Europe (Paris)",
+          "country_id": "FR",
+          "city": "Paris",
+          "coordinates": [
+            48.8566,
+            2.3522
+          ]
+        },
+        {
+          "region_id": "eu-central-1",
+          "region_name": "Europe (Frankfurt)",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "eu-central-2",
+          "region_name": "Europe (Zurich)",
+          "country_id": "CH",
+          "city": "Zurich",
+          "coordinates": [
+            47.3769,
+            8.5417
+          ]
+        },
+        {
+          "region_id": "eu-north-1",
+          "region_name": "Europe (Stockholm)",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            18.0686
+          ]
+        },
+        {
+          "region_id": "eu-south-1",
+          "region_name": "Europe (Milan)",
+          "country_id": "IT",
+          "city": "Milan",
+          "coordinates": [
+            45.4642,
+            9.19
+          ]
+        },
+        {
+          "region_id": "eu-south-2",
+          "region_name": "Europe (Spain)",
+          "country_id": "ES",
+          "city": "Aragon",
+          "coordinates": [
+            41.6488,
+            -0.8891
+          ]
+        },
+        {
+          "region_id": "ap-south-1",
+          "region_name": "Asia Pacific (Mumbai)",
+          "country_id": "IN",
+          "city": "Mumbai",
+          "coordinates": [
+            19.076,
+            72.8777
+          ]
+        },
+        {
+          "region_id": "ap-south-2",
+          "region_name": "Asia Pacific (Hyderabad)",
+          "country_id": "IN",
+          "city": "Hyderabad",
+          "coordinates": [
+            17.385,
+            78.4867
+          ]
+        },
+        {
+          "region_id": "ap-northeast-1",
+          "region_name": "Asia Pacific (Tokyo)",
+          "country_id": "JP",
+          "city": "Tokyo",
+          "coordinates": [
+            35.6762,
+            139.6503
+          ]
+        },
+        {
+          "region_id": "ap-northeast-2",
+          "region_name": "Asia Pacific (Seoul)",
+          "country_id": "KR",
+          "city": "Seoul",
+          "coordinates": [
+            37.5665,
+            126.978
+          ]
+        },
+        {
+          "region_id": "ap-northeast-3",
+          "region_name": "Asia Pacific (Osaka)",
+          "country_id": "JP",
+          "city": "Osaka",
+          "coordinates": [
+            34.6937,
+            135.5023
+          ]
+        },
+        {
+          "region_id": "ap-southeast-1",
+          "region_name": "Asia Pacific (Singapore)",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "ap-southeast-2",
+          "region_name": "Asia Pacific (Sydney)",
+          "country_id": "AU",
+          "city": "Sydney",
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ]
+        },
+        {
+          "region_id": "ap-southeast-3",
+          "region_name": "Asia Pacific (Jakarta)",
+          "country_id": "ID",
+          "city": "Jakarta",
+          "coordinates": [
+            -6.2088,
+            106.8456
+          ]
+        },
+        {
+          "region_id": "ap-southeast-4",
+          "region_name": "Asia Pacific (Melbourne)",
+          "country_id": "AU",
+          "city": "Melbourne",
+          "coordinates": [
+            -37.8136,
+            144.9631
+          ]
+        },
+        {
+          "region_id": "ap-east-1",
+          "region_name": "Asia Pacific (Hong Kong)",
+          "country_id": "HK",
+          "city": "Hong Kong",
+          "coordinates": [
+            22.3193,
+            114.1694
+          ]
+        },
+        {
+          "region_id": "sa-east-1",
+          "region_name": "South America (São Paulo)",
+          "country_id": "BR",
+          "city": "São Paulo",
+          "coordinates": [
+            -23.5505,
+            -46.6333
+          ]
+        },
+        {
+          "region_id": "af-south-1",
+          "region_name": "Africa (Cape Town)",
+          "country_id": "ZA",
+          "city": "Cape Town",
+          "coordinates": [
+            -33.9249,
+            18.4241
+          ]
+        },
+        {
+          "region_id": "me-south-1",
+          "region_name": "Middle East (Bahrain)",
+          "country_id": "BH",
+          "city": "Bahrain",
+          "coordinates": [
+            26.0667,
+            50.5577
+          ]
+        },
+        {
+          "region_id": "me-central-1",
+          "region_name": "Middle East (UAE)",
+          "country_id": "AE",
+          "city": "Dubai",
+          "coordinates": [
+            25.2048,
+            55.2708
+          ]
+        },
+        {
+          "region_id": "il-central-1",
+          "region_name": "Israel (Tel Aviv)",
+          "country_id": "IL",
+          "city": "Tel Aviv",
+          "coordinates": [
+            32.0853,
+            34.7818
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/"
+      }
+    },
+    {
+      "provider_id": "gcp",
+      "provider_name": "Google Cloud Platform",
+      "vendor_country_id": "US",
+      "vendor_website": "https://cloud.google.com",
+      "regions": [
+        {
+          "region_id": "us-east1",
+          "region_name": "South Carolina",
+          "country_id": "US",
+          "city": "Moncks Corner",
+          "coordinates": [
+            33.196,
+            -80.0131
+          ]
+        },
+        {
+          "region_id": "us-east4",
+          "region_name": "Northern Virginia",
+          "country_id": "US",
+          "city": "Ashburn",
+          "coordinates": [
+            39.0438,
+            -77.4874
+          ]
+        },
+        {
+          "region_id": "us-east5",
+          "region_name": "Columbus",
+          "country_id": "US",
+          "city": "Columbus",
+          "coordinates": [
+            39.9612,
+            -82.9988
+          ]
+        },
+        {
+          "region_id": "us-central1",
+          "region_name": "Iowa",
+          "country_id": "US",
+          "city": "Council Bluffs",
+          "coordinates": [
+            41.2619,
+            -95.8608
+          ]
+        },
+        {
+          "region_id": "us-south1",
+          "region_name": "Dallas",
+          "country_id": "US",
+          "city": "Dallas",
+          "coordinates": [
+            32.7767,
+            -96.797
+          ]
+        },
+        {
+          "region_id": "us-west1",
+          "region_name": "Oregon",
+          "country_id": "US",
+          "city": "The Dalles",
+          "coordinates": [
+            45.5946,
+            -121.1787
+          ]
+        },
+        {
+          "region_id": "us-west2",
+          "region_name": "Los Angeles",
+          "country_id": "US",
+          "city": "Los Angeles",
+          "coordinates": [
+            34.0522,
+            -118.2437
+          ]
+        },
+        {
+          "region_id": "us-west3",
+          "region_name": "Salt Lake City",
+          "country_id": "US",
+          "city": "Salt Lake City",
+          "coordinates": [
+            40.7608,
+            -111.891
+          ]
+        },
+        {
+          "region_id": "us-west4",
+          "region_name": "Las Vegas",
+          "country_id": "US",
+          "city": "Las Vegas",
+          "coordinates": [
+            36.1699,
+            -115.1398
+          ]
+        },
+        {
+          "region_id": "northamerica-northeast1",
+          "region_name": "Montréal",
+          "country_id": "CA",
+          "city": "Montréal",
+          "coordinates": [
+            45.5017,
+            -73.5673
+          ]
+        },
+        {
+          "region_id": "northamerica-northeast2",
+          "region_name": "Toronto",
+          "country_id": "CA",
+          "city": "Toronto",
+          "coordinates": [
+            43.6532,
+            -79.3832
+          ]
+        },
+        {
+          "region_id": "europe-west1",
+          "region_name": "Belgium",
+          "country_id": "BE",
+          "city": "St. Ghislain",
+          "coordinates": [
+            50.4496,
+            3.8186
+          ]
+        },
+        {
+          "region_id": "europe-west2",
+          "region_name": "London",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "europe-west3",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "europe-west4",
+          "region_name": "Netherlands",
+          "country_id": "NL",
+          "city": "Eemshaven",
+          "coordinates": [
+            53.4386,
+            6.8342
+          ]
+        },
+        {
+          "region_id": "europe-west6",
+          "region_name": "Zurich",
+          "country_id": "CH",
+          "city": "Zurich",
+          "coordinates": [
+            47.3769,
+            8.5417
+          ]
+        },
+        {
+          "region_id": "europe-west8",
+          "region_name": "Milan",
+          "country_id": "IT",
+          "city": "Milan",
+          "coordinates": [
+            45.4642,
+            9.19
+          ]
+        },
+        {
+          "region_id": "europe-west9",
+          "region_name": "Paris",
+          "country_id": "FR",
+          "city": "Paris",
+          "coordinates": [
+            48.8566,
+            2.3522
+          ]
+        },
+        {
+          "region_id": "europe-west10",
+          "region_name": "Berlin",
+          "country_id": "DE",
+          "city": "Berlin",
+          "coordinates": [
+            52.52,
+            13.405
+          ]
+        },
+        {
+          "region_id": "europe-west12",
+          "region_name": "Turin",
+          "country_id": "IT",
+          "city": "Turin",
+          "coordinates": [
+            45.0703,
+            7.6869
+          ]
+        },
+        {
+          "region_id": "europe-southwest1",
+          "region_name": "Madrid",
+          "country_id": "ES",
+          "city": "Madrid",
+          "coordinates": [
+            40.4168,
+            -3.7038
+          ]
+        },
+        {
+          "region_id": "europe-north1",
+          "region_name": "Finland",
+          "country_id": "FI",
+          "city": "Hamina",
+          "coordinates": [
+            60.5693,
+            27.1878
+          ]
+        },
+        {
+          "region_id": "europe-central2",
+          "region_name": "Warsaw",
+          "country_id": "PL",
+          "city": "Warsaw",
+          "coordinates": [
+            52.2297,
+            21.0122
+          ]
+        },
+        {
+          "region_id": "asia-east1",
+          "region_name": "Taiwan",
+          "country_id": "TW",
+          "city": "Changhua County",
+          "coordinates": [
+            24.0518,
+            120.5161
+          ]
+        },
+        {
+          "region_id": "asia-east2",
+          "region_name": "Hong Kong",
+          "country_id": "HK",
+          "city": "Hong Kong",
+          "coordinates": [
+            22.3193,
+            114.1694
+          ]
+        },
+        {
+          "region_id": "asia-northeast1",
+          "region_name": "Tokyo",
+          "country_id": "JP",
+          "city": "Tokyo",
+          "coordinates": [
+            35.6762,
+            139.6503
+          ]
+        },
+        {
+          "region_id": "asia-northeast2",
+          "region_name": "Osaka",
+          "country_id": "JP",
+          "city": "Osaka",
+          "coordinates": [
+            34.6937,
+            135.5023
+          ]
+        },
+        {
+          "region_id": "asia-northeast3",
+          "region_name": "Seoul",
+          "country_id": "KR",
+          "city": "Seoul",
+          "coordinates": [
+            37.5665,
+            126.978
+          ]
+        },
+        {
+          "region_id": "asia-south1",
+          "region_name": "Mumbai",
+          "country_id": "IN",
+          "city": "Mumbai",
+          "coordinates": [
+            19.076,
+            72.8777
+          ]
+        },
+        {
+          "region_id": "asia-south2",
+          "region_name": "Delhi",
+          "country_id": "IN",
+          "city": "Delhi",
+          "coordinates": [
+            28.7041,
+            77.1025
+          ]
+        },
+        {
+          "region_id": "asia-southeast1",
+          "region_name": "Singapore",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "asia-southeast2",
+          "region_name": "Jakarta",
+          "country_id": "ID",
+          "city": "Jakarta",
+          "coordinates": [
+            -6.2088,
+            106.8456
+          ]
+        },
+        {
+          "region_id": "australia-southeast1",
+          "region_name": "Sydney",
+          "country_id": "AU",
+          "city": "Sydney",
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ]
+        },
+        {
+          "region_id": "australia-southeast2",
+          "region_name": "Melbourne",
+          "country_id": "AU",
+          "city": "Melbourne",
+          "coordinates": [
+            -37.8136,
+            144.9631
+          ]
+        },
+        {
+          "region_id": "southamerica-east1",
+          "region_name": "São Paulo",
+          "country_id": "BR",
+          "city": "São Paulo",
+          "coordinates": [
+            -23.5505,
+            -46.6333
+          ]
+        },
+        {
+          "region_id": "southamerica-west1",
+          "region_name": "Santiago",
+          "country_id": "CL",
+          "city": "Santiago",
+          "coordinates": [
+            -33.4489,
+            -70.6693
+          ]
+        },
+        {
+          "region_id": "me-west1",
+          "region_name": "Tel Aviv",
+          "country_id": "IL",
+          "city": "Tel Aviv",
+          "coordinates": [
+            32.0853,
+            34.7818
+          ]
+        },
+        {
+          "region_id": "me-central1",
+          "region_name": "Doha",
+          "country_id": "QA",
+          "city": "Doha",
+          "coordinates": [
+            25.2854,
+            51.531
+          ]
+        },
+        {
+          "region_id": "me-central2",
+          "region_name": "Dammam",
+          "country_id": "SA",
+          "city": "Dammam",
+          "coordinates": [
+            26.4207,
+            50.0888
+          ]
+        },
+        {
+          "region_id": "africa-south1",
+          "region_name": "Johannesburg",
+          "country_id": "ZA",
+          "city": "Johannesburg",
+          "coordinates": [
+            -26.2041,
+            28.0473
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://cloud.google.com/about/locations"
+      }
+    },
+    {
+      "provider_id": "azure",
+      "provider_name": "Microsoft Azure",
+      "vendor_country_id": "US",
+      "vendor_website": "https://azure.microsoft.com",
+      "regions": [
+        {
+          "region_id": "eastus",
+          "region_name": "East US",
+          "country_id": "US",
+          "city": "Virginia",
+          "coordinates": [
+            37.3719,
+            -79.8164
+          ]
+        },
+        {
+          "region_id": "eastus2",
+          "region_name": "East US 2",
+          "country_id": "US",
+          "city": "Virginia",
+          "coordinates": [
+            36.6681,
+            -78.3889
+          ]
+        },
+        {
+          "region_id": "centralus",
+          "region_name": "Central US",
+          "country_id": "US",
+          "city": "Iowa",
+          "coordinates": [
+            41.5908,
+            -93.6208
+          ]
+        },
+        {
+          "region_id": "northcentralus",
+          "region_name": "North Central US",
+          "country_id": "US",
+          "city": "Illinois",
+          "coordinates": [
+            41.8819,
+            -87.6278
+          ]
+        },
+        {
+          "region_id": "southcentralus",
+          "region_name": "South Central US",
+          "country_id": "US",
+          "city": "Texas",
+          "coordinates": [
+            29.4167,
+            -98.5
+          ]
+        },
+        {
+          "region_id": "westus",
+          "region_name": "West US",
+          "country_id": "US",
+          "city": "California",
+          "coordinates": [
+            37.783,
+            -122.417
+          ]
+        },
+        {
+          "region_id": "westus2",
+          "region_name": "West US 2",
+          "country_id": "US",
+          "city": "Washington",
+          "coordinates": [
+            47.233,
+            -119.852
+          ]
+        },
+        {
+          "region_id": "westus3",
+          "region_name": "West US 3",
+          "country_id": "US",
+          "city": "Arizona",
+          "coordinates": [
+            33.4484,
+            -112.074
+          ]
+        },
+        {
+          "region_id": "canadacentral",
+          "region_name": "Canada Central",
+          "country_id": "CA",
+          "city": "Toronto",
+          "coordinates": [
+            43.6532,
+            -79.3832
+          ]
+        },
+        {
+          "region_id": "canadaeast",
+          "region_name": "Canada East",
+          "country_id": "CA",
+          "city": "Quebec City",
+          "coordinates": [
+            46.8139,
+            -71.2082
+          ]
+        },
+        {
+          "region_id": "northeurope",
+          "region_name": "North Europe",
+          "country_id": "IE",
+          "city": "Dublin",
+          "coordinates": [
+            53.3498,
+            -6.2603
+          ]
+        },
+        {
+          "region_id": "westeurope",
+          "region_name": "West Europe",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        },
+        {
+          "region_id": "uksouth",
+          "region_name": "UK South",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "ukwest",
+          "region_name": "UK West",
+          "country_id": "GB",
+          "city": "Cardiff",
+          "coordinates": [
+            51.4816,
+            -3.1791
+          ]
+        },
+        {
+          "region_id": "francecentral",
+          "region_name": "France Central",
+          "country_id": "FR",
+          "city": "Paris",
+          "coordinates": [
+            48.8566,
+            2.3522
+          ]
+        },
+        {
+          "region_id": "francesouth",
+          "region_name": "France South",
+          "country_id": "FR",
+          "city": "Marseille",
+          "coordinates": [
+            43.2965,
+            5.3698
+          ]
+        },
+        {
+          "region_id": "germanywestcentral",
+          "region_name": "Germany West Central",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "germanynorth",
+          "region_name": "Germany North",
+          "country_id": "DE",
+          "city": "Berlin",
+          "coordinates": [
+            52.52,
+            13.405
+          ]
+        },
+        {
+          "region_id": "switzerlandnorth",
+          "region_name": "Switzerland North",
+          "country_id": "CH",
+          "city": "Zurich",
+          "coordinates": [
+            47.3769,
+            8.5417
+          ]
+        },
+        {
+          "region_id": "switzerlandwest",
+          "region_name": "Switzerland West",
+          "country_id": "CH",
+          "city": "Geneva",
+          "coordinates": [
+            46.2044,
+            6.1432
+          ]
+        },
+        {
+          "region_id": "norwayeast",
+          "region_name": "Norway East",
+          "country_id": "NO",
+          "city": "Oslo",
+          "coordinates": [
+            59.9139,
+            10.7522
+          ]
+        },
+        {
+          "region_id": "norwaywest",
+          "region_name": "Norway West",
+          "country_id": "NO",
+          "city": "Stavanger",
+          "coordinates": [
+            58.97,
+            5.7331
+          ]
+        },
+        {
+          "region_id": "swedencentral",
+          "region_name": "Sweden Central",
+          "country_id": "SE",
+          "city": "Gävle",
+          "coordinates": [
+            60.6749,
+            17.1413
+          ]
+        },
+        {
+          "region_id": "swedensouth",
+          "region_name": "Sweden South",
+          "country_id": "SE",
+          "city": "Staffanstorp",
+          "coordinates": [
+            55.6333,
+            13.2
+          ]
+        },
+        {
+          "region_id": "polandcentral",
+          "region_name": "Poland Central",
+          "country_id": "PL",
+          "city": "Warsaw",
+          "coordinates": [
+            52.2297,
+            21.0122
+          ]
+        },
+        {
+          "region_id": "italynorth",
+          "region_name": "Italy North",
+          "country_id": "IT",
+          "city": "Milan",
+          "coordinates": [
+            45.4642,
+            9.19
+          ]
+        },
+        {
+          "region_id": "spaincentral",
+          "region_name": "Spain Central",
+          "country_id": "ES",
+          "city": "Madrid",
+          "coordinates": [
+            40.4168,
+            -3.7038
+          ]
+        },
+        {
+          "region_id": "eastasia",
+          "region_name": "East Asia",
+          "country_id": "HK",
+          "city": "Hong Kong",
+          "coordinates": [
+            22.3193,
+            114.1694
+          ]
+        },
+        {
+          "region_id": "southeastasia",
+          "region_name": "Southeast Asia",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "japaneast",
+          "region_name": "Japan East",
+          "country_id": "JP",
+          "city": "Tokyo",
+          "coordinates": [
+            35.6762,
+            139.6503
+          ]
+        },
+        {
+          "region_id": "japanwest",
+          "region_name": "Japan West",
+          "country_id": "JP",
+          "city": "Osaka",
+          "coordinates": [
+            34.6937,
+            135.5023
+          ]
+        },
+        {
+          "region_id": "koreacentral",
+          "region_name": "Korea Central",
+          "country_id": "KR",
+          "city": "Seoul",
+          "coordinates": [
+            37.5665,
+            126.978
+          ]
+        },
+        {
+          "region_id": "koreasouth",
+          "region_name": "Korea South",
+          "country_id": "KR",
+          "city": "Busan",
+          "coordinates": [
+            35.1796,
+            129.0756
+          ]
+        },
+        {
+          "region_id": "centralindia",
+          "region_name": "Central India",
+          "country_id": "IN",
+          "city": "Pune",
+          "coordinates": [
+            18.5204,
+            73.8567
+          ]
+        },
+        {
+          "region_id": "southindia",
+          "region_name": "South India",
+          "country_id": "IN",
+          "city": "Chennai",
+          "coordinates": [
+            13.0827,
+            80.2707
+          ]
+        },
+        {
+          "region_id": "westindia",
+          "region_name": "West India",
+          "country_id": "IN",
+          "city": "Mumbai",
+          "coordinates": [
+            19.076,
+            72.8777
+          ]
+        },
+        {
+          "region_id": "australiaeast",
+          "region_name": "Australia East",
+          "country_id": "AU",
+          "city": "Sydney",
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ]
+        },
+        {
+          "region_id": "australiasoutheast",
+          "region_name": "Australia Southeast",
+          "country_id": "AU",
+          "city": "Melbourne",
+          "coordinates": [
+            -37.8136,
+            144.9631
+          ]
+        },
+        {
+          "region_id": "australiacentral",
+          "region_name": "Australia Central",
+          "country_id": "AU",
+          "city": "Canberra",
+          "coordinates": [
+            -35.2809,
+            149.13
+          ]
+        },
+        {
+          "region_id": "brazilsouth",
+          "region_name": "Brazil South",
+          "country_id": "BR",
+          "city": "São Paulo",
+          "coordinates": [
+            -23.5505,
+            -46.6333
+          ]
+        },
+        {
+          "region_id": "southafricanorth",
+          "region_name": "South Africa North",
+          "country_id": "ZA",
+          "city": "Johannesburg",
+          "coordinates": [
+            -26.2041,
+            28.0473
+          ]
+        },
+        {
+          "region_id": "southafricawest",
+          "region_name": "South Africa West",
+          "country_id": "ZA",
+          "city": "Cape Town",
+          "coordinates": [
+            -33.9249,
+            18.4241
+          ]
+        },
+        {
+          "region_id": "uaenorth",
+          "region_name": "UAE North",
+          "country_id": "AE",
+          "city": "Dubai",
+          "coordinates": [
+            25.2048,
+            55.2708
+          ]
+        },
+        {
+          "region_id": "uaecentral",
+          "region_name": "UAE Central",
+          "country_id": "AE",
+          "city": "Abu Dhabi",
+          "coordinates": [
+            24.4539,
+            54.3773
+          ]
+        },
+        {
+          "region_id": "qatarcentral",
+          "region_name": "Qatar Central",
+          "country_id": "QA",
+          "city": "Doha",
+          "coordinates": [
+            25.2854,
+            51.531
+          ]
+        },
+        {
+          "region_id": "israelcentral",
+          "region_name": "Israel Central",
+          "country_id": "IL",
+          "city": "Tel Aviv",
+          "coordinates": [
+            32.0853,
+            34.7818
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://azure.microsoft.com/explore/global-infrastructure/geographies/"
+      }
+    },
+    {
+      "provider_id": "exoscale",
+      "provider_name": "Exoscale",
+      "vendor_country_id": "CH",
+      "vendor_website": "https://www.exoscale.com",
+      "regions": [
+        {
+          "region_id": "ch-gva-2",
+          "region_name": "Geneva",
+          "country_id": "CH",
+          "city": "Geneva",
+          "coordinates": [
+            46.2044,
+            6.1432
+          ]
+        },
+        {
+          "region_id": "ch-dk-2",
+          "region_name": "Zurich",
+          "country_id": "CH",
+          "city": "Zurich",
+          "coordinates": [
+            47.3769,
+            8.5417
+          ]
+        },
+        {
+          "region_id": "de-fra-1",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "de-muc-1",
+          "region_name": "Munich",
+          "country_id": "DE",
+          "city": "Munich",
+          "coordinates": [
+            48.1351,
+            11.582
+          ]
+        },
+        {
+          "region_id": "at-vie-1",
+          "region_name": "Vienna",
+          "country_id": "AT",
+          "city": "Vienna",
+          "coordinates": [
+            48.2082,
+            16.3738
+          ]
+        },
+        {
+          "region_id": "at-vie-2",
+          "region_name": "Vienna 2",
+          "country_id": "AT",
+          "city": "Vienna",
+          "coordinates": [
+            48.2082,
+            16.3738
+          ]
+        },
+        {
+          "region_id": "bg-sof-1",
+          "region_name": "Sofia",
+          "country_id": "BG",
+          "city": "Sofia",
+          "coordinates": [
+            42.6977,
+            23.3219
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://www.exoscale.com/datacenters/"
+      }
+    },
+    {
+      "provider_id": "hetzner",
+      "provider_name": "Hetzner",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://www.hetzner.com",
+      "regions": [
+        {
+          "region_id": "fsn1",
+          "region_name": "Falkenstein",
+          "country_id": "DE",
+          "city": "Falkenstein",
+          "coordinates": [
+            50.4747,
+            12.3653
+          ]
+        },
+        {
+          "region_id": "nbg1",
+          "region_name": "Nuremberg",
+          "country_id": "DE",
+          "city": "Nuremberg",
+          "coordinates": [
+            49.4521,
+            11.0767
+          ]
+        },
+        {
+          "region_id": "hel1",
+          "region_name": "Helsinki",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.1699,
+            24.9384
+          ]
+        },
+        {
+          "region_id": "ash",
+          "region_name": "Ashburn",
+          "country_id": "US",
+          "city": "Ashburn",
+          "coordinates": [
+            39.0438,
+            -77.4874
+          ]
+        },
+        {
+          "region_id": "hil",
+          "region_name": "Hillsboro",
+          "country_id": "US",
+          "city": "Hillsboro",
+          "coordinates": [
+            45.5229,
+            -122.9898
+          ]
+        },
+        {
+          "region_id": "sin",
+          "region_name": "Singapore",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://www.hetzner.com/unternehmen/rechenzentrum"
+      }
+    },
+    {
+      "provider_id": "ovh",
+      "provider_name": "OVHcloud",
+      "vendor_country_id": "FR",
+      "vendor_website": "https://www.ovhcloud.com",
+      "regions": [
+        {
+          "region_id": "gra",
+          "region_name": "Gravelines",
+          "country_id": "FR",
+          "city": "Gravelines",
+          "coordinates": [
+            50.9871,
+            2.1255
+          ]
+        },
+        {
+          "region_id": "sbg",
+          "region_name": "Strasbourg",
+          "country_id": "FR",
+          "city": "Strasbourg",
+          "coordinates": [
+            48.5734,
+            7.7521
+          ]
+        },
+        {
+          "region_id": "rbx",
+          "region_name": "Roubaix",
+          "country_id": "FR",
+          "city": "Roubaix",
+          "coordinates": [
+            50.6942,
+            3.1746
+          ]
+        },
+        {
+          "region_id": "lim",
+          "region_name": "Limburg",
+          "country_id": "DE",
+          "city": "Limburg",
+          "coordinates": [
+            50.3871,
+            8.065
+          ]
+        },
+        {
+          "region_id": "fra",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "lon",
+          "region_name": "London",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "waw",
+          "region_name": "Warsaw",
+          "country_id": "PL",
+          "city": "Warsaw",
+          "coordinates": [
+            52.2297,
+            21.0122
+          ]
+        },
+        {
+          "region_id": "bhs",
+          "region_name": "Beauharnois",
+          "country_id": "CA",
+          "city": "Beauharnois",
+          "coordinates": [
+            45.3151,
+            -73.8728
+          ]
+        },
+        {
+          "region_id": "sgp",
+          "region_name": "Singapore",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "syd",
+          "region_name": "Sydney",
+          "country_id": "AU",
+          "city": "Sydney",
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://www.ovhcloud.com/en/about-us/global-infrastructure/"
+      }
+    },
+    {
+      "provider_id": "scaleway",
+      "provider_name": "Scaleway",
+      "vendor_country_id": "FR",
+      "vendor_website": "https://www.scaleway.com",
+      "regions": [
+        {
+          "region_id": "fr-par",
+          "region_name": "Paris",
+          "country_id": "FR",
+          "city": "Paris",
+          "coordinates": [
+            48.8566,
+            2.3522
+          ]
+        },
+        {
+          "region_id": "nl-ams",
+          "region_name": "Amsterdam",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        },
+        {
+          "region_id": "pl-waw",
+          "region_name": "Warsaw",
+          "country_id": "PL",
+          "city": "Warsaw",
+          "coordinates": [
+            52.2297,
+            21.0122
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://www.scaleway.com/en/about-us/"
+      }
+    },
+    {
+      "provider_id": "basefarm",
+      "provider_name": "Basefarm (Orange Business)",
+      "vendor_country_id": "NO",
+      "vendor_website": "https://digital.orange-business.com",
+      "regions": [
+        {
+          "region_id": "osl1",
+          "region_name": "Oslo",
+          "country_id": "NO",
+          "city": "Oslo",
+          "coordinates": [
+            59.9139,
+            10.7522
+          ]
+        },
+        {
+          "region_id": "sto1",
+          "region_name": "Stockholm",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            18.0686
+          ]
+        },
+        {
+          "region_id": "ams1",
+          "region_name": "Amsterdam",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://digital.orange-business.com"
+      }
+    },
+    {
+      "provider_id": "greenmountain",
+      "provider_name": "Green Mountain",
+      "vendor_country_id": "NO",
+      "vendor_website": "https://greenmountain.no",
+      "regions": [
+        {
+          "region_id": "svg-rennesoy",
+          "region_name": "SVG-Rennesøy",
+          "country_id": "NO",
+          "city": "Stavanger",
+          "coordinates": [
+            59.1177,
+            5.759
+          ]
+        },
+        {
+          "region_id": "tel-rjukan",
+          "region_name": "TEL-Rjukan",
+          "country_id": "NO",
+          "city": "Rjukan",
+          "coordinates": [
+            59.8783,
+            8.5922
+          ]
+        },
+        {
+          "region_id": "osl-enebakk",
+          "region_name": "OSL-Enebakk",
+          "country_id": "NO",
+          "city": "Enebakk",
+          "coordinates": [
+            59.7667,
+            11.15
+          ]
+        },
+        {
+          "region_id": "osl-hamar",
+          "region_name": "OSL-Hamar",
+          "country_id": "NO",
+          "city": "Hamar",
+          "coordinates": [
+            60.7945,
+            11.068
+          ]
+        },
+        {
+          "region_id": "lon-east",
+          "region_name": "LON-East",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "fra-mainz",
+          "region_name": "FRA-Mainz",
+          "country_id": "DE",
+          "city": "Mainz",
+          "coordinates": [
+            50,
+            8.2711
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://greenmountain.no/data-centers/"
+      }
+    },
+    {
+      "provider_id": "safespring",
+      "provider_name": "Safespring",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://www.safespring.com",
+      "regions": [
+        {
+          "region_id": "sto1",
+          "region_name": "Stockholm North",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            18.0686
+          ]
+        },
+        {
+          "region_id": "sto2",
+          "region_name": "Stockholm South",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.28,
+            18.05
+          ]
+        },
+        {
+          "region_id": "osl1",
+          "region_name": "Oslo",
+          "country_id": "NO",
+          "city": "Oslo",
+          "coordinates": [
+            59.9139,
+            10.7522
+          ]
+        }
+      ],
+      "meta": {
+        "updated": "2025-12-19",
+        "source": "https://www.safespring.com/om-safespring/datacenter/"
+      }
+    }
+  ],
+  "meta": {
+    "total_providers": 10,
+    "total_regions": 153,
+    "generated": "2025-12-19",
+    "description": "Merged datacenter data from data/datacenters/*.json"
+  }
+}

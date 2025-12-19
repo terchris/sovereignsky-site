@@ -1,0 +1,61 @@
+{
+  "provider_id": "exoscale",
+  "provider_name": "Exoscale",
+  "vendor_country_id": "CH",
+  "vendor_website": "https://www.exoscale.com",
+  "regions": [
+    {
+      "region_id": "ch-gva-2",
+      "region_name": "Geneva",
+      "country_id": "CH",
+      "city": "Geneva",
+      "coordinates": [46.2044, 6.1432]
+    },
+    {
+      "region_id": "ch-dk-2",
+      "region_name": "Zurich",
+      "country_id": "CH",
+      "city": "Zurich",
+      "coordinates": [47.3769, 8.5417]
+    },
+    {
+      "region_id": "de-fra-1",
+      "region_name": "Frankfurt",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "de-muc-1",
+      "region_name": "Munich",
+      "country_id": "DE",
+      "city": "Munich",
+      "coordinates": [48.1351, 11.5820]
+    },
+    {
+      "region_id": "at-vie-1",
+      "region_name": "Vienna",
+      "country_id": "AT",
+      "city": "Vienna",
+      "coordinates": [48.2082, 16.3738]
+    },
+    {
+      "region_id": "at-vie-2",
+      "region_name": "Vienna 2",
+      "country_id": "AT",
+      "city": "Vienna",
+      "coordinates": [48.2082, 16.3738]
+    },
+    {
+      "region_id": "bg-sof-1",
+      "region_name": "Sofia",
+      "country_id": "BG",
+      "city": "Sofia",
+      "coordinates": [42.6977, 23.3219]
+    }
+  ],
+  "meta": {
+    "updated": "2025-12-19",
+    "source": "https://www.exoscale.com/datacenters/"
+  }
+}

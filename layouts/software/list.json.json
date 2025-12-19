@@ -1,10 +1,11 @@
 {{- $products := slice -}}
 {{- range .Pages -}}
-{{- $product := index (where site.Data.software.products "id" .Params.software_id) 0 -}}
+{{- $product := index (where site.Data.products.products "id" .Params.software_id) 0 -}}
 {{- if $product -}}
+{{- $vendor := index (where site.Data.vendors.vendors "id" $product.vendor_id) 0 -}}
 {{- $useAreaNames := slice -}}
 {{- range $product.use_areas -}}
-  {{- $area := index (where site.Data.software.use_areas "id" .) 0 -}}
+  {{- $area := index (where site.Data.useAreas "id" .) 0 -}}
   {{- if $area -}}
     {{- $useAreaNames = $useAreaNames | append $area.name -}}
   {{- end -}}
@@ -14,11 +15,15 @@
   "slug" $product.slug
   "name" $product.name
   "description" $product.description
-  "vendor" $product.vendor.name
-  "country" $product.vendor.country
-  "country_name" ($product.vendor.country_name | default $product.vendor.country)
-  "risk_level" $product.sovereignty.level
-  "cloud_act" $product.sovereignty.cloud_act
+  "vendor_id" $product.vendor_id
+  "vendor_name" $vendor.name
+  "vendor_country" $vendor.country
+  "vendor_country_name" ($vendor.country_name | default $vendor.country)
+  "risk_level" $product.risk_level
+  "jurisdiction_exposure" $product.hosting.jurisdiction_exposure
+  "data_residency" $product.hosting.data_residency
+  "self_hosted" $product.hosting.self_hosted
+  "open_source" $product.open_source
   "use_areas" $product.use_areas
   "use_area_names" $useAreaNames
   "url" .RelPermalink

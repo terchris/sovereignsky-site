@@ -1,0 +1,6 @@
+{{/* Page-scoped <head> injections (uncached) */}}
+{{ if or (.Params.echarts) (.HasShortcode "echart") (.HasShortcode "jurisdiction-map") }}
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+{{ end }}
+
+

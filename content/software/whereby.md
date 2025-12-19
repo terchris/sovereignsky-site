@@ -8,18 +8,19 @@ vendor_country: "NO"
 vendor_country_name: "Norway"
 risk_level: "low"
 risk_label: "Low Risk"
-cloud_act: false
-schrems_ii: false
+has_us_exposure: false
 open_source: false
 data_portability: "partial"
-date: 2025-12-18
+date: 2025-12-19
 layout: single
 type: software
 
 # Hosting options
-hosting_norway: false
-hosting_eu: true
-hosting_self: false
+self_hosted: false
+data_residency:
+  - "EU_EEA"
+jurisdiction_exposure:
+  []
 
 # Taxonomies for Hugo filtering
 risk_levels:

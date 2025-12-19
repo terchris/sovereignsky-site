@@ -1,0 +1,544 @@
+[
+  {
+    "id": "NO",
+    "slug": "norway",
+    "name": "Norway",
+    "flag": "🇳🇴",
+    "description": "Norway is not an EU member but participates in the European Economic Area (EEA), adopting EU data protection regulations including GDPR. Norwegian companies and data centers offer strong sovereignty for organizations seeking to avoid non-European jurisdiction.",
+    "eu_member": false,
+    "eea_member": true,
+    "blocs": ["eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": [
+      {
+        "id": "personopplysningsloven",
+        "name": "Personopplysningsloven",
+        "full_name": "Lov om behandling av personopplysninger (Personal Data Act)",
+        "year": 2018,
+        "summary": "Norwegian implementation of GDPR. Regulates processing of personal data and establishes Datatilsynet as the supervisory authority.",
+        "severity": "protective",
+        "url": "https://lovdata.no/dokument/NL/lov/2018-06-15-38"
+      },
+      {
+        "id": "ekomlov",
+        "name": "Ekomloven",
+        "full_name": "Lov om elektronisk kommunikasjon (Electronic Communications Act)",
+        "year": 2003,
+        "summary": "Regulates electronic communications networks and services, including data retention and lawful interception requirements.",
+        "severity": "neutral",
+        "url": "https://lovdata.no/dokument/NL/lov/2003-07-04-83"
+      },
+      {
+        "id": "sikkerhetsloven",
+        "name": "Sikkerhetsloven",
+        "full_name": "Lov om nasjonal sikkerhet (National Security Act)",
+        "year": 2019,
+        "summary": "Protects national security interests, including requirements for security clearances and protection of sensitive information.",
+        "severity": "neutral",
+        "url": "https://lovdata.no/dokument/NL/lov/2018-06-01-24"
+      }
+    ]
+  },
+  {
+    "id": "SE",
+    "slug": "sweden",
+    "name": "Sweden",
+    "flag": "🇸🇪",
+    "description": "Sweden is an EU member state with strong data protection traditions. Home to several major data centers and tech companies operating under EU law.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "DK",
+    "slug": "denmark",
+    "name": "Denmark",
+    "flag": "🇩🇰",
+    "description": "Denmark is an EU member state with robust digital infrastructure and data protection aligned with GDPR.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "FI",
+    "slug": "finland",
+    "name": "Finland",
+    "flag": "🇫🇮",
+    "description": "Finland is an EU member state known for transparency and strong rule of law. Popular location for data centers due to cold climate and renewable energy.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "DE",
+    "slug": "germany",
+    "name": "Germany",
+    "flag": "🇩🇪",
+    "description": "Germany has some of the strictest data protection interpretations in the EU. German Datenschutz (data protection) culture runs deep, with strong enforcement by state-level authorities.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": [
+      {
+        "id": "bdsg",
+        "name": "BDSG",
+        "full_name": "Bundesdatenschutzgesetz (Federal Data Protection Act)",
+        "year": 2018,
+        "summary": "German federal data protection law supplementing GDPR with additional national requirements.",
+        "severity": "protective",
+        "url": "https://www.gesetze-im-internet.de/bdsg_2018/"
+      }
+    ]
+  },
+  {
+    "id": "FR",
+    "slug": "france",
+    "name": "France",
+    "flag": "🇫🇷",
+    "description": "France is an EU member with the CNIL as one of Europe's most active data protection authorities. France has been pushing for European digital sovereignty.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "NL",
+    "slug": "netherlands",
+    "name": "Netherlands",
+    "flag": "🇳🇱",
+    "description": "Netherlands hosts major internet exchanges and data centers. EU member with strong tech sector and data protection traditions.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "PL",
+    "slug": "poland",
+    "name": "Poland",
+    "flag": "🇵🇱",
+    "description": "Poland is an EU member state with growing data center infrastructure.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "IE",
+    "slug": "ireland",
+    "name": "Ireland",
+    "flag": "🇮🇪",
+    "description": "Ireland hosts European headquarters for many US tech giants (Google, Meta, Microsoft). The Irish DPC is the lead supervisory authority for many cross-border cases, though criticized for slow enforcement.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "AT",
+    "slug": "austria",
+    "name": "Austria",
+    "flag": "🇦🇹",
+    "description": "Austria is an EU member known for privacy activism. The Schrems cases that invalidated Safe Harbor and Privacy Shield originated from Austrian privacy advocate Max Schrems.",
+    "eu_member": true,
+    "eea_member": true,
+    "blocs": ["eu", "eea"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "CH",
+    "slug": "switzerland",
+    "name": "Switzerland",
+    "flag": "🇨🇭",
+    "description": "Switzerland is not an EU/EEA member but has an EU adequacy decision. Known for banking secrecy and neutrality, with strong data protection under the revised FADP.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["adequacy"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": [
+      {
+        "id": "fadp",
+        "name": "FADP",
+        "full_name": "Federal Act on Data Protection (revised)",
+        "year": 2023,
+        "summary": "Swiss data protection law revised in 2023 to align more closely with GDPR while maintaining Swiss specifics.",
+        "severity": "protective",
+        "url": "https://www.fedlex.admin.ch/eli/cc/2022/491/en"
+      }
+    ]
+  },
+  {
+    "id": "US",
+    "slug": "usa",
+    "name": "USA",
+    "flag": "🇺🇸",
+    "description": "The United States has broad surveillance laws that grant government access to data held by US companies, regardless of where the data is stored. The CLOUD Act is particularly concerning for European organizations using US cloud providers.",
+    "eu_member": false,
+    "eea_member": false,
+    "blocs": ["five-eyes"],
+    "law_concern": true,
+    "risk_level": "high",
+    "national_laws": [
+      {
+        "id": "cloud-act",
+        "name": "CLOUD Act",
+        "full_name": "Clarifying Lawful Overseas Use of Data Act",
+        "year": 2018,
+        "summary": "US can compel US companies to hand over data regardless of where it is stored. This extraterritorial reach is a key concern for data sovereignty.",
+        "severity": "high",
+        "url": "https://www.congress.gov/bill/115th-congress/house-bill/4943"
+      },
+      {
+        "id": "fisa-702",
+        "name": "FISA Section 702",
+        "full_name": "Foreign Intelligence Surveillance Act Section 702",
+        "year": 2008,
+        "summary": "Allows surveillance of non-US persons located outside the US for foreign intelligence purposes. EU citizens have limited legal protections.",
+        "severity": "high",
+        "url": "https://www.congress.gov/bill/110th-congress/house-bill/6304"
+      },
+      {
+        "id": "patriot-act",
+        "name": "Patriot Act",
+        "full_name": "Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism Act",
+        "year": 2001,
+        "summary": "Broad access to records for national security investigations, including Section 215 bulk data collection.",
+        "severity": "high",
+        "url": "https://www.congress.gov/bill/107th-congress/house-bill/3162"
+      },
+      {
+        "id": "ecpa",
+        "name": "ECPA",
+        "full_name": "Electronic Communications Privacy Act",
+        "year": 1986,
+        "summary": "Government access to electronic communications and stored data with various warrant requirements.",
+        "severity": "medium",
+        "url": "https://www.congress.gov/bill/99th-congress/house-bill/4952"
+      }
+    ]
+  },
+  {
+    "id": "GB",
+    "slug": "united-kingdom",
+    "name": "United Kingdom",
+    "flag": "🇬🇧",
+    "description": "Post-Brexit, the UK has an EU adequacy decision but maintains broad surveillance powers under the Investigatory Powers Act. A Five Eyes member with extensive intelligence-sharing arrangements.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["five-eyes", "adequacy"],
+    "law_concern": true,
+    "risk_level": "elevated",
+    "national_laws": [
+      {
+        "id": "investigatory-powers-act",
+        "name": "Investigatory Powers Act",
+        "full_name": "Investigatory Powers Act 2016 (Snoopers' Charter)",
+        "year": 2016,
+        "summary": "Broad surveillance powers including bulk data collection, equipment interference, and communications interception. Requires ISPs to retain browsing history.",
+        "severity": "high",
+        "url": "https://www.legislation.gov.uk/ukpga/2016/25/contents"
+      },
+      {
+        "id": "national-security-act",
+        "name": "National Security Act",
+        "full_name": "National Security Act 2023",
+        "year": 2023,
+        "summary": "Powers to address foreign interference, espionage and state threats.",
+        "severity": "medium",
+        "url": "https://www.legislation.gov.uk/ukpga/2023/32/contents"
+      },
+      {
+        "id": "uk-gdpr",
+        "name": "UK GDPR",
+        "full_name": "UK General Data Protection Regulation",
+        "year": 2021,
+        "summary": "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR.",
+        "severity": "protective",
+        "url": "https://www.legislation.gov.uk/eur/2016/679/contents"
+      }
+    ]
+  },
+  {
+    "id": "CN",
+    "slug": "china",
+    "name": "China",
+    "flag": "🇨🇳",
+    "description": "China requires organizations and citizens to cooperate with national intelligence work. Data localization requirements and strict cross-border transfer rules make it difficult to use Chinese services while maintaining data sovereignty.",
+    "eu_member": false,
+    "eea_member": false,
+    "blocs": [],
+    "law_concern": true,
+    "risk_level": "high",
+    "national_laws": [
+      {
+        "id": "national-intelligence-law",
+        "name": "National Intelligence Law",
+        "full_name": "National Intelligence Law of the People's Republic of China",
+        "year": 2017,
+        "summary": "Organizations and citizens must support, assist and cooperate with national intelligence work. This creates backdoor access concerns for any Chinese software.",
+        "severity": "high",
+        "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/"
+      },
+      {
+        "id": "cybersecurity-law",
+        "name": "Cybersecurity Law",
+        "full_name": "Cybersecurity Law of the People's Republic of China",
+        "year": 2017,
+        "summary": "Data localization requirements, security reviews, and network operator obligations for critical infrastructure.",
+        "severity": "high",
+        "url": "https://www.chinalawtranslate.com/en/cybersecuritylaw/"
+      },
+      {
+        "id": "data-security-law",
+        "name": "Data Security Law",
+        "full_name": "Data Security Law of the People's Republic of China",
+        "year": 2021,
+        "summary": "Data classification system, cross-border transfer restrictions, and government access for national security.",
+        "severity": "high",
+        "url": "https://www.chinalawtranslate.com/en/datasecuritylaw/"
+      },
+      {
+        "id": "pipl",
+        "name": "PIPL",
+        "full_name": "Personal Information Protection Law",
+        "year": 2021,
+        "summary": "China's comprehensive personal data protection law with strict cross-border transfer requirements.",
+        "severity": "medium",
+        "url": "https://www.chinalawtranslate.com/en/pipl/"
+      }
+    ]
+  },
+  {
+    "id": "RU",
+    "slug": "russia",
+    "name": "Russia",
+    "flag": "🇷🇺",
+    "description": "Russia is subject to international sanctions following the 2022 invasion of Ukraine. Data localization laws require Russian citizen data to be stored in Russia, and SORM requires surveillance backdoors.",
+    "eu_member": false,
+    "eea_member": false,
+    "blocs": [],
+    "law_concern": true,
+    "sanctions": true,
+    "risk_level": "sanctioned",
+    "national_laws": [
+      {
+        "id": "yarovaya-law",
+        "name": "Yarovaya Law",
+        "full_name": "Yarovaya Law (Federal Law No. 374-FZ)",
+        "year": 2016,
+        "summary": "Mandatory data retention for 6 months, decryption assistance requirements for authorities.",
+        "severity": "high",
+        "url": "https://www.loc.gov/item/global-legal-monitor/2016-07-26/russia-new-anti-terrorism-law/"
+      },
+      {
+        "id": "data-localization-law",
+        "name": "Data Localization Law",
+        "full_name": "Federal Law No. 242-FZ on Personal Data Localization",
+        "year": 2015,
+        "summary": "Personal data of Russian citizens must be stored on servers physically located in Russia.",
+        "severity": "high",
+        "url": "https://www.loc.gov/item/global-legal-monitor/2014-12-15/russia-new-law-requires-local-storage-of-personal-data/"
+      },
+      {
+        "id": "sorm",
+        "name": "SORM",
+        "full_name": "System for Operative Investigative Activities",
+        "year": 1995,
+        "summary": "Mandatory surveillance backdoors in all telecommunications equipment for FSB access.",
+        "severity": "high",
+        "url": "https://www.eff.org/deeplinks/2012/10/russias-sorm-surveillance"
+      }
+    ]
+  },
+  {
+    "id": "IL",
+    "slug": "israel",
+    "name": "Israel",
+    "flag": "🇮🇱",
+    "description": "Israel has an EU adequacy decision for certain sectors. Known for advanced cybersecurity industry but also surveillance technology exports.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["adequacy"],
+    "law_concern": false,
+    "political_concern": true,
+    "risk_level": "moderate",
+    "national_laws": []
+  },
+  {
+    "id": "IN",
+    "slug": "india",
+    "name": "India",
+    "flag": "🇮🇳",
+    "description": "India has broad government surveillance powers under the IT Act. The new DPDP Act provides some protection but with significant government exemptions.",
+    "eu_member": false,
+    "eea_member": false,
+    "blocs": [],
+    "law_concern": true,
+    "risk_level": "elevated",
+    "national_laws": [
+      {
+        "id": "it-act-2000",
+        "name": "IT Act",
+        "full_name": "Information Technology Act 2000",
+        "year": 2000,
+        "summary": "Government can intercept, monitor and decrypt any computer resource in the interest of national security.",
+        "severity": "high",
+        "url": "https://www.meity.gov.in/content/information-technology-act-2000"
+      },
+      {
+        "id": "dpdp-act",
+        "name": "DPDP Act",
+        "full_name": "Digital Personal Data Protection Act 2023",
+        "year": 2023,
+        "summary": "Personal data protection with broad government exemptions for national security.",
+        "severity": "medium",
+        "url": "https://www.meity.gov.in/data-protection-framework"
+      }
+    ]
+  },
+  {
+    "id": "AU",
+    "slug": "australia",
+    "name": "Australia",
+    "flag": "🇦🇺",
+    "description": "Australia is a Five Eyes member with the controversial TOLA Act allowing authorities to compel companies to build backdoors and assist in decryption.",
+    "eu_member": false,
+    "eea_member": false,
+    "blocs": ["five-eyes"],
+    "law_concern": true,
+    "risk_level": "elevated",
+    "national_laws": [
+      {
+        "id": "tola-act",
+        "name": "TOLA Act",
+        "full_name": "Telecommunications and Other Legislation Amendment (Assistance and Access) Act 2018",
+        "year": 2018,
+        "summary": "Can compel companies to build backdoors and assist in decryption, with secrecy requirements preventing disclosure.",
+        "severity": "high",
+        "url": "https://www.legislation.gov.au/Details/C2018A00148"
+      }
+    ]
+  },
+  {
+    "id": "CA",
+    "slug": "canada",
+    "name": "Canada",
+    "flag": "🇨🇦",
+    "description": "Canada has an EU adequacy decision and PIPEDA provides reasonable data protection. However, as a Five Eyes member, there are intelligence-sharing concerns.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["five-eyes", "adequacy"],
+    "law_concern": false,
+    "risk_level": "moderate",
+    "national_laws": [
+      {
+        "id": "pipeda",
+        "name": "PIPEDA",
+        "full_name": "Personal Information Protection and Electronic Documents Act",
+        "year": 2000,
+        "summary": "Canadian federal privacy law for private sector organizations. Provides fair information principles.",
+        "severity": "protective",
+        "url": "https://laws-lois.justice.gc.ca/eng/acts/p-8.6/"
+      }
+    ]
+  },
+  {
+    "id": "JP",
+    "slug": "japan",
+    "name": "Japan",
+    "flag": "🇯🇵",
+    "description": "Japan has an EU adequacy decision since 2019 and the APPI provides comprehensive data protection aligned with international standards.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["adequacy"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": [
+      {
+        "id": "appi",
+        "name": "APPI",
+        "full_name": "Act on the Protection of Personal Information",
+        "year": 2003,
+        "summary": "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR.",
+        "severity": "protective",
+        "url": "https://www.ppc.go.jp/en/legal/"
+      }
+    ]
+  },
+  {
+    "id": "KR",
+    "slug": "south-korea",
+    "name": "South Korea",
+    "flag": "🇰🇷",
+    "description": "South Korea has an EU adequacy decision since 2022 and PIPA provides strong data protection with active enforcement.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["adequacy"],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": [
+      {
+        "id": "pipa",
+        "name": "PIPA",
+        "full_name": "Personal Information Protection Act",
+        "year": 2011,
+        "summary": "Comprehensive Korean data protection law with strong enforcement and individual rights.",
+        "severity": "protective",
+        "url": "https://www.pipc.go.kr/eng/index.do"
+      }
+    ]
+  },
+  {
+    "id": "NZ",
+    "slug": "new-zealand",
+    "name": "New Zealand",
+    "flag": "🇳🇿",
+    "description": "New Zealand has an EU adequacy decision and the Privacy Act 2020. However, as a Five Eyes member, there are intelligence-sharing considerations.",
+    "eu_member": false,
+    "eea_member": false,
+    "adequacy_decision": true,
+    "blocs": ["five-eyes", "adequacy"],
+    "law_concern": false,
+    "risk_level": "moderate",
+    "national_laws": [
+      {
+        "id": "privacy-act-2020",
+        "name": "Privacy Act 2020",
+        "full_name": "Privacy Act 2020",
+        "year": 2020,
+        "summary": "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement.",
+        "severity": "protective",
+        "url": "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html"
+      }
+    ]
+  }
+]

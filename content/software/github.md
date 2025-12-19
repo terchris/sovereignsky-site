@@ -8,18 +8,21 @@ vendor_country: "US"
 vendor_country_name: "USA"
 risk_level: "elevated"
 risk_label: "Elevated Risk"
-cloud_act: true
-schrems_ii: true
+has_us_exposure: true
 open_source: false
 data_portability: "full"
-date: 2025-12-18
+date: 2025-12-19
 layout: single
 type: software
 
 # Hosting options
-hosting_norway: false
-hosting_eu: true
-hosting_self: false
+self_hosted: false
+data_residency:
+  - "NL"
+  - "SE"
+  - "EU_EEA"
+jurisdiction_exposure:
+  - "US"
 
 # Taxonomies for Hugo filtering
 risk_levels:

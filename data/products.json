@@ -5,13 +5,17 @@
       "slug": "teams",
       "name": "Microsoft Teams",
       "description": "Collaboration platform with chat, video and file sharing, part of Microsoft 365",
-      "use_areas": ["communication", "collaboration"],
       "vendor_id": "microsoft",
+      "use_areas": ["communication", "collaboration"],
+
+      "risk_level": "elevated",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 2.24,
+          "risk_level": "elevated",
           "scores": {
             "strategic": { "score": 3, "rationale": "US headquarters, publicly traded company with global dominance" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act. EU Data Boundary does not reduce legal exposure." },
@@ -54,9 +58,10 @@
       "alternatives": ["pexip", "whereby", "element"],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "SaaS on Azure. EU Data Boundary available but does not reduce CLOUD Act exposure."
       },
 
       "open_source": false,
@@ -75,13 +80,17 @@
       "slug": "pexip",
       "name": "Pexip",
       "description": "Norwegian video conferencing solution with self-hosting capability and interoperability",
-      "use_areas": ["communication"],
       "vendor_id": "pexip",
+      "use_areas": ["communication"],
+
+      "risk_level": "low",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 0.65,
+          "risk_level": "low",
           "scores": {
             "strategic": { "score": 0, "rationale": "Norwegian headquarters, Norwegian ownership" },
             "legal": { "score": 0, "rationale": "Subject to Norwegian law, not CLOUD Act" },
@@ -107,9 +116,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": true
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Can be fully self-hosted in Norway. Cloud option also available with Norwegian/EU hosting."
       },
 
       "open_source": false,
@@ -125,13 +135,17 @@
       "slug": "salesforce",
       "name": "Salesforce",
       "description": "World's leading CRM platform for sales, service and marketing",
-      "use_areas": ["sales"],
       "vendor_id": "salesforce",
+      "use_areas": ["sales"],
+
+      "risk_level": "significant",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 2.68,
+          "risk_level": "significant",
           "scores": {
             "strategic": { "score": 3, "rationale": "US headquarters, dominant market position" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act, extensive data collection" },
@@ -173,9 +187,10 @@
       "alternatives": ["superoffice"],
 
       "hosting": {
-        "norway": false,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. Hyperforce offers EU data residency but US jurisdiction still applies."
       },
 
       "open_source": false,
@@ -191,13 +206,17 @@
       "slug": "superoffice",
       "name": "SuperOffice",
       "description": "Scandinavian CRM solution focused on user-friendliness and European data storage",
-      "use_areas": ["sales"],
       "vendor_id": "superoffice",
+      "use_areas": ["sales"],
+
+      "risk_level": "low",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 0.81,
+          "risk_level": "low",
           "scores": {
             "strategic": { "score": 0, "rationale": "Norwegian company with Scandinavian focus" },
             "legal": { "score": 0, "rationale": "Subject to Norwegian/EU law" },
@@ -223,9 +242,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": true
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "On-premise option available. SaaS hosted in EU with no US jurisdiction exposure."
       },
 
       "open_source": false,
@@ -241,13 +261,17 @@
       "slug": "tripletex",
       "name": "Tripletex",
       "description": "Norwegian cloud-based accounting system for SMB with automation and integrations",
-      "use_areas": ["finance"],
       "vendor_id": "tripletex",
+      "use_areas": ["finance"],
+
+      "risk_level": "low",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 0.54,
+          "risk_level": "low",
           "scores": {
             "strategic": { "score": 0, "rationale": "Norwegian company, part of Visma group" },
             "legal": { "score": 0, "rationale": "Subject to Norwegian law" },
@@ -273,9 +297,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Cloud-only but fully Norwegian hosted. Part of Visma group."
       },
 
       "open_source": false,
@@ -291,13 +316,17 @@
       "slug": "slack",
       "name": "Slack",
       "description": "Team messaging platform with channels, integrations and search",
-      "use_areas": ["communication", "collaboration"],
       "vendor_id": "salesforce",
+      "use_areas": ["communication", "collaboration"],
+
+      "risk_level": "elevated",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 2.35,
+          "risk_level": "elevated",
           "scores": {
             "strategic": { "score": 3, "rationale": "Owned by Salesforce (US), previously independent" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act via Salesforce" },
@@ -338,9 +367,10 @@
       "alternatives": ["element"],
 
       "hosting": {
-        "norway": false,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data residency available but US jurisdiction applies via Salesforce."
       },
 
       "open_source": false,
@@ -356,17 +386,21 @@
       "slug": "github",
       "name": "GitHub",
       "description": "World's largest platform for code hosting, version control and developer collaboration",
-      "use_areas": ["dev"],
       "vendor_id": "microsoft",
+      "use_areas": ["dev"],
+
+      "risk_level": "elevated",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 2.41,
+          "risk_level": "elevated",
           "scores": {
             "strategic": { "score": 3, "rationale": "Owned by Microsoft since 2018" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act via Microsoft" },
-            "data": { "score": 2, "rationale": "EU data residency in beta" },
+            "data": { "score": 2, "rationale": "EU data residency GA since Oct 2024 (Azure NL/SE). Requires Enterprise Cloud with dedicated account rep." },
             "operational": { "score": 2, "rationale": "Cloud-only, but git is distributed" },
             "supply_chain": { "score": 2, "rationale": "Part of Microsoft, Azure Actions" },
             "technology": { "score": 1, "rationale": "Git is open standard, easy migration" },
@@ -386,11 +420,12 @@
 
       "mitigations": [
         {
-          "title": "Use GitHub Enterprise with EU residency",
-          "description": "Select EU data residency for better control",
+          "title": "Use GitHub Enterprise Cloud with EU data residency",
+          "description": "Store code in Azure Netherlands/Sweden regions. GA since Oct 2024. Requires dedicated account representative.",
           "effort": "medium",
-          "impact": "medium",
-          "requires_license": "GitHub Enterprise Cloud"
+          "impact": "high",
+          "requires_license": "GitHub Enterprise Cloud",
+          "url": "https://github.com/enterprise/data-residency"
         },
         {
           "title": "Self-hosted runners",
@@ -403,16 +438,21 @@
       "alternatives": ["gitlab"],
 
       "hosting": {
-        "norway": false,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["NL", "SE", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data residency GA since Oct 2024 on Azure (Netherlands/Sweden). Requires Enterprise Cloud with dedicated account rep. US jurisdiction still applies via Microsoft ownership."
       },
 
       "open_source": false,
       "data_portability": "full",
 
       "meta": {
-        "sources": ["https://github.com/security", "https://docs.github.com/en/enterprise-cloud@latest/admin/overview/about-data-residency"]
+        "sources": [
+          "https://github.com/security",
+          "https://github.com/enterprise/data-residency",
+          "https://github.blog/changelog/2024-10-29-github-enterprise-cloud-data-residency-in-the-eu-is-generally-available/"
+        ]
       }
     },
 
@@ -421,13 +461,17 @@
       "slug": "gitlab",
       "name": "GitLab",
       "description": "Complete DevOps platform with code hosting, CI/CD and security scanning",
-      "use_areas": ["dev"],
       "vendor_id": "gitlab",
+      "use_areas": ["dev"],
+
+      "risk_level": "moderate",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 1.78,
+          "risk_level": "moderate",
           "scores": {
             "strategic": { "score": 2, "rationale": "US headquarters, publicly traded" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
@@ -460,9 +504,10 @@
       "alternatives": ["github"],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": true
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Self-managed option eliminates US jurisdiction. SaaS version has US exposure."
       },
 
       "open_source": true,
@@ -478,13 +523,17 @@
       "slug": "whereby",
       "name": "Whereby",
       "description": "Norwegian video conferencing solution focused on simplicity and user-friendliness",
-      "use_areas": ["communication"],
       "vendor_id": "whereby",
+      "use_areas": ["communication"],
+
+      "risk_level": "low",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 0.76,
+          "risk_level": "low",
           "scores": {
             "strategic": { "score": 0, "rationale": "Norwegian company, spinoff from Telenor" },
             "legal": { "score": 0, "rationale": "Subject to Norwegian law" },
@@ -510,9 +559,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": false,
-        "eu": true,
-        "self_hosted": false
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Cloud-only. Norwegian company with EU hosting. No US jurisdiction exposure."
       },
 
       "open_source": false,
@@ -528,13 +578,17 @@
       "slug": "jira",
       "name": "Jira",
       "description": "Atlassian's project management tool for agile teams and software development",
-      "use_areas": ["project"],
       "vendor_id": "atlassian",
+      "use_areas": ["project"],
+
+      "risk_level": "elevated",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 2.16,
+          "risk_level": "elevated",
           "scores": {
             "strategic": { "score": 2, "rationale": "US-incorporated, Australian origin" },
             "legal": { "score": 3, "rationale": "Subject to CLOUD Act as US company" },
@@ -575,9 +629,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": true
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Data Center option for self-hosting. Cloud version has US jurisdiction via Atlassian."
       },
 
       "open_source": false,
@@ -593,13 +648,17 @@
       "slug": "element",
       "name": "Element/Matrix",
       "description": "Open source communication platform based on the Matrix protocol",
-      "use_areas": ["communication"],
       "vendor_id": "element",
+      "use_areas": ["communication"],
+
+      "risk_level": "low",
 
       "assessments": {
         "ndsi": {
           "version": "1.0",
           "date": "2025-12-01",
+          "score": 0.89,
+          "risk_level": "low",
           "scores": {
             "strategic": { "score": 1, "rationale": "UK company, open source" },
             "legal": { "score": 1, "rationale": "UK with EU adequacy, can be self-hosted" },
@@ -626,9 +685,10 @@
       "alternatives": [],
 
       "hosting": {
-        "norway": true,
-        "eu": true,
-        "self_hosted": true
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Fully self-hosted option. Open source, federated protocol. UK vendor but self-hosting eliminates jurisdiction concerns."
       },
 
       "open_source": true,
@@ -636,6 +696,1951 @@
 
       "meta": {
         "sources": ["https://element.io/security", "https://matrix.org"]
+      }
+    },
+
+    {
+      "id": "visma-business",
+      "slug": "visma-business",
+      "name": "Visma Business",
+      "description": "Norwegian ERP and accounting solution for medium to large enterprises with comprehensive business management",
+      "vendor_id": "visma",
+      "use_areas": ["finance"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.72,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, European market leader" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian/EU law, no foreign jurisdiction" },
+            "data": { "score": 1, "rationale": "Data centers in Norway, Sweden, Netherlands. Uses AWS/Azure/GCP with EU guarantees" },
+            "operational": { "score": 1, "rationale": "Cloud-based, but Norwegian operations" },
+            "supply_chain": { "score": 2, "rationale": "Uses major cloud providers (AWS, Azure, GCP)" },
+            "technology": { "score": 1, "rationale": "Standard export formats, API available" },
+            "security": { "score": 1, "rationale": "ISO 27001, ISAE 3402 Type II certified via VCDM" },
+            "environment": { "score": 1, "rationale": "Nordic data centers with renewable energy" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, financial data stays in EU/EEA" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Oslo, extensive Norwegian support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Cloud dependency on US hyperscalers (AWS, Azure, GCP)",
+        "Complex pricing for full feature set"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["tripletex", "poweroffice-go"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "SE", "NL", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Cloud-based. Data centers in Norway, Sweden, and Netherlands. Part of Visma Cloud Delivery Model (VCDM) with ISO 27001 and ISAE 3402."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://www.visma.com/trust-centre",
+          "https://www.visma.com/trust-centre/certifications-and-audits"
+        ]
+      }
+    },
+
+    {
+      "id": "poweroffice-go",
+      "slug": "poweroffice-go",
+      "name": "PowerOffice Go",
+      "description": "Norwegian cloud accounting software ranked #1 in customer satisfaction, designed for SMEs and accounting firms",
+      "vendor_id": "poweroffice",
+      "use_areas": ["finance"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.68,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company (part of Visma group), based in Bodø" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law" },
+            "data": { "score": 1, "rationale": "Data centers with ISO 27001/27017/27018 certification" },
+            "operational": { "score": 1, "rationale": "Cloud-only, Norwegian operations" },
+            "supply_chain": { "score": 1, "rationale": "Part of Visma ecosystem" },
+            "technology": { "score": 1, "rationale": "SAF-T compliant, standard export formats" },
+            "security": { "score": 1, "rationale": "ISO 27001, 27017, 27018, 22301 certified data centers" },
+            "environment": { "score": 1, "rationale": "European infrastructure" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, accounting data in EU" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Bodø, strong Norwegian presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Cloud-only (no on-premise option)",
+        "Part of Visma group (potential consolidation risk)"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["tripletex", "visma-business"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Cloud-only. ISO 27001/27017/27018 certified data centers. SAF-T compliant for Norwegian tax reporting."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://support.poweroffice.com/hc/no/articles/4419291538577-Teknisk-beskrivelse-av-programvaren-PowerOffice-Go",
+          "https://www.regnskapnorge.no/faget/artikler/teknologi2/hvem-har-regnskapsbransjens-mest-fornoyde-kunder/"
+        ]
+      }
+    },
+
+    {
+      "id": "simployer",
+      "slug": "simployer",
+      "name": "Simployer HRM",
+      "description": "Norwegian HR management system serving 1.2 million users, covering employee data, payroll, absence, and compliance",
+      "vendor_id": "simployer",
+      "use_areas": ["hr"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.81,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company since 1985, owned by Ferd (Norwegian)" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, GDPR by design" },
+            "data": { "score": 1, "rationale": "Azure/GCP/AWS data centers in EU only (NL, IE, NO, DE)" },
+            "operational": { "score": 1, "rationale": "Cloud-based, audited by PwC" },
+            "supply_chain": { "score": 2, "rationale": "Uses Azure, GCP, AWS - all with EU guarantees" },
+            "technology": { "score": 1, "rationale": "Modern HR platform, API available" },
+            "security": { "score": 1, "rationale": "SSL encryption, PwC audited, role-based access" },
+            "environment": { "score": 1, "rationale": "EU data centers" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, HR data in EU/EEA only" },
+            "local_presence": { "score": 0, "rationale": "350 employees, offices in Norway, Sweden, Denmark" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Relies on US hyperscalers (Azure, AWS, GCP) with EU regions",
+        "Cloud-only solution"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Verify data center location",
+          "description": "Confirm your instance uses EU data centers (NL, IE, NO, or DE)",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["zalaris"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "NL", "IE", "DE", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Cloud-only. Uses Azure (NL, IE, NO), GCP (EU), and AWS (Frankfurt). Guarantees no hosting outside EU/EEA."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.simployer.com/support/documentation/simployer-trust-center",
+          "https://www.simployer.com/support/documentation/simployer-trust-center/security-and-it/it-security-policy/hosting-partners",
+          "https://www.simployer.com/about"
+        ]
+      }
+    },
+
+    {
+      "id": "zalaris",
+      "slug": "zalaris",
+      "name": "Zalaris HR & Payroll",
+      "description": "Norwegian HR and payroll outsourcing serving 1.5+ million employees monthly across Europe and Asia Pacific",
+      "vendor_id": "zalaris",
+      "use_areas": ["hr"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.86,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company (Oslo Stock Exchange: ZAL), founded 2000" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, GDPR compliant" },
+            "data": { "score": 1, "rationale": "Secure payroll systems with encryption" },
+            "operational": { "score": 1, "rationale": "Service centers in Norway (Oslo, Stavanger, Lødingen, Notodden)" },
+            "supply_chain": { "score": 2, "rationale": "Partners with SAP, Oracle, Workday" },
+            "technology": { "score": 1, "rationale": "Multi-platform support, standard integrations" },
+            "security": { "score": 1, "rationale": "Encryption, firewalls, access controls, GDPR compliant" },
+            "environment": { "score": 1, "rationale": "Norwegian operations" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, payroll data handled locally" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Oslo, multiple Norwegian offices" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Outsourcing model means third-party handles sensitive payroll data",
+        "International operations may involve data transfer"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Specify Norwegian processing",
+          "description": "Ensure contract specifies data processing in Norwegian service centers",
+          "effort": "low",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["simployer"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Managed service/outsourcing model. Norwegian service centers in Oslo, Stavanger, Lødingen, Notodden."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://zalaris.com/country/norway/",
+          "https://en.wikipedia.org/wiki/Zalaris"
+        ]
+      }
+    },
+
+    {
+      "id": "microsoft-365",
+      "slug": "microsoft-365",
+      "name": "Microsoft 365",
+      "description": "Cloud-based productivity suite including Word, Excel, PowerPoint, Outlook and collaboration tools",
+      "vendor_id": "microsoft",
+      "use_areas": ["office", "collaboration"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.18,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US headquarters, dominant market position globally" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act. EU Data Boundary available but legal exposure remains" },
+            "data": { "score": 2, "rationale": "Norway datacenter regions available. Customer Key encryption option" },
+            "operational": { "score": 2, "rationale": "Cloud-only for most features, Microsoft infrastructure required" },
+            "supply_chain": { "score": 2, "rationale": "Dependent on Azure infrastructure" },
+            "technology": { "score": 3, "rationale": "Proprietary formats, strong ecosystem lock-in" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 2, extensive security features" },
+            "environment": { "score": 1, "rationale": "Microsoft carbon-negative commitment" },
+            "national_security": { "score": 2, "rationale": "Widely used in Norwegian public/private sector" },
+            "local_presence": { "score": 1, "rationale": "Norway datacenter, strong partner network" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act despite EU Data Boundary",
+        "Strong vendor lock-in to Microsoft ecosystem",
+        "Dominant position creates strategic dependency"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable EU Data Boundary",
+          "description": "Configure to store and process data within EU/EEA using Norway datacenter",
+          "effort": "low",
+          "impact": "medium",
+          "url": "https://learn.microsoft.com/en-us/privacy/eudb/eu-data-boundary-learn"
+        },
+        {
+          "title": "Implement Customer Key",
+          "description": "Use your own encryption keys via Azure Key Vault",
+          "effort": "high",
+          "impact": "medium",
+          "requires_license": "Microsoft 365 E5",
+          "url": "https://learn.microsoft.com/en-us/purview/customer-key-overview"
+        },
+        {
+          "title": "Use Open Document Formats",
+          "description": "Save documents in ODF format to reduce lock-in",
+          "effort": "low",
+          "impact": "low"
+        }
+      ],
+
+      "alternatives": ["collabora-online", "nextcloud"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "SaaS on Azure with Norway datacenter option. EU Data Boundary available but does not eliminate CLOUD Act exposure."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.microsoft.com/en-us/trust-center",
+          "https://azure.microsoft.com/en-us/blog/microsoft-cloud-in-norway-opens-with-availability-of-microsoft-azure/"
+        ]
+      }
+    },
+
+    {
+      "id": "sharepoint",
+      "slug": "sharepoint",
+      "name": "SharePoint Online",
+      "description": "Document management and collaboration platform integrated with Microsoft 365",
+      "vendor_id": "microsoft",
+      "use_areas": ["collaboration", "storage"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.21,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US headquarters, central to Microsoft 365 ecosystem" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "Norway datacenter available, Customer Key supported" },
+            "operational": { "score": 2, "rationale": "Requires Microsoft 365 subscription" },
+            "supply_chain": { "score": 2, "rationale": "Part of Microsoft/Azure infrastructure" },
+            "technology": { "score": 3, "rationale": "Deep integration with Microsoft ecosystem" },
+            "security": { "score": 1, "rationale": "Enterprise security features, ISO 27001" },
+            "environment": { "score": 1, "rationale": "Microsoft sustainability commitments" },
+            "national_security": { "score": 2, "rationale": "Widely used for document management in Norway" },
+            "local_presence": { "score": 1, "rationale": "Norway datacenter, local partners" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Tightly coupled with Microsoft 365",
+        "Migration complexity"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable Information Barriers",
+          "description": "Control document access and sharing policies",
+          "effort": "medium",
+          "impact": "medium"
+        },
+        {
+          "title": "Use Sensitivity Labels",
+          "description": "Classify and protect sensitive documents",
+          "effort": "medium",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["nextcloud"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Part of Microsoft 365. Norway datacenter available but US jurisdiction applies."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": ["https://www.microsoft.com/en-us/trust-center"]
+      }
+    },
+
+    {
+      "id": "onedrive",
+      "slug": "onedrive",
+      "name": "OneDrive for Business",
+      "description": "Cloud file storage and synchronization service integrated with Microsoft 365",
+      "vendor_id": "microsoft",
+      "use_areas": ["storage"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.15,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, dominant market position" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "Norway datacenter, encryption options" },
+            "operational": { "score": 2, "rationale": "Requires Microsoft 365" },
+            "supply_chain": { "score": 2, "rationale": "Azure infrastructure" },
+            "technology": { "score": 2, "rationale": "Standard sync protocols, some lock-in" },
+            "security": { "score": 1, "rationale": "Strong security, ransomware protection" },
+            "environment": { "score": 1, "rationale": "Microsoft carbon commitment" },
+            "national_security": { "score": 2, "rationale": "Common in Norwegian organizations" },
+            "local_presence": { "score": 1, "rationale": "Norway datacenter available" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Part of Microsoft ecosystem"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable Personal Vault",
+          "description": "Use extra protection for sensitive files",
+          "effort": "low",
+          "impact": "low"
+        }
+      ],
+
+      "alternatives": ["jottacloud", "nextcloud"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Part of Microsoft 365. Norway datacenter option available."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.microsoft.com/en-us/trust-center"]
+      }
+    },
+
+    {
+      "id": "azure",
+      "slug": "azure",
+      "name": "Microsoft Azure",
+      "description": "Cloud computing platform offering IaaS, PaaS and SaaS services with Norway datacenter regions",
+      "vendor_id": "microsoft",
+      "use_areas": ["storage", "dev"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.08,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, second largest cloud provider globally" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 1, "rationale": "Norway East/West regions, data residency guarantees" },
+            "operational": { "score": 2, "rationale": "High availability, but dependent on Microsoft" },
+            "supply_chain": { "score": 2, "rationale": "Microsoft controlled infrastructure" },
+            "technology": { "score": 2, "rationale": "Industry standard APIs, some proprietary services" },
+            "security": { "score": 1, "rationale": "Extensive compliance certifications" },
+            "environment": { "score": 1, "rationale": "100% renewable energy commitment" },
+            "national_security": { "score": 2, "rationale": "Used by DNB, Equinor, Norwegian public sector" },
+            "local_presence": { "score": 1, "rationale": "Norway datacenters since 2019, local support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Strategic dependency on US provider",
+        "Complex compliance landscape"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Norway regions exclusively",
+          "description": "Configure all resources to use Norway East/West regions",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "title": "Implement Customer Lockbox",
+          "description": "Require approval for Microsoft support access",
+          "effort": "medium",
+          "impact": "medium"
+        },
+        {
+          "title": "Use Customer-Managed Keys",
+          "description": "Maintain control over encryption keys",
+          "effort": "high",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["aws"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Norway East and Norway West datacenter regions available. First hyperscaler with Norwegian presence."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://azure.microsoft.com/en-us/explore/trusted-cloud/",
+          "https://azure.microsoft.com/en-us/blog/microsoft-cloud-in-norway-opens-with-availability-of-microsoft-azure/"
+        ]
+      }
+    },
+
+    {
+      "id": "google-workspace",
+      "slug": "google-workspace",
+      "name": "Google Workspace",
+      "description": "Cloud productivity and collaboration suite including Gmail, Drive, Docs, Meet and more",
+      "vendor_id": "google",
+      "use_areas": ["office", "collaboration", "communication"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.32,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, dominant in consumer market, growing in enterprise" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act and FISA" },
+            "data": { "score": 2, "rationale": "EU data regions available, encryption at rest" },
+            "operational": { "score": 2, "rationale": "Cloud-only, Google infrastructure" },
+            "supply_chain": { "score": 2, "rationale": "Google Cloud infrastructure" },
+            "technology": { "score": 2, "rationale": "Web-based, good export options" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 2, strong security" },
+            "environment": { "score": 1, "rationale": "Carbon neutral since 2007" },
+            "national_security": { "score": 3, "rationale": "US jurisdiction, data used for AI training concerns" },
+            "local_presence": { "score": 2, "rationale": "No Norway datacenter, EU regions available" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act and FISA",
+        "Data may be used for AI/advertising purposes",
+        "No Norwegian datacenter"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Select EU data region",
+          "description": "Configure data storage to EU regions",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "title": "Enable Client-side encryption",
+          "description": "Encrypt sensitive data before it reaches Google servers",
+          "effort": "high",
+          "impact": "high",
+          "requires_license": "Enterprise Plus"
+        }
+      ],
+
+      "alternatives": ["microsoft-365", "collabora-online"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data regions available. No Norwegian datacenter."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://workspace.google.com/security/"]
+      }
+    },
+
+    {
+      "id": "google-drive",
+      "slug": "google-drive",
+      "name": "Google Drive",
+      "description": "Cloud file storage and synchronization service integrated with Google Workspace",
+      "vendor_id": "google",
+      "use_areas": ["storage"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.28,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data regions, encryption" },
+            "operational": { "score": 2, "rationale": "Cloud-only" },
+            "supply_chain": { "score": 2, "rationale": "Google infrastructure" },
+            "technology": { "score": 2, "rationale": "Good export, standard formats" },
+            "security": { "score": 1, "rationale": "Strong security controls" },
+            "environment": { "score": 1, "rationale": "Carbon neutral operations" },
+            "national_security": { "score": 3, "rationale": "US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "No Norwegian datacenter" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "No Norwegian datacenter"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["onedrive", "jottacloud", "nextcloud"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Part of Google Workspace. EU data regions available."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://workspace.google.com/security/"]
+      }
+    },
+
+    {
+      "id": "aws",
+      "slug": "aws",
+      "name": "Amazon Web Services (AWS)",
+      "description": "Leading cloud computing platform offering comprehensive infrastructure and services",
+      "vendor_id": "amazon",
+      "use_areas": ["storage", "dev"],
+
+      "risk_level": "significant",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.52,
+          "risk_level": "significant",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, largest cloud provider globally (29% market share)" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "Stockholm region, no Norway datacenter yet" },
+            "operational": { "score": 2, "rationale": "High availability, dependent on Amazon" },
+            "supply_chain": { "score": 2, "rationale": "Amazon controlled, some open source" },
+            "technology": { "score": 2, "rationale": "Industry standard, but proprietary services" },
+            "security": { "score": 1, "rationale": "Extensive compliance certifications" },
+            "environment": { "score": 2, "rationale": "Renewable energy commitments, but behind Microsoft" },
+            "national_security": { "score": 3, "rationale": "US jurisdiction, growing in Norway via Telenor" },
+            "local_presence": { "score": 3, "rationale": "No Norway datacenter, Stockholm is closest" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "No Norwegian datacenter (Stockholm closest)",
+        "Market dominance creates dependency risk"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Stockholm region",
+          "description": "Configure resources in eu-north-1 (Stockholm)",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "title": "Enable AWS Key Management Service",
+          "description": "Use customer-managed encryption keys",
+          "effort": "medium",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["azure"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["SE", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "No Norway region. Nearest is Stockholm (eu-north-1). Telenor Skygard partnership for sovereign cloud."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://aws.amazon.com/compliance/",
+          "https://www.lightreading.com/cloud/telenor-has-a-go-at-public-cloud-but-needs-aws-to-help"
+        ]
+      }
+    },
+
+    {
+      "id": "confluence",
+      "slug": "confluence",
+      "name": "Confluence",
+      "description": "Team workspace for knowledge management, documentation and collaboration",
+      "vendor_id": "atlassian",
+      "use_areas": ["collaboration"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.12,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 2, "rationale": "US-incorporated, Australian origin" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data residency (realm) available" },
+            "operational": { "score": 2, "rationale": "Data Center option for self-hosting" },
+            "supply_chain": { "score": 2, "rationale": "AWS-based cloud" },
+            "technology": { "score": 2, "rationale": "Good export, REST API" },
+            "security": { "score": 2, "rationale": "SOC 2, ISO 27001" },
+            "environment": { "score": 2, "rationale": "Climate commitments" },
+            "national_security": { "score": 2, "rationale": "Documentation subject to US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "Partners available" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to CLOUD Act",
+        "Forced migration from Server to Cloud/Data Center",
+        "Data Center requires significant infrastructure"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Data Center edition",
+          "description": "Host Confluence on your own infrastructure",
+          "effort": "high",
+          "impact": "high",
+          "requires_license": "Data Center"
+        },
+        {
+          "title": "Select EU realm",
+          "description": "Configure data residency to EU in Cloud edition",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["nextcloud"],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud or Data Center. Data Center allows self-hosting. Cloud has EU realm option."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.atlassian.com/trust"]
+      }
+    },
+
+    {
+      "id": "zoom",
+      "slug": "zoom",
+      "name": "Zoom",
+      "description": "Video conferencing and online meeting platform widely used for remote work",
+      "vendor_id": "zoom",
+      "use_areas": ["communication"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.35,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, rapid growth post-pandemic" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data routing available" },
+            "operational": { "score": 2, "rationale": "Cloud-only" },
+            "supply_chain": { "score": 2, "rationale": "Own infrastructure plus cloud providers" },
+            "technology": { "score": 2, "rationale": "Proprietary, interoperability limited" },
+            "security": { "score": 2, "rationale": "E2E encryption available, SOC 2" },
+            "environment": { "score": 2, "rationale": "Sustainability initiatives" },
+            "national_security": { "score": 3, "rationale": "Video calls subject to US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "No Norwegian office" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Past security incidents and scrutiny",
+        "E2E encryption not available for all features"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable end-to-end encryption",
+          "description": "Use E2EE for sensitive meetings",
+          "effort": "low",
+          "impact": "high"
+        },
+        {
+          "title": "Configure EU data routing",
+          "description": "Route meeting data through EU datacenters",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["pexip", "whereby", "ms-teams"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data routing available. E2E encryption supported."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": ["https://zoom.us/trust"]
+      }
+    },
+
+    {
+      "id": "sap-successfactors",
+      "slug": "sap-successfactors",
+      "name": "SAP SuccessFactors",
+      "description": "Cloud-based human capital management (HCM) suite for enterprise HR",
+      "vendor_id": "sap",
+      "use_areas": ["hr"],
+
+      "risk_level": "moderate",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 1.68,
+          "risk_level": "moderate",
+          "scores": {
+            "strategic": { "score": 2, "rationale": "German company, global enterprise leader" },
+            "legal": { "score": 1, "rationale": "German/EU jurisdiction, GDPR native" },
+            "data": { "score": 2, "rationale": "EU data centers available" },
+            "operational": { "score": 2, "rationale": "Cloud-only, SAP infrastructure" },
+            "supply_chain": { "score": 2, "rationale": "SAP controlled" },
+            "technology": { "score": 2, "rationale": "Enterprise integration, some lock-in" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 1/2, extensive compliance" },
+            "environment": { "score": 2, "rationale": "Sustainability initiatives" },
+            "national_security": { "score": 1, "rationale": "EU jurisdiction, German company" },
+            "local_presence": { "score": 2, "rationale": "Norwegian partners (Sariba, Zalaris)" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Complex implementation",
+        "High total cost of ownership",
+        "Cloud-only (no on-premise option for new customers)"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use Norwegian implementation partner",
+          "description": "Work with local partners like Sariba or Zalaris",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["simployer", "zalaris", "workday"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "German company. EU data centers. Norwegian partners available."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.sap.com/norway/products/hcm.html",
+          "https://www.sap.com/about/trust-center.html"
+        ]
+      }
+    },
+
+    {
+      "id": "workday",
+      "slug": "workday",
+      "name": "Workday HCM",
+      "description": "Cloud-based enterprise human capital management and financial management platform",
+      "vendor_id": "workday",
+      "use_areas": ["hr"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.25,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, enterprise HCM leader" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data centers available" },
+            "operational": { "score": 2, "rationale": "Cloud-only, Workday managed" },
+            "supply_chain": { "score": 2, "rationale": "Workday infrastructure" },
+            "technology": { "score": 2, "rationale": "Modern platform, integration APIs" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 1/2, strong security" },
+            "environment": { "score": 2, "rationale": "Sustainability commitments" },
+            "national_security": { "score": 2, "rationale": "HR data subject to US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "Partners available, limited direct presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "High implementation cost",
+        "Complex for smaller organizations"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Select EU data center",
+          "description": "Configure data residency to EU",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["sap-successfactors", "simployer"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data centers available. US company subject to CLOUD Act."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": ["https://www.workday.com/en-us/company/about-workday/security-trust.html"]
+      }
+    },
+
+    {
+      "id": "jottacloud",
+      "slug": "jottacloud",
+      "name": "Jottacloud",
+      "description": "Norwegian cloud storage service with unlimited storage and strong privacy focus",
+      "vendor_id": "jotta",
+      "use_areas": ["storage"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.58,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law only" },
+            "data": { "score": 0, "rationale": "Data stored in Norway" },
+            "operational": { "score": 1, "rationale": "Cloud-only, Norwegian operations" },
+            "supply_chain": { "score": 1, "rationale": "Norwegian infrastructure" },
+            "technology": { "score": 1, "rationale": "Standard sync, good export" },
+            "security": { "score": 1, "rationale": "Encryption, Norwegian data centers" },
+            "environment": { "score": 1, "rationale": "Norwegian hydropower" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, data stays in Norway" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Oslo" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Smaller company than global competitors",
+        "Fewer enterprise features"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian company. All data stored in Norway. No foreign jurisdiction exposure."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://jottacloud.com/en/about/"]
+      }
+    },
+
+    {
+      "id": "nextcloud",
+      "slug": "nextcloud",
+      "name": "Nextcloud",
+      "description": "Open source, self-hosted file sync and collaboration platform",
+      "vendor_id": "nextcloud",
+      "use_areas": ["storage", "collaboration"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.62,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 1, "rationale": "German company, open source" },
+            "legal": { "score": 0, "rationale": "Self-hosted eliminates jurisdiction concerns" },
+            "data": { "score": 0, "rationale": "Full control with self-hosting" },
+            "operational": { "score": 0, "rationale": "Can be fully self-operated" },
+            "supply_chain": { "score": 1, "rationale": "Open source, many hosting options" },
+            "technology": { "score": 0, "rationale": "Open source, standard protocols" },
+            "security": { "score": 1, "rationale": "Regular security audits, E2E encryption" },
+            "environment": { "score": 2, "rationale": "Depends on hosting choice" },
+            "national_security": { "score": 0, "rationale": "Self-hosted option with full control" },
+            "local_presence": { "score": 2, "rationale": "Community support, some Norwegian providers" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Requires technical expertise for self-hosting",
+        "Support depends on hosting provider or enterprise subscription"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Open source, self-hosted. Full control over data. Can host in Norway."
+      },
+
+      "open_source": true,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://nextcloud.com/security/"]
+      }
+    },
+
+    {
+      "id": "collabora-online",
+      "slug": "collabora-online",
+      "name": "Collabora Online",
+      "description": "Open source office suite based on LibreOffice, cloud-hosted or self-hosted",
+      "vendor_id": "collabora",
+      "use_areas": ["office"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.75,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 1, "rationale": "UK company, open source" },
+            "legal": { "score": 1, "rationale": "UK with EU adequacy, self-hosting option" },
+            "data": { "score": 0, "rationale": "Self-hosting gives full control" },
+            "operational": { "score": 0, "rationale": "Can be self-hosted" },
+            "supply_chain": { "score": 1, "rationale": "Open source LibreOffice base" },
+            "technology": { "score": 0, "rationale": "Open source, ODF formats" },
+            "security": { "score": 1, "rationale": "Regular updates, open source audit" },
+            "environment": { "score": 2, "rationale": "Depends on hosting" },
+            "national_security": { "score": 0, "rationale": "Self-hosted eliminates concerns" },
+            "local_presence": { "score": 2, "rationale": "Community support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Less polished than Microsoft 365 or Google Workspace",
+        "Smaller ecosystem and fewer integrations"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Open source. Self-hosted or use Collabora Online hosting. Integrates with Nextcloud."
+      },
+
+      "open_source": true,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.collaboraoffice.com/"]
+      }
+    },
+
+    {
+      "id": "dropbox",
+      "slug": "dropbox",
+      "name": "Dropbox Business",
+      "description": "Cloud file storage and collaboration platform for businesses",
+      "vendor_id": "dropbox",
+      "use_areas": ["storage"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.32,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data residency available" },
+            "operational": { "score": 2, "rationale": "Cloud-only" },
+            "supply_chain": { "score": 2, "rationale": "AWS-based infrastructure" },
+            "technology": { "score": 2, "rationale": "Good interoperability" },
+            "security": { "score": 2, "rationale": "SOC 2, ISO 27001, encryption" },
+            "environment": { "score": 2, "rationale": "Sustainability efforts" },
+            "national_security": { "score": 3, "rationale": "US jurisdiction" },
+            "local_presence": { "score": 2, "rationale": "No Norwegian presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "No Norwegian datacenter"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable data residency",
+          "description": "Configure EU data storage",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["jottacloud", "onedrive", "nextcloud"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data residency available for Business plans."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": ["https://www.dropbox.com/security"]
+      }
+    },
+
+    {
+      "id": "okta",
+      "slug": "okta",
+      "name": "Okta",
+      "description": "Cloud-based identity and access management (IAM) platform providing SSO, MFA, and lifecycle management for enterprise organizations",
+      "vendor_id": "okta",
+      "use_areas": ["storage"],
+
+      "risk_level": "significant",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.65,
+          "risk_level": "significant",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, dominant in enterprise IAM market" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act. Identity data is highly sensitive." },
+            "data": { "score": 2, "rationale": "EU data residency available, but identity data critical" },
+            "operational": { "score": 3, "rationale": "Cloud-only. Single point of failure for authentication" },
+            "supply_chain": { "score": 3, "rationale": "Auth0 acquisition. Complex integration dependencies" },
+            "technology": { "score": 2, "rationale": "SAML/OIDC standards, but proprietary platform" },
+            "security": { "score": 2, "rationale": "2022 Lapsus$ breach affected reputation. Strong security features" },
+            "environment": { "score": 2, "rationale": "Cloud operations" },
+            "national_security": { "score": 3, "rationale": "Identity provider = keys to the kingdom. US jurisdiction concerning" },
+            "local_presence": { "score": 2, "rationale": "Partners available, no Norwegian office" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act - identity data particularly sensitive",
+        "2022 security breach by Lapsus$ group",
+        "Single point of failure for authentication",
+        "Cloud-only with no self-hosting option"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable EU data residency",
+          "description": "Configure tenant for EU data storage",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "title": "Implement phishing-resistant MFA",
+          "description": "Use FIDO2/WebAuthn instead of SMS/TOTP",
+          "effort": "medium",
+          "impact": "high"
+        },
+        {
+          "title": "Configure privileged access management",
+          "description": "Limit admin access and implement session controls",
+          "effort": "medium",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU cell available for data residency. 2022 security breach raised concerns. US jurisdiction applies to all identity data."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.okta.com/security/",
+          "https://www.okta.com/blog/2022/03/updated-okta-statement-on-lapsus/"
+        ]
+      }
+    },
+
+    {
+      "id": "servicenow",
+      "slug": "servicenow",
+      "name": "ServiceNow",
+      "description": "Cloud-based IT service management (ITSM) and workflow automation platform used for incident, problem, and change management",
+      "vendor_id": "servicenow",
+      "use_areas": ["project"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.42,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, dominant in enterprise ITSM" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 2, "rationale": "EU data centers available, customer-managed encryption keys" },
+            "operational": { "score": 2, "rationale": "Cloud-only, but high SLA guarantees" },
+            "supply_chain": { "score": 2, "rationale": "ServiceNow infrastructure, Azure partnerships" },
+            "technology": { "score": 2, "rationale": "Proprietary platform, extensive customization creates lock-in" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 2, FedRAMP, strong security controls" },
+            "environment": { "score": 2, "rationale": "Sustainability commitments" },
+            "national_security": { "score": 3, "rationale": "Contains sensitive IT infrastructure data and incident logs" },
+            "local_presence": { "score": 2, "rationale": "Partners like Sopra Steria in Norway" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act",
+        "Contains sensitive IT infrastructure and incident data",
+        "High lock-in due to customization and integrations",
+        "Cloud-only platform"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Select EU data center",
+          "description": "Configure instance in EU region",
+          "effort": "low",
+          "impact": "medium"
+        },
+        {
+          "title": "Enable Customer-Managed Encryption Keys",
+          "description": "Use your own encryption keys for data at rest",
+          "effort": "high",
+          "impact": "high"
+        },
+        {
+          "title": "Use Norwegian implementation partner",
+          "description": "Work with partners like Sopra Steria for local support",
+          "effort": "low",
+          "impact": "medium"
+        }
+      ],
+
+      "alternatives": ["jira"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. EU data centers available. Customer-managed encryption keys supported. US jurisdiction applies."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.servicenow.com/company/trust.html",
+          "https://www.servicenow.com/security.html"
+        ]
+      }
+    },
+
+    {
+      "id": "signicat",
+      "slug": "signicat",
+      "name": "Signicat",
+      "description": "Norwegian digital identity and electronic signature platform supporting BankID, eIDAS, and identity verification across the Nordics",
+      "vendor_id": "signicat",
+      "use_areas": ["storage"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.72,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, Nordic market leader in digital identity" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian/EU law, eIDAS certified" },
+            "data": { "score": 1, "rationale": "Data centers in Norway and EU" },
+            "operational": { "score": 1, "rationale": "Cloud-based, Nordic operations" },
+            "supply_chain": { "score": 1, "rationale": "Integrates with Nordic banks and government eID" },
+            "technology": { "score": 1, "rationale": "eIDAS compliant, standard protocols" },
+            "security": { "score": 1, "rationale": "ISO 27001, eIDAS QTSP, SOC 2" },
+            "environment": { "score": 1, "rationale": "Nordic data centers" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, identity data stays in Nordics" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Trondheim, strong Norwegian presence" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Dependency on bank eID infrastructure (BankID)",
+        "Acquisition by Nordic Capital (PE) in 2019 may affect long-term strategy"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["okta"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian company. eIDAS Qualified Trust Service Provider. Supports BankID Norway, BankID Sweden, MitID Denmark. No US jurisdiction."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.signicat.com/about",
+          "https://www.signicat.com/trust-center"
+        ]
+      }
+    },
+
+    {
+      "id": "unit4-erp",
+      "slug": "unit4-erp",
+      "name": "Unit4 ERP",
+      "description": "Cloud ERP platform for service-centric organizations, covering finance, HR, projects and procurement. Strong presence in Norwegian public sector.",
+      "vendor_id": "unit4",
+      "use_areas": ["finance"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.82,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 1, "rationale": "Dutch company, European focus, PE-owned (TA Associates)" },
+            "legal": { "score": 0, "rationale": "Subject to Dutch/EU law, GDPR native" },
+            "data": { "score": 1, "rationale": "EU data centers, Azure-based infrastructure" },
+            "operational": { "score": 1, "rationale": "Cloud-first but on-premise options available" },
+            "supply_chain": { "score": 2, "rationale": "Uses Azure infrastructure" },
+            "technology": { "score": 1, "rationale": "Modern platform, good integration APIs" },
+            "security": { "score": 1, "rationale": "ISO 27001, SOC 2, regular audits" },
+            "environment": { "score": 1, "rationale": "EU data centers" },
+            "national_security": { "score": 0, "rationale": "EU jurisdiction, widely used in Norwegian public sector" },
+            "local_presence": { "score": 0, "rationale": "Strong Norwegian presence, local support in Oslo" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "PE ownership may affect long-term strategy",
+        "Azure dependency for cloud version"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["visma-business", "sap-successfactors"],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Dutch company. EU data centers. On-premise option available. Strong Norwegian public sector presence."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://www.unit4.com/",
+          "https://www.unit4.com/why-unit4/trust-security"
+        ]
+      }
+    },
+
+    {
+      "id": "citrix-workspace",
+      "slug": "citrix-workspace",
+      "name": "Citrix Workspace / VDI",
+      "description": "Virtual desktop infrastructure (VDI) and remote access platform for secure application and desktop delivery",
+      "vendor_id": "citrix",
+      "use_areas": ["dev"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.18,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company (Cloud Software Group after merger with TIBCO)" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act" },
+            "data": { "score": 1, "rationale": "On-premise option gives full data control" },
+            "operational": { "score": 1, "rationale": "Can be fully self-hosted" },
+            "supply_chain": { "score": 2, "rationale": "Complex licensing, multiple product lines" },
+            "technology": { "score": 2, "rationale": "Industry standard but proprietary" },
+            "security": { "score": 2, "rationale": "Strong security features, but past CVEs" },
+            "environment": { "score": 2, "rationale": "Varies by deployment" },
+            "national_security": { "score": 2, "rationale": "Self-hosted option mitigates jurisdiction risk" },
+            "local_presence": { "score": 2, "rationale": "Partners available in Norway" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "US company subject to CLOUD Act for cloud services",
+        "Complex licensing model",
+        "Recent ownership changes (Vista Equity Partners)"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Use on-premise deployment",
+          "description": "Deploy Citrix on your own infrastructure to avoid cloud jurisdiction issues",
+          "effort": "high",
+          "impact": "high"
+        },
+        {
+          "title": "Host in Norwegian datacenter",
+          "description": "Use Norwegian cloud provider for Citrix infrastructure",
+          "effort": "medium",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "On-premise option eliminates US jurisdiction. Cloud version subject to CLOUD Act. Self-hosting recommended for sensitive environments."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.citrix.com/",
+          "https://www.citrix.com/about/legal/security-compliance/"
+        ]
+      }
+    },
+
+    {
+      "id": "entra-id",
+      "slug": "entra-id",
+      "name": "Microsoft Entra ID",
+      "description": "Cloud-based identity and access management service (formerly Azure Active Directory) for SSO, MFA and conditional access",
+      "vendor_id": "microsoft",
+      "use_areas": ["storage"],
+
+      "risk_level": "elevated",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 2.45,
+          "risk_level": "elevated",
+          "scores": {
+            "strategic": { "score": 3, "rationale": "US company, dominant in enterprise identity" },
+            "legal": { "score": 3, "rationale": "Subject to CLOUD Act. Identity data highly sensitive." },
+            "data": { "score": 2, "rationale": "EU Data Boundary available, Norway datacenter" },
+            "operational": { "score": 3, "rationale": "Cloud-only, central to Microsoft ecosystem" },
+            "supply_chain": { "score": 2, "rationale": "Part of Azure/Microsoft 365 stack" },
+            "technology": { "score": 2, "rationale": "SAML/OIDC standards but proprietary platform" },
+            "security": { "score": 1, "rationale": "Strong security features, Conditional Access, PIM" },
+            "environment": { "score": 1, "rationale": "Microsoft carbon commitment" },
+            "national_security": { "score": 3, "rationale": "Identity provider = critical infrastructure. US jurisdiction concerning." },
+            "local_presence": { "score": 1, "rationale": "Norway datacenter, strong partner network" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Subject to US CLOUD Act - identity data particularly sensitive",
+        "Cloud-only with no self-hosting option",
+        "Central dependency for Microsoft 365 users",
+        "Single point of failure for authentication"
+      ],
+
+      "mitigations": [
+        {
+          "title": "Enable EU Data Boundary",
+          "description": "Configure for EU data storage using Norway datacenter",
+          "effort": "low",
+          "impact": "medium",
+          "url": "https://learn.microsoft.com/en-us/privacy/eudb/eu-data-boundary-learn"
+        },
+        {
+          "title": "Implement Conditional Access",
+          "description": "Use location-based policies and device compliance",
+          "effort": "medium",
+          "impact": "high"
+        },
+        {
+          "title": "Use Privileged Identity Management",
+          "description": "Enable just-in-time admin access",
+          "effort": "medium",
+          "impact": "high"
+        }
+      ],
+
+      "alternatives": ["okta", "signicat"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": ["US"],
+        "notes": "Cloud-only. Norway datacenter available. EU Data Boundary supported. US jurisdiction still applies to identity data."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id",
+          "https://learn.microsoft.com/en-us/entra/fundamentals/whats-new"
+        ]
+      }
+    },
+
+    {
+      "id": "elements",
+      "slug": "elements",
+      "name": "Elements",
+      "description": "Norwegian document management and archive system for public sector, supporting NOARK 5 standard for case handling and records management",
+      "vendor_id": "sikri",
+      "use_areas": ["collaboration"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.48,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, focused on public sector" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, NOARK 5 certified" },
+            "data": { "score": 0, "rationale": "Norwegian hosting, full data control" },
+            "operational": { "score": 1, "rationale": "On-premise or Norwegian cloud" },
+            "supply_chain": { "score": 1, "rationale": "Norwegian ecosystem" },
+            "technology": { "score": 1, "rationale": "NOARK 5 standard, good interoperability" },
+            "security": { "score": 1, "rationale": "Designed for public sector security requirements" },
+            "environment": { "score": 1, "rationale": "Norwegian data centers" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, used by government agencies" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Norway, dedicated support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Niche market (primarily Norwegian public sector)",
+        "Modernization journey ongoing"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["ephorte"],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian company. NOARK 5 certified. On-premise or Norwegian cloud. No foreign jurisdiction exposure."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://www.sikri.no/",
+          "https://www.sikri.no/produkter/elements"
+        ]
+      }
+    },
+
+    {
+      "id": "ephorte",
+      "slug": "ephorte",
+      "name": "ePhorte",
+      "description": "Norwegian case management and archive system for public sector, NOARK 5 certified with workflow automation",
+      "vendor_id": "gecko",
+      "use_areas": ["collaboration"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.52,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, public sector focus" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, NOARK 5 certified" },
+            "data": { "score": 0, "rationale": "Norwegian hosting" },
+            "operational": { "score": 1, "rationale": "On-premise or cloud deployment" },
+            "supply_chain": { "score": 1, "rationale": "Norwegian vendor ecosystem" },
+            "technology": { "score": 1, "rationale": "NOARK 5 standard compliance" },
+            "security": { "score": 1, "rationale": "Built for public sector requirements" },
+            "environment": { "score": 1, "rationale": "Norwegian infrastructure" },
+            "national_security": { "score": 0, "rationale": "Norwegian company, government approved" },
+            "local_presence": { "score": 0, "rationale": "Norwegian headquarters and support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Legacy codebase being modernized",
+        "Primarily Norwegian market"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["elements"],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian company. NOARK 5 certified. Used by many Norwegian municipalities and government agencies."
+      },
+
+      "open_source": false,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://www.gecko.no/",
+          "https://www.gecko.no/ephorte"
+        ]
+      }
+    },
+
+    {
+      "id": "dhis2",
+      "slug": "dhis2",
+      "name": "DHIS2",
+      "description": "Open source health information management platform developed at University of Oslo, used by 100+ countries for disease surveillance and health programs",
+      "vendor_id": "dhis2",
+      "use_areas": ["project"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.38,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Developed at University of Oslo, Norwegian origin" },
+            "legal": { "score": 0, "rationale": "Open source, self-hosted eliminates jurisdiction concerns" },
+            "data": { "score": 0, "rationale": "Full control with self-hosting" },
+            "operational": { "score": 0, "rationale": "Can be fully self-operated" },
+            "supply_chain": { "score": 1, "rationale": "Open source, no vendor dependency" },
+            "technology": { "score": 0, "rationale": "Open source, standard technologies" },
+            "security": { "score": 1, "rationale": "Regular security audits, used by WHO" },
+            "environment": { "score": 1, "rationale": "Depends on hosting choice" },
+            "national_security": { "score": 0, "rationale": "Norwegian development, full sovereignty" },
+            "local_presence": { "score": 0, "rationale": "HISP Centre at University of Oslo" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Requires technical expertise for deployment",
+        "Primarily designed for health sector use cases"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": true,
+        "data_residency": ["NO", "EU_EEA"],
+        "jurisdiction_exposure": [],
+        "notes": "Open source. Norwegian origin (University of Oslo). Used globally for health data. Full sovereignty with self-hosting."
+      },
+
+      "open_source": true,
+      "data_portability": "full",
+
+      "meta": {
+        "sources": [
+          "https://dhis2.org/",
+          "https://dhis2.org/about/"
+        ]
+      }
+    },
+
+    {
+      "id": "vipps",
+      "slug": "vipps",
+      "name": "Vipps",
+      "description": "Norwegian mobile payment platform used by 4.5+ million Norwegians for P2P payments, in-store payments, online checkout and business invoicing",
+      "vendor_id": "vipps",
+      "use_areas": ["finance"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.32,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, owned by Norwegian banks. Merged with Danish MobilePay 2022." },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, regulated by Finanstilsynet" },
+            "data": { "score": 0, "rationale": "Payment data stored in Norway, strict PCI-DSS compliance" },
+            "operational": { "score": 1, "rationale": "Cloud-based, critical national payment infrastructure" },
+            "supply_chain": { "score": 1, "rationale": "Norwegian bank consortium ownership" },
+            "technology": { "score": 0, "rationale": "Norwegian development, standard payment APIs" },
+            "security": { "score": 0, "rationale": "PCI-DSS certified, bank-level security, BankID integration" },
+            "environment": { "score": 1, "rationale": "Norwegian infrastructure" },
+            "national_security": { "score": 0, "rationale": "Critical Norwegian payment infrastructure, bank-owned" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Oslo, Norwegian support" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Critical infrastructure - high availability requirements",
+        "Merger with MobilePay creates Nordic consolidation"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": [],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian company owned by DNB, SpareBank 1 and other Norwegian banks. Payment data stays in Norway. Regulated by Finanstilsynet."
+      },
+
+      "open_source": false,
+      "data_portability": "partial",
+
+      "meta": {
+        "sources": [
+          "https://vipps.no/om-oss/",
+          "https://developer.vippsmobilepay.com/"
+        ]
+      }
+    },
+
+    {
+      "id": "bankid",
+      "slug": "bankid",
+      "name": "BankID Norge",
+      "description": "Norwegian electronic ID and signature solution used by 4.5+ million Norwegians for secure login to banks, public services and private sector applications",
+      "vendor_id": "bankid",
+      "use_areas": ["storage"],
+
+      "risk_level": "low",
+
+      "assessments": {
+        "ndsi": {
+          "version": "1.0",
+          "date": "2025-12-19",
+          "score": 0.28,
+          "risk_level": "low",
+          "scores": {
+            "strategic": { "score": 0, "rationale": "Norwegian company, owned by Norwegian banks and Bits AS" },
+            "legal": { "score": 0, "rationale": "Subject to Norwegian law, eIDAS high assurance level" },
+            "data": { "score": 0, "rationale": "Identity data stored in Norway only" },
+            "operational": { "score": 1, "rationale": "Critical national identity infrastructure" },
+            "supply_chain": { "score": 0, "rationale": "Norwegian bank consortium, no foreign dependencies" },
+            "technology": { "score": 0, "rationale": "Norwegian development, PKI-based security" },
+            "security": { "score": 0, "rationale": "eIDAS high assurance, qualified electronic signature, HSM protected" },
+            "environment": { "score": 1, "rationale": "Norwegian infrastructure" },
+            "national_security": { "score": 0, "rationale": "Critical national identity infrastructure, Norwegian ownership" },
+            "local_presence": { "score": 0, "rationale": "Headquarters in Oslo, Norwegian operations" }
+          }
+        }
+      },
+
+      "key_concerns": [
+        "Critical infrastructure - single point of failure for digital Norway",
+        "Dependency on mobile apps (BankID app) and hardware tokens"
+      ],
+
+      "mitigations": [],
+
+      "alternatives": ["signicat"],
+
+      "hosting": {
+        "self_hosted": false,
+        "data_residency": ["NO"],
+        "jurisdiction_exposure": [],
+        "notes": "Norwegian critical infrastructure. eIDAS high assurance level. Used for login to banks, tax authority, health services, and thousands of private services. Owned by Norwegian banks."
+      },
+
+      "open_source": false,
+      "data_portability": "none",
+
+      "meta": {
+        "sources": [
+          "https://www.bankid.no/",
+          "https://www.bankid.no/en/about-us/"
+        ]
       }
     }
   ]

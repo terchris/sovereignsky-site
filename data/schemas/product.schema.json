@@ -4,7 +4,7 @@
   "title": "Software Product",
   "description": "Schema for software products in the SovereignSky sovereignty database",
   "type": "object",
-  "required": ["id", "slug", "name", "description", "use_areas", "vendor_id", "assessments"],
+  "required": ["id", "slug", "name", "description", "use_areas", "vendor_id", "risk_level", "assessments", "hosting"],
   "properties": {
     "id": {
       "type": "string",
@@ -24,6 +24,11 @@
       "type": "string",
       "description": "Brief description of the product (1-2 sentences)"
     },
+    "vendor_id": {
+      "type": "string",
+      "description": "Reference to vendor in vendors.json",
+      "pattern": "^[a-z0-9-]+$"
+    },
     "use_areas": {
       "type": "array",
       "description": "References to use area IDs (validated against useAreas.json at build time)",
@@ -33,14 +38,14 @@
       },
       "minItems": 1
     },
-    "vendor_id": {
+    "risk_level": {
       "type": "string",
-      "description": "Reference to vendor in vendors.json",
-      "pattern": "^[a-z0-9-]+$"
+      "description": "Worst-case risk level across all assessments",
+      "enum": ["low", "moderate", "elevated", "significant", "high"]
     },
     "assessments": {
       "type": "object",
-      "description": "Sovereignty assessments by framework",
+      "description": "Sovereignty assessments by framework (e.g., ndsi, eu_csf)",
       "additionalProperties": {
         "$ref": "#/$defs/assessment"
       }
@@ -69,19 +74,32 @@
     },
     "hosting": {
       "type": "object",
-      "description": "Data hosting and residency options",
+      "description": "Data hosting, residency and jurisdiction information",
+      "required": ["self_hosted", "data_residency", "jurisdiction_exposure"],
       "properties": {
-        "norway": {
-          "type": "boolean",
-          "description": "Can data be hosted in Norway?"
-        },
-        "eu": {
-          "type": "boolean",
-          "description": "Can data be hosted in EU/EEA?"
-        },
         "self_hosted": {
           "type": "boolean",
-          "description": "Can the product be self-hosted?"
+          "description": "Can the product be self-hosted by the customer?"
+        },
+        "data_residency": {
+          "type": "array",
+          "description": "Where data can be physically stored (ISO country codes or EU_EEA)",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$|^EU_EEA$"
+          }
+        },
+        "jurisdiction_exposure": {
+          "type": "array",
+          "description": "Foreign jurisdictions that can legally compel data access (ISO country codes). Empty array means no foreign exposure.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Product-specific hosting details and context"
         }
       }
     },
@@ -100,7 +118,7 @@
       "properties": {
         "sources": {
           "type": "array",
-          "description": "URLs used as sources",
+          "description": "URLs used as sources for this assessment",
           "items": {
             "type": "string",
             "format": "uri"
@@ -113,7 +131,7 @@
     "assessment": {
       "type": "object",
       "description": "A sovereignty assessment using a specific framework",
-      "required": ["version", "date", "scores"],
+      "required": ["version", "date", "score", "risk_level", "scores"],
       "properties": {
         "version": {
           "type": "string",
@@ -124,9 +142,20 @@
           "description": "Date of assessment (YYYY-MM-DD)",
           "format": "date"
         },
+        "score": {
+          "type": "number",
+          "description": "Calculated weighted average score for this framework",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Risk level derived from the score using framework thresholds",
+          "enum": ["low", "moderate", "elevated", "significant", "high"]
+        },
         "scores": {
           "type": "object",
-          "description": "Scores for each dimension in the framework",
+          "description": "Individual scores for each dimension in the framework",
           "additionalProperties": {
             "$ref": "#/$defs/dimension_score"
           }

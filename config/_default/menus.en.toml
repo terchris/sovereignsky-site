@@ -12,6 +12,16 @@
   weight = 20
 
 [[main]]
+  name = "Laws"
+  pageRef = "laws"
+  weight = 25
+
+[[main]]
+  name = "Datacenters"
+  pageRef = "datacenters"
+  weight = 27
+
+[[main]]
   name = "Projects"
   pageRef = "projects"
   weight = 30

@@ -1,4 +1,27 @@
 {{ define "main" }}
+{{/* Build lookup maps */}}
+{{ $vendorMap := dict }}
+{{ range site.Data.vendors.vendors }}
+  {{ $vendorMap = merge $vendorMap (dict .id .) }}
+{{ end }}
+
+{{ $useAreaMap := dict }}
+{{ range site.Data.useAreas }}
+  {{ $useAreaMap = merge $useAreaMap (dict .id .name) }}
+{{ end }}
+
+{{/* Risk level styling - color for left border bar */}}
+{{ $riskColors := dict
+  "low" "bg-green-500"
+  "moderate" "bg-yellow-500"
+  "elevated" "bg-orange-500"
+  "significant" "bg-orange-600"
+  "high" "bg-red-500"
+}}
+
+{{/* Country flags */}}
+{{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "UK" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU" "🇪🇺" "EU_EEA" "🇪🇺" }}
+
 <div class="max-w-6xl mx-auto" id="software-app">
 
   <header class="mb-8">
@@ -27,31 +50,60 @@
     <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg space-y-3">
       <!-- Risk Level Filter -->
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Risk Level:</span>
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Risk Level:</span>
         <div class="flex flex-wrap gap-2">
           <button class="filter-btn risk-filter active" data-filter="risk" data-value="all">All</button>
-          <button class="filter-btn risk-filter" data-filter="risk" data-value="low">Low</button>
-          <button class="filter-btn risk-filter" data-filter="risk" data-value="moderate">Moderate</button>
-          <button class="filter-btn risk-filter" data-filter="risk" data-value="elevated">Elevated</button>
-          <button class="filter-btn risk-filter" data-filter="risk" data-value="significant">Significant</button>
-          <button class="filter-btn risk-filter" data-filter="risk" data-value="high">High</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="low"><span class="risk-dot" style="background-color: #22c55e;"></span>Low</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="moderate"><span class="risk-dot" style="background-color: #eab308;"></span>Moderate</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="elevated"><span class="risk-dot" style="background-color: #f97316;"></span>Elevated</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="significant"><span class="risk-dot" style="background-color: #ea580c;"></span>Significant</button>
+          <button class="filter-btn risk-filter" data-filter="risk" data-value="high"><span class="risk-dot" style="background-color: #ef4444;"></span>High</button>
         </div>
       </div>
 
-      <!-- Country Filter -->
+      <!-- Vendor Jurisdiction Filter -->
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Country:</span>
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Vendor Jurisdiction:</span>
         <div class="flex flex-wrap gap-2">
           <button class="filter-btn country-filter active" data-filter="country" data-value="all">All</button>
-          <button class="filter-btn country-filter" data-filter="country" data-value="NO">Norway</button>
-          <button class="filter-btn country-filter" data-filter="country" data-value="US">USA</button>
-          <button class="filter-btn country-filter" data-filter="country" data-value="UK">UK</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="NO">🇳🇴 Norway</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="US">🇺🇸 USA</button>
+          <button class="filter-btn country-filter" data-filter="country" data-value="GB">🇬🇧 UK</button>
+        </div>
+      </div>
+
+      <!-- Data Residency Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Data Residency:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn residency-filter active" data-filter="residency" data-value="all">All</button>
+          <button class="filter-btn residency-filter" data-filter="residency" data-value="NO">🇳🇴 Norway</button>
+          <button class="filter-btn residency-filter" data-filter="residency" data-value="EU_EEA">🇪🇺 EU/EEA</button>
+        </div>
+      </div>
+
+      <!-- Jurisdiction Exposure Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Jurisdiction Exposure:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn exposure-filter active" data-filter="exposure" data-value="all">All</button>
+          <button class="filter-btn exposure-filter" data-filter="exposure" data-value="none">🛡️ No foreign exposure</button>
+          <button class="filter-btn exposure-filter" data-filter="exposure" data-value="US">⚠️ US exposure</button>
+        </div>
+      </div>
+
+      <!-- Features Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Features:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn feature-filter" data-filter="opensource" data-value="true">🔓 Open Source</button>
+          <button class="filter-btn feature-filter" data-filter="selfhosted" data-value="true">🏠 Self-hosted</button>
         </div>
       </div>
 
       <!-- Use Area Filter -->
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-24">Use Area:</span>
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Use Area:</span>
         <div class="flex flex-wrap gap-2">
           <button class="filter-btn area-filter active" data-filter="area" data-value="all">All</button>
           {{ range site.Data.useAreas }}
@@ -72,14 +124,113 @@
   <!-- Results count and pagination info -->
   <div class="flex justify-between items-center mb-4">
     <div class="text-sm text-neutral-600 dark:text-neutral-400">
-      Showing <span id="showing-count">0</span> of <span id="total-count">0</span> products
+      Showing <span id="showing-count">{{ len .Pages }}</span> of <span id="total-count">{{ len .Pages }}</span> products
     </div>
     <div id="pagination-info" class="text-sm text-neutral-600 dark:text-neutral-400"></div>
   </div>
 
-  <!-- Product Grid -->
-  <div id="software-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <!-- Products loaded via JavaScript -->
+  <!-- Product Grid - Server-rendered for SEO, enhanced by JS -->
+  <!-- All products are in the DOM for SEO (Google sees all links), but only visible page is displayed -->
+  <!-- Responsive: 1 col mobile, 2 sm, 3 md, 4 lg, 5 xl -->
+  <div id="software-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    {{ range $index, $page := .Pages }}
+      {{ $riskLevel := .Params.risk_level | default "moderate" }}
+      {{ $riskColor := index $riskColors $riskLevel | default "bg-yellow-500" }}
+      {{ $flag := index $flags .Params.vendor_country | default "🏳️" }}
+      {{ $openSource := .Params.open_source | default false }}
+      {{ $selfHosted := .Params.self_hosted | default false }}
+
+      {{/* Get data residency and jurisdiction exposure from params */}}
+      {{ $dataResidency := .Params.data_residency | default slice }}
+      {{ $jurisdictionExposure := .Params.jurisdiction_exposure | default slice }}
+      {{ $hasUSExposure := in $jurisdictionExposure "US" }}
+      {{ $noForeignExposure := eq (len $jurisdictionExposure) 0 }}
+
+      {{/* Hide items beyond first page initially - JS will manage visibility */}}
+      {{ $initiallyHidden := gt $index 39 }}
+      <article
+        class="software-card overflow-hidden rounded-lg border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:shadow-lg hover:border-neutral-300 dark:hover:border-neutral-600 transition-all{{ if $initiallyHidden }} initially-hidden{{ end }}"
+        data-id="{{ .Params.software_id }}"
+        data-index="{{ $index }}"
+        data-risk="{{ $riskLevel }}"
+        data-country="{{ .Params.vendor_country }}"
+        data-areas="{{ delimit .Params.use_areas "," }}"
+        data-opensource="{{ $openSource }}"
+        data-selfhosted="{{ $selfHosted }}"
+        data-residency="{{ delimit $dataResidency "," }}"
+        data-exposure="{{ delimit $jurisdictionExposure "," }}"
+        data-name="{{ .Title }}"
+        data-vendor="{{ .Params.vendor_name }}"
+        data-description="{{ .Description }}"
+      >
+        <a href="{{ .RelPermalink }}" class="block p-2">
+          {{/* Title row with risk circle and flag */}}
+          <div class="flex items-center gap-1.5 mb-0.5">
+            {{/* Risk circle - using inline style for dynamic color */}}
+            {{ $circleColor := "#22c55e" }}{{/* green default */}}
+            {{ if eq $riskLevel "moderate" }}{{ $circleColor = "#eab308" }}{{ end }}
+            {{ if eq $riskLevel "elevated" }}{{ $circleColor = "#f97316" }}{{ end }}
+            {{ if eq $riskLevel "significant" }}{{ $circleColor = "#ea580c" }}{{ end }}
+            {{ if eq $riskLevel "high" }}{{ $circleColor = "#ef4444" }}{{ end }}
+            <span class="risk-circle" style="background-color: {{ $circleColor }};" title="{{ $riskLevel }} risk"></span>
+            <h2 class="font-semibold text-sm text-neutral-900 dark:text-neutral-100 leading-tight truncate flex-1">{{ .Title }}</h2>
+            <span class="text-sm flex-shrink-0" title="{{ .Params.vendor_country_name }}">{{ $flag }}</span>
+          </div>
+
+          {{/* Vendor name */}}
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 truncate mb-1 ml-4">
+            {{ .Params.vendor_name }}
+          </div>
+
+          {{/* Data Residency row */}}
+          <div class="text-xs text-neutral-600 dark:text-neutral-400 truncate mb-0.5 ml-4">
+            <span class="text-neutral-400 dark:text-neutral-500">📍</span>
+            {{ if $dataResidency }}
+              {{ $residencyFlags := slice }}
+              {{ range $dataResidency }}
+                {{ $f := index $flags . }}
+                {{ if $f }}
+                  {{ $residencyFlags = $residencyFlags | append $f }}
+                {{ else }}
+                  {{ $residencyFlags = $residencyFlags | append . }}
+                {{ end }}
+              {{ end }}
+              {{ delimit $residencyFlags " " }}
+            {{ else }}
+              <span class="text-neutral-400">—</span>
+            {{ end }}
+          </div>
+
+          {{/* Jurisdiction Exposure row */}}
+          <div class="text-xs mb-1 ml-4">
+            {{ if $noForeignExposure }}
+              <span class="text-green-600 dark:text-green-400">🛡️ No foreign exposure</span>
+            {{ else }}
+              <span class="text-orange-600 dark:text-orange-400">⚠️ {{ delimit $jurisdictionExposure ", " }} exposure</span>
+            {{ end }}
+          </div>
+
+          {{/* Feature icons row */}}
+          <div class="flex items-center gap-1.5 text-sm mb-1 ml-4">
+            {{ if $openSource }}
+            <span title="Open Source">🔓</span>
+            {{ end }}
+            {{ if $selfHosted }}
+            <span title="Self-hosted available">🏠</span>
+            {{ end }}
+            {{/* Show dash if no feature icons */}}
+            {{ if not (or $openSource $selfHosted) }}
+            <span class="text-neutral-300 dark:text-neutral-600">—</span>
+            {{ end }}
+          </div>
+
+          {{/* Use areas row */}}
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 truncate ml-4">
+            {{ delimit .Params.use_area_names " / " }}
+          </div>
+        </a>
+      </article>
+    {{ end }}
   </div>
 
   <!-- No results -->
@@ -95,12 +246,25 @@
 
 </div>
 
-<!-- Inline JSON data for initial load (generated by Node.js script) -->
-<script id="software-data" type="application/json">
-{{ site.Data.productsList | jsonify | safeJS }}
-</script>
-
 <style>
+/* Risk indicator dots in filter buttons and cards */
+.risk-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.risk-circle {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  min-height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
 .filter-btn {
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
@@ -128,12 +292,6 @@
   border-color: rgb(var(--color-primary-500));
   color: white;
 }
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 .page-btn {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
@@ -160,34 +318,29 @@
   border-color: rgb(var(--color-primary-500));
   color: white;
 }
+/* Hide cards when filtered out */
+.software-card.hidden {
+  display: none;
+}
+/* Initially hidden cards (beyond first page) - shown via JS pagination */
+/* Note: These are still in the DOM for SEO, just not displayed */
+.software-card.initially-hidden {
+  display: none;
+}
+/* When JS takes over, it manages all visibility via style.display */
+.js-enabled .software-card.initially-hidden {
+  display: none;
+}
 </style>
 
 <script>
 (function() {
-  // Configuration
-  const ITEMS_PER_PAGE = 24;
-
-  // Country flags
-  const FLAGS = {
-    'NO': '🇳🇴', 'US': '🇺🇸', 'UK': '🇬🇧', 'DE': '🇩🇪', 'FR': '🇫🇷',
-    'SE': '🇸🇪', 'DK': '🇩🇰', 'FI': '🇫🇮', 'NL': '🇳🇱', 'EU': '🇪🇺'
-  };
-
-  // Risk level colors
-  const RISK_COLORS = {
-    'low': { bg: 'bg-green-100 dark:bg-green-900/40', text: 'text-green-800 dark:text-green-300', border: 'border-green-300 dark:border-green-700' },
-    'moderate': { bg: 'bg-yellow-100 dark:bg-yellow-900/40', text: 'text-yellow-800 dark:text-yellow-300', border: 'border-yellow-300 dark:border-yellow-700' },
-    'significant': { bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-800 dark:text-orange-300', border: 'border-orange-300 dark:border-orange-700' },
-    'elevated': { bg: 'bg-orange-100 dark:bg-orange-900/40', text: 'text-orange-800 dark:text-orange-300', border: 'border-orange-300 dark:border-orange-700' },
-    'high': { bg: 'bg-red-100 dark:bg-red-900/40', text: 'text-red-800 dark:text-red-300', border: 'border-red-300 dark:border-red-700' },
-    'critical': { bg: 'bg-red-200 dark:bg-red-900/60', text: 'text-red-900 dark:text-red-200', border: 'border-red-400 dark:border-red-600' }
-  };
+  // Configuration - 40 items per page (8 rows x 5 cols on xl screens)
+  const ITEMS_PER_PAGE = 40;
 
   // State
-  let allProducts = [];
-  let filteredProducts = [];
   let currentPage = 1;
-  let filters = { risk: 'all', country: 'all', area: 'all', search: '' };
+  let filters = { risk: 'all', country: 'all', area: 'all', opensource: 'all', selfhosted: 'all', residency: 'all', exposure: 'all', search: '' };
 
   // DOM elements
   const grid = document.getElementById('software-grid');
@@ -200,16 +353,22 @@
   const activeFiltersDiv = document.getElementById('active-filters');
   const filterTags = document.getElementById('filter-tags');
 
-  // Load data
-  function init() {
-    const dataEl = document.getElementById('software-data');
-    allProducts = JSON.parse(dataEl.textContent);
+  // Get all cards (server-rendered) - includes initially hidden ones
+  const allCards = Array.from(grid.querySelectorAll('.software-card'));
 
+  // Mark that JS is enabled (for CSS hooks)
+  document.body.classList.add('js-enabled');
+
+  function init() {
     // Parse URL parameters
     const params = new URLSearchParams(window.location.search);
     if (params.get('risk')) filters.risk = params.get('risk');
     if (params.get('country')) filters.country = params.get('country');
     if (params.get('area')) filters.area = params.get('area');
+    if (params.get('opensource')) filters.opensource = params.get('opensource');
+    if (params.get('selfhosted')) filters.selfhosted = params.get('selfhosted');
+    if (params.get('residency')) filters.residency = params.get('residency');
+    if (params.get('exposure')) filters.exposure = params.get('exposure');
     if (params.get('q')) {
       filters.search = params.get('q');
       searchInput.value = filters.search;
@@ -219,7 +378,7 @@
     // Update filter button states
     updateFilterButtons();
 
-    // Apply filters and render
+    // Apply filters
     applyFilters();
 
     // Set up event listeners
@@ -249,10 +408,31 @@
         if (filterType === 'risk') filters.risk = value;
         if (filterType === 'country') filters.country = value;
         if (filterType === 'area') filters.area = value;
+        if (filterType === 'opensource') filters.opensource = value;
+        if (filterType === 'selfhosted') filters.selfhosted = value;
+        if (filterType === 'residency') filters.residency = value;
+        if (filterType === 'exposure') filters.exposure = value;
 
-        // Update button states
-        document.querySelectorAll(`.${filterType}-filter`).forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        // Update button states - feature filters are toggleable, others are exclusive
+        if (filterType === 'opensource' || filterType === 'selfhosted') {
+          // Toggle behavior for feature filters
+          if (btn.classList.contains('active') && value !== 'all') {
+            btn.classList.remove('active');
+            filters[filterType] = 'all';
+          } else {
+            document.querySelectorAll(`.feature-filter[data-filter="${filterType}"]`).forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+          }
+        } else if (filterType === 'residency') {
+          document.querySelectorAll('.residency-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else if (filterType === 'exposure') {
+          document.querySelectorAll('.exposure-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else {
+          document.querySelectorAll(`.${filterType}-filter`).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
 
         currentPage = 1;
         applyFilters();
@@ -262,7 +442,7 @@
 
     // Clear filters button
     document.getElementById('clear-filters').addEventListener('click', () => {
-      filters = { risk: 'all', country: 'all', area: 'all', search: '' };
+      filters = { risk: 'all', country: 'all', area: 'all', opensource: 'all', selfhosted: 'all', residency: 'all', exposure: 'all', search: '' };
       searchInput.value = '';
       currentPage = 1;
       updateFilterButtons();
@@ -272,51 +452,120 @@
   }
 
   function updateFilterButtons() {
-    // Risk
     document.querySelectorAll('.risk-filter').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === filters.risk);
     });
-    // Country
     document.querySelectorAll('.country-filter').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === filters.country);
     });
-    // Area
     document.querySelectorAll('.area-filter').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.value === filters.area);
+    });
+    document.querySelectorAll('.feature-filter[data-filter="opensource"]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.opensource);
+    });
+    document.querySelectorAll('.feature-filter[data-filter="selfhosted"]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.selfhosted);
+    });
+    document.querySelectorAll('.residency-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.residency);
+    });
+    document.querySelectorAll('.exposure-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.exposure);
     });
   }
 
   function applyFilters() {
-    filteredProducts = allProducts.filter(p => {
+    let visibleCount = 0;
+
+    allCards.forEach(card => {
+      const risk = card.dataset.risk;
+      const country = card.dataset.country;
+      const areas = card.dataset.areas.split(',');
+      const opensource = card.dataset.opensource;
+      const selfhosted = card.dataset.selfhosted;
+      const residency = card.dataset.residency ? card.dataset.residency.split(',') : [];
+      const exposure = card.dataset.exposure ? card.dataset.exposure.split(',').filter(e => e) : [];
+      const name = card.dataset.name.toLowerCase();
+      const vendor = card.dataset.vendor.toLowerCase();
+      const description = card.dataset.description.toLowerCase();
+
+      let visible = true;
+
       // Risk filter
-      if (filters.risk !== 'all' && p.risk_level !== filters.risk) return false;
+      if (filters.risk !== 'all' && risk !== filters.risk) visible = false;
       // Country filter
-      if (filters.country !== 'all' && p.vendor_country !== filters.country) return false;
+      if (filters.country !== 'all' && country !== filters.country) visible = false;
       // Area filter
-      if (filters.area !== 'all' && !p.use_areas.includes(filters.area)) return false;
+      if (filters.area !== 'all' && !areas.includes(filters.area)) visible = false;
+      // Open source filter
+      if (filters.opensource === 'true' && opensource !== 'true') visible = false;
+      // Self-hosted filter
+      if (filters.selfhosted === 'true' && selfhosted !== 'true') visible = false;
+      // Data Residency filter
+      if (filters.residency !== 'all' && !residency.includes(filters.residency)) visible = false;
+      // Jurisdiction Exposure filter
+      if (filters.exposure === 'none' && exposure.length > 0) visible = false;
+      if (filters.exposure === 'US' && !exposure.includes('US')) visible = false;
       // Search filter
       if (filters.search) {
-        const searchStr = `${p.name} ${p.vendor_name} ${p.description}`.toLowerCase();
-        if (!searchStr.includes(filters.search)) return false;
+        const searchStr = `${name} ${vendor} ${description}`;
+        if (!searchStr.includes(filters.search)) visible = false;
       }
-      return true;
+
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
     });
 
-    render();
+    // Update counts
+    totalCount.textContent = visibleCount;
+
+    // Handle pagination
+    const visibleCards = allCards.filter(c => !c.classList.contains('hidden'));
+    const totalPages = Math.ceil(visibleCards.length / ITEMS_PER_PAGE);
+    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    visibleCards.forEach((card, index) => {
+      if (index >= start && index < end) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const pageCount = Math.min(ITEMS_PER_PAGE, visibleCards.length - start);
+    showingCount.textContent = pageCount;
+    paginationInfo.textContent = totalPages > 1 ? `Page ${currentPage} of ${totalPages}` : '';
+
+    // Show/hide no results
+    noResults.classList.toggle('hidden', visibleCount > 0);
+
+    // Render pagination
+    renderPagination(totalPages);
     updateActiveFiltersDisplay();
   }
 
   function updateActiveFiltersDisplay() {
     const hasActiveFilters = filters.risk !== 'all' || filters.country !== 'all' ||
-                              filters.area !== 'all' || filters.search;
+                              filters.area !== 'all' || filters.opensource !== 'all' ||
+                              filters.selfhosted !== 'all' || filters.residency !== 'all' ||
+                              filters.exposure !== 'all' || filters.search;
     activeFiltersDiv.classList.toggle('hidden', !hasActiveFilters);
 
     if (hasActiveFilters) {
       let tags = '';
       if (filters.search) tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">Search: "${filters.search}"</span>`;
       if (filters.risk !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.risk} risk</span>`;
-      if (filters.country !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.country}</span>`;
+      if (filters.country !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">Vendor: ${filters.country}</span>`;
       if (filters.area !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.area}</span>`;
+      if (filters.opensource === 'true') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">🔓 Open Source</span>`;
+      if (filters.selfhosted === 'true') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">🏠 Self-hosted</span>`;
+      if (filters.residency !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">📍 Data in ${filters.residency === 'EU_EEA' ? 'EU/EEA' : filters.residency}</span>`;
+      if (filters.exposure === 'none') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">🛡️ No foreign exposure</span>`;
+      if (filters.exposure === 'US') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">⚠️ US exposure</span>`;
       filterTags.innerHTML = tags;
     }
   }
@@ -326,68 +575,15 @@
     if (filters.risk !== 'all') params.set('risk', filters.risk);
     if (filters.country !== 'all') params.set('country', filters.country);
     if (filters.area !== 'all') params.set('area', filters.area);
+    if (filters.opensource !== 'all') params.set('opensource', filters.opensource);
+    if (filters.selfhosted !== 'all') params.set('selfhosted', filters.selfhosted);
+    if (filters.residency !== 'all') params.set('residency', filters.residency);
+    if (filters.exposure !== 'all') params.set('exposure', filters.exposure);
     if (filters.search) params.set('q', filters.search);
     if (currentPage > 1) params.set('page', currentPage);
 
     const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
     history.replaceState(null, '', newURL);
-  }
-
-  function render() {
-    const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
-    if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
-
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    const pageProducts = filteredProducts.slice(start, end);
-
-    // Update counts
-    totalCount.textContent = filteredProducts.length;
-    showingCount.textContent = pageProducts.length;
-    paginationInfo.textContent = totalPages > 1 ? `Page ${currentPage} of ${totalPages}` : '';
-
-    // Show/hide no results
-    noResults.classList.toggle('hidden', pageProducts.length > 0);
-    grid.classList.toggle('hidden', pageProducts.length === 0);
-
-    // Render products
-    grid.innerHTML = pageProducts.map(p => renderCard(p)).join('');
-
-    // Render pagination
-    renderPagination(totalPages);
-  }
-
-  function renderCard(p) {
-    const colors = RISK_COLORS[p.risk_level] || RISK_COLORS['moderate'];
-    const flag = FLAGS[p.vendor_country] || '🏳️';
-
-    return `
-      <article class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden hover:shadow-lg transition-all bg-white dark:bg-neutral-900">
-        <a href="${p.url}" class="block">
-          <div class="flex items-center justify-between px-4 py-2 ${colors.bg} border-b ${colors.border}">
-            <span class="text-xs font-semibold uppercase tracking-wide ${colors.text}">
-              ${p.risk_level} Risk
-            </span>
-            ${p.cloud_act ? '<span class="text-xs font-medium text-red-700 dark:text-red-400">CLOUD Act</span>' : ''}
-          </div>
-          <div class="p-4">
-            <div class="mb-3">
-              <h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-1">${escapeHtml(p.name)}</h2>
-              <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
-                <span>${flag}</span>
-                <span>${escapeHtml(p.vendor_country_name)}</span>
-                <span class="text-neutral-300 dark:text-neutral-600">•</span>
-                <span>${escapeHtml(p.vendor_name)}</span>
-              </div>
-            </div>
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2">${escapeHtml(p.description)}</p>
-            <div class="flex flex-wrap gap-1.5">
-              ${p.use_area_names.map(a => `<span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">${escapeHtml(a)}</span>`).join('')}
-            </div>
-          </div>
-        </a>
-      </article>
-    `;
   }
 
   function renderPagination(totalPages) {
@@ -401,7 +597,7 @@
     // Previous button
     html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">← Prev</button>`;
 
-    // Page numbers (show max 7 pages with ellipsis)
+    // Page numbers
     const pages = getPaginationPages(currentPage, totalPages);
     pages.forEach(p => {
       if (p === '...') {
@@ -421,7 +617,7 @@
       btn.addEventListener('click', () => {
         if (!btn.disabled) {
           currentPage = parseInt(btn.dataset.page);
-          render();
+          applyFilters();
           updateURL();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -435,12 +631,6 @@
     if (current <= 4) return [1, 2, 3, 4, 5, '...', total];
     if (current >= total - 3) return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
     return [1, '...', current - 1, current, current + 1, '...', total];
-  }
-
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
   }
 
   // Initialize

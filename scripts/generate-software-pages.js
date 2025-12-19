@@ -92,11 +92,15 @@ function calculateRiskLevel(assessment, framework) {
 /**
  * Generate slim product object for client-side filtering
  */
-function generateSlimProduct(product, vendor, riskLevel) {
+function generateSlimProduct(product, vendor) {
   const useAreaNames = product.use_areas.map(areaId => {
     const area = useAreaMap[areaId];
     return area ? area.name : areaId;
   });
+
+  // Determine jurisdiction exposure status for filtering
+  const jurisdictionExposure = product.hosting?.jurisdiction_exposure || [];
+  const hasUSExposure = jurisdictionExposure.includes('US');
 
   return {
     id: product.id,
@@ -107,8 +111,10 @@ function generateSlimProduct(product, vendor, riskLevel) {
     vendor_name: vendor.name,
     vendor_country: vendor.country,
     vendor_country_name: vendor.country_name,
-    risk_level: riskLevel,
-    cloud_act: cloudActCountries.includes(vendor.country),
+    risk_level: product.risk_level,
+    jurisdiction_exposure: jurisdictionExposure,
+    has_us_exposure: hasUSExposure,
+    data_residency: product.hosting?.data_residency || [],
     use_areas: product.use_areas,
     use_area_names: useAreaNames,
     open_source: product.open_source || false,
@@ -120,14 +126,15 @@ function generateSlimProduct(product, vendor, riskLevel) {
 /**
  * Generate markdown page for a product
  */
-function generateMarkdownPage(product, vendor, riskLevel) {
+function generateMarkdownPage(product, vendor) {
   const useAreaNames = product.use_areas.map(areaId => {
     const area = useAreaMap[areaId];
     return area ? area.name : areaId;
   });
 
-  const cloudAct = cloudActCountries.includes(vendor.country);
-  const schremsII = schremsIICountries.includes(vendor.country);
+  const jurisdictionExposure = product.hosting?.jurisdiction_exposure || [];
+  const dataResidency = product.hosting?.data_residency || [];
+  const hasUSExposure = jurisdictionExposure.includes('US');
 
   const riskLabels = {
     'low': 'Low Risk',
@@ -146,10 +153,9 @@ vendor_id: "${vendor.id}"
 vendor_name: "${vendor.name}"
 vendor_country: "${vendor.country}"
 vendor_country_name: "${vendor.country_name}"
-risk_level: "${riskLevel}"
-risk_label: "${riskLabels[riskLevel] || riskLevel}"
-cloud_act: ${cloudAct}
-schrems_ii: ${schremsII}
+risk_level: "${product.risk_level}"
+risk_label: "${riskLabels[product.risk_level] || product.risk_level}"
+has_us_exposure: ${hasUSExposure}
 open_source: ${product.open_source || false}
 data_portability: "${product.data_portability || 'unknown'}"
 date: ${new Date().toISOString().split('T')[0]}
@@ -157,13 +163,15 @@ layout: single
 type: software
 
 # Hosting options
-hosting_norway: ${product.hosting?.norway || false}
-hosting_eu: ${product.hosting?.eu || false}
-hosting_self: ${product.hosting?.self_hosted || false}
+self_hosted: ${product.hosting?.self_hosted || false}
+data_residency:
+${dataResidency.map(r => `  - "${r}"`).join('\n') || '  []'}
+jurisdiction_exposure:
+${jurisdictionExposure.map(j => `  - "${j}"`).join('\n') || '  []'}
 
 # Taxonomies for Hugo filtering
 risk_levels:
-  - "${riskLevel}"
+  - "${product.risk_level}"
 vendor_countries:
   - "${vendor.country}"
 use_areas:
@@ -208,16 +216,15 @@ products.products.forEach(product => {
     return;
   }
 
-  // Calculate risk level from NDSI assessment
-  const ndsiAssessment = product.assessments?.ndsi;
-  const riskLevel = calculateRiskLevel(ndsiAssessment, ndsiFramework);
+  // Use risk_level from product (pre-calculated)
+  // Note: calculateRiskLevel() is still available for validation if needed
 
   // Generate slim product for client-side
-  const slimProduct = generateSlimProduct(product, vendor, riskLevel);
+  const slimProduct = generateSlimProduct(product, vendor);
   slimProducts.push(slimProduct);
 
   // Generate markdown page
-  const markdown = generateMarkdownPage(product, vendor, riskLevel);
+  const markdown = generateMarkdownPage(product, vendor);
   const filename = `${product.slug}.md`;
   const filepath = path.join(contentDir, filename);
 
@@ -226,10 +233,10 @@ products.products.forEach(product => {
 
   if (existed) {
     updated++;
-    console.log(`  Updated: ${filename} (${riskLevel})`);
+    console.log(`  Updated: ${filename} (${product.risk_level})`);
   } else {
     created++;
-    console.log(`  Created: ${filename} (${riskLevel})`);
+    console.log(`  Created: ${filename} (${product.risk_level})`);
   }
 });
 

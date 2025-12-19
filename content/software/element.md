@@ -4,28 +4,30 @@ description: "Open source communication platform based on the Matrix protocol"
 software_id: "element"
 vendor_id: "element"
 vendor_name: "Element (New Vector Ltd)"
-vendor_country: "UK"
+vendor_country: "GB"
 vendor_country_name: "United Kingdom"
 risk_level: "low"
 risk_label: "Low Risk"
-cloud_act: false
-schrems_ii: false
+has_us_exposure: false
 open_source: true
 data_portability: "full"
-date: 2025-12-18
+date: 2025-12-19
 layout: single
 type: software
 
 # Hosting options
-hosting_norway: true
-hosting_eu: true
-hosting_self: true
+self_hosted: true
+data_residency:
+  - "NO"
+  - "EU_EEA"
+jurisdiction_exposure:
+  []
 
 # Taxonomies for Hugo filtering
 risk_levels:
   - "low"
 vendor_countries:
-  - "UK"
+  - "GB"
 use_areas:
   - "communication"
 

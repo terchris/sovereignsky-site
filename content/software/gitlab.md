@@ -8,18 +8,20 @@ vendor_country: "US"
 vendor_country_name: "USA"
 risk_level: "moderate"
 risk_label: "Moderate Risk"
-cloud_act: true
-schrems_ii: true
+has_us_exposure: true
 open_source: true
 data_portability: "full"
-date: 2025-12-18
+date: 2025-12-19
 layout: single
 type: software
 
 # Hosting options
-hosting_norway: true
-hosting_eu: true
-hosting_self: true
+self_hosted: true
+data_residency:
+  - "NO"
+  - "EU_EEA"
+jurisdiction_exposure:
+  - "US"
 
 # Taxonomies for Hugo filtering
 risk_levels:
