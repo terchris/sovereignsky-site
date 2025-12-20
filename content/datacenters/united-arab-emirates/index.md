@@ -15,10 +15,7 @@ Datacenter regions physically located in **United Arab Emirates** across all pro
 
 ## Providers
 
-- [Microsoft Azure](/datacenters/azure/) (2)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
-- [Amazon Web Services](/datacenters/aws/) (1)
+{{< datacenter-country-providers country="AE" >}}
 
 ## Laws
 

@@ -15,8 +15,7 @@ Datacenter regions physically located in **Ireland** across all providers.
 
 ## Providers
 
-- [Amazon Web Services](/datacenters/aws/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
+{{< datacenter-country-providers country="IE" >}}
 
 ## Laws
 

@@ -15,16 +15,7 @@ Datacenter regions physically located in **Norway** across all providers.
 
 ## Providers
 
-- [ASP Data Center](/datacenters/asp-datacenter/) (5)
-- [Green Mountain](/datacenters/greenmountain/) (4)
-- [STACK Infrastructure](/datacenters/stack-infrastructure/) (4)
-- [Bulk Infrastructure](/datacenters/bulk-infrastructure/) (2)
-- [Microsoft Azure](/datacenters/azure/) (2)
-- [Basefarm (Orange Business)](/datacenters/basefarm/) (1)
-- [Lefdal Mine Datacenter](/datacenters/lefdal-mine/) (1)
-- [Safespring](/datacenters/safespring/) (1)
-- [Skygard](/datacenters/skygard/) (1)
-- [Storespeed](/datacenters/storespeed/) (1)
+{{< datacenter-country-providers country="NO" >}}
 
 ## Laws
 

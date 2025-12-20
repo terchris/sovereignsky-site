@@ -1,0 +1,111 @@
+{
+  "provider_id": "upcloud",
+  "provider_name": "UpCloud",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "FI",
+  "vendor_website": "https://upcloud.com",
+  "regions": [
+    {
+      "region_id": "fi-hel1",
+      "region_name": "Helsinki 1",
+      "country_id": "FI",
+      "city": "Helsinki",
+      "coordinates": [60.1699, 24.9384]
+    },
+    {
+      "region_id": "fi-hel2",
+      "region_name": "Helsinki 2",
+      "country_id": "FI",
+      "city": "Helsinki",
+      "coordinates": [60.1799, 24.9484]
+    },
+    {
+      "region_id": "se-sto1",
+      "region_name": "Stockholm",
+      "country_id": "SE",
+      "city": "Stockholm",
+      "coordinates": [59.3293, 18.0686]
+    },
+    {
+      "region_id": "dk-cph1",
+      "region_name": "Copenhagen",
+      "country_id": "DK",
+      "city": "Ballerup",
+      "coordinates": [55.7317, 12.3633]
+    },
+    {
+      "region_id": "nl-ams1",
+      "region_name": "Amsterdam",
+      "country_id": "NL",
+      "city": "Amsterdam",
+      "coordinates": [52.3676, 4.9041]
+    },
+    {
+      "region_id": "de-fra1",
+      "region_name": "Frankfurt",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "uk-lon1",
+      "region_name": "London",
+      "country_id": "GB",
+      "city": "London",
+      "coordinates": [51.5074, -0.1278]
+    },
+    {
+      "region_id": "es-mad1",
+      "region_name": "Madrid",
+      "country_id": "ES",
+      "city": "Madrid",
+      "coordinates": [40.4168, -3.7038]
+    },
+    {
+      "region_id": "pl-waw1",
+      "region_name": "Warsaw",
+      "country_id": "PL",
+      "city": "Warsaw",
+      "coordinates": [52.2297, 21.0122]
+    },
+    {
+      "region_id": "us-chi1",
+      "region_name": "Chicago",
+      "country_id": "US",
+      "city": "Chicago",
+      "coordinates": [41.8781, -87.6298]
+    },
+    {
+      "region_id": "us-nyc1",
+      "region_name": "New York",
+      "country_id": "US",
+      "city": "New York",
+      "coordinates": [40.7128, -74.0060]
+    },
+    {
+      "region_id": "us-sjo1",
+      "region_name": "San Jose",
+      "country_id": "US",
+      "city": "San Jose",
+      "coordinates": [37.3382, -121.8863]
+    },
+    {
+      "region_id": "sg-sin1",
+      "region_name": "Singapore",
+      "country_id": "SG",
+      "city": "Singapore",
+      "coordinates": [1.3521, 103.8198]
+    },
+    {
+      "region_id": "au-syd1",
+      "region_name": "Sydney",
+      "country_id": "AU",
+      "city": "Sydney",
+      "coordinates": [-33.8688, 151.2093]
+    }
+  ],
+  "meta": {
+    "source": "https://upcloud.com/data-centers/"
+  }
+}

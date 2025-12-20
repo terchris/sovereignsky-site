@@ -15,7 +15,7 @@ Datacenter regions physically located in **Austria** across all providers.
 
 ## Providers
 
-- [Exoscale](/datacenters/exoscale/) (2)
+{{< datacenter-country-providers country="AT" >}}
 
 ## Laws
 

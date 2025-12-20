@@ -15,9 +15,7 @@ Datacenter regions physically located in **Chile** across all providers.
 
 ## Providers
 
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Huawei Cloud](/datacenters/huawei/) (1)
+{{< datacenter-country-providers country="CL" >}}
 
 ## Laws
 

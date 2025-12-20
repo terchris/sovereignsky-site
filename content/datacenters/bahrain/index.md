@@ -15,7 +15,7 @@ Datacenter regions physically located in **Bahrain** across all providers.
 
 ## Providers
 
-- [Amazon Web Services](/datacenters/aws/) (1)
+{{< datacenter-country-providers country="BH" >}}
 
 ## Laws
 

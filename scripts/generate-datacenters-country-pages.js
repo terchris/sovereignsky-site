@@ -88,25 +88,6 @@ function main() {
 
       ensureDir(targetDir);
 
-      const provCounts = providersByCountry.get(cid) || new Map();
-      const provItems = Array.from(provCounts.entries())
-        .map(([pid, c]) => {
-          const p = providers.find((x) => x.provider_id === pid);
-          return {
-            provider_id: pid,
-            provider_name: (p && p.provider_name) ? p.provider_name : pid,
-            count: c
-          };
-        })
-        .sort((a, b) => {
-          if (b.count !== a.count) return b.count - a.count;
-          return a.provider_name.localeCompare(b.provider_name);
-        });
-
-      const providersMd = provItems.length > 0
-        ? provItems.map((p) => `- [${p.provider_name}](/datacenters/${p.provider_id}/) (${p.count})`).join('\n')
-        : '_No providers found._';
-
       const title = formatTitle(meta);
       const description = `Datacenter regions physically located in ${meta.name}.`;
 
@@ -127,7 +108,7 @@ Datacenter regions physically located in **${meta.name}** across all providers.
 
 ## Providers
 
-${providersMd}
+{{< datacenter-country-providers country="${cid}" >}}
 
 ## Laws
 
@@ -144,5 +125,6 @@ ${providersMd}
 }
 
 main();
+
 
 

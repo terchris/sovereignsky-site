@@ -15,7 +15,7 @@ Datacenter regions physically located in **Belgium** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (1)
+{{< datacenter-country-providers country="BE" >}}
 
 ## Laws
 

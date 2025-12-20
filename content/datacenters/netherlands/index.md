@@ -15,12 +15,7 @@ Datacenter regions physically located in **Netherlands** across all providers.
 
 ## Providers
 
-- [Basefarm (Orange Business)](/datacenters/basefarm/) (1)
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
-- [Open Telekom Cloud](/datacenters/open-telekom-cloud/) (1)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (1)
-- [Scaleway](/datacenters/scaleway/) (1)
+{{< datacenter-country-providers country="NL" >}}
 
 ## Laws
 

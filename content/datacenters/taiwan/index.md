@@ -15,7 +15,7 @@ Datacenter regions physically located in **Taiwan** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (1)
+{{< datacenter-country-providers country="TW" >}}
 
 ## Laws
 

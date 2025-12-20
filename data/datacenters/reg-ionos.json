@@ -1,0 +1,69 @@
+{
+  "provider_id": "ionos",
+  "provider_name": "IONOS",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://www.ionos.com",
+  "regions": [
+    {
+      "region_id": "de-fra-1",
+      "region_name": "Frankfurt 1",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "de-fra-2",
+      "region_name": "Frankfurt 2",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1209, 8.6921]
+    },
+    {
+      "region_id": "de-txl",
+      "region_name": "Berlin",
+      "country_id": "DE",
+      "city": "Berlin",
+      "coordinates": [52.5200, 13.4050]
+    },
+    {
+      "region_id": "de-bdn",
+      "region_name": "Baden (South Germany)",
+      "country_id": "DE",
+      "city": "Karlsruhe",
+      "coordinates": [49.0069, 8.4037]
+    },
+    {
+      "region_id": "es-vit",
+      "region_name": "Spain (Vitoria)",
+      "country_id": "ES",
+      "city": "Vitoria",
+      "coordinates": [42.8467, -2.6726]
+    },
+    {
+      "region_id": "gb-lhr",
+      "region_name": "UK (London)",
+      "country_id": "GB",
+      "city": "London",
+      "coordinates": [51.5074, -0.1278]
+    },
+    {
+      "region_id": "us-ewr",
+      "region_name": "US East (Newark)",
+      "country_id": "US",
+      "city": "Newark",
+      "coordinates": [40.7357, -74.1724]
+    },
+    {
+      "region_id": "us-las",
+      "region_name": "US West (Las Vegas)",
+      "country_id": "US",
+      "city": "Las Vegas",
+      "coordinates": [36.1699, -115.1398]
+    }
+  ],
+  "meta": {
+    "source": "https://cloud.ionos.com/data-centers"
+  }
+}

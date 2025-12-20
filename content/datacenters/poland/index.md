@@ -15,10 +15,7 @@ Datacenter regions physically located in **Poland** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
-- [OVHcloud](/datacenters/ovh/) (1)
-- [Scaleway](/datacenters/scaleway/) (1)
+{{< datacenter-country-providers country="PL" >}}
 
 ## Laws
 

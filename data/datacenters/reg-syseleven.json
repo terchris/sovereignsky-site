@@ -1,0 +1,34 @@
+{
+  "provider_id": "syseleven",
+  "provider_name": "SysEleven",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://www.syseleven.de",
+  "regions": [
+    {
+      "region_id": "ber1",
+      "region_name": "Berlin (Boxhagener Str.)",
+      "country_id": "DE",
+      "city": "Berlin",
+      "coordinates": [52.5096, 13.4630]
+    },
+    {
+      "region_id": "ber2",
+      "region_name": "Berlin (Ohlauer Str.)",
+      "country_id": "DE",
+      "city": "Berlin",
+      "coordinates": [52.4940, 13.4270]
+    },
+    {
+      "region_id": "fra1",
+      "region_name": "Frankfurt",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    }
+  ],
+  "meta": {
+    "source": "https://www.syseleven.de/en/about-us/our-data-centers/"
+  }
+}

@@ -15,8 +15,7 @@ Datacenter regions physically located in **Qatar** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
+{{< datacenter-country-providers country="QA" >}}
 
 ## Laws
 

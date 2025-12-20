@@ -15,9 +15,7 @@ Datacenter regions physically located in **China** across all providers.
 
 ## Providers
 
-- [Alibaba Cloud](/datacenters/alibaba/) (12)
-- [Tencent Cloud](/datacenters/tencent/) (7)
-- [Huawei Cloud](/datacenters/huawei/) (6)
+{{< datacenter-country-providers country="CN" >}}
 
 ## Laws
 

@@ -15,9 +15,7 @@ Datacenter regions physically located in **Mexico** across all providers.
 
 ## Providers
 
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
-- [Huawei Cloud](/datacenters/huawei/) (1)
+{{< datacenter-country-providers country="MX" >}}
 
 ## Laws
 

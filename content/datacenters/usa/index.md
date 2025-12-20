@@ -15,12 +15,7 @@ Datacenter regions physically located in **USA** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (9)
-- [Microsoft Azure](/datacenters/azure/) (8)
-- [Amazon Web Services](/datacenters/aws/) (4)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (4)
-- [Alibaba Cloud](/datacenters/alibaba/) (2)
-- [Hetzner](/datacenters/hetzner/) (2)
+{{< datacenter-country-providers country="US" >}}
 
 ## Laws
 

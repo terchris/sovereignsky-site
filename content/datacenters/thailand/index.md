@@ -15,8 +15,7 @@ Datacenter regions physically located in **Thailand** across all providers.
 
 ## Providers
 
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
-- [Huawei Cloud](/datacenters/huawei/) (1)
+{{< datacenter-country-providers country="TH" >}}
 
 ## Laws
 

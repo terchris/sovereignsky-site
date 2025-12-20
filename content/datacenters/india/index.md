@@ -15,10 +15,7 @@ Datacenter regions physically located in **India** across all providers.
 
 ## Providers
 
-- [Microsoft Azure](/datacenters/azure/) (3)
-- [Amazon Web Services](/datacenters/aws/) (2)
-- [Google Cloud Platform](/datacenters/gcp/) (2)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
+{{< datacenter-country-providers country="IN" >}}
 
 ## Laws
 

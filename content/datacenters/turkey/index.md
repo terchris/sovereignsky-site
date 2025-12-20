@@ -15,7 +15,7 @@ Datacenter regions physically located in **Turkey** across all providers.
 
 ## Providers
 
-- [Huawei Cloud](/datacenters/huawei/) (1)
+{{< datacenter-country-providers country="TR" >}}
 
 ## Laws
 

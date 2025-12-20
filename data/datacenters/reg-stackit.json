@@ -1,0 +1,27 @@
+{
+  "provider_id": "stackit",
+  "provider_name": "STACKIT",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://www.stackit.de",
+  "regions": [
+    {
+      "region_id": "dc01",
+      "region_name": "Neckarsulm (DC01)",
+      "country_id": "DE",
+      "city": "Neckarsulm",
+      "coordinates": [49.1896, 9.2253]
+    },
+    {
+      "region_id": "dc08",
+      "region_name": "Ellhofen (DC08)",
+      "country_id": "DE",
+      "city": "Ellhofen",
+      "coordinates": [49.1485, 9.3187]
+    }
+  ],
+  "meta": {
+    "source": "https://www.stackit.de/en/colocation/"
+  }
+}

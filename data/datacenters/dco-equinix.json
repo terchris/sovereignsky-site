@@ -1,0 +1,34 @@
+{
+  "provider_id": "equinix",
+  "provider_name": "Equinix",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "US",
+  "vendor_website": "https://www.equinix.com",
+  "regions": [
+    {
+      "region_id": "he5",
+      "region_name": "Helsinki HE5",
+      "country_id": "FI",
+      "city": "Helsinki",
+      "coordinates": [60.2280, 24.8764]
+    },
+    {
+      "region_id": "he6",
+      "region_name": "Espoo HE6",
+      "country_id": "FI",
+      "city": "Espoo",
+      "coordinates": [60.1756, 24.8047]
+    },
+    {
+      "region_id": "he7",
+      "region_name": "Espoo HE7",
+      "country_id": "FI",
+      "city": "Espoo",
+      "coordinates": [60.1766, 24.8057]
+    }
+  ],
+  "meta": {
+    "source": "https://www.equinix.com/data-centers/europe-colocation/finland-colocation/helsinki-data-centers"
+  }
+}

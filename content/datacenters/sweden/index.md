@@ -15,11 +15,7 @@ Datacenter regions physically located in **Sweden** across all providers.
 
 ## Providers
 
-- [Microsoft Azure](/datacenters/azure/) (2)
-- [Safespring](/datacenters/safespring/) (2)
-- [Amazon Web Services](/datacenters/aws/) (1)
-- [Basefarm (Orange Business)](/datacenters/basefarm/) (1)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (1)
+{{< datacenter-country-providers country="SE" >}}
 
 ## Laws
 

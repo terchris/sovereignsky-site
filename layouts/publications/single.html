@@ -1,0 +1,216 @@
+{{ define "main" }}
+{{ .Scratch.Set "scope" "single" }}
+<article class="max-w-7xl mx-auto px-4">
+  {{/* Header */}}
+  <header class="mt-5 mb-8">
+    {{ if .Params.showBreadcrumbs | default true }}
+    {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+    {{ with .Description }}
+    <p class="mt-3 text-lg text-neutral-600 dark:text-neutral-400">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{/* Featured Image */}}
+  {{ $featured := .Resources.GetMatch "featured*" }}
+  {{ with $featured }}
+  <figure class="mb-8">
+    <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" class="w-full max-w-3xl rounded-lg shadow-md">
+  </figure>
+  {{ end }}
+
+  {{/* Two-column layout: Main content LEFT, Sidebar RIGHT */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+
+    {{/* Right Sidebar - appears first in DOM but ordered last on desktop */}}
+    <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-xs">
+      <div class="toc ps-5 print:hidden lg:sticky lg:top-24">
+
+        {{/* 1. Table of Contents */}}
+        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+        {{ if $showToc }}
+        {{ partial "toc.html" . }}
+        {{ end }}
+
+        {{/* 2. Source metadata */}}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Source</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            {{ with .Params.publication_type }}
+            <div class="text-sm"><span class="text-neutral-500">Type:</span> {{ . }}</div>
+            {{ end }}
+            {{ with .Params.publisher }}
+            <div class="text-sm"><span class="text-neutral-500">Publisher:</span> {{ . }}</div>
+            {{ end }}
+            {{ with .Params.edition }}
+            <div class="text-sm"><span class="text-neutral-500">Edition:</span> {{ . }}</div>
+            {{ end }}
+            {{ with .Params.year }}
+            <div class="text-sm"><span class="text-neutral-500">Year:</span> {{ . }}</div>
+            {{ end }}
+            {{ with .Params.authors }}
+            <div class="text-sm"><span class="text-neutral-500">Authors:</span> {{ range $i, $a := . }}{{ if $i }}, {{ end }}{{ $a }}{{ end }}</div>
+            {{ end }}
+            {{ with .Params.institutions }}
+            <div class="text-sm mt-1">
+              <span class="text-neutral-500">Institutions:</span>
+              <ul class="list-none m-0 p-0">
+                {{ range . }}<li class="m-0 p-0">{{ . }}</li>{{ end }}
+              </ul>
+            </div>
+            {{ end }}
+            {{ if or .Params.peer_reviewed .Params.open_access .Params.academic_publisher }}
+            <div class="flex flex-wrap gap-2 mt-2">
+              {{ if .Params.peer_reviewed }}<span class="text-xs text-green-600">✓ Peer Reviewed</span>{{ end }}
+              {{ if .Params.open_access }}<span class="text-xs text-blue-600">✓ Open Access</span>{{ end }}
+              {{ if .Params.academic_publisher }}<span class="text-xs text-purple-600">✓ Academic</span>{{ end }}
+            </div>
+            {{ end }}
+            {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
+            {{ with $sourceUrl }}
+            <div class="mt-3">
+              <a href="{{ . }}" target="_blank" class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-primary-500 bg-primary-500 text-white hover:bg-primary-600 transition-colors text-sm">
+                Read Original →
+              </a>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+
+        {{/* 3. Key Takeaways */}}
+        {{ with .Params.takeaways }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Key Takeaways</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <ul class="list-none m-0 p-0 space-y-1">
+              {{ range . }}
+              <li class="text-sm flex items-start gap-2 m-0 p-0">
+                <span class="text-primary-500">✓</span>
+                <span>{{ . }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* 4. Tags (linked to tag pages) */}}
+        {{ with .Params.tags }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Tags</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="flex flex-wrap gap-2">
+              {{ range . }}
+              <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="inline-flex items-center gap-1 no-underline px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-xs">
+                {{ . }}
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* 5. Topics */}}
+        {{ with .Params.topics }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Topics</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="text-sm text-neutral-700 dark:text-neutral-300">
+              {{ range $i, $t := . }}{{ if $i }}, {{ end }}{{ $t }}{{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* 5. Relevant For */}}
+        {{ with .Params.relevant_for }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Relevant For</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="flex flex-wrap gap-2">
+              {{ range . }}
+              {{ $labels := dict "ngo" "NGOs" "government" "Government" "humanitarian" "Humanitarian" "healthcare" "Healthcare" "enterprise" "Enterprise" "education" "Education" }}
+              <span class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+                {{ index $labels . | default . }}
+              </span>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* 6. Related Publications */}}
+        {{ $currentSlug := "" }}
+        {{ with .File }}{{ $currentSlug = .Dir }}{{ end }}
+        {{ $related := slice }}
+        {{ range where (where .Site.RegularPages "Section" "publications") ".File.Dir" "!=" $currentSlug }}
+        {{ $related = $related | append . }}
+        {{ end }}
+        {{ if gt (len $related) 0 }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">Other publications</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="flex flex-wrap gap-2">
+              {{ range first 5 $related }}
+              <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+                 href="{{ .RelPermalink }}">
+                <span class="font-medium">{{ .Title | truncate 30 }}</span>
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+      </div>
+    </div>
+
+    {{/* Main Content - LEFT */}}
+    <div class="min-w-0 min-h-0 max-w-fit">
+      <div class="article-content prose dark:prose-invert max-w-3xl mb-20">
+        {{/* Summary/Excerpt intro */}}
+        {{ with .Params.summary }}
+        <div class="text-lg text-neutral-600 dark:text-neutral-400 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-700">
+          {{ . | markdownify }}
+        </div>
+        {{ end }}
+
+        {{/* Main article content */}}
+        {{ .Content }}
+
+        {{/* Quote from original if provided */}}
+        {{ with .Params.quote }}
+        <blockquote class="border-l-4 border-primary-500 pl-4 my-8 italic text-neutral-600 dark:text-neutral-400">
+          {{ . | markdownify }}
+          {{ with $.Params.quote_attribution }}
+          <footer class="mt-2 text-sm not-italic">— {{ . }}</footer>
+          {{ end }}
+        </blockquote>
+        {{ end }}
+      </div>
+
+      {{/* Footer navigation */}}
+      <footer class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-700">
+        <div class="flex flex-wrap gap-4 text-sm">
+          <a href="/publications/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 no-underline">
+            ← All Publications
+          </a>
+          {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
+          {{ with $sourceUrl }}
+          <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 no-underline">
+            Read original article →
+          </a>
+          {{ end }}
+        </div>
+      </footer>
+    </div>
+
+  </section>
+</article>
+{{ end }}

@@ -15,7 +15,7 @@ Datacenter regions physically located in **Bulgaria** across all providers.
 
 ## Providers
 
-- [Exoscale](/datacenters/exoscale/) (1)
+{{< datacenter-country-providers country="BG" >}}
 
 ## Laws
 

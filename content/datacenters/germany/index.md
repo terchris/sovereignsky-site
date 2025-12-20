@@ -15,16 +15,7 @@ Datacenter regions physically located in **Germany** across all providers.
 
 ## Providers
 
-- [Exoscale](/datacenters/exoscale/) (2)
-- [Google Cloud Platform](/datacenters/gcp/) (2)
-- [Hetzner](/datacenters/hetzner/) (2)
-- [Microsoft Azure](/datacenters/azure/) (2)
-- [OVHcloud](/datacenters/ovh/) (2)
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
-- [Amazon Web Services](/datacenters/aws/) (1)
-- [Green Mountain](/datacenters/greenmountain/) (1)
-- [Open Telekom Cloud](/datacenters/open-telekom-cloud/) (1)
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (1)
+{{< datacenter-country-providers country="DE" >}}
 
 ## Laws
 

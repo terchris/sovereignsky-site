@@ -304,6 +304,92 @@
       }
     },
     {
+      "provider_id": "digital-realty",
+      "provider_name": "Digital Realty (Interxion)",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "US",
+      "vendor_website": "https://www.digitalrealty.com",
+      "regions": [
+        {
+          "region_id": "cph1",
+          "region_name": "Copenhagen CPH1",
+          "country_id": "DK",
+          "city": "Ballerup",
+          "coordinates": [
+            55.7317,
+            12.3633
+          ]
+        },
+        {
+          "region_id": "cph2",
+          "region_name": "Copenhagen CPH2",
+          "country_id": "DK",
+          "city": "Ballerup",
+          "coordinates": [
+            55.7327,
+            12.3643
+          ]
+        },
+        {
+          "region_id": "cph3",
+          "region_name": "Copenhagen CPH3",
+          "country_id": "DK",
+          "city": "Ballerup",
+          "coordinates": [
+            55.7337,
+            12.3653
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.digitalrealty.com/data-centers/emea/copenhagen"
+      }
+    },
+    {
+      "provider_id": "equinix",
+      "provider_name": "Equinix",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "US",
+      "vendor_website": "https://www.equinix.com",
+      "regions": [
+        {
+          "region_id": "he5",
+          "region_name": "Helsinki HE5",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.228,
+            24.8764
+          ]
+        },
+        {
+          "region_id": "he6",
+          "region_name": "Espoo HE6",
+          "country_id": "FI",
+          "city": "Espoo",
+          "coordinates": [
+            60.1756,
+            24.8047
+          ]
+        },
+        {
+          "region_id": "he7",
+          "region_name": "Espoo HE7",
+          "country_id": "FI",
+          "city": "Espoo",
+          "coordinates": [
+            60.1766,
+            24.8057
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.equinix.com/data-centers/europe-colocation/finland-colocation/helsinki-data-centers"
+      }
+    },
+    {
       "provider_id": "gcp",
       "provider_name": "Google Cloud Platform",
       "provider_type": "hyperscaler",
@@ -1842,6 +1928,99 @@
       }
     },
     {
+      "provider_id": "ionos",
+      "provider_name": "IONOS",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://www.ionos.com",
+      "regions": [
+        {
+          "region_id": "de-fra-1",
+          "region_name": "Frankfurt 1",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "de-fra-2",
+          "region_name": "Frankfurt 2",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1209,
+            8.6921
+          ]
+        },
+        {
+          "region_id": "de-txl",
+          "region_name": "Berlin",
+          "country_id": "DE",
+          "city": "Berlin",
+          "coordinates": [
+            52.52,
+            13.405
+          ]
+        },
+        {
+          "region_id": "de-bdn",
+          "region_name": "Baden (South Germany)",
+          "country_id": "DE",
+          "city": "Karlsruhe",
+          "coordinates": [
+            49.0069,
+            8.4037
+          ]
+        },
+        {
+          "region_id": "es-vit",
+          "region_name": "Spain (Vitoria)",
+          "country_id": "ES",
+          "city": "Vitoria",
+          "coordinates": [
+            42.8467,
+            -2.6726
+          ]
+        },
+        {
+          "region_id": "gb-lhr",
+          "region_name": "UK (London)",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "us-ewr",
+          "region_name": "US East (Newark)",
+          "country_id": "US",
+          "city": "Newark",
+          "coordinates": [
+            40.7357,
+            -74.1724
+          ]
+        },
+        {
+          "region_id": "us-las",
+          "region_name": "US West (Las Vegas)",
+          "country_id": "US",
+          "city": "Las Vegas",
+          "coordinates": [
+            36.1699,
+            -115.1398
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://cloud.ionos.com/data-centers"
+      }
+    },
+    {
       "provider_id": "open-telekom-cloud",
       "provider_name": "Open Telekom Cloud",
       "provider_type": "regional_cloud",
@@ -1988,6 +2167,59 @@
       }
     },
     {
+      "provider_id": "plusserver",
+      "provider_name": "plusserver",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://www.plusserver.com",
+      "regions": [
+        {
+          "region_id": "cgn3",
+          "region_name": "Cologne",
+          "country_id": "DE",
+          "city": "Cologne",
+          "coordinates": [
+            50.9375,
+            6.9603
+          ]
+        },
+        {
+          "region_id": "dus6",
+          "region_name": "Düsseldorf",
+          "country_id": "DE",
+          "city": "Düsseldorf",
+          "coordinates": [
+            51.2277,
+            6.7735
+          ]
+        },
+        {
+          "region_id": "ham1",
+          "region_name": "Hamburg 1",
+          "country_id": "DE",
+          "city": "Hamburg",
+          "coordinates": [
+            53.5511,
+            9.9937
+          ]
+        },
+        {
+          "region_id": "ham2",
+          "region_name": "Hamburg 2",
+          "country_id": "DE",
+          "city": "Hamburg",
+          "coordinates": [
+            53.5611,
+            10.0037
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.plusserver.com/en/company/data-centers/"
+      }
+    },
+    {
       "provider_id": "scaleway",
       "provider_name": "Scaleway",
       "provider_type": "regional_cloud",
@@ -2028,6 +2260,82 @@
       ],
       "meta": {
         "source": "https://www.scaleway.com/en/about-us/"
+      }
+    },
+    {
+      "provider_id": "stackit",
+      "provider_name": "STACKIT",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://www.stackit.de",
+      "regions": [
+        {
+          "region_id": "dc01",
+          "region_name": "Neckarsulm (DC01)",
+          "country_id": "DE",
+          "city": "Neckarsulm",
+          "coordinates": [
+            49.1896,
+            9.2253
+          ]
+        },
+        {
+          "region_id": "dc08",
+          "region_name": "Ellhofen (DC08)",
+          "country_id": "DE",
+          "city": "Ellhofen",
+          "coordinates": [
+            49.1485,
+            9.3187
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.stackit.de/en/colocation/"
+      }
+    },
+    {
+      "provider_id": "syseleven",
+      "provider_name": "SysEleven",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://www.syseleven.de",
+      "regions": [
+        {
+          "region_id": "ber1",
+          "region_name": "Berlin (Boxhagener Str.)",
+          "country_id": "DE",
+          "city": "Berlin",
+          "coordinates": [
+            52.5096,
+            13.463
+          ]
+        },
+        {
+          "region_id": "ber2",
+          "region_name": "Berlin (Ohlauer Str.)",
+          "country_id": "DE",
+          "city": "Berlin",
+          "coordinates": [
+            52.494,
+            13.427
+          ]
+        },
+        {
+          "region_id": "fra1",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.syseleven.de/en/about-us/our-data-centers/"
       }
     },
     {
@@ -2094,6 +2402,59 @@
       }
     },
     {
+      "provider_id": "bahnhof",
+      "provider_name": "Bahnhof",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://bahnhof.se",
+      "regions": [
+        {
+          "region_id": "pionen",
+          "region_name": "Pionen (Stockholm)",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3145,
+            18.085
+          ]
+        },
+        {
+          "region_id": "thule",
+          "region_name": "Thule (Stockholm)",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.334,
+            18.062
+          ]
+        },
+        {
+          "region_id": "steriks",
+          "region_name": "S:t Eriks (Stockholm)",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.34,
+            18.03
+          ]
+        },
+        {
+          "region_id": "sparven",
+          "region_name": "Sparven (Malmö)",
+          "country_id": "SE",
+          "city": "Malmö",
+          "coordinates": [
+            55.605,
+            13.0038
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://bahnhof.se/foretag/colocation-en/our-data-centers/"
+      }
+    },
+    {
       "provider_id": "basefarm",
       "provider_name": "Basefarm (Orange Business)",
       "provider_type": "regional_cloud",
@@ -2137,6 +2498,29 @@
       }
     },
     {
+      "provider_id": "binero",
+      "provider_name": "Binero",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://binero.com",
+      "regions": [
+        {
+          "region_id": "sto1",
+          "region_name": "Stockholm (Vallentuna)",
+          "country_id": "SE",
+          "city": "Vallentuna",
+          "coordinates": [
+            59.534,
+            18.078
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://binero.com/en/datacenter/"
+      }
+    },
+    {
       "provider_id": "bulk-infrastructure",
       "provider_name": "Bulk Infrastructure",
       "provider_type": "datacenter_operator",
@@ -2167,6 +2551,92 @@
       ],
       "meta": {
         "source": "https://bulkinfrastructure.com/data-centers/locations/os-ix"
+      }
+    },
+    {
+      "provider_id": "cleura",
+      "provider_name": "Cleura",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://cleura.com",
+      "regions": [
+        {
+          "region_id": "sto1",
+          "region_name": "Stockholm",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            18.0686
+          ]
+        },
+        {
+          "region_id": "kna1",
+          "region_name": "Karlskrona",
+          "country_id": "SE",
+          "city": "Karlskrona",
+          "coordinates": [
+            56.1612,
+            15.5869
+          ]
+        },
+        {
+          "region_id": "fra1",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://cleura.com/resources/getting-started-with-cleura-cloud/regions-services-sub-processors/"
+      }
+    },
+    {
+      "provider_id": "elastx",
+      "provider_name": "Elastx",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://elastx.se",
+      "regions": [
+        {
+          "region_id": "sto1",
+          "region_name": "Stockholm South",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.28,
+            18.05
+          ]
+        },
+        {
+          "region_id": "sto2",
+          "region_name": "Stockholm West",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            17.95
+          ]
+        },
+        {
+          "region_id": "sto3",
+          "region_name": "Stockholm North",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.38,
+            18.0686
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://docs.elastx.cloud/docs/openstack-iaas/overview/"
       }
     },
     {
@@ -2352,6 +2822,49 @@
       ],
       "meta": {
         "source": "https://www.storespeed.no/"
+      }
+    },
+    {
+      "provider_id": "telia",
+      "provider_name": "Telia",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "SE",
+      "vendor_website": "https://www.telia.fi",
+      "regions": [
+        {
+          "region_id": "hel-pitajanmaki",
+          "region_name": "Helsinki (Pitäjänmäki)",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.2242,
+            24.8584
+          ]
+        },
+        {
+          "region_id": "hel-lauttasaari",
+          "region_name": "Helsinki (Lauttasaari)",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.1577,
+            24.8778
+          ]
+        },
+        {
+          "region_id": "lahti",
+          "region_name": "Lahti",
+          "country_id": "FI",
+          "city": "Lahti",
+          "coordinates": [
+            60.9827,
+            25.6612
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.telia.fi/business/data-center-services/data-centers"
       }
     },
     {
@@ -2638,6 +3151,89 @@
       }
     },
     {
+      "provider_id": "globalconnect",
+      "provider_name": "GlobalConnect",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DK",
+      "vendor_website": "https://www.globalconnect.dk",
+      "regions": [
+        {
+          "region_id": "cph-taastrup",
+          "region_name": "Copenhagen Taastrup",
+          "country_id": "DK",
+          "city": "Taastrup",
+          "coordinates": [
+            55.652,
+            12.293
+          ]
+        },
+        {
+          "region_id": "cph-glostrup",
+          "region_name": "Copenhagen Glostrup",
+          "country_id": "DK",
+          "city": "Glostrup",
+          "coordinates": [
+            55.6625,
+            12.4
+          ]
+        },
+        {
+          "region_id": "cph-albertslund",
+          "region_name": "Copenhagen Albertslund",
+          "country_id": "DK",
+          "city": "Albertslund",
+          "coordinates": [
+            55.6578,
+            12.3564
+          ]
+        },
+        {
+          "region_id": "cph-vesterbrogade",
+          "region_name": "Copenhagen City",
+          "country_id": "DK",
+          "city": "Copenhagen",
+          "coordinates": [
+            55.6712,
+            12.554
+          ]
+        },
+        {
+          "region_id": "kolding",
+          "region_name": "Kolding",
+          "country_id": "DK",
+          "city": "Kolding",
+          "coordinates": [
+            55.4904,
+            9.4722
+          ]
+        },
+        {
+          "region_id": "horsens",
+          "region_name": "Horsens",
+          "country_id": "DK",
+          "city": "Hørning",
+          "coordinates": [
+            56.0903,
+            9.9267
+          ]
+        },
+        {
+          "region_id": "skanderborg",
+          "region_name": "Skanderborg",
+          "country_id": "DK",
+          "city": "Skanderborg",
+          "coordinates": [
+            56.0407,
+            9.9272
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.datacenters.com/providers/globalconnect/data-center-locations"
+      }
+    },
+    {
       "provider_id": "huawei",
       "provider_name": "Huawei Cloud",
       "provider_type": "hyperscaler",
@@ -2831,6 +3427,112 @@
       }
     },
     {
+      "provider_id": "leaseweb",
+      "provider_name": "Leaseweb",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "NL",
+      "vendor_website": "https://www.leaseweb.com",
+      "regions": [
+        {
+          "region_id": "fra-01",
+          "region_name": "Frankfurt FRA-01",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1709,
+            8.6921
+          ]
+        },
+        {
+          "region_id": "fra-10",
+          "region_name": "Frankfurt FRA-10",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6521
+          ]
+        },
+        {
+          "region_id": "fra-14",
+          "region_name": "Frankfurt FRA-14",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1009,
+            8.6221
+          ]
+        },
+        {
+          "region_id": "ams-01",
+          "region_name": "Amsterdam AMS-01",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.leaseweb.com/en/why-leaseweb/platform/data-centers/fra-01"
+      }
+    },
+    {
+      "provider_id": "netic",
+      "provider_name": "Netic",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "DK",
+      "vendor_website": "https://www.netic.dk",
+      "regions": [
+        {
+          "region_id": "dc5",
+          "region_name": "Aalborg (DC5)",
+          "country_id": "DK",
+          "city": "Aalborg",
+          "coordinates": [
+            57.0488,
+            9.9217
+          ]
+        },
+        {
+          "region_id": "dc-aalborg",
+          "region_name": "Aalborg (NOVI)",
+          "country_id": "DK",
+          "city": "Aalborg",
+          "coordinates": [
+            57.0268,
+            9.9494
+          ]
+        },
+        {
+          "region_id": "dc-aarhus",
+          "region_name": "Aarhus",
+          "country_id": "DK",
+          "city": "Aarhus",
+          "coordinates": [
+            56.1629,
+            10.2039
+          ]
+        },
+        {
+          "region_id": "dc-copenhagen",
+          "region_name": "Copenhagen",
+          "country_id": "DK",
+          "city": "Copenhagen",
+          "coordinates": [
+            55.6761,
+            12.5683
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.netic.dk/en/hosting-eng/"
+      }
+    },
+    {
       "provider_id": "tencent",
       "provider_name": "Tencent Cloud",
       "provider_type": "hyperscaler",
@@ -2912,12 +3614,208 @@
       "meta": {
         "source": "https://www.tencentcloud.com/document/product/213/6091"
       }
+    },
+    {
+      "provider_id": "upcloud",
+      "provider_name": "UpCloud",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-20",
+      "vendor_country_id": "FI",
+      "vendor_website": "https://upcloud.com",
+      "regions": [
+        {
+          "region_id": "fi-hel1",
+          "region_name": "Helsinki 1",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.1699,
+            24.9384
+          ]
+        },
+        {
+          "region_id": "fi-hel2",
+          "region_name": "Helsinki 2",
+          "country_id": "FI",
+          "city": "Helsinki",
+          "coordinates": [
+            60.1799,
+            24.9484
+          ]
+        },
+        {
+          "region_id": "se-sto1",
+          "region_name": "Stockholm",
+          "country_id": "SE",
+          "city": "Stockholm",
+          "coordinates": [
+            59.3293,
+            18.0686
+          ]
+        },
+        {
+          "region_id": "dk-cph1",
+          "region_name": "Copenhagen",
+          "country_id": "DK",
+          "city": "Ballerup",
+          "coordinates": [
+            55.7317,
+            12.3633
+          ]
+        },
+        {
+          "region_id": "nl-ams1",
+          "region_name": "Amsterdam",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        },
+        {
+          "region_id": "de-fra1",
+          "region_name": "Frankfurt",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "uk-lon1",
+          "region_name": "London",
+          "country_id": "GB",
+          "city": "London",
+          "coordinates": [
+            51.5074,
+            -0.1278
+          ]
+        },
+        {
+          "region_id": "es-mad1",
+          "region_name": "Madrid",
+          "country_id": "ES",
+          "city": "Madrid",
+          "coordinates": [
+            40.4168,
+            -3.7038
+          ]
+        },
+        {
+          "region_id": "pl-waw1",
+          "region_name": "Warsaw",
+          "country_id": "PL",
+          "city": "Warsaw",
+          "coordinates": [
+            52.2297,
+            21.0122
+          ]
+        },
+        {
+          "region_id": "us-chi1",
+          "region_name": "Chicago",
+          "country_id": "US",
+          "city": "Chicago",
+          "coordinates": [
+            41.8781,
+            -87.6298
+          ]
+        },
+        {
+          "region_id": "us-nyc1",
+          "region_name": "New York",
+          "country_id": "US",
+          "city": "New York",
+          "coordinates": [
+            40.7128,
+            -74.006
+          ]
+        },
+        {
+          "region_id": "us-sjo1",
+          "region_name": "San Jose",
+          "country_id": "US",
+          "city": "San Jose",
+          "coordinates": [
+            37.3382,
+            -121.8863
+          ]
+        },
+        {
+          "region_id": "sg-sin1",
+          "region_name": "Singapore",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "au-syd1",
+          "region_name": "Sydney",
+          "country_id": "AU",
+          "city": "Sydney",
+          "coordinates": [
+            -33.8688,
+            151.2093
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://upcloud.com/data-centers/"
+      }
+    },
+    {
+      "provider_id": "verne",
+      "provider_name": "Verne Global (Ficolo)",
+      "provider_type": "datacenter_operator",
+      "updated": "2025-12-20",
+      "vendor_country_id": "FI",
+      "vendor_website": "https://www.verneglobal.com",
+      "regions": [
+        {
+          "region_id": "hel-air",
+          "region_name": "Helsinki (The Air)",
+          "country_id": "FI",
+          "city": "Vantaa",
+          "coordinates": [
+            60.2934,
+            24.9631
+          ]
+        },
+        {
+          "region_id": "pori-rock",
+          "region_name": "Pori (The Rock)",
+          "country_id": "FI",
+          "city": "Pori",
+          "coordinates": [
+            61.4851,
+            21.7974
+          ]
+        },
+        {
+          "region_id": "tre-deck",
+          "region_name": "Tampere (The Deck)",
+          "country_id": "FI",
+          "city": "Tampere",
+          "coordinates": [
+            61.4978,
+            23.761
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.verneglobal.com/finland"
+      }
     }
   ],
   "meta": {
-    "total_providers": 21,
-    "total_regions": 264,
-    "generated": "2025-12-19",
+    "total_providers": 37,
+    "total_regions": 333,
+    "generated": "2025-12-20",
     "description": "Merged datacenter data from data/datacenters/*.json"
   }
 }

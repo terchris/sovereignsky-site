@@ -15,11 +15,7 @@ Datacenter regions physically located in **Brazil** across all providers.
 
 ## Providers
 
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
-- [Amazon Web Services](/datacenters/aws/) (1)
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Huawei Cloud](/datacenters/huawei/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
+{{< datacenter-country-providers country="BR" >}}
 
 ## Laws
 

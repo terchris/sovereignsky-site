@@ -15,11 +15,7 @@ Datacenter regions physically located in **Hong Kong** across all providers.
 
 ## Providers
 
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
-- [Amazon Web Services](/datacenters/aws/) (1)
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Huawei Cloud](/datacenters/huawei/) (1)
-- [Microsoft Azure](/datacenters/azure/) (1)
+{{< datacenter-country-providers country="HK" >}}
 
 ## Laws
 

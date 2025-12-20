@@ -1,0 +1,34 @@
+{
+  "provider_id": "digital-realty",
+  "provider_name": "Digital Realty (Interxion)",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "US",
+  "vendor_website": "https://www.digitalrealty.com",
+  "regions": [
+    {
+      "region_id": "cph1",
+      "region_name": "Copenhagen CPH1",
+      "country_id": "DK",
+      "city": "Ballerup",
+      "coordinates": [55.7317, 12.3633]
+    },
+    {
+      "region_id": "cph2",
+      "region_name": "Copenhagen CPH2",
+      "country_id": "DK",
+      "city": "Ballerup",
+      "coordinates": [55.7327, 12.3643]
+    },
+    {
+      "region_id": "cph3",
+      "region_name": "Copenhagen CPH3",
+      "country_id": "DK",
+      "city": "Ballerup",
+      "coordinates": [55.7337, 12.3653]
+    }
+  ],
+  "meta": {
+    "source": "https://www.digitalrealty.com/data-centers/emea/copenhagen"
+  }
+}

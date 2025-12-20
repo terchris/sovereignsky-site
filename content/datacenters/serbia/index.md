@@ -15,7 +15,7 @@ Datacenter regions physically located in **Serbia** across all providers.
 
 ## Providers
 
-- [Oracle Cloud Infrastructure](/datacenters/oci/) (1)
+{{< datacenter-country-providers country="RS" >}}
 
 ## Laws
 

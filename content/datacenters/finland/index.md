@@ -15,8 +15,7 @@ Datacenter regions physically located in **Finland** across all providers.
 
 ## Providers
 
-- [Google Cloud Platform](/datacenters/gcp/) (1)
-- [Hetzner](/datacenters/hetzner/) (1)
+{{< datacenter-country-providers country="FI" >}}
 
 ## Laws
 

@@ -15,7 +15,7 @@ Datacenter regions physically located in **Malaysia** across all providers.
 
 ## Providers
 
-- [Alibaba Cloud](/datacenters/alibaba/) (1)
+{{< datacenter-country-providers country="MY" >}}
 
 ## Laws
 

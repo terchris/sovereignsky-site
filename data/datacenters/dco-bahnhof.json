@@ -1,0 +1,41 @@
+{
+  "provider_id": "bahnhof",
+  "provider_name": "Bahnhof",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "SE",
+  "vendor_website": "https://bahnhof.se",
+  "regions": [
+    {
+      "region_id": "pionen",
+      "region_name": "Pionen (Stockholm)",
+      "country_id": "SE",
+      "city": "Stockholm",
+      "coordinates": [59.3145, 18.0850]
+    },
+    {
+      "region_id": "thule",
+      "region_name": "Thule (Stockholm)",
+      "country_id": "SE",
+      "city": "Stockholm",
+      "coordinates": [59.3340, 18.0620]
+    },
+    {
+      "region_id": "steriks",
+      "region_name": "S:t Eriks (Stockholm)",
+      "country_id": "SE",
+      "city": "Stockholm",
+      "coordinates": [59.3400, 18.0300]
+    },
+    {
+      "region_id": "sparven",
+      "region_name": "Sparven (Malmö)",
+      "country_id": "SE",
+      "city": "Malmö",
+      "coordinates": [55.6050, 13.0038]
+    }
+  ],
+  "meta": {
+    "source": "https://bahnhof.se/foretag/colocation-en/our-data-centers/"
+  }
+}
