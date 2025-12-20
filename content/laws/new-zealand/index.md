@@ -1,7 +1,7 @@
 ---
 title: "🇳🇿 New Zealand"
 description: "Data sovereignty laws and regulations in New Zealand"
-layout: "simple"
+showTableOfContents: true
 ---
 
 New Zealand has an EU adequacy decision and the Privacy Act 2020. However, as a Five Eyes member, there are intelligence-sharing considerations.

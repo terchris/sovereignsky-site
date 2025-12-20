@@ -1,7 +1,7 @@
 ---
 title: "🇫🇷 France"
 description: "Data sovereignty laws and regulations in France"
-layout: "simple"
+showTableOfContents: true
 ---
 
 France is an EU member with the CNIL as one of Europe's most active data protection authorities. France has been pushing for European digital sovereignty.

@@ -1,7 +1,7 @@
 ---
 title: "🇨🇦 Canada"
 description: "Data sovereignty laws and regulations in Canada"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Canada has an EU adequacy decision and PIPEDA provides reasonable data protection. However, as a Five Eyes member, there are intelligence-sharing concerns.

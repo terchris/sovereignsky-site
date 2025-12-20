@@ -1,7 +1,7 @@
 ---
 title: "🇰🇷 South Korea"
 description: "Data sovereignty laws and regulations in South Korea"
-layout: "simple"
+showTableOfContents: true
 ---
 
 South Korea has an EU adequacy decision since 2022 and PIPA provides strong data protection with active enforcement.

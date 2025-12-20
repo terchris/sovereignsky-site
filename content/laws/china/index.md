@@ -1,7 +1,7 @@
 ---
 title: "🇨🇳 China"
 description: "Data sovereignty laws and regulations in China"
-layout: "simple"
+showTableOfContents: true
 ---
 
 China requires organizations and citizens to cooperate with national intelligence work. Data localization requirements and strict cross-border transfer rules make it difficult to use Chinese services while maintaining data sovereignty.

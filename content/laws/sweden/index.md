@@ -1,7 +1,7 @@
 ---
 title: "🇸🇪 Sweden"
 description: "Data sovereignty laws and regulations in Sweden"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Sweden is an EU member state with strong data protection traditions. Home to several major data centers and tech companies operating under EU law.

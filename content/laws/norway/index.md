@@ -1,7 +1,7 @@
 ---
 title: "🇳🇴 Norway"
 description: "Data sovereignty laws and regulations in Norway"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Norway is not an EU member but participates in the European Economic Area (EEA), adopting EU data protection regulations including GDPR. Norwegian companies and data centers offer strong sovereignty for organizations seeking to avoid non-European jurisdiction.

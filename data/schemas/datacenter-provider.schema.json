@@ -7,6 +7,7 @@
   "required": [
     "provider_id",
     "provider_name",
+    "provider_type",
     "updated",
     "vendor_country_id",
     "regions",
@@ -22,6 +23,11 @@
     "provider_name": {
       "type": "string",
       "description": "Display name of the provider"
+    },
+    "provider_type": {
+      "type": "string",
+      "description": "Classification of the provider (public cloud vs regional cloud vs datacenter operator).",
+      "enum": ["hyperscaler", "regional_cloud", "datacenter_operator"]
     },
     "updated": {
       "type": "string",

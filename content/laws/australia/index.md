@@ -1,7 +1,7 @@
 ---
 title: "🇦🇺 Australia"
 description: "Data sovereignty laws and regulations in Australia"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Australia is a Five Eyes member with the controversial TOLA Act allowing authorities to compel companies to build backdoors and assist in decryption.

@@ -1,0 +1,21 @@
+{
+  "provider_id": "lefdal-mine",
+  "provider_name": "Lefdal Mine Datacenter",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "NO",
+  "vendor_website": "https://www.lefdalmine.com/",
+  "regions": [
+    {
+      "region_id": "LMD01",
+      "region_name": "Lefdal Mine Datacenter (Måløy)",
+      "country_id": "NO",
+      "city": "Måløy",
+      "coordinates": [61.935, 5.113]
+    }
+  ],
+  "meta": {
+    "source": "https://www.lefdalmine.com/"
+  }
+}
+

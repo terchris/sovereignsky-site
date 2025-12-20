@@ -1,7 +1,7 @@
 ---
 title: "🇺🇸 USA"
 description: "Data sovereignty laws and regulations in USA"
-layout: "simple"
+showTableOfContents: true
 ---
 
 The United States has broad surveillance laws that grant government access to data held by US companies, regardless of where the data is stored. The CLOUD Act is particularly concerning for European organizations using US cloud providers.

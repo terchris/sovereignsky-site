@@ -1,7 +1,7 @@
 ---
 title: "🇳🇱 Netherlands"
 description: "Data sovereignty laws and regulations in Netherlands"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Netherlands hosts major internet exchanges and data centers. EU member with strong tech sector and data protection traditions.

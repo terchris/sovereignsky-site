@@ -1,7 +1,7 @@
 ---
 title: "🇮🇪 Ireland"
 description: "Data sovereignty laws and regulations in Ireland"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Ireland hosts European headquarters for many US tech giants (Google, Meta, Microsoft). The Irish DPC is the lead supervisory authority for many cross-border cases, though criticized for slow enforcement.

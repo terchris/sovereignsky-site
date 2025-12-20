@@ -1,7 +1,7 @@
 ---
 title: "🇨🇭 Switzerland"
 description: "Data sovereignty laws and regulations in Switzerland"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Switzerland is not an EU/EEA member but has an EU adequacy decision. Known for banking secrecy and neutrality, with strong data protection under the revised FADP.

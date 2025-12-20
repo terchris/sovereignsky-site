@@ -1,7 +1,7 @@
 ---
 title: "🇩🇰 Denmark"
 description: "Data sovereignty laws and regulations in Denmark"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Denmark is an EU member state with robust digital infrastructure and data protection aligned with GDPR.

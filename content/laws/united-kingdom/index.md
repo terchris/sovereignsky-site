@@ -1,7 +1,7 @@
 ---
 title: "🇬🇧 United Kingdom"
 description: "Data sovereignty laws and regulations in United Kingdom"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Post-Brexit, the UK has an EU adequacy decision but maintains broad surveillance powers under the Investigatory Powers Act. A Five Eyes member with extensive intelligence-sharing arrangements.

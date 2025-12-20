@@ -1,7 +1,7 @@
 ---
 title: "🇮🇱 Israel"
 description: "Data sovereignty laws and regulations in Israel"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Israel has an EU adequacy decision for certain sectors. Known for advanced cybersecurity industry but also surveillance technology exports.

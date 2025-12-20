@@ -40,6 +40,7 @@ function main() {
     const provider = {
       provider_id: data.provider_id,
       provider_name: data.provider_name,
+      provider_type: data.provider_type,
       updated: updated,
       vendor_country_id: data.vendor_country_id,
       vendor_website: data.vendor_website,

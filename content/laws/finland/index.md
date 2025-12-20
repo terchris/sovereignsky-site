@@ -1,7 +1,7 @@
 ---
 title: "🇫🇮 Finland"
 description: "Data sovereignty laws and regulations in Finland"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Finland is an EU member state known for transparency and strong rule of law. Popular location for data centers due to cold climate and renewable energy.

@@ -1,7 +1,7 @@
 ---
 title: "🇩🇪 Germany"
 description: "Data sovereignty laws and regulations in Germany"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Germany has some of the strictest data protection interpretations in the EU. German Datenschutz (data protection) culture runs deep, with strong enforcement by state-level authorities.

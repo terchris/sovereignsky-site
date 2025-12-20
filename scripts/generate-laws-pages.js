@@ -133,7 +133,7 @@ function generateCountryPage(region) {
   let md = `---
 title: "${region.flag} ${region.name}"
 description: "Data sovereignty laws and regulations in ${region.name}"
-layout: "simple"
+showTableOfContents: true
 ---
 
 ${region.description}
@@ -221,7 +221,7 @@ function generateBlocPage(bloc) {
   let md = `---
 title: "${bloc.flag} ${bloc.name}"
 description: "${bloc.description}"
-layout: "simple"
+showTableOfContents: true
 ---
 
 ${bloc.description}

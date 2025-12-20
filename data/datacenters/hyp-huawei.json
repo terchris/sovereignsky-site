@@ -1,0 +1,139 @@
+{
+  "provider_id": "huawei",
+  "provider_name": "Huawei Cloud",
+  "provider_type": "hyperscaler",
+  "updated": "2025-12-19",
+  "vendor_country_id": "CN",
+  "vendor_website": "https://www.huaweicloud.com",
+  "regions": [
+    {
+      "region_id": "cn-north-4",
+      "region_name": "CN North (Beijing4)",
+      "country_id": "CN",
+      "city": "Beijing",
+      "coordinates": [39.9042, 116.4074]
+    },
+    {
+      "region_id": "cn-east-3",
+      "region_name": "CN East (Shanghai1)",
+      "country_id": "CN",
+      "city": "Shanghai",
+      "coordinates": [31.2304, 121.4737]
+    },
+    {
+      "region_id": "cn-east-2",
+      "region_name": "CN East2",
+      "country_id": "CN",
+      "city": "Shanghai",
+      "coordinates": [31.2404, 121.4837]
+    },
+    {
+      "region_id": "cn-north-9",
+      "region_name": "CN East (Qingdao)",
+      "country_id": "CN",
+      "city": "Qingdao",
+      "coordinates": [36.0671, 120.3826]
+    },
+    {
+      "region_id": "cn-south-1",
+      "region_name": "CN South (Guangzhou)",
+      "country_id": "CN",
+      "city": "Guangzhou",
+      "coordinates": [23.1291, 113.2644]
+    },
+    {
+      "region_id": "cn-southwest-2",
+      "region_name": "CN Southwest (Guiyang1)",
+      "country_id": "CN",
+      "city": "Guiyang",
+      "coordinates": [26.6470, 106.6302]
+    },
+    {
+      "region_id": "ap-southeast-1",
+      "region_name": "Hong Kong",
+      "country_id": "HK",
+      "city": "Hong Kong",
+      "coordinates": [22.3193, 114.1694]
+    },
+    {
+      "region_id": "ap-southeast-2",
+      "region_name": "Thailand (Bangkok)",
+      "country_id": "TH",
+      "city": "Bangkok",
+      "coordinates": [13.7563, 100.5018]
+    },
+    {
+      "region_id": "ap-southeast-3",
+      "region_name": "Singapore",
+      "country_id": "SG",
+      "city": "Singapore",
+      "coordinates": [1.3521, 103.8198]
+    },
+    {
+      "region_id": "ap-southeast-4",
+      "region_name": "Indonesia (Jakarta)",
+      "country_id": "ID",
+      "city": "Jakarta",
+      "coordinates": [-6.2088, 106.8456]
+    },
+    {
+      "region_id": "ap-southeast-6",
+      "region_name": "Philippines (Manila)",
+      "country_id": "PH",
+      "city": "Manila",
+      "coordinates": [14.5995, 120.9842]
+    },
+    {
+      "region_id": "af-south-1",
+      "region_name": "South Africa (Johannesburg)",
+      "country_id": "ZA",
+      "city": "Johannesburg",
+      "coordinates": [-26.2041, 28.0473]
+    },
+    {
+      "region_id": "af-north-1",
+      "region_name": "Egypt (Cairo)",
+      "country_id": "EG",
+      "city": "Cairo",
+      "coordinates": [30.0444, 31.2357]
+    },
+    {
+      "region_id": "la-north-2",
+      "region_name": "Mexico (Mexico City)",
+      "country_id": "MX",
+      "city": "Mexico City",
+      "coordinates": [19.4326, -99.1332]
+    },
+    {
+      "region_id": "la-south-2",
+      "region_name": "Brazil (São Paulo)",
+      "country_id": "BR",
+      "city": "São Paulo",
+      "coordinates": [-23.5505, -46.6333]
+    },
+    {
+      "region_id": "la-south-1",
+      "region_name": "Chile (Santiago)",
+      "country_id": "CL",
+      "city": "Santiago",
+      "coordinates": [-33.4489, -70.6693]
+    },
+    {
+      "region_id": "tr-west-1",
+      "region_name": "Turkey (Istanbul)",
+      "country_id": "TR",
+      "city": "Istanbul",
+      "coordinates": [41.0082, 28.9784]
+    },
+    {
+      "region_id": "me-east-1",
+      "region_name": "Saudi Arabia (Riyadh)",
+      "country_id": "SA",
+      "city": "Riyadh",
+      "coordinates": [24.7136, 46.6753]
+    }
+  ],
+  "meta": {
+    "source": "https://www.huaweicloud.com/intl/en-us/securecenter/data_protection/region_query.html"
+  }
+}

@@ -1,0 +1,92 @@
+{{/*
+  Risk Assessment box for datacenter provider pages.
+  Usage: {{< datacenter-risk-assessment >}}
+  Requires page param: provider_id
+*/}}
+
+{{ $providerId := .Page.Params.provider_id | default "" }}
+{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $provider := dict }}
+{{ range $providers }}
+  {{ if eq .provider_id $providerId }}
+    {{ $provider = . }}
+  {{ end }}
+{{ end }}
+
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+
+{{ $hqId := "" }}
+{{ $hq := dict }}
+{{ $hqRisk := "unknown" }}
+{{ $hqName := "" }}
+{{ $hqFlag := "" }}
+{{ $hqSlug := "" }}
+{{ if $provider }}
+  {{ $hqId = $provider.vendor_country_id | default "" }}
+{{ end }}
+{{ if $hqId }}
+  {{ $hq = index $regionsById $hqId }}
+  {{ if $hq }}
+    {{ $hqRisk = $hq.risk_level }}
+    {{ $hqName = $hq.name }}
+    {{ $hqFlag = $hq.flag }}
+    {{ $hqSlug = $hq.slug }}
+  {{ end }}
+{{ end }}
+
+{{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
+{{ $riskLabel := $hqRisk }}
+{{ with index $riskLevels $hqRisk }}
+  {{ if .label }}{{ $riskLabel = .label }}{{ end }}
+{{ end }}
+
+{{ $riskEmoji := "" }}
+{{ if eq $hqRisk "low" }}{{ $riskEmoji = "✅" }}{{ end }}
+{{ if eq $hqRisk "moderate" }}{{ $riskEmoji = "⚠️" }}{{ end }}
+{{ if eq $hqRisk "elevated" }}{{ $riskEmoji = "🔶" }}{{ end }}
+{{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
+{{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
+
+{{ $blocsById := dict }}
+{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+{{ $blocNames := slice }}
+{{ if $hq }}
+  {{ range ($hq.blocs | default (slice)) }}
+    {{ $b := index $blocsById . }}
+    {{ if $b }}
+      {{ $blocNames = $blocNames | append $b.name }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ if $provider }}
+<div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+  <div class="flex flex-wrap items-center gap-3">
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+      <span class="font-medium">Risk</span>
+      <span class="text-neutral-500 dark:text-neutral-400">{{ if $riskEmoji }}{{ $riskEmoji }}{{ end }} {{ $riskLabel }}</span>
+    </span>
+    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+      <span class="font-medium">Blocs</span>
+      <span class="text-neutral-500 dark:text-neutral-400">
+        {{ if gt (len $blocNames) 0 }}{{ delimit $blocNames ", " }}{{ else }}—{{ end }}
+      </span>
+    </span>
+    {{ if and $hqSlug (ne $hqSlug "") }}
+      <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
+         href="/laws/{{ $hqSlug }}/">
+        <span class="font-medium">Exposure laws</span>
+        <span class="text-neutral-500 dark:text-neutral-400">{{ if $hqFlag }}{{ $hqFlag }}{{ end }} {{ $hqName | default $hqId }}</span>
+        <span class="text-neutral-500 dark:text-neutral-400">↗</span>
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
+
+

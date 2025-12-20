@@ -1,7 +1,7 @@
 ---
 title: "🇦🇹 Austria"
 description: "Data sovereignty laws and regulations in Austria"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Austria is an EU member known for privacy activism. The Schrems cases that invalidated Safe Harbor and Privacy Shield originated from Austrian privacy advocate Max Schrems.

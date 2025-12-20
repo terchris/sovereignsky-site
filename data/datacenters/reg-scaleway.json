@@ -1,0 +1,43 @@
+{
+  "provider_id": "scaleway",
+  "provider_name": "Scaleway",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-19",
+  "vendor_country_id": "FR",
+  "vendor_website": "https://www.scaleway.com",
+  "regions": [
+    {
+      "region_id": "fr-par",
+      "region_name": "Paris",
+      "country_id": "FR",
+      "city": "Paris",
+      "coordinates": [
+        48.8566,
+        2.3522
+      ]
+    },
+    {
+      "region_id": "nl-ams",
+      "region_name": "Amsterdam",
+      "country_id": "NL",
+      "city": "Amsterdam",
+      "coordinates": [
+        52.3676,
+        4.9041
+      ]
+    },
+    {
+      "region_id": "pl-waw",
+      "region_name": "Warsaw",
+      "country_id": "PL",
+      "city": "Warsaw",
+      "coordinates": [
+        52.2297,
+        21.0122
+      ]
+    }
+  ],
+  "meta": {
+    "source": "https://www.scaleway.com/en/about-us/"
+  }
+}

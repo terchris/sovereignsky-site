@@ -1,7 +1,7 @@
 ---
 title: "🇮🇳 India"
 description: "Data sovereignty laws and regulations in India"
-layout: "simple"
+showTableOfContents: true
 ---
 
 India has broad government surveillance powers under the IT Act. The new DPDP Act provides some protection but with significant government exemptions.

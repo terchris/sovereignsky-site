@@ -1,7 +1,7 @@
 ---
 title: "🇷🇺 Russia"
 description: "Data sovereignty laws and regulations in Russia"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Russia is subject to international sanctions following the 2022 invasion of Ukraine. Data localization laws require Russian citizen data to be stored in Russia, and SORM requires surveillance backdoors.

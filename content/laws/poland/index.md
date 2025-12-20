@@ -1,7 +1,7 @@
 ---
 title: "🇵🇱 Poland"
 description: "Data sovereignty laws and regulations in Poland"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Poland is an EU member state with growing data center infrastructure.

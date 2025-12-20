@@ -1,7 +1,7 @@
 ---
 title: "🇯🇵 Japan"
 description: "Data sovereignty laws and regulations in Japan"
-layout: "simple"
+showTableOfContents: true
 ---
 
 Japan has an EU adequacy decision since 2019 and the APPI provides comprehensive data protection aligned with international standards.
