@@ -1,0 +1,27 @@
+---
+title: "🇮🇳 India Datacenters"
+description: "Datacenter regions physically located in India."
+echarts: true
+layout: "datacenters/country"
+country_id: "IN"
+showTableOfContents: true
+---
+
+Datacenter regions physically located in **India** across all providers.
+
+## Map
+
+{{< datacenter-map countries="IN" showFilters="false" >}}
+
+## Providers
+
+- [Microsoft Azure](/datacenters/azure/) (3)
+- [Amazon Web Services](/datacenters/aws/) (2)
+- [Google Cloud Platform](/datacenters/gcp/) (2)
+- [Oracle Cloud Infrastructure](/datacenters/oci/) (2)
+
+## Laws
+
+→ [Exposure laws for India](/laws/india/)
+
+→ [Back to all datacenters](/datacenters/)

@@ -7,7 +7,9 @@
     "description": "Norway is not an EU member but participates in the European Economic Area (EEA), adopting EU data protection regulations including GDPR. Norwegian companies and data centers offer strong sovereignty for organizations seeking to avoid non-European jurisdiction.",
     "eu_member": false,
     "eea_member": true,
-    "blocs": ["eea"],
+    "blocs": [
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": [
@@ -41,6 +43,36 @@
     ]
   },
   {
+    "id": "IS",
+    "slug": "iceland",
+    "name": "Iceland",
+    "flag": "🇮🇸",
+    "description": "Iceland is not an EU member but participates in the European Economic Area (EEA), adopting key EU regulations including GDPR. It is generally considered sovereignty-friendly for EU data flows through the EEA framework.",
+    "eu_member": false,
+    "eea_member": true,
+    "blocs": [
+      "eea"
+    ],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
+    "id": "LI",
+    "slug": "liechtenstein",
+    "name": "Liechtenstein",
+    "flag": "🇱🇮",
+    "description": "Liechtenstein is not an EU member but participates in the European Economic Area (EEA), adopting key EU regulations including GDPR via the EEA Agreement.",
+    "eu_member": false,
+    "eea_member": true,
+    "blocs": [
+      "eea"
+    ],
+    "law_concern": false,
+    "risk_level": "low",
+    "national_laws": []
+  },
+  {
     "id": "SE",
     "slug": "sweden",
     "name": "Sweden",
@@ -48,7 +80,10 @@
     "description": "Sweden is an EU member state with strong data protection traditions. Home to several major data centers and tech companies operating under EU law.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -61,7 +96,10 @@
     "description": "Denmark is an EU member state with robust digital infrastructure and data protection aligned with GDPR.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -74,7 +112,10 @@
     "description": "Finland is an EU member state known for transparency and strong rule of law. Popular location for data centers due to cold climate and renewable energy.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -87,7 +128,10 @@
     "description": "Germany has some of the strictest data protection interpretations in the EU. German Datenschutz (data protection) culture runs deep, with strong enforcement by state-level authorities.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": [
@@ -110,7 +154,10 @@
     "description": "France is an EU member with the CNIL as one of Europe's most active data protection authorities. France has been pushing for European digital sovereignty.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -123,7 +170,10 @@
     "description": "Netherlands hosts major internet exchanges and data centers. EU member with strong tech sector and data protection traditions.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -136,7 +186,10 @@
     "description": "Poland is an EU member state with growing data center infrastructure.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -149,7 +202,10 @@
     "description": "Ireland hosts European headquarters for many US tech giants (Google, Meta, Microsoft). The Irish DPC is the lead supervisory authority for many cross-border cases, though criticized for slow enforcement.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -162,7 +218,10 @@
     "description": "Austria is an EU member known for privacy activism. The Schrems cases that invalidated Safe Harbor and Privacy Shield originated from Austrian privacy advocate Max Schrems.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -175,7 +234,10 @@
     "description": "Belgium is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -188,7 +250,10 @@
     "description": "Bulgaria is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -201,7 +266,10 @@
     "description": "Croatia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -214,7 +282,10 @@
     "description": "Cyprus is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -227,7 +298,10 @@
     "description": "Czechia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -240,7 +314,10 @@
     "description": "Estonia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -253,7 +330,10 @@
     "description": "Greece is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -266,7 +346,10 @@
     "description": "Hungary is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -279,7 +362,10 @@
     "description": "Latvia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -292,7 +378,10 @@
     "description": "Lithuania is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -305,7 +394,10 @@
     "description": "Luxembourg is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -318,7 +410,10 @@
     "description": "Malta is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -331,7 +426,10 @@
     "description": "Portugal is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -344,7 +442,10 @@
     "description": "Romania is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -357,7 +458,10 @@
     "description": "Slovakia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -370,7 +474,10 @@
     "description": "Slovenia is an EU member state subject to GDPR and EU legal frameworks.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -383,7 +490,10 @@
     "description": "Spain is an EU member state subject to GDPR and EU legal frameworks. Data stored with Spanish providers is governed by EU/EEA protections, with no extraterritorial access concerns comparable to US-style jurisdiction exposure.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -396,7 +506,10 @@
     "description": "Italy is an EU member state subject to GDPR and EU legal frameworks. Data stored with Italian providers is governed by EU/EEA protections, with no extraterritorial access concerns comparable to US-style jurisdiction exposure.",
     "eu_member": true,
     "eea_member": true,
-    "blocs": ["eu", "eea"],
+    "blocs": [
+      "eu",
+      "eea"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": []
@@ -410,7 +523,9 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["adequacy"],
+    "blocs": [
+      "adequacy"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": [
@@ -433,7 +548,9 @@
     "description": "The United States has broad surveillance laws that grant government access to data held by US companies, regardless of where the data is stored. The CLOUD Act is particularly concerning for European organizations using US cloud providers.",
     "eu_member": false,
     "eea_member": false,
-    "blocs": ["five-eyes"],
+    "blocs": [
+      "five-eyes"
+    ],
     "law_concern": true,
     "risk_level": "high",
     "national_laws": [
@@ -484,7 +601,10 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["five-eyes", "adequacy"],
+    "blocs": [
+      "five-eyes",
+      "adequacy"
+    ],
     "law_concern": true,
     "risk_level": "elevated",
     "national_laws": [
@@ -618,7 +738,9 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["adequacy"],
+    "blocs": [
+      "adequacy"
+    ],
     "law_concern": false,
     "political_concern": true,
     "risk_level": "moderate",
@@ -664,7 +786,9 @@
     "description": "Australia is a Five Eyes member with the controversial TOLA Act allowing authorities to compel companies to build backdoors and assist in decryption.",
     "eu_member": false,
     "eea_member": false,
-    "blocs": ["five-eyes"],
+    "blocs": [
+      "five-eyes"
+    ],
     "law_concern": true,
     "risk_level": "elevated",
     "national_laws": [
@@ -688,7 +812,10 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["five-eyes", "adequacy"],
+    "blocs": [
+      "five-eyes",
+      "adequacy"
+    ],
     "law_concern": false,
     "risk_level": "moderate",
     "national_laws": [
@@ -712,7 +839,9 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["adequacy"],
+    "blocs": [
+      "adequacy"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": [
@@ -736,7 +865,9 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["adequacy"],
+    "blocs": [
+      "adequacy"
+    ],
     "law_concern": false,
     "risk_level": "low",
     "national_laws": [
@@ -760,7 +891,10 @@
     "eu_member": false,
     "eea_member": false,
     "adequacy_decision": true,
-    "blocs": ["five-eyes", "adequacy"],
+    "blocs": [
+      "five-eyes",
+      "adequacy"
+    ],
     "law_concern": false,
     "risk_level": "moderate",
     "national_laws": [

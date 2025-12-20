@@ -1,0 +1,146 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+
+  {{/* Resolve country slug/id */}}
+  {{ $slug := "" }}
+  {{ with .File }}
+    {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
+  {{ end }}
+
+  {{ $countryId := .Params.country_id | default "" }}
+  {{ $country := dict }}
+  {{ if not $countryId }}
+    {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
+    {{ with index $match 0 }}
+      {{ $country = . }}
+      {{ $countryId = .id }}
+    {{ end }}
+  {{ else }}
+    {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+    {{ with index $match 0 }}
+      {{ $country = . }}
+    {{ end }}
+  {{ end }}
+
+  {{ $countryName := $countryId }}
+  {{ $countryFlag := "" }}
+  {{ $lawsSlug := $slug }}
+  {{ if $country }}
+    {{ $countryName = $country.name | default $countryId }}
+    {{ $countryFlag = $country.flag | default "" }}
+    {{ $lawsSlug = $country.slug | default $slug }}
+  {{ end }}
+
+  {{/* Providers that have regions in this country */}}
+  {{ $providers := site.Data.datacenters.providers | default (slice) }}
+  {{ $providerItems := slice }}
+  {{ $totalRegions := 0 }}
+  {{ if $countryId }}
+    {{ range $providers }}
+      {{ $p := . }}
+      {{ $count := 0 }}
+      {{ range ($p.regions | default (slice)) }}
+        {{ if eq .country_id $countryId }}
+          {{ $count = add $count 1 }}
+        {{ end }}
+      {{ end }}
+      {{ if gt $count 0 }}
+        {{ $totalRegions = add $totalRegions $count }}
+        {{ $providerItems = $providerItems | append (dict "provider" $p "count" $count "name" ($p.provider_name | default $p.provider_id)) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $providerItems = sort $providerItems "name" "asc" }}
+  {{ $providerItems = sort $providerItems "count" "desc" }}
+
+  <article>
+    <header id="single_header" class="mt-5 max-w-prose">
+      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      <div class="mt-1 mb-4 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+      </div>
+
+      {{ if $countryId }}
+        <div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+              <span class="font-medium">Country</span>
+              <span class="text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }}{{ end }} {{ $countryName }}</span>
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+              <span class="font-medium">Regions</span>
+              <span class="text-neutral-500 dark:text-neutral-400">{{ $totalRegions }}</span>
+            </span>
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+              <span class="font-medium">Providers</span>
+              <span class="text-neutral-500 dark:text-neutral-400">{{ len $providerItems }}</span>
+            </span>
+            {{ if $lawsSlug }}
+              <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
+                 href="/laws/{{ $lawsSlug }}/">
+                <span class="font-medium">Exposure laws</span>
+                <span class="text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }}{{ end }} {{ $countryName }}</span>
+                <span class="text-neutral-500 dark:text-neutral-400">↗</span>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    </header>
+
+    {{/* Body with right sidebar */}}
+    <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+
+      {{ $showSidebar := or $showToc (gt (len $providerItems) 0) }}
+      {{ if $showSidebar }}
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
+            {{ if $showToc }}
+              {{ partial "toc.html" . }}
+            {{ end }}
+
+            {{ if gt (len $providerItems) 0 }}
+              <div class="mt-6">
+                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Providers</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">Datacenters in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+                <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                  <ul class="m-0 p-0 list-none space-y-1">
+                    {{ range $providerItems }}
+                      {{ $p := .provider }}
+                      {{ $count := .count }}
+                      <li class="m-0 p-0">
+                        <a class="no-underline hover:underline"
+                           href="/datacenters/{{ $p.provider_id }}/"
+                           title="View {{ $p.provider_name }} datacenters">
+                          {{ $p.provider_name }}
+                        </a>
+                        <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
+                      </li>
+                    {{ end }}
+                  </ul>
+                </div>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
+          {{ .Content }}
+        </div>
+      </div>
+    </section>
+  </article>
+{{ end }}
+
+

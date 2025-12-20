@@ -10,6 +10,7 @@ Usage: {{< datacenter-map>}}
   {{ $regions := site.Data.regions }}
   {{ $jurisdictions := site.Data.jurisdictions }}
   {{ $providersParam := .Get "providers" | default "" }}
+  {{ $countriesParam := .Get "countries" | default "" }}
   {{ $showFilters := .Get "showFilters" | default "true" }}
   {{ $showFiltersBool := ne $showFilters "false" }}
 
@@ -161,6 +162,7 @@ Usage: {{< datacenter-map>}}
   <script type="application/json" id="dc-map-data">{{ $mapPoints | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-providers">{{ $providerMeta | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-initial-providers">{{ $providersParam | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-initial-countries">{{ $countriesParam | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-show-filters">{{ $showFiltersBool | jsonify | safeHTML }}</script>
 
   <script>
@@ -187,6 +189,7 @@ Usage: {{< datacenter-map>}}
       var dcData = readJsonScript('dc-map-data', []);
       var providers = readJsonScript('dc-map-providers', []);
       var initialProvidersParam = readJsonScript('dc-map-initial-providers', '');
+      var initialCountriesParam = readJsonScript('dc-map-initial-countries', '');
       var showFilters = readJsonScript('dc-map-show-filters', true);
 
       // Vendor-jurisdiction categories (explicit 4-way split so legend matches UX)
@@ -240,6 +243,54 @@ Usage: {{< datacenter-map>}}
           var defaultGeo = { center: [10, 45], zoom: 1.5 };
           var searchGeo = null;
           var searchMatchKeys = new Set();
+          var countryFilterSet = null;
+
+          function parseCsvSet(v) {
+            if (typeof v !== 'string') return null;
+            var s = v.trim();
+            if (!s) return null;
+            var parts = s.split(',').map(function (x) { return (x || '').trim(); }).filter(Boolean);
+            if (parts.length === 0) return null;
+            return new Set(parts);
+          }
+
+          function computeGeoForPoints(points) {
+            var pts = (points || []).filter(function (m) { return m && m.coordinates && m.coordinates.length === 2; });
+            if (pts.length === 0) return null;
+            var minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+            pts.forEach(function (m) {
+              var lat = m.coordinates[0], lng = m.coordinates[1];
+              if (typeof lat !== 'number' || typeof lng !== 'number') return;
+              if (lat < minLat) minLat = lat;
+              if (lat > maxLat) maxLat = lat;
+              if (lng < minLng) minLng = lng;
+              if (lng > maxLng) maxLng = lng;
+            });
+            var centerLat = (minLat + maxLat) / 2;
+            var centerLng = (minLng + maxLng) / 2;
+
+            var span = Math.max(Math.abs(maxLat - minLat), Math.abs(maxLng - minLng));
+            var zoom = 2;
+            if (span < 0.5) zoom = 7;
+            else if (span < 1) zoom = 6;
+            else if (span < 2) zoom = 5;
+            else if (span < 5) zoom = 4;
+            else if (span < 10) zoom = 4;
+            else if (span < 20) zoom = 3;
+            else zoom = 2;
+
+            return { center: [centerLng, centerLat], zoom: zoom };
+          }
+
+          // If shortcode provides `countries="NO,SE"`, restrict map to those physical locations and zoom in.
+          countryFilterSet = parseCsvSet(initialCountriesParam);
+          if (countryFilterSet && countryFilterSet.size > 0) {
+            var baseCountryPoints = (dcData || []).filter(function (d) {
+              return d && d.country_id && countryFilterSet.has(d.country_id);
+            });
+            var cg = computeGeoForPoints(baseCountryPoints);
+            if (cg) defaultGeo = cg;
+          }
 
           function computeMarkerOffsets(data) {
             // If multiple datacenters are very close, apply small pixel offsets so markers don't overlap.
@@ -374,6 +425,9 @@ Usage: {{< datacenter-map>}}
             var isDark = document.documentElement.classList.contains('dark');
 
             var filteredDcData = (dcData || []).filter(function (dc) {
+              if (countryFilterSet && countryFilterSet.size > 0) {
+                if (!dc.country_id || !countryFilterSet.has(dc.country_id)) return false;
+              }
               if (!selectedProviderIds.has(dc.provider_id)) return false;
               var t = providerTypeById[dc.provider_id] || 'regional_cloud';
               return selectedProviderTypes.has(t);

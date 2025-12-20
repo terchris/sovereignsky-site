@@ -75,7 +75,36 @@ Risk-based framework for AI systems, prohibiting certain practices and requiring
 
 | Country | Risk Level |
 |---------|------------|
+| [🇦🇹 Austria](/laws/austria/) | ✅ Low Risk |
+| [🇧🇪 Belgium](/laws/belgium/) | ✅ Low Risk |
+| [🇧🇬 Bulgaria](/laws/bulgaria/) | ✅ Low Risk |
+| [🇭🇷 Croatia](/laws/croatia/) | ✅ Low Risk |
+| [🇨🇾 Cyprus](/laws/cyprus/) | ✅ Low Risk |
+| [🇨🇿 Czechia](/laws/czechia/) | ✅ Low Risk |
+| [🇩🇰 Denmark](/laws/denmark/) | ✅ Low Risk |
+| [🇪🇪 Estonia](/laws/estonia/) | ✅ Low Risk |
+| [🇫🇮 Finland](/laws/finland/) | ✅ Low Risk |
+| [🇫🇷 France](/laws/france/) | ✅ Low Risk |
+| [🇩🇪 Germany](/laws/germany/) | ✅ Low Risk |
+| [🇬🇷 Greece](/laws/greece/) | ✅ Low Risk |
+| [🇭🇺 Hungary](/laws/hungary/) | ✅ Low Risk |
+| [🇮🇸 Iceland](/laws/iceland/) | ✅ Low Risk |
+| [🇮🇪 Ireland](/laws/ireland/) | ✅ Low Risk |
+| [🇮🇹 Italy](/laws/italy/) | ✅ Low Risk |
+| [🇱🇻 Latvia](/laws/latvia/) | ✅ Low Risk |
+| [🇱🇮 Liechtenstein](/laws/liechtenstein/) | ✅ Low Risk |
+| [🇱🇹 Lithuania](/laws/lithuania/) | ✅ Low Risk |
+| [🇱🇺 Luxembourg](/laws/luxembourg/) | ✅ Low Risk |
+| [🇲🇹 Malta](/laws/malta/) | ✅ Low Risk |
+| [🇳🇱 Netherlands](/laws/netherlands/) | ✅ Low Risk |
 | [🇳🇴 Norway](/laws/norway/) | ✅ Low Risk |
+| [🇵🇱 Poland](/laws/poland/) | ✅ Low Risk |
+| [🇵🇹 Portugal](/laws/portugal/) | ✅ Low Risk |
+| [🇷🇴 Romania](/laws/romania/) | ✅ Low Risk |
+| [🇸🇰 Slovakia](/laws/slovakia/) | ✅ Low Risk |
+| [🇸🇮 Slovenia](/laws/slovenia/) | ✅ Low Risk |
+| [🇪🇸 Spain](/laws/spain/) | ✅ Low Risk |
+| [🇸🇪 Sweden](/laws/sweden/) | ✅ Low Risk |
 
 ---
 

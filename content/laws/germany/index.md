@@ -84,46 +84,6 @@ Extends EU internal market to EFTA states (except Switzerland). Includes adoptio
 
 ---
 
-## Inherited Laws
-
-These laws apply through inherited agreements.
-
-### GDPR (2018)
-
-**General Data Protection Regulation**
-
-Comprehensive data protection law giving individuals control over their personal data. Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.
-
-- **Severity:** 🛡️ Protective
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-
----
-
-### Data Act (2024)
-
-**Regulation on harmonised rules on fair access to and use of data**
-
-Rules on data sharing between businesses, access to data by public sector, and cloud switching rights.
-
-- **Severity:** 🛡️ Protective
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
-
----
-
-### AI Act (2024)
-
-**Regulation on Artificial Intelligence**
-
-Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI.
-
-- **Severity:** 🛡️ Protective
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-
----
-
 ---
 
 → [View all jurisdictions](/laws/)

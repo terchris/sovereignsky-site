@@ -15,6 +15,25 @@
 {{/* Build country data for the map */}}
 {{ $mapData := slice }}
 
+{{/* Count datacenter regions by physical country (for tooltips + filters + list) */}}
+{{ $dc := site.Data.datacenters }}
+{{ $dcCounts := dict }}
+{{ range ($dc.providers | default (slice)) }}
+  {{ range (.regions | default (slice)) }}
+    {{ $cid := .country_id | default "" }}
+    {{ if $cid }}
+      {{ $prev := index $dcCounts $cid | default 0 }}
+      {{ $dcCounts = merge $dcCounts (dict $cid (add $prev 1)) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Bloc lookup for tooltip labels */}}
+{{ $blocsById := dict }}
+{{ range ($jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+
 {{ range $regions }}
   {{/* Map risk_level to numeric value for visualization */}}
   {{ $riskValue := 0 }}
@@ -57,22 +76,90 @@
   {{ if .eea_member }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
   {{ if .adequacy_decision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
 
-  {{ $item := dict "name" $countryName "value" $riskValue "id" .id "slug" .slug "riskLabel" $riskLabel "riskColor" $riskColor "laws" .national_laws "flag" .flag "originalName" .name "blocs" .blocs "memberships" $memberships }}
+  {{ $dcCount := index $dcCounts .id | default 0 }}
+  {{ $blocNames := slice }}
+  {{ range (.blocs | default (slice)) }}
+    {{ $b := index $blocsById . }}
+    {{ if $b }}
+      {{ $blocNames = $blocNames | append $b.name }}
+    {{ end }}
+  {{ end }}
+
+  {{ $item := dict
+      "name" $countryName
+      "value" $riskValue
+      "id" .id
+      "slug" .slug
+      "riskLabel" $riskLabel
+      "riskColor" $riskColor
+      "riskLevel" .risk_level
+      "laws" .national_laws
+      "flag" .flag
+      "originalName" .name
+      "blocs" .blocs
+      "blocNames" $blocNames
+      "memberships" $memberships
+      "datacenterCount" $dcCount
+    }}
   {{ $mapData = $mapData | append $item }}
 {{ end }}
 
-<div id="jurisdiction-map" style="width: 100%; height: 500px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 8px;"></div>
+<div class="not-prose mt-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+      <label for="laws-map-search" class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Search</label>
+      <div class="relative flex-1">
+        <input id="laws-map-search"
+               type="text"
+               class="w-full rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
+               placeholder="Country, bloc, or law (e.g. Norway, EU, CLOUD Act)…" />
+        <div id="laws-map-suggestions" class="absolute z-10 mt-1 w-full max-h-64 overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg" style="display:none;"></div>
+      </div>
+      <button id="laws-map-reset"
+              type="button"
+              class="inline-flex items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">
+        Reset
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Risk</span>
+        <div id="laws-risk-chips" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Blocs</span>
+        <div id="laws-bloc-chips" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <label class="inline-flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-200 cursor-pointer">
+          <input id="laws-has-dc" type="checkbox" class="rounded border-neutral-300 dark:border-neutral-700" />
+          Has datacenters
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="jurisdiction-map" class="not-prose mt-4" style="width: 100%; height: 520px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 12px;"></div>
 
 <div id="map-loading" class="text-center py-8">
   <p class="text-neutral-500">Loading map...</p>
 </div>
 
-<div id="law-details" class="mt-6 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg" style="display: none;">
-  <h3 id="law-country-name" class="text-xl font-bold mb-3"></h3>
-  <div id="law-risk-badge" class="mb-3"></div>
-  <div id="law-memberships" class="mb-3"></div>
-  <div id="law-list"></div>
-  <div id="law-link" class="mt-4"></div>
+<div class="not-prose mt-6">
+  <details open class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
+    <summary class="cursor-pointer text-sm font-semibold text-neutral-800 dark:text-neutral-100">Countries</summary>
+    <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
+      <div class="text-xs text-neutral-500 dark:text-neutral-400">Filtered list (matches current search/filters)</div>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" data-sort="datacenters" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: datacenters</button>
+        <button type="button" data-sort="risk" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: risk</button>
+        <button type="button" data-sort="az" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: A–Z</button>
+      </div>
+    </div>
+    <div id="laws-countries-list" class="mt-3 flex flex-wrap gap-2"></div>
+  </details>
 </div>
 
 <script>
@@ -82,6 +169,8 @@
 
   // Region data from Hugo
   var regionsData = {{ $mapData | jsonify | safeJS }};
+  var blocsData = {{ ($jurisdictions.blocs | default (slice)) | jsonify | safeJS }};
+  var riskLevels = {{ ($jurisdictions.risk_levels | default dict) | jsonify | safeJS }};
 
   // Risk level colors from jurisdictions.json
   var riskColors = {
@@ -115,31 +204,21 @@
           id: item.id,
           slug: item.slug,
           riskLabel: item.riskLabel,
+          riskLevel: item.riskLevel || 'unknown',
           laws: item.laws || [],
           flag: item.flag,
           originalName: item.originalName,
           blocs: item.blocs || [],
-          memberships: item.memberships || []
+          blocNames: item.blocNames || [],
+          memberships: item.memberships || [],
+          datacenterCount: item.datacenterCount || 0
         };
       });
 
       var isDark = document.documentElement.classList.contains('dark');
 
       var option = {
-        title: {
-          text: 'Data Sovereignty Risk by Jurisdiction',
-          subtext: 'Click a country to see details • Scroll to zoom • Drag to pan',
-          left: 'center',
-          top: 10,
-          textStyle: {
-            color: isDark ? '#e5e5e5' : '#333',
-            fontSize: 18
-          },
-          subtextStyle: {
-            color: isDark ? '#a3a3a3' : '#666',
-            fontSize: 12
-          }
-        },
+        title: { show: false },
         tooltip: {
           trigger: 'item',
           formatter: function(params) {
@@ -147,12 +226,14 @@
               var displayName = params.data.originalName || params.name;
               var laws = params.data.laws || [];
               var lawCount = laws.length;
-              var memberships = params.data.memberships || [];
-              var membershipStr = memberships.length > 0 ? '<br/>' + memberships.join(' • ') : '';
+              var blocNames = params.data.blocNames || [];
+              var blocStr = blocNames.length > 0 ? '<br/>' + blocNames.join(' • ') : '';
+              var dcCount = params.data.datacenterCount || 0;
+              var dcStr = dcCount > 0 ? '<br/>🏢 Datacenters: ' + dcCount : '';
               var lawStr = lawCount > 0 ? '<br/>⚠️ ' + lawCount + ' national law(s)' : '<br/>✅ No concerning laws';
               return '<strong>' + (params.data.flag || '') + ' ' + displayName + '</strong><br/>' +
                      'Risk: <span style="font-weight:bold">' + params.data.riskLabel + '</span>' +
-                     membershipStr + lawStr;
+                     blocStr + dcStr + lawStr;
             }
             return params.name;
           }
@@ -212,80 +293,407 @@
 
       myChart.setOption(option);
 
-      // Click handler to show law details
-      myChart.on('click', function(params) {
-        var detailsDiv = document.getElementById('law-details');
-        var countryName = document.getElementById('law-country-name');
-        var riskBadge = document.getElementById('law-risk-badge');
-        var membershipsDiv = document.getElementById('law-memberships');
-        var lawList = document.getElementById('law-list');
-        var lawLink = document.getElementById('law-link');
+      // --- UI state ---
+      var selectedRisks = new Set(); // empty = all
+      var selectedBlocs = new Set(); // empty = all
+      var hasDatacentersOnly = false;
+      var focusedIds = null; // null = no focus; [] = focused set
+      var currentSort = 'datacenters';
 
-        if (params.data) {
-          var displayName = params.data.originalName || params.name;
-          countryName.innerHTML = (params.data.flag || '') + ' ' + displayName;
+      function blocById() {
+        var m = {};
+        (blocsData || []).forEach(function(b) { m[b.id] = b; });
+        return m;
+      }
+      var blocsById = blocById();
 
-          // Risk badge
-          var badgeColors = {
-            'Low Risk': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-            'Moderate Risk': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-            'Elevated Risk': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-            'High Risk': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-            'Sanctioned': 'bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-100',
-            'Unknown': 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-          };
-          var badgeClass = badgeColors[params.data.riskLabel] || badgeColors['Unknown'];
-          riskBadge.innerHTML = '<span class="inline-block px-3 py-1 rounded-full text-sm font-medium ' + badgeClass + '">' + params.data.riskLabel + '</span>';
+      function getRiskLabel(level) {
+        var rl = (riskLevels && riskLevels[level]) ? riskLevels[level].label : null;
+        return rl || (level ? (level.charAt(0).toUpperCase() + level.slice(1)) : 'Unknown');
+      }
 
-          // Memberships
-          var memberships = params.data.memberships || [];
-          if (memberships.length > 0) {
-            var memberBadges = memberships.map(function(m) {
-              return '<span class="inline-block px-2 py-1 mr-2 mb-2 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">' + m + '</span>';
-            }).join('');
-            membershipsDiv.innerHTML = '<div class="flex flex-wrap">' + memberBadges + '</div>';
-          } else {
-            membershipsDiv.innerHTML = '';
-          }
+      function buildChips() {
+        var riskWrap = document.getElementById('laws-risk-chips');
+        var blocWrap = document.getElementById('laws-bloc-chips');
+        if (!riskWrap || !blocWrap) return;
 
-          // National laws
-          var laws = params.data.laws || [];
-          if (laws.length > 0) {
-            var html = '<h4 class="font-semibold mb-3">National Laws:</h4><div class="space-y-4">';
-            laws.forEach(function(law) {
-              var severityColors = {
-                'protective': { border: 'border-green-500', text: 'text-green-600 dark:text-green-400', label: '🛡️ Protective' },
-                'neutral': { border: 'border-gray-400', text: 'text-gray-600 dark:text-gray-400', label: '⚖️ Neutral' },
-                'medium': { border: 'border-yellow-500', text: 'text-yellow-600 dark:text-yellow-400', label: '⚠️ Medium Concern' },
-                'high': { border: 'border-red-500', text: 'text-red-600 dark:text-red-400', label: '🚨 High Concern' }
-              };
-              var severity = severityColors[law.severity] || severityColors['neutral'];
-              html += '<div class="border-l-4 ' + severity.border + ' pl-4 py-2">';
-              html += '<h5 class="font-bold">' + law.name + ' <span class="font-normal text-neutral-500">(' + law.year + ')</span></h5>';
-              html += '<p class="text-sm text-neutral-500 dark:text-neutral-400 italic">' + law.full_name + '</p>';
-              html += '<p class="mt-2">' + law.summary + '</p>';
-              html += '<p class="mt-2 text-sm font-medium ' + severity.text + '">' + severity.label + '</p>';
-              if (law.url) {
-                html += '<a href="' + law.url + '" target="_blank" rel="noopener" class="inline-block mt-2 text-sm text-primary-600 dark:text-primary-400 hover:underline">Read the law →</a>';
-              }
-              html += '</div>';
-            });
-            html += '</div>';
-            lawList.innerHTML = html;
-          } else {
-            lawList.innerHTML = '<p class="text-neutral-500 dark:text-neutral-400">No national laws of concern identified. See full jurisdiction page for bloc-level laws.</p>';
-          }
+        var riskOrder = ['low','moderate','elevated','high','sanctioned','unknown'];
+        riskWrap.innerHTML = '';
+        riskOrder.forEach(function(r) {
+          var label = getRiskLabel(r);
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.risk = r;
+          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
+          btn.textContent = label;
+          btn.addEventListener('click', function() {
+            if (selectedRisks.has(r)) selectedRisks.delete(r); else selectedRisks.add(r);
+            focusedIds = null;
+            renderAll();
+          });
+          riskWrap.appendChild(btn);
+        });
 
-          // Link to full page
-          if (params.data.slug) {
-            lawLink.innerHTML = '<a href="/laws/' + params.data.slug + '/" class="inline-block px-4 py-2 bg-primary-600 text-white rounded hover:bg-primary-700 transition-colors">View full jurisdiction details →</a>';
-          } else {
-            lawLink.innerHTML = '';
-          }
+        blocWrap.innerHTML = '';
+        (blocsData || []).forEach(function(b) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.bloc = b.id;
+          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
+          btn.textContent = (b.flag ? (b.flag + ' ') : '') + b.name;
+          btn.addEventListener('click', function() {
+            if (selectedBlocs.has(b.id)) selectedBlocs.delete(b.id); else selectedBlocs.add(b.id);
+            focusedIds = null;
+            renderAll();
+          });
+          blocWrap.appendChild(btn);
+        });
+      }
 
-          detailsDiv.style.display = 'block';
-          detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      function applyChipStyles() {
+        document.querySelectorAll('.laws-chip').forEach(function(el) {
+          var r = el.dataset.risk;
+          var b = el.dataset.bloc;
+          var active = false;
+          if (r) active = selectedRisks.has(r);
+          if (b) active = selectedBlocs.has(b);
+          el.style.borderColor = active ? (isDark ? '#3b82f6' : '#3b82f6') : '';
+          el.style.backgroundColor = active ? (isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.08)') : '';
+        });
+      }
+
+      function matchCountry(d) {
+        if (!d) return false;
+        if (selectedRisks.size > 0 && !selectedRisks.has(d.riskLevel || 'unknown')) return false;
+        if (selectedBlocs.size > 0) {
+          var blocs = d.blocs || [];
+          var ok = false;
+          selectedBlocs.forEach(function(id) { if (blocs.indexOf(id) !== -1) ok = true; });
+          if (!ok) return false;
         }
+        if (hasDatacentersOnly && !(d.datacenterCount > 0)) return false;
+        if (focusedIds && focusedIds.length > 0 && focusedIds.indexOf(d.id) === -1) return false;
+        return true;
+      }
+
+      function updateMapStyles() {
+        var data = mapData.map(function(d) {
+          var m = matchCountry(d);
+          return Object.assign({}, d, {
+            itemStyle: { opacity: m ? 1 : 0.25 }
+          });
+        });
+        // Only update the series data; don't replace-merge the series definition
+        // (replacing can drop `type: 'map'`, `map: 'world'`, etc. and render blank).
+        myChart.setOption({ series: [{ data: data }] });
+      }
+
+      function renderCountriesList() {
+        var wrap = document.getElementById('laws-countries-list');
+        if (!wrap) return;
+        var items = mapData.slice().filter(matchCountry);
+
+        var riskRank = { low: 0, moderate: 1, elevated: 2, high: 3, sanctioned: 4, unknown: 5 };
+        if (currentSort === 'datacenters') {
+          items.sort(function(a, b) {
+            var dc = (b.datacenterCount||0) - (a.datacenterCount||0);
+            if (dc !== 0) return dc;
+            return (a.originalName||a.name).localeCompare(b.originalName||b.name);
+          });
+        } else if (currentSort === 'risk') {
+          items.sort(function(a, b) {
+            var ra = riskRank[a.riskLevel||'unknown'] ?? 99;
+            var rb = riskRank[b.riskLevel||'unknown'] ?? 99;
+            if (ra !== rb) return rb - ra; // high first
+            return (a.originalName||a.name).localeCompare(b.originalName||b.name);
+          });
+        } else {
+          items.sort(function(a, b) {
+            return (a.originalName||a.name).localeCompare(b.originalName||b.name);
+          });
+        }
+
+        wrap.innerHTML = '';
+        items.forEach(function(d) {
+          var label = (d.flag ? (d.flag + ' ') : '') + (d.originalName || d.name);
+          var risk = d.riskLabel || 'Unknown';
+          var dc = d.datacenterCount || 0;
+          var text = label + ' · ' + risk + (dc > 0 ? (' · 🏢 ' + dc) : '');
+          if (d.slug) {
+            var a = document.createElement('a');
+            a.className = 'inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm';
+            a.href = '/laws/' + d.slug + '/';
+            a.title = (d.originalName || d.name) + ' • ' + risk + (dc > 0 ? (' • Datacenters: ' + dc) : '');
+            a.textContent = text;
+            wrap.appendChild(a);
+          } else {
+            var s = document.createElement('span');
+            s.className = 'inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm';
+            s.textContent = text;
+            wrap.appendChild(s);
+          }
+        });
+      }
+
+      function renderAll() {
+        applyChipStyles();
+        updateMapStyles();
+        renderCountriesList();
+      }
+
+      function resetAll() {
+        selectedRisks.clear();
+        selectedBlocs.clear();
+        hasDatacentersOnly = false;
+        focusedIds = null;
+        currentSort = 'datacenters';
+        var q = document.getElementById('laws-map-search');
+        if (q) q.value = '';
+        var dc = document.getElementById('laws-has-dc');
+        if (dc) dc.checked = false;
+        var sug = document.getElementById('laws-map-suggestions');
+        if (sug) { sug.style.display = 'none'; sug.innerHTML = ''; }
+        renderAll();
+      }
+
+      // --- Search index (countries, blocs, laws) ---
+      function normalize(s) {
+        return (s || '').toString().toLowerCase().trim();
+      }
+
+      function uniq(arr) {
+        var out = [];
+        var seen = new Set();
+        arr.forEach(function(x) {
+          var k = normalize(x);
+          if (!k) return;
+          if (seen.has(k)) return;
+          seen.add(k);
+          out.push(x);
+        });
+        return out;
+      }
+
+      function buildBlocAllLawTexts() {
+        var memo = {};
+        function rec(id, stack) {
+          if (memo[id]) return memo[id];
+          stack = stack || new Set();
+          if (stack.has(id)) return [];
+          stack.add(id);
+          var b = blocsById[id];
+          var names = [];
+          if (b && b.laws) {
+            b.laws.forEach(function(l) {
+              if (l && l.name) names.push(l.name);
+              if (l && l.full_name) names.push(l.full_name);
+            });
+          }
+          if (b && b.inherits_from) {
+            b.inherits_from.forEach(function(parentId) {
+              names = names.concat(rec(parentId, stack));
+            });
+          }
+          memo[id] = uniq(names);
+          return memo[id];
+        }
+        Object.keys(blocsById).forEach(function(id) { rec(id); });
+        return memo;
+      }
+
+      var blocAllLawTexts = buildBlocAllLawTexts();
+
+      // attach a searchable lawText per country (national + bloc/inherited)
+      var countryById = {};
+      mapData.forEach(function(c) {
+        countryById[c.id] = c;
+        var t = [];
+        (c.laws || []).forEach(function(l) {
+          if (l && l.name) t.push(l.name);
+          if (l && l.full_name) t.push(l.full_name);
+        });
+        (c.blocs || []).forEach(function(bid) {
+          var bt = blocAllLawTexts[bid] || [];
+          t = t.concat(bt);
+        });
+        c._lawTexts = uniq(t);
+        c._lawTextNorm = normalize(c._lawTexts.join(' | '));
+      });
+
+      // global law index: one entry per distinct law name (prefer short name)
+      var lawIndex = (function() {
+        var allNames = [];
+        (blocsData || []).forEach(function(b) {
+          (b.laws || []).forEach(function(l) { if (l && l.name) allNames.push(l.name); });
+        });
+        mapData.forEach(function(c) {
+          (c.laws || []).forEach(function(l) { if (l && l.name) allNames.push(l.name); });
+        });
+        allNames = uniq(allNames);
+        return allNames.map(function(name) {
+          var key = normalize(name);
+          var ids = mapData.filter(function(c) {
+            return c._lawTextNorm.indexOf(key) !== -1;
+          }).map(function(c) { return c.id; });
+          return { type: 'law', label: '⚖️ ' + name, name: name, ids: ids };
+        }).filter(function(e) { return e.ids && e.ids.length > 0; });
+      })();
+
+      function buildSuggestions(query) {
+        var qn = normalize(query);
+        if (!qn || qn.length < 2) return [];
+        var out = [];
+
+        // countries
+        mapData.forEach(function(c) {
+          var name = normalize(c.originalName || c.name);
+          var id = normalize(c.id);
+          if (name.indexOf(qn) !== -1 || id.indexOf(qn) !== -1) {
+            out.push({
+              type: 'country',
+              label: (c.flag ? (c.flag + ' ') : '') + (c.originalName || c.name) + ' (' + c.id + ')',
+              ids: [c.id]
+            });
+          }
+        });
+
+        // blocs
+        (blocsData || []).forEach(function(b) {
+          var nm = normalize(b.name);
+          var bid = normalize(b.id);
+          if (nm.indexOf(qn) !== -1 || bid.indexOf(qn) !== -1) {
+            out.push({
+              type: 'bloc',
+              label: (b.flag ? (b.flag + ' ') : '') + b.name + ' (bloc)',
+              ids: b.members || []
+            });
+          }
+        });
+
+        // laws
+        lawIndex.forEach(function(l) {
+          if (normalize(l.name).indexOf(qn) !== -1) {
+            out.push({ type: 'law', label: l.label, ids: l.ids, name: l.name });
+          }
+        });
+
+        // rank: exact prefix first, then shorter labels
+        out.sort(function(a, b) {
+          var ap = normalize(a.label).indexOf(qn) === 0 ? 0 : 1;
+          var bp = normalize(b.label).indexOf(qn) === 0 ? 0 : 1;
+          if (ap !== bp) return ap - bp;
+          return a.label.length - b.label.length;
+        });
+
+        // de-dupe labels
+        var seen = new Set();
+        var final = [];
+        out.forEach(function(s) {
+          var k = normalize(s.label);
+          if (seen.has(k)) return;
+          seen.add(k);
+          final.push(s);
+        });
+        return final.slice(0, 10);
+      }
+
+      function showSuggestions(list) {
+        var sug = document.getElementById('laws-map-suggestions');
+        if (!sug) return;
+        if (!list || list.length === 0) {
+          sug.style.display = 'none';
+          sug.innerHTML = '';
+          return;
+        }
+        sug.style.display = 'block';
+        sug.innerHTML = '';
+        list.forEach(function(s, idx) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'w-full text-left px-3 py-2 text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800';
+          btn.textContent = s.label;
+          btn.addEventListener('click', function() {
+            focusedIds = (s.ids || []).slice();
+            renderAll();
+            showSuggestions([]);
+            // nudge zoom a bit for focus (no reliable centroid data in world.json)
+            myChart.dispatchAction({ type: 'geoRoam', zoom: focusedIds.length <= 1 ? 2.0 : 1.4 });
+            // show one tooltip as a hint
+            if (focusedIds.length === 1) {
+              var c = countryById[focusedIds[0]];
+              if (c) myChart.dispatchAction({ type: 'showTip', seriesIndex: 0, name: c.name });
+            }
+          });
+          sug.appendChild(btn);
+          if (idx !== list.length - 1) {
+            var div = document.createElement('div');
+            div.className = 'h-px bg-neutral-200 dark:bg-neutral-700';
+            sug.appendChild(div);
+          }
+        });
+      }
+
+      // --- click to navigate ---
+      myChart.on('click', function(params) {
+        if (params && params.data && params.data.slug) {
+          window.location.href = '/laws/' + params.data.slug + '/';
+        }
+      });
+
+      // controls wiring
+      buildChips();
+      renderAll();
+
+      var searchInput = document.getElementById('laws-map-search');
+      if (searchInput) {
+        var last = '';
+        searchInput.addEventListener('input', function() {
+          var v = searchInput.value || '';
+          if (v === last) return;
+          last = v;
+          showSuggestions(buildSuggestions(v));
+        });
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            var s = buildSuggestions(searchInput.value || '');
+            if (s && s.length > 0) {
+              focusedIds = (s[0].ids || []).slice();
+              renderAll();
+              showSuggestions([]);
+              myChart.dispatchAction({ type: 'geoRoam', zoom: focusedIds.length <= 1 ? 2.0 : 1.4 });
+            }
+          }
+          if (e.key === 'Escape') {
+            showSuggestions([]);
+          }
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        var sug = document.getElementById('laws-map-suggestions');
+        if (!sug) return;
+        if (!sug.contains(e.target) && e.target !== searchInput) {
+          showSuggestions([]);
+        }
+      });
+
+      var hasDc = document.getElementById('laws-has-dc');
+      if (hasDc) {
+        hasDc.addEventListener('change', function() {
+          hasDatacentersOnly = !!hasDc.checked;
+          focusedIds = null;
+          renderAll();
+        });
+      }
+
+      var resetBtn = document.getElementById('laws-map-reset');
+      if (resetBtn) resetBtn.addEventListener('click', resetAll);
+
+      document.querySelectorAll('.laws-country-sort').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          currentSort = btn.dataset.sort || 'datacenters';
+          renderCountriesList();
+        });
       });
 
       // Responsive resize

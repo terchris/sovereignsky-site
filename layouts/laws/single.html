@@ -1,131 +1,127 @@
 {{ define "main" }}
-  {{ .Scratch.Set "scope" "single" }}
-  <article>
+{{ .Scratch.Set "scope" "single" }}
+<article>
     {{/* Hero */}}
     {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
-      {{ $heroStyle := .Params.heroStyle }}
-      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
-      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
-      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
-        {{ partial $heroStyle . }}
-      {{ else }}
-        {{ partial "hero/basic.html" . }}
-      {{ end }}
+    {{ $heroStyle := .Params.heroStyle }}
+    {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
+    {{ $heroStyle := print "hero/" $heroStyle ".html" }}
+    {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+    {{ partial $heroStyle . }}
+    {{ else }}
+    {{ partial "hero/basic.html" . }}
+    {{ end }}
     {{ end }}
 
     {{/* Header */}}
     <header id="single_header" class="mt-5 max-w-prose">
-      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
         {{ partial "breadcrumbs.html" . }}
-      {{ end }}
-      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        {{ .Title | emojify }}
-      </h1>
-      <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
-      </div>
-      {{ if not (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
+        {{ end }}
+        <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+            {{ .Title | emojify }}
+        </h1>
+        <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+            {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+        </div>
+        {{ if not (.Params.showAuthorBottom | default (site.Params.article.showAuthorBottom | default false)) }}
         {{ template "SingleAuthor" . }}
-      {{ end }}
+        {{ end }}
     </header>
 
     {{/* Body */}}
     <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+        {{/* NOTE: This block intentionally avoids template assignments (:= / =).
+        Some auto-formatters can remove required whitespace around these operators,
+        causing Hugo parse errors like "bad character '='". */}}
 
-      {{/* Laws pages: add Datacenters widget for country pages (based on slug lookup in data/regions.json) */}}
-      {{ $showDatacenters := false }}
-      {{ $country := dict }}
-      {{ $countryId := "" }}
-      {{ $countryName := "" }}
-      {{ $countryFlag := "" }}
-      {{ $slug := "" }}
-      {{ with .File }}
-        {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "laws/" .Dir) }}
-      {{ end }}
-      {{ if $slug }}
-        {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
-        {{ with index $match 0 }}
-          {{ $country = . }}
-          {{ $countryId = .id }}
-          {{ $countryName = .name }}
-          {{ $countryFlag = .flag }}
-          {{ $showDatacenters = true }}
-        {{ end }}
-      {{ end }}
+        {{/* TOC state */}}
+        {{ $.Scratch.Set "laws_dc_enableToc" (site.Params.article.showTableOfContents | default false) }}
+        {{ $.Scratch.Set "laws_dc_enableToc" (.Params.showTableOfContents | default ($.Scratch.Get "laws_dc_enableToc"))
+        }}
+        {{ $.Scratch.Set "laws_dc_showToc" (and ($.Scratch.Get "laws_dc_enableToc") (in .TableOfContents "<ul")) }} {{/*
+            Sticky top class */}} {{ $.Scratch.Set "laws_dc_topClass" "lg:top-10" }} {{ if hasPrefix
+            site.Params.header.layout "fixed" }} {{ $.Scratch.Set "laws_dc_topClass" "lg:top-[140px]" }} {{ end }} {{/*
+            Laws pages: add Datacenters widget for country pages (based on slug lookup in data/regions.json) */}} {{
+            $.Scratch.Set "laws_dc_showDatacenters" false }} {{ $.Scratch.Set "laws_dc_countryId" "" }} {{
+            $.Scratch.Set "laws_dc_countryName" "" }} {{ $.Scratch.Set "laws_dc_countryFlag" "" }} {{
+            $.Scratch.Set "laws_dc_slug" "" }} {{ with .File }} {{ $.Scratch.Set "laws_dc_slug" (strings.TrimSuffix "/"
+            (strings.TrimPrefix "laws/" .Dir)) }} {{ end }} {{ range first 1 (where site.Data.regions "slug"
+            ($.Scratch.Get "laws_dc_slug" )) }} {{ $.Scratch.Set "laws_dc_countryId" .id }} {{
+            $.Scratch.Set "laws_dc_countryName" .name }} {{ $.Scratch.Set "laws_dc_countryFlag" .flag }} {{
+            $.Scratch.Set "laws_dc_showDatacenters" true }} {{ end }} {{/* Build provider list for this country (for
+            sidebar) */}} {{ $.Scratch.Set "laws_dc_matches" (slice) }} {{ $.Scratch.Set "laws_dc_total" 0 }} {{ if and
+            ($.Scratch.Get "laws_dc_showDatacenters" ) (ne ($.Scratch.Get "laws_dc_countryId" ) "" ) }} {{ range
+            (site.Data.datacenters.providers | default (slice)) }} {{ $.Scratch.Set "laws_dc_providerCount" 0 }} {{
+            range (.regions | default (slice)) }} {{ if eq .country_id ($.Scratch.Get "laws_dc_countryId" ) }} {{
+            $.Scratch.Set "laws_dc_providerCount" (add ($.Scratch.Get "laws_dc_providerCount" ) 1) }} {{ end }} {{ end
+            }} {{ if gt ($.Scratch.Get "laws_dc_providerCount" ) 0 }} {{ $.Scratch.Set "laws_dc_total" (add
+            ($.Scratch.Get "laws_dc_total" ) ($.Scratch.Get "laws_dc_providerCount" )) }} {{
+            $.Scratch.Add "laws_dc_matches" (dict "provider" . "count" ($.Scratch.Get "laws_dc_providerCount" )) }} {{
+            end }} {{ end }} {{ $.Scratch.Set "laws_dc_matches" (sort ($.Scratch.Get "laws_dc_matches" ) "count" "desc"
+            ) }} {{ end }} {{ if or ($.Scratch.Get "laws_dc_showToc" ) (and ($.Scratch.Get "laws_dc_showDatacenters" )
+            (gt (len ($.Scratch.Get "laws_dc_matches" )) 0)) }} <div
+            class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+            <div class="toc ps-5 print:hidden lg:sticky {{ $.Scratch.Get " laws_dc_topClass" }}">
+                {{ if ($.Scratch.Get "laws_dc_showToc") }}
+                {{ partial "toc.html" . }}
+                {{ end }}
 
-      {{ $dcProviders := site.Data.datacenters.providers | default (slice) }}
-      {{ $dcMatches := slice }}
-      {{ $dcTotal := 0 }}
-      {{ if and $showDatacenters $countryId }}
-        {{ range $dcProviders }}
-          {{ $p := . }}
-          {{ $regions := slice }}
-          {{ range ($p.regions | default (slice)) }}
-            {{ if eq .country_id $countryId }}
-              {{ $regions = $regions | append . }}
-            {{ end }}
-          {{ end }}
-          {{ if gt (len $regions) 0 }}
-            {{ $dcTotal = add $dcTotal (len $regions) }}
-            {{ $dcMatches = $dcMatches | append (dict "provider" $p "regions" $regions "count" (len $regions)) }}
-          {{ end }}
-        {{ end }}
-        {{ $dcMatches = sort $dcMatches "count" "desc" }}
-      {{ end }}
-
-      {{ if or $showToc (and $showDatacenters (gt (len $dcMatches) 0)) }}
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
-          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
-            {{ if $showToc }}
-              {{ partial "toc.html" . }}
-            {{ end }}
-
-            {{ if and $showDatacenters (gt (len $dcMatches) 0) }}
-              <div class="mt-6">
-                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
-                  Datacenters
-                </div>
-                <div class="text-sm text-neutral-500 dark:text-neutral-400">
-                  {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }} • {{ $dcTotal }} regions
-                </div>
-                <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-                  <ul class="m-0 p-0 list-none space-y-1">
-                    {{ range $dcMatches }}
-                      {{ $p := .provider }}
-                      {{ $count := .count }}
-                      <li class="m-0 p-0">
-                        <a class="no-underline hover:underline"
-                           href="/datacenters/{{ $p.provider_id }}/"
-                           title="View {{ $p.provider_name }} datacenters">
-                          {{ $p.provider_name }}
+                {{ if and ($.Scratch.Get "laws_dc_showDatacenters") (gt (len ($.Scratch.Get "laws_dc_matches")) 0) }}
+                <div class="mt-6">
+                    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+                        Datacenters
+                    </div>
+                    <div class="text-sm text-neutral-500 dark:text-neutral-400">
+                        {{ if ($.Scratch.Get "laws_dc_countryFlag") }}{{ $.Scratch.Get "laws_dc_countryFlag" }} {{ end
+                        }}{{ $.Scratch.Get "laws_dc_countryName" }} • {{ $.Scratch.Get "laws_dc_total" }} regions
+                    </div>
+                    {{ if ($.Scratch.Get "laws_dc_slug") }}
+                    <div class="mt-2">
+                        <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+                            href='{{ printf `/datacenters/%s/` (strings.TrimSpace ($.Scratch.Get "laws_dc_slug")) }}'
+                            title='View datacenter map for {{ $.Scratch.Get "laws_dc_countryName" }}'>
+                            <span class="font-medium">Datacenters map</span>
+                            <span class="text-neutral-500 dark:text-neutral-400">{{ if ($.Scratch.Get
+                                "laws_dc_countryFlag") }}{{ $.Scratch.Get "laws_dc_countryFlag" }}{{ end }} {{
+                                $.Scratch.Get "laws_dc_countryName" }}</span>
+                            <span class="text-neutral-500 dark:text-neutral-400">↗</span>
                         </a>
-                        <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
-                      </li>
+                    </div>
                     {{ end }}
-                  </ul>
+                    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                        <ul class="m-0 p-0 list-none space-y-1">
+                            {{ range ($.Scratch.Get "laws_dc_matches") }}
+                            {{ $p := .provider }}
+                            {{ $count := .count }}
+                            <li class="m-0 p-0">
+                                <a class="no-underline hover:underline" href="/datacenters/{{ $p.provider_id }}/"
+                                    title="View {{ $p.provider_name }} datacenters">
+                                    {{ $p.provider_name }}
+                                </a>
+                                <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
+                            </li>
+                            {{ end }}
+                        </ul>
+                    </div>
                 </div>
-              </div>
+                {{ end }}
+            </div>
+            </div>
             {{ end }}
-          </div>
-        </div>
-      {{ end }}
 
-      <div class="min-w-0 min-h-0 max-w-fit">
-        {{ partial "series/series.html" . }}
-        <div class="article-content max-w-prose mb-20">
-          {{ .Content }}
-          {{ $defaultReplyByEmail := site.Params.replyByEmail }}
-          {{ $replyByEmail := default $defaultReplyByEmail .Params.replyByEmail }}
-          {{ if $replyByEmail }}
-            <strong class="block mt-8">
-              <a
-                target="_blank"
-                class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-                href="mailto:{{ site.Params.Author.email }}?subject={{ replace (printf "Reply to %s" .Title) "\"" "'" }}">
+            <div class="min-w-0 min-h-0 max-w-fit">
+                {{ partial "series/series.html" . }}
+                <div class="article-content max-w-prose mb-20">
+                    {{ .Content }}
+                    {{ $defaultReplyByEmail := site.Params.replyByEmail }}
+                    {{ $replyByEmail := default $defaultReplyByEmail .Params.replyByEmail }}
+                    {{ if $replyByEmail }}
+                    <strong class="block mt-8">
+                        <a target="_blank"
+                            class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+                            href="mailto:{{ site.Params.Author.email }}?subject={{ replace (printf " Reply to %s"
+                            .Title) "\"" "'" }}">
                 {{ i18n "article.reply_by_email" | default "Reply by Email" }}
               </a>
             </strong>
@@ -218,5 +214,3 @@
     <div class="{{ cond $isAuthorBottom "mb-10" "mb-5" }}"></div>
   {{ end }}
 {{ end }}
-
-

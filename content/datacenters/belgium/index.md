@@ -1,0 +1,24 @@
+---
+title: "🇧🇪 Belgium Datacenters"
+description: "Datacenter regions physically located in Belgium."
+echarts: true
+layout: "datacenters/country"
+country_id: "BE"
+showTableOfContents: true
+---
+
+Datacenter regions physically located in **Belgium** across all providers.
+
+## Map
+
+{{< datacenter-map countries="BE" showFilters="false" >}}
+
+## Providers
+
+- [Google Cloud Platform](/datacenters/gcp/) (1)
+
+## Laws
+
+→ [Exposure laws for Belgium](/laws/belgium/)
+
+→ [Back to all datacenters](/datacenters/)

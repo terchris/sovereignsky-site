@@ -28,13 +28,17 @@ jurisdictions.blocs.forEach(bloc => {
 });
 
 // Helper: Get inherited laws for a bloc (recursive)
-function getInheritedLaws(bloc, visited = new Set()) {
+// excludeBlocIds: if a parent bloc is directly applicable elsewhere, skip inheriting from it
+function getInheritedLaws(bloc, visited = new Set(), excludeBlocIds = new Set()) {
   if (visited.has(bloc.id)) return [];
   visited.add(bloc.id);
 
   let laws = [];
   if (bloc.inherits_from) {
     bloc.inherits_from.forEach(parentId => {
+      if (excludeBlocIds && excludeBlocIds.has(parentId)) {
+        return;
+      }
       const parent = blocsById[parentId];
       if (parent) {
         // Add parent's own laws
@@ -46,11 +50,30 @@ function getInheritedLaws(bloc, visited = new Set()) {
           })));
         }
         // Recursively get grandparent laws
-        laws = laws.concat(getInheritedLaws(parent, visited));
+        laws = laws.concat(getInheritedLaws(parent, visited, excludeBlocIds));
       }
     });
   }
   return laws;
+}
+
+// Helper: Get effective members for a bloc (direct + inherited member lists)
+function getEffectiveBlocMembers(bloc, visited = new Set()) {
+  if (!bloc || !bloc.id) return [];
+  if (visited.has(bloc.id)) return [];
+  visited.add(bloc.id);
+
+  let members = Array.isArray(bloc.members) ? bloc.members.slice() : [];
+  if (bloc.inherits_from) {
+    bloc.inherits_from.forEach((parentId) => {
+      const parent = blocsById[parentId];
+      if (parent) {
+        members = members.concat(getEffectiveBlocMembers(parent, visited));
+      }
+    });
+  }
+
+  return Array.from(new Set(members));
 }
 
 // Helper: Get all applicable laws for a country
@@ -62,6 +85,7 @@ function getCountryLaws(region) {
   };
 
   if (region.blocs) {
+    const directBlocIds = new Set(region.blocs);
     region.blocs.forEach(blocId => {
       const bloc = blocsById[blocId];
       if (bloc) {
@@ -76,7 +100,7 @@ function getCountryLaws(region) {
           });
         }
         // Inherited laws from parent blocs
-        const inherited = getInheritedLaws(bloc);
+        const inherited = getInheritedLaws(bloc, new Set(), directBlocIds);
         result.inherited_laws = result.inherited_laws.concat(inherited);
       }
     });
@@ -215,8 +239,9 @@ function generateBlocPage(bloc) {
   const riskInfo = jurisdictions.risk_levels[bloc.risk_level] || {};
   const inheritedLaws = getInheritedLaws(bloc);
 
-  // Get member countries
-  const memberCountries = regions.filter(r => bloc.members.includes(r.id));
+  // Get member countries (direct + inherited, e.g. EEA includes EU members)
+  const effectiveMembers = getEffectiveBlocMembers(bloc);
+  const memberCountries = regions.filter(r => effectiveMembers.includes(r.id));
 
   let md = `---
 title: "${bloc.flag} ${bloc.name}"
@@ -290,66 +315,39 @@ ${riskInfo.description || ''}
 
 // Generate main index page
 function generateIndexPage() {
-  let md = `---
+  return `---
 title: "Jurisdiction & Laws"
 description: "Understanding data sovereignty laws and their impact on your software choices"
 echarts: true
 layout: "simple"
 ---
 
-When your organization uses cloud software, your data may be subject to laws in the vendor's home country - regardless of where the data is physically stored. This is called **jurisdiction exposure**.
+When you use cloud software, your data may be subject to laws in the vendor’s home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
 
-## Global Surveillance Laws Map
+## Map
 
-This interactive map shows countries with laws that may affect your data sovereignty. **Green** indicates safe jurisdictions (EU/EEA or adequacy decisions), while **red** indicates high-risk jurisdictions with extraterritorial data access laws.
+Search, filter, and click a country to open its full jurisdiction page.
 
 {{< jurisdiction-map >}}
 
-## Understanding the Risk Levels
+<details>
+<summary><strong>What do the risk levels mean?</strong></summary>
 
-`;
+- **Low**: Strong data protection; low extraterritorial access risk.
+- **Moderate**: Generally adequate protection; some surveillance/legal uncertainty.
+- **Elevated**: Significant surveillance capabilities; consider mitigations.
+- **High**: Broad state access and/or extraterritorial reach; avoid for sensitive data.
+- **Sanctioned**: Legal/business restrictions may apply.
+</details>
 
-  // Risk level definitions from jurisdictions.json
-  Object.entries(jurisdictions.risk_levels).forEach(([key, level]) => {
-    md += `### ${level.label}\n\n${level.description}\n\n`;
-  });
+## Jurisdictional Frameworks
 
-  // Bloc overview
-  md += `## Jurisdictional Frameworks\n\n`;
+- [🇪🇺 European Union](/laws/eu/)
+- [🇪🇺 European Economic Area](/laws/eea/)
+- [👁️ Five Eyes](/laws/five-eyes/)
+- [✓ EU Adequacy Decisions](/laws/adequacy/)
 
-  jurisdictions.blocs.forEach(bloc => {
-    const memberCount = bloc.members.length;
-    const lawCount = (bloc.laws || []).length;
-    md += `### [${bloc.flag} ${bloc.name}](/laws/${bloc.slug}/)\n\n`;
-    md += `${bloc.description.split('.')[0]}.\n\n`;
-    md += `- **Members:** ${memberCount} countries\n`;
-    md += `- **Laws:** ${lawCount} bloc-level laws\n`;
-    md += `- **Risk Level:** ${getRiskBadge(bloc.risk_level)}\n\n`;
-  });
-
-  // Country list by risk
-  md += `## Countries by Risk Level\n\n`;
-
-  const byRisk = {};
-  regions.forEach(region => {
-    const risk = region.risk_level || 'unknown';
-    if (!byRisk[risk]) byRisk[risk] = [];
-    byRisk[risk].push(region);
-  });
-
-  ['low', 'moderate', 'elevated', 'high', 'sanctioned'].forEach(risk => {
-    if (byRisk[risk] && byRisk[risk].length > 0) {
-      const riskInfo = jurisdictions.risk_levels[risk] || { label: risk };
-      md += `### ${riskInfo.label}\n\n`;
-      byRisk[risk].sort((a, b) => a.name.localeCompare(b.name)).forEach(region => {
-        md += `- [${region.flag} ${region.name}](/laws/${region.slug}/)\n`;
-      });
-      md += '\n';
-    }
-  });
-
-  // What this means
-  md += `---
+---
 
 ## What This Means for Your Organization
 
@@ -362,12 +360,10 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 1. Choose vendors from safe jurisdictions (EU/EEA companies)
 2. Self-host where possible
 3. Use customer-managed encryption keys
-4. Understand what data you're storing and its sensitivity
+4. Understand what data you’re storing and its sensitivity
 
 → [Browse software by jurisdiction](/software/)
 `;
-
-  return md;
 }
 
 // Main execution
