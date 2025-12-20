@@ -582,6 +582,7 @@
       "datacenter-providers",
       "dc-details",
       "dc-info",
+      "dc-map-country-only",
       "dc-map-data",
       "dc-map-initial-countries",
       "dc-map-initial-providers",

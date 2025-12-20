@@ -11,6 +11,7 @@ Usage: {{< datacenter-map>}}
   {{ $jurisdictions := site.Data.jurisdictions }}
   {{ $providersParam := .Get "providers" | default "" }}
   {{ $countriesParam := .Get "countries" | default "" }}
+  {{ $countryOnlyParam := .Get "countryOnly" | default "" }}
   {{ $showFilters := .Get "showFilters" | default "true" }}
   {{ $showFiltersBool := ne $showFilters "false" }}
 
@@ -164,6 +165,7 @@ Usage: {{< datacenter-map>}}
   <script type="application/json" id="dc-map-initial-providers">{{ $providersParam | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-initial-countries">{{ $countriesParam | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-show-filters">{{ $showFiltersBool | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-country-only">{{ $countryOnlyParam | jsonify | safeHTML }}</script>
 
   <script>
     (function () {
@@ -191,6 +193,7 @@ Usage: {{< datacenter-map>}}
       var initialProvidersParam = readJsonScript('dc-map-initial-providers', '');
       var initialCountriesParam = readJsonScript('dc-map-initial-countries', '');
       var showFilters = readJsonScript('dc-map-show-filters', true);
+      var countryOnlyParam = readJsonScript('dc-map-country-only', null);
 
       // Vendor-jurisdiction categories (explicit 4-way split so legend matches UX)
       var vendorCategoryOrder = ['us', 'eu', 'swiss', 'china'];
@@ -207,13 +210,96 @@ Usage: {{< datacenter-map>}}
         china: '#000000'   // black
       };
 
-      // Fetch world GeoJSON and initialize map
-      fetch('/data/world.json')
-        .then(function (response) {
-          return response.json();
+      function fetchJson(url) {
+        return fetch(url).then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        });
+      }
+
+      function parseCsvSet(v) {
+        if (typeof v !== 'string') return null;
+        var s = v.trim();
+        if (!s) return null;
+        var parts = s.split(',').map(function (x) { return (x || '').trim(); }).filter(Boolean);
+        if (parts.length === 0) return null;
+        return new Set(parts);
+      }
+
+      // If shortcode provides `countries="NO,SE"`, we can optionally load a country-only GeoJSON.
+      var countryFilterSetBootstrap = parseCsvSet(initialCountriesParam);
+      var mapKey = 'world';
+      var mapUrl = '/data/world.json';
+      if (countryFilterSetBootstrap && countryFilterSetBootstrap.size === 1 && !showFilters) {
+        var onlyCode = Array.from(countryFilterSetBootstrap)[0];
+        // Country outlines live in static/data/countries/{ISO}.json
+        mapKey = onlyCode;
+        mapUrl = '/data/countries/' + onlyCode + '.json';
+      }
+
+      // For country maps, some GeoJSONs include remote small territories that make the outline hard to recognize.
+      // We keep the "whole" recognizable country by trimming only very small polygons (e.g. tiny islands),
+      // then we always start at zoom=1 (fit-to-country).
+
+      // Fetch GeoJSON (country if available, else world) and initialize map
+      fetchJson(mapUrl)
+        .catch(function () {
+          // Fallback for missing/small countries (e.g. MT, BH, HK, LI per README)
+          mapKey = 'world';
+          mapUrl = '/data/world.json';
+          return fetchJson(mapUrl);
         })
-        .then(function (worldJson) {
-          echarts.registerMap('world', worldJson);
+        .then(function (geoJson) {
+          // Country map cleanup: drop very small polygons (remote islands/territories) so the main country is visible.
+          // This keeps the outline recognizable while still showing the whole country landmass.
+          function bboxAreaForCoords(coords) {
+            var minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+            function visit(c) {
+              if (!c) return;
+              if (Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number') {
+                var lng = c[0], lat = c[1];
+                if (lat < minLat) minLat = lat;
+                if (lat > maxLat) maxLat = lat;
+                if (lng < minLng) minLng = lng;
+                if (lng > maxLng) maxLng = lng;
+                return;
+              }
+              if (Array.isArray(c)) for (var i = 0; i < c.length; i++) visit(c[i]);
+            }
+            visit(coords);
+            if (!(minLat <= maxLat) || !(minLng <= maxLng)) return 0;
+            return Math.max(0, (maxLat - minLat) * (maxLng - minLng));
+          }
+
+          function trimSmallPolygonsInGeometry(geom, keepRatio) {
+            if (!geom || !geom.type || !geom.coordinates) return geom;
+            if (geom.type === 'Polygon') return geom;
+            if (geom.type !== 'MultiPolygon') return geom;
+            var polys = geom.coordinates || [];
+            if (polys.length <= 1) return geom;
+            var areas = polys.map(function (p) { return bboxAreaForCoords(p); });
+            var maxA = 0;
+            for (var i = 0; i < areas.length; i++) if (areas[i] > maxA) maxA = areas[i];
+            if (!maxA) return geom;
+            var ratio = (typeof keepRatio === 'number') ? keepRatio : 0.05;
+            var kept = [];
+            for (var j = 0; j < polys.length; j++) {
+              if (areas[j] >= maxA * ratio) kept.push(polys[j]);
+            }
+            if (kept.length === 0) return geom;
+            return { type: 'MultiPolygon', coordinates: kept };
+          }
+
+          if (mapKey !== 'world' && geoJson && Array.isArray(geoJson.features)) {
+            geoJson = Object.assign({}, geoJson, {
+              features: geoJson.features.map(function (f) {
+                if (!f || !f.geometry) return f;
+                return Object.assign({}, f, { geometry: trimSmallPolygonsInGeometry(f.geometry, 0.12) });
+              })
+            });
+          }
+
+          echarts.registerMap(mapKey, geoJson);
           loadingDiv.style.display = 'none';
 
           var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
@@ -240,19 +326,14 @@ Usage: {{< datacenter-map>}}
           }
 
           // Default map view + search state (search highlights/zoom should not auto-open details)
-          var defaultGeo = { center: [10, 45], zoom: 1.5 };
+          // For country maps, start with the default "fit country" view (zoom=1, center unset).
+          var defaultGeo = (mapKey !== 'world') ? { center: undefined, zoom: 1 } : { center: [10, 45], zoom: 1.5 };
           var searchGeo = null;
           var searchMatchKeys = new Set();
           var countryFilterSet = null;
-
-          function parseCsvSet(v) {
-            if (typeof v !== 'string') return null;
-            var s = v.trim();
-            if (!s) return null;
-            var parts = s.split(',').map(function (x) { return (x || '').trim(); }).filter(Boolean);
-            if (parts.length === 0) return null;
-            return new Set(parts);
-          }
+          var hasRendered = false;
+          // Country maps always start in fit-to-country mode (zoom=1, center unset).
+          // parseCsvSet defined above (before map fetch)
 
           function computeGeoForPoints(points) {
             var pts = (points || []).filter(function (m) { return m && m.coordinates && m.coordinates.length === 2; });
@@ -288,8 +369,11 @@ Usage: {{< datacenter-map>}}
             var baseCountryPoints = (dcData || []).filter(function (d) {
               return d && d.country_id && countryFilterSet.has(d.country_id);
             });
-            var cg = computeGeoForPoints(baseCountryPoints);
-            if (cg) defaultGeo = cg;
+            // Only auto-zoom-to-points on the world map. On a country map we want to show the whole country.
+            if (mapKey === 'world') {
+              var cg = computeGeoForPoints(baseCountryPoints);
+              if (cg) defaultGeo = cg;
+            }
           }
 
           function computeMarkerOffsets(data) {
@@ -437,14 +521,21 @@ Usage: {{< datacenter-map>}}
             var scatterSeries = buildSeries(filteredDcData, offsetsByPointKey);
 
             // Preserve current map position when changing filters/search unless search explicitly sets it.
-            var currentOpt = myChart.getOption ? myChart.getOption() : null;
-            var currentGeo = currentOpt && currentOpt.geo && currentOpt.geo[0] ? currentOpt.geo[0] : null;
+            var currentOpt = (hasRendered && myChart.getOption) ? myChart.getOption() : null;
+            var currentGeo = (hasRendered && currentOpt && currentOpt.geo && currentOpt.geo[0]) ? currentOpt.geo[0] : null;
             var geoCenter = currentGeo && currentGeo.center ? currentGeo.center : defaultGeo.center;
             var geoZoom = currentGeo && currentGeo.zoom ? currentGeo.zoom : defaultGeo.zoom;
 
             if (searchGeo) {
               geoCenter = searchGeo.center;
               geoZoom = searchGeo.zoom;
+            }
+
+            // For country GeoJSON maps, defaultGeo is either "fit country" (zoom=1, center unset)
+            // or (when needed) a datacenter-focused view.
+            if (mapKey !== 'world' && !searchGeo) {
+              geoCenter = defaultGeo.center;
+              geoZoom = defaultGeo.zoom;
             }
 
             var option = {
@@ -488,11 +579,15 @@ Usage: {{< datacenter-map>}}
                 }
               },
               geo: {
-                map: 'world',
+                map: mapKey,
                 roam: true,
                 zoom: geoZoom,
                 center: geoCenter,
-                scaleLimit: { min: 1, max: 10 },
+                scaleLimit: { min: 0.5, max: 20 },
+                // For country maps, explicitly fit/center the country inside the container.
+                // (Some country GeoJSONs behave oddly with center/zoom alone.)
+                layoutCenter: mapKey !== 'world' ? ['50%', '55%'] : undefined,
+                layoutSize: mapKey !== 'world' ? '50%' : undefined,
                 itemStyle: {
                   areaColor: isDark ? '#404040' : '#e5e5e5',
                   borderColor: isDark ? '#525252' : '#d4d4d4',
@@ -508,6 +603,7 @@ Usage: {{< datacenter-map>}}
             };
 
             myChart.setOption(option, { notMerge: true });
+            hasRendered = true;
 
             var summaryEl = document.getElementById('dc-provider-filter-summary');
             if (summaryEl) {
