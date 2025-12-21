@@ -13,11 +13,6 @@ Netherlands hosts major internet exchanges and data centers. EU member with stro
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Netherlands's membership in regional agreements.

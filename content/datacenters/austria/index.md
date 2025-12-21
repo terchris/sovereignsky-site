@@ -13,9 +13,9 @@ Datacenter regions physically located in **Austria** across all providers.
 
 {{< datacenter-map countries="AT" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="AT" >}}
+
+{{< datacenter-country-regions country="AT" >}}
 
 ## Laws
 

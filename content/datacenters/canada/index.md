@@ -13,9 +13,9 @@ Datacenter regions physically located in **Canada** across all providers.
 
 {{< datacenter-map countries="CA" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="CA" >}}
+
+{{< datacenter-country-regions country="CA" >}}
 
 ## Laws
 

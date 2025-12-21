@@ -13,9 +13,9 @@ Datacenter regions physically located in **Poland** across all providers.
 
 {{< datacenter-map countries="PL" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="PL" >}}
+
+{{< datacenter-country-regions country="PL" >}}
 
 ## Laws
 

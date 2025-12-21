@@ -13,10 +13,6 @@ Japan has an EU adequacy decision since 2019 and the APPI provides comprehensive
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-
 ## National Laws
 
 These laws are specific to Japan.

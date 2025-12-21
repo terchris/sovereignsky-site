@@ -13,9 +13,9 @@ Datacenter regions physically located in **Taiwan** across all providers.
 
 {{< datacenter-map countries="TW" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="TW" >}}
+
+{{< datacenter-country-regions country="TW" >}}
 
 ## Laws
 

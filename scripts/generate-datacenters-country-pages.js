@@ -106,9 +106,9 @@ Datacenter regions physically located in **${meta.name}** across all providers.
 
 {{< datacenter-map countries="${cid}" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="${cid}" >}}
+
+{{< datacenter-country-regions country="${cid}" >}}
 
 ## Laws
 

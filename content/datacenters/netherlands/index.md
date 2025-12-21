@@ -13,9 +13,9 @@ Datacenter regions physically located in **Netherlands** across all providers.
 
 {{< datacenter-map countries="NL" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="NL" >}}
+
+{{< datacenter-country-regions country="NL" >}}
 
 ## Laws
 

@@ -13,9 +13,9 @@ Datacenter regions physically located in **Turkey** across all providers.
 
 {{< datacenter-map countries="TR" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="TR" >}}
+
+{{< datacenter-country-regions country="TR" >}}
 
 ## Laws
 

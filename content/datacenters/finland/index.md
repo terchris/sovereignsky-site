@@ -13,9 +13,9 @@ Datacenter regions physically located in **Finland** across all providers.
 
 {{< datacenter-map countries="FI" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="FI" >}}
+
+{{< datacenter-country-regions country="FI" >}}
 
 ## Laws
 

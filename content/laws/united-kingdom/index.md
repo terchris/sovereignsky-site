@@ -13,11 +13,6 @@ Post-Brexit, the UK has an EU adequacy decision but maintains broad surveillance
 
 Significant surveillance laws or extraterritorial data access capabilities. Consider mitigations.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-- [Five Eyes](/laws/five-eyes/)
-
 ## National Laws
 
 These laws are specific to United Kingdom.

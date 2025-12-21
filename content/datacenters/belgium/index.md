@@ -13,9 +13,9 @@ Datacenter regions physically located in **Belgium** across all providers.
 
 {{< datacenter-map countries="BE" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="BE" >}}
+
+{{< datacenter-country-regions country="BE" >}}
 
 ## Laws
 

@@ -13,9 +13,9 @@ Datacenter regions physically located in **United Arab Emirates** across all pro
 
 {{< datacenter-map countries="AE" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="AE" >}}
+
+{{< datacenter-country-regions country="AE" >}}
 
 ## Laws
 

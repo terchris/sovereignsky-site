@@ -13,9 +13,9 @@ Datacenter regions physically located in **Japan** across all providers.
 
 {{< datacenter-map countries="JP" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="JP" >}}
+
+{{< datacenter-country-regions country="JP" >}}
 
 ## Laws
 

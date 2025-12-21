@@ -13,9 +13,9 @@ Datacenter regions physically located in **Australia** across all providers.
 
 {{< datacenter-map countries="AU" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="AU" >}}
+
+{{< datacenter-country-regions country="AU" >}}
 
 ## Laws
 

@@ -13,11 +13,6 @@ Canada has an EU adequacy decision and PIPEDA provides reasonable data protectio
 
 Generally adequate protection with some surveillance capabilities or legal uncertainties.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-- [Five Eyes](/laws/five-eyes/)
-
 ## National Laws
 
 These laws are specific to Canada.

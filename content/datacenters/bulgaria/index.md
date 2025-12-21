@@ -13,9 +13,9 @@ Datacenter regions physically located in **Bulgaria** across all providers.
 
 {{< datacenter-map countries="BG" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="BG" >}}
+
+{{< datacenter-country-regions country="BG" >}}
 
 ## Laws
 

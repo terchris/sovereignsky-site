@@ -13,9 +13,9 @@ Datacenter regions physically located in **Denmark** across all providers.
 
 {{< datacenter-map countries="DK" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="DK" >}}
+
+{{< datacenter-country-regions country="DK" >}}
 
 ## Laws
 

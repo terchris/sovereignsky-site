@@ -13,10 +13,6 @@ South Korea has an EU adequacy decision since 2022 and PIPA provides strong data
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-
 ## National Laws
 
 These laws are specific to South Korea.

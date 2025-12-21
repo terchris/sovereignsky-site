@@ -13,10 +13,6 @@ Iceland is not an EU member but participates in the European Economic Area (EEA)
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Iceland's membership in regional agreements.

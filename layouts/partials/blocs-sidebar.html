@@ -16,27 +16,35 @@
 {{ $blocs := $country.blocs | default (slice) }}
 
 {{ if gt (len $blocs) 0 }}
+  {{/* Short labels for badges */}}
   {{ $blocLabels := dict "eu" "EU" "eea" "EEA" "efta" "EFTA" "nato" "NATO" "five_eyes" "Five Eyes" "five-eyes" "Five Eyes" "fourteen_eyes" "14 Eyes" "fourteen-eyes" "14 Eyes" "adequacy" "Adequacy" }}
-  {{ $blocDescriptions := dict "eu" "European Union member" "eea" "European Economic Area" "efta" "European Free Trade Association" "nato" "NATO member" "five_eyes" "Five Eyes intelligence alliance" "five-eyes" "Five Eyes intelligence alliance" "fourteen_eyes" "14 Eyes surveillance network" "fourteen-eyes" "14 Eyes surveillance network" "adequacy" "EU adequacy decision" }}
+  {{/* Full names for display */}}
+  {{ $blocFullNames := dict "eu" "European Union" "eea" "European Economic Area" "efta" "European Free Trade Association" "nato" "North Atlantic Treaty Organization" "five_eyes" "Five Eyes Alliance" "five-eyes" "Five Eyes Alliance" "fourteen_eyes" "Fourteen Eyes" "fourteen-eyes" "Fourteen Eyes" "adequacy" "EU Adequacy Decision" }}
+  {{/* URL slugs for links */}}
+  {{ $blocSlugs := dict "eu" "eu" "eea" "eea" "efta" "efta" "nato" "nato" "five_eyes" "five-eyes" "five-eyes" "five-eyes" "fourteen_eyes" "fourteen-eyes" "fourteen-eyes" "fourteen-eyes" "adequacy" "adequacy" }}
   {{ $blocColors := dict "eu" "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300" "eea" "bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" "efta" "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300" "adequacy" "bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400" "five_eyes" "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" "five-eyes" "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300" "fourteen_eyes" "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300" "fourteen-eyes" "bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300" }}
   {{ $blocIcons := dict "eu" "🇪🇺" "eea" "🇪🇺" "efta" "🏔️" "nato" "🛡️" "five_eyes" "👁️" "five-eyes" "👁️" "fourteen_eyes" "👁️" "fourteen-eyes" "👁️" "adequacy" "✓" }}
 
   <div class="mt-6">
-    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Blocs</div>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }} memberships</div>
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Memberships</div>
     <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-      <ul class="m-0 p-0 list-none space-y-2">
+      <ul class="m-0 p-0 list-none space-y-3">
         {{ range $blocs }}
           {{ $label := index $blocLabels . | default (. | upper) }}
-          {{ $desc := index $blocDescriptions . | default "" }}
+          {{ $fullName := index $blocFullNames . | default $label }}
+          {{ $slug := index $blocSlugs . | default . }}
           {{ $colorClass := index $blocColors . | default "bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200" }}
           {{ $icon := index $blocIcons . | default "" }}
           <li class="m-0 p-0">
-            <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded text-sm font-medium {{ $colorClass }}"
-                  {{ if $desc }}title="{{ $desc }}"{{ end }}>
-              {{ if $icon }}<span>{{ $icon }}</span>{{ end }}
-              <span>{{ $label }}</span>
-            </span>
+            <a href="/laws/{{ $slug }}/" class="block no-underline hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded -mx-2 px-2 py-1 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold {{ $colorClass }}">
+                  {{ if $icon }}<span>{{ $icon }}</span>{{ end }}
+                  <span>{{ $label }}</span>
+                </span>
+              </div>
+              <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">{{ $fullName }}</div>
+            </a>
           </li>
         {{ end }}
       </ul>

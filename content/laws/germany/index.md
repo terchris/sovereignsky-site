@@ -13,11 +13,6 @@ Germany has some of the strictest data protection interpretations in the EU. Ger
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## National Laws
 
 These laws are specific to Germany.

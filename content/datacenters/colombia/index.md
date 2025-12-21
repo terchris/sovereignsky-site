@@ -13,9 +13,9 @@ Datacenter regions physically located in **Colombia** across all providers.
 
 {{< datacenter-map countries="CO" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="CO" >}}
+
+{{< datacenter-country-regions country="CO" >}}
 
 ## Laws
 

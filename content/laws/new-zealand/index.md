@@ -13,11 +13,6 @@ New Zealand has an EU adequacy decision and the Privacy Act 2020. However, as a 
 
 Generally adequate protection with some surveillance capabilities or legal uncertainties.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-- [Five Eyes](/laws/five-eyes/)
-
 ## National Laws
 
 These laws are specific to New Zealand.

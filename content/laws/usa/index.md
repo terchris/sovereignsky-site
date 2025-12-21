@@ -13,10 +13,6 @@ The United States has broad surveillance laws that grant government access to da
 
 Broad government access to data, weak privacy protections, or extraterritorial reach. Avoid for sensitive data.
 
-### Memberships & Frameworks
-
-- [Five Eyes](/laws/five-eyes/)
-
 ## National Laws
 
 These laws are specific to USA.

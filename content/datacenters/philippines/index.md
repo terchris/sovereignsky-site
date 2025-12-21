@@ -13,9 +13,9 @@ Datacenter regions physically located in **Philippines** across all providers.
 
 {{< datacenter-map countries="PH" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="PH" >}}
+
+{{< datacenter-country-regions country="PH" >}}
 
 ## Laws
 

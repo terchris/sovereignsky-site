@@ -13,9 +13,9 @@ Datacenter regions physically located in **Egypt** across all providers.
 
 {{< datacenter-map countries="EG" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="EG" >}}
+
+{{< datacenter-country-regions country="EG" >}}
 
 ## Laws
 

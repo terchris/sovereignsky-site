@@ -13,9 +13,9 @@ Datacenter regions physically located in **Italy** across all providers.
 
 {{< datacenter-map countries="IT" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="IT" >}}
+
+{{< datacenter-country-regions country="IT" >}}
 
 ## Laws
 

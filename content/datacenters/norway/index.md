@@ -13,9 +13,9 @@ Datacenter regions physically located in **Norway** across all providers.
 
 {{< datacenter-map countries="NO" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="NO" >}}
+
+{{< datacenter-country-regions country="NO" >}}
 
 ## Laws
 

@@ -13,9 +13,9 @@ Datacenter regions physically located in **Indonesia** across all providers.
 
 {{< datacenter-map countries="ID" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="ID" >}}
+
+{{< datacenter-country-regions country="ID" >}}
 
 ## Laws
 

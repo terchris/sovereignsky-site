@@ -13,9 +13,9 @@ Datacenter regions physically located in **Spain** across all providers.
 
 {{< datacenter-map countries="ES" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="ES" >}}
+
+{{< datacenter-country-regions country="ES" >}}
 
 ## Laws
 

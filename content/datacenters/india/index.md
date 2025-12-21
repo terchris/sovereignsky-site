@@ -13,9 +13,9 @@ Datacenter regions physically located in **India** across all providers.
 
 {{< datacenter-map countries="IN" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="IN" >}}
+
+{{< datacenter-country-regions country="IN" >}}
 
 ## Laws
 

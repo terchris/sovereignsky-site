@@ -13,9 +13,9 @@ Datacenter regions physically located in **Saudi Arabia** across all providers.
 
 {{< datacenter-map countries="SA" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="SA" >}}
+
+{{< datacenter-country-regions country="SA" >}}
 
 ## Laws
 

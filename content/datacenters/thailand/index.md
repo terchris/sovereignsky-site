@@ -13,9 +13,9 @@ Datacenter regions physically located in **Thailand** across all providers.
 
 {{< datacenter-map countries="TH" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="TH" >}}
+
+{{< datacenter-country-regions country="TH" >}}
 
 ## Laws
 

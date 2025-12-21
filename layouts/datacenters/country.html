@@ -65,45 +65,6 @@
         {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
       </div>
 
-      {{ if $countryId }}
-        <div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-              <span class="font-medium">Country</span>
-              <span class="text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }}{{ end }} {{ $countryName }}</span>
-            </span>
-            {{/* Bloc membership badges */}}
-            {{ $blocs := $country.blocs | default (slice) }}
-            {{ if gt (len $blocs) 0 }}
-              {{ $blocLabels := dict "eu" "🇪🇺 EU" "eea" "🇪🇺 EEA" "efta" "EFTA" "nato" "NATO" "five_eyes" "Five Eyes" "five-eyes" "Five Eyes" "fourteen_eyes" "14 Eyes" "fourteen-eyes" "14 Eyes" "adequacy" "Adequacy" }}
-              {{ $blocColors := dict "eu" "border-blue-400 bg-blue-50 dark:bg-blue-900/20" "eea" "border-blue-300 bg-blue-50 dark:bg-blue-900/20" "efta" "border-green-400 bg-green-50 dark:bg-green-900/20" "adequacy" "border-green-400 bg-green-50 dark:bg-green-900/20" "five_eyes" "border-red-400 bg-red-50 dark:bg-red-900/20" "five-eyes" "border-red-400 bg-red-50 dark:bg-red-900/20" "fourteen_eyes" "border-orange-400 bg-orange-50 dark:bg-orange-900/20" "fourteen-eyes" "border-orange-400 bg-orange-50 dark:bg-orange-900/20" }}
-              {{ range $blocs }}
-                {{ $label := index $blocLabels . | default (. | upper) }}
-                {{ $colorClass := index $blocColors . | default "" }}
-                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full border {{ $colorClass }} text-sm">
-                  <span class="font-medium">{{ $label }}</span>
-                </span>
-              {{ end }}
-            {{ end }}
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-              <span class="font-medium">Regions</span>
-              <span class="text-neutral-500 dark:text-neutral-400">{{ $totalRegions }}</span>
-            </span>
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-              <span class="font-medium">Providers</span>
-              <span class="text-neutral-500 dark:text-neutral-400">{{ len $providerItems }}</span>
-            </span>
-            {{ if $lawsSlug }}
-              <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-                 href="/laws/{{ $lawsSlug }}/">
-                <span class="font-medium">Exposure laws</span>
-                <span class="text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }}{{ end }} {{ $countryName }}</span>
-                <span class="text-neutral-500 dark:text-neutral-400">↗</span>
-              </a>
-            {{ end }}
-          </div>
-        </div>
-      {{ end }}
     </header>
 
     {{/* Body with right sidebar */}}
@@ -128,13 +89,23 @@
             {{ if gt (len $providerItems) 0 }}
               <div class="mt-6">
                 <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Providers</div>
-                <div class="text-sm text-neutral-500 dark:text-neutral-400">Datacenters in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+                <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ len $providerItems }} providers in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
                 <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
                   <ul class="m-0 p-0 list-none space-y-1">
                     {{ range $providerItems }}
                       {{ $p := .provider }}
                       {{ $count := .count }}
+                      {{/* Look up provider's vendor country for flag */}}
+                      {{ $providerFlag := "" }}
+                      {{ $vendorCountryId := $p.vendor_country_id | default "" }}
+                      {{ if $vendorCountryId }}
+                        {{ $vendorMatch := first 1 (where site.Data.regions "id" $vendorCountryId) }}
+                        {{ with index $vendorMatch 0 }}
+                          {{ $providerFlag = .flag | default "" }}
+                        {{ end }}
+                      {{ end }}
                       <li class="m-0 p-0">
+                        {{ if $providerFlag }}<span class="mr-1">{{ $providerFlag }}</span>{{ end -}}
                         <a class="no-underline hover:underline"
                            href="/datacenters/{{ $p.provider_id }}/"
                            title="View {{ $p.provider_name }} datacenters">
@@ -144,6 +115,62 @@
                       </li>
                     {{ end }}
                   </ul>
+                </div>
+              </div>
+            {{ end }}
+
+            {{/* Cities section - count regions per city */}}
+            {{ if $countryId }}
+              {{/* Build city counts */}}
+              {{ $cityRegionCounts := dict }}
+              {{ $cityOrder := slice }}
+              {{ range $providers }}
+                {{ range (.regions | default (slice)) }}
+                  {{ if eq .country_id $countryId }}
+                    {{ $city := .city | default "Unknown" }}
+                    {{ $existing := index $cityRegionCounts $city | default 0 }}
+                    {{ $cityRegionCounts = merge $cityRegionCounts (dict $city (add $existing 1)) }}
+                    {{ if not (in $cityOrder $city) }}
+                      {{ $cityOrder = $cityOrder | append $city }}
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ $cityOrder = sort $cityOrder }}
+
+              {{ if gt (len $cityOrder) 0 }}
+                <div class="mt-6">
+                  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Cities</div>
+                  <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ len $cityOrder }} cities in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+                  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                    <ul class="m-0 p-0 list-none space-y-1">
+                      {{ range $cityOrder }}
+                        {{ $city := . }}
+                        {{ $count := index $cityRegionCounts $city }}
+                        <li class="m-0 p-0">
+                          <span>{{ $city }}</span>
+                          <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
+                        </li>
+                      {{ end }}
+                    </ul>
+                  </div>
+                </div>
+              {{ end }}
+            {{ end }}
+
+            {{/* Related section with Exposure Laws link */}}
+            {{ if $lawsSlug }}
+              <div class="mt-6">
+                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
+                <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                  <a href="/laws/{{ $lawsSlug }}/"
+                     class="block no-underline hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded -mx-2 px-2 py-1.5 transition-colors">
+                    <div class="flex items-center gap-2">
+                      <span class="text-base">⚖️</span>
+                      <span class="font-medium text-neutral-800 dark:text-neutral-100">Exposure Laws</span>
+                    </div>
+                    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+                  </a>
                 </div>
               </div>
             {{ end }}

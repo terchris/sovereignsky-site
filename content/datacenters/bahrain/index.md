@@ -13,9 +13,9 @@ Datacenter regions physically located in **Bahrain** across all providers.
 
 {{< datacenter-map countries="BH" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="BH" >}}
+
+{{< datacenter-country-regions country="BH" >}}
 
 ## Laws
 

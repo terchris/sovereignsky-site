@@ -13,11 +13,6 @@ France is an EU member with the CNIL as one of Europe's most active data protect
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through France's membership in regional agreements.

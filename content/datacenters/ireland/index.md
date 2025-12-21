@@ -13,9 +13,9 @@ Datacenter regions physically located in **Ireland** across all providers.
 
 {{< datacenter-map countries="IE" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="IE" >}}
+
+{{< datacenter-country-regions country="IE" >}}
 
 ## Laws
 

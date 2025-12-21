@@ -13,9 +13,9 @@ Datacenter regions physically located in **United Kingdom** across all providers
 
 {{< datacenter-map countries="GB" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="GB" >}}
+
+{{< datacenter-country-regions country="GB" >}}
 
 ## Laws
 

@@ -13,9 +13,9 @@ Datacenter regions physically located in **Germany** across all providers.
 
 {{< datacenter-map countries="DE" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="DE" >}}
+
+{{< datacenter-country-regions country="DE" >}}
 
 ## Laws
 

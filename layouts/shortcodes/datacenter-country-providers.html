@@ -39,6 +39,11 @@ Shows the count of regions in THAT country (not total regions).
   {{ end }}
 {{ end }}
 
+{{/* Output heading with total count */}}
+{{ if gt (len $providersInCountry) 0 }}
+<h2 id="providers" class="group">Providers ({{ len $providersInCountry }})</h2>
+{{ end }}
+
 {{/* Group providers by provider_type */}}
 {{ $groups := slice
   (dict "key" "hyperscaler" "title" "Hyperscalers")

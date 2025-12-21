@@ -13,9 +13,9 @@ Datacenter regions physically located in **Brazil** across all providers.
 
 {{< datacenter-map countries="BR" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="BR" >}}
+
+{{< datacenter-country-regions country="BR" >}}
 
 ## Laws
 

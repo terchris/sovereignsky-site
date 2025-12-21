@@ -13,9 +13,9 @@ Datacenter regions physically located in **France** across all providers.
 
 {{< datacenter-map countries="FR" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="FR" >}}
+
+{{< datacenter-country-regions country="FR" >}}
 
 ## Laws
 

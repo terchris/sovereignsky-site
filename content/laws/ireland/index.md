@@ -13,11 +13,6 @@ Ireland hosts European headquarters for many US tech giants (Google, Meta, Micro
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Ireland's membership in regional agreements.

@@ -13,9 +13,9 @@ Datacenter regions physically located in **Qatar** across all providers.
 
 {{< datacenter-map countries="QA" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="QA" >}}
+
+{{< datacenter-country-regions country="QA" >}}
 
 ## Laws
 

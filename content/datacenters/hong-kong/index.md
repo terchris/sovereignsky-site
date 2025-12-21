@@ -13,9 +13,9 @@ Datacenter regions physically located in **Hong Kong** across all providers.
 
 {{< datacenter-map countries="HK" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="HK" >}}
+
+{{< datacenter-country-regions country="HK" >}}
 
 ## Laws
 

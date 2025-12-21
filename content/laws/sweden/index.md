@@ -13,11 +13,6 @@ Sweden is an EU member state with strong data protection traditions. Home to sev
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Sweden's membership in regional agreements.

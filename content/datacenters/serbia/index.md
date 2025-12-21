@@ -13,9 +13,9 @@ Datacenter regions physically located in **Serbia** across all providers.
 
 {{< datacenter-map countries="RS" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="RS" >}}
+
+{{< datacenter-country-regions country="RS" >}}
 
 ## Laws
 

@@ -13,9 +13,9 @@ Datacenter regions physically located in **Sweden** across all providers.
 
 {{< datacenter-map countries="SE" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="SE" >}}
+
+{{< datacenter-country-regions country="SE" >}}
 
 ## Laws
 

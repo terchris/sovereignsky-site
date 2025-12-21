@@ -13,9 +13,9 @@ Datacenter regions physically located in **Chile** across all providers.
 
 {{< datacenter-map countries="CL" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="CL" >}}
+
+{{< datacenter-country-regions country="CL" >}}
 
 ## Laws
 

@@ -13,11 +13,6 @@ Slovakia is an EU member state subject to GDPR and EU legal frameworks.
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Slovakia's membership in regional agreements.

@@ -13,9 +13,9 @@ Datacenter regions physically located in **China** across all providers.
 
 {{< datacenter-map countries="CN" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="CN" >}}
+
+{{< datacenter-country-regions country="CN" >}}
 
 ## Laws
 

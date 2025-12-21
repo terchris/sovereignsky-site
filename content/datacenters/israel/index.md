@@ -13,9 +13,9 @@ Datacenter regions physically located in **Israel** across all providers.
 
 {{< datacenter-map countries="IL" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="IL" >}}
+
+{{< datacenter-country-regions country="IL" >}}
 
 ## Laws
 

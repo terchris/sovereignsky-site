@@ -13,9 +13,9 @@ Datacenter regions physically located in **Malaysia** across all providers.
 
 {{< datacenter-map countries="MY" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="MY" >}}
+
+{{< datacenter-country-regions country="MY" >}}
 
 ## Laws
 

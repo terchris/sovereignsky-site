@@ -13,10 +13,6 @@ Norway is not an EU member but participates in the European Economic Area (EEA),
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Economic Area](/laws/eea/)
-
 ## National Laws
 
 These laws are specific to Norway.

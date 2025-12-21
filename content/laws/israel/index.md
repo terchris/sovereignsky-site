@@ -13,10 +13,6 @@ Israel has an EU adequacy decision for certain sectors. Known for advanced cyber
 
 Generally adequate protection with some surveillance capabilities or legal uncertainties.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-
 ## Laws
 
 No specific laws of concern have been identified for Israel.

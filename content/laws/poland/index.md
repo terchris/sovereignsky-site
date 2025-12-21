@@ -13,11 +13,6 @@ Poland is an EU member state with growing data center infrastructure.
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Union](/laws/eu/)
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Poland's membership in regional agreements.

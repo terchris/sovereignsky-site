@@ -13,9 +13,9 @@ Datacenter regions physically located in **USA** across all providers.
 
 {{< datacenter-map countries="US" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="US" >}}
+
+{{< datacenter-country-regions country="US" >}}
 
 ## Laws
 

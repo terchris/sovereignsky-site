@@ -13,9 +13,9 @@ Datacenter regions physically located in **Switzerland** across all providers.
 
 {{< datacenter-map countries="CH" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="CH" >}}
+
+{{< datacenter-country-regions country="CH" >}}
 
 ## Laws
 

@@ -13,10 +13,6 @@ Australia is a Five Eyes member with the controversial TOLA Act allowing authori
 
 Significant surveillance laws or extraterritorial data access capabilities. Consider mitigations.
 
-### Memberships & Frameworks
-
-- [Five Eyes](/laws/five-eyes/)
-
 ## National Laws
 
 These laws are specific to Australia.

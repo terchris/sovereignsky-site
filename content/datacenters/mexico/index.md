@@ -13,9 +13,9 @@ Datacenter regions physically located in **Mexico** across all providers.
 
 {{< datacenter-map countries="MX" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="MX" >}}
+
+{{< datacenter-country-regions country="MX" >}}
 
 ## Laws
 

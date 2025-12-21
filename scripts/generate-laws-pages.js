@@ -171,30 +171,6 @@ ${riskInfo.description || ''}
 
 `;
 
-  // Memberships
-  const memberships = [];
-  if (region.eu_member) memberships.push('[European Union](/laws/eu/)');
-  if (region.eea_member) memberships.push('[European Economic Area](/laws/eea/)');
-  if (region.adequacy_decision) memberships.push('[EU Adequacy Decision](/laws/adequacy/)');
-  if (region.blocs) {
-    region.blocs.forEach(blocId => {
-      if (blocId !== 'eu' && blocId !== 'eea' && blocId !== 'adequacy') {
-        const bloc = blocsById[blocId];
-        if (bloc) {
-          memberships.push(`[${bloc.name}](/laws/${bloc.slug}/)`);
-        }
-      }
-    });
-  }
-
-  if (memberships.length > 0) {
-    md += `### Memberships & Frameworks\n\n`;
-    memberships.forEach(m => {
-      md += `- ${m}\n`;
-    });
-    md += '\n';
-  }
-
   // National laws
   if (laws.national.length > 0) {
     md += `## National Laws\n\n`;

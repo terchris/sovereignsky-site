@@ -13,10 +13,6 @@ Liechtenstein is not an EU member but participates in the European Economic Area
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [European Economic Area](/laws/eea/)
-
 ## Applicable Bloc Laws
 
 These laws apply through Liechtenstein's membership in regional agreements.

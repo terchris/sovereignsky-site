@@ -13,9 +13,9 @@ Datacenter regions physically located in **South Africa** across all providers.
 
 {{< datacenter-map countries="ZA" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="ZA" >}}
+
+{{< datacenter-country-regions country="ZA" >}}
 
 ## Laws
 

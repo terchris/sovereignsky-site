@@ -13,9 +13,9 @@ Datacenter regions physically located in **Singapore** across all providers.
 
 {{< datacenter-map countries="SG" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="SG" >}}
+
+{{< datacenter-country-regions country="SG" >}}
 
 ## Laws
 

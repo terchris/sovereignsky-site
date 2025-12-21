@@ -13,10 +13,6 @@ Switzerland is not an EU/EEA member but has an EU adequacy decision. Known for b
 
 Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.
 
-### Memberships & Frameworks
-
-- [EU Adequacy Decision](/laws/adequacy/)
-
 ## National Laws
 
 These laws are specific to Switzerland.

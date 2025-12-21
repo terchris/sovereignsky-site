@@ -13,9 +13,9 @@ Datacenter regions physically located in **South Korea** across all providers.
 
 {{< datacenter-map countries="KR" showFilters="false" >}}
 
-## Providers
-
 {{< datacenter-country-providers country="KR" >}}
+
+{{< datacenter-country-regions country="KR" >}}
 
 ## Laws
 
