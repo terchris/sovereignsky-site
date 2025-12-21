@@ -296,6 +296,9 @@
         {{ end }}
         {{ end }}
 
+        {{/* Related content - all content types based on matching tags */}}
+        {{ partial "related-content-sidebar.html" . }}
+
         {{/* Table of Contents - at the bottom */}}
         {{ $showToc := in .TableOfContents "<ul" }}
         {{ if $showToc }}

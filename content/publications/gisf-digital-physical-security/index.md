@@ -51,12 +51,13 @@ external_url: "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Fina
 # Tags for cross-site linking
 tags:
   - "cybersecurity"
-  - "security"
   - "humanitarian"
-  - "disinformation"
-  - "hybrid warfare"
-  - "risk management"
-  - "supply chain"
+  - "hybrid-warfare"
+  - "critical-infrastructure"
+
+# Audience taxonomy
+audiences:
+  - "humanitarian"
 
 # Categories
 categories:

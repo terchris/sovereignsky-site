@@ -142,29 +142,8 @@
         </div>
         {{ end }}
 
-        {{/* 6. Related Publications */}}
-        {{ $currentSlug := "" }}
-        {{ with .File }}{{ $currentSlug = .Dir }}{{ end }}
-        {{ $related := slice }}
-        {{ range where (where .Site.RegularPages "Section" "publications") ".File.Dir" "!=" $currentSlug }}
-        {{ $related = $related | append . }}
-        {{ end }}
-        {{ if gt (len $related) 0 }}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
-          <div class="text-sm text-neutral-500 dark:text-neutral-400">Other publications</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="flex flex-wrap gap-2">
-              {{ range first 5 $related }}
-              <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-                 href="{{ .RelPermalink }}">
-                <span class="font-medium">{{ .Title | truncate 30 }}</span>
-              </a>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{/* 6. Related content - all content types based on matching tags */}}
+        {{ partial "related-content-sidebar.html" . }}
 
         {{/* 7. Table of Contents - at the bottom */}}
         {{ $enableToc := site.Params.article.showTableOfContents | default false }}

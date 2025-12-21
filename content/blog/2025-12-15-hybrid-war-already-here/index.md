@@ -3,7 +3,7 @@ title: "The Hybrid War Is Already Here: Why Digital Sovereignty Can't Wait"
 date: 2025-12-15
 description: "GPS jamming 294 days a year. A Norwegian dam hacked by pro-Russian actors. 40 sabotage operations across Europe. The hybrid war isn't coming - it's happening now. And our digital infrastructure is dangerously exposed."
 summary: "GPS jamming 294 days a year. A Norwegian dam hacked by pro-Russian actors. 40 sabotage operations across Europe. The hybrid war isn't coming - it's happening now. And our digital infrastructure is dangerously exposed."
-tags: ["hybrid warfare", "cybersecurity", "digital sovereignty", "Norway", "GPS jamming", "critical infrastructure"]
+tags: ["hybrid-warfare", "cybersecurity", "sovereignty", "norway", "gps-jamming", "critical-infrastructure"]
 categories: ["Analysis"]
 ---
 

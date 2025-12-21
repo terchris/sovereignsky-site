@@ -16,6 +16,8 @@ summaryLength = 30
 [taxonomies]
   tag = "tags"
   category = "categories"
+  # Audience filtering taxonomy
+  audience = "audiences"
   # Software filtering taxonomies
   risk_level = "risk_levels"
   vendor_country = "vendor_countries"

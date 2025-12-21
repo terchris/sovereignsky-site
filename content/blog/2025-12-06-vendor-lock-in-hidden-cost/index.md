@@ -3,7 +3,8 @@ title: "Cloud Vendor Lock-in: The Hidden Cost of Developer Convenience"
 date: 2025-12-06
 description: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
 summary: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
-tags: ["vendor lock-in", "cloud migration", "Dapr", "multi-cloud", "open standards"]
+tags: ["vendor-lock-in", "exit-strategy", "multi-cloud", "open-standards", "developers"]
+audiences: ["developers", "enterprise"]
 categories: ["Technical"]
 ---
 

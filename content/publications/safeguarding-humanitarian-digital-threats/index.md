@@ -58,11 +58,14 @@ external_url: "https://blogs.icrc.org/law-and-policy/2022/10/13/safeguarding-hum
 # Tags for cross-site linking
 tags:
   - "cybersecurity"
-  - "digital sovereignty"
+  - "sovereignty"
   - "humanitarian"
-  - "hybrid warfare"
-  - "disinformation"
-  - "international humanitarian law"
+  - "hybrid-warfare"
+  - "privacy"
+
+# Audience taxonomy
+audiences:
+  - "humanitarian"
 
 # Categories
 categories:

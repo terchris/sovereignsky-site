@@ -202,6 +202,9 @@
                 </div>
                 {{ end }}
 
+                {{/* Related content - all content types based on matching tags */}}
+                {{ partial "related-content-sidebar.html" . }}
+
                 {{ if gt (len $compare) 0 }}
                 <div class="mt-6">
                     <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Compare</div>

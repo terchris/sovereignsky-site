@@ -3,7 +3,8 @@ title: "You, the Developer, Hold the Keys to National Sovereignty"
 date: 2025-12-10
 description: "Why your technical decisions matter for your country's independence - and what you can do about it"
 summary: "Why your technical decisions matter for your country's independence - and what you can do about it"
-tags: ["cloud sovereignty", "developers", "vendor lock-in", "open standards", "digital independence"]
+tags: ["sovereignty", "developers", "vendor-lock-in", "open-standards"]
+audiences: ["developers"]
 categories: ["Opinion"]
 ---
 

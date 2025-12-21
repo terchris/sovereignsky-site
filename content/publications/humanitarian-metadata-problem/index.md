@@ -52,13 +52,14 @@ external_url: "https://www.icrc.org/en/document/digital-trails-could-endanger-pe
 
 # Tags for cross-site linking
 tags:
-  - "metadata"
-  - "surveillance"
   - "privacy"
   - "humanitarian"
-  - "mobile money"
-  - "messaging apps"
-  - "data protection"
+  - "surveillance"
+  - "government-access"
+
+# Audience taxonomy
+audiences:
+  - "humanitarian"
 
 # Categories
 categories:

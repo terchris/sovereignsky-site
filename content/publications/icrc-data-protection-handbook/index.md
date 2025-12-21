@@ -53,14 +53,19 @@ external_url: "https://www.cambridge.org/core/books/handbook-on-data-protection-
 
 # Tags for cross-site linking (match blog post tags)
 tags:
-  - "cloud sovereignty"
-  - "digital sovereignty"
+  - "sovereignty"
   - "humanitarian"
-  - "CLOUD Act"
-  - "government access"
-  - "data protection"
+  - "cloud-act"
+  - "government-access"
+  - "privacy"
   - "biometrics"
   - "encryption"
+  - "gdpr"
+
+# Audience taxonomy
+audiences:
+  - "humanitarian"
+  - "public-sector"
 
 # Categories
 categories:

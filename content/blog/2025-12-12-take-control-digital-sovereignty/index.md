@@ -3,7 +3,7 @@ title: "Take Control: How You Can Protect Your Digital Life and Help Norway Stay
 date: 2025-12-12
 description: "You have the power to protect yourself from being locked out of your own computer. Small steps toward open standards create personal insurance and national sovereignty."
 summary: "You have the power to protect yourself from being locked out of your own computer. Small steps toward open standards create personal insurance and national sovereignty."
-tags: ["open standards", "digital sovereignty", "vendor lock-in", "personal sovereignty"]
+tags: ["open-standards", "sovereignty", "vendor-lock-in", "self-hosting"]
 categories: ["Opinion"]
 ---
 

@@ -29,13 +29,25 @@
     {{ $countryFlag = $country.flag | default "" }}
   {{ end }}
 
+  {{/* Auto-generate title from regions.json if frontmatter title is not set or is default */}}
+  {{ $autoTitle := "" }}
+  {{ if and $countryFlag $countryName }}
+    {{ $autoTitle = printf "%s %s" $countryFlag $countryName }}
+  {{ else if $countryName }}
+    {{ $autoTitle = $countryName }}
+  {{ end }}
+  {{ $displayTitle := .Title }}
+  {{ if and $autoTitle (or (not .Title) (eq .Title "Index") (eq .Title "")) }}
+    {{ $displayTitle = $autoTitle }}
+  {{ end }}
+
   <article>
     <header id="single_header" class="mt-5 max-w-prose">
       {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
         {{ partial "breadcrumbs.html" . }}
       {{ end }}
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        {{ .Title | emojify }}
+        {{ $displayTitle | emojify }}
       </h1>
       <div class="mt-1 mb-4 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
@@ -145,7 +157,7 @@
             {{/* Link to datacenters in this country */}}
             {{ if $country }}
               <div class="mt-6">
-                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
+                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Datacenters</div>
                 <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
                   <ul class="m-0 p-0 list-none space-y-1">
                     <li class="m-0 p-0">
@@ -159,13 +171,103 @@
                 </div>
               </div>
             {{ end }}
+
+            {{/* Related content - laws, blog posts, publications based on country_id */}}
+            {{ partial "related-content-sidebar.html" (dict "page" . "country_id" $countryId) }}
           </div>
         </div>
       {{ end }}
 
       <div class="min-w-0 min-h-0 max-w-fit">
         <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
-          {{ .Content }}
+          {{/* Auto-generate description from regions.json */}}
+          {{ $autoDescription := "" }}
+          {{ if $country }}
+            {{ $autoDescription = $country.description | default "" }}
+          {{ end }}
+
+          {{/* Check if there's any custom content in the markdown file */}}
+          {{ $rawContent := .RawContent | strings.TrimSpace }}
+          {{ $hasCustomContent := gt (len $rawContent) 0 }}
+
+          {{/* Show auto description (always, unless custom content has its own intro before ##) */}}
+          {{ $hasCustomIntro := false }}
+          {{ if $hasCustomContent }}
+            {{ $parts := split $rawContent "##" }}
+            {{ if gt (len $parts) 0 }}
+              {{ $intro := index $parts 0 | strings.TrimSpace }}
+              {{ if gt (len $intro) 0 }}
+                {{ $hasCustomIntro = true }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{ if and $autoDescription (not $hasCustomIntro) }}
+            <p>{{ $autoDescription }}</p>
+          {{ end }}
+
+          {{/* Auto-generate Risk Assessment from regions.json */}}
+          {{ $riskLevel := "" }}
+          {{ $riskEmoji := "" }}
+          {{ $riskLabel := "" }}
+          {{ $riskDescription := "" }}
+          {{ if $country }}
+            {{ $riskLevel = $country.risk_level | default "" }}
+          {{ end }}
+          {{ if eq $riskLevel "low" }}
+            {{ $riskEmoji = "✅" }}
+            {{ $riskLabel = "Low Risk" }}
+            {{ $riskDescription = "Strong data protection laws aligned with GDPR. No extraterritorial data access concerns." }}
+          {{ else if eq $riskLevel "moderate" }}
+            {{ $riskEmoji = "⚠️" }}
+            {{ $riskLabel = "Moderate Risk" }}
+            {{ $riskDescription = "Generally acceptable data protection, but some concerns exist. Review specific laws before storing sensitive data." }}
+          {{ else if eq $riskLevel "elevated" }}
+            {{ $riskEmoji = "⚠️" }}
+            {{ $riskLabel = "Elevated Risk" }}
+            {{ $riskDescription = "Notable government access provisions or weaker privacy protections. Consider alternatives for sensitive data." }}
+          {{ else if eq $riskLevel "high" }}
+            {{ $riskEmoji = "🚨" }}
+            {{ $riskLabel = "High Risk" }}
+            {{ $riskDescription = "Broad government access to data, weak privacy protections, or extraterritorial reach. Avoid for sensitive data." }}
+          {{ else if eq $riskLevel "sanctioned" }}
+            {{ $riskEmoji = "🚫" }}
+            {{ $riskLabel = "Sanctioned" }}
+            {{ $riskDescription = "Subject to international sanctions. Data transfers may be legally prohibited or highly restricted." }}
+          {{ end }}
+
+          {{/* Only show auto Risk Assessment if markdown doesn't have one */}}
+          {{ $hasCustomRiskSection := false }}
+          {{ if $hasCustomContent }}
+            {{ if strings.Contains $rawContent "## Risk Assessment" }}
+              {{ $hasCustomRiskSection = true }}
+            {{ end }}
+          {{ end }}
+
+          {{ if and $riskLevel (not $hasCustomRiskSection) }}
+            <h2 id="risk-assessment">Risk Assessment</h2>
+            <p><strong>Overall Risk Level:</strong> {{ $riskEmoji }} {{ $riskLabel }}</p>
+            <p>{{ $riskDescription }}</p>
+          {{ end }}
+
+          {{/* Render any custom page content from markdown */}}
+          {{ if $hasCustomContent }}
+            {{ .Content }}
+          {{ end }}
+
+          {{/* Auto-generate Laws section */}}
+          {{ if $countryId }}
+            <h2 id="laws">Laws</h2>
+            <p>These laws apply to {{ $countryName }}{{ if gt (len $blocs) 0 }}, including those inherited through {{ if gt (len $blocs) 1 }}bloc memberships{{ else }}{{ index $blocs 0 }}{{ end }}{{ end }}.</p>
+            {{ partial "jurisdiction-laws-inline.html" (dict "jurisdictionId" $countryId "country" $country) }}
+          {{ end }}
+
+          {{/* Auto-generate footer links */}}
+          <hr>
+          <p>
+            → <a href="/jurisdictions/">View all jurisdictions</a><br>
+            → <a href="/software/">Browse software by jurisdiction</a>
+          </p>
         </div>
       </div>
     </section>

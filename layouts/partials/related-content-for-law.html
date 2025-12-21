@@ -1,0 +1,60 @@
+{{/* Related Content for Law Pages
+     Shows blog posts and publications that are tagged with this law's ID
+     Usage: {{ partial "related-content-for-law.html" (dict "lawId" "cloud-act" "context" .) }}
+*/}}
+
+{{ $lawId := .lawId | default "" }}
+{{ $context := .context | default . }}
+
+{{ if $lawId }}
+  {{/* Find blog posts with matching tag */}}
+  {{ $relatedPosts := slice }}
+  {{ range where site.RegularPages "Type" "blog" }}
+    {{ $page := . }}
+    {{ range .Params.tags }}
+      {{ if eq . $lawId }}
+        {{ $relatedPosts = $relatedPosts | append $page }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Find publications with matching tag */}}
+  {{ $relatedPubs := slice }}
+  {{ range where site.RegularPages "Type" "publications" }}
+    {{ $page := . }}
+    {{ range .Params.tags }}
+      {{ if eq . $lawId }}
+        {{ $relatedPubs = $relatedPubs | append $page }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Only show section if we have related content */}}
+  {{ if or (gt (len $relatedPosts) 0) (gt (len $relatedPubs) 0) }}
+  <div class="mt-6">
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Content</div>
+    <div class="text-sm text-neutral-500 dark:text-neutral-400">Articles about this law</div>
+    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      <div class="space-y-2">
+        {{/* Blog posts */}}
+        {{ range first 4 $relatedPosts }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Blog</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+
+        {{/* Publications */}}
+        {{ range first 3 $relatedPubs }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Publication</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

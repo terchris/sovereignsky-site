@@ -1,0 +1,154 @@
+{{/* Universal Related Content for Sidebar
+     Shows all related content based on matching tags:
+     - Laws (from data/laws.json where law ID matches a tag, or applies to country_id)
+     - Blog posts (with matching tags)
+     - Publications (with matching tags)
+     - Any other content types with matching tags
+
+     Also supports:
+     - country_id for datacenter/jurisdiction pages without tags
+     - applies_to for law pages (finds content with matching country tags or law_id tag)
+     - law_id for law pages (finds content with the law ID as a tag)
+
+     Usage:
+     - {{ partial "related-content-sidebar.html" . }}
+     - {{ partial "related-content-sidebar.html" (dict "page" . "country_id" "NO") }}
+*/}}
+
+{{/* Support both direct page context and dict with page key */}}
+{{ $currentPage := . }}
+{{ $explicitCountryId := "" }}
+{{/* Check if this is a dict with "page" key by checking for Permalink (pages have it, dicts don't) */}}
+{{ if not .Permalink }}
+  {{ $currentPage = .page }}
+  {{ $explicitCountryId = .country_id | default "" }}
+{{ end }}
+
+{{ $pageTags := $currentPage.Params.tags | default (slice) }}
+{{ $countryId := $explicitCountryId | default ($currentPage.Params.country_id | default "") }}
+{{ $appliesTo := $currentPage.Params.applies_to | default (slice) }}
+{{ $lawId := $currentPage.Params.law_id | default "" }}
+
+{{/* Build a lookup of tag -> true for O(1) lookup */}}
+{{/* Include: page tags, applies_to countries, and law_id */}}
+{{ $tagLookup := dict }}
+{{ range $pageTags }}
+  {{ $tagLookup = merge $tagLookup (dict . true) }}
+{{ end }}
+{{ range $appliesTo }}
+  {{ $tagLookup = merge $tagLookup (dict . true) }}
+{{ end }}
+{{ if $lawId }}
+  {{ $tagLookup = merge $tagLookup (dict $lawId true) }}
+{{ end }}
+
+{{/* Find laws whose ID matches a tag OR applies to this country_id */}}
+{{/* Exclude the current law page (if this is a law page) */}}
+{{ $relatedLaws := slice }}
+{{ range (site.Data.laws.laws | default (slice)) }}
+  {{ $law := . }}
+  {{ $matched := false }}
+  {{/* Skip if this is the current law page */}}
+  {{ if and $lawId (eq .id $lawId) }}
+    {{ $matched = false }}
+  {{ else }}
+    {{/* Match by tag */}}
+    {{ if index $tagLookup .id }}
+      {{ $matched = true }}
+    {{ end }}
+    {{/* Match by country_id in applies_to */}}
+    {{ if and $countryId (not $matched) }}
+      {{ range (.applies_to | default (slice)) }}
+        {{ if eq . $countryId }}
+          {{ $matched = true }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ if $matched }}
+    {{ $relatedLaws = $relatedLaws | append $law }}
+  {{ end }}
+{{ end }}
+
+{{/* Find all other pages with matching tags (excluding current page) */}}
+{{/* Match if tagLookup has any entries (from tags, applies_to, or law_id) */}}
+{{ $relatedPages := slice }}
+{{ if gt (len $tagLookup) 0 }}
+  {{ range site.RegularPages }}
+    {{ if ne .Permalink $currentPage.Permalink }}
+      {{ $page := . }}
+      {{ $matched := false }}
+      {{ range .Params.tags }}
+        {{ if index $tagLookup . }}
+          {{ $matched = true }}
+        {{ end }}
+      {{ end }}
+      {{ if $matched }}
+        {{ $relatedPages = $relatedPages | append $page }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Group pages by type for display */}}
+{{ $blogPosts := slice }}
+{{ $publications := slice }}
+{{ $otherPages := slice }}
+{{ range $relatedPages }}
+  {{ if eq .Type "blog" }}
+    {{ $blogPosts = $blogPosts | append . }}
+  {{ else if eq .Type "publications" }}
+    {{ $publications = $publications | append . }}
+  {{ else }}
+    {{ $otherPages = $otherPages | append . }}
+  {{ end }}
+{{ end }}
+
+{{/* Only show section if we have any related content */}}
+{{ $hasContent := or (gt (len $relatedLaws) 0) (gt (len $relatedPages) 0) }}
+{{ if $hasContent }}
+  <div class="mt-6">
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
+    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      <div class="space-y-2">
+
+        {{/* Laws */}}
+        {{ range $relatedLaws }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="/laws/{{ .id }}/">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Law</div>
+          <div class="text-sm font-medium">{{ .name }}{{ if .year }} <span class="text-neutral-500">({{ .year }})</span>{{ end }}</div>
+        </a>
+        {{ end }}
+
+        {{/* Blog posts - limit to 3 */}}
+        {{ range first 3 $blogPosts }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Blog</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+
+        {{/* Publications - limit to 2 */}}
+        {{ range first 2 $publications }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Publication</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+
+        {{/* Other content types - limit to 2 */}}
+        {{ range first 2 $otherPages }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">{{ .Type | humanize }}</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+
+      </div>
+    </div>
+  </div>
+{{ end }}

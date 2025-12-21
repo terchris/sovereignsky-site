@@ -71,13 +71,16 @@ external_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10153061/"
 
 # Tags for cross-site linking
 tags:
-  - "digital sovereignty"
+  - "sovereignty"
   - "humanitarian"
-  - "blockchain"
   - "biometrics"
-  - "platform dependency"
-  - "Palantir"
+  - "vendor-lock-in"
   - "cybersecurity"
+  - "privacy"
+
+# Audience taxonomy
+audiences:
+  - "humanitarian"
 
 # Categories
 categories:
