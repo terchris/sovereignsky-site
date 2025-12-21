@@ -1,24 +1,4 @@
 ---
-title: "🇫🇮 Finland Datacenters"
-description: "Datacenter regions physically located in Finland."
-echarts: true
 layout: "country"
-country_id: "FI"
-showTableOfContents: true
 ---
 
-Datacenter regions physically located in **Finland** across all providers.
-
-## Map
-
-{{< datacenter-map countries="FI" showFilters="false" >}}
-
-{{< datacenter-country-providers country="FI" >}}
-
-{{< datacenter-country-regions country="FI" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Finland](/jurisdictions/finland/)
-
-→ [Back to all datacenters](/datacenters/)

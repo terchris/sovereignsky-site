@@ -1,24 +1,4 @@
 ---
-title: "🇦🇺 Australia Datacenters"
-description: "Datacenter regions physically located in Australia."
-echarts: true
 layout: "country"
-country_id: "AU"
-showTableOfContents: true
 ---
 
-Datacenter regions physically located in **Australia** across all providers.
-
-## Map
-
-{{< datacenter-map countries="AU" showFilters="false" >}}
-
-{{< datacenter-country-providers country="AU" >}}
-
-{{< datacenter-country-regions country="AU" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Australia](/jurisdictions/australia/)
-
-→ [Back to all datacenters](/datacenters/)

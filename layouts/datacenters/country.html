@@ -31,6 +31,18 @@
     {{ $lawsSlug = $country.slug | default $slug }}
   {{ end }}
 
+  {{/* Auto-generate title from regions.json if frontmatter title is not set */}}
+  {{ $autoTitle := "" }}
+  {{ if and $countryFlag $countryName }}
+    {{ $autoTitle = printf "%s %s Datacenters" $countryFlag $countryName }}
+  {{ else if $countryName }}
+    {{ $autoTitle = printf "%s Datacenters" $countryName }}
+  {{ end }}
+  {{ $displayTitle := .Title }}
+  {{ if and $autoTitle (or (not .Title) (eq .Title "Index") (eq .Title "")) }}
+    {{ $displayTitle = $autoTitle }}
+  {{ end }}
+
   {{/* Providers that have regions in this country */}}
   {{ $providers := site.Data.datacenters.providers | default (slice) }}
   {{ $providerItems := slice }}
@@ -59,7 +71,7 @@
         {{ partial "breadcrumbs.html" . }}
       {{ end }}
       <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        {{ .Title | emojify }}
+        {{ $displayTitle | emojify }}
       </h1>
       <div class="mt-1 mb-4 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
         {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
@@ -182,7 +194,44 @@
 
       <div class="min-w-0 min-h-0 max-w-fit">
         <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
-          {{ .Content }}
+          {{/* Check if there's any custom content in the markdown file */}}
+          {{ $rawContent := .RawContent | strings.TrimSpace }}
+          {{ $hasCustomContent := gt (len $rawContent) 0 }}
+
+          {{/* Auto-generate intro text */}}
+          <p>Datacenter regions physically located in <strong>{{ $countryName }}</strong> across all providers.</p>
+
+          {{/*
+            For datacenter country pages, we need to render shortcodes (map, providers, regions).
+            The markdown file should contain these shortcodes, OR we render them inline.
+            If the file has content, render it. Otherwise, auto-generate the sections.
+          */}}
+          {{ if $hasCustomContent }}
+            {{/* File has content - just render it (it should include the shortcodes) */}}
+            {{ .Content }}
+          {{ else }}
+            {{/* Auto-generate all sections using shortcodes rendered as strings */}}
+            {{ if $countryId }}
+              <h2 id="map">Map</h2>
+              {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
+              {{ $mapShortcode | .Page.RenderString }}
+
+              {{ $providersShortcode := printf "{{< datacenter-country-providers country=\"%s\" >}}" $countryId }}
+              {{ $providersShortcode | .Page.RenderString }}
+
+              {{ $regionsShortcode := printf "{{< datacenter-country-regions country=\"%s\" >}}" $countryId }}
+              {{ $regionsShortcode | .Page.RenderString }}
+            {{ end }}
+
+            {{/* Auto-generate Jurisdiction section */}}
+            {{ if $lawsSlug }}
+              <h2 id="jurisdiction">Jurisdiction</h2>
+              <p>→ <a href="/jurisdictions/{{ $lawsSlug }}/">Jurisdiction for {{ $countryName }}</a></p>
+            {{ end }}
+
+            {{/* Auto-generate footer link */}}
+            <p>→ <a href="/datacenters/">Back to all datacenters</a></p>
+          {{ end }}
         </div>
       </div>
     </section>

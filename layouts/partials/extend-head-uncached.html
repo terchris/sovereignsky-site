@@ -1,5 +1,13 @@
 {{/* Page-scoped <head> injections (uncached) */}}
-{{ if or (.Params.echarts) (.HasShortcode "echart") (.HasShortcode "jurisdiction-map") (.HasShortcode "datacenter-map") }}
+{{/* Load ECharts for pages with charts: explicit param, shortcodes, or datacenter country layout */}}
+{{ $needsEcharts := or (.Params.echarts) (.HasShortcode "echart") (.HasShortcode "jurisdiction-map") (.HasShortcode "datacenter-map") }}
+{{ if not $needsEcharts }}
+  {{/* Also load for datacenter country layout (uses datacenter-map via RenderString) */}}
+  {{ if and (eq .Section "datacenters") (eq .Layout "country") }}
+    {{ $needsEcharts = true }}
+  {{ end }}
+{{ end }}
+{{ if $needsEcharts }}
 <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
 {{ end }}
 
