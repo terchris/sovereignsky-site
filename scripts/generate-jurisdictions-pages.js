@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /jurisdictions/ pages from data/regions.json and data/jurisdictions.json
+ * Generate /jurisdictions/ pages from data/regions.json, data/jurisdictions.json, and data/laws.json
  *
  * This script generates:
  * - /jurisdictions/{country-slug}/ for each country (e.g., /jurisdictions/norway/, /jurisdictions/usa/)
@@ -20,12 +20,26 @@ const CONTENT_DIR = path.join(__dirname, '..', 'content', 'jurisdictions');
 // Load data files
 const regions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'regions.json'), 'utf8'));
 const jurisdictions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'jurisdictions.json'), 'utf8'));
+const lawsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'laws.json'), 'utf8'));
 
-// Create blocs lookup
+// Create lookups
 const blocsById = {};
 jurisdictions.blocs.forEach(bloc => {
   blocsById[bloc.id] = bloc;
 });
+
+const lawsById = {};
+(lawsData.laws || []).forEach(law => {
+  lawsById[law.id] = law;
+});
+
+// Helper: Resolve law IDs to full law objects
+function resolveLaws(lawIds) {
+  if (!lawIds || !Array.isArray(lawIds)) return [];
+  return lawIds
+    .map(id => lawsById[id])
+    .filter(Boolean);
+}
 
 // Helper: Get inherited laws for a bloc (recursive)
 // excludeBlocIds: if a parent bloc is directly applicable elsewhere, skip inheriting from it
@@ -41,14 +55,13 @@ function getInheritedLaws(bloc, visited = new Set(), excludeBlocIds = new Set())
       }
       const parent = blocsById[parentId];
       if (parent) {
-        // Add parent's own laws
-        if (parent.laws) {
-          laws = laws.concat(parent.laws.map(law => ({
-            ...law,
-            source_bloc: parent.name,
-            source_bloc_id: parent.id
-          })));
-        }
+        // Add parent's own laws (resolved from IDs)
+        const parentLaws = resolveLaws(parent.laws);
+        laws = laws.concat(parentLaws.map(law => ({
+          ...law,
+          source_bloc: parent.name,
+          source_bloc_id: parent.id
+        })));
         // Recursively get grandparent laws
         laws = laws.concat(getInheritedLaws(parent, visited, excludeBlocIds));
       }
@@ -79,7 +92,7 @@ function getEffectiveBlocMembers(bloc, visited = new Set()) {
 // Helper: Get all applicable laws for a country
 function getCountryLaws(region) {
   const result = {
-    national: region.national_laws || [],
+    national: resolveLaws(region.national_laws),
     bloc_laws: [],
     inherited_laws: []
   };
@@ -89,16 +102,15 @@ function getCountryLaws(region) {
     region.blocs.forEach(blocId => {
       const bloc = blocsById[blocId];
       if (bloc) {
-        // Direct bloc laws
-        if (bloc.laws) {
-          bloc.laws.forEach(law => {
-            result.bloc_laws.push({
-              ...law,
-              source_bloc: bloc.name,
-              source_bloc_id: bloc.id
-            });
+        // Direct bloc laws (resolved from IDs)
+        const blocLaws = resolveLaws(bloc.laws);
+        blocLaws.forEach(law => {
+          result.bloc_laws.push({
+            ...law,
+            source_bloc: bloc.name,
+            source_bloc_id: bloc.id
           });
-        }
+        });
         // Inherited laws from parent blocs
         const inherited = getInheritedLaws(bloc, new Set(), directBlocIds);
         result.inherited_laws = result.inherited_laws.concat(inherited);
@@ -132,18 +144,16 @@ function getRiskBadge(riskLevel) {
   return badges[riskLevel] || riskLevel;
 }
 
-// Helper: Format law as markdown
+// Helper: Format law as markdown with link to law page
 function formatLaw(law, showSource = false) {
-  let md = `### ${law.name} (${law.year})\n\n`;
+  let md = `### [${law.name}](/laws/${law.id}/) (${law.year})\n\n`;
   md += `**${law.full_name}**\n\n`;
   md += `${law.summary}\n\n`;
   md += `- **Severity:** ${getSeverityBadge(law.severity)}\n`;
   if (showSource && law.source_bloc) {
     md += `- **Applies via:** [${law.source_bloc}](/jurisdictions/${law.source_bloc_id}/)\n`;
   }
-  if (law.url) {
-    md += `- **Source:** [Read the law](${law.url})\n`;
-  }
+  md += `- **Details:** [Read more →](/laws/${law.id}/)\n`;
   md += '\n---\n\n';
   return md;
 }
@@ -220,6 +230,9 @@ function generateBlocPage(bloc) {
   const effectiveMembers = getEffectiveBlocMembers(bloc);
   const memberCountries = regions.filter(r => effectiveMembers.includes(r.id));
 
+  // Resolve bloc's direct laws
+  const directLaws = resolveLaws(bloc.laws);
+
   let md = `---
 title: "${bloc.flag} ${bloc.name}"
 description: "${bloc.description}"
@@ -254,10 +267,10 @@ ${riskInfo.description || ''}
   }
 
   // Direct laws
-  if (bloc.laws && bloc.laws.length > 0) {
+  if (directLaws.length > 0) {
     md += `## Laws\n\n`;
     md += `These laws apply to all member states of the ${bloc.name}.\n\n`;
-    bloc.laws.forEach(law => {
+    directLaws.forEach(law => {
       md += formatLaw(law, false);
     });
   }
@@ -299,7 +312,7 @@ echarts: true
 layout: "simple"
 ---
 
-When you use cloud software, your data may be subject to laws in the vendor’s home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
+When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
 
 ## Map
 
@@ -337,7 +350,7 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 1. Choose vendors from safe jurisdictions (EU/EEA companies)
 2. Self-host where possible
 3. Use customer-managed encryption keys
-4. Understand what data you’re storing and its sensitivity
+4. Understand what data you're storing and its sensitivity
 
 → [Browse software by jurisdiction](/software/)
 `;
@@ -347,7 +360,7 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 function main() {
   console.log('Generating /jurisdictions/ pages from JSON data...\n');
 
-  // Ensure content/laws directory exists
+  // Ensure content/jurisdictions directory exists
   if (!fs.existsSync(CONTENT_DIR)) {
     fs.mkdirSync(CONTENT_DIR, { recursive: true });
   }

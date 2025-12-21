@@ -17,14 +17,14 @@ Generally adequate protection with some surveillance capabilities or legal uncer
 
 These laws are specific to Canada.
 
-### PIPEDA (2000)
+### [PIPEDA](/laws/pipeda/) (2000)
 
 **Personal Information Protection and Electronic Documents Act**
 
 Canadian federal privacy law for private sector organizations. Provides fair information principles.
 
 - **Severity:** 🛡️ Protective
-- **Source:** [Read the law](https://laws-lois.justice.gc.ca/eng/acts/p-8.6/)
+- **Details:** [Read more →](/laws/pipeda/)
 
 ---
 

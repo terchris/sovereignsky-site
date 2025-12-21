@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/law.schema.json",
+  "title": "Law",
+  "description": "Schema for data sovereignty laws and regulations",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "full_name",
+    "year",
+    "summary",
+    "url",
+    "scope",
+    "applies_to",
+    "type",
+    "government_access",
+    "data_protection",
+    "extraterritorial",
+    "requires_localization",
+    "requires_backdoor"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the law (URL-safe slug)",
+      "pattern": "^[a-z0-9-]+$",
+      "examples": ["gdpr", "cloud-act", "fisa-702"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Short display name of the law",
+      "examples": ["GDPR", "CLOUD Act", "FISA Section 702"]
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Full official name of the law",
+      "examples": ["General Data Protection Regulation", "Clarifying Lawful Overseas Use of Data Act"]
+    },
+    "year": {
+      "type": "integer",
+      "description": "Year the law was enacted or last significantly amended",
+      "minimum": 1900,
+      "maximum": 2100
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief description of the law's purpose and key provisions"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to the official text or authoritative source"
+    },
+    "scope": {
+      "type": "string",
+      "description": "Geographic scope of the law",
+      "enum": ["national", "bloc", "state"],
+      "enumDescriptions": {
+        "national": "Applies to a single country",
+        "bloc": "Applies to a group of countries (e.g., EU, EEA)",
+        "state": "Applies to a sub-national jurisdiction (e.g., US state, German Länder)"
+      }
+    },
+    "applies_to": {
+      "type": "array",
+      "description": "List of jurisdiction IDs where the law applies",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "examples": [["US"], ["eu"], ["NO", "SE", "DK"]]
+    },
+    "type": {
+      "type": "string",
+      "description": "Primary purpose or category of the law",
+      "enum": ["privacy", "access", "surveillance", "localization", "security", "sector"],
+      "enumDescriptions": {
+        "privacy": "Protects individual data rights and privacy",
+        "access": "Enables government or law enforcement data access",
+        "surveillance": "Establishes surveillance infrastructure or powers",
+        "localization": "Requires data to be stored within jurisdiction",
+        "security": "National security framework without direct data access provisions",
+        "sector": "Regulates specific sector (AI, telecom, finance, etc.)"
+      }
+    },
+    "government_access": {
+      "type": "string",
+      "description": "Level of government access to data enabled by the law",
+      "enum": ["broad", "targeted", "limited", "none"],
+      "enumDescriptions": {
+        "broad": "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion",
+        "targeted": "Access with warrants or court orders for specific investigations",
+        "limited": "Strong procedural safeguards, narrow scope, independent oversight",
+        "none": "No government access provisions in this law"
+      }
+    },
+    "data_protection": {
+      "type": "string",
+      "description": "Level of individual data protection provided",
+      "enum": ["strong", "moderate", "weak", "none"],
+      "enumDescriptions": {
+        "strong": "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA",
+        "moderate": "Some protections but with significant exceptions or weaker enforcement",
+        "weak": "Limited rights or broad government/national security exemptions",
+        "none": "No individual data protection provisions"
+      }
+    },
+    "extraterritorial": {
+      "type": "boolean",
+      "description": "Whether the law claims jurisdiction beyond the country's borders",
+      "default": false
+    },
+    "requires_localization": {
+      "type": "boolean",
+      "description": "Whether the law requires data to be stored within the jurisdiction",
+      "default": false
+    },
+    "requires_backdoor": {
+      "type": "boolean",
+      "description": "Whether authorities can compel decryption, backdoor access, or technical assistance",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "description": "Optional additional tags for filtering",
+      "items": {
+        "type": "string"
+      },
+      "examples": [["five-eyes", "eu-adequacy", "schrems-ii"]]
+    }
+  },
+  "additionalProperties": false
+}

@@ -17,14 +17,14 @@ Strong data protection laws aligned with GDPR. No extraterritorial data access c
 
 These laws are specific to Switzerland.
 
-### FADP (2023)
+### [FADP](/laws/fadp/) (2023)
 
 **Federal Act on Data Protection (revised)**
 
 Swiss data protection law revised in 2023 to align more closely with GDPR while maintaining Swiss specifics.
 
 - **Severity:** 🛡️ Protective
-- **Source:** [Read the law](https://www.fedlex.admin.ch/eli/cc/2022/491/en)
+- **Details:** [Read more →](/laws/fadp/)
 
 ---
 

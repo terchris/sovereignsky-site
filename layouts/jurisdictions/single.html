@@ -59,12 +59,117 @@
             ($.Scratch.Get "laws_dc_total" ) ($.Scratch.Get "laws_dc_providerCount" )) }} {{
             $.Scratch.Add "laws_dc_matches" (dict "provider" . "count" ($.Scratch.Get "laws_dc_providerCount" )) }} {{
             end }} {{ end }} {{ $.Scratch.Set "laws_dc_matches" (sort ($.Scratch.Get "laws_dc_matches" ) "count" "desc"
-            ) }} {{ end }} {{ if or ($.Scratch.Get "laws_dc_showToc" ) (and ($.Scratch.Get "laws_dc_showDatacenters" )
+            ) }} {{ end }}
+
+        {{/* Laws summary for jurisdiction pages */}}
+        {{ $.Scratch.Set "laws_jurisdictionId" "" }}
+        {{ $.Scratch.Set "laws_showLaws" false }}
+        {{ $.Scratch.Set "laws_total" 0 }}
+        {{ $.Scratch.Set "laws_byType" (dict) }}
+
+        {{/* Get jurisdiction ID from slug - check blocs first, then regions */}}
+        {{ $slug := "" }}
+        {{ with .File }}{{ $slug = (strings.TrimSuffix "/" (strings.TrimPrefix "jurisdictions/" .Dir)) }}{{ end }}
+
+        {{/* Check if it's a bloc */}}
+        {{ $.Scratch.Set "laws_isBloc" false }}
+        {{ $.Scratch.Set "laws_blocMembers" (slice) }}
+        {{ range site.Data.jurisdictions.blocs }}
+          {{ if eq .slug $slug }}
+            {{ $.Scratch.Set "laws_jurisdictionId" .id }}
+            {{ $.Scratch.Set "laws_isBloc" true }}
+            {{ $.Scratch.Set "laws_blocMembers" (.members | default (slice)) }}
+          {{ end }}
+        {{ end }}
+
+        {{/* If not a bloc, check regions (countries) */}}
+        {{ if eq ($.Scratch.Get "laws_jurisdictionId") "" }}
+          {{ range site.Data.regions }}
+            {{ if eq .slug $slug }}
+              {{ $.Scratch.Set "laws_jurisdictionId" .id }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{/* Count laws by type for this jurisdiction */}}
+        {{ if ne ($.Scratch.Get "laws_jurisdictionId") "" }}
+          {{ $jurisdictionId := $.Scratch.Get "laws_jurisdictionId" }}
+          {{ range site.Data.laws.laws }}
+            {{ $law := . }}
+            {{ range .applies_to }}
+              {{ if eq . $jurisdictionId }}
+                {{ $.Scratch.Set "laws_showLaws" true }}
+                {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
+                {{ $lawType := $law.type | default "other" }}
+                {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
+                {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+            {{ if or ($.Scratch.Get "laws_dc_showToc" ) ($.Scratch.Get "laws_showLaws") ($.Scratch.Get "laws_isBloc") (and ($.Scratch.Get "laws_dc_showDatacenters" )
             (gt (len ($.Scratch.Get "laws_dc_matches" )) 0)) }} <div
             class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
             <div class="toc ps-5 print:hidden lg:sticky {{ $.Scratch.Get " laws_dc_topClass" }}">
                 {{ if ($.Scratch.Get "laws_dc_showToc") }}
                 {{ partial "toc.html" . }}
+                {{ end }}
+
+                {{/* Laws Summary Widget */}}
+                {{ if $.Scratch.Get "laws_showLaws" }}
+                <div class="{{ if $.Scratch.Get "laws_dc_showToc" }}mt-6{{ end }}">
+                    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+                        Laws
+                    </div>
+                    <div class="text-sm text-neutral-500 dark:text-neutral-400">
+                        {{ $.Scratch.Get "laws_total" }} laws in this jurisdiction
+                    </div>
+                    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                        <div class="space-y-1.5">
+                            {{/* Define type order, labels, emojis and colors */}}
+                            {{ $typeOrder := slice "privacy" "access" "surveillance" "localization" "security" "sector" }}
+                            {{ $typeLabels := dict "privacy" "Privacy" "access" "Access" "surveillance" "Surveillance" "localization" "Localization" "security" "Security" "sector" "Sector" }}
+                            {{ $typeEmojis := dict "privacy" "shield" "access" "unlock" "surveillance" "eye" "localization" "pin" "security" "lock" "sector" "clipboard" }}
+                            {{ $typeColors := dict "privacy" "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" "access" "bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300" "surveillance" "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300" "localization" "bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300" "security" "bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300" "sector" "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+                            {{ $byType := $.Scratch.Get "laws_byType" }}
+                            {{ range $typeOrder }}
+                              {{ $type := . }}
+                              {{ $count := index $byType $type }}
+                              {{ if $count }}
+                                {{ $label := index $typeLabels $type }}
+                                {{ $colorClass := index $typeColors $type }}
+                                <a href="#{{ $type }}-laws" class="flex items-center justify-between gap-2 px-2 py-1 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors no-underline">
+                                    <span class="inline-flex items-center gap-1.5 text-sm {{ $colorClass }} px-2 py-0.5 rounded">
+                                        {{ $label }}
+                                    </span>
+                                    <span class="text-sm font-medium text-neutral-600 dark:text-neutral-400">{{ $count }}</span>
+                                </a>
+                              {{ end }}
+                            {{ end }}
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+
+                {{/* Bloc Datacenters Widget - shows link to explore datacenters in member countries */}}
+                {{ if $.Scratch.Get "laws_isBloc" }}
+                <div class="{{ if or ($.Scratch.Get "laws_dc_showToc") ($.Scratch.Get "laws_showLaws") }}mt-6{{ end }}">
+                    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">
+                        Datacenters
+                    </div>
+                    <div class="text-sm text-neutral-500 dark:text-neutral-400 mb-2">
+                        Explore datacenters in member countries
+                    </div>
+                    <div class="mt-2">
+                        <a class="inline-flex items-center gap-2 no-underline px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+                            href="/datacenters/"
+                            title="Browse all datacenters">
+                            <span class="font-medium">Browse datacenters</span>
+                            <span class="text-neutral-500 dark:text-neutral-400">→</span>
+                        </a>
+                    </div>
+                </div>
                 {{ end }}
 
                 {{ if and ($.Scratch.Get "laws_dc_showDatacenters") (gt (len ($.Scratch.Get "laws_dc_matches")) 0) }}

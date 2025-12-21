@@ -29,15 +29,21 @@
     <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-xs">
       <div class="toc ps-5 print:hidden lg:sticky lg:top-24">
 
-        {{/* 1. Table of Contents */}}
-        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-        {{ if $showToc }}
-        {{ partial "toc.html" . }}
+        {{/* External source link - at the top */}}
+        {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
+        {{ with $sourceUrl }}
+        <div class="mt-4 mb-4">
+          <a class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors text-base no-underline"
+             href="{{ . }}"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="font-semibold text-primary-700 dark:text-primary-300">Read original</span>
+            <span class="text-primary-500 dark:text-primary-400">↗</span>
+          </a>
+        </div>
         {{ end }}
 
-        {{/* 2. Source metadata */}}
+        {{/* 1. Source metadata */}}
         <div class="mt-6">
           <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Source</div>
           <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
@@ -69,14 +75,6 @@
               {{ if .Params.peer_reviewed }}<span class="text-xs text-green-600">✓ Peer Reviewed</span>{{ end }}
               {{ if .Params.open_access }}<span class="text-xs text-blue-600">✓ Open Access</span>{{ end }}
               {{ if .Params.academic_publisher }}<span class="text-xs text-purple-600">✓ Academic</span>{{ end }}
-            </div>
-            {{ end }}
-            {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
-            {{ with $sourceUrl }}
-            <div class="mt-3">
-              <a href="{{ . }}" target="_blank" class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-primary-500 bg-primary-500 text-white hover:bg-primary-600 transition-colors text-sm">
-                Read Original →
-              </a>
             </div>
             {{ end }}
           </div>
@@ -168,6 +166,16 @@
         </div>
         {{ end }}
 
+        {{/* 7. Table of Contents - at the bottom */}}
+        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+        {{ if $showToc }}
+        <div class="mt-6">
+          {{ partial "toc.html" . }}
+        </div>
+        {{ end }}
+
       </div>
     </div>
 
@@ -201,12 +209,6 @@
           <a href="/publications/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 no-underline">
             ← All Publications
           </a>
-          {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
-          {{ with $sourceUrl }}
-          <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="text-neutral-500 hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-300 no-underline">
-            Read original article →
-          </a>
-          {{ end }}
         </div>
       </footer>
     </div>

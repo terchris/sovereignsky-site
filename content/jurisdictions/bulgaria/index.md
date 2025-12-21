@@ -17,7 +17,7 @@ Strong data protection laws aligned with GDPR. No extraterritorial data access c
 
 These laws apply through Bulgaria's membership in regional agreements.
 
-### GDPR (2018)
+### [GDPR](/laws/gdpr/) (2018)
 
 **General Data Protection Regulation**
 
@@ -25,11 +25,11 @@ Comprehensive data protection law giving individuals control over their personal
 
 - **Severity:** 🛡️ Protective
 - **Applies via:** [European Union](/jurisdictions/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
+- **Details:** [Read more →](/laws/gdpr/)
 
 ---
 
-### Data Act (2024)
+### [Data Act](/laws/data-act/) (2024)
 
 **Regulation on harmonised rules on fair access to and use of data**
 
@@ -37,11 +37,11 @@ Rules on data sharing between businesses, access to data by public sector, and c
 
 - **Severity:** 🛡️ Protective
 - **Applies via:** [European Union](/jurisdictions/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
+- **Details:** [Read more →](/laws/data-act/)
 
 ---
 
-### AI Act (2024)
+### [AI Act](/laws/ai-act/) (2024)
 
 **Regulation on Artificial Intelligence**
 
@@ -49,11 +49,11 @@ Risk-based framework for AI systems, prohibiting certain practices and requiring
 
 - **Severity:** 🛡️ Protective
 - **Applies via:** [European Union](/jurisdictions/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
+- **Details:** [Read more →](/laws/ai-act/)
 
 ---
 
-### EEA Agreement (1994)
+### [EEA Agreement](/laws/eea-agreement/) (1994)
 
 **Agreement on the European Economic Area**
 
@@ -61,7 +61,7 @@ Extends EU internal market to EFTA states (except Switzerland). Includes adoptio
 
 - **Severity:** 🛡️ Protective
 - **Applies via:** [European Economic Area](/jurisdictions/eea/)
-- **Source:** [Read the law](https://www.efta.int/eea/eea-agreement)
+- **Details:** [Read more →](/laws/eea-agreement/)
 
 ---
 

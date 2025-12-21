@@ -17,14 +17,14 @@ Generally adequate protection with some surveillance capabilities or legal uncer
 
 These laws are specific to New Zealand.
 
-### Privacy Act 2020 (2020)
+### [Privacy Act 2020](/laws/privacy-act-2020/) (2020)
 
 **Privacy Act 2020**
 
 Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement.
 
 - **Severity:** 🛡️ Protective
-- **Source:** [Read the law](https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html)
+- **Details:** [Read more →](/laws/privacy-act-2020/)
 
 ---
 

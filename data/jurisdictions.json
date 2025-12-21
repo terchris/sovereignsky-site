@@ -6,35 +6,39 @@
       "slug": "eu",
       "flag": "🇪🇺",
       "description": "The European Union provides comprehensive data protection through GDPR and related regulations. EU member states share a common legal framework for privacy and data handling.",
-      "members": ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"],
+      "members": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
       "laws": [
-        {
-          "id": "gdpr",
-          "name": "GDPR",
-          "full_name": "General Data Protection Regulation",
-          "year": 2018,
-          "summary": "Comprehensive data protection law giving individuals control over their personal data. Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.",
-          "severity": "protective",
-          "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
-        },
-        {
-          "id": "data-act",
-          "name": "Data Act",
-          "full_name": "Regulation on harmonised rules on fair access to and use of data",
-          "year": 2024,
-          "summary": "Rules on data sharing between businesses, access to data by public sector, and cloud switching rights.",
-          "severity": "protective",
-          "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"
-        },
-        {
-          "id": "ai-act",
-          "name": "AI Act",
-          "full_name": "Regulation on Artificial Intelligence",
-          "year": 2024,
-          "summary": "Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI.",
-          "severity": "protective",
-          "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
-        }
+        "gdpr",
+        "data-act",
+        "ai-act"
       ],
       "risk_level": "low"
     },
@@ -44,18 +48,16 @@
       "slug": "eea",
       "flag": "🇪🇺",
       "description": "The EEA extends the EU single market to Norway, Iceland, and Liechtenstein. These countries adopt EU regulations including GDPR through the EEA Agreement.",
-      "members": ["NO", "IS", "LI"],
-      "inherits_from": ["eu"],
+      "members": [
+        "NO",
+        "IS",
+        "LI"
+      ],
+      "inherits_from": [
+        "eu"
+      ],
       "laws": [
-        {
-          "id": "eea-agreement",
-          "name": "EEA Agreement",
-          "full_name": "Agreement on the European Economic Area",
-          "year": 1994,
-          "summary": "Extends EU internal market to EFTA states (except Switzerland). Includes adoption of EU data protection laws.",
-          "severity": "protective",
-          "url": "https://www.efta.int/eea/eea-agreement"
-        }
+        "eea-agreement"
       ],
       "risk_level": "low"
     },
@@ -65,7 +67,13 @@
       "slug": "five-eyes",
       "flag": "👁️",
       "description": "Intelligence alliance between Australia, Canada, New Zealand, United Kingdom, and United States. Members share signals intelligence and have mutual legal assistance treaties enabling cross-border data access.",
-      "members": ["US", "GB", "CA", "AU", "NZ"],
+      "members": [
+        "US",
+        "GB",
+        "CA",
+        "AU",
+        "NZ"
+      ],
       "laws": [],
       "risk_level": "elevated",
       "notes": "While an intelligence-sharing alliance rather than a legal framework, Five Eyes membership indicates close cooperation on surveillance and data access between member nations."
@@ -76,13 +84,27 @@
       "slug": "adequacy",
       "flag": "✓",
       "description": "Countries recognized by the European Commission as providing adequate data protection, allowing free flow of personal data from the EU without additional safeguards.",
-      "members": ["AD", "AR", "CA", "FO", "GG", "IL", "IM", "JP", "JE", "NZ", "KR", "CH", "GB", "UY"],
+      "members": [
+        "AD",
+        "AR",
+        "CA",
+        "FO",
+        "GG",
+        "IL",
+        "IM",
+        "JP",
+        "JE",
+        "NZ",
+        "KR",
+        "CH",
+        "GB",
+        "UY"
+      ],
       "laws": [],
       "risk_level": "low",
       "notes": "Adequacy decisions can be challenged or revoked. The US Data Privacy Framework (2023) replaced Privacy Shield after Schrems II invalidation."
     }
   ],
-
   "risk_levels": {
     "low": {
       "label": "Low Risk",
@@ -115,7 +137,6 @@
       "map_color": "#991b1b"
     }
   },
-
   "meta": {
     "version": "1.0",
     "updated": "2025-12-19",

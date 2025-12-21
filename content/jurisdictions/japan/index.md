@@ -17,14 +17,14 @@ Strong data protection laws aligned with GDPR. No extraterritorial data access c
 
 These laws are specific to Japan.
 
-### APPI (2003)
+### [APPI](/laws/appi/) (2003)
 
 **Act on the Protection of Personal Information**
 
 Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR.
 
 - **Severity:** 🛡️ Protective
-- **Source:** [Read the law](https://www.ppc.go.jp/en/legal/)
+- **Details:** [Read more →](/laws/appi/)
 
 ---
 

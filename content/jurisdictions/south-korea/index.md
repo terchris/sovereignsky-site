@@ -17,14 +17,14 @@ Strong data protection laws aligned with GDPR. No extraterritorial data access c
 
 These laws are specific to South Korea.
 
-### PIPA (2011)
+### [PIPA](/laws/pipa/) (2011)
 
 **Personal Information Protection Act**
 
 Comprehensive Korean data protection law with strong enforcement and individual rights.
 
 - **Severity:** 🛡️ Protective
-- **Source:** [Read the law](https://www.pipc.go.kr/eng/index.do)
+- **Details:** [Read more →](/laws/pipa/)
 
 ---
 

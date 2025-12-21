@@ -17,36 +17,36 @@ Subject to international sanctions. Business relationships may be legally restri
 
 These laws are specific to Russia.
 
-### Yarovaya Law (2016)
+### [Yarovaya Law](/laws/yarovaya-law/) (2016)
 
 **Yarovaya Law (Federal Law No. 374-FZ)**
 
 Mandatory data retention for 6 months, decryption assistance requirements for authorities.
 
 - **Severity:** 🚨 High Concern
-- **Source:** [Read the law](https://www.loc.gov/item/global-legal-monitor/2016-07-26/russia-new-anti-terrorism-law/)
+- **Details:** [Read more →](/laws/yarovaya-law/)
 
 ---
 
-### Data Localization Law (2015)
+### [Data Localization Law](/laws/data-localization-law/) (2015)
 
 **Federal Law No. 242-FZ on Personal Data Localization**
 
 Personal data of Russian citizens must be stored on servers physically located in Russia.
 
 - **Severity:** 🚨 High Concern
-- **Source:** [Read the law](https://www.loc.gov/item/global-legal-monitor/2014-12-15/russia-new-law-requires-local-storage-of-personal-data/)
+- **Details:** [Read more →](/laws/data-localization-law/)
 
 ---
 
-### SORM (1995)
+### [SORM](/laws/sorm/) (1995)
 
 **System for Operative Investigative Activities**
 
 Mandatory surveillance backdoors in all telecommunications equipment for FSB access.
 
 - **Severity:** 🚨 High Concern
-- **Source:** [Read the law](https://www.eff.org/deeplinks/2012/10/russias-sorm-surveillance)
+- **Details:** [Read more →](/laws/sorm/)
 
 ---
 

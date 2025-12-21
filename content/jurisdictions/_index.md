@@ -5,7 +5,7 @@ echarts: true
 layout: "simple"
 ---
 
-When you use cloud software, your data may be subject to laws in the vendor’s home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
+When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
 
 ## Map
 
@@ -43,6 +43,6 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 1. Choose vendors from safe jurisdictions (EU/EEA companies)
 2. Self-host where possible
 3. Use customer-managed encryption keys
-4. Understand what data you’re storing and its sensitivity
+4. Understand what data you're storing and its sensitivity
 
 → [Browse software by jurisdiction](/software/)

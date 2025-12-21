@@ -17,14 +17,14 @@ Significant surveillance laws or extraterritorial data access capabilities. Cons
 
 These laws are specific to Australia.
 
-### TOLA Act (2018)
+### [TOLA Act](/laws/tola-act/) (2018)
 
 **Telecommunications and Other Legislation Amendment (Assistance and Access) Act 2018**
 
 Can compel companies to build backdoors and assist in decryption, with secrecy requirements preventing disclosure.
 
 - **Severity:** 🚨 High Concern
-- **Source:** [Read the law](https://www.legislation.gov.au/Details/C2018A00148)
+- **Details:** [Read more →](/laws/tola-act/)
 
 ---
 
