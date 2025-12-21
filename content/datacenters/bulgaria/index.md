@@ -17,8 +17,8 @@ Datacenter regions physically located in **Bulgaria** across all providers.
 
 {{< datacenter-country-regions country="BG" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Bulgaria](/laws/bulgaria/)
+→ [Jurisdiction for Bulgaria](/jurisdictions/bulgaria/)
 
 → [Back to all datacenters](/datacenters/)

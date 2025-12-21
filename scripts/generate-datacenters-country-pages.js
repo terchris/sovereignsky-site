@@ -110,9 +110,9 @@ Datacenter regions physically located in **${meta.name}** across all providers.
 
 {{< datacenter-country-regions country="${cid}" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for ${meta.name}](/laws/${slug}/)
+→ [Jurisdiction for ${meta.name}](/jurisdictions/${slug}/)
 
 → [Back to all datacenters](/datacenters/)
 `;

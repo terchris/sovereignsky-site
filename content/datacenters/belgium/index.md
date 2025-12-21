@@ -17,8 +17,8 @@ Datacenter regions physically located in **Belgium** across all providers.
 
 {{< datacenter-country-regions country="BE" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Belgium](/laws/belgium/)
+→ [Jurisdiction for Belgium](/jurisdictions/belgium/)
 
 → [Back to all datacenters](/datacenters/)

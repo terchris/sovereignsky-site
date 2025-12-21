@@ -17,8 +17,8 @@ Datacenter regions physically located in **Chile** across all providers.
 
 {{< datacenter-country-regions country="CL" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Chile](/laws/chile/)
+→ [Jurisdiction for Chile](/jurisdictions/chile/)
 
 → [Back to all datacenters](/datacenters/)

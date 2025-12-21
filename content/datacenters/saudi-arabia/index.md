@@ -17,8 +17,8 @@ Datacenter regions physically located in **Saudi Arabia** across all providers.
 
 {{< datacenter-country-regions country="SA" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Saudi Arabia](/laws/saudi-arabia/)
+→ [Jurisdiction for Saudi Arabia](/jurisdictions/saudi-arabia/)
 
 → [Back to all datacenters](/datacenters/)

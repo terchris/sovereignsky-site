@@ -17,8 +17,8 @@ Datacenter regions physically located in **Finland** across all providers.
 
 {{< datacenter-country-regions country="FI" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Finland](/laws/finland/)
+→ [Jurisdiction for Finland](/jurisdictions/finland/)
 
 → [Back to all datacenters](/datacenters/)

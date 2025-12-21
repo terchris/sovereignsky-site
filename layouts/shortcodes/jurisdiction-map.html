@@ -422,7 +422,7 @@
           if (d.slug) {
             var a = document.createElement('a');
             a.className = 'inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm';
-            a.href = '/laws/' + d.slug + '/';
+            a.href = '/jurisdictions/' + d.slug + '/';
             a.title = (d.originalName || d.name) + ' • ' + risk + (dc > 0 ? (' • Datacenters: ' + dc) : '');
             a.textContent = text;
             wrap.appendChild(a);
@@ -636,7 +636,7 @@
       // --- click to navigate ---
       myChart.on('click', function(params) {
         if (params && params.data && params.data.slug) {
-          window.location.href = '/laws/' + params.data.slug + '/';
+          window.location.href = '/jurisdictions/' + params.data.slug + '/';
         }
       });
 

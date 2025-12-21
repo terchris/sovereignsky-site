@@ -17,8 +17,8 @@ Datacenter regions physically located in **South Korea** across all providers.
 
 {{< datacenter-country-regions country="KR" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for South Korea](/laws/south-korea/)
+→ [Jurisdiction for South Korea](/jurisdictions/south-korea/)
 
 → [Back to all datacenters](/datacenters/)

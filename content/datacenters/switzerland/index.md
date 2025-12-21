@@ -17,8 +17,8 @@ Datacenter regions physically located in **Switzerland** across all providers.
 
 {{< datacenter-country-regions country="CH" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Switzerland](/laws/switzerland/)
+→ [Jurisdiction for Switzerland](/jurisdictions/switzerland/)
 
 → [Back to all datacenters](/datacenters/)

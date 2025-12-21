@@ -17,8 +17,8 @@ Datacenter regions physically located in **Israel** across all providers.
 
 {{< datacenter-country-regions country="IL" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Israel](/laws/israel/)
+→ [Jurisdiction for Israel](/jurisdictions/israel/)
 
 → [Back to all datacenters](/datacenters/)

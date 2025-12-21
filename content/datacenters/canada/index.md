@@ -17,8 +17,8 @@ Datacenter regions physically located in **Canada** across all providers.
 
 {{< datacenter-country-regions country="CA" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Canada](/laws/canada/)
+→ [Jurisdiction for Canada](/jurisdictions/canada/)
 
 → [Back to all datacenters](/datacenters/)

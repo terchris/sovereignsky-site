@@ -17,8 +17,8 @@ Datacenter regions physically located in **USA** across all providers.
 
 {{< datacenter-country-regions country="US" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for USA](/laws/usa/)
+→ [Jurisdiction for USA](/jurisdictions/usa/)
 
 → [Back to all datacenters](/datacenters/)

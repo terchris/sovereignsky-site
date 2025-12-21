@@ -17,8 +17,8 @@ Datacenter regions physically located in **Colombia** across all providers.
 
 {{< datacenter-country-regions country="CO" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Colombia](/laws/colombia/)
+→ [Jurisdiction for Colombia](/jurisdictions/colombia/)
 
 → [Back to all datacenters](/datacenters/)

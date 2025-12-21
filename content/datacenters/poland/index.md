@@ -17,8 +17,8 @@ Datacenter regions physically located in **Poland** across all providers.
 
 {{< datacenter-country-regions country="PL" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Poland](/laws/poland/)
+→ [Jurisdiction for Poland](/jurisdictions/poland/)
 
 → [Back to all datacenters](/datacenters/)

@@ -17,8 +17,8 @@ Datacenter regions physically located in **Bahrain** across all providers.
 
 {{< datacenter-country-regions country="BH" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Bahrain](/laws/bahrain/)
+→ [Jurisdiction for Bahrain](/jurisdictions/bahrain/)
 
 → [Back to all datacenters](/datacenters/)

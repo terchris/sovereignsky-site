@@ -17,8 +17,8 @@ Datacenter regions physically located in **Norway** across all providers.
 
 {{< datacenter-country-regions country="NO" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Norway](/laws/norway/)
+→ [Jurisdiction for Norway](/jurisdictions/norway/)
 
 → [Back to all datacenters](/datacenters/)

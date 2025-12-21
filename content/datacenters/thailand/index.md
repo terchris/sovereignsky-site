@@ -17,8 +17,8 @@ Datacenter regions physically located in **Thailand** across all providers.
 
 {{< datacenter-country-regions country="TH" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Thailand](/laws/thailand/)
+→ [Jurisdiction for Thailand](/jurisdictions/thailand/)
 
 → [Back to all datacenters](/datacenters/)

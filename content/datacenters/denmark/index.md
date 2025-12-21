@@ -17,8 +17,8 @@ Datacenter regions physically located in **Denmark** across all providers.
 
 {{< datacenter-country-regions country="DK" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Denmark](/laws/denmark/)
+→ [Jurisdiction for Denmark](/jurisdictions/denmark/)
 
 → [Back to all datacenters](/datacenters/)

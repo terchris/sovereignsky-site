@@ -17,8 +17,8 @@ Datacenter regions physically located in **Taiwan** across all providers.
 
 {{< datacenter-country-regions country="TW" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Taiwan](/laws/taiwan/)
+→ [Jurisdiction for Taiwan](/jurisdictions/taiwan/)
 
 → [Back to all datacenters](/datacenters/)

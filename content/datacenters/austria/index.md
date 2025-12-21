@@ -17,8 +17,8 @@ Datacenter regions physically located in **Austria** across all providers.
 
 {{< datacenter-country-regions country="AT" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Austria](/laws/austria/)
+→ [Jurisdiction for Austria](/jurisdictions/austria/)
 
 → [Back to all datacenters](/datacenters/)

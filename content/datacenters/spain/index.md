@@ -17,8 +17,8 @@ Datacenter regions physically located in **Spain** across all providers.
 
 {{< datacenter-country-regions country="ES" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Spain](/laws/spain/)
+→ [Jurisdiction for Spain](/jurisdictions/spain/)
 
 → [Back to all datacenters](/datacenters/)

@@ -17,8 +17,8 @@ Datacenter regions physically located in **Japan** across all providers.
 
 {{< datacenter-country-regions country="JP" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Japan](/laws/japan/)
+→ [Jurisdiction for Japan](/jurisdictions/japan/)
 
 → [Back to all datacenters](/datacenters/)

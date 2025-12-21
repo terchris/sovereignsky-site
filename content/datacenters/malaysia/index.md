@@ -17,8 +17,8 @@ Datacenter regions physically located in **Malaysia** across all providers.
 
 {{< datacenter-country-regions country="MY" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Malaysia](/laws/malaysia/)
+→ [Jurisdiction for Malaysia](/jurisdictions/malaysia/)
 
 → [Back to all datacenters](/datacenters/)

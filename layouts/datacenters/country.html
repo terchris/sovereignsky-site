@@ -158,16 +158,16 @@
               {{ end }}
             {{ end }}
 
-            {{/* Related section with Exposure Laws link */}}
+            {{/* Related section with Jurisdiction link */}}
             {{ if $lawsSlug }}
               <div class="mt-6">
                 <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related</div>
                 <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-                  <a href="/laws/{{ $lawsSlug }}/"
+                  <a href="/jurisdictions/{{ $lawsSlug }}/"
                      class="block no-underline hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded -mx-2 px-2 py-1.5 transition-colors">
                     <div class="flex items-center gap-2">
                       <span class="text-base">⚖️</span>
-                      <span class="font-medium text-neutral-800 dark:text-neutral-100">Exposure Laws</span>
+                      <span class="font-medium text-neutral-800 dark:text-neutral-100">Jurisdiction</span>
                     </div>
                     <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
                   </a>

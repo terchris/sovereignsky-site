@@ -17,8 +17,8 @@ Datacenter regions physically located in **Australia** across all providers.
 
 {{< datacenter-country-regions country="AU" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Australia](/laws/australia/)
+→ [Jurisdiction for Australia](/jurisdictions/australia/)
 
 → [Back to all datacenters](/datacenters/)

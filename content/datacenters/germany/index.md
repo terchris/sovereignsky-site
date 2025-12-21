@@ -17,8 +17,8 @@ Datacenter regions physically located in **Germany** across all providers.
 
 {{< datacenter-country-regions country="DE" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Germany](/laws/germany/)
+→ [Jurisdiction for Germany](/jurisdictions/germany/)
 
 → [Back to all datacenters](/datacenters/)

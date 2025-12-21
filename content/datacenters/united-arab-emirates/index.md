@@ -17,8 +17,8 @@ Datacenter regions physically located in **United Arab Emirates** across all pro
 
 {{< datacenter-country-regions country="AE" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for United Arab Emirates](/laws/united-arab-emirates/)
+→ [Jurisdiction for United Arab Emirates](/jurisdictions/united-arab-emirates/)
 
 → [Back to all datacenters](/datacenters/)

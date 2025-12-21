@@ -17,8 +17,8 @@ Datacenter regions physically located in **Indonesia** across all providers.
 
 {{< datacenter-country-regions country="ID" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Indonesia](/laws/indonesia/)
+→ [Jurisdiction for Indonesia](/jurisdictions/indonesia/)
 
 → [Back to all datacenters](/datacenters/)

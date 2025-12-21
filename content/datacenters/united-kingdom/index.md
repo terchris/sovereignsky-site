@@ -17,8 +17,8 @@ Datacenter regions physically located in **United Kingdom** across all providers
 
 {{< datacenter-country-regions country="GB" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for United Kingdom](/laws/united-kingdom/)
+→ [Jurisdiction for United Kingdom](/jurisdictions/united-kingdom/)
 
 → [Back to all datacenters](/datacenters/)

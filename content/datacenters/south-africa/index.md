@@ -17,8 +17,8 @@ Datacenter regions physically located in **South Africa** across all providers.
 
 {{< datacenter-country-regions country="ZA" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for South Africa](/laws/south-africa/)
+→ [Jurisdiction for South Africa](/jurisdictions/south-africa/)
 
 → [Back to all datacenters](/datacenters/)

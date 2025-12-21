@@ -17,8 +17,8 @@ Datacenter regions physically located in **Italy** across all providers.
 
 {{< datacenter-country-regions country="IT" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Italy](/laws/italy/)
+→ [Jurisdiction for Italy](/jurisdictions/italy/)
 
 → [Back to all datacenters](/datacenters/)

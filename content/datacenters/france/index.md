@@ -17,8 +17,8 @@ Datacenter regions physically located in **France** across all providers.
 
 {{< datacenter-country-regions country="FR" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for France](/laws/france/)
+→ [Jurisdiction for France](/jurisdictions/france/)
 
 → [Back to all datacenters](/datacenters/)

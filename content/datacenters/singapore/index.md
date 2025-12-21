@@ -17,8 +17,8 @@ Datacenter regions physically located in **Singapore** across all providers.
 
 {{< datacenter-country-regions country="SG" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Singapore](/laws/singapore/)
+→ [Jurisdiction for Singapore](/jurisdictions/singapore/)
 
 → [Back to all datacenters](/datacenters/)

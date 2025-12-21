@@ -36,7 +36,7 @@
           {{ $colorClass := index $blocColors . | default "bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200" }}
           {{ $icon := index $blocIcons . | default "" }}
           <li class="m-0 p-0">
-            <a href="/laws/{{ $slug }}/" class="block no-underline hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded -mx-2 px-2 py-1 transition-colors">
+            <a href="/jurisdictions/{{ $slug }}/" class="block no-underline hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded -mx-2 px-2 py-1 transition-colors">
               <div class="flex items-center gap-2">
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-semibold {{ $colorClass }}">
                   {{ if $icon }}<span>{{ $icon }}</span>{{ end }}

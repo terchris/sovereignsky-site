@@ -17,8 +17,8 @@ Datacenter regions physically located in **Serbia** across all providers.
 
 {{< datacenter-country-regions country="RS" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Serbia](/laws/serbia/)
+→ [Jurisdiction for Serbia](/jurisdictions/serbia/)
 
 → [Back to all datacenters](/datacenters/)

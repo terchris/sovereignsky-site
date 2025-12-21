@@ -17,8 +17,8 @@ Datacenter regions physically located in **Mexico** across all providers.
 
 {{< datacenter-country-regions country="MX" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Mexico](/laws/mexico/)
+→ [Jurisdiction for Mexico](/jurisdictions/mexico/)
 
 → [Back to all datacenters](/datacenters/)

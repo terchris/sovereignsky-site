@@ -17,8 +17,8 @@ Datacenter regions physically located in **Qatar** across all providers.
 
 {{< datacenter-country-regions country="QA" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Qatar](/laws/qatar/)
+→ [Jurisdiction for Qatar](/jurisdictions/qatar/)
 
 → [Back to all datacenters](/datacenters/)

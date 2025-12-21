@@ -17,8 +17,8 @@ Datacenter regions physically located in **Turkey** across all providers.
 
 {{< datacenter-country-regions country="TR" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Turkey](/laws/turkey/)
+→ [Jurisdiction for Turkey](/jurisdictions/turkey/)
 
 → [Back to all datacenters](/datacenters/)

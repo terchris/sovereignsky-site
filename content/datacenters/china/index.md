@@ -17,8 +17,8 @@ Datacenter regions physically located in **China** across all providers.
 
 {{< datacenter-country-regions country="CN" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for China](/laws/china/)
+→ [Jurisdiction for China](/jurisdictions/china/)
 
 → [Back to all datacenters](/datacenters/)

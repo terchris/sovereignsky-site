@@ -17,8 +17,8 @@ Datacenter regions physically located in **Philippines** across all providers.
 
 {{< datacenter-country-regions country="PH" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Philippines](/laws/philippines/)
+→ [Jurisdiction for Philippines](/jurisdictions/philippines/)
 
 → [Back to all datacenters](/datacenters/)

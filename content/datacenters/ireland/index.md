@@ -17,8 +17,8 @@ Datacenter regions physically located in **Ireland** across all providers.
 
 {{< datacenter-country-regions country="IE" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Ireland](/laws/ireland/)
+→ [Jurisdiction for Ireland](/jurisdictions/ireland/)
 
 → [Back to all datacenters](/datacenters/)

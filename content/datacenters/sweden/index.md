@@ -17,8 +17,8 @@ Datacenter regions physically located in **Sweden** across all providers.
 
 {{< datacenter-country-regions country="SE" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Sweden](/laws/sweden/)
+→ [Jurisdiction for Sweden](/jurisdictions/sweden/)
 
 → [Back to all datacenters](/datacenters/)

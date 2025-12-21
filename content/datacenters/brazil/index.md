@@ -17,8 +17,8 @@ Datacenter regions physically located in **Brazil** across all providers.
 
 {{< datacenter-country-regions country="BR" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Brazil](/laws/brazil/)
+→ [Jurisdiction for Brazil](/jurisdictions/brazil/)
 
 → [Back to all datacenters](/datacenters/)

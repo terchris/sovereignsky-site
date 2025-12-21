@@ -17,8 +17,8 @@ Datacenter regions physically located in **Netherlands** across all providers.
 
 {{< datacenter-country-regions country="NL" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Netherlands](/laws/netherlands/)
+→ [Jurisdiction for Netherlands](/jurisdictions/netherlands/)
 
 → [Back to all datacenters](/datacenters/)

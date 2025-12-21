@@ -17,8 +17,8 @@ Datacenter regions physically located in **Egypt** across all providers.
 
 {{< datacenter-country-regions country="EG" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Egypt](/laws/egypt/)
+→ [Jurisdiction for Egypt](/jurisdictions/egypt/)
 
 → [Back to all datacenters](/datacenters/)

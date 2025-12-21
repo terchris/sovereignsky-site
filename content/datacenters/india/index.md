@@ -17,8 +17,8 @@ Datacenter regions physically located in **India** across all providers.
 
 {{< datacenter-country-regions country="IN" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for India](/laws/india/)
+→ [Jurisdiction for India](/jurisdictions/india/)
 
 → [Back to all datacenters](/datacenters/)

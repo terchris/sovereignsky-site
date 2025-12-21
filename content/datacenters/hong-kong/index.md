@@ -17,8 +17,8 @@ Datacenter regions physically located in **Hong Kong** across all providers.
 
 {{< datacenter-country-regions country="HK" >}}
 
-## Laws
+## Jurisdiction
 
-→ [Exposure laws for Hong Kong](/laws/hong-kong/)
+→ [Jurisdiction for Hong Kong](/jurisdictions/hong-kong/)
 
 → [Back to all datacenters](/datacenters/)
