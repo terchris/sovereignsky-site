@@ -2,7 +2,7 @@
 title: "🇮🇹 Italy Datacenters"
 description: "Datacenter regions physically located in Italy."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "IT"
 showTableOfContents: true
 ---

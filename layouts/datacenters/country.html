@@ -72,6 +72,19 @@
               <span class="font-medium">Country</span>
               <span class="text-neutral-500 dark:text-neutral-400">{{ if $countryFlag }}{{ $countryFlag }}{{ end }} {{ $countryName }}</span>
             </span>
+            {{/* Bloc membership badges */}}
+            {{ $blocs := $country.blocs | default (slice) }}
+            {{ if gt (len $blocs) 0 }}
+              {{ $blocLabels := dict "eu" "🇪🇺 EU" "eea" "🇪🇺 EEA" "efta" "EFTA" "nato" "NATO" "five_eyes" "Five Eyes" "five-eyes" "Five Eyes" "fourteen_eyes" "14 Eyes" "fourteen-eyes" "14 Eyes" "adequacy" "Adequacy" }}
+              {{ $blocColors := dict "eu" "border-blue-400 bg-blue-50 dark:bg-blue-900/20" "eea" "border-blue-300 bg-blue-50 dark:bg-blue-900/20" "efta" "border-green-400 bg-green-50 dark:bg-green-900/20" "adequacy" "border-green-400 bg-green-50 dark:bg-green-900/20" "five_eyes" "border-red-400 bg-red-50 dark:bg-red-900/20" "five-eyes" "border-red-400 bg-red-50 dark:bg-red-900/20" "fourteen_eyes" "border-orange-400 bg-orange-50 dark:bg-orange-900/20" "fourteen-eyes" "border-orange-400 bg-orange-50 dark:bg-orange-900/20" }}
+              {{ range $blocs }}
+                {{ $label := index $blocLabels . | default (. | upper) }}
+                {{ $colorClass := index $blocColors . | default "" }}
+                <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full border {{ $colorClass }} text-sm">
+                  <span class="font-medium">{{ $label }}</span>
+                </span>
+              {{ end }}
+            {{ end }}
             <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
               <span class="font-medium">Regions</span>
               <span class="text-neutral-500 dark:text-neutral-400">{{ $totalRegions }}</span>
@@ -100,13 +113,17 @@
       {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
       {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
-      {{ $showSidebar := or $showToc (gt (len $providerItems) 0) }}
+      {{ $blocs := $country.blocs | default (slice) }}
+      {{ $showSidebar := or $showToc (gt (len $blocs) 0) (gt (len $providerItems) 0) }}
       {{ if $showSidebar }}
         <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
           <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
             {{ if $showToc }}
               {{ partial "toc.html" . }}
             {{ end }}
+
+            {{/* Blocs sidebar section */}}
+            {{ partial "blocs-sidebar.html" (dict "country" $country "countryName" $countryName "countryFlag" $countryFlag) }}
 
             {{ if gt (len $providerItems) 0 }}
               <div class="mt-6">

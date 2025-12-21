@@ -1,0 +1,27 @@
+{
+  "provider_id": "cloudscale",
+  "provider_name": "cloudscale.ch",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "CH",
+  "vendor_website": "https://www.cloudscale.ch",
+  "regions": [
+    {
+      "region_id": "lpg1",
+      "region_name": "Lupfig",
+      "country_id": "CH",
+      "city": "Lupfig",
+      "coordinates": [47.4467, 8.2056]
+    },
+    {
+      "region_id": "rma1",
+      "region_name": "Rümlang",
+      "country_id": "CH",
+      "city": "Rümlang",
+      "coordinates": [47.4508, 8.5289]
+    }
+  ],
+  "meta": {
+    "source": "https://www.cloudscale.ch/en/datacenter"
+  }
+}

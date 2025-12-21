@@ -1,6 +1,7 @@
 ---
 title: "🇨🇴 Colombia"
 description: "Data sovereignty laws and regulations in Colombia"
+layout: "country"
 showTableOfContents: true
 ---
 

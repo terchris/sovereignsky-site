@@ -157,6 +157,7 @@ function generateCountryPage(region) {
   let md = `---
 title: "${region.flag} ${region.name}"
 description: "Data sovereignty laws and regulations in ${region.name}"
+layout: "country"
 showTableOfContents: true
 ---
 

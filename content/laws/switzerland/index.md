@@ -1,6 +1,7 @@
 ---
 title: "🇨🇭 Switzerland"
 description: "Data sovereignty laws and regulations in Switzerland"
+layout: "country"
 showTableOfContents: true
 ---
 

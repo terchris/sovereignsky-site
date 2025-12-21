@@ -1,6 +1,7 @@
 ---
 title: "🇷🇺 Russia"
 description: "Data sovereignty laws and regulations in Russia"
+layout: "country"
 showTableOfContents: true
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: "🇷🇸 Serbia"
 description: "Data sovereignty laws and regulations in Serbia"
+layout: "country"
 showTableOfContents: true
 ---
 

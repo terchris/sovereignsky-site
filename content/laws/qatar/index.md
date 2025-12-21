@@ -1,6 +1,7 @@
 ---
 title: "🇶🇦 Qatar"
 description: "Data sovereignty laws and regulations in Qatar"
+layout: "country"
 showTableOfContents: true
 ---
 

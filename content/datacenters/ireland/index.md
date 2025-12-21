@@ -2,7 +2,7 @@
 title: "🇮🇪 Ireland Datacenters"
 description: "Datacenter regions physically located in Ireland."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "IE"
 showTableOfContents: true
 ---

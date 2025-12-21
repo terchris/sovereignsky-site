@@ -2,7 +2,7 @@
 title: "🇶🇦 Qatar Datacenters"
 description: "Datacenter regions physically located in Qatar."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "QA"
 showTableOfContents: true
 ---

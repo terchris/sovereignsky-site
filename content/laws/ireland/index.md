@@ -1,6 +1,7 @@
 ---
 title: "🇮🇪 Ireland"
 description: "Data sovereignty laws and regulations in Ireland"
+layout: "country"
 showTableOfContents: true
 ---
 

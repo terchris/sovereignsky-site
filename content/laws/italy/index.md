@@ -1,6 +1,7 @@
 ---
 title: "🇮🇹 Italy"
 description: "Data sovereignty laws and regulations in Italy"
+layout: "country"
 showTableOfContents: true
 ---
 

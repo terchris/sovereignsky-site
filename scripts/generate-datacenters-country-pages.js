@@ -95,7 +95,7 @@ function main() {
 title: "${title}"
 description: "${description}"
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "${cid}"
 showTableOfContents: true
 ---

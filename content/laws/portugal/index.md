@@ -1,6 +1,7 @@
 ---
 title: "🇵🇹 Portugal"
 description: "Data sovereignty laws and regulations in Portugal"
+layout: "country"
 showTableOfContents: true
 ---
 

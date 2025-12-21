@@ -1,6 +1,7 @@
 ---
 title: "🇱🇹 Lithuania"
 description: "Data sovereignty laws and regulations in Lithuania"
+layout: "country"
 showTableOfContents: true
 ---
 

@@ -2,7 +2,7 @@
 title: "🇹🇼 Taiwan Datacenters"
 description: "Datacenter regions physically located in Taiwan."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "TW"
 showTableOfContents: true
 ---

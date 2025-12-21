@@ -1,6 +1,7 @@
 ---
 title: "🇲🇹 Malta"
 description: "Data sovereignty laws and regulations in Malta"
+layout: "country"
 showTableOfContents: true
 ---
 

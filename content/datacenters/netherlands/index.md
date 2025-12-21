@@ -2,7 +2,7 @@
 title: "🇳🇱 Netherlands Datacenters"
 description: "Datacenter regions physically located in Netherlands."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "NL"
 showTableOfContents: true
 ---

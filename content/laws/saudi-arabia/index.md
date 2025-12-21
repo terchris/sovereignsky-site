@@ -1,6 +1,7 @@
 ---
 title: "🇸🇦 Saudi Arabia"
 description: "Data sovereignty laws and regulations in Saudi Arabia"
+layout: "country"
 showTableOfContents: true
 ---
 

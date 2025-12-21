@@ -1,6 +1,7 @@
 ---
 title: "🇯🇵 Japan"
 description: "Data sovereignty laws and regulations in Japan"
+layout: "country"
 showTableOfContents: true
 ---
 

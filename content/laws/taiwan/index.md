@@ -1,6 +1,7 @@
 ---
 title: "🇹🇼 Taiwan"
 description: "Data sovereignty laws and regulations in Taiwan"
+layout: "country"
 showTableOfContents: true
 ---
 

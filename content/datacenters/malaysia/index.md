@@ -2,7 +2,7 @@
 title: "🇲🇾 Malaysia Datacenters"
 description: "Datacenter regions physically located in Malaysia."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "MY"
 showTableOfContents: true
 ---

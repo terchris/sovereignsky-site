@@ -1,0 +1,62 @@
+{
+  "provider_id": "aruba",
+  "provider_name": "Aruba Cloud",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "IT",
+  "vendor_website": "https://www.arubacloud.com",
+  "regions": [
+    {
+      "region_id": "it1",
+      "region_name": "Arezzo IT1",
+      "country_id": "IT",
+      "city": "Arezzo",
+      "coordinates": [43.4633, 11.8798]
+    },
+    {
+      "region_id": "it2",
+      "region_name": "Arezzo IT2",
+      "country_id": "IT",
+      "city": "Arezzo",
+      "coordinates": [43.4633, 11.8798]
+    },
+    {
+      "region_id": "it3",
+      "region_name": "Bergamo IT3",
+      "country_id": "IT",
+      "city": "Ponte San Pietro",
+      "coordinates": [45.6986, 9.5883]
+    },
+    {
+      "region_id": "it4",
+      "region_name": "Rome IT4",
+      "country_id": "IT",
+      "city": "Rome",
+      "coordinates": [41.9028, 12.4964]
+    },
+    {
+      "region_id": "de1",
+      "region_name": "Frankfurt DE1",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "uk1",
+      "region_name": "Slough UK1",
+      "country_id": "GB",
+      "city": "Slough",
+      "coordinates": [51.5105, -0.5950]
+    },
+    {
+      "region_id": "fr1",
+      "region_name": "Paris FR1",
+      "country_id": "FR",
+      "city": "Saint-Denis",
+      "coordinates": [48.9362, 2.3574]
+    }
+  ],
+  "meta": {
+    "source": "https://www.arubacloud.com/why-choose-aruba/datacenter"
+  }
+}

@@ -2,7 +2,7 @@
 title: "🇹🇭 Thailand Datacenters"
 description: "Datacenter regions physically located in Thailand."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "TH"
 showTableOfContents: true
 ---

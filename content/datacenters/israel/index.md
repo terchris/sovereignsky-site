@@ -2,7 +2,7 @@
 title: "🇮🇱 Israel Datacenters"
 description: "Datacenter regions physically located in Israel."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "IL"
 showTableOfContents: true
 ---

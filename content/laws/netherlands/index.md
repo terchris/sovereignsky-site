@@ -1,6 +1,7 @@
 ---
 title: "🇳🇱 Netherlands"
 description: "Data sovereignty laws and regulations in Netherlands"
+layout: "country"
 showTableOfContents: true
 ---
 

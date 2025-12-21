@@ -2,7 +2,7 @@
 title: "🇪🇸 Spain Datacenters"
 description: "Datacenter regions physically located in Spain."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "ES"
 showTableOfContents: true
 ---

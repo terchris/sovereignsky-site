@@ -1,6 +1,7 @@
 ---
 title: "🇦🇹 Austria"
 description: "Data sovereignty laws and regulations in Austria"
+layout: "country"
 showTableOfContents: true
 ---
 

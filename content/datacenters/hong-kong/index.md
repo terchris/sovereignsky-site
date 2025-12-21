@@ -2,7 +2,7 @@
 title: "🇭🇰 Hong Kong Datacenters"
 description: "Datacenter regions physically located in Hong Kong."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "HK"
 showTableOfContents: true
 ---

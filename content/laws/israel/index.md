@@ -1,6 +1,7 @@
 ---
 title: "🇮🇱 Israel"
 description: "Data sovereignty laws and regulations in Israel"
+layout: "country"
 showTableOfContents: true
 ---
 

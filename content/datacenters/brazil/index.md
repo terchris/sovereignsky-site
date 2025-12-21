@@ -2,7 +2,7 @@
 title: "🇧🇷 Brazil Datacenters"
 description: "Datacenter regions physically located in Brazil."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "BR"
 showTableOfContents: true
 ---

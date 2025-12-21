@@ -1,6 +1,7 @@
 ---
 title: "🇧🇬 Bulgaria"
 description: "Data sovereignty laws and regulations in Bulgaria"
+layout: "country"
 showTableOfContents: true
 ---
 

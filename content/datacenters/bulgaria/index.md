@@ -2,7 +2,7 @@
 title: "🇧🇬 Bulgaria Datacenters"
 description: "Datacenter regions physically located in Bulgaria."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "BG"
 showTableOfContents: true
 ---

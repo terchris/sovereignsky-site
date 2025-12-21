@@ -1,6 +1,7 @@
 ---
 title: "🇧🇷 Brazil"
 description: "Data sovereignty laws and regulations in Brazil"
+layout: "country"
 showTableOfContents: true
 ---
 

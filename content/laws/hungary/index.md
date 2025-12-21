@@ -1,6 +1,7 @@
 ---
 title: "🇭🇺 Hungary"
 description: "Data sovereignty laws and regulations in Hungary"
+layout: "country"
 showTableOfContents: true
 ---
 

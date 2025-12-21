@@ -2,7 +2,7 @@
 title: "🇨🇦 Canada Datacenters"
 description: "Datacenter regions physically located in Canada."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "CA"
 showTableOfContents: true
 ---

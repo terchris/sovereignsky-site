@@ -1,6 +1,7 @@
 ---
 title: "🇪🇸 Spain"
 description: "Data sovereignty laws and regulations in Spain"
+layout: "country"
 showTableOfContents: true
 ---
 

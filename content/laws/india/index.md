@@ -1,6 +1,7 @@
 ---
 title: "🇮🇳 India"
 description: "Data sovereignty laws and regulations in India"
+layout: "country"
 showTableOfContents: true
 ---
 

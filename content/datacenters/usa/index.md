@@ -2,7 +2,7 @@
 title: "🇺🇸 USA Datacenters"
 description: "Datacenter regions physically located in USA."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "US"
 showTableOfContents: true
 ---

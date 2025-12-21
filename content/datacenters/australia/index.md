@@ -2,7 +2,7 @@
 title: "🇦🇺 Australia Datacenters"
 description: "Datacenter regions physically located in Australia."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "AU"
 showTableOfContents: true
 ---

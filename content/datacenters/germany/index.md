@@ -2,7 +2,7 @@
 title: "🇩🇪 Germany Datacenters"
 description: "Datacenter regions physically located in Germany."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "DE"
 showTableOfContents: true
 ---

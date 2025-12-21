@@ -1,6 +1,7 @@
 ---
 title: "🇵🇭 Philippines"
 description: "Data sovereignty laws and regulations in Philippines"
+layout: "country"
 showTableOfContents: true
 ---
 

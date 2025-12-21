@@ -2,7 +2,7 @@
 title: "🇳🇴 Norway Datacenters"
 description: "Datacenter regions physically located in Norway."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "NO"
 showTableOfContents: true
 ---

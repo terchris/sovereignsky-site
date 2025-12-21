@@ -2,7 +2,7 @@
 title: "🇲🇽 Mexico Datacenters"
 description: "Datacenter regions physically located in Mexico."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "MX"
 showTableOfContents: true
 ---

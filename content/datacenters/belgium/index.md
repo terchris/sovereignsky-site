@@ -2,7 +2,7 @@
 title: "🇧🇪 Belgium Datacenters"
 description: "Datacenter regions physically located in Belgium."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "BE"
 showTableOfContents: true
 ---

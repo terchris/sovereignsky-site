@@ -2,7 +2,7 @@
 title: "🇵🇱 Poland Datacenters"
 description: "Datacenter regions physically located in Poland."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "PL"
 showTableOfContents: true
 ---

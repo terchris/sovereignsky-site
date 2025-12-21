@@ -2,7 +2,7 @@
 title: "🇯🇵 Japan Datacenters"
 description: "Datacenter regions physically located in Japan."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "JP"
 showTableOfContents: true
 ---

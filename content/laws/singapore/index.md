@@ -1,6 +1,7 @@
 ---
 title: "🇸🇬 Singapore"
 description: "Data sovereignty laws and regulations in Singapore"
+layout: "country"
 showTableOfContents: true
 ---
 

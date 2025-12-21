@@ -2,7 +2,7 @@
 title: "🇦🇪 United Arab Emirates Datacenters"
 description: "Datacenter regions physically located in United Arab Emirates."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "AE"
 showTableOfContents: true
 ---

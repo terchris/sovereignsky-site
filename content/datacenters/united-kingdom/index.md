@@ -2,7 +2,7 @@
 title: "🇬🇧 United Kingdom Datacenters"
 description: "Datacenter regions physically located in United Kingdom."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "GB"
 showTableOfContents: true
 ---

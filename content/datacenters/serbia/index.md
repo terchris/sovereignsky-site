@@ -2,7 +2,7 @@
 title: "🇷🇸 Serbia Datacenters"
 description: "Datacenter regions physically located in Serbia."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "RS"
 showTableOfContents: true
 ---

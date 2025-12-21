@@ -2,7 +2,7 @@
 title: "🇵🇭 Philippines Datacenters"
 description: "Datacenter regions physically located in Philippines."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "PH"
 showTableOfContents: true
 ---

@@ -1772,6 +1772,122 @@
       }
     },
     {
+      "provider_id": "cloudscale",
+      "provider_name": "cloudscale.ch",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "CH",
+      "vendor_website": "https://www.cloudscale.ch",
+      "regions": [
+        {
+          "region_id": "lpg1",
+          "region_name": "Lupfig",
+          "country_id": "CH",
+          "city": "Lupfig",
+          "coordinates": [
+            47.4467,
+            8.2056
+          ]
+        },
+        {
+          "region_id": "rma1",
+          "region_name": "Rümlang",
+          "country_id": "CH",
+          "city": "Rümlang",
+          "coordinates": [
+            47.4508,
+            8.5289
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.cloudscale.ch/en/datacenter"
+      }
+    },
+    {
+      "provider_id": "contabo",
+      "provider_name": "Contabo",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://contabo.com",
+      "regions": [
+        {
+          "region_id": "de-muc",
+          "region_name": "Munich",
+          "country_id": "DE",
+          "city": "Munich",
+          "coordinates": [
+            48.1351,
+            11.582
+          ]
+        },
+        {
+          "region_id": "de-nue",
+          "region_name": "Nuremberg",
+          "country_id": "DE",
+          "city": "Nuremberg",
+          "coordinates": [
+            49.4521,
+            11.0767
+          ]
+        },
+        {
+          "region_id": "gb-por",
+          "region_name": "Portsmouth",
+          "country_id": "GB",
+          "city": "Portsmouth",
+          "coordinates": [
+            50.8198,
+            -1.088
+          ]
+        },
+        {
+          "region_id": "sg-sin",
+          "region_name": "Singapore",
+          "country_id": "SG",
+          "city": "Singapore",
+          "coordinates": [
+            1.3521,
+            103.8198
+          ]
+        },
+        {
+          "region_id": "us-nyc",
+          "region_name": "New York",
+          "country_id": "US",
+          "city": "New York",
+          "coordinates": [
+            40.7128,
+            -74.006
+          ]
+        },
+        {
+          "region_id": "us-sea",
+          "region_name": "Seattle",
+          "country_id": "US",
+          "city": "Seattle",
+          "coordinates": [
+            47.6062,
+            -122.3321
+          ]
+        },
+        {
+          "region_id": "us-stl",
+          "region_name": "St. Louis",
+          "country_id": "US",
+          "city": "St. Louis",
+          "coordinates": [
+            38.627,
+            -90.1994
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://contabo.com/en-us/locations/"
+      }
+    },
+    {
       "provider_id": "exoscale",
       "provider_name": "Exoscale",
       "provider_type": "regional_cloud",
@@ -1855,6 +1971,69 @@
       }
     },
     {
+      "provider_id": "gridscale",
+      "provider_name": "gridscale",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "DE",
+      "vendor_website": "https://gridscale.io",
+      "regions": [
+        {
+          "region_id": "de-fra1",
+          "region_name": "Frankfurt 1",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "de-fra2",
+          "region_name": "Frankfurt 2",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "de-fra3",
+          "region_name": "Frankfurt 3",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "de-ehz1",
+          "region_name": "Eichenzell",
+          "country_id": "DE",
+          "city": "Eichenzell",
+          "coordinates": [
+            50.4833,
+            9.7
+          ]
+        },
+        {
+          "region_id": "de-han1",
+          "region_name": "Hannover",
+          "country_id": "DE",
+          "city": "Hannover",
+          "coordinates": [
+            52.3759,
+            9.732
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://gridscale.io/en/about-us/data-centers/"
+      }
+    },
+    {
       "provider_id": "hetzner",
       "provider_name": "Hetzner",
       "provider_type": "regional_cloud",
@@ -1925,6 +2104,39 @@
       ],
       "meta": {
         "source": "https://www.hetzner.com/unternehmen/rechenzentrum"
+      }
+    },
+    {
+      "provider_id": "infomaniak",
+      "provider_name": "Infomaniak",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "CH",
+      "vendor_website": "https://www.infomaniak.com",
+      "regions": [
+        {
+          "region_id": "gva-d2",
+          "region_name": "Geneva D2",
+          "country_id": "CH",
+          "city": "Geneva",
+          "coordinates": [
+            46.2044,
+            6.1432
+          ]
+        },
+        {
+          "region_id": "gva-d3",
+          "region_name": "Geneva D3",
+          "country_id": "CH",
+          "city": "Geneva",
+          "coordinates": [
+            46.1884,
+            6.127
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.datacentermap.com/c/infomaniak/"
       }
     },
     {
@@ -3151,6 +3363,89 @@
       }
     },
     {
+      "provider_id": "aruba",
+      "provider_name": "Aruba Cloud",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "IT",
+      "vendor_website": "https://www.arubacloud.com",
+      "regions": [
+        {
+          "region_id": "it1",
+          "region_name": "Arezzo IT1",
+          "country_id": "IT",
+          "city": "Arezzo",
+          "coordinates": [
+            43.4633,
+            11.8798
+          ]
+        },
+        {
+          "region_id": "it2",
+          "region_name": "Arezzo IT2",
+          "country_id": "IT",
+          "city": "Arezzo",
+          "coordinates": [
+            43.4633,
+            11.8798
+          ]
+        },
+        {
+          "region_id": "it3",
+          "region_name": "Bergamo IT3",
+          "country_id": "IT",
+          "city": "Ponte San Pietro",
+          "coordinates": [
+            45.6986,
+            9.5883
+          ]
+        },
+        {
+          "region_id": "it4",
+          "region_name": "Rome IT4",
+          "country_id": "IT",
+          "city": "Rome",
+          "coordinates": [
+            41.9028,
+            12.4964
+          ]
+        },
+        {
+          "region_id": "de1",
+          "region_name": "Frankfurt DE1",
+          "country_id": "DE",
+          "city": "Frankfurt",
+          "coordinates": [
+            50.1109,
+            8.6821
+          ]
+        },
+        {
+          "region_id": "uk1",
+          "region_name": "Slough UK1",
+          "country_id": "GB",
+          "city": "Slough",
+          "coordinates": [
+            51.5105,
+            -0.595
+          ]
+        },
+        {
+          "region_id": "fr1",
+          "region_name": "Paris FR1",
+          "country_id": "FR",
+          "city": "Saint-Denis",
+          "coordinates": [
+            48.9362,
+            2.3574
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.arubacloud.com/why-choose-aruba/datacenter"
+      }
+    },
+    {
       "provider_id": "globalconnect",
       "provider_name": "GlobalConnect",
       "provider_type": "datacenter_operator",
@@ -3616,6 +3911,39 @@
       }
     },
     {
+      "provider_id": "tilaa",
+      "provider_name": "Tilaa",
+      "provider_type": "regional_cloud",
+      "updated": "2025-12-21",
+      "vendor_country_id": "NL",
+      "vendor_website": "https://www.tilaa.com",
+      "regions": [
+        {
+          "region_id": "nl-ams",
+          "region_name": "Amsterdam",
+          "country_id": "NL",
+          "city": "Amsterdam",
+          "coordinates": [
+            52.3676,
+            4.9041
+          ]
+        },
+        {
+          "region_id": "nl-hrl",
+          "region_name": "Haarlem",
+          "country_id": "NL",
+          "city": "Haarlem",
+          "coordinates": [
+            52.3874,
+            4.6462
+          ]
+        }
+      ],
+      "meta": {
+        "source": "https://www.tilaa.com/en/netherlands-vps"
+      }
+    },
+    {
       "provider_id": "upcloud",
       "provider_name": "UpCloud",
       "provider_type": "regional_cloud",
@@ -3813,8 +4141,8 @@
     }
   ],
   "meta": {
-    "total_providers": 37,
-    "total_regions": 333,
+    "total_providers": 43,
+    "total_regions": 358,
     "generated": "2025-12-20",
     "description": "Merged datacenter data from data/datacenters/*.json"
   }

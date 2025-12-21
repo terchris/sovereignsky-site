@@ -2,7 +2,7 @@
 title: "🇮🇩 Indonesia Datacenters"
 description: "Datacenter regions physically located in Indonesia."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "ID"
 showTableOfContents: true
 ---

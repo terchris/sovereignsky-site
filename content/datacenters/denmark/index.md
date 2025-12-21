@@ -2,7 +2,7 @@
 title: "🇩🇰 Denmark Datacenters"
 description: "Datacenter regions physically located in Denmark."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "DK"
 showTableOfContents: true
 ---

@@ -2,7 +2,7 @@
 title: "🇪🇬 Egypt Datacenters"
 description: "Datacenter regions physically located in Egypt."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "EG"
 showTableOfContents: true
 ---

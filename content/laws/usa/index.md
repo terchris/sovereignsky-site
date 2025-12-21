@@ -1,6 +1,7 @@
 ---
 title: "🇺🇸 USA"
 description: "Data sovereignty laws and regulations in USA"
+layout: "country"
 showTableOfContents: true
 ---
 

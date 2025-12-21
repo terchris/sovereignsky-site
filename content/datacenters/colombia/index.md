@@ -2,7 +2,7 @@
 title: "🇨🇴 Colombia Datacenters"
 description: "Datacenter regions physically located in Colombia."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "CO"
 showTableOfContents: true
 ---

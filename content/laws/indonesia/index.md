@@ -1,6 +1,7 @@
 ---
 title: "🇮🇩 Indonesia"
 description: "Data sovereignty laws and regulations in Indonesia"
+layout: "country"
 showTableOfContents: true
 ---
 

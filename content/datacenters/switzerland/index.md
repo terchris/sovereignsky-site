@@ -2,7 +2,7 @@
 title: "🇨🇭 Switzerland Datacenters"
 description: "Datacenter regions physically located in Switzerland."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "CH"
 showTableOfContents: true
 ---

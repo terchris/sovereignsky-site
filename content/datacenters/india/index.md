@@ -2,7 +2,7 @@
 title: "🇮🇳 India Datacenters"
 description: "Datacenter regions physically located in India."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "IN"
 showTableOfContents: true
 ---

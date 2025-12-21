@@ -2,7 +2,7 @@
 title: "🇫🇷 France Datacenters"
 description: "Datacenter regions physically located in France."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "FR"
 showTableOfContents: true
 ---

@@ -1,6 +1,7 @@
 ---
 title: "🇨🇦 Canada"
 description: "Data sovereignty laws and regulations in Canada"
+layout: "country"
 showTableOfContents: true
 ---
 

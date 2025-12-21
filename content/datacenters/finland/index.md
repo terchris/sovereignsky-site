@@ -2,7 +2,7 @@
 title: "🇫🇮 Finland Datacenters"
 description: "Datacenter regions physically located in Finland."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "FI"
 showTableOfContents: true
 ---

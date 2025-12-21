@@ -1,6 +1,7 @@
 ---
 title: "🇹🇭 Thailand"
 description: "Data sovereignty laws and regulations in Thailand"
+layout: "country"
 showTableOfContents: true
 ---
 

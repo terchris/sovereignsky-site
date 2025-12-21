@@ -1,6 +1,7 @@
 ---
 title: "🇪🇪 Estonia"
 description: "Data sovereignty laws and regulations in Estonia"
+layout: "country"
 showTableOfContents: true
 ---
 

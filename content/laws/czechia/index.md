@@ -1,6 +1,7 @@
 ---
 title: "🇨🇿 Czechia"
 description: "Data sovereignty laws and regulations in Czechia"
+layout: "country"
 showTableOfContents: true
 ---
 

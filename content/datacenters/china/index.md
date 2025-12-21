@@ -2,7 +2,7 @@
 title: "🇨🇳 China Datacenters"
 description: "Datacenter regions physically located in China."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "CN"
 showTableOfContents: true
 ---

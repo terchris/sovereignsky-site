@@ -2,7 +2,7 @@
 title: "🇨🇱 Chile Datacenters"
 description: "Datacenter regions physically located in Chile."
 echarts: true
-layout: "datacenters/country"
+layout: "country"
 country_id: "CL"
 showTableOfContents: true
 ---
