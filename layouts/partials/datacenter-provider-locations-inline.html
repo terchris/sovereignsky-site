@@ -1,0 +1,89 @@
+{{/*
+  Inline partial for provider locations - used by provider.html layout
+  Shows all datacenter locations grouped by country with filter
+
+  Parameters:
+    provider: The provider object from datacenters.json
+    regionsById: Map of region ID to region object
+*/}}
+
+{{ $provider := .provider | default dict }}
+{{ $regionsById := .regionsById | default dict }}
+{{ $providerRegions := $provider.regions | default (slice) }}
+
+{{ if gt (len $providerRegions) 0 }}
+{{/* Group regions by country */}}
+{{ $byCountry := dict }}
+{{ range $providerRegions }}
+  {{ $countryId := .country_id }}
+  {{ $existing := index $byCountry $countryId | default (slice) }}
+  {{ $byCountry = merge $byCountry (dict $countryId ($existing | append .)) }}
+{{ end }}
+
+{{/* Sort countries by region count descending */}}
+{{ $countryItems := slice }}
+{{ range $countryId, $regions := $byCountry }}
+  {{ $c := index $regionsById $countryId }}
+  {{ $name := $countryId }}
+  {{ $flag := "" }}
+  {{ if $c }}
+    {{ $name = $c.name | default $countryId }}
+    {{ $flag = $c.flag | default "" }}
+  {{ end }}
+  {{ $countryItems = $countryItems | append (dict "id" $countryId "name" $name "flag" $flag "count" (len $regions) "regions" $regions) }}
+{{ end }}
+{{ $countryItems = sort $countryItems "count" "desc" }}
+
+{{/* Last updated info */}}
+{{ if $provider.updated }}
+<p class="text-sm text-neutral-500 dark:text-neutral-400 italic">Last updated: {{ $provider.updated }}</p>
+{{ end }}
+
+{{/* Filter controls */}}
+<div class="not-prose mt-3 mb-2">
+  <div class="flex flex-wrap gap-2 items-center">
+    <input class="ss-dc-loc-filter-input w-full sm:w-auto px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
+           type="search"
+           placeholder="Filter locations (country, city, region id)…" />
+    <button type="button" class="ss-dc-loc-filter-clear px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+      Clear
+    </button>
+  </div>
+  <div class="mt-2 flex flex-wrap gap-2 items-center">
+    <span class="text-xs text-neutral-500 dark:text-neutral-400">Quick:</span>
+    <button type="button" data-ss-dc-set="euEea" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">EU/EEA</button>
+    <button type="button" data-ss-dc-set="nordics" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">Nordics</button>
+    <button type="button" data-ss-dc-set="us" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">US</button>
+    <button type="button" data-ss-dc-set="apac" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">APAC</button>
+  </div>
+</div>
+
+{{/* Render each country group */}}
+{{ range $countryItems }}
+  {{ $countryId := .id }}
+  {{ $countryName := .name }}
+  {{ $countryFlag := .flag }}
+  {{ $regions := .regions }}
+  {{ $count := .count }}
+
+<div class="ss-dc-country-group not-prose">
+  <details class="mt-3">
+    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }} ({{ $countryId }}) — {{ $count }}</summary>
+    <div class="mt-2 flex flex-wrap gap-2">
+      {{ range $regions }}
+        {{ $searchText := printf "%s %s %s %s %s" (lower $countryName) (lower $countryId) (lower .name) (lower .id) (lower .city) }}
+        <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
+              data-country-id="{{ $countryId }}"
+              data-search="{{ $searchText }}">
+          <span class="font-medium">{{ .name }}</span>
+          <span class="text-neutral-500 dark:text-neutral-400">— {{ .city }} <span class="text-neutral-400 dark:text-neutral-500">({{ .id }})</span></span>
+        </span>
+      {{ end }}
+    </div>
+  </details>
+</div>
+{{ end }}
+
+{{ else }}
+<p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No datacenter locations found for this provider.</p>
+{{ end }}
