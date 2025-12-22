@@ -30,41 +30,7 @@
       <div class="toc ps-5 print:hidden lg:sticky lg:top-24">
 
         {{/* 1. Source metadata */}}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Source</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            {{ with .Params.publication_type }}
-            <div class="text-sm"><span class="text-neutral-500">Type:</span> {{ . }}</div>
-            {{ end }}
-            {{ with .Params.publisher }}
-            <div class="text-sm"><span class="text-neutral-500">Publisher:</span> {{ . }}</div>
-            {{ end }}
-            {{ with .Params.edition }}
-            <div class="text-sm"><span class="text-neutral-500">Edition:</span> {{ . }}</div>
-            {{ end }}
-            {{ with .Params.year }}
-            <div class="text-sm"><span class="text-neutral-500">Year:</span> {{ . }}</div>
-            {{ end }}
-            {{ with .Params.authors }}
-            <div class="text-sm"><span class="text-neutral-500">Authors:</span> {{ range $i, $a := . }}{{ if $i }}, {{ end }}{{ $a }}{{ end }}</div>
-            {{ end }}
-            {{ with .Params.institutions }}
-            <div class="text-sm mt-1">
-              <span class="text-neutral-500">Institutions:</span>
-              <ul class="list-none m-0 p-0">
-                {{ range . }}<li class="m-0 p-0">{{ . }}</li>{{ end }}
-              </ul>
-            </div>
-            {{ end }}
-            {{ if or .Params.peer_reviewed .Params.open_access .Params.academic_publisher }}
-            <div class="flex flex-wrap gap-2 mt-2">
-              {{ if .Params.peer_reviewed }}<span class="text-xs text-green-600">✓ Peer Reviewed</span>{{ end }}
-              {{ if .Params.open_access }}<span class="text-xs text-blue-600">✓ Open Access</span>{{ end }}
-              {{ if .Params.academic_publisher }}<span class="text-xs text-purple-600">✓ Academic</span>{{ end }}
-            </div>
-            {{ end }}
-          </div>
-        </div>
+        {{ partial "metadata-source-sidebar.html" . }}
 
         {{/* Buttons - before Key Takeaways */}}
         {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
@@ -78,66 +44,16 @@
         </div>
 
         {{/* 3. Key Takeaways */}}
-        {{ with .Params.takeaways }}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Key Takeaways</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <ul class="list-none m-0 p-0 space-y-1">
-              {{ range . }}
-              <li class="text-sm flex items-start gap-2 m-0 p-0">
-                <span class="text-primary-500">✓</span>
-                <span>{{ . }}</span>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "metadata-takeaways-sidebar.html" . }}
 
         {{/* 4. Tags (linked to tag pages) */}}
-        {{ with .Params.tags }}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Tags</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="flex flex-wrap gap-2">
-              {{ range . }}
-              <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="inline-flex items-center gap-1 no-underline px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-xs">
-                {{ . }}
-              </a>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "metadata-tags-sidebar.html" . }}
 
         {{/* 5. Topics */}}
-        {{ with .Params.topics }}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Topics</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="text-sm text-neutral-700 dark:text-neutral-300">
-              {{ range $i, $t := . }}{{ if $i }}, {{ end }}{{ $t }}{{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "metadata-topics-sidebar.html" . }}
 
-        {{/* 5. Relevant For */}}
-        {{ with .Params.relevant_for }}
-        <div class="mt-6">
-          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Relevant For</div>
-          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="flex flex-wrap gap-2">
-              {{ range . }}
-              {{ $labels := dict "ngo" "NGOs" "government" "Government" "humanitarian" "Humanitarian" "healthcare" "Healthcare" "enterprise" "Enterprise" "education" "Education" }}
-              <span class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-                {{ index $labels . | default . }}
-              </span>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{/* 6. Relevant For */}}
+        {{ partial "metadata-relevant-for-sidebar.html" . }}
 
         {{/* 6. Related content - all content types based on matching tags */}}
         {{ partial "related-content-sidebar.html" . }}

@@ -1,0 +1,44 @@
+{{/*
+Source Metadata Sidebar
+Usage: {{ partial "metadata-source-sidebar.html" . }}
+
+Renders the Source metadata section for any content type sidebar.
+Displays: publication_type, publisher, edition, year, authors, institutions,
+and credibility badges (peer_reviewed, open_access, academic_publisher).
+*/}}
+
+<div class="mt-6">
+  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Source</div>
+  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    {{ with .Params.publication_type }}
+    <div class="text-sm"><span class="text-neutral-500">Type:</span> {{ . }}</div>
+    {{ end }}
+    {{ with .Params.publisher }}
+    <div class="text-sm"><span class="text-neutral-500">Publisher:</span> {{ . }}</div>
+    {{ end }}
+    {{ with .Params.edition }}
+    <div class="text-sm"><span class="text-neutral-500">Edition:</span> {{ . }}</div>
+    {{ end }}
+    {{ with .Params.year }}
+    <div class="text-sm"><span class="text-neutral-500">Year:</span> {{ . }}</div>
+    {{ end }}
+    {{ with .Params.authors }}
+    <div class="text-sm"><span class="text-neutral-500">Authors:</span> {{ range $i, $a := . }}{{ if $i }}, {{ end }}{{ $a }}{{ end }}</div>
+    {{ end }}
+    {{ with .Params.institutions }}
+    <div class="text-sm mt-1">
+      <span class="text-neutral-500">Institutions:</span>
+      <ul class="list-none m-0 p-0">
+        {{ range . }}<li class="m-0 p-0">{{ . }}</li>{{ end }}
+      </ul>
+    </div>
+    {{ end }}
+    {{ if or .Params.peer_reviewed .Params.open_access .Params.academic_publisher }}
+    <div class="flex flex-wrap gap-2 mt-2">
+      {{ if .Params.peer_reviewed }}<span class="text-xs text-green-600">✓ Peer Reviewed</span>{{ end }}
+      {{ if .Params.open_access }}<span class="text-xs text-blue-600">✓ Open Access</span>{{ end }}
+      {{ if .Params.academic_publisher }}<span class="text-xs text-purple-600">✓ Academic</span>{{ end }}
+    </div>
+    {{ end }}
+  </div>
+</div>

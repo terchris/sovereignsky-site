@@ -15,16 +15,9 @@ authors:
 institutions:
   - "International Committee of the Red Cross (ICRC)"
 
-# Author credentials
-author_roles:
-  - "Thematic Legal Adviser, ICRC"
-  - "Special Envoy for Foresight and Techplomacy, ICRC"
-  - "Head of Data Protection Office, ICRC"
-
 # Credibility markers
 peer_reviewed: false
 open_access: true
-institutional_authority: true
 
 # Audience relevance
 relevant_for:
@@ -66,16 +59,6 @@ tags:
 # Audience taxonomy
 audiences:
   - "humanitarian"
-
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "analysis"
-institutions_list:
-  - "icrc"
 
 type: publications
 ---

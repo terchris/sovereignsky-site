@@ -67,17 +67,6 @@ audiences:
   - "humanitarian"
   - "public-sector"
 
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "book"
-institutions_list:
-  - "icrc"
-  - "brussels-privacy-hub"
-
 type: publications
 ---
 

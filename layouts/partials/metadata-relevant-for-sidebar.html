@@ -1,0 +1,24 @@
+{{/*
+Relevant For Metadata Sidebar
+Usage: {{ partial "metadata-relevant-for-sidebar.html" . }}
+
+Renders a Relevant For section for any content type sidebar.
+Displays audience labels from .Params.relevant_for as styled pills.
+Supports: ngo, government, humanitarian, healthcare, enterprise, education.
+*/}}
+
+{{ with .Params.relevant_for }}
+<div class="mt-6">
+  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Relevant For</div>
+  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <div class="flex flex-wrap gap-2">
+      {{ range . }}
+      {{ $labels := dict "ngo" "NGOs" "government" "Government" "humanitarian" "Humanitarian" "healthcare" "Healthcare" "enterprise" "Enterprise" "education" "Education" }}
+      <span class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+        {{ index $labels . | default . }}
+      </span>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

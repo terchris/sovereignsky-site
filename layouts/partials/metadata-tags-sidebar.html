@@ -1,0 +1,22 @@
+{{/*
+Tags Metadata Sidebar
+Usage: {{ partial "metadata-tags-sidebar.html" . }}
+
+Renders a Tags section for any content type sidebar.
+Displays linked tags from .Params.tags as clickable pills.
+*/}}
+
+{{ with .Params.tags }}
+<div class="mt-6">
+  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Tags</div>
+  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <div class="flex flex-wrap gap-2">
+      {{ range . }}
+      <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="inline-flex items-center gap-1 no-underline px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-xs">
+        {{ . }}
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}
