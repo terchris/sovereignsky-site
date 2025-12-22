@@ -45,3 +45,4 @@ summaryLength = 30
 # Build settings
 [build]
   writeStats = true
+

@@ -11,9 +11,9 @@ title = "SovereignSky"
   rtl = false
   dateFormat = "2 January 2006"
   description = "Practical resources for Nordic digital sovereignty"
-  copyright = "SovereignSky"
+  copyright = "Published by [Helpers.no](https://helpers.no)"
 
 [params.author]
-  name = "SovereignSky"
+  name = "Helpers.no"
   headline = "Navigate Digital Sovereignty"
   bio = "Practical resources for Nordic digital sovereignty"

@@ -1,6 +1,8 @@
 # SovereignSky Theme Parameters
 # Based on Blowfish theme configuration
 
+copyright = "Published by [Helpers.no](https://helpers.no)"
+
 colorScheme = "blowfish"
 defaultAppearance = "light"
 autoSwitchAppearance = true
@@ -16,7 +18,7 @@ disableImageOptimization = false
 [footer]
   showMenu = true
   showCopyright = true
-  showThemeAttribution = true
+  showThemeAttribution = false
   showAppearanceSwitcher = true
   showScrollToTop = true
 
