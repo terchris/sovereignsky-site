@@ -19,12 +19,10 @@
 <a href="{{ $url }}"
    target="_blank"
    rel="noopener noreferrer"
-   class="inline-flex items-center justify-center gap-2 px-4 py-2 mt-2 mb-4 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 rounded-lg shadow-sm transition-colors no-underline">
+   class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors text-base no-underline">
+  <span class="font-semibold text-primary-700 dark:text-primary-300">{{ $label }}</span>
   {{ if $showIcon }}
-  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-  </svg>
+  <span class="text-primary-500 dark:text-primary-400">↗</span>
   {{ end }}
-  <span>{{ $label }}</span>
 </a>
 {{ end }}

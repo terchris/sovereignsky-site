@@ -1,0 +1,28 @@
+{{/*
+  Reusable internal link (chip-style, like law links on /laws/ page)
+
+  Usage:
+    {{ partial "internal-button.html" (dict "url" $url "label" "Jurisdiction") }}
+    {{ partial "internal-button.html" (dict "url" $url "icon" "🇺🇸" "label" "Jurisdiction" "secondary" "USA") }}
+
+  Parameters:
+    - url: The URL to link to (required)
+    - icon: Optional icon/flag to show BEFORE the label (default: none)
+    - label: Link text (default: "View")
+    - secondary: Optional secondary text after dot separator (default: none)
+*/}}
+
+{{ $url := .url | default "" }}
+{{ $icon := .icon | default "" }}
+{{ $label := .label | default "View" }}
+{{ $secondary := .secondary | default "" }}
+
+{{ if $url }}
+<a href="{{ $url }}"
+   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors no-underline text-sm">
+  {{ if $icon }}<span>{{ $icon }}</span>{{ end }}
+  <span class="font-medium">{{ $label }}</span>
+  {{ if $secondary }}<span class="text-neutral-500 dark:text-neutral-400">· {{ $secondary }}</span>{{ end }}
+  <span class="text-neutral-400">→</span>
+</a>
+{{ end }}
