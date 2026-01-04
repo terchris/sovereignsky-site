@@ -24,5 +24,5 @@ Updated New Zealand privacy law with mandatory breach notification and strengthe
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

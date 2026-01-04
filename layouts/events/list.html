@@ -1,0 +1,148 @@
+{{ define "main" }}
+<header class="events-header">
+  <div class="events-header__content">
+    <h1 class="events-header__title">{{ .Title }}</h1>
+    {{ with .Description }}
+    <p class="events-header__description">{{ . }}</p>
+    {{ end }}
+  </div>
+</header>
+
+<div class="events-page">
+  {{/* Filter bar */}}
+  <div class="events-filters">
+    <div class="events-filters__group">
+      <span class="events-filters__label">Filter by topic:</span>
+      <div class="events-filters__buttons" data-filter-group="tags">
+        <button class="events-filter-btn events-filter-btn--active" data-filter="all">All</button>
+        <button class="events-filter-btn" data-filter="cybersecurity">Cybersecurity</button>
+        <button class="events-filter-btn" data-filter="preparedness">Preparedness</button>
+        <button class="events-filter-btn" data-filter="critical-infrastructure">Critical Infrastructure</button>
+        <button class="events-filter-btn" data-filter="sovereignty">Sovereignty</button>
+      </div>
+    </div>
+    
+    <div class="events-filters__group">
+      <span class="events-filters__label">Audience:</span>
+      <div class="events-filters__buttons" data-filter-group="audience">
+        <button class="events-filter-btn events-filter-btn--active" data-filter="all">All</button>
+        <button class="events-filter-btn" data-filter="government">Public Sector</button>
+        <button class="events-filter-btn" data-filter="defence">Defence</button>
+        <button class="events-filter-btn" data-filter="enterprise">Enterprise</button>
+        <button class="events-filter-btn" data-filter="technical">IT & Operations</button>
+        <button class="events-filter-btn" data-filter="developer">Developers</button>
+        <button class="events-filter-btn" data-filter="humanitarian">Humanitarian</button>
+      </div>
+    </div>
+  </div>
+
+  {{/* Event list */}}
+  <div class="events-content">
+    {{ .Content }}
+  </div>
+
+  {{/* Legend */}}
+  <aside class="events-legend">
+    <h3>About these events</h3>
+    <p>This calendar is curated by SovereignSky to highlight events relevant to digital sovereignty, cybersecurity, and national preparedness. We are not affiliated with the organizers unless noted.</p>
+    <p><strong>Have an event to suggest?</strong> <a href="https://github.com/terchris/sovereignsky-site/issues/new">Open an issue on GitHub</a></p>
+  </aside>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('.events-filter-btn');
+  const eventCards = document.querySelectorAll('.event-card');
+  
+  let activeFilters = {
+    tags: 'all',
+    audience: 'all'
+  };
+
+  function setActiveButton(filterGroup, filterValue) {
+    const groupEl = document.querySelector(`[data-filter-group="${filterGroup}"]`);
+    if (!groupEl) return;
+    const btn = groupEl.querySelector(`.events-filter-btn[data-filter="${filterValue}"]`);
+    const fallback = groupEl.querySelector(`.events-filter-btn[data-filter="all"]`);
+    const target = btn || fallback;
+    if (!target) return;
+
+    // Update active state
+    groupEl.querySelectorAll('.events-filter-btn').forEach(b => b.classList.remove('events-filter-btn--active'));
+    target.classList.add('events-filter-btn--active');
+
+    // Update state
+    activeFilters[filterGroup] = target.dataset.filter;
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (activeFilters.tags && activeFilters.tags !== 'all') params.set('tag', activeFilters.tags);
+    if (activeFilters.audience && activeFilters.audience !== 'all') params.set('audience', activeFilters.audience);
+    const qs = params.toString();
+    const newURL = qs ? `?${qs}` : window.location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+
+  function applyFilters() {
+    // Apply filters
+    eventCards.forEach(card => {
+      const cardTags = card.dataset.tags || '';
+      const cardAudience = card.dataset.audience || '';
+      
+      const matchesTags = activeFilters.tags === 'all' || cardTags.includes(activeFilters.tags);
+      const matchesAudience = activeFilters.audience === 'all' || cardAudience.includes(activeFilters.audience);
+      
+      if (matchesTags && matchesAudience) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Show empty message if no results
+    const visibleCards = document.querySelectorAll('.event-card:not([style*="display: none"])');
+    let emptyMsg = document.querySelector('.events-empty-filtered');
+    
+    if (visibleCards.length === 0) {
+      if (!emptyMsg) {
+        emptyMsg = document.createElement('p');
+        emptyMsg.className = 'events-empty-filtered';
+        emptyMsg.textContent = 'No events match the selected filters.';
+        const listEl = document.querySelector('.event-list');
+        if (listEl) listEl.appendChild(emptyMsg);
+      }
+    } else if (emptyMsg) {
+      emptyMsg.remove();
+    }
+  }
+
+  // Initialize from URL (?audience=...&tag=... or ?tags=...)
+  const params = new URLSearchParams(window.location.search);
+  const urlAudience = params.get('audience') || 'all';
+  const urlTag = params.get('tag') || params.get('tags') || 'all';
+  setActiveButton('audience', urlAudience);
+  setActiveButton('tags', urlTag);
+  applyFilters();
+  
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filterGroup = this.closest('[data-filter-group]').dataset.filterGroup;
+      const filterValue = this.dataset.filter;
+      
+      // Update active state in this group
+      this.closest('.events-filters__buttons').querySelectorAll('.events-filter-btn').forEach(b => {
+        b.classList.remove('events-filter-btn--active');
+      });
+      this.classList.add('events-filter-btn--active');
+      
+      // Update filter state
+      activeFilters[filterGroup] = filterValue;
+      
+      applyFilters();
+      updateURL();
+    });
+  });
+});
+</script>
+{{ end }}

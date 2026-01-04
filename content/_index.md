@@ -1,29 +1,87 @@
 ---
 title: "SovereignSky"
-description: "Secure developer access to internal services without exposing your network"
+description: "Digital sovereignty resources for Norwegian organizations. Totalforsvarsåret 2026 — understand your digital dependencies and take action."
+layout: "page"
+showHero: true
+heroStyle: "big"
+
+cascade:
+  showDate: false
+  showAuthor: false
 ---
 
-# SovereignSky
+## Totalforsvarsåret 2026
 
-**Secure developer access. Cloud independence. Zero trust.**
+**Norway is mobilizing for crisis and war preparedness.**
 
-SovereignSky provides developers with secure access to internal services without exposing their machines to the organization network.
+The government, military, and civil society are sounding the alarm. GPS jamming, cyber attacks, infrastructure sabotage — the threats are real and growing.
 
-## The Problem
+**But are you prepared digitally?**
 
-Organizations face multiple risks when providing developers access to internal services:
+---
 
-- **Security Risk** - Developer machines may be compromised with malware
-- **Operational Risk** - Developers need freedom to install tools, conflicting with IT security
-- **Geopolitical Risk** - Dependency on US cloud providers creates regulatory and political exposure
-- **Vendor Lock-in** - Proprietary cloud features make migration extremely difficult
+## You Know the Threat. Here's How to Act.
 
-Traditional solutions like VPN give the entire developer machine access to the network - including any malware.
+SovereignSky helps organizations understand and reduce their digital dependencies on foreign powers.
 
-## The Solution
+While others raise awareness about Totalforsvarsåret, we focus on practical tools — **helping the helpers** take action.
 
-SovereignSky creates an **isolated gateway** on the developer's machine - a "clean computer within an infected computer". Only this gateway has access to internal services. Malware on the host machine cannot reach your network.
+### Explore the databases
 
-[Learn more about the concept →](/projects/securenet/concept/)
+Start here: the databases are the fastest way to map your **dependencies**, **legal exposure**, and **infrastructure risk**.
 
-[Read the full problem definition →](/projects/securenet/problem-definition/)
+{{< cards >}}
+  {{< card link="/software/" title="💻 Software" subtitle="Search + filter tools by risk, jurisdiction exposure, data residency, and use area." >}}
+  {{< card link="/datacenters/" title="🗺️ Datacenters" subtitle="Interactive map of cloud/datacenter locations colored by vendor jurisdiction." >}}
+  {{< card link="/jurisdictions/" title="🏴 Jurisdictions" subtitle="Country risk map + blocs (EU/EEA/Five Eyes) + what it means for your org." >}}
+  {{< card link="/laws/" title="⚖️ Laws" subtitle="Browse the laws that drive government access and extraterritorial reach." >}}
+  {{< card link="/networks/" title="🌐 Networks" subtitle="Connectivity dependencies, incl. submarine cables (active + planned)." >}}
+{{< /cards >}}
+
+If you want a quick baseline, take the **NDSI survey**:
+
+- [Take the NDSI survey →](/ndsi/survey/)
+- [Run the Software Risk Check →](/ndsi/software-risk-check/)
+
+---
+
+## The Problem Is Clear
+
+**Your data is subject to foreign laws.**
+
+| Fact | Implication |
+|------|-------------|
+| **63%** of Norwegian cloud market is Microsoft | Single point of failure |
+| **81%** controlled by American companies | Subject to US law |
+| **96%** of government agencies use cloud | Critical dependency |
+| All subject to **US CLOUD Act** | Data can be seized without Norwegian court order |
+
+A single political decision in Washington could disrupt Norwegian hospitals, government services, and critical infrastructure.
+
+[Read more: War Fear and Digital Dependency →](/blog/2025-12-13-war-fear-digital-dependency/)
+
+---
+
+## Key Events in 2026
+
+| Date | Event | Focus |
+|------|-------|-------|
+| 9–10 Feb | **Samfunnssikkerhetskonferansen** | Civil security, digital preparedness |
+| 16 Mar | **Totalforsvarskonferansen** | Civil-military cooperation |
+| 6–7 May | **Cybersikkerhetskonferansen** | Cybersecurity, digital sovereignty |
+| 24–26 Aug | **Sikkerhetsfestivalen** | NIS2, information security |
+| October | **TFX26** | National total defence exercise |
+
+[Full calendar and details →](/totalforsvarsaret/)
+
+---
+
+## About
+
+SovereignSky is a [helpers.no](https://helpers.no) initiative.
+
+During the Ukraine refugee crisis in 2022, helpers.no coordinated volunteer efforts at Europe's largest refugee transit center. That experience taught us: **preparedness requires infrastructure before the crisis hits.**
+
+The same applies to digital infrastructure. When geopolitical events make foreign cloud services unavailable, it will be too late to build alternatives.
+
+[Read more about this initiative →](/about/)

@@ -16,6 +16,16 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "dsa"
+      name: "DSA"
+      year: 2022
+      flag: "🇪🇺"
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Regulates gatekeeper platforms to ensure fair competition. Requires interoperabi
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

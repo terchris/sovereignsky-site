@@ -16,6 +16,12 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Privacy rules for electronic communications including cookies, spam, and confide
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

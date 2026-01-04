@@ -16,6 +16,16 @@ data_protection_description: "Limited rights or broad government/national securi
 extraterritorial: false
 requires_localization: true
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "yarovaya-law"
+      name: "Yarovaya Law"
+      year: 2016
+      flag: "🇷🇺"
+    - id: "sorm"
+      name: "SORM"
+      year: 1995
+      flag: "🇷🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Personal data of Russian citizens must be stored on servers physically located i
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

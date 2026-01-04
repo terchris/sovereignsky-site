@@ -1,0 +1,441 @@
+{
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "name": "Software Catalog User Personas",
+    "description": "User types and their filtering criteria for finding relevant software",
+    "hasDefinedTerm": [
+        {
+            "@type": "DefinedTerm",
+            "termCode": "developer",
+            "name": "Developer",
+            "description": "Software developers looking for alternatives to cloud services, frameworks, libraries, and development tools",
+            "icon": "code",
+            "taxonomy": "software-taxonomy-developer.json",
+            "filterCriteria": {
+                "preferTags": [
+                    "open-source",
+                    "self-hosted",
+                    "api",
+                    "sdk"
+                ],
+                "preferCategories": [
+                    "database",
+                    "messaging",
+                    "compute",
+                    "devops"
+                ],
+                "showFields": [
+                    "repository",
+                    "applicationCategory.platforms",
+                    "isOpenSource"
+                ]
+            },
+            "exampleQueries": [
+                "Alternative to AWS Lambda",
+                "Open source Kafka replacement",
+                "Self-hosted PostgreSQL alternatives"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "business",
+            "name": "Business User",
+            "description": "Business professionals looking for productivity, CRM, HR, finance, and marketing tools",
+            "icon": "briefcase",
+            "taxonomy": "software-taxonomy-business.json",
+            "filterCriteria": {
+                "preferTags": [
+                    "saas",
+                    "collaboration",
+                    "productivity"
+                ],
+                "preferCategories": [
+                    "communication",
+                    "collaboration",
+                    "project",
+                    "office",
+                    "finance",
+                    "hr",
+                    "sales"
+                ],
+                "showFields": [
+                    "url",
+                    "manufacturer",
+                    "applicationCategory.business"
+                ]
+            },
+            "exampleQueries": [
+                "Alternative to Slack",
+                "European CRM software",
+                "Privacy-friendly project management"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "technical",
+            "name": "IT/Operations",
+            "description": "IT administrators and operations teams managing infrastructure, security, and monitoring",
+            "icon": "server",
+            "taxonomy": "software-taxonomy-technical.json",
+            "filterCriteria": {
+                "preferTags": [
+                    "self-hosted",
+                    "enterprise",
+                    "monitoring",
+                    "security"
+                ],
+                "preferCategories": [
+                    "monitoring",
+                    "security",
+                    "networking",
+                    "backup",
+                    "identity-and-access-management"
+                ],
+                "showFields": [
+                    "selfHostable",
+                    "applicationCategory.platforms",
+                    "manufacturer"
+                ]
+            },
+            "exampleQueries": [
+                "On-premise monitoring solution",
+                "Self-hosted identity provider",
+                "European backup service"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "privacy-conscious",
+            "name": "Privacy-Conscious User",
+            "description": "Users prioritizing privacy, data protection, and ethical software choices",
+            "icon": "shield",
+            "taxonomy": null,
+            "filterCriteria": {
+                "requireTags": [
+                    "privacy-focused"
+                ],
+                "preferTags": [
+                    "open-source",
+                    "self-hosted",
+                    "no-tracking",
+                    "end-to-end-encrypted",
+                    "gdpr-compliant"
+                ],
+                "excludeTags": [
+                    "ads",
+                    "tracking",
+                    "data-collection"
+                ],
+                "showFields": [
+                    "isOpenSource",
+                    "selfHostable",
+                    "descriptionSource"
+                ]
+            },
+            "exampleQueries": [
+                "Privacy-friendly alternative to Google",
+                "Encrypted messaging app",
+                "No-tracking analytics"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "self-hoster",
+            "name": "Self-Hoster",
+            "description": "Users who want to run software on their own servers or infrastructure",
+            "icon": "home",
+            "taxonomy": null,
+            "filterCriteria": {
+                "requireTags": [
+                    "self-hosted"
+                ],
+                "preferTags": [
+                    "docker",
+                    "kubernetes",
+                    "helm",
+                    "open-source"
+                ],
+                "requireFields": {
+                    "selfHostable": true
+                },
+                "showFields": [
+                    "repository",
+                    "applicationCategory.platforms",
+                    "selfHostable"
+                ]
+            },
+            "exampleQueries": [
+                "Self-hosted Dropbox alternative",
+                "Docker-ready CRM",
+                "Kubernetes-native database"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "sovereignty",
+            "name": "Sovereignty-Focused",
+            "description": "Users seeking EU-based or locally-hosted solutions for data sovereignty and compliance",
+            "icon": "flag",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "eu-based",
+                    "gdpr-compliant",
+                    "data-residency"
+                ],
+                "preferManufacturerCountry": [
+                    "AT",
+                    "BE",
+                    "BG",
+                    "CZ",
+                    "DE",
+                    "DK",
+                    "EE",
+                    "ES",
+                    "FI",
+                    "FR",
+                    "GR",
+                    "HR",
+                    "HU",
+                    "IE",
+                    "IT",
+                    "LT",
+                    "LU",
+                    "LV",
+                    "NL",
+                    "NO",
+                    "PL",
+                    "PT",
+                    "RO",
+                    "SE",
+                    "SI",
+                    "SK",
+                    "CH"
+                ],
+                "showFields": [
+                    "manufacturer",
+                    "manufacturer.addressCountry"
+                ]
+            },
+            "exampleQueries": [
+                "European cloud provider",
+                "GDPR-compliant CRM",
+                "German-hosted email"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "enterprise",
+            "name": "Enterprise/Procurement",
+            "description": "Enterprise buyers evaluating software for compliance, security, vendor risk, and exit strategy",
+            "icon": "building",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "enterprise",
+                    "sla",
+                    "support",
+                    "compliance"
+                ],
+                "requireAssessment": true,
+                "showFields": [
+                    "manufacturer",
+                    "dataPortability",
+                    "sources",
+                    "sourceCount"
+                ]
+            },
+            "exampleQueries": [
+                "Enterprise-ready Kubernetes platform",
+                "Vendor assessment for CRM",
+                "Data portability comparison"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "cost-conscious",
+            "name": "Cost-Conscious User",
+            "description": "Users looking for free or affordable alternatives to expensive SaaS products",
+            "icon": "piggy-bank",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "open-source",
+                    "free-tier",
+                    "self-hosted"
+                ],
+                "requireFields": {
+                    "isOpenSource": true
+                },
+                "showFields": [
+                    "isOpenSource",
+                    "selfHostable",
+                    "repository"
+                ]
+            },
+            "exampleQueries": [
+                "Free alternative to Jira",
+                "Open source Figma replacement",
+                "Self-hosted to save money"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "end-user",
+            "name": "End User/Consumer",
+            "description": "Regular users looking for everyday apps like email, notes, photos, and communication",
+            "icon": "user",
+            "taxonomy": "software-taxonomy-business.json",
+            "filterCriteria": {
+                "preferTags": [
+                    "easy-to-use",
+                    "mobile",
+                    "web"
+                ],
+                "preferCategories": [
+                    "communication",
+                    "collaboration",
+                    "office",
+                    "storage"
+                ],
+                "preferPlatforms": [
+                    "web",
+                    "android",
+                    "ios"
+                ],
+                "showFields": [
+                    "url",
+                    "applicationCategory.platforms"
+                ]
+            },
+            "exampleQueries": [
+                "Alternative to Gmail",
+                "Private photo storage",
+                "Simple note-taking app"
+            ],
+            "dateModified": "2025-12-29"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "government",
+            "name": "Public Sector",
+            "description": "Government and public administration seeking compliant, vetted software",
+            "icon": "building",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "government-vetted",
+                    "gdpr-compliant",
+                    "accessible"
+                ],
+                "preferCategories": [
+                    "identity-and-access-management",
+                    "document-management",
+                    "communication"
+                ],
+                "requireAssessment": true,
+                "showFields": [
+                    "manufacturer",
+                    "manufacturer.addressCountry",
+                    "sources"
+                ]
+            },
+            "exampleQueries": [
+                "Government-approved video conferencing",
+                "Public sector document management",
+                "Accessible citizen portal software"
+            ],
+            "dateModified": "2025-01-01"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "humanitarian",
+            "name": "Humanitarian Organizations",
+            "description": "NGOs, aid organizations, and humanitarian actors requiring secure, portable, and field-deployable solutions",
+            "icon": "heart-handshake",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "open-source",
+                    "self-hosted",
+                    "offline-capable",
+                    "gdpr-compliant",
+                    "mobile"
+                ],
+                "preferCategories": [
+                    "communication",
+                    "collaboration",
+                    "database",
+                    "mapping",
+                    "identity-and-access-management"
+                ],
+                "showFields": [
+                    "selfHostable",
+                    "isOpenSource",
+                    "manufacturer.addressCountry"
+                ]
+            },
+            "exampleQueries": [
+                "Field-deployable database for aid distribution",
+                "Offline-capable messaging for crisis response",
+                "Secure beneficiary data management"
+            ],
+            "dateModified": "2025-01-04"
+        },
+        {
+            "@type": "DefinedTerm",
+            "termCode": "defence",
+            "name": "Defence & Civil Protection",
+            "description": "Military, civil defence, and national security organizations requiring high-assurance, sovereign solutions",
+            "icon": "shield-check",
+            "taxonomy": null,
+            "filterCriteria": {
+                "preferTags": [
+                    "self-hosted",
+                    "air-gapped",
+                    "high-assurance",
+                    "nato-approved",
+                    "encryption"
+                ],
+                "preferCategories": [
+                    "security",
+                    "communication",
+                    "identity-and-access-management",
+                    "backup",
+                    "monitoring"
+                ],
+                "preferManufacturerCountry": [
+                    "NO",
+                    "SE",
+                    "FI",
+                    "DK",
+                    "DE",
+                    "FR",
+                    "NL",
+                    "UK"
+                ],
+                "requireAssessment": true,
+                "showFields": [
+                    "manufacturer",
+                    "manufacturer.addressCountry",
+                    "selfHostable",
+                    "sources"
+                ]
+            },
+            "exampleQueries": [
+                "Air-gapped communication system",
+                "NATO-approved collaboration platform",
+                "Sovereign identity management for defence"
+            ],
+            "dateModified": "2025-01-04"
+        }
+    ]
+}

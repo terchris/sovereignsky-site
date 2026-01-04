@@ -16,6 +16,12 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Swiss data protection law revised in 2023 to align more closely with GDPR while 
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

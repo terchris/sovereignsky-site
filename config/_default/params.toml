@@ -23,8 +23,9 @@ disableImageOptimization = false
   showScrollToTop = true
 
 [homepage]
-  layout = "page"
-  showRecent = true
+  layout = "background"
+  homepageImage = "featured.png"
+  showRecent = false
   showRecentItems = 5
   showMoreLink = true
   showMoreLinkDest = "/blog/"

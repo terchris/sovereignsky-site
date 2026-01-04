@@ -10,10 +10,10 @@ title = "SovereignSky"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
-  description = "Practical resources for Nordic digital sovereignty"
+  description = "Digital sovereignty resources for Norwegian organizations"
   copyright = "Published by [Helpers.no](https://helpers.no)"
 
 [params.author]
-  name = "Helpers.no"
-  headline = "Navigate Digital Sovereignty"
-  bio = "Practical resources for Nordic digital sovereignty"
+  name = "SovereignSky"
+  headline = "Digital Preparedness for Totalforsvarsåret 2026"
+  bio = "Practical resources for Nordic digital sovereignty. A helpers.no initiative."

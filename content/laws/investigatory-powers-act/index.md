@@ -16,6 +16,17 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "national-security-act-uk"
+      name: "National Security Act"
+      year: 2023
+      flag: "🇬🇧"
+  conflicts_with:
+    - id: "uk-gdpr"
+      name: "UK GDPR"
+      year: 2021
+      flag: "🇬🇧"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +35,5 @@ Broad surveillance powers including bulk data collection, equipment interference
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

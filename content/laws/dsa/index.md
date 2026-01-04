@@ -16,6 +16,20 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "ai-act"
+      name: "AI Act"
+      year: 2024
+      flag: "🇪🇺"
+    - id: "dma"
+      name: "DMA"
+      year: 2022
+      flag: "🇪🇺"
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Platform liability and transparency rules. Requires notice-and-takedown procedur
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

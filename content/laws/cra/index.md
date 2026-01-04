@@ -16,6 +16,16 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "nis2"
+      name: "NIS2 Directive"
+      year: 2024
+      flag: "🇪🇺"
+    - id: "dora"
+      name: "DORA"
+      year: 2025
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Cybersecurity requirements for products with digital elements. Mandates security
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

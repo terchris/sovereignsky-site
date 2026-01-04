@@ -16,6 +16,12 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  extends:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Extends EU internal market to EFTA states (except Switzerland). Includes adoptio
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

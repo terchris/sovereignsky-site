@@ -40,6 +40,9 @@
           {{/* Related content - laws, posts, publications based on matching tags */}}
           {{ partial "related-content-sidebar.html" . }}
 
+          {{/* Personas (connect blog posts to /personas) */}}
+          {{ partial "persona-chips.html" . }}
+
           {{/* Tags */}}
           {{ with .Params.tags }}
           <div class="mt-6">

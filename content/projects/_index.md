@@ -7,4 +7,4 @@ heroStyle: "big"
 
 ## Want to Contribute?
 
-All projects are open source. Visit our [GitHub](https://github.com/norwegianredcross) to contribute or propose new initiatives.
+All projects are open source. Visit our [GitHub](https://github.com/helpers-no) to contribute or propose new initiatives.

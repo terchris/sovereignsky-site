@@ -16,6 +16,37 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "fisa-702"
+      name: "FISA Section 702"
+      year: 2008
+      flag: "🇺🇸"
+    - id: "eo-12333"
+      name: "EO 12333"
+      year: 1981
+      flag: "🇺🇸"
+    - id: "patriot-act"
+      name: "Patriot Act"
+      year: 2001
+      flag: "🇺🇸"
+    - id: "ecpa"
+      name: "ECPA"
+      year: 1986
+      flag: "🇺🇸"
+    - id: "eu-us-dpf"
+      name: "EU-US DPF"
+      year: 2023
+      flag: "🇪🇺"
+  conflicts_with:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
+    - id: "schrems-ii"
+      name: "Schrems II"
+      year: 2020
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---

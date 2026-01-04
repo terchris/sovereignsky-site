@@ -16,6 +16,12 @@ data_protection_description: "Limited rights or broad government/national securi
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "cloud-act"
+      name: "CLOUD Act"
+      year: 2018
+      flag: "🇺🇸"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Government access to electronic communications and stored data with various warr
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

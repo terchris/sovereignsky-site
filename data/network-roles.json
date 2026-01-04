@@ -1,0 +1,130 @@
+{
+    "@context": {
+        "@vocab": "https://schema.org/",
+        "actor_id": "identifier",
+        "actor_name": "name",
+        "website": "url",
+        "notes": "disambiguatingDescription"
+    },
+    "@type": "Dataset",
+    "name": "SovereignSky Network Roles",
+    "description": "Actors referenced by networks.json (owners, operators, consortium members). Use country_id to relate to regions.json for legal/jurisdiction analysis.",
+    "dateModified": "2026-01-04",
+    "metadata": {
+        "schema": "sovereignsky.network_roles",
+        "schema_version": 1,
+        "updated": "2026-01-04",
+        "description": "Actors referenced by networks.json (owners, operators, consortium members). Use country_id to relate to regions.json for legal/jurisdiction analysis.",
+        "relation_keys": {
+            "country_id": "ISO 3166-1 alpha-2; joins to data/regions.json on regions[].id"
+        },
+        "notes": [
+            "This is a curated, best-effort mapping for awareness. Corporate structure and legal exposure can change; keep sources per actor up to date."
+        ]
+    },
+    "actors": [
+        {
+            "@type": "Organization",
+            "actor_id": "bulk-infrastructure",
+            "actor_name": "Bulk Infrastructure",
+            "actor_type": "infrastructure_operator",
+            "country_id": "NO",
+            "website": "https://bulkinfrastructure.com"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "space-norway",
+            "actor_name": "Space Norway",
+            "actor_type": "state_owned_enterprise",
+            "country_id": "NO",
+            "website": "https://spacenorway.com"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "tampnet",
+            "actor_name": "Tampnet",
+            "actor_type": "network_operator",
+            "country_id": "NO",
+            "website": "https://www.tampnet.com"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "altibox-carrier",
+            "actor_name": "Altibox Carrier",
+            "actor_type": "telecom_operator",
+            "country_id": "NO"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "greenmountain",
+            "actor_name": "Green Mountain",
+            "actor_type": "datacenter_operator",
+            "country_id": "NO",
+            "website": "https://greenmountain.no"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "n0r5ke-fibre",
+            "actor_name": "N0r5ke Fibre",
+            "actor_type": "infrastructure_operator",
+            "country_id": "NO",
+            "website": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "ioema-fibre",
+            "actor_name": "IOEMA Fibre Ltd",
+            "actor_type": "project_company",
+            "country_id": "GB",
+            "website": "https://www.submarinenetworks.com/en/systems/intra-europe/ioema"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "celtic-norse",
+            "actor_name": "Celtic Norse AS",
+            "actor_type": "project_company",
+            "country_id": "NO",
+            "website": "https://www.submarinenetworks.com/en/systems/intra-europe/celtic-norse"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "aqua-comms",
+            "actor_name": "Aqua Comms",
+            "actor_type": "subsea_operator",
+            "country_id": "IE",
+            "website": "https://www.aquacomms.com",
+            "notes": "Irish company; check corporate structure for ultimate jurisdiction exposure if used in risk analysis."
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "meta",
+            "actor_name": "Meta",
+            "actor_type": "tech_company",
+            "country_id": "US",
+            "notes": "US company; generally subject to US law."
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "google",
+            "actor_name": "Google",
+            "actor_type": "tech_company",
+            "country_id": "US",
+            "notes": "US company; generally subject to US law."
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "vodafone-iceland",
+            "actor_name": "Vodafone Iceland",
+            "actor_type": "telecom_operator",
+            "country_id": "IS"
+        },
+        {
+            "@type": "Organization",
+            "actor_id": "no-uk-com",
+            "actor_name": "NO-UK Com (consortium)",
+            "actor_type": "consortium",
+            "country_id": "NO",
+            "website": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk"
+        }
+    ]
+}

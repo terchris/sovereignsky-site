@@ -16,6 +16,20 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: true
+related_laws:
+  complements:
+    - id: "cybersecurity-law"
+      name: "Cybersecurity Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "data-security-law"
+      name: "Data Security Law"
+      year: 2021
+      flag: "🇨🇳"
+    - id: "pipl"
+      name: "PIPL"
+      year: 2021
+      flag: "🇨🇳"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Organizations and citizens must support, assist and cooperate with national inte
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

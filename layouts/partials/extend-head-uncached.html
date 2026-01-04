@@ -13,4 +13,9 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
 {{ end }}
 
+{{/* JSON-LD for events on totalforsvarsaret and events pages */}}
+{{ if or (eq .Section "totalforsvarsaret") (eq .Section "events") }}
+{{ partial "jsonld-events.html" . }}
+{{ end }}
+
 

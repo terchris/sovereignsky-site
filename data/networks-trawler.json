@@ -1,0 +1,72 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "route_id": "identifier",
+    "route_name": "name"
+  },
+  "@type": "Dataset",
+  "name": "SovereignSky Networks – Simulation Routes (Trawler Demo)",
+  "description": "Fictional/illustrative vessel routes for demo purposes only. Not real tracking.",
+  "dateModified": "2026-01-04",
+  "routes": [
+    {
+      "@type": "Route",
+      "route_id": "trawler-demo-1",
+      "route_name": "Fictional trawler route (demo)",
+      "style": {
+        "line_color": "#ef4444",
+        "line_opacity": 0.25,
+        "line_type": "dashed",
+        "effect_color": "#ef4444",
+        "effect_symbol": "arrow",
+        "effect_symbol_size": 10,
+        "effect_period": 12,
+        "effect_constant_speed": 30,
+        "effect_trail_length": 0.2
+      },
+      "waypoints": [
+        { "name": "Kola Sea (illustrative start, offshore)", "coordinates": [33.5000, 69.2000] },
+
+        { "name": "Varanger area (offshore)", "coordinates": [30.5000, 70.3000] },
+        { "name": "Nordkapp area (offshore)", "coordinates": [24.0000, 71.3000] },
+        { "name": "Hammerfest area (offshore)", "coordinates": [22.0000, 70.6000] },
+        { "name": "Tromsø area (offshore)", "coordinates": [17.0000, 69.6000] },
+        { "name": "Andenes area (offshore)", "coordinates": [15.0000, 69.5000] },
+        { "name": "Lofoten (offshore)", "coordinates": [12.5000, 68.4000] },
+        { "name": "Bodø area (offshore)", "coordinates": [12.3000, 67.2000] },
+        { "name": "Helgeland (offshore)", "coordinates": [12.0000, 66.0000] },
+        { "name": "Trøndelag (offshore)", "coordinates": [10.0000, 64.7000] },
+        { "name": "Møre og Romsdal (offshore)", "coordinates": [6.0000, 63.2000] },
+        { "name": "Stad area (offshore)", "coordinates": [4.8000, 62.0000] },
+        { "name": "Bergen area (offshore)", "coordinates": [4.5000, 60.5000] },
+        { "name": "Stavanger area (offshore)", "coordinates": [4.7000, 59.0000] },
+        { "name": "Lista area (offshore)", "coordinates": [6.0000, 58.0000] },
+        { "name": "Skagerrak (offshore)", "coordinates": [8.5000, 58.9000] },
+        { "name": "Outer Oslofjord (offshore)", "coordinates": [10.5000, 59.0000] },
+
+        { "name": "Jan Mayen (offshore)", "coordinates": [-8.6670, 70.9500] },
+        { "name": "Longyearbyen (Svalbard)", "coordinates": [15.6333, 78.2232] },
+        { "name": "Jan Mayen (offshore)", "coordinates": [-8.6670, 70.9500] },
+
+        { "name": "Outer Oslofjord (offshore)", "coordinates": [10.5000, 59.0000] },
+        { "name": "Skagerrak (offshore)", "coordinates": [8.5000, 58.9000] },
+        { "name": "Lista area (offshore)", "coordinates": [6.0000, 58.0000] },
+        { "name": "Stavanger area (offshore)", "coordinates": [4.7000, 59.0000] },
+        { "name": "Bergen area (offshore)", "coordinates": [4.5000, 60.5000] },
+        { "name": "Stad area (offshore)", "coordinates": [4.8000, 62.0000] },
+        { "name": "Møre og Romsdal (offshore)", "coordinates": [6.0000, 63.2000] },
+        { "name": "Trøndelag (offshore)", "coordinates": [10.0000, 64.7000] },
+        { "name": "Helgeland (offshore)", "coordinates": [12.0000, 66.0000] },
+        { "name": "Bodø area (offshore)", "coordinates": [12.3000, 67.2000] },
+        { "name": "Lofoten (offshore)", "coordinates": [12.5000, 68.4000] },
+        { "name": "Andenes area (offshore)", "coordinates": [15.0000, 69.5000] },
+        { "name": "Tromsø area (offshore)", "coordinates": [17.0000, 69.6000] },
+        { "name": "Hammerfest area (offshore)", "coordinates": [22.0000, 70.6000] },
+        { "name": "Nordkapp area (offshore)", "coordinates": [24.0000, 71.3000] },
+        { "name": "Varanger area (offshore)", "coordinates": [30.5000, 70.3000] }
+      ]
+    }
+  ]
+}
+
+

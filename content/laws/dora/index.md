@@ -16,6 +16,16 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "nis2"
+      name: "NIS2 Directive"
+      year: 2024
+      flag: "🇪🇺"
+    - id: "cra"
+      name: "CRA"
+      year: 2024
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Digital resilience requirements for financial entities including banks, insurers
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

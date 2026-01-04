@@ -6,6 +6,9 @@
  * Creates stub pages for each law. If a page already exists with content,
  * it preserves the content and only updates the frontmatter.
  *
+ * Handles bidirectional relationships: if law A relates to law B,
+ * the inverse relationship is automatically added to law B's page.
+ *
  * Usage: node scripts/generate-laws-pages.js
  */
 
@@ -35,8 +38,156 @@ function parseMarkdown(content) {
   return { frontmatter: '', body: content.trim() };
 }
 
+/**
+ * Build a flag lookup map from regions and blocs
+ * Returns: { jurisdictionId: flag, ... }
+ */
+function buildFlagLookup() {
+  const flagMap = {};
+  
+  // Load regions (countries)
+  try {
+    const regions = readJson(path.join(DATA_DIR, 'regions.json'));
+    regions.forEach(region => {
+      if (region.id && region.flag) {
+        flagMap[region.id] = region.flag;
+      }
+    });
+  } catch (e) {
+    console.warn('Warning: Could not load regions.json for flags');
+  }
+  
+  // Load blocs
+  try {
+    const jurisdictions = readJson(path.join(DATA_DIR, 'jurisdictions.json'));
+    (jurisdictions.blocs || []).forEach(bloc => {
+      if (bloc.id && bloc.flag) {
+        flagMap[bloc.id] = bloc.flag;
+      }
+    });
+  } catch (e) {
+    console.warn('Warning: Could not load jurisdictions.json for flags');
+  }
+  
+  return flagMap;
+}
+
+/**
+ * Get the inverse relationship type
+ * Symmetric relationships return the same type
+ */
+function getInverseRelationType(type) {
+  const inverseMap = {
+    'implements': 'implemented_by',
+    'implemented_by': 'implements',
+    'interprets': 'interpreted_by',
+    'interpreted_by': 'interprets',
+    'conflicts_with': 'conflicts_with', // symmetric
+    'complements': 'complements', // symmetric
+    'succeeds': 'succeeded_by',
+    'succeeded_by': 'succeeds',
+    'extends': 'extended_by',
+    'extended_by': 'extends',
+    'amends': 'amended_by',
+    'amended_by': 'amends'
+  };
+  return inverseMap[type] || type;
+}
+
+/**
+ * Build bidirectional relationship map from all laws
+ * Returns: { lawId: [ { id, type, name, year, flag }, ... ], ... }
+ */
+function buildRelationshipMap(laws, flagLookup) {
+  // Create a lookup for law metadata including primary jurisdiction flag
+  const lawLookup = {};
+  laws.forEach(law => {
+    // Get flag from first jurisdiction in applies_to
+    const primaryJurisdiction = (law.applies_to || [])[0] || '';
+    const flag = flagLookup[primaryJurisdiction] || '';
+    
+    lawLookup[law.id] = { 
+      name: law.name, 
+      year: law.year,
+      flag: flag
+    };
+  });
+
+  // Initialize relationship map for all laws
+  const relationshipMap = {};
+  laws.forEach(law => {
+    relationshipMap[law.id] = [];
+  });
+
+  // Process each law's explicit relationships
+  laws.forEach(law => {
+    if (!law.related_laws) return;
+
+    law.related_laws.forEach(rel => {
+      const targetId = rel.id;
+      const relType = rel.type;
+
+      // Skip if target law doesn't exist
+      if (!lawLookup[targetId]) {
+        console.warn(`  Warning: ${law.id} references unknown law: ${targetId}`);
+        return;
+      }
+
+      // Add forward relationship (from this law to target)
+      const forwardExists = relationshipMap[law.id].some(
+        r => r.id === targetId && r.type === relType
+      );
+      if (!forwardExists) {
+        relationshipMap[law.id].push({
+          id: targetId,
+          type: relType,
+          name: lawLookup[targetId].name,
+          year: lawLookup[targetId].year,
+          flag: lawLookup[targetId].flag
+        });
+      }
+
+      // Add inverse relationship (from target back to this law)
+      const inverseType = getInverseRelationType(relType);
+      const inverseExists = relationshipMap[targetId].some(
+        r => r.id === law.id && r.type === inverseType
+      );
+      if (!inverseExists) {
+        relationshipMap[targetId].push({
+          id: law.id,
+          type: inverseType,
+          name: lawLookup[law.id].name,
+          year: lawLookup[law.id].year,
+          flag: lawLookup[law.id].flag
+        });
+      }
+    });
+  });
+
+  return relationshipMap;
+}
+
+/**
+ * Group relationships by type for cleaner frontmatter
+ */
+function groupRelationshipsByType(relationships) {
+  const grouped = {};
+  relationships.forEach(rel => {
+    if (!grouped[rel.type]) {
+      grouped[rel.type] = [];
+    }
+    grouped[rel.type].push({
+      id: rel.id,
+      name: rel.name,
+      year: rel.year,
+      flag: rel.flag || ''
+    });
+  });
+  return grouped;
+}
+
 // Build frontmatter from law data, using definitions for human-readable descriptions
-function buildFrontmatter(law, definitions) {
+function buildFrontmatter(law, definitions, relationships) {
   // Get human-readable descriptions from definitions
   const typeDesc = definitions.type?.values?.[law.type] || '';
   const govAccessDesc = definitions.government_access?.values?.[law.government_access] || '';
@@ -60,10 +211,31 @@ function buildFrontmatter(law, definitions) {
     `data_protection_description: "${dataProtDesc.replace(/"/g, '\\"')}"`,
     `extraterritorial: ${law.extraterritorial}`,
     `requires_localization: ${law.requires_localization}`,
-    `requires_backdoor: ${law.requires_backdoor}`,
-    `layout: "single"`,
-    `type: "laws"`
+    `requires_backdoor: ${law.requires_backdoor}`
   ];
+
+  // Add relationships if any exist
+  if (relationships && relationships.length > 0) {
+    const grouped = groupRelationshipsByType(relationships);
+    
+    lines.push(`related_laws:`);
+    
+    Object.keys(grouped).sort().forEach(relType => {
+      lines.push(`  ${relType}:`);
+      grouped[relType].forEach(rel => {
+        lines.push(`    - id: "${rel.id}"`);
+        lines.push(`      name: "${rel.name}"`);
+        lines.push(`      year: ${rel.year}`);
+        if (rel.flag) {
+          lines.push(`      flag: "${rel.flag}"`);
+        }
+      });
+    });
+  }
+
+  lines.push(`layout: "single"`);
+  lines.push(`type: "laws"`);
+
   return lines.join('\n');
 }
 
@@ -73,7 +245,7 @@ function buildDefaultBody(law) {
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 `;
 }
 
@@ -83,6 +255,22 @@ function main() {
   const lawsData = readJson(path.join(DATA_DIR, 'laws.json'));
   const laws = lawsData.laws || [];
   const definitions = lawsData.definitions || {};
+
+  // Build flag lookup from regions and blocs
+  console.log('Loading jurisdiction flags...');
+  const flagLookup = buildFlagLookup();
+  console.log(`Loaded ${Object.keys(flagLookup).length} jurisdiction flags\n`);
+
+  // Build bidirectional relationship map
+  console.log('Building bidirectional relationship map...');
+  const relationshipMap = buildRelationshipMap(laws, flagLookup);
+  
+  // Count total relationships
+  let totalRelationships = 0;
+  Object.values(relationshipMap).forEach(rels => {
+    totalRelationships += rels.length;
+  });
+  console.log(`Found ${totalRelationships} total relationships (including inverses)\n`);
 
   ensureDir(CONTENT_DIR);
 
@@ -113,7 +301,10 @@ function main() {
       created++;
     }
 
-    const frontmatter = buildFrontmatter(law, definitions);
+    // Get relationships for this law (including inverse relationships)
+    const relationships = relationshipMap[law.id] || [];
+
+    const frontmatter = buildFrontmatter(law, definitions, relationships);
     const content = `---
 ${frontmatter}
 ---

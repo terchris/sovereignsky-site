@@ -16,6 +16,20 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "cloud-act"
+      name: "CLOUD Act"
+      year: 2018
+      flag: "🇺🇸"
+    - id: "fisa-702"
+      name: "FISA Section 702"
+      year: 2008
+      flag: "🇺🇸"
+    - id: "eo-12333"
+      name: "EO 12333"
+      year: 1981
+      flag: "🇺🇸"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Broad access to records for national security investigations, including Section 
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

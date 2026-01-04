@@ -2,41 +2,162 @@
 # This overrides the theme's default menu
 
 [[main]]
-  name = "NDSI"
-  pageRef = "ndsi"
+  name = "Tools"
   weight = 10
 
 [[main]]
+  name = "NDSI"
+  parent = "Tools"
+  pageRef = "ndsi"
+  weight = 11
+
+[[main]]
+  name = "NDSI survey"
+  parent = "Tools"
+  pageRef = "ndsi/survey"
+  weight = 12
+
+[[main]]
+  name = "Software risk check"
+  parent = "Tools"
+  pageRef = "ndsi/software-risk-check"
+  weight = 13
+
+[[main]]
+  name = "Databases"
+  weight = 20
+
+[[main]]
+  name = "Software"
+  parent = "Databases"
+  pageRef = "software"
+  weight = 21
+
+[[main]]
+  name = "Datacenters"
+  parent = "Databases"
+  pageRef = "datacenters"
+  weight = 22
+
+[[main]]
+  name = "Jurisdictions"
+  parent = "Databases"
+  pageRef = "jurisdictions"
+  weight = 23
+
+[[main]]
+  name = "Laws"
+  parent = "Databases"
+  pageRef = "laws"
+  weight = 24
+
+[[main]]
+  name = "Networks"
+  parent = "Databases"
+  pageRef = "networks"
+  weight = 25
+
+[[main]]
+  name = "Cables"
+  parent = "Databases"
+  pageRef = "networks/cables"
+  weight = 26
+
+[[main]]
+  name = "Learn"
+  weight = 30
+
+[[main]]
+  name = "Blog"
+  parent = "Learn"
+  pageRef = "blog"
+  weight = 31
+
+[[main]]
+  name = "Publications"
+  parent = "Learn"
+  pageRef = "publications"
+  weight = 32
+
+[[main]]
+  name = "Personas"
+  parent = "Learn"
+  pageRef = "personas"
+  weight = 33
+
+[[main]]
+  name = "Engage"
+  weight = 40
+
+[[main]]
+  name = "Events"
+  parent = "Engage"
+  pageRef = "events"
+  weight = 41
+
+[[main]]
+  name = "Projects"
+  parent = "Engage"
+  pageRef = "projects"
+  weight = 42
+
+[[main]]
+  name = "Totalforsvarsåret"
+  pageRef = "totalforsvarsaret"
+  weight = 50
+
+[[main]]
+  name = "About"
+  pageRef = "about"
+  weight = 60
+
+# Footer Menu - displayed in the footer
+[[footer]]
+  name = "NDSI survey"
+  pageRef = "ndsi/survey"
+  weight = 10
+
+[[footer]]
   name = "Software"
   pageRef = "software"
   weight = 20
 
-[[main]]
-  name = "Jurisdictions"
-  pageRef = "jurisdictions"
-  weight = 25
-
-[[main]]
-  name = "Laws"
-  pageRef = "laws"
-  weight = 26
-
-[[main]]
+[[footer]]
   name = "Datacenters"
   pageRef = "datacenters"
-  weight = 27
-
-[[main]]
-  name = "Projects"
-  pageRef = "projects"
   weight = 30
 
-[[main]]
-  name = "Publications"
-  pageRef = "publications"
-  weight = 35
+[[footer]]
+  name = "Jurisdictions"
+  pageRef = "jurisdictions"
+  weight = 40
 
-[[main]]
+[[footer]]
+  name = "Laws"
+  pageRef = "laws"
+  weight = 50
+
+[[footer]]
+  name = "Totalforsvarsåret 2026"
+  pageRef = "totalforsvarsaret"
+  weight = 60
+
+[[footer]]
   name = "Blog"
   pageRef = "blog"
-  weight = 40
+  weight = 70
+
+[[footer]]
+  name = "About"
+  pageRef = "about"
+  weight = 80
+
+[[footer]]
+  name = "GitHub"
+  url = "https://github.com/terchris/sovereignsky-site"
+  weight = 90
+
+[[footer]]
+  name = "helpers.no"
+  url = "https://helpers.no"
+  weight = 100

@@ -16,6 +16,20 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: true
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "national-intelligence-law"
+      name: "National Intelligence Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "data-security-law"
+      name: "Data Security Law"
+      year: 2021
+      flag: "🇨🇳"
+    - id: "pipl"
+      name: "PIPL"
+      year: 2021
+      flag: "🇨🇳"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Data localization requirements, security reviews, and network operator obligatio
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

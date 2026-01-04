@@ -16,6 +16,17 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  conflicts_with:
+    - id: "investigatory-powers-act"
+      name: "Investigatory Powers Act"
+      year: 2016
+      flag: "🇬🇧"
+  implements:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +35,5 @@ Post-Brexit version of GDPR retained in UK law, providing similar protections to
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

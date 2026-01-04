@@ -24,5 +24,5 @@ Japanese data protection law, revised in 2020 to strengthen protections and alig
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

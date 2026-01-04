@@ -58,7 +58,16 @@
       "data_protection": "strong",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "eprivacy", "type": "complements" },
+        { "id": "led", "type": "complements" },
+        { "id": "schrems-ii", "type": "complements" },
+        { "id": "cloud-act", "type": "conflicts_with" },
+        { "id": "fisa-702", "type": "conflicts_with" },
+        { "id": "eo-12333", "type": "conflicts_with" },
+        { "id": "eea-agreement", "type": "extended_by" }
+      ]
     },
     {
       "id": "data-act",
@@ -74,7 +83,12 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "dga", "type": "complements" },
+        { "id": "ai-act", "type": "complements" },
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "ai-act",
@@ -90,7 +104,12 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "complements" },
+        { "id": "data-act", "type": "complements" },
+        { "id": "dsa", "type": "complements" }
+      ]
     },
     {
       "id": "nis2",
@@ -106,7 +125,12 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "dora", "type": "complements" },
+        { "id": "cra", "type": "complements" },
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "dora",
@@ -122,7 +146,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "nis2", "type": "complements" },
+        { "id": "cra", "type": "complements" }
+      ]
     },
     {
       "id": "dsa",
@@ -138,7 +166,12 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "dma", "type": "complements" },
+        { "id": "ai-act", "type": "complements" },
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "dma",
@@ -154,7 +187,11 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "dsa", "type": "complements" },
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "led",
@@ -170,7 +207,10 @@
       "data_protection": "moderate",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "eprivacy",
@@ -186,7 +226,10 @@
       "data_protection": "moderate",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "cra",
@@ -202,7 +245,11 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "nis2", "type": "complements" },
+        { "id": "dora", "type": "complements" }
+      ]
     },
     {
       "id": "dga",
@@ -218,7 +265,11 @@
       "data_protection": "moderate",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "data-act", "type": "complements" },
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "eea-agreement",
@@ -234,7 +285,10 @@
       "data_protection": "strong",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "extends" }
+      ]
     },
     {
       "id": "personopplysningsloven",
@@ -250,7 +304,12 @@
       "data_protection": "strong",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "implements" },
+        { "id": "ekomlov", "type": "complements" },
+        { "id": "sikkerhetsloven", "type": "complements" }
+      ]
     },
     {
       "id": "ekomlov",
@@ -266,7 +325,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "personopplysningsloven", "type": "complements" },
+        { "id": "sikkerhetsloven", "type": "complements" }
+      ]
     },
     {
       "id": "sikkerhetsloven",
@@ -282,7 +345,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "personopplysningsloven", "type": "complements" },
+        { "id": "ekomlov", "type": "complements" }
+      ]
     },
     {
       "id": "bdsg",
@@ -298,7 +365,10 @@
       "data_protection": "strong",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "implements" }
+      ]
     },
     {
       "id": "fadp",
@@ -314,7 +384,10 @@
       "data_protection": "strong",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "complements" }
+      ]
     },
     {
       "id": "cloud-act",
@@ -330,7 +403,16 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "conflicts_with" },
+        { "id": "schrems-ii", "type": "conflicts_with" },
+        { "id": "fisa-702", "type": "complements" },
+        { "id": "eo-12333", "type": "complements" },
+        { "id": "patriot-act", "type": "complements" },
+        { "id": "ecpa", "type": "complements" },
+        { "id": "eu-us-dpf", "type": "complements" }
+      ]
     },
     {
       "id": "fisa-702",
@@ -346,7 +428,14 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "conflicts_with" },
+        { "id": "schrems-ii", "type": "conflicts_with" },
+        { "id": "cloud-act", "type": "complements" },
+        { "id": "eo-12333", "type": "complements" },
+        { "id": "patriot-act", "type": "complements" }
+      ]
     },
     {
       "id": "patriot-act",
@@ -362,7 +451,12 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "cloud-act", "type": "complements" },
+        { "id": "fisa-702", "type": "complements" },
+        { "id": "eo-12333", "type": "complements" }
+      ]
     },
     {
       "id": "eo-12333",
@@ -378,7 +472,14 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "conflicts_with" },
+        { "id": "schrems-ii", "type": "conflicts_with" },
+        { "id": "cloud-act", "type": "complements" },
+        { "id": "fisa-702", "type": "complements" },
+        { "id": "patriot-act", "type": "complements" }
+      ]
     },
     {
       "id": "ecpa",
@@ -394,7 +495,10 @@
       "data_protection": "weak",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "cloud-act", "type": "complements" }
+      ]
     },
     {
       "id": "investigatory-powers-act",
@@ -410,7 +514,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "uk-gdpr", "type": "conflicts_with" },
+        { "id": "national-security-act-uk", "type": "complements" }
+      ]
     },
     {
       "id": "national-security-act-uk",
@@ -426,7 +534,10 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "investigatory-powers-act", "type": "complements" }
+      ]
     },
     {
       "id": "uk-gdpr",
@@ -442,7 +553,11 @@
       "data_protection": "strong",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "implements" },
+        { "id": "investigatory-powers-act", "type": "conflicts_with" }
+      ]
     },
     {
       "id": "national-intelligence-law",
@@ -458,7 +573,12 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": true
+      "requires_backdoor": true,
+      "related_laws": [
+        { "id": "cybersecurity-law", "type": "complements" },
+        { "id": "data-security-law", "type": "complements" },
+        { "id": "pipl", "type": "complements" }
+      ]
     },
     {
       "id": "cybersecurity-law",
@@ -474,7 +594,12 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": true,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "national-intelligence-law", "type": "complements" },
+        { "id": "data-security-law", "type": "complements" },
+        { "id": "pipl", "type": "complements" }
+      ]
     },
     {
       "id": "data-security-law",
@@ -490,7 +615,12 @@
       "data_protection": "none",
       "extraterritorial": true,
       "requires_localization": true,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "national-intelligence-law", "type": "complements" },
+        { "id": "cybersecurity-law", "type": "complements" },
+        { "id": "pipl", "type": "complements" }
+      ]
     },
     {
       "id": "pipl",
@@ -506,7 +636,12 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": true,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "national-intelligence-law", "type": "complements" },
+        { "id": "cybersecurity-law", "type": "complements" },
+        { "id": "data-security-law", "type": "complements" }
+      ]
     },
     {
       "id": "yarovaya-law",
@@ -522,7 +657,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": true
+      "requires_backdoor": true,
+      "related_laws": [
+        { "id": "sorm", "type": "complements" },
+        { "id": "data-localization-law", "type": "complements" }
+      ]
     },
     {
       "id": "data-localization-law",
@@ -538,7 +677,11 @@
       "data_protection": "weak",
       "extraterritorial": false,
       "requires_localization": true,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "sorm", "type": "complements" },
+        { "id": "yarovaya-law", "type": "complements" }
+      ]
     },
     {
       "id": "sorm",
@@ -554,7 +697,11 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": true
+      "requires_backdoor": true,
+      "related_laws": [
+        { "id": "yarovaya-law", "type": "complements" },
+        { "id": "data-localization-law", "type": "complements" }
+      ]
     },
     {
       "id": "it-act-2000",
@@ -570,7 +717,10 @@
       "data_protection": "none",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": true
+      "requires_backdoor": true,
+      "related_laws": [
+        { "id": "dpdp-act", "type": "complements" }
+      ]
     },
     {
       "id": "dpdp-act",
@@ -586,7 +736,10 @@
       "data_protection": "moderate",
       "extraterritorial": false,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "it-act-2000", "type": "complements" }
+      ]
     },
     {
       "id": "tola-act",
@@ -669,6 +822,29 @@
       "requires_backdoor": false
     },
     {
+      "id": "schrems-ii",
+      "name": "Schrems II",
+      "full_name": "Data Protection Commissioner v Facebook Ireland Limited and Maximillian Schrems (Case C-311/18)",
+      "year": 2020,
+      "summary": "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection. Organizations must now assess destination country surveillance laws before transferring personal data.",
+      "url": "https://curia.europa.eu/juris/liste.jsf?num=C-311/18",
+      "scope": "bloc",
+      "applies_to": ["eu"],
+      "type": "privacy",
+      "government_access": "limited",
+      "data_protection": "strong",
+      "extraterritorial": true,
+      "requires_localization": false,
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "interprets" },
+        { "id": "cloud-act", "type": "conflicts_with" },
+        { "id": "fisa-702", "type": "conflicts_with" },
+        { "id": "eo-12333", "type": "conflicts_with" },
+        { "id": "eu-us-dpf", "type": "succeeds" }
+      ]
+    },
+    {
       "id": "eu-us-dpf",
       "name": "EU-US DPF",
       "full_name": "EU-US Data Privacy Framework",
@@ -682,12 +858,17 @@
       "data_protection": "moderate",
       "extraterritorial": true,
       "requires_localization": false,
-      "requires_backdoor": false
+      "requires_backdoor": false,
+      "related_laws": [
+        { "id": "gdpr", "type": "complements" },
+        { "id": "schrems-ii", "type": "complements" },
+        { "id": "cloud-act", "type": "complements" }
+      ]
     }
   ],
   "meta": {
-    "version": "2.0",
-    "updated": "2025-12-21",
+    "version": "2.1",
+    "updated": "2025-12-25",
     "description": "Data sovereignty laws and regulations indexed by SovereignSky"
   }
 }

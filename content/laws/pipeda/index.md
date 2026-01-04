@@ -24,5 +24,5 @@ Canadian federal privacy law for private sector organizations. Provides fair inf
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

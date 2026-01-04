@@ -128,6 +128,42 @@
         "type": "string"
       },
       "examples": [["five-eyes", "eu-adequacy", "schrems-ii"]]
+    },
+    "related_laws": {
+      "type": "array",
+      "description": "Semantic relationships to other laws. Relationships are made bidirectional by the generate script.",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the related law",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of relationship",
+            "enum": ["implements", "interprets", "conflicts_with", "complements", "succeeds", "extended_by", "amends"],
+            "enumDescriptions": {
+              "implements": "National law implementing EU/bloc law (inverse: implemented_by)",
+              "interprets": "Court ruling interpreting a law (inverse: interpreted_by)",
+              "conflicts_with": "Legal tension/incompatibility (symmetric)",
+              "complements": "Works alongside in same jurisdiction (symmetric)",
+              "succeeds": "Replaces earlier framework (inverse: succeeded_by)",
+              "extended_by": "Scope expanded by another law (inverse: extends)",
+              "amends": "Modifies existing law (inverse: amended_by)"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "examples": [
+        [
+          { "id": "gdpr", "type": "conflicts_with" },
+          { "id": "fisa-702", "type": "complements" }
+        ]
+      ]
     }
   },
   "additionalProperties": false

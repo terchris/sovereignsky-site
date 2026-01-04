@@ -17,6 +17,25 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "cloud-act"
+      name: "CLOUD Act"
+      year: 2018
+      flag: "🇺🇸"
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
+    - id: "schrems-ii"
+      name: "Schrems II"
+      year: 2020
+      flag: "🇪🇺"
+  succeeded_by:
+    - id: "schrems-ii"
+      name: "Schrems II"
+      year: 2020
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -25,5 +44,5 @@ Adequacy decision enabling data transfers from EU to participating US companies.
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

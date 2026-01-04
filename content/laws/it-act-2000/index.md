@@ -16,6 +16,12 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: true
+related_laws:
+  complements:
+    - id: "dpdp-act"
+      name: "DPDP Act"
+      year: 2023
+      flag: "🇮🇳"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Government can intercept, monitor and decrypt any computer resource in the inter
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

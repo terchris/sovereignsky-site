@@ -16,6 +16,16 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: true
+related_laws:
+  complements:
+    - id: "sorm"
+      name: "SORM"
+      year: 1995
+      flag: "🇷🇺"
+    - id: "data-localization-law"
+      name: "Data Localization Law"
+      year: 2015
+      flag: "🇷🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Mandatory data retention for 6 months, decryption assistance requirements for au
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

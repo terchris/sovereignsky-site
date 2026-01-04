@@ -1,5 +1,5 @@
 {
-  "_description": "Controlled vocabulary for tags. Use these exact values.",
+  "_description": "Controlled vocabulary for tags. Use these exact values across the site.",
 
   "laws": {
     "_description": "Match law IDs for cross-linking to /laws/{id}/",
@@ -17,8 +17,16 @@
   },
 
   "audience": {
-    "_description": "Target audience for content",
-    "values": ["humanitarian", "public-sector", "enterprise", "developers"]
+    "_description": "Target audience for content and events. Values match termCode in personas.json",
+    "values": ["developer", "technical", "enterprise", "government", "humanitarian", "defence"],
+    "labels": {
+      "developer": "Developers",
+      "technical": "IT & Operations",
+      "enterprise": "Enterprise",
+      "government": "Public Sector",
+      "humanitarian": "Humanitarian Organizations",
+      "defence": "Defence & Civil Protection"
+    }
   },
 
   "technical": {
@@ -27,12 +35,51 @@
   },
 
   "topics": {
-    "_description": "Specific topics (keep unique, specific tags)",
-    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness"]
+    "_description": "Specific topics for content and events",
+    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness"],
+    "labels": {
+      "hybrid-warfare": "Hybrid Warfare",
+      "cybersecurity": "Cybersecurity",
+      "critical-infrastructure": "Critical Infrastructure",
+      "sanctions": "Sanctions",
+      "gps-jamming": "GPS Jamming",
+      "preparedness": "Preparedness & Total Defence"
+    }
+  },
+
+  "eventStatus": {
+    "_description": "Event status values matching schema.org",
+    "values": ["scheduled", "postponed", "cancelled", "rescheduled"],
+    "schemaMapping": {
+      "scheduled": "https://schema.org/EventScheduled",
+      "postponed": "https://schema.org/EventPostponed",
+      "cancelled": "https://schema.org/EventCancelled",
+      "rescheduled": "https://schema.org/EventRescheduled"
+    }
+  },
+
+  "attendanceMode": {
+    "_description": "Event attendance modes matching schema.org",
+    "values": ["offline", "online", "mixed"],
+    "schemaMapping": {
+      "offline": "https://schema.org/OfflineEventAttendanceMode",
+      "online": "https://schema.org/OnlineEventAttendanceMode",
+      "mixed": "https://schema.org/MixedEventAttendanceMode"
+    }
+  },
+
+  "itRelevance": {
+    "_description": "IT/cyber relevance level for filtering events",
+    "values": ["high", "medium", "low"],
+    "labels": {
+      "high": "High IT Relevance",
+      "medium": "Medium IT Relevance",
+      "low": "General Interest"
+    }
   },
 
   "mappings": {
-    "_description": "Old tag -> New tag mappings",
+    "_description": "Old tag -> New tag mappings for normalization",
     "digital sovereignty": "sovereignty",
     "cloud sovereignty": "sovereignty",
     "personal sovereignty": "sovereignty",
@@ -76,6 +123,12 @@
     "ICC": "humanitarian",
     "Microsoft": "vendor-lock-in",
     "Google": "vendor-lock-in",
-    "Dapr": "multi-cloud"
+    "Dapr": "multi-cloud",
+    "total defence": "preparedness",
+    "totalforsvar": "preparedness",
+    "digital preparedness": "preparedness",
+    "cyber security": "cybersecurity",
+    "IT security": "cybersecurity",
+    "NIS2": "nis2"
   }
 }

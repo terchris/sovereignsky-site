@@ -16,6 +16,20 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: true
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "national-intelligence-law"
+      name: "National Intelligence Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "cybersecurity-law"
+      name: "Cybersecurity Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "pipl"
+      name: "PIPL"
+      year: 2021
+      flag: "🇨🇳"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Data classification system, cross-border transfer restrictions, and government a
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

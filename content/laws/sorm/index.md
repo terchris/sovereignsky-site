@@ -16,6 +16,16 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: true
+related_laws:
+  complements:
+    - id: "yarovaya-law"
+      name: "Yarovaya Law"
+      year: 2016
+      flag: "🇷🇺"
+    - id: "data-localization-law"
+      name: "Data Localization Law"
+      year: 2015
+      flag: "🇷🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Mandatory surveillance backdoors in all telecommunications equipment for FSB acc
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

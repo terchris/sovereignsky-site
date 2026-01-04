@@ -16,6 +16,16 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "personopplysningsloven"
+      name: "Personopplysningsloven"
+      year: 2018
+      flag: "🇳🇴"
+    - id: "sikkerhetsloven"
+      name: "Sikkerhetsloven"
+      year: 2019
+      flag: "🇳🇴"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +34,5 @@ Regulates electronic communications networks and services, including data retent
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

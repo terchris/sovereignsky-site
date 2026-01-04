@@ -16,6 +16,29 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "cloud-act"
+      name: "CLOUD Act"
+      year: 2018
+      flag: "🇺🇸"
+    - id: "eo-12333"
+      name: "EO 12333"
+      year: 1981
+      flag: "🇺🇸"
+    - id: "patriot-act"
+      name: "Patriot Act"
+      year: 2001
+      flag: "🇺🇸"
+  conflicts_with:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
+    - id: "schrems-ii"
+      name: "Schrems II"
+      year: 2020
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +47,5 @@ Allows surveillance of non-US persons located outside the US for foreign intelli
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

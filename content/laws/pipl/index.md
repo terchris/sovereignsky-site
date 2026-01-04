@@ -16,6 +16,20 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: true
 requires_localization: true
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "national-intelligence-law"
+      name: "National Intelligence Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "cybersecurity-law"
+      name: "Cybersecurity Law"
+      year: 2017
+      flag: "🇨🇳"
+    - id: "data-security-law"
+      name: "Data Security Law"
+      year: 2021
+      flag: "🇨🇳"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ China's comprehensive personal data protection law with strict cross-border tran
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

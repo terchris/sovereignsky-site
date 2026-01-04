@@ -16,6 +16,21 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "ekomlov"
+      name: "Ekomloven"
+      year: 2003
+      flag: "🇳🇴"
+    - id: "sikkerhetsloven"
+      name: "Sikkerhetsloven"
+      year: 2019
+      flag: "🇳🇴"
+  implements:
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +39,5 @@ Norwegian implementation of GDPR. Regulates processing of personal data and esta
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

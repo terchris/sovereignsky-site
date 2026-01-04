@@ -24,5 +24,5 @@ Comprehensive Korean data protection law with strong enforcement and individual 
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

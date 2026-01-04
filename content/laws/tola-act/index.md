@@ -24,5 +24,5 @@ Can compel companies to build backdoors and assist in decryption, with secrecy r
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

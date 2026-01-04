@@ -16,6 +16,20 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "dora"
+      name: "DORA"
+      year: 2025
+      flag: "🇪🇺"
+    - id: "cra"
+      name: "CRA"
+      year: 2024
+      flag: "🇪🇺"
+    - id: "gdpr"
+      name: "GDPR"
+      year: 2018
+      flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +38,5 @@ Mandatory cybersecurity requirements for essential and important entities. Requi
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 

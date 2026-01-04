@@ -261,7 +261,7 @@ The Quick Scan covers the most critical aspects for Norwegian organizations. A f
 
 - **All data stays in your browser** - nothing is sent to any server
 - No cookies, no tracking, no analytics
-- Open source - [view the code](https://github.com/norwegianredcross/sovereignsky-site)
+- Open source - [view the code](https://github.com/helpers-no)
 - You can save your results locally or share them - your choice
 
 ## Help Us Improve
@@ -273,7 +273,7 @@ This is **version 0.1** of the NDSI. We need your feedback:
 - What's missing?
 - What would make this more actionable?
 
-[Open an issue](https://github.com/norwegianredcross/sovereignsky-site/issues) or contribute directly.
+[Open an issue](https://github.com/helpers-no) or contribute directly.
 
 ---
 

@@ -1,0 +1,336 @@
+{{/*
+  persona-list.html
+  Renders a list of personas from data/personas.json, with deep links to events/laws/software.
+
+  Params:
+    - personas: slice of persona DefinedTerm objects
+    - audienceVocab: slice of persona termCodes supported by events audience filter
+    - audienceLabels: map of termCode -> display label
+*/}}
+
+{{ $personas := .personas | default (slice) }}
+{{ $audienceVocab := .audienceVocab | default (slice) }}
+{{ $audienceLabels := .audienceLabels | default (dict) }}
+{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $blogPages := where site.RegularPages "Section" "blog" }}
+{{ $publicationPages := where site.RegularPages "Section" "publications" }}
+
+{{/* For law flags (same logic as the /laws page chips) */}}
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+{{ $blocsById := dict }}
+{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+
+{{/* Fallback: derive audience vocab/labels directly from tag-vocabulary.json if not provided */}}
+{{ $vocab := site.Data.tag_vocabulary | default (dict) }}
+{{ if and $vocab (eq (len $audienceVocab) 0) }}
+  {{ $audienceVocab = $vocab.audience.values | default (slice) }}
+{{ end }}
+{{ if and $vocab (eq (len $audienceLabels) 0) }}
+  {{ $audienceLabels = $vocab.audience.labels | default (dict) }}
+{{ end }}
+
+{{/* Final fallback: keep personas usable even if vocab data isn't present for some reason */}}
+{{ if eq (len $audienceVocab) 0 }}
+  {{ $audienceVocab = slice "developer" "technical" "enterprise" "government" "humanitarian" "defence" }}
+{{ end }}
+{{ if eq (len $audienceLabels) 0 }}
+  {{ $audienceLabels = dict
+    "developer" "Developers"
+    "technical" "IT & Operations"
+    "enterprise" "Enterprise"
+    "government" "Public Sector"
+    "humanitarian" "Humanitarian Organizations"
+    "defence" "Defence & Civil Protection"
+  }}
+{{ end }}
+
+{{/* Law type -> anchor on /laws/ page */}}
+{{ $lawAnchors := dict
+  "access" "access-laws"
+  "surveillance" "surveillance-laws"
+  "privacy" "privacy-laws"
+  "localization" "localization-laws"
+  "security" "security-laws"
+  "sector" "sector-specific-laws"
+}}
+
+{{/* Persona -> recommended law types (used for links + suggested laws) */}}
+{{ $lawTypesByPersona := dict
+  "developer" (slice "security")
+  "technical" (slice "security")
+  "enterprise" (slice "privacy" "security" "sector")
+  "business" (slice "privacy" "sector")
+  "end-user" (slice "privacy")
+  "privacy-conscious" (slice "privacy")
+  "self-hoster" (slice "security")
+  "sovereignty" (slice "privacy" "sector" "localization")
+  "government" (slice "access" "security" "sector")
+  "humanitarian" (slice "privacy" "access")
+  "defence" (slice "security" "access" "surveillance")
+  "cost-conscious" (slice "privacy")
+}}
+
+{{/* Blog audience -> persona termCode mapping (for connecting existing posts that use audiences like "developers") */}}
+{{ $blogAudienceToPersona := dict
+  "developer" "developer"
+  "developers" "developer"
+  "technical" "technical"
+  "it-operations" "technical"
+  "enterprise" "enterprise"
+  "public-sector" "government"
+  "government" "government"
+  "humanitarian" "humanitarian"
+  "defence" "defence"
+  "defense" "defence"
+}}
+
+{{/* Publications use the same audiences values (often already aligned to persona termCodes) */}}
+{{ $pubAudienceToPersona := $blogAudienceToPersona }}
+
+<div class="max-w-6xl mx-auto">
+  {{ if gt (len $personas) 0 }}
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {{ range $personas }}
+      {{ $p := . }}
+      {{ $term := $p.termCode | default "" }}
+      {{ $audLabelFromMap := index $audienceLabels $term }}
+      {{/* Some Hugo data structures can be typed oddly; treat label-map membership as authoritative */}}
+      {{ $isAudience := or (in $audienceVocab $term) (ne $audLabelFromMap nil) }}
+      {{ $audLabel := $audLabelFromMap | default ($p.name | default ($term | humanize | title)) }}
+
+      {{/* Build software deep link (re-uses /software URL params) */}}
+      {{ $fc := $p.filterCriteria | default (dict) }}
+      {{ $requireTags := $fc.requireTags | default (slice) }}
+      {{ $preferTags := $fc.preferTags | default (slice) }}
+      {{ $requireFields := $fc.requireFields | default (dict) }}
+
+      {{ $wantOpen := or (and (isset $requireFields "isOpenSource") (eq (index $requireFields "isOpenSource") true)) (in $preferTags "open-source") }}
+      {{ $wantSelf := or (and (isset $requireFields "selfHostable") (eq (index $requireFields "selfHostable") true)) (in $requireTags "self-hosted") (in $preferTags "self-hosted") }}
+
+      {{ $softwareQs := slice }}
+      {{ if $wantOpen }}{{ $softwareQs = $softwareQs | append "opensource=true" }}{{ end }}
+      {{ if $wantSelf }}{{ $softwareQs = $softwareQs | append "selfhosted=true" }}{{ end }}
+      {{ $softwareURL := "/software/" }}
+      {{ if gt (len $softwareQs) 0 }}{{ $softwareURL = printf "%s?%s" $softwareURL (delimit $softwareQs "&") }}{{ end }}
+
+      {{/* Build events deep link (only if this persona is in tag-vocabulary audience values) */}}
+      {{ $eventsURL := "/events/" }}
+      {{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
+
+      {{/* Law links */}}
+      {{ $lawTypes := index $lawTypesByPersona $term | default (slice "privacy" "security") }}
+      {{ $suggestedLaws := slice }}
+      {{ if gt (len $laws) 0 }}
+        {{/* Avoid sorting: some entries have mixed types (e.g. year/name), which can break Hugo sort */}}
+        {{ $suggestedLaws = where $laws "type" "in" $lawTypes | first 5 }}
+      {{ end }}
+
+      <section id="{{ $term }}" class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-5">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-neutral-900 dark:text-neutral-100 m-0">
+              {{ $p.name | default ($term | humanize | title) }}
+            </h2>
+            {{ with $p.description }}
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300">
+              {{ . }}
+            </p>
+            {{ end }}
+          </div>
+
+          {{ if $isAudience }}
+          <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200">
+            Audience: {{ $audLabel }}
+          </span>
+          {{ end }}
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          {{ partial "internal-button.html" (dict "url" $eventsURL "label" "Events" "secondary" (cond $isAudience "filtered" "all")) }}
+          {{ partial "internal-button.html" (dict "url" "/laws/" "label" "Laws" ) }}
+          {{ partial "internal-button.html" (dict "url" $softwareURL "label" "Software" "secondary" (cond (gt (len $softwareQs) 0) "filtered" "all")) }}
+        </div>
+
+        {{/* Law type jump links */}}
+        {{ if $lawTypes }}
+        <div class="mt-4">
+          <div class="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Law categories</div>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {{ range $lawTypes }}
+              {{ $t := . }}
+              {{ $anchor := index $lawAnchors $t | default "" }}
+              {{ if $anchor }}
+                {{ partial "internal-button.html" (dict "url" (printf "/laws/#%s" $anchor) "label" ($t | humanize | title)) }}
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Suggested laws */}}
+        {{ if gt (len $suggestedLaws) 0 }}
+        <div class="mt-4">
+          <div class="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Suggested laws</div>
+          <div class="mt-2 flex flex-wrap gap-2">
+            {{ range $suggestedLaws }}
+              {{ $law := . }}
+              {{ $flag := "" }}
+              {{ range first 1 ($law.applies_to | default (slice)) }}
+                {{ $id := . }}
+                {{ $region := index $regionsById $id }}
+                {{ if $region }}
+                  {{ $flag = $region.flag }}
+                {{ else }}
+                  {{ $bloc := index $blocsById $id }}
+                  {{ if $bloc }}
+                    {{ $flag = $bloc.flag }}
+                  {{ end }}
+                {{ end }}
+              {{ end }}
+              {{ partial "internal-button.html" (dict "url" (printf "/laws/%s/" $law.id) "icon" $flag "label" $law.name "secondary" (printf "%v" $law.year)) }}
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Upcoming events preview for audience personas */}}
+        {{ if $isAudience }}
+        <div class="mt-5">
+          <div class="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Upcoming events</div>
+          <div class="mt-2">
+            {{ partial "event-list.html" (dict "audience" $term "limit" 3 "compact" true) }}
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Related blog posts */}}
+        {{ if gt (len $blogPages) 0 }}
+          {{ $relatedPosts := slice }}
+          {{ range $blogPages }}
+            {{ $post := . }}
+            {{ $match := false }}
+
+            {{ with $post.Params.personas }}
+              {{ if in . $term }}{{ $match = true }}{{ end }}
+            {{ end }}
+
+            {{ if not $match }}
+              {{ range ($post.Params.audiences | default (slice)) }}
+                {{ $mapped := index $blogAudienceToPersona . }}
+                {{ if and $mapped (eq $mapped $term) }}
+                  {{ $match = true }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+            {{ if $match }}
+              {{ $relatedPosts = $relatedPosts | append $post }}
+            {{ end }}
+          {{ end }}
+
+          {{ if gt (len $relatedPosts) 0 }}
+            {{ $relatedPosts = sort $relatedPosts "Date" "desc" | first 3 }}
+            <div class="mt-5">
+              <div class="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Related blog posts</div>
+              <div class="mt-2 flex flex-wrap gap-2">
+                {{ range $relatedPosts }}
+                  {{ partial "internal-button.html" (dict "url" .RelPermalink "label" .Title "secondary" (.Date.Format "2006-01-02")) }}
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        {{ end }}
+
+        {{/* Related publications */}}
+        {{ if gt (len $publicationPages) 0 }}
+          {{ $relatedPubs := slice }}
+          {{ range $publicationPages }}
+            {{ $pub := . }}
+            {{ $match := false }}
+
+            {{ with $pub.Params.personas }}
+              {{ if in . $term }}{{ $match = true }}{{ end }}
+            {{ end }}
+
+            {{ if not $match }}
+              {{ range ($pub.Params.audiences | default (slice)) }}
+                {{ $mapped := index $pubAudienceToPersona . }}
+                {{ if and $mapped (eq $mapped $term) }}
+                  {{ $match = true }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+
+            {{ if $match }}
+              {{ $relatedPubs = $relatedPubs | append $pub }}
+            {{ end }}
+          {{ end }}
+
+          {{ if gt (len $relatedPubs) 0 }}
+            {{ $relatedPubs = sort $relatedPubs "Date" "desc" | first 3 }}
+            <div class="mt-5">
+              <div class="text-xs font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wide">Related publications</div>
+              <div class="mt-2 flex flex-wrap gap-2">
+                {{ range $relatedPubs }}
+                  {{ partial "internal-button.html" (dict "url" .RelPermalink "icon" "📚" "label" .Title "secondary" (.Date.Format "2006-01-02")) }}
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        {{ end }}
+
+        {{/* Filter criteria summary */}}
+        {{ $exampleQueries := $p.exampleQueries | default (slice) }}
+        {{ if or (gt (len $requireTags) 0) (gt (len $preferTags) 0) (gt (len $exampleQueries) 0) }}
+        <details class="mt-5">
+          <summary class="cursor-pointer text-sm font-semibold text-neutral-700 dark:text-neutral-200">Details</summary>
+          <div class="mt-3 space-y-3 text-sm text-neutral-700 dark:text-neutral-300">
+            {{ if gt (len $requireTags) 0 }}
+            <div>
+              <div class="font-semibold">Requires tags</div>
+              <div class="mt-1 flex flex-wrap gap-1">
+                {{ range $requireTags }}
+                  <span class="px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-xs">{{ . }}</span>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+
+            {{ if gt (len $preferTags) 0 }}
+            <div>
+              <div class="font-semibold">Prefers tags</div>
+              <div class="mt-1 flex flex-wrap gap-1">
+                {{ range first 12 $preferTags }}
+                  <span class="px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-xs">{{ . }}</span>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+
+            {{ if gt (len $exampleQueries) 0 }}
+            <div>
+              <div class="font-semibold">Example queries</div>
+              <ul class="mt-1 list-disc pl-5">
+                {{ range $exampleQueries }}
+                  <li>{{ . }}</li>
+                {{ end }}
+              </ul>
+            </div>
+            {{ end }}
+          </div>
+        </details>
+        {{ end }}
+      </section>
+    {{ end }}
+  </div>
+  {{ else }}
+    <p class="text-neutral-600 dark:text-neutral-400">No personas found.</p>
+  {{ end }}
+</div>
+
+

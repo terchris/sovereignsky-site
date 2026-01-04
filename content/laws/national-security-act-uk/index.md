@@ -16,6 +16,12 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+related_laws:
+  complements:
+    - id: "investigatory-powers-act"
+      name: "Investigatory Powers Act"
+      year: 2016
+      flag: "🇬🇧"
 layout: "single"
 type: "laws"
 ---
@@ -24,5 +30,5 @@ Powers to address foreign interference, espionage and state threats.
 
 ---
 
-*No additional commentary yet. [Contribute on GitHub](https://github.com/norwegianredcross/sovereignsky-site).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
 
