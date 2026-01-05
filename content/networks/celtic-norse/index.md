@@ -1,11 +1,9 @@
 ---
 title: "Celtic Norse"
 description: "Planned Norway ↔ Ireland system landing at Øysanden (south of Trondheim)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "celtic-norse"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "celtic-norse"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,19 +25,10 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | planned |
 | **Scope** | international |
 | **Type** | submarine |
-| **Ready for Service** | — |
 | **Length** | 2000 km |
 
-## Operators
+## Owners & Operators
 
-- Celtic Norse AS (NO)
-
-## Owners
-
-- Celtic Norse AS (NO)
-- Vodafone Iceland (IS)
-- Aqua Comms (IE)
+{{< network-actors connection_id="celtic-norse" >}}
 
 ## Links
-
-- https://www.submarinenetworks.com/en/systems/intra-europe/celtic-norse

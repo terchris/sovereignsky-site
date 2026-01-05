@@ -1,11 +1,9 @@
 ---
 title: "Inter-City Ring"
 description: "Major south Norway backbone ring (schematic endpoints only; exact terrestrial routing is not public)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "inter-city-ring"
 echarts: true
-tags: ["terrestrial", "domestic", "terrestrial", "active", "bulk"]
+tags: ["critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,17 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | terrestrial |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-- Bulk Infrastructure (NO)
-
-## Owners
-
-- Bulk Infrastructure (NO)
+{{< network-actors connection_id="inter-city-ring" >}}
 
 ## Links
-
-- https://bulkinfrastructure.com/fiber-networks/our-systems/inter-city-ring

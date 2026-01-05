@@ -1,11 +1,9 @@
 ---
 title: "Skagen Fiber West (Larvik–Hirtshals)"
 description: "Repeaterless subsea cable connecting Larvik (NO) and Hirtshals (DK). Schematic representation."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "skagen-fiber-west"
 echarts: true
-tags: ["submarine", "international", "subsea", "active", "altibox-carrier"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,20 +25,14 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | international |
 | **Type** | submarine |
-| **Ready for Service** | 2020-11-04 |
+| **Operational** | 2020-11-04 |
 | **Length** | 170 km |
-| **Fiber pairs** | 48 |
 
-## Operators
+## Owners & Operators
 
-- Altibox Carrier (NO)
-
-## Owners
-
-- Lyse/Altibox (NO)
+{{< network-actors connection_id="skagen-fiber-west" >}}
 
 ## Links
 
-- https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west
-- Submarine Networks (Skagen Fiber West): https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west
-- Submarine Networks (N0r5ke Viking): https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking
+- [Submarine Networks (Skagen Fiber West)](https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west)
+- [Submarine Networks (N0r5ke Viking)](https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking)

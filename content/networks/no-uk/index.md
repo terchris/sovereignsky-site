@@ -1,11 +1,9 @@
 ---
 title: "NO-UK Cable System"
 description: "Open cable system connecting Stavanger (NO) and Newcastle area (UK)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "no-uk"
 echarts: true
-tags: ["submarine", "international", "subsea", "active", "altibox-carrier", "greenmountain"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,20 +25,10 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | international |
 | **Type** | submarine |
-| **Ready for Service** | 2021 |
-| **Length** | — |
-| **Fiber pairs** | 8 |
-| **Capacity** | 216 Tbps |
+| **Operational** | 2021 |
 
-## Operators
+## Owners & Operators
 
-- Altibox Carrier (NO)
-- Green Mountain (NO)
-
-## Owners
-
-- NO-UK Com (consortium) (NO)
+{{< network-actors connection_id="no-uk" >}}
 
 ## Links
-
-- https://www.submarinenetworks.com/en/systems/intra-europe/no-uk

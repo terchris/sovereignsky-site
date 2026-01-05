@@ -1,11 +1,9 @@
 ---
 title: "IOEMA"
 description: "Planned North Sea system: trunk Dumpton Gap (UK) ↔ Kristiansand (NO) with branches to NL/DE/DK."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "ioema"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "ioema-fibre"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,18 +25,10 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | planned |
 | **Scope** | international |
 | **Type** | submarine |
-| **Ready for Service** | — |
 | **Length** | 1400 km |
-| **Fiber pairs** | 48 |
 
-## Operators
+## Owners & Operators
 
-- IOEMA Fibre Ltd (GB)
-
-## Owners
-
-- IOEMA Fibre Ltd (GB)
+{{< network-actors connection_id="ioema" >}}
 
 ## Links
-
-- https://www.submarinenetworks.com/en/systems/intra-europe/ioema

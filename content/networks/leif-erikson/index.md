@@ -1,11 +1,9 @@
 ---
 title: "Leif Erikson (planned)"
 description: "Planned transatlantic system promoted by Bulk Infrastructure (public details still evolving)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "leif-erikson"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "bulk"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,17 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | planned |
 | **Scope** | international |
 | **Type** | submarine |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-- Bulk Infrastructure (NO)
-
-## Owners
-
-- Bulk Infrastructure (NO)
+{{< network-actors connection_id="leif-erikson" >}}
 
 ## Links
-
-- https://bulkinfrastructure.com/fiber-networks/our-systems

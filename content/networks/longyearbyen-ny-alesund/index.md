@@ -1,11 +1,9 @@
 ---
 title: "Longyearbyen–Ny-Ålesund"
 description: "Local Svalbard connectivity for research/community needs (schematic)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "longyearbyen-ny-alesund"
 echarts: true
-tags: ["terrestrial", "domestic", "terrestrial", "active", "space-norway"]
+tags: ["critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,16 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | terrestrial |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-- Space Norway (NO)
-
-## Owners
-
-- Space Norway (NO)
+{{< network-actors connection_id="longyearbyen-ny-alesund" >}}
 
 ## Links
-

@@ -1,11 +1,9 @@
 ---
 title: "Satellite backup connectivity (Norway)"
 description: "Satellite communications provide resilience/backup connectivity, especially for remote areas. This entry is non-geometric (not drawn as a line)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "norway-satellite-backup"
 echarts: true
-tags: ["satellite", "international", "satellite", "active"]
+tags: ["critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,16 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | international |
 | **Type** | satellite |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-—
-
-## Owners
-
-—
+{{< network-actors connection_id="norway-satellite-backup" >}}
 
 ## Links
-

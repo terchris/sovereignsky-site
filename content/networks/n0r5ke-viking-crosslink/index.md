@@ -1,11 +1,9 @@
 ---
 title: "N0r5ke Viking (Molde–Åndalsnes crosslink)"
 description: "Crosslink segment referenced for N0r5ke Viking (schematic)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "n0r5ke-viking-crosslink"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "n0r5ke-fibre"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,17 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | submarine |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-- N0r5ke Fibre (NO)
-
-## Owners
-
-- N0r5ke Fibre (NO)
+{{< network-actors connection_id="n0r5ke-viking-crosslink" >}}
 
 ## Links
-
-- https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking

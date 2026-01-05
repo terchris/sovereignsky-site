@@ -1,11 +1,9 @@
 ---
 title: "Tampnet Offshore Network (South)"
 description: "Offshore communications network (schematic; detailed routes are not public)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "tampnet-offshore-south"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "tampnet"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,17 +25,9 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | submarine |
-| **Ready for Service** | — |
-| **Length** | — |
 
-## Operators
+## Owners & Operators
 
-- Tampnet (NO)
-
-## Owners
-
-- Tampnet (NO)
+{{< network-actors connection_id="tampnet-offshore-south" >}}
 
 ## Links
-
-- https://www.tampnet.com

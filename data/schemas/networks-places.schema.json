@@ -1,61 +1,50 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "networks-places.schema.json",
-  "title": "Networks Places Dataset",
-  "description": "Schema for data/networks/networks-places.json (schema.org Place + GeoCoordinates entries referenced by networks connections).",
-  "type": "object",
-  "required": ["@type", "name", "metadata", "places"],
-  "properties": {
-    "@context": { "type": ["object", "string"] },
-    "@type": { "const": "Dataset" },
-    "name": { "type": "string" },
-    "description": { "type": "string" },
-    "dateModified": { "type": "string" },
-    "metadata": {
-      "type": "object",
-      "required": ["schema", "schema_version"],
-      "properties": {
-        "schema": { "type": "string" },
-        "schema_version": { "type": "integer" },
-        "updated": { "type": "string" },
-        "relation_keys": { "type": "object" }
-      },
-      "additionalProperties": true
-    },
-    "places": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/place" }
-    }
+  "title": "Networks Places",
+  "description": "Places referenced by networks dataset (landing stations, hubs, endpoints). Root is an array of places.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/place"
   },
   "$defs": {
     "place": {
       "type": "object",
-      "required": ["@type", "identifier", "name", "geo"],
+      "required": ["identifier", "name"],
       "properties": {
-        "@type": { "const": "Place" },
-        "identifier": { "type": "string" },
-        "name": { "type": "string" },
-        "description": { "type": "string" },
+        "identifier": {
+          "type": "string",
+          "description": "Stable identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "place_type": {
+          "type": "string",
+          "enum": ["landing_station", "backbone_endpoint", "international_hub", "border_crossing_area"]
+        },
         "geo": {
           "type": "object",
-          "required": ["@type", "latitude", "longitude"],
           "properties": {
-            "@type": { "const": "GeoCoordinates" },
             "latitude": { "type": "number" },
             "longitude": { "type": "number" }
           },
-          "additionalProperties": true
+          "required": ["latitude", "longitude"]
         },
-        "address": { "type": "object" },
-        "country_id": { "type": "string" },
-        "territory_id": { "type": "string" },
-        "operator_ids": { "type": "array", "items": { "type": "string" } },
-        "related_datacenter_provider_ids": { "type": "array", "items": { "type": "string" } },
-        "place_type": { "type": "string" }
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressLocality": { "type": "string" },
+            "addressRegion": { "type": "string" },
+            "addressCountry": { "type": "string", "description": "ISO 3166-1 alpha-2" }
+          }
+        }
       },
       "additionalProperties": true
     }
   }
 }
-
-

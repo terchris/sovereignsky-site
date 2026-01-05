@@ -1,11 +1,9 @@
 ---
 title: "NORFEST (Nordic Festoon)"
 description: "Coastal festoon system with multiple landings along the Norwegian coast; provides route diversity from terrestrial backbone."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "norfest"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "tampnet"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,20 +25,15 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | submarine |
-| **Ready for Service** | 2023 |
+| **Operational** | 2023 |
 | **Length** | 749 km |
 
-## Operators
+## Owners & Operators
 
-- Tampnet (NO)
-
-## Owners
-
-- Tampnet (NO)
+{{< network-actors connection_id="norfest" >}}
 
 ## Links
 
-- https://www.tampnet.com/norfest
-- Tampnet (NORFEST): https://www.tampnet.com/norfest
-- SubmarineCableMap: https://www.submarinecablemap.com/submarine-cable/norfest
-- Tampnet blog: https://www.tampnet.com/blog/rethinking-norwegian-connectivity-why-subsea-is-the-key-to-route-diversity
+- [Tampnet (NORFEST)](https://www.tampnet.com/norfest)
+- [SubmarineCableMap](https://www.submarinecablemap.com/submarine-cable/norfest)
+- [Tampnet blog](https://www.tampnet.com/blog/rethinking-norwegian-connectivity-why-subsea-is-the-key-to-route-diversity)

@@ -20,11 +20,8 @@
   <p class="text-sm text-neutral-600 dark:text-neutral-300">Missing <code>connection_id</code> for <code>network-connection-map</code>.</p>
 {{ else }}
   {{ $networksRoot := site.Data.networks | default dict }}
-  {{ $networks := (index $networksRoot "networks") | default dict }}
-  {{ $placesData := (index $networksRoot "networks-places") | default dict }}
-  {{ $places := (index $placesData "places") | default (slice) }}
-
-  {{ $connections := (index $networks "connections") | default (slice) }}
+  {{ $connections := (index $networksRoot "networks") | default (slice) }}
+  {{ $places := (index $networksRoot "networks-places") | default (slice) }}
   {{ $connection := dict }}
   {{ range $connections }}
     {{ if eq .connection_id $connectionId }}

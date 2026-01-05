@@ -1,11 +1,9 @@
 ---
 title: "Svalbard Undersea Cable System"
 description: "Twin submarine communications cables connecting mainland Norway to Svalbard (schematic route)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "svalbard-undersea"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "space-norway"]
+tags: ["submarine-cables", "critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,19 +25,13 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | active |
 | **Scope** | domestic |
 | **Type** | submarine |
-| **Ready for Service** | 2004 |
-| **Length** | — |
+| **Operational** | 2004 |
 
-## Operators
+## Owners & Operators
 
-- Space Norway (NO)
-
-## Owners
-
-- Space Norway (NO)
+{{< network-actors connection_id="svalbard-undersea" >}}
 
 ## Links
 
-- https://en.wikipedia.org/wiki/Svalbard_Undersea_Cable_System
-- Wikipedia overview: https://en.wikipedia.org/wiki/Svalbard_Undersea_Cable_System
-- Space Norway (Arctic subsea cables): https://spacenorway.com/projects/our-projects/subsea-cables/
+- [Wikipedia overview](https://en.wikipedia.org/wiki/Svalbard_Undersea_Cable_System)
+- [Space Norway (Arctic subsea cables)](https://spacenorway.com/projects/our-projects/subsea-cables/)

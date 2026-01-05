@@ -7,7 +7,6 @@ Usage: {{< network-map>}}
   */}}
 
   {{ $networksRoot := site.Data.networks | default dict }}
-  {{ $networks := (index $networksRoot "networks") | default dict }}
   {{ $showFilters := .Get "showFilters" | default "true" }}
   {{ $showFiltersBool := ne $showFilters "false" }}
   {{ $focusNorway := .Get "focusNorway" | default "true" }}
@@ -17,13 +16,10 @@ Usage: {{< network-map>}}
   {{ $trawler := (index $networksRoot "networks-trawler") | default dict }}
   {{ $trawlerRoutes := (index $trawler "routes") | default (slice) }}
 
-  {{/* New schema: networks.connections (places are in data/networks/networks-places.json) */}}
-  {{ $placesData := (index $networksRoot "networks-places") | default dict }}
-  {{ $places := (index $placesData "places") | default (slice) }}
-  {{ $connections := $networks.connections | default (slice) }}
-  {{ $operators := $networks.operators | default (slice) }}
-  {{ $actorsData := (index $networksRoot "networks-actors") | default dict }}
-  {{ $actors := (index $actorsData "actors") | default (slice) }}
+  {{/* Data files are arrays at root level */}}
+  {{ $places := (index $networksRoot "networks-places") | default (slice) }}
+  {{ $connections := (index $networksRoot "networks") | default (slice) }}
+  {{ $actors := (index $networksRoot "networks-actors") | default (slice) }}
 
   {{/* connections[] is already normalized in data/networks/networks.json */}}
 
@@ -81,7 +77,7 @@ Usage: {{< network-map>}}
     {{ if $showSimulationBool }}
     <div class="flex flex-wrap items-center gap-4 text-sm mt-3">
       <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" id="network-sim-toggle">
+        <input type="checkbox" id="network-sim-toggle" checked>
         <span>Show trawler</span>
       </label>
     </div>
@@ -103,7 +99,6 @@ Usage: {{< network-map>}}
 
   <script type="application/json" id="network-map-places">{{ $places | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-connections">{{ $connections | jsonify | safeHTML }}</script>
-  <script type="application/json" id="network-map-operators">{{ $operators | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-actors">{{ $actors | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-focus-norway">{{ $focusNorwayBool | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-show-simulation">{{ $showSimulationBool | jsonify | safeHTML }}</script>
@@ -130,7 +125,6 @@ Usage: {{< network-map>}}
 
       var places = readJsonScript('network-map-places', []);
       var cables = readJsonScript('network-map-connections', []);
-      var operators = readJsonScript('network-map-operators', []);
       var actors = readJsonScript('network-map-actors', []);
       var focusNorway = readJsonScript('network-map-focus-norway', true);
       var showSimulation = readJsonScript('network-map-show-simulation', false);
@@ -160,7 +154,7 @@ Usage: {{< network-map>}}
           lat: g.latitude,
           lng: g.longitude,
           name: p.name || p.place_name || id,
-          country_id: p.country_id || (p.address && p.address.addressCountry) || ''
+          country_id: (p.address && p.address.addressCountry) || ''
         };
       });
 
@@ -178,19 +172,6 @@ Usage: {{< network-map>}}
         if (!a || !a.actor_id) return;
         actorById[a.actor_id] = a;
       });
-
-      // Operator lookup for nicer display in station details (prefer actor registry)
-      var operatorNameById = {};
-      (operators || []).forEach(function (op) {
-        if (!op || !op.operator_id) return;
-        var viaActor = (op.actor_id && actorById[op.actor_id]) ? actorById[op.actor_id].actor_name : null;
-        operatorNameById[op.operator_id] = op.operator_name || viaActor || op.operator_id;
-      });
-
-      function operatorNames(ids) {
-        if (!ids || !ids.length) return [];
-        return ids.map(function (id) { return operatorNameById[id] || id; });
-      }
 
       function ownerDisplay(ownerActorIds) {
         if (!ownerActorIds || !ownerActorIds.length) return [];
@@ -396,8 +377,7 @@ Usage: {{< network-map>}}
                 station_city: (station.address && station.address.addressLocality) || '',
                 station_region: (station.address && (station.address.addressRegion || station.address.addressCountry)) || station.country_id || '',
                 station_cables: connectionIdsByPlaceId[(station.identifier || station.place_id)] || [],
-                station_operators: operatorNames(station.operator_ids || []),
-                station_description: station.description
+                                station_description: station.description
               });
             });
             return points;
@@ -679,7 +659,6 @@ Usage: {{< network-map>}}
               var html = '<div class="space-y-2">';
               html += '<p><strong>Location:</strong> ' + data.station_city + ', ' + data.station_region + '</p>';
               html += '<p><strong>Connections:</strong> ' + (data.station_cables ? data.station_cables.length : 0) + '</p>';
-              html += '<p><strong>Operators:</strong> ' + (data.station_operators ? data.station_operators.length : 0) + '</p>';
               html += '</div>';
               networkInfo.innerHTML = html;
             }

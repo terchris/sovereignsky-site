@@ -58,12 +58,6 @@
   weight = 25
 
 [[main]]
-  name = "Cables"
-  parent = "Databases"
-  pageRef = "networks/cables"
-  weight = 26
-
-[[main]]
   name = "Learn"
   weight = 30
 

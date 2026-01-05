@@ -1,11 +1,9 @@
 ---
 title: "N0r5ke Phase 2: Oslo–Trondheim terrestrial (planned)"
 description: "Phase 2 (planned): ~700 km terrestrial fiber between Oslo and Trondheim as part of a ~2,500 km dark fiber ring project (schematic)."
-generated: true
-generated_from: "data/networks/networks.json"
 connection_id: "n0r5ke-oslo-trondheim-phase2"
 echarts: true
-tags: ["terrestrial", "domestic", "terrestrial", "planned", "n0r5ke-fibre"]
+tags: ["critical-infrastructure"]
 ---
 
 ## Overview
@@ -27,18 +25,11 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 | **Status** | planned |
 | **Scope** | domestic |
 | **Type** | terrestrial |
-| **Ready for Service** | 2024 |
+| **Operational** | 2024 |
 | **Length** | 700 km |
-| **Fiber pairs** | 96 |
 
-## Operators
+## Owners & Operators
 
-- N0r5ke Fibre (NO)
-
-## Owners
-
-- N0r5ke Fibre (NO)
+{{< network-actors connection_id="n0r5ke-oslo-trondheim-phase2" >}}
 
 ## Links
-
-- https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking
