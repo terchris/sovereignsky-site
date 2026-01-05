@@ -155,9 +155,13 @@ Usage: {{< datacenter-map>}}
     <p class="text-neutral-500">Loading map...</p>
   </div>
 
-  <div id="dc-details" class="mt-6 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg" style="display: none;">
-    <h3 id="dc-name" class="text-xl font-bold mb-2"></h3>
-    <div id="dc-info"></div>
+  <div id="dc-details" class="mt-6" style="display: none;">
+    <div class="card bg-base-100 shadow-lg border border-base-300">
+      <div class="card-body">
+        <h3 id="dc-name" class="card-title text-xl"></h3>
+        <div id="dc-info"></div>
+      </div>
+    </div>
   </div>
 
   <script type="application/json" id="dc-map-data">{{ $mapPoints | jsonify | safeHTML }}</script>
@@ -708,41 +712,93 @@ Usage: {{< datacenter-map>}}
             var dcInfo = document.getElementById('dc-info');
             if (!detailsDiv || !dcName || !dcInfo) return;
 
-            dcName.innerHTML = d.provider_name + ' - ' + d.region_name;
+            dcName.innerHTML = d.provider_name + ' <span class="font-normal opacity-70">-</span> ' + d.region_name;
 
             var vendorBadgeClass = (d.vendor_country_id === 'US')
-              ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+              ? 'badge-error'
               : (d.vendor_country_id === 'CN')
-                ? 'bg-neutral-900 text-white dark:bg-black dark:text-white'
+                ? 'badge-neutral'
                 : d.vendor_risk === 'low'
-                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                  : 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+                  ? 'badge-success'
+                  : 'badge-info';
 
-            var html = '<div class="space-y-2">';
-            html += '<p><strong>Location:</strong> ' + d.city + ', ' + d.country_id + '</p>';
-            html += '<p><strong>Region ID:</strong> <code>' + d.region_id + '</code></p>';
-            html += '<p><strong>Vendor HQ:</strong> ' + d.vendor_country_id + ' ';
-            html += '<span class="inline-block px-2 py-1 rounded text-xs font-medium ' + vendorBadgeClass + '">';
-            html += (d.vendor_country_id === 'US')
+            var vendorBadgeText = (d.vendor_country_id === 'US')
               ? '⚠️ US Jurisdiction'
               : (d.vendor_country_id === 'CN')
                 ? '⚫ China Jurisdiction'
                 : d.vendor_risk === 'low'
                   ? '✅ EU/EEA'
-                  : (d.vendor_country_id === 'CH' ? '🔷 Swiss (adequate)' : '🔷 Other');
-            html += '</span></p>';
+                  : (d.vendor_country_id === 'CH' ? '🔷 Swiss' : '🔷 Other');
 
+            var html = '<div class="space-y-4">';
+
+            // Info grid with icons
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+
+            // Location
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Location</p>';
+            html += '<p class="font-semibold">' + d.city + ', ' + d.country_name + '</p></div>';
+            html += '</div>';
+
+            // Region ID
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Region ID</p>';
+            html += '<p class="font-mono text-sm">' + d.region_id + '</p></div>';
+            html += '</div>';
+
+            // Vendor HQ
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Vendor HQ</p>';
+            html += '<p class="font-semibold">' + d.vendor_country_id + ' <span class="badge ' + vendorBadgeClass + ' badge-sm ml-1">' + vendorBadgeText + '</span></p></div>';
+            html += '</div>';
+
+            // Provider
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Provider</p>';
+            html += '<p class="font-semibold">' + d.provider_name + '</p></div>';
+            html += '</div>';
+
+            html += '</div>'; // End grid
+
+            // Jurisdiction warning/info alerts
             if (d.vendor_country_id === 'US' && d.dc_risk === 'low') {
-              html += '<div class="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 rounded">';
-              html += '<p class="font-semibold text-red-700 dark:text-red-300">⚠️ Jurisdiction Exposure</p>';
-              html += '<p class="text-sm mt-1">This datacenter is physically in the EU/EEA, but the vendor (' + d.provider_name + ') is a US company.</p>';
-              html += '<p class="text-sm mt-1">US laws like the <strong>CLOUD Act</strong> can compel the vendor to hand over data regardless of where it is stored.</p>';
-              html += '<p class="text-sm mt-2"><a href="/jurisdictions/usa/" class="text-red-600 dark:text-red-400 hover:underline">Learn about US jurisdiction →</a></p>';
+              html += '<div role="alert" class="alert alert-error">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">Jurisdiction Exposure</h4>';
+              html += '<p class="text-sm">This datacenter is physically in the EU/EEA, but ' + d.provider_name + ' is a US company. US laws like the <strong>CLOUD Act</strong> can compel data handover regardless of location.</p>';
+              html += '</div>';
+              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
+              html += '</div>';
+            } else if (d.vendor_country_id === 'US') {
+              html += '<div role="alert" class="alert alert-warning">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">US Jurisdiction</h4>';
+              html += '<p class="text-sm">' + d.provider_name + ' is subject to US laws including the CLOUD Act.</p>';
+              html += '</div>';
+              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
               html += '</div>';
             } else if (d.vendor_risk === 'low') {
-              html += '<div class="mt-4 p-3 bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 rounded">';
-              html += '<p class="font-semibold text-green-700 dark:text-green-300">✅ Sovereignty-Friendly</p>';
-              html += '<p class="text-sm mt-1">This vendor is based in the EU/EEA. No extraterritorial data access laws apply.</p>';
+              html += '<div role="alert" class="alert alert-success">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">Sovereignty-Friendly</h4>';
+              html += '<p class="text-sm">This vendor is based in the EU/EEA. No extraterritorial data access laws apply.</p>';
+              html += '</div>';
+              html += '</div>';
+            } else if (d.vendor_country_id === 'CN') {
+              html += '<div role="alert" class="alert">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">PRC Jurisdiction</h4>';
+              html += '<p class="text-sm">This vendor is subject to Chinese data laws and government access requirements.</p>';
+              html += '</div>';
               html += '</div>';
             }
 
