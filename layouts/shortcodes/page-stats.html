@@ -1,0 +1,182 @@
+{{- /*
+  page-stats.html shortcode
+  Displays statistics specific to the current section/page using DaisyUI stat component
+
+  Usage:
+    {{< page-stats section="software" >}}
+    {{< page-stats section="datacenters" >}}
+    {{< page-stats section="jurisdictions" >}}
+    {{< page-stats section="laws" >}}
+    {{< page-stats section="networks" >}}
+    {{< page-stats section="events" >}}
+    {{< page-stats section="publications" >}}
+*/ -}}
+
+{{- $section := .Get "section" | default "" -}}
+
+{{- if eq $section "software" -}}
+  {{- $count := len (index .Site.Data "productsList") -}}
+  {{- $highRisk := 0 -}}
+  {{- $lowRisk := 0 -}}
+  {{- range (index .Site.Data "productsList") -}}
+    {{- if eq .riskLevel "High" -}}{{- $highRisk = add $highRisk 1 -}}{{- end -}}
+    {{- if eq .riskLevel "Low" -}}{{- $lowRisk = add $lowRisk 1 -}}{{- end -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Products Analyzed</div>
+        <div class="stat-value text-primary">{{ $count }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">High Risk</div>
+        <div class="stat-value text-error">{{ $highRisk }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Low Risk</div>
+        <div class="stat-value text-success">{{ $lowRisk }}</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "datacenters" -}}
+  {{- /* Count from datacenter data */ -}}
+  {{- $providers := .Site.Data.datacenters.providers | default slice -}}
+  {{- $providerCount := len $providers -}}
+  {{- /* Count total regions and unique countries */ -}}
+  {{- $regionCount := 0 -}}
+  {{- $countries := slice -}}
+  {{- range $providers -}}
+    {{- $regionCount = add $regionCount (len .regions) -}}
+    {{- range .regions -}}
+      {{- with .country_id -}}
+        {{- if not (in $countries .) -}}
+          {{- $countries = $countries | append . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $countryCount := len $countries -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Datacenter Regions</div>
+        <div class="stat-value text-primary">{{ $regionCount }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Providers</div>
+        <div class="stat-value text-primary">{{ $providerCount }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Countries</div>
+        <div class="stat-value text-primary">{{ $countryCount }}</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "jurisdictions" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "jurisdictions") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Countries Mapped</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">EU Members</div>
+        <div class="stat-value text-success">27</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Five Eyes</div>
+        <div class="stat-value text-warning">5</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Sanctioned</div>
+        <div class="stat-value text-error">5</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "laws" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "laws") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Laws Documented</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Extraterritorial Reach</div>
+        <div class="stat-value text-error">12</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Government Access</div>
+        <div class="stat-value text-warning">8</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "networks" -}}
+  {{- $networks := index .Site.Data "networks" "networks" -}}
+  {{- $total := len $networks -}}
+  {{- $subsea := 0 -}}
+  {{- $terrestrial := 0 -}}
+  {{- $active := 0 -}}
+  {{- range $networks -}}
+    {{- if eq .medium "subsea" -}}{{- $subsea = add $subsea 1 -}}{{- end -}}
+    {{- if eq .medium "terrestrial" -}}{{- $terrestrial = add $terrestrial 1 -}}{{- end -}}
+    {{- if eq .status "active" -}}{{- $active = add $active 1 -}}{{- end -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Total Connections</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Submarine Cables</div>
+        <div class="stat-value text-info">{{ $subsea }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Land Connections</div>
+        <div class="stat-value text-primary">{{ $terrestrial }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Active</div>
+        <div class="stat-value text-success">{{ $active }}</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "events" -}}
+  {{- $events := index .Site.Data "events" "events" -}}
+  {{- $total := len $events -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Events in 2026</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Topic Areas</div>
+        <div class="stat-value text-primary">6</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "publications" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "publications") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
+      <div class="stat">
+        <div class="stat-title">Key Publications</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+      </div>
+      <div class="stat">
+        <div class="stat-title">Audience Types</div>
+        <div class="stat-value text-primary">5</div>
+      </div>
+    </div>
+  </div>
+
+{{- end -}}

@@ -1,0 +1,86 @@
+{{- /*
+  stats.html shortcode
+  Displays a grid of statistics with large numbers
+
+  Usage:
+    {{< stats >}}
+    {{< stats style="compact" >}}
+*/ -}}
+
+{{- $style := .Get "style" | default "default" -}}
+
+{{- /* Count software products */ -}}
+{{- $softwareCount := len (index .Site.Data "productsList") -}}
+
+{{- /* Count datacenter providers (exclude _index and country pages, count actual provider folders) */ -}}
+{{- $datacenterPages := where .Site.RegularPages "Section" "datacenters" -}}
+{{- $datacenterCount := len $datacenterPages -}}
+
+{{- /* Count jurisdictions */ -}}
+{{- $jurisdictionPages := where .Site.RegularPages "Section" "jurisdictions" -}}
+{{- $jurisdictionCount := len $jurisdictionPages -}}
+
+{{- /* Count laws */ -}}
+{{- $lawPages := where .Site.RegularPages "Section" "laws" -}}
+{{- $lawCount := len $lawPages -}}
+
+{{- /* Count networks */ -}}
+{{- $networks := index .Site.Data "networks" "networks" -}}
+{{- $networkCount := len $networks -}}
+{{- $subseaCount := 0 -}}
+{{- range $networks -}}
+  {{- if eq .medium "subsea" -}}
+    {{- $subseaCount = add $subseaCount 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Count events */ -}}
+{{- $events := index .Site.Data "events" "events" -}}
+{{- $eventCount := len $events -}}
+
+{{- /* Count publications */ -}}
+{{- $publicationPages := where .Site.RegularPages "Section" "publications" -}}
+{{- $publicationCount := len $publicationPages -}}
+
+<style>.stats-grid-home { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; } @media (min-width: 768px) { .stats-grid-home { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }</style>
+<div class="not-prose stats-grid-home my-8">
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $softwareCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Software Products</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $datacenterCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Datacenter Locations</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $jurisdictionCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Jurisdictions Mapped</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $lawCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Laws Documented</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $networkCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Network Connections</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $subseaCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Submarine Cables</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $eventCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Events in 2026</div>
+  </div>
+
+  <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
+    <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $publicationCount }}</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Key Publications</div>
+  </div>
+</div>

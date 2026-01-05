@@ -1,0 +1,183 @@
+{{/*
+  Datacenter Country Chart - Shows datacenter regions by country using ECharts
+  Usage: {{< datacenter-country-chart type="bar" height="500px" >}}
+  Types: bar, treemap, pie
+*/}}
+{{ $type := .Get "type" | default "bar" }}
+{{ $height := .Get "height" | default "500px" }}
+{{ $id := printf "dc-chart-%d" now.UnixNano }}
+
+{{- /* Count regions per country */ -}}
+{{- $providers := .Site.Data.datacenters.providers | default slice -}}
+{{- $countryData := dict -}}
+{{- range $providers -}}
+  {{- range .regions -}}
+    {{- $country := .country_id -}}
+    {{- if $country -}}
+      {{- $current := index $countryData $country | default 0 -}}
+      {{- $countryData = merge $countryData (dict $country (add $current 1)) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Convert to sorted array */ -}}
+{{- $dataArray := slice -}}
+{{- range $country, $count := $countryData -}}
+  {{- $dataArray = $dataArray | append (dict "name" $country "value" $count) -}}
+{{- end -}}
+
+{{- /* Sort by value descending */ -}}
+{{- $sortedData := sort $dataArray "value" "desc" -}}
+
+{{- /* Get country names from jurisdictions */ -}}
+{{- $countryNames := dict
+  "DE" "Germany" "US" "USA" "CN" "China" "NO" "Norway" "SE" "Sweden"
+  "DK" "Denmark" "GB" "UK" "FI" "Finland" "SG" "Singapore" "FR" "France"
+  "CH" "Switzerland" "AU" "Australia" "NL" "Netherlands" "IT" "Italy"
+  "JP" "Japan" "IN" "India" "CA" "Canada" "KR" "South Korea" "ES" "Spain"
+  "ZA" "South Africa" "BR" "Brazil" "AE" "UAE" "SA" "Saudi Arabia"
+  "PL" "Poland" "ID" "Indonesia" "HK" "Hong Kong" "MX" "Mexico"
+  "IL" "Israel" "CL" "Chile" "TH" "Thailand" "QA" "Qatar" "PH" "Philippines"
+  "IE" "Ireland" "AT" "Austria" "TW" "Taiwan" "TR" "Turkey" "RS" "Serbia"
+  "MY" "Malaysia" "EG" "Egypt" "CO" "Colombia" "BH" "Bahrain" "BG" "Bulgaria"
+  "BE" "Belgium"
+-}}
+
+<div id="{{ $id }}" style="width: 100%; height: {{ $height }};"></div>
+<script>
+(function() {
+  var chartDom = document.getElementById('{{ $id }}');
+  var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+  var countryNames = {{ $countryNames | jsonify | safeJS }};
+  var rawData = {{ $sortedData | jsonify | safeJS }};
+
+  // Sort by value descending and map country codes to names
+  var data = rawData
+    .sort(function(a, b) { return b.value - a.value; })
+    .map(function(item) {
+      return {
+        name: countryNames[item.name] || item.name,
+        value: item.value,
+        code: item.name
+      };
+    });
+
+  {{ if eq $type "bar" }}
+  // Horizontal Bar Chart
+  var option = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' }
+    },
+    grid: {
+      left: '3%',
+      right: '8%',
+      bottom: '3%',
+      top: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'value',
+      name: 'Datacenter Regions'
+    },
+    yAxis: {
+      type: 'category',
+      data: data.slice(0, 20).map(d => d.name).reverse(),
+      axisLabel: { interval: 0 }
+    },
+    series: [{
+      name: 'Regions',
+      type: 'bar',
+      data: data.slice(0, 20).map(d => d.value).reverse(),
+      itemStyle: {
+        color: function(params) {
+          var colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de'];
+          return colors[params.dataIndex % colors.length];
+        }
+      },
+      label: {
+        show: true,
+        position: 'right',
+        formatter: '{c}'
+      }
+    }]
+  };
+
+  {{ else if eq $type "treemap" }}
+  // Treemap
+  var option = {
+    tooltip: {
+      formatter: function(info) {
+        return info.name + ': ' + info.value + ' regions';
+      }
+    },
+    series: [{
+      type: 'treemap',
+      data: data.map(function(d) {
+        return { name: d.name, value: d.value };
+      }),
+      label: {
+        show: true,
+        formatter: '{b}\n{c}'
+      },
+      breadcrumb: { show: false },
+      levels: [{
+        itemStyle: {
+          borderColor: '#fff',
+          borderWidth: 2,
+          gapWidth: 2
+        }
+      }]
+    }]
+  };
+
+  {{ else if eq $type "pie" }}
+  // Pie/Donut Chart (top 15 + Others)
+  var top15 = data.slice(0, 15);
+  var others = data.slice(15).reduce(function(sum, d) { return sum + d.value; }, 0);
+  if (others > 0) {
+    top15.push({ name: 'Others (' + (data.length - 15) + ' countries)', value: others });
+  }
+
+  var option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: '{b}: {c} regions ({d}%)'
+    },
+    legend: {
+      type: 'scroll',
+      orient: 'vertical',
+      right: 10,
+      top: 20,
+      bottom: 20
+    },
+    series: [{
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['40%', '50%'],
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderRadius: 4,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false
+      },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 14,
+          fontWeight: 'bold'
+        }
+      },
+      data: top15
+    }]
+  };
+  {{ end }}
+
+  myChart.setOption(option);
+  window.addEventListener('resize', function() { myChart.resize(); });
+})();
+</script>

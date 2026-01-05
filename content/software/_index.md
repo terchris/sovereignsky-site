@@ -9,6 +9,8 @@ outputs:
   - JSON
 ---
 
+{{< page-stats section="software" >}}
+
 Browse our database of software tools commonly used by Norwegian organizations. Each tool has been assessed using the Norwegian Digital Sovereignty Index (NDSI) framework, providing insights into:
 
 - **Jurisdiction risks** - Is the vendor subject to foreign data access laws?

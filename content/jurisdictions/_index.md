@@ -7,6 +7,8 @@ layout: "simple"
 
 When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
 
+{{< page-stats section="jurisdictions" >}}
+
 ## Map
 
 Search, filter, and click a country to open its full jurisdiction page.

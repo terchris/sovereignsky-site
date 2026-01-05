@@ -9,6 +9,8 @@ cascade:
 
 Browse data sovereignty laws by type, government access level, or data protection strength.
 
+{{< page-stats section="laws" >}}
+
 ## By Law Type
 
 ### Access Laws

@@ -13,7 +13,11 @@ The government, military, and civil society are sounding the alarm. GPS jamming,
 
 **But are you prepared digitally?**
 
-## You know the threat. Here’s how to act.
+## What we've mapped
+
+{{< stats >}}
+
+## You know the threat. Here's how to act.
 
 SovereignSky helps organizations understand and reduce their digital dependencies on foreign powers.
 
