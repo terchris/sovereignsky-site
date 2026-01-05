@@ -1035,6 +1035,56 @@ Usage: {{< datacenter-map>}}
 
           wireSearch();
 
+          // URL parameter handling: ?dc=provider_id:region_id
+          // Example: ?dc=aws:eu-central-1
+          function handleUrlParams() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var dcParam = urlParams.get('dc');
+            if (!dcParam) return;
+
+            var parts = dcParam.split(':');
+            if (parts.length !== 2) return;
+
+            var providerId = parts[0];
+            var regionId = parts[1];
+
+            // Find matching datacenter
+            var match = null;
+            for (var i = 0; i < dcData.length; i++) {
+              if (dcData[i].provider_id === providerId && dcData[i].region_id === regionId) {
+                match = dcData[i];
+                break;
+              }
+            }
+
+            if (!match) return;
+
+            // Ensure provider is selected
+            if (!selectedProviderIds.has(providerId)) {
+              selectedProviderIds.add(providerId);
+              var cb = document.getElementById('dc-provider-' + providerId);
+              if (cb) cb.checked = true;
+              render();
+            }
+
+            // Wait for chart to be fully ready, then zoom and show details
+            setTimeout(function () {
+              // Zoom to location
+              if (match.coordinates && match.coordinates.length === 2) {
+                var lat = match.coordinates[0];
+                var lng = match.coordinates[1];
+                myChart.setOption({ geo: { center: [lng, lat], zoom: 5 } });
+              }
+
+              // Show details after zoom completes
+              setTimeout(function () {
+                showDetails(match);
+              }, 100);
+            }, 300);
+          }
+
+          handleUrlParams();
+
           // Click handler
           myChart.on('click', function (params) {
             if (params.data && params.data.provider_name) {
