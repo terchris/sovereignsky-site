@@ -73,4 +73,4 @@ A single political decision in Washington could disrupt Norwegian hospitals, gov
 | 24–26 Aug | **Sikkerhetsfestivalen** | NIS2, information security |
 | October | **TFX26** | National total defence exercise |
 
-[Full calendar and details →](/totalforsvarsaret/)
+[Full calendar and details →](/events/)
