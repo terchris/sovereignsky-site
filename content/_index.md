@@ -74,15 +74,3 @@ A single political decision in Washington could disrupt Norwegian hospitals, gov
 | October | **TFX26** | National total defence exercise |
 
 [Full calendar and details →](/totalforsvarsaret/)
-
----
-
-## About
-
-SovereignSky is a [helpers.no](https://helpers.no) initiative.
-
-During the Ukraine refugee crisis in 2022, helpers.no coordinated volunteer efforts at Europe's largest refugee transit center. That experience taught us: **preparedness requires infrastructure before the crisis hits.**
-
-The same applies to digital infrastructure. When geopolitical events make foreign cloud services unavailable, it will be too late to build alternatives.
-
-[Read more about this initiative →](/about/)
