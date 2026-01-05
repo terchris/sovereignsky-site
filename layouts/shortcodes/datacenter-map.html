@@ -878,6 +878,7 @@ Usage: {{< datacenter-map>}}
                   }
 
                   showDetails(match);
+                  updateUrlParam(match);
                 });
               });
             }
@@ -1085,10 +1086,20 @@ Usage: {{< datacenter-map>}}
 
           handleUrlParams();
 
+          // Update URL with datacenter parameter for sharing
+          function updateUrlParam(d) {
+            if (d && d.provider_id && d.region_id) {
+              var url = new URL(window.location);
+              url.searchParams.set('dc', d.provider_id + ':' + d.region_id);
+              history.replaceState(null, '', url);
+            }
+          }
+
           // Click handler
           myChart.on('click', function (params) {
             if (params.data && params.data.provider_name) {
               showDetails(params.data);
+              updateUrlParam(params.data);
             }
           });
 
