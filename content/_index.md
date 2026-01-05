@@ -23,20 +23,6 @@ SovereignSky helps organizations understand and reduce their digital dependencie
 
 While others raise awareness about Totalforsvarsåret, we focus on practical tools — **helping the helpers** take action.
 
-<div id="databases"></div>
-
-## Explore the databases
-
-Start here: the databases are the fastest way to map your **dependencies**, **legal exposure**, and **infrastructure risk**.
-
-{{< cards >}}
-  {{< card link="/software/" title="💻 Software" subtitle="Search + filter tools by risk, jurisdiction exposure, data residency, and use area." >}}
-  {{< card link="/datacenters/" title="🗺️ Datacenters" subtitle="Interactive map of cloud/datacenter locations colored by vendor jurisdiction." >}}
-  {{< card link="/jurisdictions/" title="🏴 Jurisdictions" subtitle="Country risk map + blocs (EU/EEA/Five Eyes) + what it means for your org." >}}
-  {{< card link="/laws/" title="⚖️ Laws" subtitle="Browse the laws that drive government access and extraterritorial reach." >}}
-  {{< card link="/networks/" title="🌐 Networks" subtitle="Connectivity dependencies, incl. submarine cables (active + planned)." >}}
-{{< /cards >}}
-
 ## Quick baseline
 
 If you want a quick baseline, take the **NDSI survey**:
