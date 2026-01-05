@@ -12,9 +12,12 @@
 {{- /* Count software products */ -}}
 {{- $softwareCount := len (index .Site.Data "productsList") -}}
 
-{{- /* Count datacenter providers (exclude _index and country pages, count actual provider folders) */ -}}
-{{- $datacenterPages := where .Site.RegularPages "Section" "datacenters" -}}
-{{- $datacenterCount := len $datacenterPages -}}
+{{- /* Count datacenter regions from JSON data */ -}}
+{{- $datacenters := index .Site.Data "datacenters" -}}
+{{- $datacenterCount := 0 -}}
+{{- range $datacenters.providers -}}
+  {{- $datacenterCount = add $datacenterCount (len .regions) -}}
+{{- end -}}
 
 {{- /* Count jurisdictions */ -}}
 {{- $jurisdictionPages := where .Site.RegularPages "Section" "jurisdictions" -}}
@@ -51,7 +54,7 @@
 
   <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
     <div class="text-3xl md:text-4xl font-bold text-primary-600 dark:text-primary-400">{{ $datacenterCount }}</div>
-    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Datacenter Locations</div>
+    <div class="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Datacenter Regions</div>
   </div>
 
   <div class="text-center p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800">
