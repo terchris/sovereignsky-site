@@ -16,6 +16,26 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Data protection rules for police and criminal justice authorities."
+  - "Provides rights for individuals whose data is processed for law enforcement purposes, with appropriate safeguards."
+  - "Enables targeted government access under warrants or court orders for specific investigations."
+who_it_applies_to:
+  - "Law enforcement authorities"
+  - "Criminal justice bodies"
+  - "Processors handling law-enforcement data on behalf of authorities"
+key_provisions:
+  - title: "Core scope"
+    description: "Data protection rules for police and criminal justice authorities."
+  - title: "Key obligations"
+    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
+enforcement:
+  notes: "Enforcement is handled by national supervisory authorities and courts under member‑state law."
 related_laws:
   complements:
     - id: "gdpr"

@@ -1,0 +1,678 @@
+{
+    "@context": {
+        "@vocab": "https://schema.org/",
+        "operator_id": "identifier",
+        "operator_name": "name",
+        "website": "url",
+        "url": "url",
+        "connection_id": "identifier",
+        "connection_name": "name",
+        "place_id": "identifier",
+        "place_name": "name"
+    },
+    "@type": "Dataset",
+    "name": "SovereignSky Networks",
+    "description": "Publicly documented Norwegian telecom infrastructure (subsea cables, landing areas, and schematic backbone endpoints). Designed for future relations to regions.json and datacenters.json.",
+    "dateModified": "2026-01-04",
+    "metadata": {
+        "schema": "sovereignsky.networks",
+        "schema_version": 1,
+        "updated": "2026-01-04",
+        "description": "Publicly documented Norwegian telecom infrastructure (subsea cables, landing areas, and schematic backbone endpoints). Designed for future relations to regions.json and datacenters.json.",
+        "relation_keys": {
+            "country_id": "ISO 3166-1 alpha-2. Joins to data/regions.json on regions[].id",
+            "operator_id": "Stable operator identifier. Joins to operators[].operator_id",
+            "station_id": "Stable station identifier. Joins to stations[].station_id",
+            "datacenter_provider_id": "Optional join to data/datacenters.json on providers[].provider_id"
+        },
+        "vocab": {
+            "ownership_type": [
+                "state_owned",
+                "private",
+                "consortium",
+                "project"
+            ],
+            "business_role": [
+                "infrastructure_operator",
+                "telecom_operator",
+                "datacenter_operator",
+                "project_company"
+            ],
+            "connectivity_scope": [
+                "international",
+                "domestic"
+            ],
+            "connectivity_medium": [
+                "subsea",
+                "terrestrial",
+                "satellite"
+            ],
+            "map_category": [
+                "subsea",
+                "terrestrial",
+                "domestic"
+            ]
+        },
+        "sources": [
+            "Submarine Networks (system pages for HAVSIL, NO-UK, IOEMA, Celtic Norse, N0r5ke Viking)",
+            "Operator sites (Bulk, Space Norway, Tampnet)",
+            "Wikipedia (Svalbard Undersea Cable System)"
+        ],
+        "notes": [
+            "This dataset is schematic. Do not use it for navigation, operational, or security decisions.",
+            "Where exact routes are not public, only approximate endpoints are included."
+        ]
+    },
+    "operators": [
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "bulk",
+            "actor_id": "bulk-infrastructure",
+            "ownership_type": "private",
+            "business_role": "infrastructure_operator",
+            "connection_ids": [
+                "havfrue",
+                "havsil",
+                "inter-city-ring",
+                "leif-erikson"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "space-norway",
+            "actor_id": "space-norway",
+            "ownership_type": "state_owned",
+            "business_role": "infrastructure_operator",
+            "connection_ids": [
+                "svalbard-undersea",
+                "arctic-way",
+                "longyearbyen-ny-alesund"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "tampnet",
+            "actor_id": "tampnet",
+            "ownership_type": "private",
+            "business_role": "infrastructure_operator",
+            "connection_ids": [
+                "norfest",
+                "tampnet-offshore-north",
+                "tampnet-offshore-south"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "altibox-carrier",
+            "actor_id": "altibox-carrier",
+            "ownership_type": "private",
+            "business_role": "telecom_operator",
+            "connection_ids": [
+                "no-uk"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "greenmountain",
+            "actor_id": "greenmountain",
+            "ownership_type": "private",
+            "business_role": "datacenter_operator",
+            "connection_ids": [
+                "no-uk",
+                "norfest"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "n0r5ke-fibre",
+            "actor_id": "n0r5ke-fibre",
+            "ownership_type": "private",
+            "business_role": "infrastructure_operator",
+            "connection_ids": [
+                "n0r5ke-viking",
+                "n0r5ke-viking-crosslink"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "ioema-fibre",
+            "actor_id": "ioema-fibre",
+            "ownership_type": "project",
+            "business_role": "project_company",
+            "connection_ids": [
+                "ioema"
+            ]
+        },
+        {
+            "@type": "OrganizationRole",
+            "operator_id": "celtic-norse",
+            "actor_id": "celtic-norse",
+            "ownership_type": "project",
+            "business_role": "project_company",
+            "connection_ids": [
+                "celtic-norse"
+            ]
+        }
+    ],
+    "connections": [
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "active",
+            "rfs": "2020-11",
+            "length_km": 7650,
+            "fiber_pairs_norway_branch": 2,
+            "operator_ids": [
+                "bulk"
+            ],
+            "owner_actor_ids": [
+                "aqua-comms",
+                "bulk-infrastructure",
+                "meta",
+                "google"
+            ],
+            "description": "Transatlantic system with a Norway branch landing near Kristiansand.",
+            "url": "https://www.submarinecablemap.com/submarine-cable/havfrueaec-2",
+            "sources": [
+                {
+                    "title": "SubmarineCableMap",
+                    "url": "https://www.submarinecablemap.com/submarine-cable/havfrueaec-2"
+                },
+                {
+                    "title": "Bulk Infrastructure (systems overview)",
+                    "url": "https://bulkinfrastructure.com/fiber-networks/our-systems"
+                }
+            ],
+            "connection_id": "havfrue",
+            "connection_name": "Havfrue/AEC-2",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "blaabjerg",
+                "killala-bay",
+                "wall-township"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "active",
+            "rfs": "2021",
+            "fiber_pairs": 8,
+            "capacity_tbps": 216,
+            "operator_ids": [
+                "altibox-carrier",
+                "greenmountain"
+            ],
+            "owner_actor_ids": [
+                "no-uk-com"
+            ],
+            "description": "Open cable system connecting Stavanger (NO) and Newcastle area (UK).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk",
+            "connection_id": "no-uk",
+            "connection_name": "NO-UK Cable System",
+            "endpoint_place_ids": [
+                "stavanger",
+                "seaton-sluice"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "planned",
+            "length_km": 1400,
+            "fiber_pairs": 48,
+            "operator_ids": [
+                "ioema-fibre"
+            ],
+            "owner_actor_ids": [
+                "ioema-fibre"
+            ],
+            "description": "Planned North Sea system: trunk Dumpton Gap (UK) ↔ Kristiansand (NO) with branches to NL/DE/DK.",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/ioema",
+            "connection_id": "ioema",
+            "connection_name": "IOEMA",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "dumpton-gap",
+                "eemshaven",
+                "wilhelmshaven",
+                "blaabjerg"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "planned",
+            "length_km": 2000,
+            "operator_ids": [
+                "celtic-norse"
+            ],
+            "owner_actor_ids": [
+                "celtic-norse",
+                "vodafone-iceland",
+                "aqua-comms"
+            ],
+            "description": "Planned Norway ↔ Ireland system landing at Øysanden (south of Trondheim).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/celtic-norse",
+            "connection_id": "celtic-norse",
+            "connection_name": "Celtic Norse",
+            "endpoint_place_ids": [
+                "trondheim",
+                "killala-bay"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "planned",
+            "rfs": "2028",
+            "rfs_detail": "Q2 2028",
+            "length_km": 2350,
+            "system_supplier_actor_ids": [
+                "subcom"
+            ],
+            "cost_nok": 2800000000,
+            "operator_ids": [
+                "space-norway"
+            ],
+            "owner_actor_ids": [
+                "space-norway"
+            ],
+            "description": "Planned system connecting mainland Norway to Jan Mayen and Svalbard.",
+            "url": "https://spacenorway.com/projects/our-projects/subsea-cables/",
+            "sources": [
+                {
+                    "title": "Space Norway press release",
+                    "url": "https://spacenorway.com/press-release/space-norway-launches-arctic-way-the-worlds-northernmost-subsea-cable-system/"
+                },
+                {
+                    "title": "SubmarineCableMap",
+                    "url": "https://www.submarinecablemap.com/submarine-cable/arctic-way"
+                },
+                {
+                    "title": "Norwegian Government (reference)",
+                    "url": "https://www.regjeringen.no"
+                }
+            ],
+            "connection_id": "arctic-way",
+            "connection_name": "Arctic Way",
+            "endpoint_place_ids": [
+                "bodo",
+                "jan-mayen",
+                "hotellneset"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "status": "planned",
+            "operator_ids": [
+                "bulk"
+            ],
+            "owner_actor_ids": [
+                "bulk-infrastructure"
+            ],
+            "description": "Planned transatlantic system promoted by Bulk Infrastructure (public details still evolving).",
+            "url": "https://bulkinfrastructure.com/fiber-networks/our-systems",
+            "connection_id": "leif-erikson",
+            "connection_name": "Leif Erikson (planned)",
+            "endpoint_place_ids": [
+                "kristiansand"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "map_category": "subsea",
+            "detail_category": "nordic_regional",
+            "status": "active",
+            "length_km": 120,
+            "fiber_pairs": 96,
+            "operator_ids": [
+                "bulk"
+            ],
+            "owner_actor_ids": [
+                "bulk-infrastructure"
+            ],
+            "description": "Repeaterless subsea cable between Bulk’s N01 (Kristiansand) and DK01 (Esbjerg).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/havsil",
+            "connection_id": "havsil",
+            "connection_name": "HAVSIL",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "esbjerg"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "rfs": "2023",
+            "length_km": 749,
+            "fiber_pairs_min": 48,
+            "fiber_pairs_max": 96,
+            "installer_actor_ids": [
+                "cecon-contracting"
+            ],
+            "cable_manufacturer_actor_ids": [
+                "nexans"
+            ],
+            "operator_ids": [
+                "tampnet"
+            ],
+            "owner_actor_ids": [
+                "tampnet"
+            ],
+            "description": "Coastal festoon system with multiple landings along the Norwegian coast; provides route diversity from terrestrial backbone.",
+            "url": "https://www.tampnet.com/norfest",
+            "sources": [
+                {
+                    "title": "Tampnet (NORFEST)",
+                    "url": "https://www.tampnet.com/norfest"
+                },
+                {
+                    "title": "SubmarineCableMap",
+                    "url": "https://www.submarinecablemap.com/submarine-cable/norfest"
+                },
+                {
+                    "title": "Tampnet blog",
+                    "url": "https://www.tampnet.com/blog/rethinking-norwegian-connectivity-why-subsea-is-the-key-to-route-diversity"
+                }
+            ],
+            "connection_id": "norfest",
+            "connection_name": "NORFEST (Nordic Festoon)",
+            "endpoint_place_ids": [
+                "egersund",
+                "stavanger",
+                "kristiansand",
+                "arendal",
+                "larvik",
+                "moss",
+                "drobak",
+                "oslo"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "rfs": "2022",
+            "length_km": 810,
+            "fiber_pairs": 96,
+            "operator_ids": [
+                "n0r5ke-fibre"
+            ],
+            "owner_actor_ids": [
+                "n0r5ke-fibre"
+            ],
+            "description": "810 km subsea cable between Bergen and Trondheim; includes a crosslink between Molde and Åndalsnes.",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking",
+            "connection_id": "n0r5ke-viking",
+            "connection_name": "N0r5ke Viking",
+            "endpoint_place_ids": [
+                "bergen",
+                "molde",
+                "trondheim"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "operator_ids": [
+                "n0r5ke-fibre"
+            ],
+            "owner_actor_ids": [
+                "n0r5ke-fibre"
+            ],
+            "description": "Crosslink segment referenced for N0r5ke Viking (schematic).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking",
+            "connection_id": "n0r5ke-viking-crosslink",
+            "connection_name": "N0r5ke Viking (Molde–Åndalsnes crosslink)",
+            "endpoint_place_ids": [
+                "molde",
+                "andalsnes"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "rfs": "2004",
+            "operator_ids": [
+                "space-norway"
+            ],
+            "owner_actor_ids": [
+                "space-norway"
+            ],
+            "description": "Twin submarine communications cables connecting mainland Norway to Svalbard (schematic route).",
+            "url": "https://en.wikipedia.org/wiki/Svalbard_Undersea_Cable_System",
+            "sources": [
+                {
+                    "title": "Wikipedia overview",
+                    "url": "https://en.wikipedia.org/wiki/Svalbard_Undersea_Cable_System"
+                },
+                {
+                    "title": "Space Norway (Arctic subsea cables)",
+                    "url": "https://spacenorway.com/projects/our-projects/subsea-cables/"
+                }
+            ],
+            "connection_id": "svalbard-undersea",
+            "connection_name": "Svalbard Undersea Cable System",
+            "endpoint_place_ids": [
+                "harstad",
+                "breivika-tromso",
+                "hotellneset"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "terrestrial",
+            "scope": "domestic",
+            "medium": "terrestrial",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "operator_ids": [
+                "space-norway"
+            ],
+            "owner_actor_ids": [
+                "space-norway"
+            ],
+            "description": "Local Svalbard connectivity for research/community needs (schematic).",
+            "connection_id": "longyearbyen-ny-alesund",
+            "connection_name": "Longyearbyen–Ny-Ålesund",
+            "endpoint_place_ids": [
+                "hotellneset",
+                "ny-alesund"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "terrestrial",
+            "scope": "domestic",
+            "medium": "terrestrial",
+            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "active",
+            "operator_ids": [
+                "bulk"
+            ],
+            "owner_actor_ids": [
+                "bulk-infrastructure"
+            ],
+            "description": "Major south Norway backbone ring (schematic endpoints only; exact terrestrial routing is not public).",
+            "url": "https://bulkinfrastructure.com/fiber-networks/our-systems/inter-city-ring",
+            "connection_id": "inter-city-ring",
+            "connection_name": "Inter-City Ring",
+            "endpoint_place_ids": [
+                "oslo",
+                "kristiansand",
+                "stavanger",
+                "bergen"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "offshore_energy",
+            "status": "active",
+            "operator_ids": [
+                "tampnet"
+            ],
+            "owner_actor_ids": [
+                "tampnet"
+            ],
+            "description": "Offshore communications network (schematic; detailed routes are not public).",
+            "url": "https://www.tampnet.com",
+            "connection_id": "tampnet-offshore-north",
+            "connection_name": "Tampnet Offshore Network (North)",
+            "endpoint_place_ids": [
+                "stavanger"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
+            "map_category": "domestic",
+            "detail_category": "offshore_energy",
+            "status": "active",
+            "operator_ids": [
+                "tampnet"
+            ],
+            "owner_actor_ids": [
+                "tampnet"
+            ],
+            "description": "Offshore communications network (schematic; detailed routes are not public).",
+            "url": "https://www.tampnet.com",
+            "connection_id": "tampnet-offshore-south",
+            "connection_name": "Tampnet Offshore Network (South)",
+            "endpoint_place_ids": [
+                "stavanger"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "scope": "international",
+            "medium": "terrestrial",
+            "map_category": "terrestrial",
+            "status": "active",
+            "operator_ids": [],
+            "owner_actor_ids": [],
+            "description": "Schematic representation of Norway–Sweden terrestrial cross-border fiber connectivity via major road/rail corridors. Exact routes/capacities are typically not public.",
+            "connection_id": "no-se-oslo-stockholm",
+            "connection_name": "Terrestrial fiber corridor (Oslo–Stockholm)",
+            "type": "terrestrial_fiber",
+            "endpoint_place_ids": [
+                "oslo",
+                "stockholm"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "scope": "international",
+            "medium": "terrestrial",
+            "map_category": "terrestrial",
+            "status": "active",
+            "operator_ids": [],
+            "owner_actor_ids": [],
+            "description": "Schematic representation of Norway–Sweden terrestrial cross-border fiber connectivity (Oslo–Gothenburg corridor).",
+            "connection_id": "no-se-oslo-gothenburg",
+            "connection_name": "Terrestrial fiber corridor (Oslo–Gothenburg)",
+            "type": "terrestrial_fiber",
+            "endpoint_place_ids": [
+                "oslo",
+                "gothenburg"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "scope": "international",
+            "medium": "terrestrial",
+            "map_category": "terrestrial",
+            "status": "active",
+            "operator_ids": [],
+            "owner_actor_ids": [],
+            "description": "Schematic representation of North Norway cross-border terrestrial connectivity via Sweden. Exact routes/capacities are typically not public.",
+            "connection_id": "no-se-bodo-lulea",
+            "connection_name": "Terrestrial fiber corridor (Bodø–Luleå)",
+            "type": "terrestrial_fiber",
+            "endpoint_place_ids": [
+                "bodo",
+                "lulea"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "scope": "international",
+            "medium": "terrestrial",
+            "map_category": "terrestrial",
+            "status": "active",
+            "operator_ids": [],
+            "owner_actor_ids": [],
+            "description": "Schematic representation of North Norway cross-border terrestrial connectivity via Finland/Sweden corridors. Exact routes/capacities are typically not public.",
+            "connection_id": "no-fi-bodo-oulu",
+            "connection_name": "Terrestrial fiber corridor (Bodø–Oulu)",
+            "type": "terrestrial_fiber",
+            "endpoint_place_ids": [
+                "bodo",
+                "oulu"
+            ]
+        },
+        {
+            "@type": "Service",
+            "scope": "international",
+            "medium": "satellite",
+            "map_category": "terrestrial",
+            "status": "active",
+            "operator_ids": [],
+            "owner_actor_ids": [],
+            "description": "Satellite communications provide resilience/backup connectivity, especially for remote areas. This entry is non-geometric (not drawn as a line).",
+            "connection_id": "norway-satellite-backup",
+            "connection_name": "Satellite backup connectivity (Norway)",
+            "type": "satellite",
+            "endpoint_place_ids": []
+        }
+    ]
+}

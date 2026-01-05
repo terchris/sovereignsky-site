@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "networks.schema.json",
+  "title": "Networks Dataset",
+  "description": "Schema for data/networks/networks.json (Norwegian telecom infrastructure: operators, stations, cables, and links).",
+  "type": "object",
+  "required": ["@type", "name", "metadata", "operators", "connections"],
+  "properties": {
+    "@context": { "type": ["object", "string"] },
+    "@type": { "const": "Dataset" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "dateModified": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "required": ["schema", "schema_version"],
+      "properties": {
+        "schema": { "type": "string" },
+        "schema_version": { "type": "integer" },
+        "updated": { "type": "string" },
+        "relation_keys": { "type": "object" },
+        "vocab": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "operators": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/operator" }
+    },
+    "connections": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/connection" }
+    }
+  },
+  "$defs": {
+    "operator": {
+      "type": "object",
+      "required": ["operator_id", "actor_id"],
+      "properties": {
+        "@type": { "type": "string" },
+        "operator_id": { "type": "string" },
+        "actor_id": { "type": "string" },
+        "ownership_type": { "type": "string" },
+        "business_role": { "type": "string" },
+        "cable_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "connection": {
+      "type": "object",
+      "required": ["connection_id", "connection_name", "scope", "medium", "map_category"],
+      "properties": {
+        "@type": { "type": "string" },
+        "connection_id": { "type": "string" },
+        "connection_name": { "type": "string" },
+        "type": { "type": "string" },
+        "scope": { "type": "string" },
+        "medium": { "type": "string" },
+        "map_category": { "type": "string" },
+        "status": { "type": "string" },
+        "rfs": { "type": "string" },
+        "length_km": { "type": "number" },
+        "operator_ids": { "type": "array", "items": { "type": "string" } },
+        "owner_actor_ids": { "type": "array", "items": { "type": "string" } },
+        "endpoint_place_ids": { "type": "array", "items": { "type": "string" } },
+        "route": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "number" },
+            "minItems": 2,
+            "maxItems": 2
+          }
+        },
+        "description": { "type": "string" },
+        "url": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  }
+}
+
+

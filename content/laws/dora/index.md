@@ -16,6 +16,25 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Digital resilience requirements for financial entities including banks, insurers, and crypto providers."
+  - "Mandates ICT risk management, incident reporting, and oversight of third-party ICT service providers."
+who_it_applies_to:
+  - "Financial entities (banks, insurers, investment firms, etc.)"
+  - "ICT service providers to financial sector"
+  - "Critical third‑party providers (as designated)"
+key_provisions:
+  - title: "Core scope"
+    description: "Digital resilience requirements for financial entities including banks, insurers, and crypto providers."
+  - title: "Key obligations"
+    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
+enforcement:
+  notes: "Supervised by financial regulators and competent authorities; sanctions and supervisory measures are sector‑specific."
 related_laws:
   complements:
     - id: "nis2"

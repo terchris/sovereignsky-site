@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://sovereignsky.no/schemas/jurisdictions.schema.json",
+  "$id": "https://totalforsvarsaret.no/schemas/jurisdictions.schema.json",
   "title": "SovereignSky Jurisdictions",
   "description": "Schema for jurisdictions.json - blocs (EU, EEA, Five Eyes, etc.) and risk level definitions",
   "type": "object",

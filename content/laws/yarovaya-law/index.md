@@ -16,6 +16,25 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: true
+review_status: "ai-generated"
+what_it_does:
+  - "Mandatory data retention for 6 months, decryption assistance requirements for authorities."
+  - "May compel technical assistance such as decryption support or access enablement under legal process."
+who_it_applies_to:
+  - "Telecom operators and internet services in Russia"
+  - "Messaging providers subject to retention/assistance duties"
+  - "Operators handling communications metadata/content (as required)"
+key_provisions:
+  - title: "Core scope"
+    description: "Mandatory data retention for 6 months, decryption assistance requirements for authorities."
+  - title: "Key obligations"
+    description: "Establishes surveillance or interception capabilities and related retention/assistance requirements."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
+enforcement:
+  notes: "Enforced by Russian authorities; providers may face retention and decryption/assistance obligations."
 related_laws:
   complements:
     - id: "sorm"

@@ -16,6 +16,25 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Framework for data intermediaries and data altruism organizations."
+  - "Facilitates data sharing while maintaining trust through registration and oversight requirements."
+who_it_applies_to:
+  - "Data intermediaries"
+  - "Public-sector bodies sharing protected data"
+  - "Data altruism organizations"
+key_provisions:
+  - title: "Core scope"
+    description: "Framework for data intermediaries and data altruism organizations."
+  - title: "Key obligations"
+    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
+enforcement:
+  notes: "Supervised by member‑state authorities (varies by role: intermediaries, altruism, public‑sector data sharing)."
 related_laws:
   complements:
     - id: "data-act"

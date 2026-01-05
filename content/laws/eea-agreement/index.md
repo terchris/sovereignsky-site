@@ -16,6 +16,25 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Extends EU internal market to EFTA states (except Switzerland)."
+  - "Includes adoption of EU data protection laws."
+who_it_applies_to:
+  - "Organizations and service providers in scope"
+  - "Public authorities (where applicable)"
+  - "Individuals whose data/communications are affected"
+key_provisions:
+  - title: "Core scope"
+    description: "Extends EU internal market to EFTA states (except Switzerland)."
+  - title: "Key obligations"
+    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
+enforcement:
+  notes: "Enforcement varies by jurisdiction and implementation; see the official text for details."
 related_laws:
   extends:
     - id: "gdpr"

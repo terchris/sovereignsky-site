@@ -16,6 +16,25 @@ data_protection_description: "Limited rights or broad government/national securi
 extraterritorial: false
 requires_localization: true
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Personal data of Russian citizens must be stored on servers physically located in Russia."
+  - "May require certain categories of data to be stored or processed within the jurisdiction."
+who_it_applies_to:
+  - "Organizations collecting Russian citizens’ personal data"
+  - "Online services targeting Russian users"
+  - "Service providers storing/processing Russian personal data"
+key_provisions:
+  - title: "Core scope"
+    description: "Personal data of Russian citizens must be stored on servers physically located in Russia."
+  - title: "Key obligations"
+    description: "Creates residency/local storage requirements for certain data categories and may restrict cross‑border transfers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Implement data residency controls and verify vendor/subprocessor locations."
+enforcement:
+  notes: "Enforced by Russian regulators; noncompliance can lead to blocking or administrative measures."
 related_laws:
   complements:
     - id: "yarovaya-law"

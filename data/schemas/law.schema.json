@@ -25,17 +25,28 @@
       "type": "string",
       "description": "Unique identifier for the law (URL-safe slug)",
       "pattern": "^[a-z0-9-]+$",
-      "examples": ["gdpr", "cloud-act", "fisa-702"]
+      "examples": [
+        "gdpr",
+        "cloud-act",
+        "fisa-702"
+      ]
     },
     "name": {
       "type": "string",
       "description": "Short display name of the law",
-      "examples": ["GDPR", "CLOUD Act", "FISA Section 702"]
+      "examples": [
+        "GDPR",
+        "CLOUD Act",
+        "FISA Section 702"
+      ]
     },
     "full_name": {
       "type": "string",
       "description": "Full official name of the law",
-      "examples": ["General Data Protection Regulation", "Clarifying Lawful Overseas Use of Data Act"]
+      "examples": [
+        "General Data Protection Regulation",
+        "Clarifying Lawful Overseas Use of Data Act"
+      ]
     },
     "year": {
       "type": "integer",
@@ -55,7 +66,11 @@
     "scope": {
       "type": "string",
       "description": "Geographic scope of the law",
-      "enum": ["national", "bloc", "state"],
+      "enum": [
+        "national",
+        "bloc",
+        "state"
+      ],
       "enumDescriptions": {
         "national": "Applies to a single country",
         "bloc": "Applies to a group of countries (e.g., EU, EEA)",
@@ -69,12 +84,31 @@
         "type": "string"
       },
       "minItems": 1,
-      "examples": [["US"], ["eu"], ["NO", "SE", "DK"]]
+      "examples": [
+        [
+          "US"
+        ],
+        [
+          "eu"
+        ],
+        [
+          "NO",
+          "SE",
+          "DK"
+        ]
+      ]
     },
     "type": {
       "type": "string",
       "description": "Primary purpose or category of the law",
-      "enum": ["privacy", "access", "surveillance", "localization", "security", "sector"],
+      "enum": [
+        "privacy",
+        "access",
+        "surveillance",
+        "localization",
+        "security",
+        "sector"
+      ],
       "enumDescriptions": {
         "privacy": "Protects individual data rights and privacy",
         "access": "Enables government or law enforcement data access",
@@ -87,7 +121,12 @@
     "government_access": {
       "type": "string",
       "description": "Level of government access to data enabled by the law",
-      "enum": ["broad", "targeted", "limited", "none"],
+      "enum": [
+        "broad",
+        "targeted",
+        "limited",
+        "none"
+      ],
       "enumDescriptions": {
         "broad": "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion",
         "targeted": "Access with warrants or court orders for specific investigations",
@@ -98,7 +137,12 @@
     "data_protection": {
       "type": "string",
       "description": "Level of individual data protection provided",
-      "enum": ["strong", "moderate", "weak", "none"],
+      "enum": [
+        "strong",
+        "moderate",
+        "weak",
+        "none"
+      ],
       "enumDescriptions": {
         "strong": "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA",
         "moderate": "Some protections but with significant exceptions or weaker enforcement",
@@ -127,14 +171,23 @@
       "items": {
         "type": "string"
       },
-      "examples": [["five-eyes", "eu-adequacy", "schrems-ii"]]
+      "examples": [
+        [
+          "five-eyes",
+          "eu-adequacy",
+          "schrems-ii"
+        ]
+      ]
     },
     "related_laws": {
       "type": "array",
       "description": "Semantic relationships to other laws. Relationships are made bidirectional by the generate script.",
       "items": {
         "type": "object",
-        "required": ["id", "type"],
+        "required": [
+          "id",
+          "type"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -144,7 +197,15 @@
           "type": {
             "type": "string",
             "description": "Type of relationship",
-            "enum": ["implements", "interprets", "conflicts_with", "complements", "succeeds", "extended_by", "amends"],
+            "enum": [
+              "implements",
+              "interprets",
+              "conflicts_with",
+              "complements",
+              "succeeds",
+              "extended_by",
+              "amends"
+            ],
             "enumDescriptions": {
               "implements": "National law implementing EU/bloc law (inverse: implemented_by)",
               "interprets": "Court ruling interpreting a law (inverse: interpreted_by)",
@@ -160,10 +221,106 @@
       },
       "examples": [
         [
-          { "id": "gdpr", "type": "conflicts_with" },
-          { "id": "fisa-702", "type": "complements" }
+          {
+            "id": "gdpr",
+            "type": "conflicts_with"
+          },
+          {
+            "id": "fisa-702",
+            "type": "complements"
+          }
         ]
       ]
+    },
+    "review_status": {
+      "type": "string",
+      "description": "Editorial status for optional enrichment fields. Only 'verified' content should be shown as factual in the UI.",
+      "enum": [
+        "ai-generated",
+        "verified"
+      ],
+      "default": "ai-generated"
+    },
+    "what_it_does": {
+      "type": "array",
+      "description": "Plain-language bullets describing the practical effect of the law.",
+      "items": {
+        "type": "string"
+      },
+      "examples": [
+        [
+          "Defines lawful bases for processing personal data",
+          "Grants data subject rights (access, erasure, portability)",
+          "Restricts cross-border transfers without safeguards"
+        ]
+      ]
+    },
+    "who_it_applies_to": {
+      "type": "array",
+      "description": "High-level list of actors typically impacted by the law (plain language).",
+      "items": {
+        "type": "string"
+      },
+      "examples": [
+        [
+          "Cloud providers",
+          "Telecom operators",
+          "Data controllers",
+          "Data processors"
+        ]
+      ]
+    },
+    "key_provisions": {
+      "type": "array",
+      "description": "Optional structured list of key provisions (title + explanation).",
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "description"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "compliance_actions": {
+      "type": "array",
+      "description": "Practical steps a typical organization should consider to comply.",
+      "items": {
+        "type": "string"
+      },
+      "examples": [
+        [
+          "Map data flows",
+          "Update vendor contracts / DPAs",
+          "Implement breach notification process"
+        ]
+      ]
+    },
+    "enforcement": {
+      "type": "object",
+      "description": "Optional enforcement details (plain-language).",
+      "properties": {
+        "authority": {
+          "type": "string",
+          "description": "Primary enforcing authority or regulator."
+        },
+        "max_fine": {
+          "type": "string",
+          "description": "Human-readable max fine (keep as string to avoid currency/percent modeling)."
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

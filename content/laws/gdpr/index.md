@@ -16,6 +16,27 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Comprehensive data protection law giving individuals control over their personal data."
+  - "Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability."
+  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
+who_it_applies_to:
+  - "Data controllers"
+  - "Data processors"
+  - "Organizations processing EU personal data (including outside the EU)"
+key_provisions:
+  - title: "Core scope"
+    description: "Comprehensive data protection law giving individuals control over their personal data."
+  - title: "Key obligations"
+    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
+enforcement:
+  authority: "Independent Data Protection Authorities (DPAs) in each member state"
+  notes: "Enforcement and interpretations vary by authority; major cases often set de facto market standards."
 related_laws:
   complements:
     - id: "eprivacy"

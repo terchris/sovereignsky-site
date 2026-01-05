@@ -16,6 +16,25 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Regulates electronic communications networks and services, including data retention and lawful interception requirements."
+  - "Enables targeted government access under warrants or court orders for specific investigations."
+who_it_applies_to:
+  - "Telecom/electronic communications providers"
+  - "Network operators"
+  - "Entities subject to lawful interception/retention duties (as applicable)"
+key_provisions:
+  - title: "Core scope"
+    description: "Regulates electronic communications networks and services, including data retention and lawful interception requirements."
+  - title: "Key obligations"
+    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
+enforcement:
+  notes: "Enforced by Norwegian regulators under telecom rules; obligations depend on implementing regulations and orders."
 related_laws:
   complements:
     - id: "personopplysningsloven"

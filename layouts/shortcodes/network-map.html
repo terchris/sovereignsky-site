@@ -6,37 +6,26 @@ Usage: {{< network-map>}}
   Shows submarine cables, landing stations, and infrastructure
   */}}
 
-  {{ $networks := site.Data.networks }}
+  {{ $networksRoot := site.Data.networks | default dict }}
+  {{ $networks := (index $networksRoot "networks") | default dict }}
   {{ $showFilters := .Get "showFilters" | default "true" }}
   {{ $showFiltersBool := ne $showFilters "false" }}
   {{ $focusNorway := .Get "focusNorway" | default "true" }}
   {{ $focusNorwayBool := ne $focusNorway "false" }}
   {{ $showSimulation := .Get "showSimulation" | default "false" }}
   {{ $showSimulationBool := ne $showSimulation "false" }}
-  {{ $trawler := (index site.Data "networks-trawler") | default dict }}
+  {{ $trawler := (index $networksRoot "networks-trawler") | default dict }}
   {{ $trawlerRoutes := (index $trawler "routes") | default (slice) }}
 
-  {{/* New schema: networks.stations, networks.cables, networks.operators */}}
-  {{ $stations := $networks.stations | default (slice) }}
-  {{ $cables := $networks.cables | default (slice) }}
-  {{ $links := $networks.links | default (slice) }}
+  {{/* New schema: networks.connections (places are in data/networks/networks-places.json) */}}
+  {{ $placesData := (index $networksRoot "networks-places") | default dict }}
+  {{ $places := (index $placesData "places") | default (slice) }}
+  {{ $connections := $networks.connections | default (slice) }}
   {{ $operators := $networks.operators | default (slice) }}
-  {{ $roles := (index site.Data "network-roles") | default dict }}
-  {{ $actors := (index $roles "actors") | default (slice) }}
+  {{ $actorsData := (index $networksRoot "networks-actors") | default dict }}
+  {{ $actors := (index $actorsData "actors") | default (slice) }}
 
-  {{/* Normalize links -> cable-like objects for the map renderer */}}
-  {{ $connections := slice }}
-  {{ range $cables }}
-  {{ $connections = $connections | append . }}
-  {{ end }}
-  {{ range $links }}
-  {{ $connections = $connections | append (merge . (dict
-  "cable_id" .link_id
-  "cable_name" .link_name
-  "type" (.mode | default .type)
-  "is_link" true
-  )) }}
-  {{ end }}
+  {{/* connections[] is already normalized in data/networks/networks.json */}}
 
   {{ if $showFiltersBool }}
   <div id="network-filter-panel" class="mt-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
@@ -107,8 +96,8 @@ Usage: {{< network-map>}}
     <div id="network-info"></div>
   </div>
 
-  <script type="application/json" id="network-map-stations">{{ $stations | jsonify | safeHTML }}</script>
-  <script type="application/json" id="network-map-cables">{{ $connections | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-places">{{ $places | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-connections">{{ $connections | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-operators">{{ $operators | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-actors">{{ $actors | jsonify | safeHTML }}</script>
   <script type="application/json" id="network-map-focus-norway">{{ $focusNorwayBool | jsonify | safeHTML }}</script>
@@ -134,25 +123,36 @@ Usage: {{< network-map>}}
         }
       }
 
-      var stations = readJsonScript('network-map-stations', []);
-      var cables = readJsonScript('network-map-cables', []);
+      var places = readJsonScript('network-map-places', []);
+      var cables = readJsonScript('network-map-connections', []);
       var operators = readJsonScript('network-map-operators', []);
       var actors = readJsonScript('network-map-actors', []);
       var focusNorway = readJsonScript('network-map-focus-norway', true);
       var showSimulation = readJsonScript('network-map-show-simulation', false);
       var trawlerRoutes = readJsonScript('network-map-trawler-routes', []);
 
-      // Operator lookup for nicer display in station details
-      var operatorNameById = {};
-      (operators || []).forEach(function (op) {
-        if (!op || !op.operator_id) return;
-        operatorNameById[op.operator_id] = op.operator_name || op.operator_id;
+      // Compute connection_ids per place based on endpoint_place_ids
+      var connectionIdsByPlaceId = {};
+      (cables || []).forEach(function (c) {
+        var endpoints = c.endpoint_place_ids || c.endpoint_station_ids || [];
+        if (!Array.isArray(endpoints)) return;
+        endpoints.forEach(function (pid) {
+          if (!pid) return;
+          if (!connectionIdsByPlaceId[pid]) connectionIdsByPlaceId[pid] = [];
+          connectionIdsByPlaceId[pid].push(c.connection_id || c.cable_id || pid);
+        });
       });
 
-      function operatorNames(ids) {
-        if (!ids || !ids.length) return [];
-        return ids.map(function (id) { return operatorNameById[id] || id; });
-      }
+      // Place geo lookup (for generating fallback routes)
+      var geoByPlaceId = {};
+      (places || []).forEach(function (p) {
+        if (!p) return;
+        var id = p.identifier || p.place_id;
+        if (!id) return;
+        var g = p.geo || null;
+        if (!g || typeof g.latitude !== 'number' || typeof g.longitude !== 'number') return;
+        geoByPlaceId[id] = { lat: g.latitude, lng: g.longitude };
+      });
 
       // Actor lookup for owner display (jurisdiction-aware)
       var actorById = {};
@@ -160,6 +160,19 @@ Usage: {{< network-map>}}
         if (!a || !a.actor_id) return;
         actorById[a.actor_id] = a;
       });
+
+      // Operator lookup for nicer display in station details (prefer actor registry)
+      var operatorNameById = {};
+      (operators || []).forEach(function (op) {
+        if (!op || !op.operator_id) return;
+        var viaActor = (op.actor_id && actorById[op.actor_id]) ? actorById[op.actor_id].actor_name : null;
+        operatorNameById[op.operator_id] = op.operator_name || viaActor || op.operator_id;
+      });
+
+      function operatorNames(ids) {
+        if (!ids || !ids.length) return [];
+        return ids.map(function (id) { return operatorNameById[id] || id; });
+      }
 
       function ownerDisplay(ownerActorIds) {
         if (!ownerActorIds || !ownerActorIds.length) return [];
@@ -205,26 +218,106 @@ Usage: {{< network-map>}}
 
           var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
 
+          function stableHash01(str) {
+            // Deterministic hash -> [0,1)
+            var s = String(str || '');
+            var h = 2166136261;
+            for (var i = 0; i < s.length; i++) {
+              h ^= s.charCodeAt(i);
+              h = (h * 16777619) >>> 0;
+            }
+            return (h % 1000000) / 1000000;
+          }
+
+          function generatePrettyRouteLngLat(a, b, id, categoryKey) {
+            // Quadratic bezier with a perpendicular control point offset.
+            // NOTE: This is for visual niceness only (not geographically accurate / offshore-safe).
+            var ax = a.lng, ay = a.lat;
+            var bx = b.lng, by = b.lat;
+            var mx = (ax + bx) / 2;
+            var my = (ay + by) / 2;
+            var dx = bx - ax;
+            var dy = by - ay;
+            var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            var nx = -dy / dist;
+            var ny = dx / dist;
+
+            var t = stableHash01(id);
+            var sign = (t < 0.5) ? -1 : 1;
+            // Curvature tuned by category (subsea tends to look better with more curve)
+            var base = (categoryKey === 'subsea') ? 0.18 : (categoryKey === 'terrestrial' ? 0.10 : 0.08);
+            var mag = dist * (base + (t * 0.08)); // degrees-ish; purely aesthetic
+            // Cap to avoid wild arcs on long spans
+            mag = Math.min(mag, 8);
+
+            var cx = mx + nx * mag * sign;
+            var cy = my + ny * mag * sign;
+
+            // Segment count based on distance (keeps smoothness consistent)
+            var n = Math.max(8, Math.min(28, Math.round(dist * 2)));
+            var pts = [];
+            for (var i = 0; i <= n; i++) {
+              var u = i / n;
+              var uu = 1 - u;
+              var x = uu * uu * ax + 2 * uu * u * cx + u * u * bx;
+              var y = uu * uu * ay + 2 * uu * u * cy + u * u * by;
+              pts.push([x, y]); // [lng, lat]
+            }
+            return pts;
+          }
+
           function buildCableLines() {
             var lines = [];
             cables.forEach(function (cable) {
               var categoryKey = cable.map_category || (cable.scope === 'international' ? (cable.medium || 'subsea') : 'domestic');
               if (!selectedCategories.has(categoryKey)) return;
               if (!selectedStatuses.has(cable.status || 'active')) return;
-              if (!cable.route || cable.route.length < 2) return;
 
               var color = categoryColors[categoryKey] || '#666';
-              var lineType = (cable.status === 'planned') ? 'dashed' : 'solid';
+              var isPlanned = (cable.status === 'planned');
+              // Make planned connections clearly distinct on the map
+              var lineType = isPlanned ? 'dotted' : 'solid';
+              var lineWidth = isPlanned ? 4 : 3;
+              var lineOpacity = isPlanned ? 0.95 : 0.8;
 
-              // Build line segments from route
-              for (var i = 0; i < cable.route.length - 1; i++) {
+              // Prefer explicit schematic route if present; otherwise generate nice-looking curves from endpoints.
+              var routeLngLat = null;
+              if (Array.isArray(cable.route) && cable.route.length >= 2) {
+                routeLngLat = cable.route.map(function (p) { return [p[1], p[0]]; }); // [lng, lat]
+              } else {
+                var endpoints = cable.endpoint_place_ids || [];
+                if (Array.isArray(endpoints) && endpoints.length >= 2) {
+                  // Draw multi-endpoint systems (A→B→C) as multiple curved segments so islands like Jan Mayen still show.
+                  routeLngLat = [];
+                  for (var ei = 0; ei < endpoints.length - 1; ei++) {
+                    var a = geoByPlaceId[endpoints[ei]];
+                    var b = geoByPlaceId[endpoints[ei + 1]];
+                    if (!a || !b) continue;
+                    var seg = generatePrettyRouteLngLat(
+                      a,
+                      b,
+                      (cable.connection_id || cable.connection_name || '') + ':' + endpoints[ei] + '>' + endpoints[ei + 1],
+                      categoryKey
+                    );
+                    if (seg && seg.length >= 2) {
+                      if (routeLngLat.length) seg = seg.slice(1); // avoid duplicate join point
+                      routeLngLat = routeLngLat.concat(seg);
+                    }
+                  }
+                  if (!routeLngLat.length) routeLngLat = null;
+                }
+              }
+              if (!routeLngLat || routeLngLat.length < 2) return;
+
+              // Build line segments from computed/polyline route
+              for (var i = 0; i < routeLngLat.length - 1; i++) {
                 lines.push({
                   coords: [
-                    [cable.route[i][1], cable.route[i][0]], // [lng, lat]
-                    [cable.route[i + 1][1], cable.route[i + 1][0]]
+                    routeLngLat[i],
+                    routeLngLat[i + 1]
                   ],
-                  cable_id: cable.cable_id,
-                  cable_name: cable.cable_name,
+                  cable_id: cable.connection_id,
+                  cable_name: cable.connection_name,
                   cable_status: cable.status,
                   cable_category: categoryKey,
                   cable_type: cable.type,
@@ -237,9 +330,9 @@ Usage: {{< network-map>}}
                   cable_url: cable.url || null,
                   lineStyle: {
                     color: color,
-                    width: 3,
+                    width: lineWidth,
                     type: lineType,
-                    opacity: 0.8
+                    opacity: lineOpacity
                   }
                 });
               }
@@ -249,15 +342,19 @@ Usage: {{< network-map>}}
 
           function buildStationPoints() {
             var points = [];
-            stations.forEach(function (station) {
-              if (!station.coordinates || station.coordinates.length !== 2) return;
+            places.forEach(function (station) {
+              var geo = station.geo || null;
+              if (!geo || typeof geo.latitude !== 'number' || typeof geo.longitude !== 'number') return;
+              // Only show the main place types on the map (avoid clutter)
+              var pt = station.place_type || station.station_type || '';
+              if (pt && ['landing_station', 'backbone_endpoint', 'international_hub', 'border_crossing_area'].indexOf(pt) === -1) return;
               points.push({
-                name: station.station_name,
-                value: [station.coordinates[1], station.coordinates[0], 10], // [lng, lat, value]
-                station_id: station.station_id,
-                station_city: station.city || '',
-                station_region: station.admin1_name || station.country_id || '',
-                station_cables: station.cable_ids || [],
+                name: station.name || station.place_name || station.identifier,
+                value: [geo.longitude, geo.latitude, 10], // [lng, lat, value]
+                station_id: station.identifier || station.place_id,
+                station_city: (station.address && station.address.addressLocality) || '',
+                station_region: (station.address && (station.address.addressRegion || station.address.addressCountry)) || station.country_id || '',
+                station_cables: connectionIdsByPlaceId[(station.identifier || station.place_id)] || [],
                 station_operators: operatorNames(station.operator_ids || []),
                 station_description: station.description
               });

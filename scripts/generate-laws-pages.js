@@ -186,6 +186,36 @@ function groupRelationshipsByType(relationships) {
   return grouped;
 }
 
+function yamlEscapeString(s) {
+  return String(s ?? '').replace(/"/g, '\\"');
+}
+
+function yamlString(s) {
+  return `"${yamlEscapeString(s)}"`;
+}
+
+function yamlStringList(key, arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return [];
+  const out = [`${key}:`];
+  arr.forEach(item => {
+    if (item === null || item === undefined) return;
+    out.push(`  - ${yamlString(item)}`);
+  });
+  return out.length > 1 ? out : [];
+}
+
+function yamlKeyProvisionsList(key, arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return [];
+  const out = [`${key}:`];
+  arr.forEach(p => {
+    if (!p || typeof p !== 'object') return;
+    if (!p.title || !p.description) return;
+    out.push(`  - title: ${yamlString(p.title)}`);
+    out.push(`    description: ${yamlString(p.description)}`);
+  });
+  return out.length > 1 ? out : [];
+}
+
 // Build frontmatter from law data, using definitions for human-readable descriptions
 function buildFrontmatter(law, definitions, relationships) {
   // Get human-readable descriptions from definitions
@@ -196,7 +226,7 @@ function buildFrontmatter(law, definitions, relationships) {
   const lines = [
     `title: "${law.name}"`,
     `law_id: "${law.id}"`,
-    `full_name: "${law.full_name.replace(/"/g, '\\"')}"`,
+    `full_name: "${yamlEscapeString(law.full_name)}"`,
     `year: ${law.year}`,
     `scope: "${law.scope}"`,
     `applies_to:`,
@@ -204,15 +234,37 @@ function buildFrontmatter(law, definitions, relationships) {
     `source_url: "${law.url}"`,
     // Multi-dimensional classification fields with descriptions
     `law_type: "${law.type}"`,
-    `law_type_description: "${typeDesc.replace(/"/g, '\\"')}"`,
+    `law_type_description: "${yamlEscapeString(typeDesc)}"`,
     `government_access: "${law.government_access}"`,
-    `government_access_description: "${govAccessDesc.replace(/"/g, '\\"')}"`,
+    `government_access_description: "${yamlEscapeString(govAccessDesc)}"`,
     `data_protection: "${law.data_protection}"`,
-    `data_protection_description: "${dataProtDesc.replace(/"/g, '\\"')}"`,
+    `data_protection_description: "${yamlEscapeString(dataProtDesc)}"`,
     `extraterritorial: ${law.extraterritorial}`,
     `requires_localization: ${law.requires_localization}`,
     `requires_backdoor: ${law.requires_backdoor}`
   ];
+
+  // Optional enrichment fields (kept in laws.json, copied into frontmatter for templates)
+  const reviewStatus = law.review_status || 'ai-generated';
+  lines.push(`review_status: "${reviewStatus}"`);
+
+  lines.push(...yamlStringList('tags', law.tags));
+  lines.push(...yamlStringList('what_it_does', law.what_it_does));
+  lines.push(...yamlStringList('who_it_applies_to', law.who_it_applies_to));
+  lines.push(...yamlKeyProvisionsList('key_provisions', law.key_provisions));
+  lines.push(...yamlStringList('compliance_actions', law.compliance_actions));
+
+  if (law.enforcement && typeof law.enforcement === 'object') {
+    const hasAuthority = !!law.enforcement.authority;
+    const hasMaxFine = !!law.enforcement.max_fine;
+    const hasNotes = !!law.enforcement.notes;
+    if (hasAuthority || hasMaxFine || hasNotes) {
+      lines.push('enforcement:');
+      if (hasAuthority) lines.push(`  authority: ${yamlString(law.enforcement.authority)}`);
+      if (hasMaxFine) lines.push(`  max_fine: ${yamlString(law.enforcement.max_fine)}`);
+      if (hasNotes) lines.push(`  notes: ${yamlString(law.enforcement.notes)}`);
+    }
+  }
 
   // Add relationships if any exist
   if (relationships && relationships.length > 0) {

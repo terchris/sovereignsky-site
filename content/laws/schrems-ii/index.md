@@ -16,6 +16,26 @@ data_protection_description: "Comprehensive rights (access, erasure, portability
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection."
+  - "Organizations must now assess destination country surveillance laws before transferring personal data."
+  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
+who_it_applies_to:
+  - "Organizations transferring personal data internationally"
+  - "Data exporters/importers using SCCs and safeguards"
+  - "Supervisory authorities evaluating transfers"
+key_provisions:
+  - title: "Core scope"
+    description: "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection."
+  - title: "Key obligations"
+    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
+enforcement:
+  notes: "A CJEU judgment applied via supervisory authorities and courts when assessing international transfers."
 related_laws:
   complements:
     - id: "gdpr"

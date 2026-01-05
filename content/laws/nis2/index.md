@@ -16,6 +16,25 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Mandatory cybersecurity requirements for essential and important entities."
+  - "Requires risk management, incident reporting within 24 hours, and supply chain security."
+who_it_applies_to:
+  - "Essential and important entities"
+  - "Operators of critical services (sector-dependent)"
+  - "Management bodies responsible for compliance"
+key_provisions:
+  - title: "Core scope"
+    description: "Mandatory cybersecurity requirements for essential and important entities."
+  - title: "Key obligations"
+    description: "Defines security obligations (risk management, incident response, and governance) for covered entities."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
+enforcement:
+  notes: "Implemented and enforced by member states via national competent authorities; penalties are set in national law."
 related_laws:
   complements:
     - id: "dora"

@@ -16,6 +16,26 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Cybersecurity requirements for products with digital elements."
+  - "Mandates security-by-design, vulnerability handling, and CE marking for connected devices and software."
+  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
+who_it_applies_to:
+  - "Manufacturers of products with digital elements"
+  - "Software vendors/distributors"
+  - "Importers and integrators placing products on the EU market"
+key_provisions:
+  - title: "Core scope"
+    description: "Cybersecurity requirements for products with digital elements."
+  - title: "Key obligations"
+    description: "Defines security obligations (risk management, incident response, and governance) for covered entities."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
+enforcement:
+  notes: "Market surveillance authorities enforce product compliance; enforcement is tied to product safety/CE‑style compliance regimes."
 related_laws:
   complements:
     - id: "nis2"

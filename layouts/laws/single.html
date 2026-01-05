@@ -17,6 +17,14 @@
 {{ $requiresLocalization := .Params.requires_localization | default false }}
 {{ $requiresBackdoor := .Params.requires_backdoor | default false }}
 
+{{/* Optional richer descriptions (from laws.json via generator) */}}
+{{ $reviewStatus := .Params.review_status | default "ai-generated" }}
+{{ $whatItDoes := .Params.what_it_does | default (slice) }}
+{{ $whoItAppliesTo := .Params.who_it_applies_to | default (slice) }}
+{{ $keyProvisions := .Params.key_provisions | default (slice) }}
+{{ $complianceActions := .Params.compliance_actions | default (slice) }}
+{{ $enforcement := .Params.enforcement | default dict }}
+
 {{/* Build lookup maps for regions and blocs */}}
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
@@ -168,19 +176,19 @@
         <div class="mt-4">
           <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Details</div>
           <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="space-y-3">
+            <div class="space-y-4 pt-1">
 
               {{/* Year */}}
               {{ if $year }}
               <div class="flex items-center gap-2">
-                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-20">Year</span>
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Year</span>
                 <span class="font-medium">{{ $year }}</span>
               </div>
               {{ end }}
 
               {{/* Law Type */}}
               <div class="flex items-center gap-2">
-                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-20">Type</span>
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Type</span>
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $typeClass }}">
                   {{ $typeEmoji }} {{ $typeLabel }}
                 </span>
@@ -188,7 +196,7 @@
 
               {{/* Government Access */}}
               <div class="flex items-center gap-2">
-                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-20">Gov Access</span>
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Gov Access</span>
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $accessClass }}">
                   {{ $accessLabel }}
                 </span>
@@ -196,7 +204,7 @@
 
               {{/* Data Protection */}}
               <div class="flex items-center gap-2">
-                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-20">Protection</span>
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Protection</span>
                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $protectionClass }}">
                   {{ $protectionLabel }}
                 </span>
@@ -204,7 +212,7 @@
 
               {{/* Scope */}}
               <div class="flex items-center gap-2">
-                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-20">Scope</span>
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Scope</span>
                 <span class="font-medium">{{ $scopeLabel }}</span>
               </div>
 
@@ -262,7 +270,7 @@
         <div class="mt-6">
           <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Laws</div>
           <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-            <div class="space-y-4">
+            <div class="space-y-5 pt-2">
 
               {{/* Conflicts with */}}
               {{ with index $relatedLawsData "conflicts_with" }}
@@ -497,6 +505,71 @@
     <div class="min-w-0 min-h-0 max-w-fit">
       <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
         {{ .Content }}
+
+        {{/* Enriched sections from laws.json (rendered in main content, not sidebar) */}}
+        {{ if or (eq $reviewStatus "verified") (eq $reviewStatus "ai-generated") }}
+        {{ if or (gt (len $whatItDoes) 0) (gt (len $whoItAppliesTo) 0) (gt (len $keyProvisions) 0) (gt (len $complianceActions) 0) (index $enforcement "authority") (index $enforcement "max_fine") (index $enforcement "notes") }}
+        <hr class="my-8">
+
+        {{ if eq $reviewStatus "ai-generated" }}
+        <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-100">
+          <strong>AI-generated:</strong> This section is generated from structured metadata and may contain mistakes. Verify against the official text before relying on it.
+        </div>
+        {{ end }}
+
+        {{ if gt (len $whatItDoes) 0 }}
+        <h2>What it does</h2>
+        <ul>
+          {{ range $whatItDoes }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if gt (len $whoItAppliesTo) 0 }}
+        <h2>Who it applies to</h2>
+        <ul>
+          {{ range $whoItAppliesTo }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if gt (len $keyProvisions) 0 }}
+        <h2>Key provisions</h2>
+        {{ range $keyProvisions }}
+          {{ $t := .title | default "" }}
+          {{ $d := .description | default "" }}
+          {{ if and $t $d }}
+            <h3>{{ $t }}</h3>
+            <p>{{ $d }}</p>
+          {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{ if gt (len $complianceActions) 0 }}
+        <h2>Compliance actions</h2>
+        <ul>
+          {{ range $complianceActions }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if or (index $enforcement "authority") (index $enforcement "max_fine") (index $enforcement "notes") }}
+        <h2>Enforcement</h2>
+        {{ with index $enforcement "authority" }}
+          <p><strong>Authority:</strong> {{ . }}</p>
+        {{ end }}
+        {{ with index $enforcement "max_fine" }}
+          <p><strong>Max fine:</strong> {{ . }}</p>
+        {{ end }}
+        {{ with index $enforcement "notes" }}
+          <p>{{ . }}</p>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
 
         {{/* Back link */}}
         <hr class="mt-8">

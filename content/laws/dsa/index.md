@@ -16,6 +16,26 @@ data_protection_description: "Some protections but with significant exceptions o
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Platform liability and transparency rules."
+  - "Requires notice-and-takedown procedures, algorithmic transparency for very large platforms, and risk assessments for systemic risks."
+  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
+who_it_applies_to:
+  - "Online platforms and intermediaries"
+  - "Very large platforms/search engines (VLOPs/VLOSEs)"
+  - "Traders using online platforms"
+key_provisions:
+  - title: "Core scope"
+    description: "Platform liability and transparency rules."
+  - title: "Key obligations"
+    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
+enforcement:
+  notes: "Enforced by national Digital Services Coordinators; the European Commission has direct powers for VLOPs/VLOSEs."
 related_laws:
   complements:
     - id: "ai-act"

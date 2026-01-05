@@ -16,6 +16,27 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: true
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "US can compel US companies to hand over data regardless of where it is stored."
+  - "This extraterritorial reach is a key concern for data sovereignty."
+  - "Enables broad government access to data under national security or law‑enforcement powers."
+  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
+who_it_applies_to:
+  - "US-based service providers"
+  - "Foreign affiliates of US providers (via control)"
+  - "Organizations using US cloud services"
+key_provisions:
+  - title: "Core scope"
+    description: "US can compel US companies to hand over data regardless of where it is stored."
+  - title: "Key obligations"
+    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
+enforcement:
+  notes: "Orders are issued through US legal process; providers may be compelled to disclose data even if stored abroad."
 related_laws:
   complements:
     - id: "fisa-702"

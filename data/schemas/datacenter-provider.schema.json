@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://sovereignsky.no/schemas/datacenter-provider.schema.json",
+  "$id": "https://totalforsvarsaret.no/schemas/datacenter-provider.schema.json",
   "title": "SovereignSky Datacenter Provider",
   "description": "Schema for datacenter provider files in data/datacenters/",
   "type": "object",
@@ -27,7 +27,11 @@
     "provider_type": {
       "type": "string",
       "description": "Classification of the provider (public cloud vs regional cloud vs datacenter operator).",
-      "enum": ["hyperscaler", "regional_cloud", "datacenter_operator"]
+      "enum": [
+        "hyperscaler",
+        "regional_cloud",
+        "datacenter_operator"
+      ]
     },
     "updated": {
       "type": "string",

@@ -1,0 +1,392 @@
+{
+    "name": "SovereignSky Networks – Route Backup",
+    "description": "Backup of per-connection schematic routes extracted from data/networks/networks.json before removing route fields to test computed routes.",
+    "dateModified": "2026-01-05T02:18:58.747Z",
+    "routes": [
+        {
+            "connection_id": "havfrue",
+            "connection_name": "Havfrue/AEC-2",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "blaabjerg",
+                "wall-township",
+                "killala-bay"
+            ],
+            "route": [
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    55.7,
+                    8.22
+                ],
+                [
+                    40.18,
+                    -74.09
+                ]
+            ]
+        },
+        {
+            "connection_id": "no-uk",
+            "connection_name": "NO-UK Cable System",
+            "endpoint_place_ids": [
+                "stavanger",
+                "seaton-sluice"
+            ],
+            "route": [
+                [
+                    58.97,
+                    5.7331
+                ],
+                [
+                    55.085,
+                    -1.472
+                ]
+            ]
+        },
+        {
+            "connection_id": "ioema",
+            "connection_name": "IOEMA",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "dumpton-gap",
+                "eemshaven",
+                "wilhelmshaven",
+                "blaabjerg"
+            ],
+            "route": [
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    55.7,
+                    8.22
+                ],
+                [
+                    53.53,
+                    8.15
+                ],
+                [
+                    53.445,
+                    6.835
+                ],
+                [
+                    51.36,
+                    1.45
+                ]
+            ]
+        },
+        {
+            "connection_id": "celtic-norse",
+            "connection_name": "Celtic Norse",
+            "endpoint_place_ids": [
+                "trondheim",
+                "killala-bay"
+            ],
+            "route": [
+                [
+                    63.4305,
+                    10.3951
+                ],
+                [
+                    54.21,
+                    -9.21
+                ]
+            ]
+        },
+        {
+            "connection_id": "arctic-way",
+            "connection_name": "Arctic Way",
+            "endpoint_place_ids": [
+                "bodo",
+                "jan-mayen",
+                "hotellneset"
+            ],
+            "route": [
+                [
+                    67.2804,
+                    14.4049
+                ],
+                [
+                    70.9833,
+                    -8.5333
+                ],
+                [
+                    78.246,
+                    15.469
+                ]
+            ]
+        },
+        {
+            "connection_id": "leif-erikson",
+            "connection_name": "Leif Erikson (planned)",
+            "endpoint_place_ids": [
+                "kristiansand"
+            ],
+            "route": [
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    53.3,
+                    -60.4
+                ]
+            ]
+        },
+        {
+            "connection_id": "havsil",
+            "connection_name": "HAVSIL",
+            "endpoint_place_ids": [
+                "kristiansand",
+                "esbjerg"
+            ],
+            "route": [
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    55.4765,
+                    8.4594
+                ]
+            ]
+        },
+        {
+            "connection_id": "norfest",
+            "connection_name": "NORFEST (Nordic Festoon)",
+            "endpoint_place_ids": [
+                "egersund",
+                "stavanger",
+                "kristiansand",
+                "arendal",
+                "larvik",
+                "moss",
+                "drobak",
+                "oslo"
+            ],
+            "route": [
+                [
+                    58.4502,
+                    5.9994
+                ],
+                [
+                    58.97,
+                    5.7331
+                ],
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    58.4617,
+                    8.7727
+                ],
+                [
+                    59.0533,
+                    10.0336
+                ],
+                [
+                    59.4344,
+                    10.6589
+                ],
+                [
+                    59.6667,
+                    10.6333
+                ],
+                [
+                    59.9139,
+                    10.7522
+                ]
+            ]
+        },
+        {
+            "connection_id": "n0r5ke-viking",
+            "connection_name": "N0r5ke Viking",
+            "endpoint_place_ids": [
+                "bergen",
+                "molde",
+                "trondheim"
+            ],
+            "route": [
+                [
+                    60.3913,
+                    5.3221
+                ],
+                [
+                    62.7376,
+                    7.1607
+                ],
+                [
+                    63.4305,
+                    10.3951
+                ]
+            ]
+        },
+        {
+            "connection_id": "n0r5ke-viking-crosslink",
+            "connection_name": "N0r5ke Viking (Molde–Åndalsnes crosslink)",
+            "endpoint_place_ids": [
+                "molde",
+                "andalsnes"
+            ],
+            "route": [
+                [
+                    62.7376,
+                    7.1607
+                ],
+                [
+                    62.5675,
+                    7.6877
+                ]
+            ]
+        },
+        {
+            "connection_id": "svalbard-undersea",
+            "connection_name": "Svalbard Undersea Cable System",
+            "endpoint_place_ids": [
+                "harstad",
+                "breivika-tromso",
+                "hotellneset"
+            ],
+            "route": [
+                [
+                    68.798,
+                    16.541
+                ],
+                [
+                    69.68,
+                    18.99
+                ],
+                [
+                    78.246,
+                    15.469
+                ]
+            ]
+        },
+        {
+            "connection_id": "longyearbyen-ny-alesund",
+            "connection_name": "Longyearbyen–Ny-Ålesund",
+            "endpoint_place_ids": [
+                "hotellneset",
+                "ny-alesund"
+            ],
+            "route": [
+                [
+                    78.246,
+                    15.469
+                ],
+                [
+                    78.9243,
+                    11.9312
+                ]
+            ]
+        },
+        {
+            "connection_id": "inter-city-ring",
+            "connection_name": "Inter-City Ring",
+            "endpoint_place_ids": [
+                "oslo",
+                "kristiansand",
+                "stavanger",
+                "bergen"
+            ],
+            "route": [
+                [
+                    59.9139,
+                    10.7522
+                ],
+                [
+                    58.1467,
+                    7.9956
+                ],
+                [
+                    58.97,
+                    5.7331
+                ],
+                [
+                    60.3913,
+                    5.3221
+                ],
+                [
+                    59.9139,
+                    10.7522
+                ]
+            ]
+        },
+        {
+            "connection_id": "no-se-oslo-stockholm",
+            "connection_name": "Terrestrial fiber corridor (Oslo–Stockholm)",
+            "endpoint_place_ids": [
+                "oslo",
+                "stockholm"
+            ],
+            "route": [
+                [
+                    59.9139,
+                    10.7522
+                ],
+                [
+                    59.3293,
+                    18.0686
+                ]
+            ]
+        },
+        {
+            "connection_id": "no-se-oslo-gothenburg",
+            "connection_name": "Terrestrial fiber corridor (Oslo–Gothenburg)",
+            "endpoint_place_ids": [
+                "oslo",
+                "gothenburg"
+            ],
+            "route": [
+                [
+                    59.9139,
+                    10.7522
+                ],
+                [
+                    57.7089,
+                    11.9746
+                ]
+            ]
+        },
+        {
+            "connection_id": "no-se-bodo-lulea",
+            "connection_name": "Terrestrial fiber corridor (Bodø–Luleå)",
+            "endpoint_place_ids": [
+                "bodo",
+                "lulea"
+            ],
+            "route": [
+                [
+                    67.2804,
+                    14.4049
+                ],
+                [
+                    65.5848,
+                    22.1567
+                ]
+            ]
+        },
+        {
+            "connection_id": "no-fi-bodo-oulu",
+            "connection_name": "Terrestrial fiber corridor (Bodø–Oulu)",
+            "endpoint_place_ids": [
+                "bodo",
+                "oulu"
+            ],
+            "route": [
+                [
+                    67.2804,
+                    14.4049
+                ],
+                [
+                    65.0121,
+                    25.4651
+                ]
+            ]
+        }
+    ]
+}

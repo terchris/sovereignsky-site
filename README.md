@@ -2,7 +2,7 @@
 
 Public website for SovereignSky - secure developer access to internal services.
 
-**Live site:** [sovereignsky.no](https://sovereignsky.no)
+**Live site:** [totalforsvarsaret.no](https://totalforsvarsaret.no)
 
 ## Development
 

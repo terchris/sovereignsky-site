@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://sovereignsky.no/schemas/regions.schema.json",
+  "$id": "https://totalforsvarsaret.no/schemas/regions.schema.json",
   "title": "SovereignSky Regions",
   "description": "Schema for regions.json - countries and their data sovereignty characteristics",
   "type": "array",

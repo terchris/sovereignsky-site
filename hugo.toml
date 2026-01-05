@@ -1,5 +1,5 @@
 # SovereignSky Website Configuration
-baseURL = "https://sovereignsky.no/"
+baseURL = "https://totalforsvarsaret.no/"
 defaultContentLanguage = "en"
 theme = "blowfish"
 

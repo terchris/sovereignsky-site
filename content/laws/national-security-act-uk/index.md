@@ -16,6 +16,25 @@ data_protection_description: "No individual data protection provisions"
 extraterritorial: false
 requires_localization: false
 requires_backdoor: false
+review_status: "ai-generated"
+what_it_does:
+  - "Powers to address foreign interference, espionage and state threats."
+  - "Enables targeted government access under warrants or court orders for specific investigations."
+who_it_applies_to:
+  - "Individuals and organizations involved in sensitive activities"
+  - "Entities subject to foreign interference/espionage offenses"
+  - "Organizations interacting with UK national security processes"
+key_provisions:
+  - title: "Core scope"
+    description: "Powers to address foreign interference, espionage and state threats."
+  - title: "Key obligations"
+    description: "Defines security obligations (risk management, incident response, and governance) for covered entities."
+compliance_actions:
+  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
+  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
+  - "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
+enforcement:
+  notes: "Enforced through UK law enforcement and prosecutorial processes; application depends on specific offenses and powers used."
 related_laws:
   complements:
     - id: "investigatory-powers-act"
