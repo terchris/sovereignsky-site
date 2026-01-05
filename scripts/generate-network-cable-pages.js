@@ -47,6 +47,13 @@ function yamlQuote(s) {
   return `"${str}"`;
 }
 
+function iso2FlagEmoji(code) {
+  const c = String(code || "").trim().toUpperCase();
+  if (!/^[A-Z]{2}$/.test(c)) return "";
+  const A = 0x1f1e6; // 🇦
+  return String.fromCodePoint(A + (c.charCodeAt(0) - 65), A + (c.charCodeAt(1) - 65));
+}
+
 function hasGeneratedFrontMatter(md) {
   // naive check: "generated: true" appears before the 2nd front matter delimiter
   const m = md.match(/^---\n([\s\S]*?)\n---\n/);
@@ -120,11 +127,15 @@ function main() {
       slugTag(c.scope),
       slugTag(c.medium),
       slugTag(status),
-      slugTag(c.map_category),
       ...(c.operator_ids || []).map(slugTag),
     ].filter(Boolean);
 
-    const endpoints = (c.endpoint_place_ids || []).map((pid) => (placeById[pid]?.name || pid));
+    const endpoints = (c.endpoint_place_ids || []).map((pid) => {
+      const p = placeById[pid];
+      if (!p) return pid;
+      const flag = iso2FlagEmoji(p.country_id || p.address?.addressCountry);
+      return `${flag ? `${flag} ` : ""}${p.name || pid}`;
+    });
     const owners = (c.owner_actor_ids || []).map((aid) => actorDisplay(aid, actorById));
     const ops = (c.operator_ids || []).map((oid) => operatorDisplay(oid, operatorById, actorById));
 
@@ -162,9 +173,7 @@ function main() {
       "|-----------|-------|",
       formatAttrRow("Status", status),
       formatAttrRow("Scope", c.scope),
-      formatAttrRow("Medium", c.medium),
       formatAttrRow("Type", c.type),
-      formatAttrRow("Category", c.map_category),
       c.rfs ? formatAttrRow("Ready for Service", c.rfs_detail || c.rfs) : formatAttrRow("Ready for Service", ""),
       c.length_km ? formatAttrRow("Length", `${c.length_km} km`) : formatAttrRow("Length", ""),
       c.fiber_pairs ? formatAttrRow("Fiber pairs", c.fiber_pairs) : null,

@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "longyearbyen-ny-alesund"
 echarts: true
-tags: ["terrestrial", "domestic", "terrestrial", "active", "domestic", "space-norway"]
+tags: ["terrestrial", "domestic", "terrestrial", "active", "space-norway"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Local Svalbard connectivity for research/community needs (schematic).
 
 ## Route
 
-**Endpoints:** Hotellneset (Longyearbyen area) → Ny-Ålesund
+**Endpoints:** 🇳🇴 Hotellneset (Longyearbyen area) → 🇳🇴 Ny-Ålesund
 
 {{< network-connection-map connection_id="longyearbyen-ny-alesund" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | terrestrial |
 | **Type** | terrestrial |
-| **Category** | domestic |
 | **Ready for Service** | — |
 | **Length** | — |
 

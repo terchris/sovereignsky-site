@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "no-uk"
 echarts: true
-tags: ["submarine", "international", "subsea", "active", "subsea", "altibox-carrier", "greenmountain"]
+tags: ["submarine", "international", "subsea", "active", "altibox-carrier", "greenmountain"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Open cable system connecting Stavanger (NO) and Newcastle area (UK).
 
 ## Route
 
-**Endpoints:** Stavanger → Seaton Sluice (Newcastle area)
+**Endpoints:** 🇳🇴 Stavanger → 🇬🇧 Seaton Sluice (Newcastle area)
 
 {{< network-connection-map connection_id="no-uk" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | international |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | subsea |
 | **Ready for Service** | 2021 |
 | **Length** | — |
 | **Fiber pairs** | 8 |

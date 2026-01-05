@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "arctic-way"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "subsea", "space-norway"]
+tags: ["submarine", "international", "subsea", "planned", "space-norway"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Planned system connecting mainland Norway to Jan Mayen and Svalbard.
 
 ## Route
 
-**Endpoints:** Bodø → Jan Mayen → Hotellneset (Longyearbyen area)
+**Endpoints:** 🇳🇴 Bodø → 🇳🇴 Jan Mayen → 🇳🇴 Hotellneset (Longyearbyen area)
 
 {{< network-connection-map connection_id="arctic-way" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | planned |
 | **Scope** | international |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | subsea |
 | **Ready for Service** | Q2 2028 |
 | **Length** | 2350 km |
 

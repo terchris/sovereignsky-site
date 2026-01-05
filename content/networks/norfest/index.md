@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "norfest"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "domestic", "tampnet"]
+tags: ["submarine", "domestic", "subsea", "active", "tampnet"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Coastal festoon system with multiple landings along the Norwegian coast; provide
 
 ## Route
 
-**Endpoints:** Egersund → Stavanger → Kristiansand → Arendal / Tromøy → Larvik → Moss → Drøbak → Oslo
+**Endpoints:** 🇳🇴 Egersund → 🇳🇴 Stavanger → 🇳🇴 Kristiansand → 🇳🇴 Arendal / Tromøy → 🇳🇴 Larvik → 🇳🇴 Moss → 🇳🇴 Drøbak → 🇳🇴 Oslo
 
 {{< network-connection-map connection_id="norfest" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | domestic |
 | **Ready for Service** | 2023 |
 | **Length** | 749 km |
 

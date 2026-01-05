@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "svalbard-undersea"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "domestic", "space-norway"]
+tags: ["submarine", "domestic", "subsea", "active", "space-norway"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Twin submarine communications cables connecting mainland Norway to Svalbard (sch
 
 ## Route
 
-**Endpoints:** Harstad → Breivika (Tromsø area) → Hotellneset (Longyearbyen area)
+**Endpoints:** 🇳🇴 Harstad → 🇳🇴 Breivika (Tromsø area) → 🇳🇴 Hotellneset (Longyearbyen area)
 
 {{< network-connection-map connection_id="svalbard-undersea" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | domestic |
 | **Ready for Service** | 2004 |
 | **Length** | — |
 

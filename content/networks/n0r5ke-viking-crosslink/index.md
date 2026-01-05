@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "n0r5ke-viking-crosslink"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "domestic", "n0r5ke-fibre"]
+tags: ["submarine", "domestic", "subsea", "active", "n0r5ke-fibre"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Crosslink segment referenced for N0r5ke Viking (schematic).
 
 ## Route
 
-**Endpoints:** Molde → Åndalsnes
+**Endpoints:** 🇳🇴 Molde → 🇳🇴 Åndalsnes
 
 {{< network-connection-map connection_id="n0r5ke-viking-crosslink" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | domestic |
 | **Ready for Service** | — |
 | **Length** | — |
 

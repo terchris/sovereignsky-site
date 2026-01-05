@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "celtic-norse"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "subsea", "celtic-norse"]
+tags: ["submarine", "international", "subsea", "planned", "celtic-norse"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Planned Norway ↔ Ireland system landing at Øysanden (south of Trondheim).
 
 ## Route
 
-**Endpoints:** Trondheim / Øysanden → Killala Bay
+**Endpoints:** 🇳🇴 Trondheim / Øysanden → 🇮🇪 Killala Bay
 
 {{< network-connection-map connection_id="celtic-norse" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | planned |
 | **Scope** | international |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | subsea |
 | **Ready for Service** | — |
 | **Length** | 2000 km |
 

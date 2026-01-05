@@ -1,16 +1,11 @@
 ---
 title: "SovereignSky"
 description: "Digital sovereignty resources for Norwegian organizations. Totalforsvarsåret 2026 — understand your digital dependencies and take action."
-layout: "page"
-showHero: true
-heroStyle: "big"
 
 cascade:
   showDate: false
   showAuthor: false
 ---
-
-## Totalforsvarsåret 2026
 
 **Norway is mobilizing for crisis and war preparedness.**
 
@@ -18,15 +13,15 @@ The government, military, and civil society are sounding the alarm. GPS jamming,
 
 **But are you prepared digitally?**
 
----
-
-## You Know the Threat. Here's How to Act.
+## You know the threat. Here’s how to act.
 
 SovereignSky helps organizations understand and reduce their digital dependencies on foreign powers.
 
 While others raise awareness about Totalforsvarsåret, we focus on practical tools — **helping the helpers** take action.
 
-### Explore the databases
+<div id="databases"></div>
+
+## Explore the databases
 
 Start here: the databases are the fastest way to map your **dependencies**, **legal exposure**, and **infrastructure risk**.
 
@@ -37,6 +32,8 @@ Start here: the databases are the fastest way to map your **dependencies**, **le
   {{< card link="/laws/" title="⚖️ Laws" subtitle="Browse the laws that drive government access and extraterritorial reach." >}}
   {{< card link="/networks/" title="🌐 Networks" subtitle="Connectivity dependencies, incl. submarine cables (active + planned)." >}}
 {{< /cards >}}
+
+## Quick baseline
 
 If you want a quick baseline, take the **NDSI survey**:
 

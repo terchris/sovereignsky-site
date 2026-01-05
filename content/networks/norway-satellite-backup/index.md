@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "norway-satellite-backup"
 echarts: true
-tags: ["satellite", "international", "satellite", "active", "terrestrial"]
+tags: ["satellite", "international", "satellite", "active"]
 ---
 
 ## Overview
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | international |
-| **Medium** | satellite |
 | **Type** | satellite |
-| **Category** | terrestrial |
 | **Ready for Service** | — |
 | **Length** | — |
 

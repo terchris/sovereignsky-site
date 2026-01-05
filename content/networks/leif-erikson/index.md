@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "leif-erikson"
 echarts: true
-tags: ["submarine", "international", "subsea", "planned", "subsea", "bulk"]
+tags: ["submarine", "international", "subsea", "planned", "bulk"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Planned transatlantic system promoted by Bulk Infrastructure (public details sti
 
 ## Route
 
-**Endpoints:** Kristiansand
+**Endpoints:** 🇳🇴 Kristiansand
 
 {{< network-connection-map connection_id="leif-erikson" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | planned |
 | **Scope** | international |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | subsea |
 | **Ready for Service** | — |
 | **Length** | — |
 

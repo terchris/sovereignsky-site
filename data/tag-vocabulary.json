@@ -36,14 +36,15 @@
 
   "topics": {
     "_description": "Specific topics for content and events",
-    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness"],
+    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables"],
     "labels": {
       "hybrid-warfare": "Hybrid Warfare",
       "cybersecurity": "Cybersecurity",
       "critical-infrastructure": "Critical Infrastructure",
       "sanctions": "Sanctions",
       "gps-jamming": "GPS Jamming",
-      "preparedness": "Preparedness & Total Defence"
+      "preparedness": "Preparedness & Total Defence",
+      "submarine-cables": "Submarine Cables"
     }
   },
 

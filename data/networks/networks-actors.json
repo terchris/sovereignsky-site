@@ -82,6 +82,16 @@
         },
         {
             "@type": "Organization",
+            "actor_id": "lyse-altibox",
+            "actor_name": "Lyse/Altibox",
+            "actor_type": "telecom_operator",
+            "country_id": "NO",
+            "hq_country_id": "NO",
+            "jurisdiction_country_id": "NO",
+            "website": "https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west"
+        },
+        {
+            "@type": "Organization",
             "actor_id": "greenmountain",
             "actor_name": "Green Mountain",
             "actor_type": "datacenter_operator",

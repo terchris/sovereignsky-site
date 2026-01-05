@@ -5,52 +5,19 @@ echarts: true
 layout: "simple"
 ---
 
-Norway’s digital connectivity depends on a limited set of **subsea fibre systems**, **landing areas**, and **domestic backhaul routes**. This page is an attempt to map *what can be mapped from public sources*—with clear limits on completeness and precision.
+Norway's digital infrastructure—**subsea cables** and **land-based routes** both internationally and within the country—carries everything from government services to private communications.
 
-**Important:** there is **no single official public map** of all network connections in and out of Norway. For security and commercial reasons, the exact routes of many terrestrial backbones (and detailed seabed routes) are not public.
+**Why it matters:** Most Norwegian municipalities, agencies, and companies run critical systems on [datacenters outside Norway](/datacenters/). The data travels through cables owned by companies subject to foreign [jurisdictions](/jurisdictions/) and laws. Understanding this infrastructure is key to understanding Norway's digital sovereignty.
 
 ## Network Map
 
 {{< network-map showSimulation="true" >}}
 
-### What this map is (and is not)
-
-- **What it is**: a **schematic** map showing publicly documented cable systems and approximate landing areas, plus a few major domestic backbone endpoints (where public).
-- **What it is not**: an authoritative engineering map. **Do not** use this map for navigation, safety, or operational/security decisions.
+**Important:** This page documents what can be mapped from **public sources only**. There is no single official map of all connections in and out of Norway. For security and commercial reasons, exact routes of many backbones and seabed cables are not public.
 
 ## Key Infrastructure Categories
 
 {{< network-data >}}
-
----
-
-## What we can (and can’t) map from open sources
-
-- **We can map well**:
-  - Named cable systems and their endpoints/landing areas (from operator pages and public reporting).
-  - Domestic *access coverage* (Nkom coverage maps) to show dependency patterns by municipality/household.
-- **We cannot map completely**:
-  - Exact terrestrial backbone routes across Norway (often not publicly disclosed).
-  - Exact seabed cable routing and protection details (sensitive and not consistently public).
-
----
-
-## Vulnerability (high-level)
-
-### High risk areas
-
-1. **Arctic Connectivity** - Single aging cable to Svalbard until 2028
-2. **Geographic Concentration** - Major landing stations clustered in southern Norway (Kristiansand, Stavanger, Lista)
-
-### Medium risk areas
-
-1. **Transatlantic Routes** - Limited diversity, both via Bulk infrastructure
-2. **Oslo Fjord** - Geographic funnel for coastal traffic
-
-### Lower risk areas
-
-1. **UK Connectivity** - Multiple independent routes
-2. **Denmark/EU Routes** - Good diversity via multiple operators
 
 ---
 

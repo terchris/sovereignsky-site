@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "n0r5ke-viking"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "domestic", "n0r5ke-fibre"]
+tags: ["submarine", "domestic", "subsea", "active", "n0r5ke-fibre"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ tags: ["submarine", "domestic", "subsea", "active", "domestic", "n0r5ke-fibre"]
 
 ## Route
 
-**Endpoints:** Bergen → Molde → Trondheim / Øysanden
+**Endpoints:** 🇳🇴 Bergen → 🇳🇴 Molde → 🇳🇴 Trondheim / Øysanden
 
 {{< network-connection-map connection_id="n0r5ke-viking" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | domestic |
 | **Ready for Service** | 2022 |
 | **Length** | 810 km |
 | **Fiber pairs** | 96 |

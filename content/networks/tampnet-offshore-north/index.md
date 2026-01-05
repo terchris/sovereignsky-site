@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "tampnet-offshore-north"
 echarts: true
-tags: ["submarine", "domestic", "subsea", "active", "domestic", "tampnet"]
+tags: ["submarine", "domestic", "subsea", "active", "tampnet"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Offshore communications network (schematic; detailed routes are not public).
 
 ## Route
 
-**Endpoints:** Stavanger
+**Endpoints:** 🇳🇴 Stavanger
 
 {{< network-connection-map connection_id="tampnet-offshore-north" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | subsea |
 | **Type** | submarine |
-| **Category** | domestic |
 | **Ready for Service** | — |
 | **Length** | — |
 

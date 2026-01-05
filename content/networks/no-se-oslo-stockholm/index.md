@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "no-se-oslo-stockholm"
 echarts: true
-tags: ["terrestrial-fiber", "international", "terrestrial", "active", "terrestrial"]
+tags: ["terrestrial-fiber", "international", "terrestrial", "active"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Schematic representation of Norway–Sweden terrestrial cross-border fiber conne
 
 ## Route
 
-**Endpoints:** Oslo → Stockholm
+**Endpoints:** 🇳🇴 Oslo → 🇸🇪 Stockholm
 
 {{< network-connection-map connection_id="no-se-oslo-stockholm" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | international |
-| **Medium** | terrestrial |
 | **Type** | terrestrial_fiber |
-| **Category** | terrestrial |
 | **Ready for Service** | — |
 | **Length** | — |
 

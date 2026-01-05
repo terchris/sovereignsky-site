@@ -5,7 +5,7 @@ generated: true
 generated_from: "data/networks/networks.json"
 connection_id: "inter-city-ring"
 echarts: true
-tags: ["terrestrial", "domestic", "terrestrial", "active", "domestic", "bulk"]
+tags: ["terrestrial", "domestic", "terrestrial", "active", "bulk"]
 ---
 
 ## Overview
@@ -14,7 +14,7 @@ Major south Norway backbone ring (schematic endpoints only; exact terrestrial ro
 
 ## Route
 
-**Endpoints:** Oslo → Kristiansand → Stavanger → Bergen
+**Endpoints:** 🇳🇴 Oslo → 🇳🇴 Kristiansand → 🇳🇴 Stavanger → 🇳🇴 Bergen
 
 {{< network-connection-map connection_id="inter-city-ring" >}}
 
@@ -26,9 +26,7 @@ _Route is auto-generated for visualization from endpoints (schematic)._
 |-----------|-------|
 | **Status** | active |
 | **Scope** | domestic |
-| **Medium** | terrestrial |
 | **Type** | terrestrial |
-| **Category** | domestic |
 | **Ready for Service** | — |
 | **Length** | — |
 

@@ -46,11 +46,6 @@
                 "subsea",
                 "terrestrial",
                 "satellite"
-            ],
-            "map_category": [
-                "subsea",
-                "terrestrial",
-                "domestic"
             ]
         },
         "sources": [
@@ -108,7 +103,8 @@
             "ownership_type": "private",
             "business_role": "telecom_operator",
             "connection_ids": [
-                "no-uk"
+                "no-uk",
+                "skagen-fiber-west"
             ]
         },
         {
@@ -160,7 +156,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "active",
             "rfs": "2020-11",
             "length_km": 7650,
@@ -200,7 +195,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "active",
             "rfs": "2021",
             "fiber_pairs": 8,
@@ -226,7 +220,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "planned",
             "length_km": 1400,
             "fiber_pairs": 48,
@@ -253,7 +246,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "planned",
             "length_km": 2000,
             "operator_ids": [
@@ -278,7 +270,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "planned",
             "rfs": "2028",
             "rfs_detail": "Q2 2028",
@@ -322,7 +313,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "status": "planned",
             "operator_ids": [
                 "bulk"
@@ -343,7 +333,6 @@
             "type": "submarine",
             "scope": "international",
             "medium": "subsea",
-            "map_category": "subsea",
             "detail_category": "nordic_regional",
             "status": "active",
             "length_km": 120,
@@ -366,9 +355,43 @@
         {
             "@type": "CreativeWork",
             "type": "submarine",
+            "scope": "international",
+            "medium": "subsea",
+            "detail_category": "nordic_regional",
+            "status": "active",
+            "rfs": "2020-11-04",
+            "length_km": 170,
+            "fiber_pairs": 48,
+            "operator_ids": [
+                "altibox-carrier"
+            ],
+            "owner_actor_ids": [
+                "lyse-altibox"
+            ],
+            "description": "Repeaterless subsea cable connecting Larvik (NO) and Hirtshals (DK). Schematic representation.",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west",
+            "sources": [
+                {
+                    "title": "Submarine Networks (Skagen Fiber West)",
+                    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west"
+                },
+                {
+                    "title": "Submarine Networks (N0r5ke Viking)",
+                    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking"
+                }
+            ],
+            "connection_id": "skagen-fiber-west",
+            "connection_name": "Skagen Fiber West (Larvik–Hirtshals)",
+            "endpoint_place_ids": [
+                "larvik",
+                "hirtshals"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
             "detail_category": "domestic_coastal",
             "status": "active",
             "rfs": "2023",
@@ -421,7 +444,6 @@
             "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
             "detail_category": "domestic_coastal",
             "status": "active",
             "rfs": "2022",
@@ -448,7 +470,56 @@
             "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
+            "detail_category": "domestic_coastal",
+            "status": "planned",
+            "rfs": "2024",
+            "length_km": 950,
+            "fiber_pairs": 96,
+            "operator_ids": [
+                "n0r5ke-fibre"
+            ],
+            "owner_actor_ids": [
+                "n0r5ke-fibre"
+            ],
+            "description": "Phase 2 (planned): ~950 km subsea cable between Bergen and Oslo as part of a ~2,500 km dark fiber ring project (schematic).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking",
+            "connection_id": "n0r5ke-bergen-oslo-phase2",
+            "connection_name": "N0r5ke Phase 2: Bergen–Oslo subsea (planned)",
+            "endpoint_place_ids": [
+                "bergen",
+                "oslo"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "terrestrial",
+            "scope": "domestic",
+            "medium": "terrestrial",
+            "detail_category": "domestic_coastal",
+            "status": "planned",
+            "rfs": "2024",
+            "length_km": 700,
+            "fiber_pairs": 96,
+            "operator_ids": [
+                "n0r5ke-fibre"
+            ],
+            "owner_actor_ids": [
+                "n0r5ke-fibre"
+            ],
+            "description": "Phase 2 (planned): ~700 km terrestrial fiber between Oslo and Trondheim as part of a ~2,500 km dark fiber ring project (schematic).",
+            "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking",
+            "connection_id": "n0r5ke-oslo-trondheim-phase2",
+            "connection_name": "N0r5ke Phase 2: Oslo–Trondheim terrestrial (planned)",
+            "endpoint_place_ids": [
+                "oslo",
+                "trondheim"
+            ]
+        },
+        {
+            "@type": "CreativeWork",
+            "type": "submarine",
+            "scope": "domestic",
+            "medium": "subsea",
             "detail_category": "domestic_coastal",
             "status": "active",
             "operator_ids": [
@@ -471,7 +542,6 @@
             "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
             "detail_category": "domestic_coastal",
             "status": "active",
             "rfs": "2004",
@@ -506,7 +576,6 @@
             "type": "terrestrial",
             "scope": "domestic",
             "medium": "terrestrial",
-            "map_category": "domestic",
             "detail_category": "domestic_coastal",
             "status": "active",
             "operator_ids": [
@@ -528,7 +597,6 @@
             "type": "terrestrial",
             "scope": "domestic",
             "medium": "terrestrial",
-            "map_category": "domestic",
             "detail_category": "domestic_coastal",
             "status": "active",
             "operator_ids": [
@@ -553,7 +621,6 @@
             "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
             "detail_category": "offshore_energy",
             "status": "active",
             "operator_ids": [
@@ -575,7 +642,6 @@
             "type": "submarine",
             "scope": "domestic",
             "medium": "subsea",
-            "map_category": "domestic",
             "detail_category": "offshore_energy",
             "status": "active",
             "operator_ids": [
@@ -596,7 +662,6 @@
             "@type": "CreativeWork",
             "scope": "international",
             "medium": "terrestrial",
-            "map_category": "terrestrial",
             "status": "active",
             "operator_ids": [],
             "owner_actor_ids": [],
@@ -613,7 +678,6 @@
             "@type": "CreativeWork",
             "scope": "international",
             "medium": "terrestrial",
-            "map_category": "terrestrial",
             "status": "active",
             "operator_ids": [],
             "owner_actor_ids": [],
@@ -630,7 +694,6 @@
             "@type": "CreativeWork",
             "scope": "international",
             "medium": "terrestrial",
-            "map_category": "terrestrial",
             "status": "active",
             "operator_ids": [],
             "owner_actor_ids": [],
@@ -647,7 +710,6 @@
             "@type": "CreativeWork",
             "scope": "international",
             "medium": "terrestrial",
-            "map_category": "terrestrial",
             "status": "active",
             "operator_ids": [],
             "owner_actor_ids": [],
@@ -664,7 +726,6 @@
             "@type": "Service",
             "scope": "international",
             "medium": "satellite",
-            "map_category": "terrestrial",
             "status": "active",
             "operator_ids": [],
             "owner_actor_ids": [],

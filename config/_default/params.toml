@@ -23,7 +23,7 @@ disableImageOptimization = false
   showScrollToTop = true
 
 [homepage]
-  layout = "background"
+  layout = "custom"
   homepageImage = "featured.png"
   showRecent = false
   showRecentItems = 5

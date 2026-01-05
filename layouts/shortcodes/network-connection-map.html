@@ -116,7 +116,7 @@
         }
 
         function buildRouteLngLat() {
-          var categoryKey = conn.map_category || (conn.scope === 'international' ? (conn.medium || 'subsea') : 'domestic');
+          var mediumKey = conn.medium || 'subsea';
           if (Array.isArray(conn.route) && conn.route.length >= 2) {
             return conn.route.map(function (p) { return [p[1], p[0]]; }); // [lng, lat]
           }
@@ -127,7 +127,7 @@
             var a = geoByPlaceId[eps[i]];
             var b = geoByPlaceId[eps[i + 1]];
             if (!a || !b) continue;
-            var seg = generatePrettyRouteLngLat(a, b, (conn.connection_id || '') + ':' + eps[i] + '>' + eps[i + 1], categoryKey);
+            var seg = generatePrettyRouteLngLat(a, b, (conn.connection_id || '') + ':' + eps[i] + '>' + eps[i + 1], mediumKey);
             if (seg && seg.length >= 2) {
               if (out.length) seg = seg.slice(1);
               out = out.concat(seg);
@@ -144,7 +144,10 @@
           return { name: p.name, value: [p.lng, p.lat, 10] };
         });
 
-        var lineColor = (conn.map_category === 'subsea') ? '#06b6d4' : (conn.map_category === 'terrestrial' ? '#a855f7' : '#22c55e');
+        // Match /networks map styling: domestic is always green, international splits by medium
+        var lineColor = (conn.scope === 'domestic')
+          ? '#22c55e'
+          : ((conn.medium === 'subsea') ? '#06b6d4' : (conn.medium === 'terrestrial' ? '#a855f7' : '#f59e0b'));
         var isPlanned = (conn.status === 'planned');
         var lineType = isPlanned ? 'dotted' : 'solid';
         var lineWidth = isPlanned ? 4 : 3;
