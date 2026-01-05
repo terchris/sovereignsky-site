@@ -1,0 +1,23 @@
+{{/*
+Key Takeaways Metadata Sidebar
+Usage: {{ partial "metadata-takeaways-sidebar.html" . }}
+
+Renders a Key Takeaways section for any content type sidebar.
+Displays a list of takeaways from .Params.takeaways.
+*/}}
+
+{{ with .Params.takeaways }}
+<div class="mt-6">
+  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Key Takeaways</div>
+  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <ul class="list-none m-0 p-0 space-y-1">
+      {{ range . }}
+      <li class="text-sm flex items-start gap-2 m-0 p-0">
+        <span class="text-primary-500">✓</span>
+        <span>{{ . }}</span>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

@@ -1,0 +1,547 @@
+[
+  {
+    "@type": "Place",
+    "identifier": "kristiansand",
+    "name": "Kristiansand",
+    "description": "Major southern Norway landing area for international and North Sea systems.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 58.1467,
+      "longitude": 7.9956
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kristiansand",
+      "addressRegion": "Agder",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "stavanger",
+    "name": "Stavanger",
+    "description": "South-west hub with subsea connectivity to the UK and offshore networks.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 58.97,
+      "longitude": 5.7331
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Stavanger",
+      "addressRegion": "Rogaland",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "egersund",
+    "name": "Egersund",
+    "description": "NORFEST coastal festoon landing (west).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 58.4502,
+      "longitude": 5.9994
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Egersund",
+      "addressRegion": "Rogaland",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "arendal",
+    "name": "Arendal / Tromøy",
+    "description": "NORFEST coastal festoon landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 58.4617,
+      "longitude": 8.7727
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Arendal",
+      "addressRegion": "Agder",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "larvik",
+    "name": "Larvik",
+    "description": "NORFEST coastal festoon landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 59.0533,
+      "longitude": 10.0336
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Larvik",
+      "addressRegion": "Vestfold",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "moss",
+    "name": "Moss",
+    "description": "NORFEST Oslofjord landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 59.4344,
+      "longitude": 10.6589
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Moss",
+      "addressRegion": "Østfold",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "drobak",
+    "name": "Drøbak",
+    "description": "NORFEST Oslofjord landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 59.6667,
+      "longitude": 10.6333
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Drøbak",
+      "addressRegion": "Akershus",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "oslo",
+    "name": "Oslo",
+    "description": "Major backbone endpoint (schematic) and NORFEST eastern terminus.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 59.9139,
+      "longitude": 10.7522
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Oslo",
+      "addressRegion": "Oslo",
+      "addressCountry": "NO"
+    },
+    "place_type": "backbone_endpoint"
+  },
+  {
+    "@type": "Place",
+    "identifier": "bergen",
+    "name": "Bergen",
+    "description": "West Norway landing/backbone endpoint (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 60.3913,
+      "longitude": 5.3221
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bergen",
+      "addressRegion": "Vestland",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "trondheim",
+    "name": "Trondheim / Øysanden",
+    "description": "Central Norway landing area (Celtic Norse lands at Øysanden, south of Trondheim).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 63.4305,
+      "longitude": 10.3951
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Trondheim",
+      "addressRegion": "Trøndelag",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "molde",
+    "name": "Molde",
+    "description": "N0r5ke Viking crosslink node (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 62.7376,
+      "longitude": 7.1607
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Molde",
+      "addressRegion": "Møre og Romsdal",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "andalsnes",
+    "name": "Åndalsnes",
+    "description": "N0r5ke Viking crosslink landing (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 62.5675,
+      "longitude": 7.6877
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Åndalsnes",
+      "addressRegion": "Møre og Romsdal",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "bodo",
+    "name": "Bodø",
+    "description": "Mainland landing for Arctic Way (planned).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 67.2804,
+      "longitude": 14.4049
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Bodø",
+      "addressRegion": "Nordland",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "jan-mayen",
+    "name": "Jan Mayen",
+    "description": "Arctic Way planned landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 70.9833,
+      "longitude": -8.5333
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Jan Mayen",
+      "addressCountry": "NO"
+    },
+    "territory_id": "SJ",
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "harstad",
+    "name": "Harstad",
+    "description": "Svalbard Undersea Cable System mainland landing (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 68.798,
+      "longitude": 16.541
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Harstad",
+      "addressRegion": "Troms",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "breivika-tromso",
+    "name": "Breivika (Tromsø area)",
+    "description": "Svalbard Undersea Cable System segment landing (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 69.68,
+      "longitude": 18.99
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Tromsø",
+      "addressRegion": "Troms",
+      "addressCountry": "NO"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "hotellneset",
+    "name": "Hotellneset (Longyearbyen area)",
+    "description": "Svalbard landing area (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 78.246,
+      "longitude": 15.469
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Longyearbyen",
+      "addressCountry": "NO"
+    },
+    "territory_id": "SJ",
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "ny-alesund",
+    "name": "Ny-Ålesund",
+    "description": "Local Svalbard connectivity endpoint.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 78.9243,
+      "longitude": 11.9312
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ny-Ålesund",
+      "addressCountry": "NO"
+    },
+    "territory_id": "SJ",
+    "place_type": "backbone_endpoint"
+  },
+  {
+    "@type": "Place",
+    "identifier": "esbjerg",
+    "name": "Esbjerg (DK01)",
+    "description": "HAVSIL Denmark landing area.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 55.4765,
+      "longitude": 8.4594
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Esbjerg",
+      "addressCountry": "DK"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "hirtshals",
+    "name": "Hirtshals",
+    "description": "Denmark landing for Skagen Fiber West (schematic).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 57.5887,
+      "longitude": 9.959
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hirtshals",
+      "addressCountry": "DK"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "blaabjerg",
+    "name": "Blaabjerg",
+    "description": "Denmark landing area referenced by multiple systems.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 55.7,
+      "longitude": 8.22
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Blaabjerg",
+      "addressCountry": "DK"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "dumpton-gap",
+    "name": "Dumpton Gap",
+    "description": "IOEMA UK trunk landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.36,
+      "longitude": 1.45
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ramsgate",
+      "addressCountry": "GB"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "seaton-sluice",
+    "name": "Seaton Sluice (Newcastle area)",
+    "description": "NO-UK UK landing area.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 55.085,
+      "longitude": -1.472
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Seaton Sluice",
+      "addressCountry": "GB"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "eemshaven",
+    "name": "Eemshaven",
+    "description": "IOEMA branch landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 53.445,
+      "longitude": 6.835
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Eemshaven",
+      "addressCountry": "NL"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "wilhelmshaven",
+    "name": "Wilhelmshaven",
+    "description": "IOEMA branch landing.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 53.53,
+      "longitude": 8.15
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Wilhelmshaven",
+      "addressCountry": "DE"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "killala-bay",
+    "name": "Killala Bay",
+    "description": "Ireland landing area referenced by multiple systems.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 54.21,
+      "longitude": -9.21
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Killala",
+      "addressCountry": "IE"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "wall-township",
+    "name": "Wall Township (NJ)",
+    "description": "Havfrue/AEC-2 US landing area.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.18,
+      "longitude": -74.09
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Wall Township",
+      "addressCountry": "US"
+    },
+    "place_type": "landing_station"
+  },
+  {
+    "@type": "Place",
+    "identifier": "stockholm",
+    "name": "Stockholm",
+    "description": "Schematic international hub for terrestrial cross-border connectivity.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 59.3293,
+      "longitude": 18.0686
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Stockholm",
+      "addressCountry": "SE"
+    },
+    "place_type": "international_hub"
+  },
+  {
+    "@type": "Place",
+    "identifier": "gothenburg",
+    "name": "Gothenburg",
+    "description": "Schematic international hub for terrestrial cross-border connectivity.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 57.7089,
+      "longitude": 11.9746
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Gothenburg",
+      "addressCountry": "SE"
+    },
+    "place_type": "international_hub"
+  },
+  {
+    "@type": "Place",
+    "identifier": "lulea",
+    "name": "Luleå",
+    "description": "Schematic northern hub for cross-border terrestrial connectivity (route/capacity not public).",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 65.5848,
+      "longitude": 22.1567
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Luleå",
+      "addressCountry": "SE"
+    },
+    "place_type": "international_hub"
+  },
+  {
+    "@type": "Place",
+    "identifier": "oulu",
+    "name": "Oulu",
+    "description": "Schematic Finland hub for northern cross-border terrestrial connectivity.",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 65.0121,
+      "longitude": 25.4651
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Oulu",
+      "addressCountry": "FI"
+    },
+    "place_type": "international_hub"
+  }
+]

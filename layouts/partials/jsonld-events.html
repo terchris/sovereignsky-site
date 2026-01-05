@@ -1,0 +1,72 @@
+{{- /* 
+  jsonld-events.html
+  Generates schema.org JSON-LD for events from /data/events.json
+  Usage: {{ partial "jsonld-events.html" . }}
+*/ -}}
+
+{{- $events := site.Data.events.events -}}
+{{- $vocab := site.Data.tag_vocabulary -}}
+{{- if $events -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{- range $index, $event := $events -}}
+    {{- if $index }},{{ end }}
+    {
+      "@type": "Event",
+      "@id": "{{ site.BaseURL }}events/#{{ $event.id }}",
+      "name": {{ $event.name | jsonify }},
+      "description": {{ $event.description | jsonify }},
+      "eventStatus": "https://schema.org/Event{{ $event.status | title }}",
+      {{- if eq $event.attendanceMode "offline" }}
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      {{- else if eq $event.attendanceMode "online" }}
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      {{- else if eq $event.attendanceMode "mixed" }}
+      "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+      {{- end }}
+      "startDate": "{{ $event.startDate }}"
+      {{- with $event.endDate }},
+      "endDate": "{{ . }}"
+      {{- end }}
+      {{- with $event.url }},
+      "url": "{{ . }}"
+      {{- end }}
+      {{- with $event.location }},
+      "location": {
+        "@type": "Place",
+        "name": {{ .name | jsonify }}
+        {{- if or .city .country }},
+        "address": {
+          "@type": "PostalAddress"
+          {{- with .city }},
+          "addressLocality": "{{ . }}"
+          {{- end }}
+          {{- with .country }},
+          "addressCountry": "{{ . }}"
+          {{- end }}
+        }
+        {{- end }}
+      }
+      {{- end }}
+      {{- with $event.organizer }}
+      {{- if and .name (ne .name "TBA") }},
+      "organizer": {
+        "@type": "Organization",
+        "name": {{ .name | jsonify }}
+        {{- with .url }},
+        "url": "{{ . }}"
+        {{- end }}
+      }
+      {{- end }}
+      {{- end }}
+      {{- with $event.tags }},
+      "keywords": {{ . | jsonify }}
+      {{- end }}
+    }
+    {{- end }}
+  ]
+}
+</script>
+{{- end -}}

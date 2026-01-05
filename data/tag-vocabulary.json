@@ -1,0 +1,135 @@
+{
+  "_description": "Controlled vocabulary for tags. Use these exact values across the site.",
+
+  "laws": {
+    "_description": "Match law IDs for cross-linking to /laws/{id}/",
+    "values": ["gdpr", "cloud-act", "fisa-702", "ai-act", "data-act", "nis2", "dsa", "dma", "dora", "patriot-act", "eo-12333", "tola-act", "investigatory-powers-act", "pipl", "national-intelligence-law"]
+  },
+
+  "jurisdictions": {
+    "_description": "Match region/bloc IDs for cross-linking to /jurisdictions/{id}/",
+    "values": ["eu", "usa", "norway", "uk", "china", "australia", "canada", "switzerland", "eea"]
+  },
+
+  "concepts": {
+    "_description": "Core sovereignty and security concepts",
+    "values": ["sovereignty", "privacy", "encryption", "vendor-lock-in", "exit-strategy", "data-residency", "government-access", "surveillance"]
+  },
+
+  "audience": {
+    "_description": "Target audience for content and events. Values match termCode in personas.json",
+    "values": ["developer", "technical", "enterprise", "government", "humanitarian", "defence"],
+    "labels": {
+      "developer": "Developers",
+      "technical": "IT & Operations",
+      "enterprise": "Enterprise",
+      "government": "Public Sector",
+      "humanitarian": "Humanitarian Organizations",
+      "defence": "Defence & Civil Protection"
+    }
+  },
+
+  "technical": {
+    "_description": "Technical implementations and tools",
+    "values": ["zero-trust", "containers", "self-hosting", "open-standards", "multi-cloud", "devcontainer"]
+  },
+
+  "topics": {
+    "_description": "Specific topics for content and events",
+    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables"],
+    "labels": {
+      "hybrid-warfare": "Hybrid Warfare",
+      "cybersecurity": "Cybersecurity",
+      "critical-infrastructure": "Critical Infrastructure",
+      "sanctions": "Sanctions",
+      "gps-jamming": "GPS Jamming",
+      "preparedness": "Preparedness & Total Defence",
+      "submarine-cables": "Submarine Cables"
+    }
+  },
+
+  "eventStatus": {
+    "_description": "Event status values matching schema.org",
+    "values": ["scheduled", "postponed", "cancelled", "rescheduled"],
+    "schemaMapping": {
+      "scheduled": "https://schema.org/EventScheduled",
+      "postponed": "https://schema.org/EventPostponed",
+      "cancelled": "https://schema.org/EventCancelled",
+      "rescheduled": "https://schema.org/EventRescheduled"
+    }
+  },
+
+  "attendanceMode": {
+    "_description": "Event attendance modes matching schema.org",
+    "values": ["offline", "online", "mixed"],
+    "schemaMapping": {
+      "offline": "https://schema.org/OfflineEventAttendanceMode",
+      "online": "https://schema.org/OnlineEventAttendanceMode",
+      "mixed": "https://schema.org/MixedEventAttendanceMode"
+    }
+  },
+
+  "itRelevance": {
+    "_description": "IT/cyber relevance level for filtering events",
+    "values": ["high", "medium", "low"],
+    "labels": {
+      "high": "High IT Relevance",
+      "medium": "Medium IT Relevance",
+      "low": "General Interest"
+    }
+  },
+
+  "mappings": {
+    "_description": "Old tag -> New tag mappings for normalization",
+    "digital sovereignty": "sovereignty",
+    "cloud sovereignty": "sovereignty",
+    "personal sovereignty": "sovereignty",
+    "digital independence": "sovereignty",
+    "CLOUD Act": "cloud-act",
+    "Norway": "norway",
+    "EU": "eu",
+    "European cloud": "eu",
+    "EU Cloud Sovereignty Framework": "eu",
+    "government access": "government-access",
+    "vendor lock-in": "vendor-lock-in",
+    "exit strategy": "exit-strategy",
+    "open standards": "open-standards",
+    "zero trust": "zero-trust",
+    "GPS jamming": "gps-jamming",
+    "hybrid warfare": "hybrid-warfare",
+    "critical infrastructure": "critical-infrastructure",
+    "cloud migration": "exit-strategy",
+    "cloud costs": "vendor-lock-in",
+    "geopatriation": "data-residency",
+    "multi-cloud": "multi-cloud",
+    "isolation": "zero-trust",
+    "overlay network": "zero-trust",
+    "failover": "self-hosting",
+    "VPN": "zero-trust",
+    "BYOD": "zero-trust",
+    "Tailscale": "zero-trust",
+    "architecture": "technical",
+    "specification": "technical",
+    "configuration": "devcontainer",
+    "setup": "devcontainer",
+    "DNS": "devcontainer",
+    "technical": "technical",
+    "framework": "sovereignty",
+    "compliance": "gdpr",
+    "SEAL": "eu",
+    "NDSI": "sovereignty",
+    "self-assessment": "sovereignty",
+    "NATO": "preparedness",
+    "security": "cybersecurity",
+    "ICC": "humanitarian",
+    "Microsoft": "vendor-lock-in",
+    "Google": "vendor-lock-in",
+    "Dapr": "multi-cloud",
+    "total defence": "preparedness",
+    "totalforsvar": "preparedness",
+    "digital preparedness": "preparedness",
+    "cyber security": "cybersecurity",
+    "IT security": "cybersecurity",
+    "NIS2": "nis2"
+  }
+}

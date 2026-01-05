@@ -1,0 +1,228 @@
+{
+  "vendors": [
+    {
+      "id": "microsoft",
+      "name": "Microsoft Corporation",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://microsoft.com"
+    },
+    {
+      "id": "salesforce",
+      "name": "Salesforce, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://salesforce.com"
+    },
+    {
+      "id": "atlassian",
+      "name": "Atlassian Corporation",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://atlassian.com"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://gitlab.com"
+    },
+    {
+      "id": "pexip",
+      "name": "Pexip Holding ASA",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://pexip.com"
+    },
+    {
+      "id": "whereby",
+      "name": "Whereby AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://whereby.com"
+    },
+    {
+      "id": "superoffice",
+      "name": "SuperOffice AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://superoffice.com"
+    },
+    {
+      "id": "tripletex",
+      "name": "Tripletex AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://tripletex.no"
+    },
+    {
+      "id": "element",
+      "name": "Element (New Vector Ltd)",
+      "country": "GB",
+      "country_name": "United Kingdom",
+      "website": "https://element.io"
+    },
+    {
+      "id": "visma",
+      "name": "Visma AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://visma.com"
+    },
+    {
+      "id": "poweroffice",
+      "name": "PowerOffice AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://poweroffice.no"
+    },
+    {
+      "id": "simployer",
+      "name": "Simployer AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://simployer.com"
+    },
+    {
+      "id": "zalaris",
+      "name": "Zalaris ASA",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://zalaris.com"
+    },
+    {
+      "id": "google",
+      "name": "Google LLC (Alphabet Inc.)",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://google.com"
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon Web Services, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://aws.amazon.com"
+    },
+    {
+      "id": "zoom",
+      "name": "Zoom Video Communications, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://zoom.us"
+    },
+    {
+      "id": "sap",
+      "name": "SAP SE",
+      "country": "DE",
+      "country_name": "Germany",
+      "website": "https://sap.com"
+    },
+    {
+      "id": "workday",
+      "name": "Workday, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://workday.com"
+    },
+    {
+      "id": "jotta",
+      "name": "Jotta AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://jottacloud.com"
+    },
+    {
+      "id": "nextcloud",
+      "name": "Nextcloud GmbH",
+      "country": "DE",
+      "country_name": "Germany",
+      "website": "https://nextcloud.com"
+    },
+    {
+      "id": "collabora",
+      "name": "Collabora Productivity Ltd",
+      "country": "GB",
+      "country_name": "United Kingdom",
+      "website": "https://collaboraoffice.com"
+    },
+    {
+      "id": "dropbox",
+      "name": "Dropbox, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://dropbox.com"
+    },
+    {
+      "id": "okta",
+      "name": "Okta, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://okta.com"
+    },
+    {
+      "id": "servicenow",
+      "name": "ServiceNow, Inc.",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://servicenow.com"
+    },
+    {
+      "id": "signicat",
+      "name": "Signicat AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://signicat.com"
+    },
+    {
+      "id": "unit4",
+      "name": "Unit4 N.V.",
+      "country": "NL",
+      "country_name": "Netherlands",
+      "website": "https://unit4.com"
+    },
+    {
+      "id": "citrix",
+      "name": "Cloud Software Group (Citrix)",
+      "country": "US",
+      "country_name": "USA",
+      "website": "https://citrix.com"
+    },
+    {
+      "id": "sikri",
+      "name": "SIKRI AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://sikri.no"
+    },
+    {
+      "id": "gecko",
+      "name": "Gecko Informasjonssystemer AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://gecko.no"
+    },
+    {
+      "id": "dhis2",
+      "name": "HISP Centre (University of Oslo)",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://dhis2.org"
+    },
+    {
+      "id": "vipps",
+      "name": "Vipps MobilePay AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://vipps.no"
+    },
+    {
+      "id": "bankid",
+      "name": "BankID BankAxept AS",
+      "country": "NO",
+      "country_name": "Norway",
+      "website": "https://bankid.no"
+    }
+  ]
+}

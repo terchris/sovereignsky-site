@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://totalforsvarsaret.no/schemas/regions.schema.json",
+  "title": "SovereignSky Regions",
+  "description": "Schema for regions.json - countries and their data sovereignty characteristics",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/region"
+  },
+  "definitions": {
+    "region": {
+      "type": "object",
+      "required": ["id", "slug", "name", "flag", "description", "risk_level"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 country code",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly identifier for generating /laws/{slug}/ pages",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full country name in English"
+        },
+        "flag": {
+          "type": "string",
+          "description": "Emoji flag for the country"
+        },
+        "description": {
+          "type": "string",
+          "description": "Brief description of the country's data protection stance"
+        },
+        "eu_member": {
+          "type": "boolean",
+          "description": "Whether the country is a member of the European Union"
+        },
+        "eea_member": {
+          "type": "boolean",
+          "description": "Whether the country is a member of the European Economic Area"
+        },
+        "adequacy_decision": {
+          "type": "boolean",
+          "description": "Whether the country has an EU adequacy decision"
+        },
+        "blocs": {
+          "type": "array",
+          "description": "Array of bloc IDs this country belongs to (references jurisdictions.json)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "law_concern": {
+          "type": "boolean",
+          "description": "Whether the country has laws of concern for data sovereignty"
+        },
+        "political_concern": {
+          "type": "boolean",
+          "description": "Whether the country has political concerns for data sovereignty"
+        },
+        "sanctions": {
+          "type": "boolean",
+          "description": "Whether the country is under international sanctions"
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Overall risk level for data sovereignty",
+          "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+        },
+        "national_laws": {
+          "type": "array",
+          "description": "Array of national laws affecting data sovereignty",
+          "items": {
+            "$ref": "#/definitions/law"
+          }
+        }
+      }
+    },
+    "law": {
+      "type": "object",
+      "required": ["id", "name", "full_name", "year", "summary", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the law",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Short name or acronym of the law"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Full official name of the law"
+        },
+        "year": {
+          "type": "integer",
+          "description": "Year the law was enacted or last significantly updated",
+          "minimum": 1900,
+          "maximum": 2100
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief summary of what the law does and its implications"
+        },
+        "severity": {
+          "type": "string",
+          "description": "Impact level: protective (protects data), neutral, medium (some concern), high (significant concern)",
+          "enum": ["protective", "neutral", "medium", "high"]
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the official law text or authoritative source",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{{ $disableHeroImageFilter := .Site.Params.homepage.disableHeroImageFilter | default false }}
+<article class="max-w-full">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+    <div class="relative overflow-hidden rounded-2xl shadow-xl">
+      <div class="absolute inset-0">
+        {{ $useDefault := true }}
+        {{ $homepageImage := "" }}
+        {{ with .Site.Params.defaultBackgroundImage }}
+          {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+            {{ $homepageImage = resources.GetRemote . }}
+          {{ else }}
+            {{ $homepageImage = resources.Get . }}
+          {{ end }}
+        {{ end }}
+        {{ with .Site.Params.homepage.homepageImage }}
+          {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}
+            {{ $homepageImage = resources.GetRemote . }}
+            {{ $useDefault = false }}
+          {{ else }}
+            {{ $homepageImage = resources.Get . }}
+            {{ $useDefault = false }}
+          {{ end }}
+        {{ end }}
+        {{ if $homepageImage }}
+          {{ $style := "" }}
+          {{ $defaultPosition := cond $useDefault site.Params.imagePosition false }}
+          {{ with $.Params.imagePosition | default $defaultPosition }}
+            {{ $style = printf "object-position: %s;" . }}
+          {{ end }}
+          <img
+            class="h-full w-full object-cover nozoom mt-0 mr-0 mb-0 ml-0"
+            src="{{ $homepageImage.RelPermalink }}"
+            {{ if $style }}style="{{ $style | safeCSS }}"{{ end }}>
+        {{ end }}
+
+        {{ if not $disableHeroImageFilter }}
+          <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/60 via-neutral-950/20 to-transparent"></div>
+        {{ else }}
+          <div class="absolute inset-0 bg-gradient-to-t from-neutral-950/40 via-neutral-950/10 to-transparent"></div>
+        {{ end }}
+      </div>
+
+      <div class="relative px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20 text-center text-white">
+        <div class="mx-auto max-w-3xl">
+          <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-semibold ring-1 ring-white/20">
+            <span>Totalforsvarsåret 2026</span>
+            <span class="text-white/60">·</span>
+            <span class="text-white/80">Digital preparedness</span>
+          </div>
+
+          <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+            {{ .Title | default .Site.Title | emojify }}
+          </h1>
+
+          {{ with (.Description | default .Site.Params.description) }}
+            <p class="mt-4 text-base sm:text-lg leading-7 text-white/90 max-w-2xl mx-auto">
+              {{ . }}
+            </p>
+          {{ end }}
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+            <a
+              href="#databases"
+              class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-white px-6 py-3 text-base font-semibold text-neutral-900 shadow-sm hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/50">
+              Explore the databases
+            </a>
+            <a
+              href="/ndsi/survey/"
+              class="w-full sm:w-auto inline-flex items-center justify-center rounded-lg bg-white/10 px-6 py-3 text-base font-semibold ring-1 ring-white/20 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/40">
+              Take the NDSI survey
+            </a>
+          </div>
+
+          <p class="mt-4 text-sm text-white/80">
+            Or run the <a class="underline underline-offset-4 hover:text-white" href="/ndsi/software-risk-check/">Software Risk Check</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <section class="prose dark:prose-invert max-w-none mt-10">
+      {{ .Content }}
+    </section>
+  </div>
+</article>
+
+<section>
+  {{ partial "recent-articles/main.html" . }}
+</section>
+

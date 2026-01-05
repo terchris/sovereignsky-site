@@ -1,0 +1,41 @@
+{
+  "provider_id": "plusserver",
+  "provider_name": "plusserver",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://www.plusserver.com",
+  "regions": [
+    {
+      "region_id": "cgn3",
+      "region_name": "Cologne",
+      "country_id": "DE",
+      "city": "Cologne",
+      "coordinates": [50.9375, 6.9603]
+    },
+    {
+      "region_id": "dus6",
+      "region_name": "Düsseldorf",
+      "country_id": "DE",
+      "city": "Düsseldorf",
+      "coordinates": [51.2277, 6.7735]
+    },
+    {
+      "region_id": "ham1",
+      "region_name": "Hamburg 1",
+      "country_id": "DE",
+      "city": "Hamburg",
+      "coordinates": [53.5511, 9.9937]
+    },
+    {
+      "region_id": "ham2",
+      "region_name": "Hamburg 2",
+      "country_id": "DE",
+      "city": "Hamburg",
+      "coordinates": [53.5611, 10.0037]
+    }
+  ],
+  "meta": {
+    "source": "https://www.plusserver.com/en/company/data-centers/"
+  }
+}

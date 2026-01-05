@@ -1,0 +1,62 @@
+{
+  "provider_id": "globalconnect",
+  "provider_name": "GlobalConnect",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "DK",
+  "vendor_website": "https://www.globalconnect.dk",
+  "regions": [
+    {
+      "region_id": "cph-taastrup",
+      "region_name": "Copenhagen Taastrup",
+      "country_id": "DK",
+      "city": "Taastrup",
+      "coordinates": [55.6520, 12.2930]
+    },
+    {
+      "region_id": "cph-glostrup",
+      "region_name": "Copenhagen Glostrup",
+      "country_id": "DK",
+      "city": "Glostrup",
+      "coordinates": [55.6625, 12.4000]
+    },
+    {
+      "region_id": "cph-albertslund",
+      "region_name": "Copenhagen Albertslund",
+      "country_id": "DK",
+      "city": "Albertslund",
+      "coordinates": [55.6578, 12.3564]
+    },
+    {
+      "region_id": "cph-vesterbrogade",
+      "region_name": "Copenhagen City",
+      "country_id": "DK",
+      "city": "Copenhagen",
+      "coordinates": [55.6712, 12.5540]
+    },
+    {
+      "region_id": "kolding",
+      "region_name": "Kolding",
+      "country_id": "DK",
+      "city": "Kolding",
+      "coordinates": [55.4904, 9.4722]
+    },
+    {
+      "region_id": "horsens",
+      "region_name": "Horsens",
+      "country_id": "DK",
+      "city": "Hørning",
+      "coordinates": [56.0903, 9.9267]
+    },
+    {
+      "region_id": "skanderborg",
+      "region_name": "Skanderborg",
+      "country_id": "DK",
+      "city": "Skanderborg",
+      "coordinates": [56.0407, 9.9272]
+    }
+  ],
+  "meta": {
+    "source": "https://www.datacenters.com/providers/globalconnect/data-center-locations"
+  }
+}

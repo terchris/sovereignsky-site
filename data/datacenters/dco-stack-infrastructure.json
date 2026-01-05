@@ -1,0 +1,72 @@
+{
+  "provider_id": "stack-infrastructure",
+  "provider_name": "STACK Infrastructure",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "US",
+  "vendor_website": "https://www.stackinfra.com/",
+  "regions": [
+    {
+      "region_id": "OSL01",
+      "region_name": "OSL01 (Økern / Ulven)",
+      "country_id": "NO",
+      "city": "Oslo",
+      "coordinates": [59.929, 10.805]
+    },
+    {
+      "region_id": "OSL02",
+      "region_name": "OSL02 (Rosenholm)",
+      "country_id": "NO",
+      "city": "Oslo",
+      "coordinates": [59.78, 10.8]
+    },
+    {
+      "region_id": "OSL03",
+      "region_name": "OSL03 (Fetsund)",
+      "country_id": "NO",
+      "city": "Fetsund",
+      "coordinates": [59.924, 11.164]
+    },
+    {
+      "region_id": "OSL04",
+      "region_name": "OSL04 (Holtskogen)",
+      "country_id": "NO",
+      "city": "Oslo",
+      "coordinates": [59.93, 10.9]
+    }
+  ],
+  "meta": {
+    "source": "https://www.stackinfra.com/locations/emea/oslo/"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

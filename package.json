@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "generate:networks": "node scripts/generate-network-pages.js",
+    "generate:laws": "node scripts/generate-laws-pages.js"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "pdf-parse": "^2.4.5",
+    "pdfjs-dist": "^5.4.449"
+  }
+}

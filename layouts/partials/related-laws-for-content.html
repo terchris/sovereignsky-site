@@ -1,0 +1,41 @@
+{{/* Related Laws for Blog/Publication Pages (sidebar version)
+     Shows laws where the law ID matches one of the page's tags
+     Usage: {{ partial "related-laws-for-content.html" . }}
+*/}}
+
+{{ $pageTags := .Params.tags | default (slice) }}
+
+{{ if gt (len $pageTags) 0 }}
+  {{/* Build a lookup of tag -> true for O(1) lookup */}}
+  {{ $tagLookup := dict }}
+  {{ range $pageTags }}
+    {{ $tagLookup = merge $tagLookup (dict . true) }}
+  {{ end }}
+
+  {{/* Find laws whose ID matches a tag */}}
+  {{ $relatedLaws := slice }}
+  {{ range (site.Data.laws.laws | default (slice)) }}
+    {{ $law := . }}
+    {{ if index $tagLookup .id }}
+      {{ $relatedLaws = $relatedLaws | append $law }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Only show section if we have related laws */}}
+  {{ if gt (len $relatedLaws) 0 }}
+  <div class="mt-6">
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Laws</div>
+    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      <div class="flex flex-wrap gap-2">
+        {{ range $relatedLaws }}
+        <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+           href="/laws/{{ .id }}/">
+          <span class="font-medium">{{ .name }}</span>
+          {{ if .year }}<span class="text-neutral-500 dark:text-neutral-400">({{ .year }})</span>{{ end }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,1114 @@
+[
+  {
+    "id": "ms-teams",
+    "slug": "teams",
+    "name": "Microsoft Teams",
+    "description": "Collaboration platform with chat, video and file sharing, part of Microsoft 365",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication",
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Communication",
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/teams/"
+  },
+  {
+    "id": "pexip",
+    "slug": "pexip",
+    "name": "Pexip",
+    "description": "Norwegian video conferencing solution with self-hosting capability and interoperability",
+    "vendor_id": "pexip",
+    "vendor_name": "Pexip Holding ASA",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication"
+    ],
+    "use_area_names": [
+      "Communication"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/pexip/"
+  },
+  {
+    "id": "salesforce",
+    "slug": "salesforce",
+    "name": "Salesforce",
+    "description": "World's leading CRM platform for sales, service and marketing",
+    "vendor_id": "salesforce",
+    "vendor_name": "Salesforce, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "significant",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "sales"
+    ],
+    "use_area_names": [
+      "Sales & CRM"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/salesforce/"
+  },
+  {
+    "id": "superoffice",
+    "slug": "superoffice",
+    "name": "SuperOffice",
+    "description": "Scandinavian CRM solution focused on user-friendliness and European data storage",
+    "vendor_id": "superoffice",
+    "vendor_name": "SuperOffice AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "sales"
+    ],
+    "use_area_names": [
+      "Sales & CRM"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/superoffice/"
+  },
+  {
+    "id": "tripletex",
+    "slug": "tripletex",
+    "name": "Tripletex",
+    "description": "Norwegian cloud-based accounting system for SMB with automation and integrations",
+    "vendor_id": "tripletex",
+    "vendor_name": "Tripletex AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/tripletex/"
+  },
+  {
+    "id": "slack",
+    "slug": "slack",
+    "name": "Slack",
+    "description": "Team messaging platform with channels, integrations and search",
+    "vendor_id": "salesforce",
+    "vendor_name": "Salesforce, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication",
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Communication",
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/slack/"
+  },
+  {
+    "id": "github",
+    "slug": "github",
+    "name": "GitHub",
+    "description": "World's largest platform for code hosting, version control and developer collaboration",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NL",
+      "SE",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "dev"
+    ],
+    "use_area_names": [
+      "Development & IT"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/github/"
+  },
+  {
+    "id": "gitlab",
+    "slug": "gitlab",
+    "name": "GitLab",
+    "description": "Complete DevOps platform with code hosting, CI/CD and security scanning",
+    "vendor_id": "gitlab",
+    "vendor_name": "GitLab Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "moderate",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "dev"
+    ],
+    "use_area_names": [
+      "Development & IT"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/gitlab/"
+  },
+  {
+    "id": "whereby",
+    "slug": "whereby",
+    "name": "Whereby",
+    "description": "Norwegian video conferencing solution focused on simplicity and user-friendliness",
+    "vendor_id": "whereby",
+    "vendor_name": "Whereby AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication"
+    ],
+    "use_area_names": [
+      "Communication"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/whereby/"
+  },
+  {
+    "id": "jira",
+    "slug": "jira",
+    "name": "Jira",
+    "description": "Atlassian's project management tool for agile teams and software development",
+    "vendor_id": "atlassian",
+    "vendor_name": "Atlassian Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "project"
+    ],
+    "use_area_names": [
+      "Project Management"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/jira/"
+  },
+  {
+    "id": "element",
+    "slug": "element",
+    "name": "Element/Matrix",
+    "description": "Open source communication platform based on the Matrix protocol",
+    "vendor_id": "element",
+    "vendor_name": "Element (New Vector Ltd)",
+    "vendor_country": "GB",
+    "vendor_country_name": "United Kingdom",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication"
+    ],
+    "use_area_names": [
+      "Communication"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/element/"
+  },
+  {
+    "id": "visma-business",
+    "slug": "visma-business",
+    "name": "Visma Business",
+    "description": "Norwegian ERP and accounting solution for medium to large enterprises with comprehensive business management",
+    "vendor_id": "visma",
+    "vendor_name": "Visma AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "SE",
+      "NL",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/visma-business/"
+  },
+  {
+    "id": "poweroffice-go",
+    "slug": "poweroffice-go",
+    "name": "PowerOffice Go",
+    "description": "Norwegian cloud accounting software ranked #1 in customer satisfaction, designed for SMEs and accounting firms",
+    "vendor_id": "poweroffice",
+    "vendor_name": "PowerOffice AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/poweroffice-go/"
+  },
+  {
+    "id": "simployer",
+    "slug": "simployer",
+    "name": "Simployer HRM",
+    "description": "Norwegian HR management system serving 1.2 million users, covering employee data, payroll, absence, and compliance",
+    "vendor_id": "simployer",
+    "vendor_name": "Simployer AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "NL",
+      "IE",
+      "DE",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "hr"
+    ],
+    "use_area_names": [
+      "HR & People"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/simployer/"
+  },
+  {
+    "id": "zalaris",
+    "slug": "zalaris",
+    "name": "Zalaris HR & Payroll",
+    "description": "Norwegian HR and payroll outsourcing serving 1.5+ million employees monthly across Europe and Asia Pacific",
+    "vendor_id": "zalaris",
+    "vendor_name": "Zalaris ASA",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "hr"
+    ],
+    "use_area_names": [
+      "HR & People"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/zalaris/"
+  },
+  {
+    "id": "microsoft-365",
+    "slug": "microsoft-365",
+    "name": "Microsoft 365",
+    "description": "Cloud-based productivity suite including Word, Excel, PowerPoint, Outlook and collaboration tools",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "office",
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Office Suite",
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/microsoft-365/"
+  },
+  {
+    "id": "sharepoint",
+    "slug": "sharepoint",
+    "name": "SharePoint Online",
+    "description": "Document management and collaboration platform integrated with Microsoft 365",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "collaboration",
+      "storage"
+    ],
+    "use_area_names": [
+      "Collaboration & Documentation",
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/sharepoint/"
+  },
+  {
+    "id": "onedrive",
+    "slug": "onedrive",
+    "name": "OneDrive for Business",
+    "description": "Cloud file storage and synchronization service integrated with Microsoft 365",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/onedrive/"
+  },
+  {
+    "id": "azure",
+    "slug": "azure",
+    "name": "Microsoft Azure",
+    "description": "Cloud computing platform offering IaaS, PaaS and SaaS services with Norway datacenter regions",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage",
+      "dev"
+    ],
+    "use_area_names": [
+      "Storage & Security",
+      "Development & IT"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/azure/"
+  },
+  {
+    "id": "google-workspace",
+    "slug": "google-workspace",
+    "name": "Google Workspace",
+    "description": "Cloud productivity and collaboration suite including Gmail, Drive, Docs, Meet and more",
+    "vendor_id": "google",
+    "vendor_name": "Google LLC (Alphabet Inc.)",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "office",
+      "collaboration",
+      "communication"
+    ],
+    "use_area_names": [
+      "Office Suite",
+      "Collaboration & Documentation",
+      "Communication"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/google-workspace/"
+  },
+  {
+    "id": "google-drive",
+    "slug": "google-drive",
+    "name": "Google Drive",
+    "description": "Cloud file storage and synchronization service integrated with Google Workspace",
+    "vendor_id": "google",
+    "vendor_name": "Google LLC (Alphabet Inc.)",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/google-drive/"
+  },
+  {
+    "id": "aws",
+    "slug": "aws",
+    "name": "Amazon Web Services (AWS)",
+    "description": "Leading cloud computing platform offering comprehensive infrastructure and services",
+    "vendor_id": "amazon",
+    "vendor_name": "Amazon Web Services, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "significant",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "SE",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage",
+      "dev"
+    ],
+    "use_area_names": [
+      "Storage & Security",
+      "Development & IT"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/aws/"
+  },
+  {
+    "id": "confluence",
+    "slug": "confluence",
+    "name": "Confluence",
+    "description": "Team workspace for knowledge management, documentation and collaboration",
+    "vendor_id": "atlassian",
+    "vendor_name": "Atlassian Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/confluence/"
+  },
+  {
+    "id": "zoom",
+    "slug": "zoom",
+    "name": "Zoom",
+    "description": "Video conferencing and online meeting platform widely used for remote work",
+    "vendor_id": "zoom",
+    "vendor_name": "Zoom Video Communications, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "communication"
+    ],
+    "use_area_names": [
+      "Communication"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/zoom/"
+  },
+  {
+    "id": "sap-successfactors",
+    "slug": "sap-successfactors",
+    "name": "SAP SuccessFactors",
+    "description": "Cloud-based human capital management (HCM) suite for enterprise HR",
+    "vendor_id": "sap",
+    "vendor_name": "SAP SE",
+    "vendor_country": "DE",
+    "vendor_country_name": "Germany",
+    "risk_level": "moderate",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "hr"
+    ],
+    "use_area_names": [
+      "HR & People"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/sap-successfactors/"
+  },
+  {
+    "id": "workday",
+    "slug": "workday",
+    "name": "Workday HCM",
+    "description": "Cloud-based enterprise human capital management and financial management platform",
+    "vendor_id": "workday",
+    "vendor_name": "Workday, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "hr"
+    ],
+    "use_area_names": [
+      "HR & People"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/workday/"
+  },
+  {
+    "id": "jottacloud",
+    "slug": "jottacloud",
+    "name": "Jottacloud",
+    "description": "Norwegian cloud storage service with unlimited storage and strong privacy focus",
+    "vendor_id": "jotta",
+    "vendor_name": "Jotta AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/jottacloud/"
+  },
+  {
+    "id": "nextcloud",
+    "slug": "nextcloud",
+    "name": "Nextcloud",
+    "description": "Open source, self-hosted file sync and collaboration platform",
+    "vendor_id": "nextcloud",
+    "vendor_name": "Nextcloud GmbH",
+    "vendor_country": "DE",
+    "vendor_country_name": "Germany",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage",
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Storage & Security",
+      "Collaboration & Documentation"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/nextcloud/"
+  },
+  {
+    "id": "collabora-online",
+    "slug": "collabora-online",
+    "name": "Collabora Online",
+    "description": "Open source office suite based on LibreOffice, cloud-hosted or self-hosted",
+    "vendor_id": "collabora",
+    "vendor_name": "Collabora Productivity Ltd",
+    "vendor_country": "GB",
+    "vendor_country_name": "United Kingdom",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "office"
+    ],
+    "use_area_names": [
+      "Office Suite"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/collabora-online/"
+  },
+  {
+    "id": "dropbox",
+    "slug": "dropbox",
+    "name": "Dropbox Business",
+    "description": "Cloud file storage and collaboration platform for businesses",
+    "vendor_id": "dropbox",
+    "vendor_name": "Dropbox, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/dropbox/"
+  },
+  {
+    "id": "okta",
+    "slug": "okta",
+    "name": "Okta",
+    "description": "Cloud-based identity and access management (IAM) platform providing SSO, MFA, and lifecycle management for enterprise organizations",
+    "vendor_id": "okta",
+    "vendor_name": "Okta, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "significant",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/okta/"
+  },
+  {
+    "id": "servicenow",
+    "slug": "servicenow",
+    "name": "ServiceNow",
+    "description": "Cloud-based IT service management (ITSM) and workflow automation platform used for incident, problem, and change management",
+    "vendor_id": "servicenow",
+    "vendor_name": "ServiceNow, Inc.",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "project"
+    ],
+    "use_area_names": [
+      "Project Management"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/servicenow/"
+  },
+  {
+    "id": "signicat",
+    "slug": "signicat",
+    "name": "Signicat",
+    "description": "Norwegian digital identity and electronic signature platform supporting BankID, eIDAS, and identity verification across the Nordics",
+    "vendor_id": "signicat",
+    "vendor_name": "Signicat AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/signicat/"
+  },
+  {
+    "id": "unit4-erp",
+    "slug": "unit4-erp",
+    "name": "Unit4 ERP",
+    "description": "Cloud ERP platform for service-centric organizations, covering finance, HR, projects and procurement. Strong presence in Norwegian public sector.",
+    "vendor_id": "unit4",
+    "vendor_name": "Unit4 N.V.",
+    "vendor_country": "NL",
+    "vendor_country_name": "Netherlands",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/unit4-erp/"
+  },
+  {
+    "id": "citrix-workspace",
+    "slug": "citrix-workspace",
+    "name": "Citrix Workspace / VDI",
+    "description": "Virtual desktop infrastructure (VDI) and remote access platform for secure application and desktop delivery",
+    "vendor_id": "citrix",
+    "vendor_name": "Cloud Software Group (Citrix)",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "dev"
+    ],
+    "use_area_names": [
+      "Development & IT"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/citrix-workspace/"
+  },
+  {
+    "id": "entra-id",
+    "slug": "entra-id",
+    "name": "Microsoft Entra ID",
+    "description": "Cloud-based identity and access management service (formerly Azure Active Directory) for SSO, MFA and conditional access",
+    "vendor_id": "microsoft",
+    "vendor_name": "Microsoft Corporation",
+    "vendor_country": "US",
+    "vendor_country_name": "USA",
+    "risk_level": "elevated",
+    "jurisdiction_exposure": [
+      "US"
+    ],
+    "has_us_exposure": true,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/entra-id/"
+  },
+  {
+    "id": "elements",
+    "slug": "elements",
+    "name": "Elements",
+    "description": "Norwegian document management and archive system for public sector, supporting NOARK 5 standard for case handling and records management",
+    "vendor_id": "sikri",
+    "vendor_name": "SIKRI AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/elements/"
+  },
+  {
+    "id": "ephorte",
+    "slug": "ephorte",
+    "name": "ePhorte",
+    "description": "Norwegian case management and archive system for public sector, NOARK 5 certified with workflow automation",
+    "vendor_id": "gecko",
+    "vendor_name": "Gecko Informasjonssystemer AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "collaboration"
+    ],
+    "use_area_names": [
+      "Collaboration & Documentation"
+    ],
+    "open_source": false,
+    "self_hosted": true,
+    "url": "/software/ephorte/"
+  },
+  {
+    "id": "dhis2",
+    "slug": "dhis2",
+    "name": "DHIS2",
+    "description": "Open source health information management platform developed at University of Oslo, used by 100+ countries for disease surveillance and health programs",
+    "vendor_id": "dhis2",
+    "vendor_name": "HISP Centre (University of Oslo)",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO",
+      "EU_EEA"
+    ],
+    "use_areas": [
+      "project"
+    ],
+    "use_area_names": [
+      "Project Management"
+    ],
+    "open_source": true,
+    "self_hosted": true,
+    "url": "/software/dhis2/"
+  },
+  {
+    "id": "vipps",
+    "slug": "vipps",
+    "name": "Vipps",
+    "description": "Norwegian mobile payment platform used by 4.5+ million Norwegians for P2P payments, in-store payments, online checkout and business invoicing",
+    "vendor_id": "vipps",
+    "vendor_name": "Vipps MobilePay AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "finance"
+    ],
+    "use_area_names": [
+      "Finance & Accounting"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/vipps/"
+  },
+  {
+    "id": "bankid",
+    "slug": "bankid",
+    "name": "BankID Norge",
+    "description": "Norwegian electronic ID and signature solution used by 4.5+ million Norwegians for secure login to banks, public services and private sector applications",
+    "vendor_id": "bankid",
+    "vendor_name": "BankID BankAxept AS",
+    "vendor_country": "NO",
+    "vendor_country_name": "Norway",
+    "risk_level": "low",
+    "jurisdiction_exposure": [],
+    "has_us_exposure": false,
+    "data_residency": [
+      "NO"
+    ],
+    "use_areas": [
+      "storage"
+    ],
+    "use_area_names": [
+      "Storage & Security"
+    ],
+    "open_source": false,
+    "self_hosted": false,
+    "url": "/software/bankid/"
+  }
+]

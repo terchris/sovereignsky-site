@@ -1,0 +1,27 @@
+{
+  "provider_id": "tilaa",
+  "provider_name": "Tilaa",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "NL",
+  "vendor_website": "https://www.tilaa.com",
+  "regions": [
+    {
+      "region_id": "nl-ams",
+      "region_name": "Amsterdam",
+      "country_id": "NL",
+      "city": "Amsterdam",
+      "coordinates": [52.3676, 4.9041]
+    },
+    {
+      "region_id": "nl-hrl",
+      "region_name": "Haarlem",
+      "country_id": "NL",
+      "city": "Haarlem",
+      "coordinates": [52.3874, 4.6462]
+    }
+  ],
+  "meta": {
+    "source": "https://www.tilaa.com/en/netherlands-vps"
+  }
+}

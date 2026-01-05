@@ -1,0 +1,76 @@
+{{/* Related Content for Blog Pages
+     Shows other blog posts and publications that share tags with this post
+     Usage: {{ partial "related-content-for-blog.html" . }}
+*/}}
+
+{{ $currentPage := . }}
+{{ $pageTags := .Params.tags | default (slice) }}
+
+{{ if gt (len $pageTags) 0 }}
+  {{/* Build a lookup of tag -> true for O(1) lookup */}}
+  {{ $tagLookup := dict }}
+  {{ range $pageTags }}
+    {{ $tagLookup = merge $tagLookup (dict . true) }}
+  {{ end }}
+
+  {{/* Find other blog posts with matching tags */}}
+  {{ $relatedPosts := slice }}
+  {{ range where site.RegularPages "Type" "blog" }}
+    {{ if ne .Permalink $currentPage.Permalink }}
+      {{ $page := . }}
+      {{ $matched := false }}
+      {{ range .Params.tags }}
+        {{ if index $tagLookup . }}
+          {{ $matched = true }}
+        {{ end }}
+      {{ end }}
+      {{ if $matched }}
+        {{ $relatedPosts = $relatedPosts | append $page }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Find publications with matching tags */}}
+  {{ $relatedPubs := slice }}
+  {{ range where site.RegularPages "Type" "publications" }}
+    {{ $page := . }}
+    {{ $matched := false }}
+    {{ range .Params.tags }}
+      {{ if index $tagLookup . }}
+        {{ $matched = true }}
+      {{ end }}
+    {{ end }}
+    {{ if $matched }}
+      {{ $relatedPubs = $relatedPubs | append $page }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Only show section if we have related content */}}
+  {{ if or (gt (len $relatedPosts) 0) (gt (len $relatedPubs) 0) }}
+  <div class="mt-6">
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Content</div>
+    <div class="text-sm text-neutral-500 dark:text-neutral-400">Similar topics</div>
+    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      <div class="space-y-2">
+        {{/* Blog posts */}}
+        {{ range first 3 $relatedPosts }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Blog</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+
+        {{/* Publications */}}
+        {{ range first 2 $relatedPubs }}
+        <a class="block no-underline p-2 rounded border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors"
+           href="{{ .RelPermalink }}">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Publication</div>
+          <div class="text-sm font-medium line-clamp-2">{{ .Title }}</div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

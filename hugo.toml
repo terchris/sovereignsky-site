@@ -1,0 +1,48 @@
+# SovereignSky Website Configuration
+baseURL = "https://totalforsvarsaret.no/"
+defaultContentLanguage = "en"
+theme = "blowfish"
+
+# Enable useful features
+enableRobotsTXT = true
+enableGitInfo = true
+enableEmoji = true
+
+summaryLength = 30
+
+[pagination]
+  pagerSize = 20
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  # Audience filtering taxonomy
+  audience = "audiences"
+  # Software filtering taxonomies
+  risk_level = "risk_levels"
+  vendor_country = "vendor_countries"
+  use_area = "use_areas"
+
+[sitemap]
+  changefreq = 'daily'
+  filename = 'sitemap.xml'
+  priority = 0.5
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Markdown rendering
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow HTML in markdown
+  [markup.highlight]
+    style = "dracula"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+
+# Build settings
+[build]
+  writeStats = true
+

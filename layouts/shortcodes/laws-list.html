@@ -1,0 +1,75 @@
+{{/*
+  List laws filtered by type, government_access, or data_protection.
+  Usage:
+    {{< laws-list >}}  (shows all laws)
+    {{< laws-list type="access" >}}
+    {{< laws-list government_access="broad" >}}
+    {{< laws-list data_protection="strong" >}}
+*/}}
+
+{{ $lawType := .Get "type" | default "" }}
+{{ $govAccess := .Get "government_access" | default "" }}
+{{ $dataProt := .Get "data_protection" | default "" }}
+{{ $laws := site.Data.laws.laws | default (slice) }}
+
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+
+{{ $blocsById := dict }}
+{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+
+{{ $filtered := slice }}
+{{ range $laws }}
+  {{ $include := true }}
+  {{ if and $lawType (ne .type $lawType) }}
+    {{ $include = false }}
+  {{ end }}
+  {{ if and $govAccess (ne .government_access $govAccess) }}
+    {{ $include = false }}
+  {{ end }}
+  {{ if and $dataProt (ne .data_protection $dataProt) }}
+    {{ $include = false }}
+  {{ end }}
+  {{ if $include }}
+    {{ $filtered = $filtered | append . }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $filtered) 0 }}
+<div class="not-prose mt-3">
+  <div class="flex flex-wrap gap-2">
+    {{ range $filtered }}
+    {{ $law := . }}
+    {{ $firstApply := "" }}
+    {{ $flag := "" }}
+    {{ range first 1 .applies_to }}
+      {{ $id := . }}
+      {{ $region := index $regionsById $id }}
+      {{ if $region }}
+        {{ $flag = $region.flag }}
+        {{ $firstApply = $region.name }}
+      {{ else }}
+        {{ $bloc := index $blocsById $id }}
+        {{ if $bloc }}
+          {{ $flag = $bloc.flag }}
+          {{ $firstApply = $bloc.name }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    <a class="inline-flex items-center gap-2 no-underline px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+       href="/laws/{{ .id }}/">
+      {{ if $flag }}<span>{{ $flag }}</span>{{ end }}
+      <span class="font-medium">{{ .name }}</span>
+      <span class="text-neutral-500 dark:text-neutral-400">({{ .year }})</span>
+      {{ if $firstApply }}<span class="text-neutral-400 dark:text-neutral-500 text-xs">· {{ $firstApply }}</span>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ else }}
+<p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No laws found matching the criteria.</p>
+{{ end }}

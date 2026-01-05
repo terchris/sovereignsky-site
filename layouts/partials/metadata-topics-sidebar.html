@@ -1,0 +1,18 @@
+{{/*
+Topics Metadata Sidebar
+Usage: {{ partial "metadata-topics-sidebar.html" . }}
+
+Renders a Topics section for any content type sidebar.
+Displays a comma-separated list of topics from .Params.topics.
+*/}}
+
+{{ with .Params.topics }}
+<div class="mt-6">
+  <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Topics</div>
+  <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+    <div class="text-sm text-neutral-700 dark:text-neutral-300">
+      {{ range $i, $t := . }}{{ if $i }}, {{ end }}{{ $t }}{{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

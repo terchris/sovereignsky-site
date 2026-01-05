@@ -1,0 +1,34 @@
+{
+  "provider_id": "verne",
+  "provider_name": "Verne Global (Ficolo)",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "FI",
+  "vendor_website": "https://www.verneglobal.com",
+  "regions": [
+    {
+      "region_id": "hel-air",
+      "region_name": "Helsinki (The Air)",
+      "country_id": "FI",
+      "city": "Vantaa",
+      "coordinates": [60.2934, 24.9631]
+    },
+    {
+      "region_id": "pori-rock",
+      "region_name": "Pori (The Rock)",
+      "country_id": "FI",
+      "city": "Pori",
+      "coordinates": [61.4851, 21.7974]
+    },
+    {
+      "region_id": "tre-deck",
+      "region_name": "Tampere (The Deck)",
+      "country_id": "FI",
+      "city": "Tampere",
+      "coordinates": [61.4978, 23.7610]
+    }
+  ],
+  "meta": {
+    "source": "https://www.verneglobal.com/finland"
+  }
+}

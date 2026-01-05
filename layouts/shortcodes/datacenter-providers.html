@@ -1,0 +1,67 @@
+{{/*
+Datacenter Providers list
+Usage: {{< datacenter-providers>}}
+
+  Renders provider cards linking to /datacenters/{provider_id}/
+  */}}
+
+  {{ $datacenters := site.Data.datacenters }}
+  {{ $regions := site.Data.regions }}
+
+  {{/* Build regions lookup by id */}}
+  {{ $regionsById := dict }}
+  {{ range $regions }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ end }}
+
+  {{ $providers := $datacenters.providers | default (slice) }}
+
+  {{/* Group providers by provider_type (new field), keeping compact chip layout */}}
+  {{ $groups := slice
+  (dict "key" "hyperscaler" "title" "Hyperscalers")
+  (dict "key" "regional_cloud" "title" "Regional cloud providers")
+  (dict "key" "datacenter_operator" "title" "Datacenter operators")
+  }}
+
+  {{ range $groups }}
+  {{ $key := .key }}
+  {{ $title := .title }}
+  {{ $items := where $providers "provider_type" $key }}
+  {{/* Sorted: provider name asc (stable), then provider_id asc */}}
+  {{ $items = sort $items "provider_id" "asc" }}
+  {{ $items = sort $items "provider_name" "asc" }}
+  {{ if gt (len $items) 0 }}
+  <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
+  <div class="flex flex-wrap gap-2">
+    {{ range $items }}
+    {{ $vendor := index $regionsById .vendor_country_id }}
+    {{ $flag := "" }}
+    {{ $vendorName := .vendor_country_id }}
+    {{ $risk := "unknown" }}
+    {{ if $vendor }}
+    {{ $flag = $vendor.flag }}
+    {{ $vendorName = $vendor.name }}
+    {{ $risk = $vendor.risk_level }}
+    {{ end }}
+
+    {{/* small colored dot by risk */}}
+    {{ $dot := "bg-neutral-400" }}
+    {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+    {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+    {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+    {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+    {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
+    <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+      href="/datacenters/{{ .provider_id }}/"
+      title="Type: {{ .provider_type }} • HQ: {{ $vendorName }} ({{ .vendor_country_id }}) • Risk: {{ $risk }} • Regions: {{ len (.regions | default (slice)) }}">
+      <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+      <span class="font-medium">{{ .provider_name }}</span>
+      <span class="text-neutral-500 dark:text-neutral-400">
+        {{ if $flag }}{{ $flag }}{{ end }} {{ len (.regions | default (slice)) }}
+      </span>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+  {{ end }}

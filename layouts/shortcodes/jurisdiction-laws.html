@@ -1,0 +1,229 @@
+{{/*
+  List laws for a jurisdiction, grouped by law type.
+  Handles inheritance: country -> bloc -> inherited blocs
+  Usage:
+    {{< jurisdiction-laws jurisdiction="eu" >}}
+    {{< jurisdiction-laws jurisdiction="NO" >}}
+*/}}
+
+{{ $jurisdictionId := .Get "jurisdiction" | default "" }}
+{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $definitions := site.Data.laws.definitions | default (dict) }}
+{{ $regions := site.Data.regions | default (slice) }}
+{{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
+
+{{/* Build list of all applicable jurisdiction IDs (including inherited) */}}
+{{ $applicableIds := slice $jurisdictionId }}
+{{ $inheritanceMap := dict }}
+
+{{/* Check if this is a country - get its blocs */}}
+{{ $countryBlocs := slice }}
+{{ range $regions }}
+  {{ if eq .id $jurisdictionId }}
+    {{ $countryBlocs = .blocs | default (slice) }}
+  {{ end }}
+{{ end }}
+
+{{/* Add bloc IDs and their inheritance */}}
+{{ range $countryBlocs }}
+  {{ $blocId := . }}
+  {{ $applicableIds = $applicableIds | append $blocId }}
+  {{/* Find this bloc and check for inherits_from */}}
+  {{ range $blocs }}
+    {{ if eq .id $blocId }}
+      {{ $inheritedFrom := .inherits_from | default (slice) }}
+      {{ range $inheritedFrom }}
+        {{ $applicableIds = $applicableIds | append . }}
+        {{ $inheritanceMap = merge $inheritanceMap (dict . $blocId) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Also check if this jurisdiction is itself a bloc with inherits_from */}}
+{{ range $blocs }}
+  {{ if eq .id $jurisdictionId }}
+    {{ $inheritedFrom := .inherits_from | default (slice) }}
+    {{ range $inheritedFrom }}
+      {{ $applicableIds = $applicableIds | append . }}
+      {{ $inheritanceMap = merge $inheritanceMap (dict . $jurisdictionId) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Filter laws that apply to any of the applicable jurisdictions */}}
+{{ $jurisdictionLaws := slice }}
+{{ $lawSources := dict }}
+{{ range $laws }}
+  {{ $law := . }}
+  {{ $lawId := .id }}
+  {{ range .applies_to }}
+    {{ $applyTo := . }}
+    {{ range $applicableIds }}
+      {{ if eq $applyTo . }}
+        {{/* Check if we already have this law */}}
+        {{ $alreadyAdded := false }}
+        {{ range $jurisdictionLaws }}
+          {{ if eq .id $lawId }}
+            {{ $alreadyAdded = true }}
+          {{ end }}
+        {{ end }}
+        {{ if not $alreadyAdded }}
+          {{ $jurisdictionLaws = $jurisdictionLaws | append $law }}
+          {{ $lawSources = merge $lawSources (dict $lawId $applyTo) }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Group by law type */}}
+{{ $byType := dict }}
+{{ range $jurisdictionLaws }}
+  {{ $type := .type | default "other" }}
+  {{ $existing := index $byType $type | default (slice) }}
+  {{ $byType = merge $byType (dict $type ($existing | append .)) }}
+{{ end }}
+
+{{/* Define type order and labels */}}
+{{ $typeOrder := slice "privacy" "access" "surveillance" "localization" "security" "sector" }}
+{{ $typeLabels := dict
+    "privacy" "Privacy Laws"
+    "access" "Access Laws"
+    "surveillance" "Surveillance Laws"
+    "localization" "Localization Laws"
+    "security" "Security Laws"
+    "sector" "Sector-Specific Laws"
+}}
+{{ $typeEmojis := dict
+    "privacy" "🛡️"
+    "access" "🔓"
+    "surveillance" "👁️"
+    "localization" "📍"
+    "security" "🔒"
+    "sector" "📋"
+}}
+{{ $typeDescriptions := dict
+    "privacy" "Laws that protect individual data rights and privacy"
+    "access" "Laws that enable government or law enforcement data access"
+    "surveillance" "Laws that establish surveillance infrastructure or powers"
+    "localization" "Laws that require data to be stored within jurisdiction"
+    "security" "National security frameworks"
+    "sector" "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+}}
+
+{{ if gt (len $jurisdictionLaws) 0 }}
+<div class="not-prose">
+  {{ range $typeOrder }}
+    {{ $type := . }}
+    {{ $lawsOfType := index $byType $type }}
+    {{ if $lawsOfType }}
+    <div class="mb-8" id="{{ $type }}-laws">
+      <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100 mb-1 flex items-center gap-2">
+        <span>{{ index $typeEmojis $type }}</span>
+        <span>{{ index $typeLabels $type }}</span>
+      </h3>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-3">{{ index $typeDescriptions $type }}</p>
+      <div class="space-y-4">
+        {{ range $lawsOfType }}
+        {{/* Determine source of this law */}}
+        {{ $lawSource := index $lawSources .id }}
+        {{ $isNational := eq $lawSource $jurisdictionId }}
+        {{ $sourceLabel := "" }}
+        {{ $sourceClass := "" }}
+        {{ if $isNational }}
+          {{/* Get the country flag for national laws */}}
+          {{ $countryFlag := "" }}
+          {{ range $regions }}
+            {{ if eq .id $jurisdictionId }}
+              {{ $countryFlag = .flag | default "" }}
+            {{ end }}
+          {{ end }}
+          {{ if $countryFlag }}
+            {{ $sourceLabel = printf "%s National" $countryFlag }}
+          {{ else }}
+            {{ $sourceLabel = "National" }}
+          {{ end }}
+          {{ $sourceClass = "bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300" }}
+        {{ else }}
+          {{/* Find the bloc/jurisdiction name and flag for the source */}}
+          {{ $sourceName := $lawSource }}
+          {{ $sourceFlag := "" }}
+          {{ range $blocs }}
+            {{ if eq .id $lawSource }}
+              {{ $sourceName = .name }}
+              {{ $sourceFlag = .flag | default "" }}
+            {{ end }}
+          {{ end }}
+          {{ if $sourceFlag }}
+            {{ $sourceLabel = printf "via %s %s" $sourceFlag $sourceName }}
+          {{ else }}
+            {{ $sourceLabel = printf "via %s" $sourceName }}
+          {{ end }}
+          {{ $sourceClass = "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300" }}
+        {{ end }}
+        <div class="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+          <div class="flex items-start justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <a href="/laws/{{ .id }}/" class="text-base font-semibold text-neutral-900 dark:text-neutral-100 hover:text-primary-600 dark:hover:text-primary-400 no-underline">
+                  {{ .name }} ({{ .year }})
+                </a>
+                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium {{ $sourceClass }}">
+                  {{ $sourceLabel }}
+                </span>
+              </div>
+              <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">{{ .full_name }}</p>
+              <p class="text-sm text-neutral-700 dark:text-neutral-300 mt-2">{{ .summary }}</p>
+              {{/* Show key attributes */}}
+              <div class="flex flex-wrap gap-2 mt-3">
+                {{/* Government Access */}}
+                {{ $accessClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400" }}
+                {{ if eq .government_access "broad" }}{{ $accessClass = "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300" }}{{ end }}
+                {{ if eq .government_access "targeted" }}{{ $accessClass = "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300" }}{{ end }}
+                {{ if eq .government_access "limited" }}{{ $accessClass = "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" }}{{ end }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs {{ $accessClass }}">
+                  Gov Access: {{ .government_access }}
+                </span>
+                {{/* Data Protection */}}
+                {{ $protClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400" }}
+                {{ if eq .data_protection "strong" }}{{ $protClass = "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" }}{{ end }}
+                {{ if eq .data_protection "moderate" }}{{ $protClass = "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300" }}{{ end }}
+                {{ if eq .data_protection "weak" }}{{ $protClass = "bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300" }}{{ end }}
+                {{ if ne .data_protection "none" }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs {{ $protClass }}">
+                  Protection: {{ .data_protection }}
+                </span>
+                {{ end }}
+                {{/* Boolean flags */}}
+                {{ if .extraterritorial }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
+                  🌍 Extraterritorial
+                </span>
+                {{ end }}
+                {{ if .requires_localization }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
+                  📍 Localization
+                </span>
+                {{ end }}
+                {{ if .requires_backdoor }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">
+                  🔑 Backdoor
+                </span>
+                {{ end }}
+              </div>
+            </div>
+            <a href="/laws/{{ .id }}/" class="shrink-0 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 no-underline">
+              Details →
+            </a>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  {{ end }}
+</div>
+{{ else }}
+<p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No laws found for this jurisdiction.</p>
+{{ end }}

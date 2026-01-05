@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "networks.schema.json",
+  "title": "Networks Dataset",
+  "description": "Norwegian telecom infrastructure: subsea cables, terrestrial routes, and satellite links. Root is an array of connections.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/connection"
+  },
+  "$defs": {
+    "connection": {
+      "type": "object",
+      "required": ["connection_id", "connection_name", "scope", "medium"],
+      "properties": {
+        "connection_id": {
+          "type": "string",
+          "description": "Stable identifier for the connection"
+        },
+        "connection_name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["submarine", "terrestrial", "terrestrial_fiber", "satellite"]
+        },
+        "scope": {
+          "type": "string",
+          "enum": ["international", "domestic"],
+          "description": "international = outside Norway, domestic = inside Norway"
+        },
+        "medium": {
+          "type": "string",
+          "enum": ["subsea", "terrestrial", "satellite"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "planned"],
+          "default": "active"
+        },
+        "rfs": {
+          "type": "string",
+          "description": "Operational date (Ready for Service), e.g. '2020-11' or 'Q2 2028'"
+        },
+        "length_km": {
+          "type": "number"
+        },
+        "owner_actor_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to networks-actors.json actors[].actor_id"
+        },
+        "operator_actor_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to networks-actors.json actors[].actor_id"
+        },
+        "endpoint_place_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to networks-places.json places[].identifier"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": ["url"]
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

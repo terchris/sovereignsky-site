@@ -1,0 +1,583 @@
+{{ define "main" }}
+{{ .Scratch.Set "scope" "single" }}
+
+{{/* Get law data from frontmatter */}}
+{{ $lawId := .Params.law_id | default "" }}
+{{ $fullName := .Params.full_name | default "" }}
+{{ $year := .Params.year | default 0 }}
+{{ $scope := .Params.scope | default "national" }}
+{{ $appliesTo := .Params.applies_to | default (slice) }}
+{{ $url := .Params.source_url | default "" }}
+
+{{/* New multi-dimensional classification fields */}}
+{{ $lawType := .Params.law_type | default "privacy" }}
+{{ $governmentAccess := .Params.government_access | default "none" }}
+{{ $dataProtection := .Params.data_protection | default "none" }}
+{{ $extraterritorial := .Params.extraterritorial | default false }}
+{{ $requiresLocalization := .Params.requires_localization | default false }}
+{{ $requiresBackdoor := .Params.requires_backdoor | default false }}
+
+{{/* Optional richer descriptions (from laws.json via generator) */}}
+{{ $reviewStatus := .Params.review_status | default "ai-generated" }}
+{{ $whatItDoes := .Params.what_it_does | default (slice) }}
+{{ $whoItAppliesTo := .Params.who_it_applies_to | default (slice) }}
+{{ $keyProvisions := .Params.key_provisions | default (slice) }}
+{{ $complianceActions := .Params.compliance_actions | default (slice) }}
+{{ $enforcement := .Params.enforcement | default dict }}
+
+{{/* Build lookup maps for regions and blocs */}}
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+
+{{ $blocsById := dict }}
+{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+
+{{/* Law Type badge styling */}}
+{{ $typeEmoji := "" }}
+{{ $typeLabel := $lawType }}
+{{ $typeClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+{{ if eq $lawType "privacy" }}
+  {{ $typeEmoji = "🛡️" }}
+  {{ $typeLabel = "Privacy" }}
+  {{ $typeClass = "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" }}
+{{ else if eq $lawType "access" }}
+  {{ $typeEmoji = "🔓" }}
+  {{ $typeLabel = "Access" }}
+  {{ $typeClass = "bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200" }}
+{{ else if eq $lawType "surveillance" }}
+  {{ $typeEmoji = "👁️" }}
+  {{ $typeLabel = "Surveillance" }}
+  {{ $typeClass = "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200" }}
+{{ else if eq $lawType "localization" }}
+  {{ $typeEmoji = "📍" }}
+  {{ $typeLabel = "Localization" }}
+  {{ $typeClass = "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200" }}
+{{ else if eq $lawType "security" }}
+  {{ $typeEmoji = "🔒" }}
+  {{ $typeLabel = "Security" }}
+  {{ $typeClass = "bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200" }}
+{{ else if eq $lawType "sector" }}
+  {{ $typeEmoji = "📋" }}
+  {{ $typeLabel = "Sector" }}
+  {{ $typeClass = "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+{{ end }}
+
+{{/* Government Access badge styling */}}
+{{ $accessClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+{{ $accessLabel := $governmentAccess }}
+{{ if eq $governmentAccess "broad" }}
+  {{ $accessLabel = "Broad" }}
+  {{ $accessClass = "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200" }}
+{{ else if eq $governmentAccess "targeted" }}
+  {{ $accessLabel = "Targeted" }}
+  {{ $accessClass = "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200" }}
+{{ else if eq $governmentAccess "limited" }}
+  {{ $accessLabel = "Limited" }}
+  {{ $accessClass = "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" }}
+{{ else if eq $governmentAccess "none" }}
+  {{ $accessLabel = "None" }}
+  {{ $accessClass = "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+{{ end }}
+
+{{/* Data Protection badge styling */}}
+{{ $protectionClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300" }}
+{{ $protectionLabel := $dataProtection }}
+{{ if eq $dataProtection "strong" }}
+  {{ $protectionLabel = "Strong" }}
+  {{ $protectionClass = "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" }}
+{{ else if eq $dataProtection "moderate" }}
+  {{ $protectionLabel = "Moderate" }}
+  {{ $protectionClass = "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200" }}
+{{ else if eq $dataProtection "weak" }}
+  {{ $protectionLabel = "Weak" }}
+  {{ $protectionClass = "bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200" }}
+{{ else if eq $dataProtection "none" }}
+  {{ $protectionLabel = "None" }}
+  {{ $protectionClass = "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200" }}
+{{ end }}
+
+{{/* Scope label */}}
+{{ $scopeLabel := "National" }}
+{{ if eq $scope "bloc" }}
+  {{ $scopeLabel = "Bloc/Regional" }}
+{{ end }}
+
+{{/* Build applies-to items with metadata */}}
+{{ $appliesToItems := slice }}
+{{ range $appliesTo }}
+  {{ $id := . }}
+  {{ $name := $id }}
+  {{ $flag := "" }}
+  {{ $slug := "" }}
+  {{ $type := "country" }}
+
+  {{/* Check if it's a region (country) */}}
+  {{ $region := index $regionsById $id }}
+  {{ if $region }}
+    {{ $name = $region.name | default $id }}
+    {{ $flag = $region.flag | default "" }}
+    {{ $slug = $region.slug | default "" }}
+  {{ else }}
+    {{/* Check if it's a bloc */}}
+    {{ $bloc := index $blocsById $id }}
+    {{ if $bloc }}
+      {{ $name = $bloc.name | default $id }}
+      {{ $flag = $bloc.flag | default "" }}
+      {{ $slug = $bloc.slug | default "" }}
+      {{ $type = "bloc" }}
+    {{ end }}
+  {{ end }}
+
+  {{ $appliesToItems = $appliesToItems | append (dict "id" $id "name" $name "flag" $flag "slug" $slug "type" $type) }}
+{{ end }}
+
+<article>
+  {{/* Header */}}
+  <header id="single_header" class="mt-5 max-w-prose">
+    {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+      {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+    {{ if $fullName }}
+    <p class="mt-2 text-lg text-neutral-600 dark:text-neutral-400">
+      {{ $fullName }}
+    </p>
+    {{ end }}
+  </header>
+
+  {{/* Body with right sidebar */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+
+    {{/* Right sidebar with law metadata */}}
+    <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+      <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
+
+        {{/* Official source link */}}
+        {{ if $url }}
+        <div class="mt-4 mb-4">
+          <a class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors text-base no-underline"
+             href="{{ $url }}"
+             target="_blank"
+             rel="noopener noreferrer">
+            <span class="font-semibold text-primary-700 dark:text-primary-300">Official text</span>
+            <span class="text-primary-500 dark:text-primary-400">↗</span>
+          </a>
+        </div>
+        {{ end }}
+
+        {{/* Law Details */}}
+        <div class="mt-4">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Details</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="space-y-4 pt-1">
+
+              {{/* Year */}}
+              {{ if $year }}
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Year</span>
+                <span class="font-medium">{{ $year }}</span>
+              </div>
+              {{ end }}
+
+              {{/* Law Type */}}
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Type</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $typeClass }}">
+                  {{ $typeEmoji }} {{ $typeLabel }}
+                </span>
+              </div>
+
+              {{/* Government Access */}}
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Gov Access</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $accessClass }}">
+                  {{ $accessLabel }}
+                </span>
+              </div>
+
+              {{/* Data Protection */}}
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Protection</span>
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-sm {{ $protectionClass }}">
+                  {{ $protectionLabel }}
+                </span>
+              </div>
+
+              {{/* Scope */}}
+              <div class="flex items-center gap-2">
+                <span class="text-neutral-500 dark:text-neutral-400 text-sm w-24">Scope</span>
+                <span class="font-medium">{{ $scopeLabel }}</span>
+              </div>
+
+              {{/* Boolean flags */}}
+              <div class="flex flex-wrap gap-2 mt-2">
+                {{ if $extraterritorial }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200">
+                  🌍 Extraterritorial
+                </span>
+                {{ end }}
+                {{ if $requiresLocalization }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200">
+                  📍 Localization
+                </span>
+                {{ end }}
+                {{ if $requiresBackdoor }}
+                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200">
+                  🔑 Backdoor
+                </span>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{/* Applies To */}}
+        {{ if gt (len $appliesToItems) 0 }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Applies To</div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ if eq $scope "bloc" }}Bloc members{{ else }}Jurisdiction{{ end }}</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="flex flex-wrap gap-2">
+              {{ range $appliesToItems }}
+              {{ if .slug }}
+              <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+                 href="/jurisdictions/{{ .slug }}/">
+                {{ if .flag }}<span>{{ .flag }}</span>{{ end }}
+                <span class="font-medium">{{ .name }}</span>
+              </a>
+              {{ else }}
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
+                {{ if .flag }}<span>{{ .flag }}</span>{{ end }}
+                <span class="font-medium">{{ .name }}</span>
+              </span>
+              {{ end }}
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Semantic Related Laws (from related_laws frontmatter) */}}
+        {{ $relatedLawsData := .Params.related_laws | default dict }}
+        {{ if gt (len $relatedLawsData) 0 }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Laws</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="space-y-5 pt-2">
+
+              {{/* Conflicts with */}}
+              {{ with index $relatedLawsData "conflicts_with" }}
+              <div>
+                <div class="text-sm font-medium text-red-600 dark:text-red-400 mb-1">⚔️ Conflicts with</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/30 hover:border-red-400 dark:hover:border-red-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Implements */}}
+              {{ with index $relatedLawsData "implements" }}
+              <div>
+                <div class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">📜 Implements</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 hover:border-blue-400 dark:hover:border-blue-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Implemented by */}}
+              {{ with index $relatedLawsData "implemented_by" }}
+              <div>
+                <div class="text-sm font-medium text-blue-600 dark:text-blue-400 mb-1">📜 Implemented by</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/30 hover:border-blue-400 dark:hover:border-blue-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Interprets */}}
+              {{ with index $relatedLawsData "interprets" }}
+              <div>
+                <div class="text-sm font-medium text-purple-600 dark:text-purple-400 mb-1">⚖️ Interprets</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/30 hover:border-purple-400 dark:hover:border-purple-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Interpreted by */}}
+              {{ with index $relatedLawsData "interpreted_by" }}
+              <div>
+                <div class="text-sm font-medium text-purple-600 dark:text-purple-400 mb-1">⚖️ Interpreted by</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-purple-200 dark:border-purple-800 bg-purple-50 dark:bg-purple-900/30 hover:border-purple-400 dark:hover:border-purple-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Succeeds */}}
+              {{ with index $relatedLawsData "succeeds" }}
+              <div>
+                <div class="text-sm font-medium text-amber-600 dark:text-amber-400 mb-1">🔄 Succeeds</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 hover:border-amber-400 dark:hover:border-amber-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Succeeded by */}}
+              {{ with index $relatedLawsData "succeeded_by" }}
+              <div>
+                <div class="text-sm font-medium text-amber-600 dark:text-amber-400 mb-1">🔄 Succeeded by</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/30 hover:border-amber-400 dark:hover:border-amber-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Extends */}}
+              {{ with index $relatedLawsData "extends" }}
+              <div>
+                <div class="text-sm font-medium text-teal-600 dark:text-teal-400 mb-1">📋 Extends</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/30 hover:border-teal-400 dark:hover:border-teal-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Extended by */}}
+              {{ with index $relatedLawsData "extended_by" }}
+              <div>
+                <div class="text-sm font-medium text-teal-600 dark:text-teal-400 mb-1">📋 Extended by</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-900/30 hover:border-teal-400 dark:hover:border-teal-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+              {{/* Complements (show last, usually the longest list) */}}
+              {{ with index $relatedLawsData "complements" }}
+              <div>
+                <div class="text-sm font-medium text-green-600 dark:text-green-400 mb-1">🔗 Works with</div>
+                <div class="flex flex-wrap gap-2">
+                  {{ range . }}
+                  <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-900/30 hover:border-green-400 dark:hover:border-green-500 transition-colors text-sm"
+                     href="/laws/{{ .id }}/">
+                    {{ with .flag }}<span>{{ . }}</span>{{ end }}
+                    <span class="font-medium">{{ .name }}</span>
+                    <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+                  </a>
+                  {{ end }}
+                </div>
+              </div>
+              {{ end }}
+
+            </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Related Laws (same jurisdiction) - kept as fallback/supplement */}}
+        {{ if gt (len $appliesTo) 0 }}
+        {{ $relatedLaws := slice }}
+        {{ range (site.Data.laws.laws | default (slice)) }}
+          {{ $otherLaw := . }}
+          {{ if ne $otherLaw.id $lawId }}
+            {{ $found := false }}
+            {{ range $otherLaw.applies_to }}
+              {{ $otherId := . }}
+              {{ range $appliesTo }}
+                {{ if eq . $otherId }}
+                  {{ $found = true }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+            {{ if $found }}
+              {{ $relatedLaws = $relatedLaws | append $otherLaw }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+
+        {{ if gt (len $relatedLaws) 0 }}
+        <div class="mt-6">
+          <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Related Laws</div>
+          <div class="text-sm text-neutral-500 dark:text-neutral-400">Same jurisdiction</div>
+          <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+            <div class="flex flex-wrap gap-2">
+              {{ range first 6 $relatedLaws }}
+              <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+                 href="/laws/{{ .id }}/">
+                <span class="font-medium">{{ .name }}</span>
+                <span class="text-neutral-500 dark:text-neutral-400">{{ .year }}</span>
+              </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
+        {{ end }}
+
+        {{/* Related content - all content types based on matching tags */}}
+        {{ partial "related-content-sidebar.html" . }}
+
+        {{/* Table of Contents - at the bottom */}}
+        {{ $showToc := in .TableOfContents "<ul" }}
+        {{ if $showToc }}
+        <div class="mt-6">
+          {{ partial "toc.html" . }}
+        </div>
+        {{ end }}
+
+      </div>
+    </div>
+
+    {{/* Main content */}}
+    <div class="min-w-0 min-h-0 max-w-fit">
+      <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
+        {{ .Content }}
+
+        {{/* Enriched sections from laws.json (rendered in main content, not sidebar) */}}
+        {{ if or (eq $reviewStatus "verified") (eq $reviewStatus "ai-generated") }}
+        {{ if or (gt (len $whatItDoes) 0) (gt (len $whoItAppliesTo) 0) (gt (len $keyProvisions) 0) (gt (len $complianceActions) 0) (index $enforcement "authority") (index $enforcement "max_fine") (index $enforcement "notes") }}
+        <hr class="my-8">
+
+        {{ if eq $reviewStatus "ai-generated" }}
+        <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-100">
+          <strong>AI-generated:</strong> This section is generated from structured metadata and may contain mistakes. Verify against the official text before relying on it.
+        </div>
+        {{ end }}
+
+        {{ if gt (len $whatItDoes) 0 }}
+        <h2>What it does</h2>
+        <ul>
+          {{ range $whatItDoes }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if gt (len $whoItAppliesTo) 0 }}
+        <h2>Who it applies to</h2>
+        <ul>
+          {{ range $whoItAppliesTo }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if gt (len $keyProvisions) 0 }}
+        <h2>Key provisions</h2>
+        {{ range $keyProvisions }}
+          {{ $t := .title | default "" }}
+          {{ $d := .description | default "" }}
+          {{ if and $t $d }}
+            <h3>{{ $t }}</h3>
+            <p>{{ $d }}</p>
+          {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{ if gt (len $complianceActions) 0 }}
+        <h2>Compliance actions</h2>
+        <ul>
+          {{ range $complianceActions }}
+            <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+
+        {{ if or (index $enforcement "authority") (index $enforcement "max_fine") (index $enforcement "notes") }}
+        <h2>Enforcement</h2>
+        {{ with index $enforcement "authority" }}
+          <p><strong>Authority:</strong> {{ . }}</p>
+        {{ end }}
+        {{ with index $enforcement "max_fine" }}
+          <p><strong>Max fine:</strong> {{ . }}</p>
+        {{ end }}
+        {{ with index $enforcement "notes" }}
+          <p>{{ . }}</p>
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        {{ end }}
+
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="/laws/">← Back to all laws</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</article>
+{{ end }}

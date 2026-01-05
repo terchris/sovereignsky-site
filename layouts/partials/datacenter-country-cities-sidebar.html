@@ -1,0 +1,49 @@
+{{/*
+Datacenter Country Cities Sidebar
+Usage: {{ partial "datacenter-country-cities-sidebar.html" (dict "countryId" $countryId "countryName" $countryName "countryFlag" $countryFlag "providers" $providers) }}
+
+Renders a sidebar list of cities with region counts for a specific country.
+*/}}
+
+{{ $countryId := .countryId | default "" }}
+{{ $countryName := .countryName | default "" }}
+{{ $countryFlag := .countryFlag | default "" }}
+{{ $providers := .providers | default (slice) }}
+
+{{ if $countryId }}
+  {{/* Build city counts */}}
+  {{ $cityRegionCounts := dict }}
+  {{ $cityOrder := slice }}
+  {{ range $providers }}
+    {{ range (.regions | default (slice)) }}
+      {{ if eq .country_id $countryId }}
+        {{ $city := .city | default "Unknown" }}
+        {{ $existing := index $cityRegionCounts $city | default 0 }}
+        {{ $cityRegionCounts = merge $cityRegionCounts (dict $city (add $existing 1)) }}
+        {{ if not (in $cityOrder $city) }}
+          {{ $cityOrder = $cityOrder | append $city }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $cityOrder = sort $cityOrder }}
+
+  {{ if gt (len $cityOrder) 0 }}
+  <div class="mt-6">
+    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Cities</div>
+    <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ len $cityOrder }} cities in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+      <ul class="m-0 p-0 list-none space-y-1">
+        {{ range $cityOrder }}
+          {{ $city := . }}
+          {{ $count := index $cityRegionCounts $city }}
+          <li class="m-0 p-0">
+            <span>{{ $city }}</span>
+            <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

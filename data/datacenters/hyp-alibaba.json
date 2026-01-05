@@ -1,0 +1,283 @@
+{
+    "provider_id": "alibaba",
+    "provider_name": "Alibaba Cloud",
+    "provider_type": "hyperscaler",
+    "updated": "2025-12-19",
+    "vendor_country_id": "CN",
+    "vendor_website": "https://www.alibabacloud.com",
+    "regions": [
+        {
+            "region_id": "ap-southeast-1",
+            "region_name": "Singapore",
+            "country_id": "SG",
+            "city": "Singapore",
+            "coordinates": [
+                1.3521,
+                103.8198
+            ]
+        },
+        {
+            "region_id": "ap-southeast-7",
+            "region_name": "Thailand (Bangkok)",
+            "country_id": "TH",
+            "city": "Bangkok",
+            "coordinates": [
+                13.7563,
+                100.5018
+            ]
+        },
+        {
+            "region_id": "ap-southeast-3",
+            "region_name": "Malaysia (Kuala Lumpur)",
+            "country_id": "MY",
+            "city": "Kuala Lumpur",
+            "coordinates": [
+                3.1390,
+                101.6869
+            ]
+        },
+        {
+            "region_id": "ap-southeast-5",
+            "region_name": "Indonesia (Jakarta)",
+            "country_id": "ID",
+            "city": "Jakarta",
+            "coordinates": [
+                -6.2088,
+                106.8456
+            ]
+        },
+        {
+            "region_id": "ap-southeast-6",
+            "region_name": "Philippines (Manila)",
+            "country_id": "PH",
+            "city": "Manila",
+            "coordinates": [
+                14.5995,
+                120.9842
+            ]
+        },
+        {
+            "region_id": "ap-northeast-1",
+            "region_name": "Japan (Tokyo)",
+            "country_id": "JP",
+            "city": "Tokyo",
+            "coordinates": [
+                35.6762,
+                139.6503
+            ]
+        },
+        {
+            "region_id": "ap-northeast-2",
+            "region_name": "South Korea (Seoul)",
+            "country_id": "KR",
+            "city": "Seoul",
+            "coordinates": [
+                37.5665,
+                126.9780
+            ]
+        },
+        {
+            "region_id": "us-east-1",
+            "region_name": "US East (Virginia)",
+            "country_id": "US",
+            "city": "Virginia",
+            "coordinates": [
+                38.9072,
+                -77.0369
+            ]
+        },
+        {
+            "region_id": "us-west-1",
+            "region_name": "US West (Silicon Valley)",
+            "country_id": "US",
+            "city": "San Jose",
+            "coordinates": [
+                37.3382,
+                -121.8863
+            ]
+        },
+        {
+            "region_id": "na-mex-1",
+            "region_name": "Mexico (Queretaro)",
+            "country_id": "MX",
+            "city": "Queretaro",
+            "coordinates": [
+                20.5888,
+                -100.3899
+            ]
+        },
+        {
+            "region_id": "eu-central-1",
+            "region_name": "Germany (Frankfurt)",
+            "country_id": "DE",
+            "city": "Frankfurt",
+            "coordinates": [
+                50.1109,
+                8.6821
+            ]
+        },
+        {
+            "region_id": "eu-west-1",
+            "region_name": "UK (London)",
+            "country_id": "GB",
+            "city": "London",
+            "coordinates": [
+                51.5074,
+                -0.1278
+            ]
+        },
+        {
+            "region_id": "me-east-1",
+            "region_name": "UAE (Dubai)",
+            "country_id": "AE",
+            "city": "Dubai",
+            "coordinates": [
+                25.2048,
+                55.2708
+            ]
+        },
+        {
+            "region_id": "me-central-1",
+            "region_name": "Saudi Arabia (Riyadh)",
+            "country_id": "SA",
+            "city": "Riyadh",
+            "coordinates": [
+                24.7136,
+                46.6753
+            ]
+        },
+        {
+            "region_id": "cn-hongkong",
+            "region_name": "Hong Kong",
+            "country_id": "HK",
+            "city": "Hong Kong",
+            "coordinates": [
+                22.3193,
+                114.1694
+            ]
+        },
+        {
+            "region_id": "cn-qingdao",
+            "region_name": "China (Qingdao)",
+            "country_id": "CN",
+            "city": "Qingdao",
+            "coordinates": [
+                36.0671,
+                120.3826
+            ]
+        },
+        {
+            "region_id": "cn-beijing",
+            "region_name": "China (Beijing)",
+            "country_id": "CN",
+            "city": "Beijing",
+            "coordinates": [
+                39.9042,
+                116.4074
+            ]
+        },
+        {
+            "region_id": "cn-zhangjiakou",
+            "region_name": "China (Zhangjiakou)",
+            "country_id": "CN",
+            "city": "Zhangjiakou",
+            "coordinates": [
+                40.7675,
+                114.8861
+            ]
+        },
+        {
+            "region_id": "cn-hohhot",
+            "region_name": "China (Hohhot)",
+            "country_id": "CN",
+            "city": "Hohhot",
+            "coordinates": [
+                40.8422,
+                111.7500
+            ]
+        },
+        {
+            "region_id": "cn-wulanchabu",
+            "region_name": "China (Ulanqab)",
+            "country_id": "CN",
+            "city": "Ulanqab",
+            "coordinates": [
+                41.0341,
+                113.1337
+            ]
+        },
+        {
+            "region_id": "cn-hangzhou",
+            "region_name": "China (Hangzhou)",
+            "country_id": "CN",
+            "city": "Hangzhou",
+            "coordinates": [
+                30.2741,
+                120.1551
+            ]
+        },
+        {
+            "region_id": "cn-shanghai",
+            "region_name": "China (Shanghai)",
+            "country_id": "CN",
+            "city": "Shanghai",
+            "coordinates": [
+                31.2304,
+                121.4737
+            ]
+        },
+        {
+            "region_id": "cn-shenzhen",
+            "region_name": "China (Shenzhen)",
+            "country_id": "CN",
+            "city": "Shenzhen",
+            "coordinates": [
+                22.5431,
+                114.0579
+            ]
+        },
+        {
+            "region_id": "cn-heyuan",
+            "region_name": "China (Heyuan)",
+            "country_id": "CN",
+            "city": "Heyuan",
+            "coordinates": [
+                23.7436,
+                114.6976
+            ]
+        },
+        {
+            "region_id": "cn-guangzhou",
+            "region_name": "China (Guangzhou)",
+            "country_id": "CN",
+            "city": "Guangzhou",
+            "coordinates": [
+                23.1291,
+                113.2644
+            ]
+        },
+        {
+            "region_id": "cn-chengdu",
+            "region_name": "China (Chengdu)",
+            "country_id": "CN",
+            "city": "Chengdu",
+            "coordinates": [
+                30.5728,
+                104.0668
+            ]
+        },
+        {
+            "region_id": "cn-nanjing",
+            "region_name": "China (Nanjing)",
+            "country_id": "CN",
+            "city": "Nanjing",
+            "coordinates": [
+                32.0603,
+                118.7969
+            ]
+        }
+    ],
+    "meta": {
+        "source": "https://www.alibabacloud.com/en/global-locations"
+    }
+}

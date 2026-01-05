@@ -1,0 +1,92 @@
+{{/*
+Datacenter Country Regions list
+Usage: {{< datacenter-country-regions country="SE" >}}
+
+Renders region chips grouped by city for a specific country.
+Shows providers with their jurisdiction flag for each region.
+*/}}
+
+{{ $countryId := .Get "country" }}
+{{ $datacenters := site.Data.datacenters }}
+{{ $regions := site.Data.regions }}
+
+{{/* Build regions lookup by id */}}
+{{ $regionsById := dict }}
+{{ range $regions }}
+{{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+
+{{ $allProviders := $datacenters.providers | default (slice) }}
+
+{{/* Build regions grouped by region_name */}}
+{{ $regionsByName := dict }}
+{{ $regionOrder := slice }}
+{{ range $allProviders }}
+  {{ $provider := . }}
+  {{ range (.regions | default (slice)) }}
+    {{ if eq .country_id $countryId }}
+      {{ $regionName := .region_name }}
+      {{ $existing := index $regionsByName $regionName | default (slice) }}
+      {{ $regionsByName = merge $regionsByName (dict $regionName ($existing | append (dict
+        "provider" $provider
+        "region" .
+        "city" (.city | default "Unknown")
+      ))) }}
+      {{ if not (in $regionOrder $regionName) }}
+        {{ $regionOrder = $regionOrder | append $regionName }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $regionOrder = sort $regionOrder }}
+
+{{/* Count total regions (each region entry is one datacenter) */}}
+{{ $totalRegions := 0 }}
+{{ range $regionOrder }}
+  {{ $providers := index $regionsByName . }}
+  {{ $totalRegions = add $totalRegions (len $providers) }}
+{{ end }}
+
+{{/* Output heading with total count */}}
+{{ if gt (len $regionOrder) 0 }}
+<h2 id="regions" class="group">Regions ({{ $totalRegions }})</h2>
+{{ end }}
+
+{{ range $regionOrder }}
+  {{ $regionName := . }}
+  {{ $providers := index $regionsByName $regionName }}
+  {{ if $providers }}
+  <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $regionName }}</h3>
+  <div class="flex flex-wrap gap-2">
+    {{ range $providers }}
+    {{ $p := .provider }}
+    {{ $r := .region }}
+    {{ $vendor := index $regionsById $p.vendor_country_id }}
+    {{ $flag := "" }}
+    {{ $vendorName := $p.vendor_country_id }}
+    {{ $risk := "unknown" }}
+    {{ if $vendor }}
+      {{ $flag = $vendor.flag }}
+      {{ $vendorName = $vendor.name }}
+      {{ $risk = $vendor.risk_level }}
+    {{ end }}
+
+    {{/* small colored dot by risk */}}
+    {{ $dot := "bg-neutral-400" }}
+    {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+    {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+    {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+    {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+    {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
+    <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+      href="/datacenters/{{ $p.provider_id }}/"
+      title="{{ $p.provider_name }} • {{ .city }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
+      <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+      <span class="font-medium">{{ $p.provider_name }}</span>
+      {{ if $flag }}<span class="text-neutral-500 dark:text-neutral-400">{{ $flag }}</span>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+{{ end }}

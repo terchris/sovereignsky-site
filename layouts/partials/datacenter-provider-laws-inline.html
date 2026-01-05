@@ -1,0 +1,18 @@
+{{/*
+  Inline partial for provider laws - used by provider.html layout
+  Shows laws applicable to the vendor's jurisdiction
+
+  Parameters:
+    vendorCountryId: The vendor country ID (e.g., "US", "DE")
+    vendorCountry: The vendor country object from regions.json
+*/}}
+
+{{ $vendorCountryId := .vendorCountryId | default "" }}
+{{ $vendorCountry := .vendorCountry | default dict }}
+
+{{ if $vendorCountryId }}
+  {{/* Reuse the jurisdiction-laws-inline partial */}}
+  {{ partial "jurisdiction-laws-inline.html" (dict "jurisdictionId" $vendorCountryId "country" $vendorCountry) }}
+{{ else }}
+  <p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No vendor jurisdiction specified.</p>
+{{ end }}

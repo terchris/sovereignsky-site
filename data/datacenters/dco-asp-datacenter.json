@@ -1,0 +1,50 @@
+{
+  "provider_id": "asp-datacenter",
+  "provider_name": "ASP Data Center",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-19",
+  "vendor_country_id": "NO",
+  "vendor_website": "https://www.aspdatacenter.no/",
+  "regions": [
+    {
+      "region_id": "m12-rogaland",
+      "region_name": "M12 (Rogaland)",
+      "country_id": "NO",
+      "city": "Rogaland",
+      "coordinates": [58.9690, 5.7331]
+    },
+    {
+      "region_id": "k11-rogaland",
+      "region_name": "K11 (Rogaland)",
+      "country_id": "NO",
+      "city": "Rogaland",
+      "coordinates": [58.9690, 5.7331]
+    },
+    {
+      "region_id": "f16-ostlandet",
+      "region_name": "F16 (Østlandet)",
+      "country_id": "NO",
+      "city": "Østlandet",
+      "coordinates": [59.9139, 10.7522]
+    },
+    {
+      "region_id": "b7-ostlandet",
+      "region_name": "B7 (Østlandet)",
+      "country_id": "NO",
+      "city": "Østlandet",
+      "coordinates": [59.9139, 10.7522]
+    },
+    {
+      "region_id": "s7-ostlandet",
+      "region_name": "S7 (Østlandet)",
+      "country_id": "NO",
+      "city": "Østlandet",
+      "coordinates": [59.9139, 10.7522]
+    }
+  ],
+  "meta": {
+    "source": "https://www.aspdatacenter.no/"
+  }
+}
+
+

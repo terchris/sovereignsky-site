@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://totalforsvarsaret.no/schemas/jurisdictions.schema.json",
+  "title": "SovereignSky Jurisdictions",
+  "description": "Schema for jurisdictions.json - blocs (EU, EEA, Five Eyes, etc.) and risk level definitions",
+  "type": "object",
+  "required": ["blocs", "risk_levels", "meta"],
+  "additionalProperties": false,
+  "properties": {
+    "blocs": {
+      "type": "array",
+      "description": "Jurisdictional blocs (groups of countries with shared legal frameworks)",
+      "items": {
+        "$ref": "#/definitions/bloc"
+      }
+    },
+    "risk_levels": {
+      "type": "object",
+      "description": "Definitions for risk level categories",
+      "additionalProperties": {
+        "$ref": "#/definitions/risk_level"
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the jurisdictions data",
+      "required": ["version", "updated", "description"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "updated": {
+          "type": "string",
+          "description": "Last update date in ISO format",
+          "format": "date"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the data file"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bloc": {
+      "type": "object",
+      "required": ["id", "name", "slug", "flag", "description", "members", "risk_level"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the bloc",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the bloc"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly identifier for generating /laws/{slug}/ pages",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "flag": {
+          "type": "string",
+          "description": "Emoji flag or symbol for the bloc"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the bloc and its significance for data sovereignty"
+        },
+        "members": {
+          "type": "array",
+          "description": "Array of ISO 3166-1 alpha-2 country codes that are members",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "inherits_from": {
+          "type": "array",
+          "description": "Array of bloc IDs whose laws this bloc inherits (e.g., EEA inherits from EU)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "laws": {
+          "type": "array",
+          "description": "Laws that apply to all members of this bloc",
+          "items": {
+            "$ref": "#/definitions/law"
+          }
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Overall risk level for the bloc",
+          "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional notes about the bloc"
+        }
+      }
+    },
+    "law": {
+      "type": "object",
+      "required": ["id", "name", "full_name", "year", "summary", "severity"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the law",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Short name or acronym of the law"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "Full official name of the law"
+        },
+        "year": {
+          "type": "integer",
+          "description": "Year the law was enacted or last significantly updated",
+          "minimum": 1900,
+          "maximum": 2100
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief summary of what the law does and its implications"
+        },
+        "severity": {
+          "type": "string",
+          "description": "Impact level: protective (protects data), neutral, medium (some concern), high (significant concern)",
+          "enum": ["protective", "neutral", "medium", "high"]
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to the official law text or authoritative source",
+          "format": "uri"
+        }
+      }
+    },
+    "risk_level": {
+      "type": "object",
+      "required": ["label", "color", "description", "map_color"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Human-readable label for the risk level"
+        },
+        "color": {
+          "type": "string",
+          "description": "Named color for UI elements"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of what this risk level means"
+        },
+        "map_color": {
+          "type": "string",
+          "description": "Hex color code for map visualization",
+          "pattern": "^#[0-9a-fA-F]{6}$"
+        }
+      }
+    }
+  }
+}

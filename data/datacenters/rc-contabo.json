@@ -1,0 +1,62 @@
+{
+  "provider_id": "contabo",
+  "provider_name": "Contabo",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://contabo.com",
+  "regions": [
+    {
+      "region_id": "de-muc",
+      "region_name": "Munich",
+      "country_id": "DE",
+      "city": "Munich",
+      "coordinates": [48.1351, 11.5820]
+    },
+    {
+      "region_id": "de-nue",
+      "region_name": "Nuremberg",
+      "country_id": "DE",
+      "city": "Nuremberg",
+      "coordinates": [49.4521, 11.0767]
+    },
+    {
+      "region_id": "gb-por",
+      "region_name": "Portsmouth",
+      "country_id": "GB",
+      "city": "Portsmouth",
+      "coordinates": [50.8198, -1.0880]
+    },
+    {
+      "region_id": "sg-sin",
+      "region_name": "Singapore",
+      "country_id": "SG",
+      "city": "Singapore",
+      "coordinates": [1.3521, 103.8198]
+    },
+    {
+      "region_id": "us-nyc",
+      "region_name": "New York",
+      "country_id": "US",
+      "city": "New York",
+      "coordinates": [40.7128, -74.0060]
+    },
+    {
+      "region_id": "us-sea",
+      "region_name": "Seattle",
+      "country_id": "US",
+      "city": "Seattle",
+      "coordinates": [47.6062, -122.3321]
+    },
+    {
+      "region_id": "us-stl",
+      "region_name": "St. Louis",
+      "country_id": "US",
+      "city": "St. Louis",
+      "coordinates": [38.6270, -90.1994]
+    }
+  ],
+  "meta": {
+    "source": "https://contabo.com/en-us/locations/"
+  }
+}

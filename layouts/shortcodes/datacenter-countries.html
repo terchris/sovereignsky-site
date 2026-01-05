@@ -1,0 +1,101 @@
+{{/*
+Datacenter Countries list
+Usage: {{< datacenter-countries>}}
+
+    Renders country chips (flag + number of datacenter regions physically located there).
+    Links to /datacenters/{country}/ pages.
+    */}}
+
+    {{ $datacenters := site.Data.datacenters }}
+    {{ $regions := site.Data.regions }}
+
+    {{/* Build regions lookup by id (ISO country code) */}}
+    {{ $regionsById := dict }}
+    {{ range $regions }}
+    {{ $regionsById = merge $regionsById (dict .id .) }}
+    {{ end }}
+
+    {{/* Count datacenter regions by physical country */}}
+    {{ $counts := dict }}
+    {{ range ($datacenters.providers | default (slice)) }}
+    {{ range (.regions | default (slice)) }}
+    {{ $cid := .country_id | default "" }}
+    {{ if $cid }}
+    {{ $prev := index $counts $cid | default 0 }}
+    {{ $counts = merge $counts (dict $cid (add $prev 1)) }}
+    {{ end }}
+    {{ end }}
+    {{ end }}
+
+    {{/* Convert dict -> slice for sorting */}}
+    {{ $items := slice }}
+    {{ range $cid, $count := $counts }}
+    {{ $meta := index $regionsById $cid }}
+    {{ $name := $cid }}
+    {{ if $meta }}{{ $name = $meta.name | default $cid }}{{ end }}
+    {{ $items = $items | append (dict
+    "id" $cid
+    "count" $count
+    "meta" $meta
+    "name" $name
+    )
+    }}
+    {{ end }}
+
+    {{/* Sorted: name asc (primary), then id asc */}}
+    {{ $items = sort $items "id" "asc" }}
+    {{ $items = sort $items "name" "asc" }}
+
+    <div class="flex flex-wrap gap-2">
+        {{ range $items }}
+        {{ $cid := .id }}
+        {{ $count := .count }}
+        {{ $meta := .meta }}
+
+        {{ $flag := "" }}
+        {{ $name := $cid }}
+        {{ $slug := "" }}
+        {{ $risk := "unknown" }}
+        {{ if $meta }}
+        {{ $flag = $meta.flag }}
+        {{ $name = $meta.name }}
+        {{ $slug = $meta.slug }}
+        {{ $risk = $meta.risk_level }}
+        {{ end }}
+
+        {{/* small colored dot by risk */}}
+        {{ $dot := "bg-neutral-400" }}
+        {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+        {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+        {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+        {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+        {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
+        {{ $href := "" }}
+        {{ if $slug }}
+        {{ $href = (printf "/datacenters/%s/" $slug) }}
+        {{ end }}
+
+        {{ if $href }}
+        <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+            href="{{ $href }}"
+            title="Datacenters located in {{ $name }} ({{ $cid }}) • Count: {{ $count }} • Country risk: {{ $risk }}">
+            <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+            <span class="font-medium">{{ $name }}</span>
+            <span class="text-neutral-500 dark:text-neutral-400">
+                {{ if $flag }}{{ $flag }}{{ end }} {{ $count }}
+            </span>
+        </a>
+        {{ else }}
+        <span
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
+            title="Datacenters located in {{ $name }} ({{ $cid }}) • Count: {{ $count }} • Country risk: {{ $risk }}">
+            <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+            <span class="font-medium">{{ $name }}</span>
+            <span class="text-neutral-500 dark:text-neutral-400">
+                {{ if $flag }}{{ $flag }}{{ end }} {{ $count }}
+            </span>
+        </span>
+        {{ end }}
+        {{ end }}
+    </div>

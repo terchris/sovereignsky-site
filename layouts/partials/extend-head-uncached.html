@@ -1,0 +1,21 @@
+{{/* Page-scoped <head> injections (uncached) */}}
+{{/* Load ECharts for pages with charts: explicit param, shortcodes, or datacenter layouts */}}
+{{ $needsEcharts := or (.Params.echarts) (.HasShortcode "echart") (.HasShortcode "jurisdiction-map") (.HasShortcode "datacenter-map") }}
+{{ if not $needsEcharts }}
+  {{/* Also load for datacenter country/provider layouts (use datacenter-map via RenderString) */}}
+  {{ if eq .Section "datacenters" }}
+    {{ if or (eq .Layout "country") (eq .Layout "provider") }}
+      {{ $needsEcharts = true }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ if $needsEcharts }}
+<script src="https://cdn.jsdelivr.net/npm/echarts@6.0.0/dist/echarts.min.js"></script>
+{{ end }}
+
+{{/* JSON-LD for events on totalforsvarsaret and events pages */}}
+{{ if or (eq .Section "totalforsvarsaret") (eq .Section "events") }}
+{{ partial "jsonld-events.html" . }}
+{{ end }}
+
+

@@ -1,0 +1,147 @@
+{{/*
+  Actor Card Partial
+
+  Usage: {{ partial "actor-card.html" (dict "actor" $actor "connections" $connections "role" "owner") }}
+
+  Parameters:
+    - actor: Actor object from networks-actors.json
+    - connections: slice of connection objects this actor is related to
+    - role: "owner" or "operator" (optional, for display)
+    - currentConnectionId: current page connection_id to highlight (optional)
+*/}}
+
+{{ $actor := .actor }}
+{{ $connections := .connections | default (slice) }}
+{{ $role := .role | default "" }}
+{{ $currentConnectionId := .currentConnectionId | default "" }}
+
+{{ $countryId := $actor.country_id | default "" }}
+
+{{/* Flag emoji lookup - common countries */}}
+{{ $flags := dict
+  "NO" "🇳🇴"
+  "US" "🇺🇸"
+  "GB" "🇬🇧"
+  "IE" "🇮🇪"
+  "DK" "🇩🇰"
+  "SE" "🇸🇪"
+  "FI" "🇫🇮"
+  "DE" "🇩🇪"
+  "NL" "🇳🇱"
+  "FR" "🇫🇷"
+  "IS" "🇮🇸"
+}}
+{{ $flag := index $flags $countryId | default "" }}
+
+{{/* Actor type labels */}}
+{{ $typeLabels := dict
+  "infrastructure_operator" "Infrastructure"
+  "network_operator" "Network Operator"
+  "telecom_operator" "Telecom"
+  "datacenter_operator" "Datacenter"
+  "state_owned_enterprise" "State-owned"
+  "project_company" "Project Company"
+  "subsea_operator" "Subsea Operator"
+  "consortium" "Consortium"
+  "tech_company" "Tech Company"
+  "system_supplier" "System Supplier"
+  "cable_manufacturer" "Cable Manufacturer"
+  "installation_contractor" "Contractor"
+}}
+{{ $typeLabel := index $typeLabels ($actor.actor_type | default "") | default $actor.actor_type }}
+
+{{/* Get jurisdiction page if exists */}}
+{{ $jurisdictionPage := site.GetPage (printf "/jurisdictions/%s" (lower $countryId)) }}
+
+{{/* Get region name */}}
+{{ $regions := site.Data.regions | default (slice) }}
+{{ $countryName := $countryId }}
+{{ range $regions }}
+  {{ if eq .id $countryId }}
+    {{ $countryName = .name }}
+  {{ end }}
+{{ end }}
+
+{{ $currentRole := "" }}
+{{ range $connections }}
+  {{ if eq .connection_id $currentConnectionId }}
+    {{ $currentRole = delimit .roles " & " }}
+  {{ end }}
+{{ end }}
+
+<div class="actor-card border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 bg-white dark:bg-neutral-800 shadow-sm">
+  <div class="flex items-start justify-between gap-2 mb-2">
+    <div class="flex items-center gap-2">
+      {{ if $flag }}<span class="text-xl">{{ $flag }}</span>{{ end }}
+      <div>
+        <h4 class="font-semibold text-neutral-900 dark:text-neutral-100 leading-tight">
+          {{ $actor.actor_name }}
+        </h4>
+        <div class="flex flex-wrap gap-1">
+          {{ if $currentRole }}
+          <span class="text-xs px-2 py-0.5 rounded bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium">
+            {{ $currentRole }}
+          </span>
+          {{ end }}
+          {{ if $typeLabel }}
+          <span class="text-xs px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300">
+            {{ $typeLabel }}
+          </span>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-sm space-y-1 text-neutral-600 dark:text-neutral-400">
+    {{/* Jurisdiction */}}
+    {{ if $countryId }}
+    <p>
+      <strong>Jurisdiction:</strong>
+      {{ if $jurisdictionPage }}
+        <a href="{{ $jurisdictionPage.RelPermalink }}" class="text-primary-600 dark:text-primary-400 hover:underline">{{ $countryName }}</a>
+      {{ else }}
+        {{ $countryName }}
+      {{ end }}
+    </p>
+    {{ end }}
+
+    {{/* Website */}}
+    {{ with $actor.website }}
+    <p>
+      <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="text-primary-600 dark:text-primary-400 hover:underline inline-flex items-center gap-1">
+        {{ replaceRE "^https?://(www\\.)?" "" . | replaceRE "/.*$" "" }}
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      </a>
+    </p>
+    {{ end }}
+
+    {{/* Networks */}}
+    {{ if gt (len $connections) 0 }}
+    <div class="mt-2 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+      <p class="font-medium text-neutral-700 dark:text-neutral-300 mb-1">Networks:</p>
+      <ul class="text-xs space-y-0.5">
+        {{ range $connections }}
+          {{ $isCurrent := eq .connection_id $currentConnectionId }}
+          {{ $page := site.GetPage (printf "/networks/%s" .connection_id) }}
+          <li class="{{ if $isCurrent }}font-semibold text-primary-600 dark:text-primary-400{{ end }}">
+            {{ if and $page (not $isCurrent) }}
+              <a href="{{ $page.RelPermalink }}" class="hover:underline">{{ .connection_name }}</a>
+            {{ else }}
+              {{ .connection_name }}
+            {{ end }}
+            {{ if .roles }}
+              <span class="text-neutral-400">({{ delimit .roles ", " }})</span>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
+    {{/* Notes */}}
+    {{ with $actor.notes }}
+    <p class="mt-2 text-xs italic text-neutral-500 dark:text-neutral-500">{{ . }}</p>
+    {{ end }}
+  </div>
+</div>

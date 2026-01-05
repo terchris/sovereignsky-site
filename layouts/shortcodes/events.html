@@ -1,0 +1,21 @@
+{{- /*
+  events.html shortcode
+  Renders event list from /data/events.json
+  
+  Usage:
+    {{< events >}}
+    {{< events filter="cybersecurity" >}}
+    {{< events audience="developers" limit="3" >}}
+    {{< events itRelevance="high" compact="true" >}}
+    {{< events showPast="true" >}}
+*/ -}}
+
+{{- $params := dict -}}
+{{- with .Get "filter" }}{{ $params = merge $params (dict "filter" .) }}{{ end -}}
+{{- with .Get "audience" }}{{ $params = merge $params (dict "audience" .) }}{{ end -}}
+{{- with .Get "itRelevance" }}{{ $params = merge $params (dict "itRelevance" .) }}{{ end -}}
+{{- with .Get "limit" }}{{ $params = merge $params (dict "limit" (int .)) }}{{ end -}}
+{{- with .Get "showPast" }}{{ $params = merge $params (dict "showPast" (eq . "true")) }}{{ end -}}
+{{- with .Get "compact" }}{{ $params = merge $params (dict "compact" (eq . "true")) }}{{ end -}}
+
+{{ partial "event-list.html" $params }}

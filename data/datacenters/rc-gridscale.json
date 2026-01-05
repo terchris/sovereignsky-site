@@ -1,0 +1,48 @@
+{
+  "provider_id": "gridscale",
+  "provider_name": "gridscale",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://gridscale.io",
+  "regions": [
+    {
+      "region_id": "de-fra1",
+      "region_name": "Frankfurt 1",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "de-fra2",
+      "region_name": "Frankfurt 2",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "de-fra3",
+      "region_name": "Frankfurt 3",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    },
+    {
+      "region_id": "de-ehz1",
+      "region_name": "Eichenzell",
+      "country_id": "DE",
+      "city": "Eichenzell",
+      "coordinates": [50.4833, 9.7000]
+    },
+    {
+      "region_id": "de-han1",
+      "region_name": "Hannover",
+      "country_id": "DE",
+      "city": "Hannover",
+      "coordinates": [52.3759, 9.7320]
+    }
+  ],
+  "meta": {
+    "source": "https://gridscale.io/en/about-us/data-centers/"
+  }
+}

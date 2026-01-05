@@ -1,0 +1,45 @@
+{{- $sov := . -}}
+{{- $level := $sov.level -}}
+{{- $score := $sov.score -}}
+{{- $label := $sov.level_label -}}
+
+{{- /* Color classes based on risk level */ -}}
+{{- $bgClass := "bg-neutral-100 dark:bg-neutral-800" -}}
+{{- $textClass := "text-neutral-700 dark:text-neutral-300" -}}
+{{- $barClass := "bg-neutral-400" -}}
+
+{{- if eq $level "low" -}}
+  {{- $bgClass = "bg-green-100 dark:bg-green-900/30" -}}
+  {{- $textClass = "text-green-800 dark:text-green-200" -}}
+  {{- $barClass = "bg-green-500" -}}
+{{- else if eq $level "moderate" -}}
+  {{- $bgClass = "bg-yellow-100 dark:bg-yellow-900/30" -}}
+  {{- $textClass = "text-yellow-800 dark:text-yellow-200" -}}
+  {{- $barClass = "bg-yellow-500" -}}
+{{- else if eq $level "elevated" -}}
+  {{- $bgClass = "bg-orange-100 dark:bg-orange-900/30" -}}
+  {{- $textClass = "text-orange-800 dark:text-orange-200" -}}
+  {{- $barClass = "bg-orange-500" -}}
+{{- else if eq $level "high" -}}
+  {{- $bgClass = "bg-red-100 dark:bg-red-900/30" -}}
+  {{- $textClass = "text-red-800 dark:text-red-200" -}}
+  {{- $barClass = "bg-red-500" -}}
+{{- else if eq $level "critical" -}}
+  {{- $bgClass = "bg-red-200 dark:bg-red-900/50" -}}
+  {{- $textClass = "text-red-900 dark:text-red-100" -}}
+  {{- $barClass = "bg-red-700" -}}
+{{- end -}}
+
+<div class="sovereignty-badge {{ $bgClass }} rounded-lg p-3">
+  <div class="flex items-center justify-between mb-1">
+    <span class="text-xs font-medium {{ $textClass }}">Sovereignty Score</span>
+    <span class="text-sm font-bold {{ $textClass }}">{{ printf "%.1f" $score }}/5.0</span>
+  </div>
+
+  <!-- Score bar -->
+  <div class="h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden mb-1">
+    <div class="{{ $barClass }} h-full rounded-full" style="width: {{ mul (div $score 5.0) 100 }}%"></div>
+  </div>
+
+  <div class="text-xs {{ $textClass }}">{{ $label }}</div>
+</div>

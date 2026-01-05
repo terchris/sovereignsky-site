@@ -1,0 +1,180 @@
+<div class="max-w-6xl mx-auto">
+
+  <header class="mb-8">
+    <nav class="text-sm mb-2">
+      <a href="/software/" class="text-primary-600 dark:text-primary-400 hover:underline">Software Database</a>
+      <span class="text-neutral-400 mx-2">›</span>
+      <span class="text-neutral-600 dark:text-neutral-300">{{ .Title }}</span>
+    </nav>
+    <h1 class="text-3xl font-bold mb-4">{{ .Title }}</h1>
+    <p class="text-lg text-neutral-600 dark:text-neutral-300">
+      {{ len .Pages }} products with this filter
+    </p>
+  </header>
+
+  <!-- Filter Navigation -->
+  <div class="mb-8 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg">
+
+    <!-- Risk Level Filter -->
+    <div class="mb-4">
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Risk Level:</span>
+      <div class="inline-flex flex-wrap gap-2 mt-2">
+        <a href="/software/" class="filter-link">All</a>
+        {{ range $term, $pages := site.Taxonomies.risk_levels }}
+        <a href="/risk_levels/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "risk_level" }}{{ if eq ($.Title | lower) $term }}active{{ end }}{{ end }}">
+          {{ $term | title }}
+          <span class="text-xs opacity-70">({{ len $pages }})</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+
+    <!-- Country Filter -->
+    <div class="mb-4">
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Vendor Country:</span>
+      <div class="inline-flex flex-wrap gap-2 mt-2">
+        <a href="/software/" class="filter-link">All</a>
+        {{ range $term, $pages := site.Taxonomies.vendor_countries }}
+        <a href="/vendor_countries/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "vendor_country" }}{{ if eq $.Title $term }}active{{ end }}{{ end }}">
+          {{ if eq $term "US" }}USA{{ else if eq $term "NO" }}Norway{{ else if eq $term "GB" }}UK{{ else }}{{ $term }}{{ end }}
+          <span class="text-xs opacity-70">({{ len $pages }})</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+
+    <!-- Use Area Filter -->
+    <div>
+      <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Use Area:</span>
+      <div class="inline-flex flex-wrap gap-2 mt-2">
+        <a href="/software/" class="filter-link">All</a>
+        {{ range $term, $pages := site.Taxonomies.use_areas }}
+        {{ $area := index (where site.Data.useAreas "id" $term) 0 }}
+        {{ $displayName := $term | title }}
+        {{ if $area }}{{ $displayName = $area.name }}{{ end }}
+        <a href="/use_areas/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "use_area" }}{{ if eq $.Title $term }}active{{ end }}{{ end }}">
+          {{ $displayName }}
+          <span class="text-xs opacity-70">({{ len $pages }})</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Results count -->
+  <div class="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+    Showing {{ len .Pages }} products
+  </div>
+
+  {{/* Risk level colors */}}
+  {{ $riskColors := dict
+    "low" "green"
+    "moderate" "yellow"
+    "elevated" "orange"
+    "significant" "red"
+    "high" "red"
+  }}
+
+  {{/* Country flags */}}
+  {{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU_EEA" "🇪🇺" }}
+
+  <!-- Product Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {{ range .Pages }}
+    {{ $product := index (where site.Data.products.products "id" .Params.software_id) 0 }}
+    {{ if $product }}
+    {{ $vendor := index (where site.Data.vendors.vendors "id" $product.vendor_id) 0 }}
+    {{ $riskLevel := $product.risk_level | default "moderate" }}
+    {{ $riskColor := index $riskColors $riskLevel | default "neutral" }}
+
+    <article class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden hover:shadow-lg transition-all bg-white dark:bg-neutral-900">
+      <a href="{{ .RelPermalink }}" class="block">
+        <!-- Top bar with risk level -->
+        <div class="flex items-center justify-between px-4 py-2 bg-{{ $riskColor }}-100 dark:bg-{{ $riskColor }}-900/40 border-b border-{{ $riskColor }}-300 dark:border-{{ $riskColor }}-700">
+          <span class="text-xs font-semibold uppercase tracking-wide text-{{ $riskColor }}-800 dark:text-{{ $riskColor }}-200">
+            {{ $riskLevel | title }} Risk
+          </span>
+          {{ if gt (len $product.hosting.jurisdiction_exposure) 0 }}
+          <span class="text-xs font-medium text-orange-700 dark:text-orange-400">⚠️ {{ delimit $product.hosting.jurisdiction_exposure ", " }}</span>
+          {{ end }}
+        </div>
+
+        <div class="p-4">
+          <!-- Product name and vendor -->
+          <div class="mb-3">
+            <h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-1">{{ $product.name }}</h2>
+            <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
+              {{ $vendorFlag := index $flags $vendor.country }}
+              <span>{{ $vendorFlag }}</span>
+              <span>{{ $vendor.country_name | default $vendor.country }}</span>
+              <span class="text-neutral-300 dark:text-neutral-600">•</span>
+              <span>{{ $vendor.name }}</span>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2">{{ $product.description }}</p>
+
+          <!-- Footer: Use areas -->
+          <div class="flex flex-wrap gap-1.5">
+            {{ range $product.use_areas }}
+            {{ $area := index (where site.Data.useAreas "id" .) 0 }}
+            {{ if $area }}
+            <span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
+              {{ $area.name }}
+            </span>
+            {{ end }}
+            {{ end }}
+          </div>
+        </div>
+      </a>
+    </article>
+    {{ end }}
+    {{ end }}
+  </div>
+
+  {{ if eq (len .Pages) 0 }}
+  <div class="text-center py-8 text-neutral-500 dark:text-neutral-400">
+    No software matches this filter.
+  </div>
+  {{ end }}
+
+</div>
+
+<style>
+.filter-link {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(212, 212, 212);
+  background-color: white;
+  color: rgb(64, 64, 64);
+  transition: all 0.15s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.dark .filter-link {
+  border-color: rgb(82, 82, 82);
+  background-color: rgb(23, 23, 23);
+  color: rgb(212, 212, 212);
+}
+.filter-link:hover {
+  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-600));
+}
+.dark .filter-link:hover {
+  color: rgb(var(--color-primary-400));
+}
+.filter-link.active {
+  background-color: rgb(var(--color-primary-500));
+  border-color: rgb(var(--color-primary-500));
+  color: white;
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>

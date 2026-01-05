@@ -1,0 +1,64 @@
+{
+  "provider_id": "tencent",
+  "provider_name": "Tencent Cloud",
+  "provider_type": "hyperscaler",
+  "updated": "2025-12-19",
+  "vendor_country_id": "CN",
+  "vendor_website": "https://www.tencentcloud.com",
+  "regions": [
+    {
+      "region_id": "ap-guangzhou",
+      "region_name": "South China (Guangzhou)",
+      "country_id": "CN",
+      "city": "Guangzhou",
+      "coordinates": [23.1291, 113.2644]
+    },
+    {
+      "region_id": "ap-shanghai",
+      "region_name": "East China (Shanghai)",
+      "country_id": "CN",
+      "city": "Shanghai",
+      "coordinates": [31.2304, 121.4737]
+    },
+    {
+      "region_id": "ap-nanjing",
+      "region_name": "East China (Nanjing)",
+      "country_id": "CN",
+      "city": "Nanjing",
+      "coordinates": [32.0603, 118.7969]
+    },
+    {
+      "region_id": "ap-beijing",
+      "region_name": "North China (Beijing)",
+      "country_id": "CN",
+      "city": "Beijing",
+      "coordinates": [39.9042, 116.4074]
+    },
+    {
+      "region_id": "ap-chengdu",
+      "region_name": "Southwest China (Chengdu)",
+      "country_id": "CN",
+      "city": "Chengdu",
+      "coordinates": [30.5728, 104.0668]
+    },
+    {
+      "region_id": "ap-chongqing",
+      "region_name": "Southwest China (Chongqing)",
+      "country_id": "CN",
+      "city": "Chongqing",
+      "coordinates": [29.5630, 106.5516]
+    },
+    {
+      "region_id": "ap-zhongwei",
+      "region_name": "Northwest China (Zhongwei)",
+      "country_id": "CN",
+      "city": "Zhongwei",
+      "coordinates": [37.5130, 105.1900]
+    }
+  ],
+  "meta": {
+    "source": "https://www.tencentcloud.com/document/product/213/6091"
+  }
+}
+
+

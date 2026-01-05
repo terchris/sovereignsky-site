@@ -1,0 +1,37 @@
+{{/* SurveyJS shortcode for Hugo */}}
+{{/* Usage: {{< survey id="my-survey" >}} { JSON here } {{< /survey >}} */}}
+
+<link href="https://unpkg.com/survey-jquery@1.12.20/defaultV2.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  .sd-root-modern {
+    font-family: inherit;
+  }
+  .sd-root-modern .sd-container-modern {
+    max-width: 100%;
+  }
+</style>
+
+{{ $id := .Get "id" | default "survey" }}
+<div id="{{ $id }}"></div>
+
+<script src="https://unpkg.com/survey-jquery@1.12.20/survey.jquery.min.js"></script>
+<script>
+(function() {
+  const surveyId = "{{ $id }}";
+  const surveyJson = {{ .Inner | safeJS }};
+  const survey = new Survey.Model(surveyJson);
+
+  survey.onComplete.add(function(sender) {
+    console.log("Survey results:", JSON.stringify(sender.data, null, 2));
+    // Save to localStorage for results calculation
+    localStorage.setItem(surveyId, JSON.stringify(sender.data));
+    // Trigger custom event for results
+    if (typeof calculatePortfolioResults === 'function') {
+      setTimeout(calculatePortfolioResults, 100);
+    }
+  });
+
+  $("#" + surveyId).Survey({ model: survey });
+})();
+</script>

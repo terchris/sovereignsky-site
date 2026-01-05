@@ -1,0 +1,113 @@
+{{ define "main" }}
+{{ .Scratch.Set "scope" "single" }}
+<article class="max-w-7xl mx-auto px-4">
+  {{/* Header */}}
+  <header class="mt-5 mb-8">
+    {{ if .Params.showBreadcrumbs | default true }}
+    {{ partial "breadcrumbs.html" . }}
+    {{ end }}
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ .Title | emojify }}
+    </h1>
+    {{ with .Description }}
+    <p class="mt-3 text-lg text-neutral-600 dark:text-neutral-400">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  {{/* Featured Image */}}
+  {{ $featured := .Resources.GetMatch "featured*" }}
+  {{ with $featured }}
+  <figure class="mb-8">
+    <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" class="w-full max-w-3xl rounded-lg shadow-md">
+  </figure>
+  {{ end }}
+
+  {{/* Two-column layout: Main content LEFT, Sidebar RIGHT */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+
+    {{/* Right Sidebar - appears first in DOM but ordered last on desktop */}}
+    <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-xs">
+      <div class="toc ps-5 print:hidden lg:sticky lg:top-24">
+
+        {{/* 1. Source metadata */}}
+        {{ partial "metadata-source-sidebar.html" . }}
+
+        {{/* Buttons - before Key Takeaways */}}
+        {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
+        {{ with $sourceUrl }}
+        <div class="mt-4">
+          {{ partial "external-button.html" (dict "url" . "label" "Read original") }}
+        </div>
+        {{ end }}
+        <div class="mt-3">
+          {{ partial "internal-button.html" (dict "url" "/publications/" "icon" "📚" "label" "All Publications") }}
+        </div>
+
+        {{/* 3. Key Takeaways */}}
+        {{ partial "metadata-takeaways-sidebar.html" . }}
+
+        {{/* 4. Tags (linked to tag pages) */}}
+        {{ partial "metadata-tags-sidebar.html" . }}
+
+        {{/* Personas (connect publications to /personas) */}}
+        {{ partial "persona-chips.html" . }}
+
+        {{/* 5. Topics */}}
+        {{ partial "metadata-topics-sidebar.html" . }}
+
+        {{/* 6. Relevant For */}}
+        {{ partial "metadata-relevant-for-sidebar.html" . }}
+
+        {{/* 6. Related content - all content types based on matching tags */}}
+        {{ partial "related-content-sidebar.html" . }}
+
+        {{/* 7. Table of Contents - at the bottom */}}
+        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+        {{ if $showToc }}
+        <div class="mt-6">
+          {{ partial "toc.html" . }}
+        </div>
+        {{ end }}
+
+      </div>
+    </div>
+
+    {{/* Main Content - LEFT */}}
+    <div class="min-w-0 min-h-0 max-w-fit">
+      <div class="article-content prose dark:prose-invert max-w-3xl mb-20">
+        {{/* Summary/Excerpt intro */}}
+        {{ with .Params.summary }}
+        <div class="text-lg text-neutral-600 dark:text-neutral-400 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-700">
+          {{ . | markdownify }}
+        </div>
+        {{ end }}
+
+        {{/* Main article content */}}
+        {{ .Content }}
+
+        {{/* Quote from original if provided */}}
+        {{ with .Params.quote }}
+        <blockquote class="border-l-4 border-primary-500 pl-4 my-8 italic text-neutral-600 dark:text-neutral-400">
+          {{ . | markdownify }}
+          {{ with $.Params.quote_attribution }}
+          <footer class="mt-2 text-sm not-italic">— {{ . }}</footer>
+          {{ end }}
+        </blockquote>
+        {{ end }}
+      </div>
+
+      {{/* Footer navigation */}}
+      <footer class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-700">
+        <div class="flex flex-wrap gap-4 text-sm">
+          <a href="/publications/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 no-underline">
+            ← All Publications
+          </a>
+        </div>
+      </footer>
+    </div>
+
+  </section>
+</article>
+{{ end }}

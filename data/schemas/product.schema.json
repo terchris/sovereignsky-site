@@ -1,0 +1,217 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "product.schema.json",
+  "title": "Software Product",
+  "description": "Schema for software products in the SovereignSky sovereignty database",
+  "type": "object",
+  "required": ["id", "slug", "name", "description", "use_areas", "vendor_id", "risk_level", "assessments", "hosting"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the product (lowercase, hyphenated)",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly identifier for the product page",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the product"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the product (1-2 sentences)"
+    },
+    "vendor_id": {
+      "type": "string",
+      "description": "Reference to vendor in vendors.json",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "use_areas": {
+      "type": "array",
+      "description": "References to use area IDs (validated against useAreas.json at build time)",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_-]*$"
+      },
+      "minItems": 1
+    },
+    "risk_level": {
+      "type": "string",
+      "description": "Worst-case risk level across all assessments",
+      "enum": ["low", "moderate", "elevated", "significant", "high"]
+    },
+    "assessments": {
+      "type": "object",
+      "description": "Sovereignty assessments by framework (e.g., ndsi, eu_csf)",
+      "additionalProperties": {
+        "$ref": "#/$defs/assessment"
+      }
+    },
+    "key_concerns": {
+      "type": "array",
+      "description": "Main sovereignty concerns for this product",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mitigations": {
+      "type": "array",
+      "description": "Possible actions to reduce sovereignty risk",
+      "items": {
+        "$ref": "#/$defs/mitigation"
+      }
+    },
+    "alternatives": {
+      "type": "array",
+      "description": "Product IDs of alternative products with better sovereignty",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      }
+    },
+    "hosting": {
+      "type": "object",
+      "description": "Data hosting, residency and jurisdiction information",
+      "required": ["self_hosted", "data_residency", "jurisdiction_exposure"],
+      "properties": {
+        "self_hosted": {
+          "type": "boolean",
+          "description": "Can the product be self-hosted by the customer?"
+        },
+        "data_residency": {
+          "type": "array",
+          "description": "Where data can be physically stored (ISO country codes or EU_EEA)",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$|^EU_EEA$"
+          }
+        },
+        "jurisdiction_exposure": {
+          "type": "array",
+          "description": "Foreign jurisdictions that can legally compel data access (ISO country codes). Empty array means no foreign exposure.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Product-specific hosting details and context"
+        }
+      }
+    },
+    "open_source": {
+      "type": "boolean",
+      "description": "Is the product open source?"
+    },
+    "data_portability": {
+      "type": "string",
+      "description": "Ability to export data in usable standard formats",
+      "enum": ["full", "partial", "locked"]
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about this product entry",
+      "properties": {
+        "sources": {
+          "type": "array",
+          "description": "URLs used as sources for this assessment",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "assessment": {
+      "type": "object",
+      "description": "A sovereignty assessment using a specific framework",
+      "required": ["version", "date", "score", "risk_level", "scores"],
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Version of the framework used"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of assessment (YYYY-MM-DD)",
+          "format": "date"
+        },
+        "score": {
+          "type": "number",
+          "description": "Calculated weighted average score for this framework",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "risk_level": {
+          "type": "string",
+          "description": "Risk level derived from the score using framework thresholds",
+          "enum": ["low", "moderate", "elevated", "significant", "high"]
+        },
+        "scores": {
+          "type": "object",
+          "description": "Individual scores for each dimension in the framework",
+          "additionalProperties": {
+            "$ref": "#/$defs/dimension_score"
+          }
+        }
+      }
+    },
+    "dimension_score": {
+      "type": "object",
+      "description": "Score for a single dimension",
+      "required": ["score"],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "description": "Risk score (0=no risk, 5=critical risk)",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Brief explanation of the score"
+        }
+      }
+    },
+    "mitigation": {
+      "type": "object",
+      "description": "A risk mitigation action",
+      "required": ["title", "description"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Short title for the mitigation"
+        },
+        "description": {
+          "type": "string",
+          "description": "What this mitigation involves"
+        },
+        "effort": {
+          "type": "string",
+          "description": "Implementation effort required",
+          "enum": ["low", "medium", "high"]
+        },
+        "impact": {
+          "type": "string",
+          "description": "Impact on sovereignty risk",
+          "enum": ["low", "medium", "high"]
+        },
+        "requires_license": {
+          "type": "string",
+          "description": "License tier required (if any)"
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to documentation",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

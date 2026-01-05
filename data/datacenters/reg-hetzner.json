@@ -1,0 +1,55 @@
+{
+  "provider_id": "hetzner",
+  "provider_name": "Hetzner",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-19",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://www.hetzner.com",
+  "regions": [
+    {
+      "region_id": "fsn1",
+      "region_name": "Falkenstein",
+      "country_id": "DE",
+      "city": "Falkenstein",
+      "coordinates": [50.4747, 12.3653]
+    },
+    {
+      "region_id": "nbg1",
+      "region_name": "Nuremberg",
+      "country_id": "DE",
+      "city": "Nuremberg",
+      "coordinates": [49.4521, 11.0767]
+    },
+    {
+      "region_id": "hel1",
+      "region_name": "Helsinki",
+      "country_id": "FI",
+      "city": "Helsinki",
+      "coordinates": [60.1699, 24.9384]
+    },
+    {
+      "region_id": "ash",
+      "region_name": "Ashburn",
+      "country_id": "US",
+      "city": "Ashburn",
+      "coordinates": [39.0438, -77.4874]
+    },
+    {
+      "region_id": "hil",
+      "region_name": "Hillsboro",
+      "country_id": "US",
+      "city": "Hillsboro",
+      "coordinates": [45.5229, -122.9898]
+    },
+    {
+      "region_id": "sin",
+      "region_name": "Singapore",
+      "country_id": "SG",
+      "city": "Singapore",
+      "coordinates": [1.3521, 103.8198]
+    }
+  ],
+  "meta": {
+    "source": "https://www.hetzner.com/unternehmen/rechenzentrum"
+  }
+}

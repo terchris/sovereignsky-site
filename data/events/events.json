@@ -1,0 +1,417 @@
+[
+  {
+    "id": "samfunnssikkerhetskonferansen-2026",
+    "name": "Civil Security Conference 2026",
+    "nameOriginal": "Samfunnssikkerhetskonferansen 2026",
+    "description": "National conference on civil security, total defence, and digital preparedness, including cybersecurity and information security.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-02-09",
+    "endDate": "2026-02-10",
+    "location": {
+      "name": "Oslo Kongressenter",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Norwegian Directorate for Civil Protection (DSB)",
+      "url": "https://www.dsb.no"
+    },
+    "url": "https://www.dsb.no/kurs-og-konferanser/samfunnssikkerhets-konferansen-2026/",
+    "tags": ["preparedness", "cybersecurity", "critical-infrastructure"],
+    "audience": ["government", "defence", "enterprise"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "hackcon-21",
+    "name": "HackCon #21",
+    "nameOriginal": "HackCon #21",
+    "description": "The Norwegian Cyber Security Convention. Norway's premier IT security conference for technical and strategic security professionals, featuring over 1600 presentations on vulnerabilities, research, and best practices.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-02-11",
+    "endDate": "2026-02-12",
+    "location": {
+      "name": "Høyres Hus Konferanse & Selskapslokaler",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "HackCon",
+      "url": "https://www.hackcon.org"
+    },
+    "url": "https://www.hackcon.org/",
+    "tags": ["cybersecurity"],
+    "audience": ["technical", "developer", "enterprise"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "datacenter-forum-oslo-2026",
+    "name": "Datacenter Forum Oslo 2026",
+    "nameOriginal": "Datacenter Forum Oslo 2026",
+    "description": "The 12th annual edition of Datacenter Forum Oslo, bringing together professionals from the datacenter sector to discuss infrastructure, sustainability, and digital transformation.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-02-26",
+    "endDate": null,
+    "location": {
+      "name": "Clarion Hotel The Hub",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Datacenter Forum / Norwegian Datacenter Industry",
+      "url": "https://www.datasenterindustrien.no"
+    },
+    "url": "https://www.datasenterindustrien.no/about/events/datacenter-forum-oslo",
+    "tags": ["critical-infrastructure", "sovereignty"],
+    "audience": ["technical", "enterprise", "government"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "ndc-security-2026",
+    "name": "NDC Security 2026",
+    "nameOriginal": "NDC Security 2026",
+    "description": "Security conference for software developers featuring 60+ sessions, workshops, and presentations on application security, DevSecOps, and secure coding practices.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-03-02",
+    "endDate": "2026-03-05",
+    "location": {
+      "name": "Radisson Blu Scandinavia Hotel",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "NDC Conferences",
+      "url": "https://ndcconferences.com"
+    },
+    "url": "https://ndcsecurity.com/",
+    "tags": ["cybersecurity"],
+    "audience": ["developer", "technical"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "totalforsvarskonferansen-2026",
+    "name": "Total Defence Conference 2026",
+    "nameOriginal": "Totalforsvarskonferansen 2026",
+    "description": "Annual conference on total defence with civil-military cooperation, including critical infrastructure, IT, and digital resilience.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-03-16",
+    "endDate": null,
+    "location": {
+      "name": "TBA",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Norwegian Total Defence Forum",
+      "url": "https://www.totalforsvar.no"
+    },
+    "url": "https://www.totalforsvar.no",
+    "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
+    "audience": ["government", "defence", "enterprise"],
+    "itRelevance": "medium"
+  },
+  {
+    "id": "nordic-ai-union-summit-2026",
+    "name": "Nordic AI Union Summit 2026",
+    "nameOriginal": "Nordic AI Union Summit 2026",
+    "description": "Summit exploring AI in the workplace from a Nordic perspective, bringing together decision-makers, politicians, and AI experts to discuss responsible AI adoption and worker implications.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-03-19",
+    "endDate": null,
+    "location": {
+      "name": "Munch Museum",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "NITO, Negotia and Finansforbundet",
+      "url": "https://nordicaisummit.org"
+    },
+    "url": "https://nordicaisummit.org/",
+    "tags": ["sovereignty"],
+    "audience": ["enterprise", "government"],
+    "itRelevance": "medium"
+  },
+  {
+    "id": "befkon-2026",
+    "name": "BEFKON - Defence and Preparedness Conference Innlandet 2026",
+    "nameOriginal": "Beredskaps- og forsvarskonferansen Innlandet 2026",
+    "description": "Regional conference gathering preparedness actors, Armed Forces, industry, and political leadership from Innlandet to discuss total defence status and challenges during the Total Defence Year 2026.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-03-19",
+    "endDate": null,
+    "location": {
+      "name": "Elverum",
+      "city": "Elverum",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Statsforvalteren Innlandet, Innlandet politidistrikt, NHO Innlandet, HV05",
+      "url": "https://www.befkon.no"
+    },
+    "url": "https://www.befkon.no/",
+    "tags": ["preparedness", "critical-infrastructure"],
+    "audience": ["government", "defence", "enterprise"],
+    "itRelevance": "medium"
+  },
+  {
+    "id": "datasenterdagen-2026",
+    "name": "Datasenterdagen 2026",
+    "nameOriginal": "Datasenterdagen 2026",
+    "description": "Annual datacenter conference exploring hybrid cloud, security, infrastructure, and Norway's role in sustainable data management amid international uncertainty and climate challenges.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-04-09",
+    "endDate": null,
+    "location": {
+      "name": "TBA",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Norwegian Datacenter Industry",
+      "url": "https://www.datasenterindustrien.no"
+    },
+    "url": "https://www.datasenterindustrien.no/about/events/datasenterdagen",
+    "tags": ["critical-infrastructure", "sovereignty", "cybersecurity"],
+    "audience": ["technical", "enterprise", "government"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "cyberuk-2026",
+    "name": "CYBERUK 2026",
+    "nameOriginal": "CYBERUK 2026",
+    "description": "UK National Cyber Security Centre's flagship conference marking NCSC's 10th anniversary. Theme: 'The Next Decade: Accelerating Our Cyber Defence' - exploring future defence strategies, resilience, and emerging threats.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-04-21",
+    "endDate": "2026-04-23",
+    "location": {
+      "name": "SEC Centre",
+      "city": "Glasgow",
+      "country": "GB"
+    },
+    "organizer": {
+      "name": "UK National Cyber Security Centre (NCSC)",
+      "url": "https://www.ncsc.gov.uk"
+    },
+    "url": "https://www.ncsc.gov.uk/section/cyberuk/cyberuk-2026",
+    "tags": ["cybersecurity", "critical-infrastructure"],
+    "audience": ["government", "technical", "enterprise"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "nfea-cyber-security-2026",
+    "name": "NFEA Cyber Security 2026",
+    "nameOriginal": "NFEA Cyber Security 2026",
+    "description": "Conference on industrial and operational technology (OT) cybersecurity, featuring practical examples of incident handling, international standards, and best practices for securing critical infrastructure.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-04-22",
+    "endDate": "2026-04-23",
+    "location": {
+      "name": "Radisson Blu Scandinavia Hotel",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "NFEA (Norwegian Society for Automation)",
+      "url": "https://nfea.no"
+    },
+    "url": "https://nfea.no/arrangementer/cyber-security-2026/",
+    "tags": ["cybersecurity", "critical-infrastructure"],
+    "audience": ["technical", "enterprise"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "oslo-tech-show-2026",
+    "name": "Oslo Tech Show 2026",
+    "nameOriginal": "Oslo Tech Show 2026",
+    "description": "Nordic region's leading exhibition for innovation and technology, featuring AI, cybersecurity, cloud, DevOps, mobile, infrastructure, and datacenters. Free entry with world-class speakers and hands-on demos.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-05-06",
+    "endDate": "2026-05-07",
+    "location": {
+      "name": "Nova Spektrum",
+      "city": "Lillestrøm",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Oslo Tech Show",
+      "url": "https://oslotechshow.com"
+    },
+    "url": "https://oslotechshow.com/",
+    "tags": ["cybersecurity", "critical-infrastructure", "sovereignty"],
+    "audience": ["technical", "developer", "enterprise", "government"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "cybersikkerhetskonferansen-2026",
+    "name": "Total Defence Cybersecurity Conference 2026",
+    "nameOriginal": "Totalforsvarets Cybersikkerhetskonferanse 2026",
+    "description": "Conference focused on cybersecurity, digital sovereignty, and total defence. Arena for exploring how totalforsvaret can be strengthened through open dialogue, expert deep-dives, and political perspectives.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-05-06",
+    "endDate": "2026-05-07",
+    "location": {
+      "name": "Scandic Lillehammer Hotel",
+      "city": "Lillehammer",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Lillehammer-regionen Vekst",
+      "url": "https://www.cyberkonf.no"
+    },
+    "url": "https://www.cyberkonf.no/",
+    "tags": ["cybersecurity", "sovereignty", "preparedness"],
+    "audience": ["technical", "developer", "defence", "government"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "cycon-2026",
+    "name": "CyCon 2026",
+    "nameOriginal": "CyCon 2026",
+    "description": "NATO CCDCOE's premier multidisciplinary conference examining technical, legal, policy, strategic, and military dimensions of cyber defence. Brings together global experts on cyber conflict and security.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-29",
+    "location": {
+      "name": "Tallinn",
+      "city": "Tallinn",
+      "country": "EE"
+    },
+    "organizer": {
+      "name": "NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE)",
+      "url": "https://ccdcoe.org"
+    },
+    "url": "https://cycon.org/",
+    "tags": ["cybersecurity", "preparedness"],
+    "audience": ["defence", "government", "technical"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "sikkerhetsfestivalen-2026",
+    "name": "Security Festival 2026",
+    "nameOriginal": "Sikkerhetsfestivalen 2026",
+    "description": "Norway's largest gathering for cybersecurity and information security professionals, with high relevance for total defence and NIS2 compliance.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-08-24",
+    "endDate": "2026-08-26",
+    "location": {
+      "name": "Lillehammer",
+      "city": "Lillehammer",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "Sikkerhetsfestivalen",
+      "url": "https://www.sikkerhetsfestivalen.no"
+    },
+    "url": "https://www.sikkerhetsfestivalen.no",
+    "tags": ["cybersecurity", "nis2", "critical-infrastructure"],
+    "audience": ["technical", "developer", "enterprise", "government"],
+    "itRelevance": "high"
+  },
+  {
+    "id": "ndc-oslo-2026",
+    "name": "NDC Oslo 2026",
+    "nameOriginal": "NDC Oslo 2026",
+    "description": "Major 5-day software developer conference with 160+ sessions, 150 speakers, and 12 workshops covering modern development practices, architecture, security, and emerging technologies.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-09-14",
+    "endDate": "2026-09-18",
+    "location": {
+      "name": "Oslo Spektrum",
+      "city": "Oslo",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "NDC Conferences",
+      "url": "https://ndcconferences.com"
+    },
+    "url": "https://ndcoslo.com/",
+    "tags": ["cybersecurity"],
+    "audience": ["developer", "technical"],
+    "itRelevance": "medium"
+  },
+  {
+    "id": "forsvarskonferansen-2026",
+    "name": "Defence Conference 2026",
+    "nameOriginal": "Forsvarskonferansen 2026",
+    "description": "Conference on defence, technology, and security, including digitalization and the cyber domain.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-09-22",
+    "endDate": "2026-09-23",
+    "location": {
+      "name": "TBA",
+      "city": "Trondheim",
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "TBA",
+      "url": null
+    },
+    "url": null,
+    "tags": ["cybersecurity", "preparedness"],
+    "audience": ["defence", "government", "enterprise"],
+    "itRelevance": "medium"
+  },
+  {
+    "id": "tfx26",
+    "name": "Exercise Total Defence 2026 (TFX26)",
+    "nameOriginal": "Øvelse Totalforsvar 2026 (TFX26)",
+    "description": "National total defence exercise focusing on civil-military cooperation, critical societal functions, and digital crisis management. Norway's largest exercise since the Cold War.",
+    "status": "scheduled",
+    "attendanceMode": "mixed",
+    "startDate": "2026-10-01",
+    "endDate": "2026-10-31",
+    "location": {
+      "name": "Nationwide",
+      "city": null,
+      "country": "NO"
+    },
+    "organizer": {
+      "name": "DSB and Norwegian Armed Forces",
+      "url": "https://www.dsb.no"
+    },
+    "url": "https://www.dsb.no/totalforsvarsaret",
+    "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
+    "audience": ["government", "defence", "enterprise", "humanitarian"],
+    "itRelevance": "high",
+    "featured": true
+  },
+  {
+    "id": "one-conference-2026",
+    "name": "ONE Conference 2026",
+    "nameOriginal": "ONE Conference 2026",
+    "description": "Europe's prime cybersecurity event organized by the Dutch National Cyber Security Centre. Leading platform for sharing knowledge, best practices, and research on technical security, law enforcement, governance, and public-private partnerships.",
+    "status": "scheduled",
+    "attendanceMode": "offline",
+    "startDate": "2026-10-06",
+    "endDate": "2026-10-07",
+    "location": {
+      "name": "World Forum",
+      "city": "The Hague",
+      "country": "NL"
+    },
+    "organizer": {
+      "name": "National Cyber Security Centre (NCSC-NL)",
+      "url": "https://www.ncsc.nl"
+    },
+    "url": "https://one-conference.nl/",
+    "tags": ["cybersecurity", "critical-infrastructure"],
+    "audience": ["government", "technical", "enterprise"],
+    "itRelevance": "high"
+  }
+]

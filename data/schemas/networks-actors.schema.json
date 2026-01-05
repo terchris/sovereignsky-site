@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "networks-actors.schema.json",
+  "title": "Networks Actors",
+  "description": "Organizations referenced by networks dataset (owners, operators, consortium members). Root is an array of actors.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/actor"
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "required": ["actor_id", "actor_name"],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "description": "Stable identifier"
+        },
+        "actor_name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "actor_type": {
+          "type": "string",
+          "enum": [
+            "infrastructure_operator",
+            "network_operator",
+            "telecom_operator",
+            "datacenter_operator",
+            "state_owned_enterprise",
+            "project_company",
+            "subsea_operator",
+            "consortium",
+            "tech_company",
+            "system_supplier",
+            "cable_manufacturer",
+            "installation_contractor"
+          ]
+        },
+        "country_id": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 code. References data/regions.json"
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

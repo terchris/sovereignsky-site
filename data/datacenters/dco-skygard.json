@@ -1,0 +1,23 @@
+{
+    "provider_id": "skygard",
+    "provider_name": "Skygard",
+    "provider_type": "datacenter_operator",
+    "updated": "2025-12-19",
+    "vendor_country_id": "NO",
+    "vendor_website": "https://www.skygard.no/",
+    "regions": [
+        {
+            "region_id": "no-oslo-hovinbyen",
+            "region_name": "Oslo (Hovinbyen)",
+            "country_id": "NO",
+            "city": "Oslo",
+            "coordinates": [
+                59.9139,
+                10.7522
+            ]
+        }
+    ],
+    "meta": {
+        "source": "https://www.telenor.com/media/newsroom/announcement/telenor-hafslund-and-hitecvision-announces-2-4-billion-nok-investment-in-oslo-data-center/"
+    }
+}

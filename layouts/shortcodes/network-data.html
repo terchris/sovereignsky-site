@@ -1,0 +1,216 @@
+{{/* 
+  network-data shortcode
+  Renders Networks page sections from data/networks/networks.json (+ data/networks/networks-actors.json for owner display).
+*/}}
+
+{{ $networksRoot := site.Data.networks | default dict }}
+{{ $connections := (index $networksRoot "networks") | default (slice) }}
+{{ $actors := (index $networksRoot "networks-actors") | default (slice) }}
+{{ $places := (index $networksRoot "networks-places") | default (slice) }}
+
+{{/* Build lookups */}}
+{{ $s := newScratch }}
+{{ $s.Set "actorById" (dict) }}
+{{ range $actors }}
+  {{ $actor := . }}
+  {{ with $actor.actor_id }}{{ $s.SetInMap "actorById" . $actor }}{{ end }}
+{{ end }}
+
+{{ $s.Set "placeById" (dict) }}
+{{ range $places }}
+  {{ $pl := . }}
+  {{ with $pl.identifier }}{{ $s.SetInMap "placeById" . $pl }}{{ end }}
+{{ end }}
+
+{{/* Helpers (inline) */}}
+{{ $statusLabel := dict "active" "✅ Active" "planned" "🔶 Planned" }}
+
+{{ $actorById := $s.Get "actorById" }}
+{{ $placeById := $s.Get "placeById" }}
+
+{{ $internationalSubsea := where (where $connections "scope" "international") "medium" "subsea" }}
+{{ $internationalTerrestrial := where (where $connections "scope" "international") "medium" "terrestrial" }}
+{{ $domesticCables := where $connections "scope" "domestic" }}
+
+{{ $arcticCables := where $connections "connection_id" "in" (slice "svalbard-undersea" "arctic-way" "longyearbyen-ny-alesund") }}
+
+<div class="space-y-10">
+  <section>
+    <h3 class="text-xl font-semibold">Subsea (Outside Norway)</h3>
+    <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables running along the ocean floor connecting Norway to other countries. These cables are vulnerable to damage from fishing trawlers, anchors, and—in recent years—<a href="/tags/submarine-cables/" class="underline hover:text-primary-500">suspected sabotage</a>.</p>
+    <div class="mt-3 overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="text-left">
+          <tr class="border-b border-neutral-200 dark:border-neutral-700">
+            <th class="py-2 pr-4">System</th>
+            <th class="py-2 pr-4">Status</th>
+            <th class="py-2 pr-4">Route</th>
+            <th class="py-2">Owners</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range sort $internationalSubsea "connection_name" "asc" }}
+            {{ $id := .connection_id }}
+            {{ $page := site.GetPage (printf "/networks/%s" $id) }}
+            {{ $owners := (slice) }}
+            {{ range (.owner_actor_ids | default (slice)) }}
+              {{ $a := index $actorById . }}
+              {{ if $a }}
+                {{ $owners = $owners | append (printf "%s%s" ($a.actor_name | default .) (cond (ne ($a.country_id | default "") "") (printf " (%s)" $a.country_id) "")) }}
+              {{ else }}
+                {{ $owners = $owners | append . }}
+              {{ end }}
+            {{ end }}
+
+            {{ $routeNames := (slice) }}
+            {{ range (.endpoint_place_ids | default (slice)) }}
+              {{ $pl := index $placeById . }}
+              {{ if $pl }}
+                {{ $routeNames = $routeNames | append ($pl.name | default .) }}
+              {{ else }}
+                {{ $routeNames = $routeNames | append . }}
+              {{ end }}
+            {{ end }}
+            <tr class="border-b border-neutral-100 dark:border-neutral-800">
+              <td class="py-2 pr-4 font-medium">
+                {{ if $page }}
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                {{ else }}
+                  {{ .connection_name }}
+                {{ end }}
+              </td>
+              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">{{ delimit $routeNames " ↔ " }}</td>
+              <td class="py-2">{{ if gt (len $owners) 0 }}{{ delimit $owners ", " }}{{ else }}—{{ end }}</td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">Count: {{ len $internationalSubsea }}</p>
+  </section>
+
+  <section>
+    <h3 class="text-xl font-semibold">Terrestrial (Outside Norway)</h3>
+    <p class="text-sm text-neutral-600 dark:text-neutral-300">Land-based fibre routes crossing Norway's borders to Sweden, Finland, and beyond.</p>
+
+    <div class="mt-3 overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="text-left">
+          <tr class="border-b border-neutral-200 dark:border-neutral-700">
+            <th class="py-2 pr-4">Connection</th>
+            <th class="py-2 pr-4">Status</th>
+            <th class="py-2 pr-4">Route</th>
+            <th class="py-2">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range sort $internationalTerrestrial "connection_name" "asc" }}
+            {{ $id := .connection_id }}
+            {{ $page := site.GetPage (printf "/networks/%s" $id) }}
+            {{ $routeNames := (slice) }}
+            {{ range (.endpoint_place_ids | default (slice)) }}
+              {{ $pl := index $placeById . }}
+              {{ if $pl }}
+                {{ $routeNames = $routeNames | append ($pl.name | default .) }}
+              {{ else }}
+                {{ $routeNames = $routeNames | append . }}
+              {{ end }}
+            {{ end }}
+            <tr class="border-b border-neutral-100 dark:border-neutral-800">
+              <td class="py-2 pr-4 font-medium">
+                {{ if $page }}
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                {{ else }}
+                  {{ .connection_name }}
+                {{ end }}
+              </td>
+              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">{{ if gt (len $routeNames) 0 }}{{ delimit $routeNames " ↔ " }}{{ else }}—{{ end }}</td>
+              <td class="py-2">{{ .description | default "—" }}</td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">Count: {{ len $internationalTerrestrial }}</p>
+  </section>
+
+  <section>
+    <h3 class="text-xl font-semibold">Domestic (Inside Norway)</h3>
+    <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables and routes connecting regions within Norway—both undersea (coastal) and land-based.</p>
+
+    <div class="mt-3 overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="text-left">
+          <tr class="border-b border-neutral-200 dark:border-neutral-700">
+            <th class="py-2 pr-4">System</th>
+            <th class="py-2 pr-4">Status</th>
+            <th class="py-2 pr-4">Medium</th>
+            <th class="py-2">Operators</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range sort $domesticCables "connection_name" "asc" }}
+            {{ $id := .connection_id }}
+            {{ $page := site.GetPage (printf "/networks/%s" $id) }}
+            {{ $opNames := (slice) }}
+            {{ range (.operator_actor_ids | default (slice)) }}
+              {{ $a := index $actorById . }}
+              {{ $opNames = $opNames | append (cond $a ($a.actor_name | default .) .) }}
+            {{ end }}
+            <tr class="border-b border-neutral-100 dark:border-neutral-800">
+              <td class="py-2 pr-4 font-medium">
+                {{ if $page }}
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                {{ else }}
+                  {{ .connection_name }}
+                {{ end }}
+              </td>
+              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">{{ .medium | default "—" }}</td>
+              <td class="py-2">{{ if gt (len $opNames) 0 }}{{ delimit $opNames ", " }}{{ else }}—{{ end }}</td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">Count: {{ len $domesticCables }}</p>
+  </section>
+
+  <section>
+    <h3 class="text-xl font-semibold">Arctic connectivity</h3>
+    <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables serving Svalbard and the Arctic region—critical for research, military, and civilian communications in the High North.</p>
+    <div class="mt-3 overflow-x-auto">
+      <table class="min-w-full text-sm">
+        <thead class="text-left">
+          <tr class="border-b border-neutral-200 dark:border-neutral-700">
+            <th class="py-2 pr-4">System</th>
+            <th class="py-2 pr-4">Status</th>
+            <th class="py-2">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range sort $arcticCables "connection_name" "asc" }}
+            {{ $id := .connection_id }}
+            {{ $page := site.GetPage (printf "/networks/%s" $id) }}
+            <tr class="border-b border-neutral-100 dark:border-neutral-800">
+              <td class="py-2 pr-4 font-medium">
+                {{ if $page }}
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                {{ else }}
+                  {{ .connection_name }}
+                {{ end }}
+              </td>
+              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2">{{ .description | default "—" }}</td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+

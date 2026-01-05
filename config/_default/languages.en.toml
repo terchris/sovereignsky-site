@@ -1,0 +1,19 @@
+# SovereignSky English Language Configuration
+
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "SovereignSky"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  description = "Digital sovereignty resources for Norwegian organizations"
+  copyright = "Published by [Helpers.no](https://helpers.no)"
+
+[params.author]
+  name = "SovereignSky"
+  headline = "Digital Preparedness for Totalforsvarsåret 2026"
+  bio = "Practical resources for Nordic digital sovereignty. A helpers.no initiative."

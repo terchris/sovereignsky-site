@@ -1,0 +1,21 @@
+# Hugo generated files
+public/
+resources/_gen/
+
+# Hugo temporary files
+.hugo_build.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+terchris/
+node_modules

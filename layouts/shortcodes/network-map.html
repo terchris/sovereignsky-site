@@ -1,0 +1,755 @@
+{{/*
+Network Map - Shows Norwegian network infrastructure using ECharts
+Usage: {{< network-map>}}
+
+  Reads from data/networks.json
+  Shows submarine cables, landing stations, and infrastructure
+  */}}
+
+  {{ $networksRoot := site.Data.networks | default dict }}
+  {{ $showFilters := .Get "showFilters" | default "true" }}
+  {{ $showFiltersBool := ne $showFilters "false" }}
+  {{ $focusNorway := .Get "focusNorway" | default "true" }}
+  {{ $focusNorwayBool := ne $focusNorway "false" }}
+  {{ $showSimulation := .Get "showSimulation" | default "false" }}
+  {{ $showSimulationBool := ne $showSimulation "false" }}
+  {{ $trawler := (index $networksRoot "networks-trawler") | default dict }}
+  {{ $trawlerRoutes := (index $trawler "routes") | default (slice) }}
+
+  {{/* Data files are arrays at root level */}}
+  {{ $places := (index $networksRoot "networks-places") | default (slice) }}
+  {{ $connections := (index $networksRoot "networks") | default (slice) }}
+  {{ $actors := (index $networksRoot "networks-actors") | default (slice) }}
+
+  {{/* connections[] is already normalized in data/networks/networks.json */}}
+
+  {{ if $showFiltersBool }}
+  <div id="network-filter-panel" class="mt-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+    <div class="flex flex-wrap items-center gap-2 mb-3">
+      <span class="font-semibold mr-2">Filter cables:</span>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-network-preset="all">All</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-network-preset="outside">Outside Norway</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-network-preset="domestic">Domestic</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-network-preset="active">Active Only</button>
+    </div>
+    <div class="flex flex-wrap items-center gap-4 text-sm">
+      <span class="text-neutral-600 dark:text-neutral-300">Filter:</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-category-checkbox" data-category="international-subsea" checked>
+        <span class="inline-block w-3 h-3 rounded" style="background-color: #06b6d4;"></span>
+        <span>Outside Norway • Subsea</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-category-checkbox" data-category="international-terrestrial" checked>
+        <span class="inline-block w-3 h-3 rounded" style="background-color: #a855f7;"></span>
+        <span>Outside Norway • Terrestrial</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-category-checkbox" data-category="domestic-subsea" checked>
+        <span class="inline-block w-3 h-3 rounded" style="background-color: #22c55e;"></span>
+        <span>Inside Norway • Subsea</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-category-checkbox" data-category="domestic-terrestrial" checked>
+        <span class="inline-block w-3 h-3 rounded" style="background-color: #22c55e;"></span>
+        <span>Inside Norway • Terrestrial</span>
+      </label>
+    </div>
+    <div class="flex flex-wrap items-center gap-4 text-sm mt-3">
+      <span class="text-neutral-600 dark:text-neutral-300">Status:</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-status-checkbox" data-status="active" checked>
+        <span>Active</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="network-status-checkbox" data-status="planned" checked>
+        <span>Planned</span>
+      </label>
+    </div>
+    {{ if $showSimulationBool }}
+    <div class="flex flex-wrap items-center gap-4 text-sm mt-3">
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" id="network-sim-toggle" checked>
+        <span>Show trawler</span>
+      </label>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <div id="network-map-chart"
+    style="width: 100%; height: 700px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 8px;"></div>
+
+  <div id="network-map-loading" class="text-center py-8">
+    <p class="text-neutral-500">Loading map...</p>
+  </div>
+
+  <div id="network-details" class="mt-6 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg" style="display: none;">
+    <h3 id="network-name" class="text-xl font-bold mb-1"></h3>
+    <div id="network-info"></div>
+  </div>
+
+  <script type="application/json" id="network-map-places">{{ $places | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-connections">{{ $connections | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-actors">{{ $actors | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-focus-norway">{{ $focusNorwayBool | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-show-simulation">{{ $showSimulationBool | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-map-trawler-routes">{{ $trawlerRoutes | jsonify | safeHTML }}</script>
+
+  <script>
+    (function () {
+      var chartDom = document.getElementById('network-map-chart');
+      var loadingDiv = document.getElementById('network-map-loading');
+
+      function readJsonScript(id, fallback) {
+        var el = document.getElementById(id);
+        if (!el) return fallback;
+        try {
+          var v = JSON.parse(el.textContent || 'null');
+          if (typeof v === 'string') {
+            try { return JSON.parse(v); } catch (e2) { return v; }
+          }
+          return v;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      var places = readJsonScript('network-map-places', []);
+      var cables = readJsonScript('network-map-connections', []);
+      var actors = readJsonScript('network-map-actors', []);
+      var focusNorway = readJsonScript('network-map-focus-norway', true);
+      var showSimulation = readJsonScript('network-map-show-simulation', false);
+      var trawlerRoutes = readJsonScript('network-map-trawler-routes', []);
+
+      // Compute connection_ids per place based on endpoint_place_ids
+      var connectionIdsByPlaceId = {};
+      (cables || []).forEach(function (c) {
+        var endpoints = c.endpoint_place_ids || c.endpoint_station_ids || [];
+        if (!Array.isArray(endpoints)) return;
+        endpoints.forEach(function (pid) {
+          if (!pid) return;
+          if (!connectionIdsByPlaceId[pid]) connectionIdsByPlaceId[pid] = [];
+          connectionIdsByPlaceId[pid].push(c.connection_id || c.cable_id || pid);
+        });
+      });
+
+      // Place geo + name lookup (for generating fallback routes and friendly endpoint labels)
+      var geoByPlaceId = {};
+      (places || []).forEach(function (p) {
+        if (!p) return;
+        var id = p.identifier || p.place_id;
+        if (!id) return;
+        var g = p.geo || null;
+        if (!g || typeof g.latitude !== 'number' || typeof g.longitude !== 'number') return;
+        geoByPlaceId[id] = {
+          lat: g.latitude,
+          lng: g.longitude,
+          name: p.name || p.place_name || id,
+          country_id: (p.address && p.address.addressCountry) || ''
+        };
+      });
+
+      function iso2FlagEmoji(code) {
+        var c = String(code || '').trim().toUpperCase();
+        if (!/^[A-Z]{2}$/.test(c)) return '';
+        // Regional Indicator Symbols: 🇦 = U+1F1E6
+        var A = 0x1F1E6;
+        return String.fromCodePoint(A + (c.charCodeAt(0) - 65), A + (c.charCodeAt(1) - 65));
+      }
+
+      // Actor lookup for owner display (jurisdiction-aware)
+      var actorById = {};
+      (actors || []).forEach(function (a) {
+        if (!a || !a.actor_id) return;
+        actorById[a.actor_id] = a;
+      });
+
+      function ownerDisplay(ownerActorIds) {
+        if (!ownerActorIds || !ownerActorIds.length) return [];
+        return ownerActorIds.map(function (id) {
+          var a = actorById[id];
+          if (!a) return id;
+          return a.actor_name + (a.country_id ? ' (' + a.country_id + ')' : '');
+        });
+      }
+
+      // Colors:
+      // - Outside Norway: split by medium (subsea vs terrestrial)
+      // - Inside Norway: always green (regardless of medium)
+      var mediumColors = {
+        'subsea': '#06b6d4',
+        'terrestrial': '#a855f7',
+        'satellite': '#f59e0b'
+      };
+      var domesticColor = '#22c55e';
+
+      function connectionColor(scope, medium) {
+        if (scope === 'domestic') return domesticColor;
+        return mediumColors[medium] || '#666';
+      }
+
+      // Selected filters
+      // Buckets: scope + medium (inside/outside Norway × land/water)
+      var selectedBuckets = new Set([
+        'international-subsea',
+        'international-terrestrial',
+        'domestic-subsea',
+        'domestic-terrestrial'
+      ]);
+      var selectedStatuses = new Set(['active', 'planned']);
+
+      function fetchJson(url) {
+        return fetch(url).then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        });
+      }
+
+      // Norway-focused view
+      var defaultGeo = focusNorway
+        ? { center: [10, 65], zoom: 3 }
+        : { center: [10, 55], zoom: 2 };
+
+      fetchJson('/data/world.json')
+        .then(function (geoJson) {
+          echarts.registerMap('world', geoJson);
+          loadingDiv.style.display = 'none';
+
+          var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+
+          function stableHash01(str) {
+            // Deterministic hash -> [0,1)
+            var s = String(str || '');
+            var h = 2166136261;
+            for (var i = 0; i < s.length; i++) {
+              h ^= s.charCodeAt(i);
+              h = (h * 16777619) >>> 0;
+            }
+            return (h % 1000000) / 1000000;
+          }
+
+          function generatePrettyRouteLngLat(a, b, id, categoryKey) {
+            // Quadratic bezier with a perpendicular control point offset.
+            // NOTE: This is for visual niceness only (not geographically accurate / offshore-safe).
+            var ax = a.lng, ay = a.lat;
+            var bx = b.lng, by = b.lat;
+            var mx = (ax + bx) / 2;
+            var my = (ay + by) / 2;
+            var dx = bx - ax;
+            var dy = by - ay;
+            var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+            var nx = -dy / dist;
+            var ny = dx / dist;
+
+            var t = stableHash01(id);
+            var sign = (t < 0.5) ? -1 : 1;
+            // Curvature tuned by category (subsea tends to look better with more curve)
+            var base = (categoryKey === 'subsea') ? 0.18 : (categoryKey === 'terrestrial' ? 0.10 : 0.08);
+            var mag = dist * (base + (t * 0.08)); // degrees-ish; purely aesthetic
+            // Cap to avoid wild arcs on long spans
+            mag = Math.min(mag, 8);
+
+            var cx = mx + nx * mag * sign;
+            var cy = my + ny * mag * sign;
+
+            // Segment count based on distance (keeps smoothness consistent)
+            var n = Math.max(8, Math.min(28, Math.round(dist * 2)));
+            var pts = [];
+            for (var i = 0; i <= n; i++) {
+              var u = i / n;
+              var uu = 1 - u;
+              var x = uu * uu * ax + 2 * uu * u * cx + u * u * bx;
+              var y = uu * uu * ay + 2 * uu * u * cy + u * u * by;
+              pts.push([x, y]); // [lng, lat]
+            }
+            return pts;
+          }
+
+          function buildCableLines() {
+            var lines = [];
+            cables.forEach(function (cable) {
+              var scope = cable.scope || 'international';
+              var medium = cable.medium || 'subsea';
+              var bucketKey = scope + '-' + medium;
+              if (!selectedBuckets.has(bucketKey)) return;
+              if (!selectedStatuses.has(cable.status || 'active')) return;
+
+              var color = connectionColor(scope, medium);
+              var isPlanned = (cable.status === 'planned');
+              // Make planned connections clearly distinct on the map
+              var lineType = isPlanned ? 'dotted' : 'solid';
+              var lineWidth = isPlanned ? 4 : 3;
+              var lineOpacity = isPlanned ? 0.95 : 0.8;
+
+              // Prefer explicit schematic route if present; otherwise generate nice-looking curves from endpoints.
+              var routeLngLat = null;
+              if (Array.isArray(cable.route) && cable.route.length >= 2) {
+                routeLngLat = cable.route.map(function (p) { return [p[1], p[0]]; }); // [lng, lat]
+              } else {
+                var endpoints = cable.endpoint_place_ids || [];
+                if (Array.isArray(endpoints) && endpoints.length >= 2) {
+                  // Draw multi-endpoint systems (A→B→C) as multiple curved segments so islands like Jan Mayen still show.
+                  routeLngLat = [];
+                  for (var ei = 0; ei < endpoints.length - 1; ei++) {
+                    var a = geoByPlaceId[endpoints[ei]];
+                    var b = geoByPlaceId[endpoints[ei + 1]];
+                    if (!a || !b) continue;
+                    var seg = generatePrettyRouteLngLat(
+                      a,
+                      b,
+                      (cable.connection_id || cable.connection_name || '') + ':' + endpoints[ei] + '>' + endpoints[ei + 1],
+                      medium
+                    );
+                    if (seg && seg.length >= 2) {
+                      if (routeLngLat.length) seg = seg.slice(1); // avoid duplicate join point
+                      routeLngLat = routeLngLat.concat(seg);
+                    }
+                  }
+                  if (!routeLngLat.length) routeLngLat = null;
+                }
+              }
+              if (!routeLngLat || routeLngLat.length < 2) return;
+
+              var endpointIds = cable.endpoint_place_ids || [];
+              var endpointNames = Array.isArray(endpointIds)
+                ? endpointIds.map(function (pid) {
+                    var p = geoByPlaceId[pid];
+                    if (!p) return pid;
+                    var flag = iso2FlagEmoji(p.country_id);
+                    return (flag ? (flag + ' ') : '') + p.name;
+                  })
+                : [];
+              var endpointsLabel = endpointNames.length ? endpointNames.join(' ↔ ') : '';
+
+              // Build line segments from computed/polyline route
+              for (var i = 0; i < routeLngLat.length - 1; i++) {
+                lines.push({
+                  coords: [
+                    routeLngLat[i],
+                    routeLngLat[i + 1]
+                  ],
+                  cable_id: cable.connection_id,
+                  cable_name: cable.connection_name,
+                  cable_status: cable.status,
+                  cable_bucket: bucketKey,
+                  cable_type: cable.type,
+                  cable_scope: cable.scope,
+                  cable_medium: cable.medium,
+                  cable_description: cable.description,
+                  cable_owners: ownerDisplay(cable.owner_actor_ids),
+                  cable_rfs: cable.rfs,
+                  cable_length_km: cable.length_km,
+                  cable_url: cable.url || null,
+                  cable_endpoints: endpointsLabel,
+                  lineStyle: {
+                    color: color,
+                    width: lineWidth,
+                    type: lineType,
+                    opacity: lineOpacity
+                  }
+                });
+              }
+            });
+            return lines;
+          }
+
+          function buildStationPoints() {
+            var points = [];
+            places.forEach(function (station) {
+              var geo = station.geo || null;
+              if (!geo || typeof geo.latitude !== 'number' || typeof geo.longitude !== 'number') return;
+              // Only show the main place types on the map (avoid clutter)
+              var pt = station.place_type || station.station_type || '';
+              if (pt && ['landing_station', 'backbone_endpoint', 'international_hub', 'border_crossing_area'].indexOf(pt) === -1) return;
+              points.push({
+                name: station.name || station.place_name || station.identifier,
+                value: [geo.longitude, geo.latitude, 10], // [lng, lat, value]
+                station_id: station.identifier || station.place_id,
+                station_city: (station.address && station.address.addressLocality) || '',
+                station_region: (station.address && (station.address.addressRegion || station.address.addressCountry)) || station.country_id || '',
+                station_cables: connectionIdsByPlaceId[(station.identifier || station.place_id)] || [],
+                                station_description: station.description
+              });
+            });
+            return points;
+          }
+
+          function render() {
+            var isDark = document.documentElement.classList.contains('dark');
+            var cableLines = buildCableLines();
+            var stationPoints = buildStationPoints();
+        var simEnabled = !!showSimulation;
+        var simToggleEl = document.getElementById('network-sim-toggle');
+        if (simToggleEl) simEnabled = !!simToggleEl.checked;
+
+            var option = {
+              tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                  if (params.data && params.data.cable_name) {
+                    var d = params.data;
+                    var statusBadge = d.cable_status === 'planned'
+                      ? '<span style="color:#f59e0b">🔶 Planned</span>'
+                      : '<span style="color:#22c55e">✅ Active</span>';
+                    var med = d.cable_medium ? String(d.cable_medium) : '';
+                    var scope = d.cable_scope ? String(d.cable_scope) : '';
+                    var endpoints = d.cable_endpoints ? ('<br/><span style="opacity:0.85">' + d.cable_endpoints + '</span>') : '';
+                    return '<strong>' + d.cable_name + '</strong><br/>' +
+                      statusBadge +
+                      (scope ? (' · <span style="opacity:0.85">' + scope + '</span>') : '') +
+                      (med ? (' · <span style="opacity:0.85">' + med + '</span>') : '') +
+                      endpoints +
+                      '<br/><span style="opacity:0.75">Click for details</span>';
+                  }
+                  if (params.data && params.data.station_city) {
+                    var s = params.data;
+                    return '<strong>' + s.name + '</strong><br/>' +
+                      '📍 ' + s.station_city + ', ' + s.station_region + '<br/>' +
+                      '🔌 ' + (s.station_cables ? s.station_cables.length : 0) + ' connections';
+                  }
+                  return '';
+                }
+              },
+              legend: {
+                show: true,
+                bottom: 20,
+                left: 'center',
+                data: [
+                  { name: 'Outside Norway • Subsea', icon: 'roundRect' },
+                  { name: 'Outside Norway • Terrestrial', icon: 'roundRect' },
+                  { name: 'Inside Norway • Subsea', icon: 'roundRect' },
+                  { name: 'Inside Norway • Terrestrial', icon: 'roundRect' },
+                  { name: 'Landing Stations', icon: 'circle' }
+                ],
+                textStyle: {
+                  color: isDark ? '#e5e5e5' : '#333'
+                }
+              },
+              geo: {
+                map: 'world',
+                roam: true,
+                zoom: defaultGeo.zoom,
+                center: defaultGeo.center,
+                // Make the geo fill the available height better (avoid large empty band above the map)
+                layoutCenter: ['50%', '42%'],
+                layoutSize: '170%',
+                scaleLimit: { min: 1, max: 20 },
+                itemStyle: {
+                  areaColor: isDark ? '#404040' : '#e5e5e5',
+                  borderColor: isDark ? '#525252' : '#d4d4d4',
+                  borderWidth: 0.5
+                },
+                emphasis: {
+                  itemStyle: {
+                    areaColor: isDark ? '#525252' : '#d4d4d4'
+                  }
+                },
+                regions: [
+                  {
+                    name: 'Norway',
+                    itemStyle: {
+                      areaColor: isDark ? '#4a5568' : '#cbd5e0'
+                    }
+                  }
+                ]
+              },
+              series: [
+                {
+                  name: 'Outside Norway • Subsea',
+                  type: 'lines',
+                  coordinateSystem: 'geo',
+                  data: cableLines.filter(function (l) { return l.cable_scope === 'international' && l.cable_medium === 'subsea'; }),
+                  lineStyle: {
+                    color: mediumColors['subsea'],
+                    width: 3,
+                    curveness: 0.2,
+                    opacity: 0.8
+                  },
+                  effect: {
+                    show: false
+                  }
+                },
+                {
+                  name: 'Outside Norway • Terrestrial',
+                  type: 'lines',
+                  coordinateSystem: 'geo',
+                  data: cableLines.filter(function (l) { return l.cable_scope === 'international' && l.cable_medium === 'terrestrial'; }),
+                  lineStyle: {
+                    color: mediumColors['terrestrial'],
+                    width: 3,
+                    curveness: 0.0,
+                    opacity: 0.8
+                  }
+                },
+                {
+                  name: 'Inside Norway • Subsea',
+                  type: 'lines',
+                  coordinateSystem: 'geo',
+                  data: cableLines.filter(function (l) { return l.cable_scope === 'domestic' && l.cable_medium === 'subsea'; }),
+                  lineStyle: {
+                    color: domesticColor,
+                    width: 3,
+                    curveness: 0.2,
+                    opacity: 0.8
+                  }
+                },
+                {
+                  name: 'Inside Norway • Terrestrial',
+                  type: 'lines',
+                  coordinateSystem: 'geo',
+                  data: cableLines.filter(function (l) { return l.cable_scope === 'domestic' && l.cable_medium === 'terrestrial'; }),
+                  lineStyle: {
+                    color: domesticColor,
+                    width: 3,
+                    curveness: 0.0,
+                    opacity: 0.8
+                  }
+                },
+                // Fictional simulation overlay (optional) driven by data/networks-trawler.json
+                ...(simEnabled ? (function buildSimSeries() {
+                  var routes = Array.isArray(trawlerRoutes) ? trawlerRoutes : [];
+                  if (!routes.length) return [];
+                  var series = [];
+                  routes.forEach(function (r) {
+                    if (!r || !Array.isArray(r.waypoints) || r.waypoints.length < 2) return;
+                    var coords = r.waypoints
+                      .map(function (wp) { return wp && wp.coordinates; })
+                      .filter(function (c) { return Array.isArray(c) && c.length === 2 && isFinite(c[0]) && isFinite(c[1]); });
+                    if (coords.length < 2) return;
+
+                    var style = r.style || {};
+                    series.push({
+                      name: r.route_name || r.route_id || 'Fictional vessel (demo)',
+                      type: 'lines',
+                      coordinateSystem: 'geo',
+                      polyline: true,
+                      data: [{ coords: coords }],
+                      lineStyle: {
+                        color: style.line_color || '#ef4444',
+                        width: 1,
+                        opacity: (typeof style.line_opacity === 'number') ? style.line_opacity : 0.25,
+                        type: style.line_type || 'dashed'
+                      },
+                      effect: {
+                        show: true,
+                        period: style.effect_period || 12,
+                        constantSpeed: style.effect_constant_speed || 30,
+                        trailLength: (typeof style.effect_trail_length === 'number') ? style.effect_trail_length : 0.2,
+                        symbol: style.effect_symbol || 'arrow',
+                        symbolSize: style.effect_symbol_size || 10,
+                        color: style.effect_color || '#ef4444'
+                      },
+                      zlevel: 3
+                    });
+                  });
+
+                  // Add a start marker (flag) at the first waypoint of the first route (if present)
+                  var firstRoute = routes[0];
+                  var firstWp = firstRoute && Array.isArray(firstRoute.waypoints) ? firstRoute.waypoints[0] : null;
+                  var startCoord = firstWp && Array.isArray(firstWp.coordinates) ? firstWp.coordinates : null;
+                  if (startCoord && startCoord.length === 2 && isFinite(startCoord[0]) && isFinite(startCoord[1])) {
+                    var startName = (firstWp.name || 'Start');
+                    var flagSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="32" viewBox="0 0 48 32">' +
+                      '<rect width="48" height="32" fill="#fff"/>' +
+                      '<rect y="10.6667" width="48" height="10.6666" fill="#0039A6"/>' +
+                      '<rect y="21.3333" width="48" height="10.6667" fill="#D52B1E"/>' +
+                      '<rect x="0.5" y="0.5" width="47" height="31" fill="none" stroke="#111" stroke-width="1"/>' +
+                    '</svg>';
+                    var flagUrl = 'image://data:image/svg+xml;utf8,' + encodeURIComponent(flagSvg);
+                    series.push({
+                      name: 'Trawler start',
+                      type: 'scatter',
+                      coordinateSystem: 'geo',
+                      data: [{
+                        name: startName,
+                        value: [startCoord[0], startCoord[1], 1]
+                      }],
+                      symbol: flagUrl,
+                      symbolSize: [28, 18],
+                      label: {
+                        show: true,
+                        formatter: function () { return startName; },
+                        position: 'right',
+                        color: isDark ? '#e5e5e5' : '#111',
+                        backgroundColor: isDark ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.75)',
+                        padding: [2, 4],
+                        borderRadius: 4
+                      },
+                      tooltip: {
+                        show: true,
+                        formatter: function () { return '<strong>' + startName + '</strong><br/>Trawler start (simulation)'; }
+                      },
+                      zlevel: 4
+                    });
+                  }
+
+                  return series;
+                })() : []),
+                {
+                  name: 'Landing Stations',
+                  type: 'scatter',
+                  coordinateSystem: 'geo',
+                  data: stationPoints,
+                  symbolSize: 12,
+                  itemStyle: {
+                    color: '#7c3aed',
+                    borderColor: '#fff',
+                    borderWidth: 2
+                  },
+                  emphasis: {
+                    itemStyle: {
+                      borderColor: '#000',
+                      borderWidth: 3
+                    },
+                    scale: 1.5
+                  }
+                }
+              ]
+            };
+
+            myChart.setOption(option, { notMerge: true });
+          }
+
+          function showDetails(data) {
+            var detailsDiv = document.getElementById('network-details');
+            var networkName = document.getElementById('network-name');
+            var networkInfo = document.getElementById('network-info');
+            if (!detailsDiv || !networkName || !networkInfo) return;
+
+            if (data.cable_name) {
+              // Cable details
+              var statusBadge = data.cable_status === 'planned'
+                ? '<span class="inline-block px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">🔶 Planned</span>'
+                : '<span class="inline-block px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">✅ Active</span>';
+
+              var detailsHref = '/networks/' + data.cable_id + '/';
+              networkName.innerHTML =
+                '<div class="flex items-start justify-between gap-3 leading-tight">' +
+                  '<span>' + data.cable_name + '</span>' +
+                  '<a href="' + detailsHref + '" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap">Open details →</a>' +
+                '</div>';
+
+              var html = '<div class="space-y-2">';
+              // Row 1: status + medium on same line
+              html += '<div class="flex flex-wrap items-center gap-2">';
+              html += statusBadge;
+              if (data.cable_medium) html += '<span class="text-xs text-neutral-700 dark:text-neutral-300">• ' + data.cable_medium + '</span>';
+              if (data.cable_length_km) {
+                html += '<span class="text-xs text-neutral-700 dark:text-neutral-300">• ' + data.cable_length_km + ' km</span>';
+              }
+              html += '</div>';
+              // Row 2: endpoints
+              if (data.cable_endpoints) {
+                html += '<div class="text-sm text-neutral-800 dark:text-neutral-200"><strong>Endpoints:</strong> ' + data.cable_endpoints + '</div>';
+              }
+              html += '</div>';
+              networkInfo.innerHTML = html;
+            } else if (data.station_city) {
+              // Station details
+              networkName.innerHTML = data.name;
+              var html = '<div class="space-y-2">';
+              html += '<p><strong>Location:</strong> ' + data.station_city + ', ' + data.station_region + '</p>';
+              html += '<p><strong>Connections:</strong> ' + (data.station_cables ? data.station_cables.length : 0) + '</p>';
+              html += '</div>';
+              networkInfo.innerHTML = html;
+            }
+
+            detailsDiv.style.display = 'block';
+            detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+          // Wire up filters
+          var categoryCheckboxes = document.querySelectorAll('.network-category-checkbox');
+          categoryCheckboxes.forEach(function (cb) {
+            cb.addEventListener('change', function () {
+              var cat = cb.getAttribute('data-category');
+              if (cb.checked) selectedBuckets.add(cat);
+              else selectedBuckets.delete(cat);
+              render();
+            });
+          });
+
+          var statusCheckboxes = document.querySelectorAll('.network-status-checkbox');
+          statusCheckboxes.forEach(function (cb) {
+            cb.addEventListener('change', function () {
+              var status = cb.getAttribute('data-status');
+              if (cb.checked) selectedStatuses.add(status);
+              else selectedStatuses.delete(status);
+              render();
+            });
+          });
+
+          var presetButtons = document.querySelectorAll('[data-network-preset]');
+          presetButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var preset = btn.getAttribute('data-network-preset');
+              if (preset === 'all') {
+                selectedBuckets = new Set(['international-subsea', 'international-terrestrial', 'domestic-subsea', 'domestic-terrestrial']);
+                selectedStatuses = new Set(['active', 'planned']);
+              } else if (preset === 'outside') {
+                selectedBuckets = new Set(['international-subsea', 'international-terrestrial']);
+                selectedStatuses = new Set(['active', 'planned']);
+              } else if (preset === 'domestic') {
+                selectedBuckets = new Set(['domestic-subsea', 'domestic-terrestrial']);
+                selectedStatuses = new Set(['active', 'planned']);
+              } else if (preset === 'active') {
+                selectedStatuses = new Set(['active']);
+              }
+              // Update checkboxes
+              categoryCheckboxes.forEach(function (cb) {
+                cb.checked = selectedBuckets.has(cb.getAttribute('data-category'));
+              });
+              statusCheckboxes.forEach(function (cb) {
+                cb.checked = selectedStatuses.has(cb.getAttribute('data-status'));
+              });
+              render();
+            });
+          });
+
+          // Simulation toggle (if present)
+          var simToggle = document.getElementById('network-sim-toggle');
+          if (simToggle) {
+            simToggle.addEventListener('change', function () {
+              render();
+            });
+          }
+
+          render();
+
+          // Click handlers
+          myChart.on('click', function (params) {
+            if (params.data) {
+              showDetails(params.data);
+            }
+          });
+
+          // Responsive
+          window.addEventListener('resize', function () {
+            myChart.resize();
+          });
+
+          // Dark mode toggle
+          var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+              if (mutation.attributeName === 'class') {
+                render();
+              }
+            });
+          });
+          observer.observe(document.documentElement, { attributes: true });
+        })
+        .catch(function (error) {
+          console.error('Failed to load world map:', error);
+          loadingDiv.innerHTML = '<p class="text-red-500">Failed to load map. Please refresh the page.</p>';
+        });
+    })();
+  </script>

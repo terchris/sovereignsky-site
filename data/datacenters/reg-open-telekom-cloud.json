@@ -1,0 +1,29 @@
+{
+  "provider_id": "open-telekom-cloud",
+  "provider_name": "Open Telekom Cloud",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-19",
+  "vendor_country_id": "DE",
+  "vendor_website": "https://open-telekom-cloud.com/",
+  "regions": [
+    {
+      "region_id": "eu-de",
+      "region_name": "Europe (Germany)",
+      "country_id": "DE",
+      "city": "Biere (Magdeburg)",
+      "coordinates": [52.0450, 11.6500]
+    },
+    {
+      "region_id": "eu-nl",
+      "region_name": "Europe (Netherlands)",
+      "country_id": "NL",
+      "city": "Amsterdam",
+      "coordinates": [52.3676, 4.9041]
+    }
+  ],
+  "meta": {
+    "source": "https://docs.otc.t-systems.com/regions-and-endpoints/index.html"
+  }
+}
+
+

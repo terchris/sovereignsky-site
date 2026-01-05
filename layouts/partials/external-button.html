@@ -1,0 +1,28 @@
+{{/*
+  Reusable source/official link button
+
+  Usage:
+    {{ partial "source-button.html" (dict "url" $url "label" "Official text" "context" .) }}
+    {{ partial "source-button.html" (dict "url" $url) }}
+
+  Parameters:
+    - url: The URL to link to (required)
+    - label: Button text (default: "Official source")
+    - icon: Show external link icon (default: true)
+*/}}
+
+{{ $url := .url | default "" }}
+{{ $label := .label | default "Official source" }}
+{{ $showIcon := .icon | default true }}
+
+{{ if $url }}
+<a href="{{ $url }}"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30 hover:bg-primary-100 dark:hover:bg-primary-900/50 transition-colors text-base no-underline">
+  <span class="font-semibold text-primary-700 dark:text-primary-300">{{ $label }}</span>
+  {{ if $showIcon }}
+  <span class="text-primary-500 dark:text-primary-400">↗</span>
+  {{ end }}
+</a>
+{{ end }}

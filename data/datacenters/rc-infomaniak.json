@@ -1,0 +1,27 @@
+{
+  "provider_id": "infomaniak",
+  "provider_name": "Infomaniak",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-21",
+  "vendor_country_id": "CH",
+  "vendor_website": "https://www.infomaniak.com",
+  "regions": [
+    {
+      "region_id": "gva-d2",
+      "region_name": "Geneva D2",
+      "country_id": "CH",
+      "city": "Geneva",
+      "coordinates": [46.2044, 6.1432]
+    },
+    {
+      "region_id": "gva-d3",
+      "region_name": "Geneva D3",
+      "country_id": "CH",
+      "city": "Geneva",
+      "coordinates": [46.1884, 6.1270]
+    }
+  ],
+  "meta": {
+    "source": "https://www.datacentermap.com/c/infomaniak/"
+  }
+}

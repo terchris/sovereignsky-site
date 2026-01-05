@@ -1,0 +1,51 @@
+{
+  "provider_id": "storespeed",
+  "provider_name": "Storespeed",
+  "provider_type": "datacenter_operator",
+  "updated": "2025-12-20",
+  "vendor_country_id": "NO",
+  "vendor_website": "https://www.storespeed.no/",
+  "regions": [
+    {
+      "region_id": "DC01",
+      "region_name": "DC01 (Gamle Fredrikstad)",
+      "country_id": "NO",
+      "city": "Gamle Fredrikstad",
+      "coordinates": [59.215, 10.95]
+    }
+  ],
+  "meta": {
+    "source": "https://www.storespeed.no/"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

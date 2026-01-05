@@ -1,0 +1,205 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+
+  {{/* Resolve country slug/id */}}
+  {{ $slug := "" }}
+  {{ with .File }}
+    {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
+  {{ end }}
+
+  {{ $countryId := .Params.country_id | default "" }}
+  {{ $country := dict }}
+  {{ if not $countryId }}
+    {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
+    {{ with index $match 0 }}
+      {{ $country = . }}
+      {{ $countryId = .id }}
+    {{ end }}
+  {{ else }}
+    {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+    {{ with index $match 0 }}
+      {{ $country = . }}
+    {{ end }}
+  {{ end }}
+
+  {{ $countryName := $countryId }}
+  {{ $countryFlag := "" }}
+  {{ $lawsSlug := $slug }}
+  {{ if $country }}
+    {{ $countryName = $country.name | default $countryId }}
+    {{ $countryFlag = $country.flag | default "" }}
+    {{ $lawsSlug = $country.slug | default $slug }}
+  {{ end }}
+
+  {{/* Auto-generate title from regions.json if frontmatter title is not set */}}
+  {{ $autoTitle := "" }}
+  {{ if and $countryFlag $countryName }}
+    {{ $autoTitle = printf "%s %s Datacenters" $countryFlag $countryName }}
+  {{ else if $countryName }}
+    {{ $autoTitle = printf "%s Datacenters" $countryName }}
+  {{ end }}
+  {{ $displayTitle := .Title }}
+  {{ if and $autoTitle (or (not .Title) (eq .Title "Index") (eq .Title "")) }}
+    {{ $displayTitle = $autoTitle }}
+  {{ end }}
+
+  {{/* Build region lookup for use by partials */}}
+  {{ $regionsById := dict }}
+  {{ range (site.Data.regions | default (slice)) }}
+    {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ end }}
+
+  {{/* Providers that have regions in this country */}}
+  {{ $providers := site.Data.datacenters.providers | default (slice) }}
+  {{ $providerItems := slice }}
+  {{ $totalRegions := 0 }}
+  {{ if $countryId }}
+    {{ range $providers }}
+      {{ $p := . }}
+      {{ $count := 0 }}
+      {{ range ($p.regions | default (slice)) }}
+        {{ if eq .country_id $countryId }}
+          {{ $count = add $count 1 }}
+        {{ end }}
+      {{ end }}
+      {{ if gt $count 0 }}
+        {{ $totalRegions = add $totalRegions $count }}
+        {{ $providerItems = $providerItems | append (dict "provider" $p "count" $count "name" ($p.provider_name | default $p.provider_id)) }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $providerItems = sort $providerItems "name" "asc" }}
+  {{ $providerItems = sort $providerItems "count" "desc" }}
+
+  <article>
+    <header id="single_header" class="mt-5 max-w-prose">
+      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ $displayTitle | emojify }}
+      </h1>
+      <div class="mt-1 mb-4 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+      </div>
+
+    </header>
+
+    {{/* Body with right sidebar */}}
+    <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
+      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
+      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+
+      {{ $blocs := $country.blocs | default (slice) }}
+      {{ $showSidebar := or $showToc (gt (len $blocs) 0) (gt (len $providerItems) 0) }}
+      {{ if $showSidebar }}
+        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
+          <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
+            {{ if $showToc }}
+              {{ partial "toc.html" . }}
+            {{ end }}
+
+            {{/* Country Info sidebar - at top like provider page */}}
+            {{ if $country }}
+              <div class="{{ if $showToc }}mt-6{{ end }}">
+                <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
+                <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
+                  <ul class="m-0 p-0 list-none space-y-1.5 text-sm">
+                    {{/* Providers count */}}
+                    <li class="m-0 p-0 flex items-center gap-2">
+                      <span class="text-neutral-500 dark:text-neutral-400 w-20">Providers</span>
+                      <span class="font-medium">{{ len $providerItems }}</span>
+                    </li>
+                    {{/* Regions count */}}
+                    <li class="m-0 p-0 flex items-center gap-2">
+                      <span class="text-neutral-500 dark:text-neutral-400 w-20">Regions</span>
+                      <span class="font-medium">{{ $totalRegions }}</span>
+                    </li>
+                  </ul>
+                </div>
+                {{/* Jurisdiction button */}}
+                {{ if $lawsSlug }}
+                <div class="mt-4">
+                  {{ partial "internal-button.html" (dict "url" (printf "/jurisdictions/%s/" $lawsSlug) "icon" "⚖️" "label" "Jurisdiction") }}
+                </div>
+                {{ end }}
+              </div>
+            {{ end }}
+
+            {{/* Providers sidebar section */}}
+            {{ partial "datacenter-country-providers-sidebar.html" (dict "providerItems" $providerItems "countryName" $countryName "countryFlag" $countryFlag) }}
+
+            {{/* Cities sidebar section */}}
+            {{ partial "datacenter-country-cities-sidebar.html" (dict "countryId" $countryId "countryName" $countryName "countryFlag" $countryFlag "providers" $providers) }}
+
+            {{/* Related content - laws, blog posts, publications based on country_id */}}
+            {{ partial "related-content-sidebar.html" . }}
+          </div>
+        </div>
+      {{ end }}
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
+          {{/* Check if there's any custom content in the markdown file */}}
+          {{ $rawContent := .RawContent | strings.TrimSpace }}
+          {{ $hasCustomContent := gt (len $rawContent) 0 }}
+
+          {{/* Auto-generate intro text */}}
+          <p>Datacenter regions physically located in <strong>{{ $countryName }}</strong> across all providers.</p>
+
+          {{/*
+            For datacenter country pages, we need to render shortcodes (map, providers, regions).
+            The markdown file should contain these shortcodes, OR we render them inline.
+            If the file has content, render it. Otherwise, auto-generate the sections.
+          */}}
+          {{ if $hasCustomContent }}
+            {{/* File has content - just render it (it should include the shortcodes) */}}
+            {{ .Content }}
+          {{ else }}
+            {{/* Auto-generate all sections using inline partials - no shortcodes needed */}}
+            {{ if $countryId }}
+              <h2 id="map">Map</h2>
+              {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
+              {{ $mapShortcode | .Page.RenderString }}
+
+              <h2 id="providers">Providers</h2>
+              {{ partial "datacenter-country-providers-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
+
+              <h2 id="regions">Regions</h2>
+              {{ partial "datacenter-country-regions-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
+            {{ end }}
+
+            {{/* Auto-generate footer link */}}
+            <p>→ <a href="/datacenters/">Back to all datacenters</a></p>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  </article>
+{{ end }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

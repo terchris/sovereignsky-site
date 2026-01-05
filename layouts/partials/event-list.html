@@ -1,0 +1,188 @@
+{{- /*
+  event-list.html
+  Renders a list of events from /data/events/events.json
+  
+  Usage: 
+    {{ partial "event-list.html" . }}
+    {{ partial "event-list.html" (dict "filter" "cybersecurity" "limit" 3) }}
+    {{ partial "event-list.html" (dict "audience" "developer") }}
+    {{ partial "event-list.html" (dict "audience" "government") }}
+    {{ partial "event-list.html" (dict "itRelevance" "high") }}
+  
+  Audience values (from personas.json): developer, technical, enterprise, government, humanitarian, defence
+*/ -}}
+
+{{- $events := site.Data.events.events -}}
+{{- $vocab := site.Data.tag_vocabulary -}}
+{{- $filter := .filter | default "" -}}
+{{- $audience := .audience | default "" -}}
+{{- $itRelevance := .itRelevance | default "" -}}
+{{- $limit := .limit | default 0 -}}
+{{- $showPast := .showPast | default false -}}
+{{- $compact := .compact | default false -}}
+{{- $now := now.Format "2006-01-02" -}}
+
+{{- /* Filter events */ -}}
+{{- $filtered := slice -}}
+{{- range $events -}}
+  {{- $include := true -}}
+  
+  {{- /* Filter by tag */ -}}
+  {{- if $filter -}}
+    {{- $include = false -}}
+    {{- range .tags -}}
+      {{- if eq . $filter -}}
+        {{- $include = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  
+  {{- /* Filter by audience */ -}}
+  {{- if and $include $audience -}}
+    {{- $include = false -}}
+    {{- range .audience -}}
+      {{- if eq . $audience -}}
+        {{- $include = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  
+  {{- /* Filter by IT relevance */ -}}
+  {{- if and $include $itRelevance -}}
+    {{- if ne .itRelevance $itRelevance -}}
+      {{- $include = false -}}
+    {{- end -}}
+  {{- end -}}
+  
+  {{- /* Filter past events */ -}}
+  {{- if and (not $showPast) (lt .startDate $now) -}}
+    {{- $include = false -}}
+  {{- end -}}
+  
+  {{- if $include -}}
+    {{- $filtered = $filtered | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Apply limit */ -}}
+{{- if and $limit (gt (len $filtered) $limit) -}}
+  {{- $filtered = first $limit $filtered -}}
+{{- end -}}
+
+{{- if $filtered -}}
+<div class="event-list{{ if $compact }} event-list--compact{{ end }}">
+  {{- range $filtered }}
+  <article class="event-card{{ if .featured }} event-card--featured{{ end }}" id="{{ .id }}" data-tags="{{ delimit .tags " " }}" data-audience="{{ delimit .audience " " }}" data-relevance="{{ .itRelevance }}">
+    <div class="event-date">
+      {{- $start := time .startDate -}}
+      {{- $endDate := .endDate -}}
+      <time datetime="{{ .startDate }}">
+        {{- if $endDate -}}
+          {{- $end := time $endDate -}}
+          <span class="event-date__day">{{ $start.Day }}-{{ $end.Day }}</span>
+        {{- else -}}
+          <span class="event-date__day">{{ $start.Day }}</span>
+        {{- end -}}
+        <span class="event-date__month">{{ $start.Format "Jan" }}</span>
+        <span class="event-date__year">{{ $start.Year }}</span>
+      </time>
+    </div>
+    
+    <div class="event-content">
+      <h3 class="event-title">
+        {{- if .url -}}
+        <a href="{{ .url }}" rel="noopener" target="_blank">{{ .name }}</a>
+        {{- else -}}
+        {{ .name }}
+        {{- end -}}
+      </h3>
+      
+      {{- if not $compact }}
+      <p class="event-description">{{ .description }}</p>
+      {{- end }}
+      
+      <div class="event-meta">
+        {{- with .location }}
+        {{- /* location can be either a string ("Oslo") or an object ({name,city,country}) */ -}}
+        {{- if (reflect.IsMap .) -}}
+          {{- $city := .city | default "" -}}
+          {{- $name := .name | default "" -}}
+          {{- if or $city $name -}}
+          <span class="event-location">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="event-icon">
+              <path fill-rule="evenodd" d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 11.842 11.842 0 0 0 .976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z" clip-rule="evenodd" />
+            </svg>
+            {{- if $city -}}
+              {{- $city -}}
+              {{- if and $name (ne $name $city) -}}, {{ $name }}{{- end -}}
+            {{- else -}}
+              {{- $name -}}
+            {{- end -}}
+          </span>
+          {{- end -}}
+        {{- else -}}
+          {{- /* string (or other scalar) */ -}}
+          {{- if . -}}
+          <span class="event-location">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="event-icon">
+              <path fill-rule="evenodd" d="m9.69 18.933.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 0 0 .281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 1 0 3 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 0 0 2.273 1.765 11.842 11.842 0 0 0 .976.544l.062.029.018.008.006.003ZM10 11.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z" clip-rule="evenodd" />
+            </svg>
+            {{ . }}
+          </span>
+          {{- end -}}
+        {{- end }}
+        {{- end }}
+        
+        {{- with .organizer }}
+        {{- /* organizer can be either a string ("DSB") or an object ({name,url}) */ -}}
+        {{- $orgName := "" -}}
+        {{- $orgURL := "" -}}
+        {{- if (reflect.IsMap .) -}}
+          {{- $orgName = .name | default "" -}}
+          {{- $orgURL = .url | default "" -}}
+        {{- else -}}
+          {{- $orgName = . | default "" -}}
+        {{- end -}}
+        {{- if and $orgName (ne $orgName "TBA") }}
+        <span class="event-organizer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="event-icon">
+            <path d="M7 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM14.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 0 0-1.588-3.755 4.502 4.502 0 0 1 5.874 2.636.818.818 0 0 1-.36.98A7.465 7.465 0 0 1 14.5 16Z" />
+          </svg>
+          {{- if $orgURL -}}
+          <a href="{{ $orgURL }}" rel="noopener" target="_blank">{{ $orgName }}</a>
+          {{- else -}}
+          {{ $orgName }}
+          {{- end -}}
+        </span>
+        {{- end }}
+        {{- end }}
+      </div>
+      
+      {{- if not $compact }}
+      {{- with .tags }}
+      <div class="event-tags">
+        {{- $vocabTopics := $vocab.topics.labels -}}
+        {{- range . }}
+        {{- $label := index $vocabTopics . | default (. | humanize | title) }}
+        <span class="badge badge--{{ . }}">{{ $label }}</span>
+        {{- end }}
+      </div>
+      {{- end }}
+      
+      {{- with .audience }}
+      <div class="event-audience">
+        {{- $vocabAudience := $vocab.audience.labels -}}
+        {{- range . }}
+        {{- $label := index $vocabAudience . | default (. | humanize | title) }}
+        <span class="event-audience__item">{{ $label }}</span>
+        {{- end }}
+      </div>
+      {{- end }}
+      {{- end }}
+    </div>
+  </article>
+  {{- end }}
+</div>
+{{- else -}}
+<p class="event-list__empty">No upcoming events{{ with $filter }} tagged "{{ . }}"{{ end }}.</p>
+{{- end -}}

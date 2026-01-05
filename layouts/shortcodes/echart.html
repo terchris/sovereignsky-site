@@ -1,0 +1,22 @@
+{{/*
+  ECharts shortcode for SovereignSky
+  Usage: {{< echart id="myChart" height="400px" >}} ... chart options ... {{< /echart >}}
+*/}}
+{{ $id := .Get "id" | default (printf "echart-%d" now.UnixNano) }}
+{{ $height := .Get "height" | default "400px" }}
+{{ $width := .Get "width" | default "100%" }}
+
+<div id="{{ $id }}" style="width: {{ $width }}; height: {{ $height }};"></div>
+<script>
+(function() {
+  var chartDom = document.getElementById('{{ $id }}');
+  var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+  var option = {{ .Inner | safeJS }};
+  myChart.setOption(option);
+
+  // Responsive resize
+  window.addEventListener('resize', function() {
+    myChart.resize();
+  });
+})();
+</script>

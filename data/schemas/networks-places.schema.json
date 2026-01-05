@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "networks-places.schema.json",
+  "title": "Networks Places",
+  "description": "Places referenced by networks dataset (landing stations, hubs, endpoints). Root is an array of places.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/place"
+  },
+  "$defs": {
+    "place": {
+      "type": "object",
+      "required": ["identifier", "name"],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "Stable identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string"
+        },
+        "place_type": {
+          "type": "string",
+          "enum": ["landing_station", "backbone_endpoint", "international_hub", "border_crossing_area"]
+        },
+        "geo": {
+          "type": "object",
+          "properties": {
+            "latitude": { "type": "number" },
+            "longitude": { "type": "number" }
+          },
+          "required": ["latitude", "longitude"]
+        },
+        "address": {
+          "type": "object",
+          "properties": {
+            "addressLocality": { "type": "string" },
+            "addressRegion": { "type": "string" },
+            "addressCountry": { "type": "string", "description": "ISO 3166-1 alpha-2" }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

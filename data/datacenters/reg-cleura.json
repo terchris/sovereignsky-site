@@ -1,0 +1,34 @@
+{
+  "provider_id": "cleura",
+  "provider_name": "Cleura",
+  "provider_type": "regional_cloud",
+  "updated": "2025-12-20",
+  "vendor_country_id": "SE",
+  "vendor_website": "https://cleura.com",
+  "regions": [
+    {
+      "region_id": "sto1",
+      "region_name": "Stockholm",
+      "country_id": "SE",
+      "city": "Stockholm",
+      "coordinates": [59.3293, 18.0686]
+    },
+    {
+      "region_id": "kna1",
+      "region_name": "Karlskrona",
+      "country_id": "SE",
+      "city": "Karlskrona",
+      "coordinates": [56.1612, 15.5869]
+    },
+    {
+      "region_id": "fra1",
+      "region_name": "Frankfurt",
+      "country_id": "DE",
+      "city": "Frankfurt",
+      "coordinates": [50.1109, 8.6821]
+    }
+  ],
+  "meta": {
+    "source": "https://cleura.com/resources/getting-started-with-cleura-cloud/regions-services-sub-processors/"
+  }
+}

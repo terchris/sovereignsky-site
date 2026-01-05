@@ -1,0 +1,158 @@
+{
+  "id": "ndsi",
+  "name": "Norwegian Digital Sovereignty Index",
+  "version": "1.0",
+  "description": "Assessment framework for digital sovereignty risk, based on EU Cloud Sovereignty Framework with Norwegian extensions",
+  "scoring": {
+    "min": 0,
+    "max": 5,
+    "calculation": "weighted_average",
+    "labels": {
+      "0": "No risk",
+      "1": "Minimal risk",
+      "2": "Low risk",
+      "3": "Moderate risk",
+      "4": "Significant risk",
+      "5": "Critical risk"
+    },
+    "guidance": {
+      "0": "No identified risk or concern. Full sovereignty maintained.",
+      "1": "Minimal risk, easily mitigated. Minor dependencies that don't affect sovereignty.",
+      "2": "Low risk, standard mitigations available. Some foreign dependencies but manageable.",
+      "3": "Moderate risk, requires attention. Notable sovereignty concerns that need addressing.",
+      "4": "Significant risk, requires action plan. Serious sovereignty gaps affecting data/operations.",
+      "5": "Critical risk, may be unacceptable. Fundamental sovereignty issues, consider alternatives."
+    }
+  },
+  "levels": {
+    "low": {
+      "max_avg": 1.0,
+      "label": "Low Risk",
+      "color": "green",
+      "description": "Minimal sovereignty concerns. Provider aligns well with Norwegian/EU interests.",
+      "recommendation": "Suitable for Norwegian organizations including public sector and sensitive data."
+    },
+    "moderate": {
+      "max_avg": 2.0,
+      "label": "Moderate Risk",
+      "color": "yellow",
+      "description": "Some sovereignty concerns that can be addressed with available mitigations.",
+      "recommendation": "Acceptable for general use. Review mitigations before handling sensitive or classified data."
+    },
+    "elevated": {
+      "max_avg": 2.5,
+      "label": "Elevated Risk",
+      "color": "orange",
+      "description": "Notable sovereignty gaps requiring active management and monitoring.",
+      "recommendation": "Use with caution. Implement mitigations, have exit strategy, consider Norwegian alternatives."
+    },
+    "significant": {
+      "max_avg": 3.5,
+      "label": "Significant Risk",
+      "color": "red",
+      "description": "Serious sovereignty concerns. Subject to foreign laws that may conflict with Norwegian interests.",
+      "recommendation": "Avoid for sensitive data and critical infrastructure. Requires formal risk acceptance."
+    },
+    "high": {
+      "max_avg": 5.0,
+      "label": "High Risk",
+      "color": "darkred",
+      "description": "Critical sovereignty issues. High exposure to foreign jurisdiction with limited control.",
+      "recommendation": "Not recommended for Norwegian organizations. Seek Norwegian or EU alternatives."
+    }
+  },
+  "dimensions": [
+    {
+      "id": "strategic",
+      "name": "Strategic Autonomy",
+      "source": "eu-csf",
+      "description": "Degree of strategic dependency on the vendor and its home jurisdiction",
+      "weight": 1.0
+    },
+    {
+      "id": "legal",
+      "name": "Legal Jurisdiction",
+      "source": "eu-csf",
+      "description": "Legal exposure to foreign laws (CLOUD Act, FISA, etc.)",
+      "weight": 1.5
+    },
+    {
+      "id": "data",
+      "name": "Data Sovereignty",
+      "source": "eu-csf",
+      "description": "Control over data location, encryption, and access",
+      "weight": 1.5
+    },
+    {
+      "id": "operational",
+      "name": "Operational Sovereignty",
+      "source": "eu-csf",
+      "description": "Ability to operate independently of vendor",
+      "weight": 1.0
+    },
+    {
+      "id": "supply_chain",
+      "name": "Supply Chain",
+      "source": "eu-csf",
+      "description": "Dependencies in the vendor's supply chain",
+      "weight": 0.5
+    },
+    {
+      "id": "technology",
+      "name": "Technology Independence",
+      "source": "eu-csf",
+      "description": "Vendor lock-in and technology portability",
+      "weight": 1.0
+    },
+    {
+      "id": "security",
+      "name": "Security",
+      "source": "eu-csf",
+      "description": "Security certifications and practices",
+      "weight": 0.5
+    },
+    {
+      "id": "environment",
+      "name": "Environmental",
+      "source": "eu-csf",
+      "description": "Environmental impact and sustainability",
+      "weight": 0.25
+    },
+    {
+      "id": "national_security",
+      "name": "National Security",
+      "source": "ndsi",
+      "description": "Implications for Norwegian critical infrastructure and national security",
+      "weight": 1.5
+    },
+    {
+      "id": "local_presence",
+      "name": "Local Presence",
+      "source": "ndsi",
+      "description": "Norwegian support, partners, and local expertise availability",
+      "weight": 0.5
+    }
+  ],
+  "derived_fields": {
+    "cloud_act": {
+      "description": "True if vendor country is subject to US CLOUD Act",
+      "rule": "vendor.country == 'US'"
+    },
+    "schrems_ii": {
+      "description": "True if data transfers raise Schrems II concerns",
+      "rule": "vendor.country in ['US', 'CN', 'RU']"
+    },
+    "level": {
+      "description": "Calculated from weighted average of dimension scores",
+      "rule": "weighted_average(scores) -> levels"
+    }
+  },
+  "meta": {
+    "created": "2025-12-18",
+    "author": "SovereignSky",
+    "sources": [
+      "https://commission.europa.eu/",
+      "https://www.regjeringen.no/"
+    ]
+  }
+}

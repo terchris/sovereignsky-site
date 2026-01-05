@@ -1,0 +1,43 @@
+{{ $link := .Get "link" }}
+{{ $title := .Get "title" }}
+{{ $subtitle := .Get "subtitle" }}
+{{ $icon := .Get "icon" }}
+
+{{/* Resolve link: allow absolute URLs, absolute paths, or page-relative refs */}}
+{{ $href := "" }}
+{{ if hasPrefix $link "http://" }}
+  {{ $href = $link }}
+{{ else if hasPrefix $link "https://" }}
+  {{ $href = $link }}
+{{ else if hasPrefix $link "/" }}
+  {{ $href = $link }}
+{{ else }}
+  {{/* Treat as a child page of the current section/page */}}
+  {{ $base := .Page.RelPermalink }}
+  {{ if not (strings.HasSuffix $base "/") }}{{ $base = printf "%s/" $base }}{{ end }}
+  {{ $child := $link }}
+  {{ if strings.HasSuffix $child "/" }}{{ $child = strings.TrimSuffix "/" $child }}{{ end }}
+  {{ $href = printf "%s%s/" $base $child }}
+{{ end }}
+
+<a class="group block rounded-xl border border-neutral-200 bg-white p-5 no-underline shadow-sm transition hover:shadow-md dark:border-neutral-700 dark:bg-neutral-900"
+   href="{{ $href }}">
+  <div class="flex items-start gap-3">
+    {{ if $icon }}
+      <div class="shrink-0 rounded-lg bg-neutral-100 p-2 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200">
+        {{- $iconRes := resources.Get (printf "icons/%s.svg" $icon) -}}
+        {{- if $iconRes -}}
+          <span class="relative inline-block align-text-bottom icon">
+            {{- strings.Replace $iconRes.Content "\n" "" | safeHTML -}}
+          </span>
+        {{- end -}}
+      </div>
+    {{ end }}
+    <div class="min-w-0">
+      {{ if $title }}<div class="font-semibold text-neutral-900 dark:text-neutral-50">{{ $title }}</div>{{ end }}
+      {{ if $subtitle }}<div class="mt-1 text-sm text-neutral-600 dark:text-neutral-300">{{ $subtitle }}</div>{{ end }}
+    </div>
+  </div>
+</a>
+
+
