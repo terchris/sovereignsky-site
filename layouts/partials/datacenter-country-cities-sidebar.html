@@ -2,7 +2,7 @@
 Datacenter Country Cities Sidebar
 Usage: {{ partial "datacenter-country-cities-sidebar.html" (dict "countryId" $countryId "countryName" $countryName "countryFlag" $countryFlag "providers" $providers) }}
 
-Renders a sidebar list of cities with region counts for a specific country.
+Renders a card with a list of cities with region counts for a specific country.
 */}}
 
 {{ $countryId := .countryId | default "" }}
@@ -26,24 +26,37 @@ Renders a sidebar list of cities with region counts for a specific country.
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ $cityOrder = sort $cityOrder }}
 
-  {{ if gt (len $cityOrder) 0 }}
-  <div class="mt-6">
-    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Cities</div>
-    <div class="text-sm text-neutral-500 dark:text-neutral-400">{{ len $cityOrder }} cities in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</div>
-    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-      <ul class="m-0 p-0 list-none space-y-1">
-        {{ range $cityOrder }}
-          {{ $city := . }}
-          {{ $count := index $cityRegionCounts $city }}
-          <li class="m-0 p-0">
-            <span>{{ $city }}</span>
-            <span class="text-neutral-500 dark:text-neutral-400">({{ $count }})</span>
-          </li>
-        {{ end }}
-      </ul>
+  {{/* Sort by count descending */}}
+  {{ $cityItems := slice }}
+  {{ range $cityOrder }}
+    {{ $city := . }}
+    {{ $count := index $cityRegionCounts $city }}
+    {{ $cityItems = $cityItems | append (dict "city" $city "count" $count) }}
+  {{ end }}
+  {{ $cityItems = sort $cityItems "count" "desc" }}
+
+  {{ if gt (len $cityItems) 0 }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "building" "color" "accent" "size" "4") }}
+      Cities
+    </h3>
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+      {{ len $cityItems }} cities in {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}
     </div>
+    <ul class="space-y-0.5 max-h-48 overflow-y-auto">
+      {{ range $cityItems }}
+      <li>
+        <span class="text-sm block px-2 py-1 -mx-2 flex justify-between items-center">
+          <span>{{ .city }}</span>
+          <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
+        </span>
+      </li>
+      {{ end }}
+    </ul>
   </div>
+</div>
   {{ end }}
 {{ end }}
