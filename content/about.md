@@ -2,6 +2,7 @@
 title: "About SovereignSky"
 description: "SovereignSky is a helpers.no initiative to strengthen digital sovereignty and resilience in Nordic organizations."
 date: 2025-01-02
+layout: "about"
 showHero: false
 showTableOfContents: true
 showDate: false

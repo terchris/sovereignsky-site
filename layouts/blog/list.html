@@ -1,0 +1,41 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "pencil"
+  ) }}
+
+  {{/* Section Content */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
+
+  {{/* Blog post listing */}}
+  {{ if gt .Pages 0 }}
+  <section class="grid gap-6 mt-8">
+    {{ range .Pages.ByDate.Reverse }}
+    <article class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
+      <div class="card-body p-5">
+        <a href="{{ .RelPermalink }}" class="no-underline">
+          <h2 class="card-title text-xl hover:text-primary transition-colors">{{ .Title }}</h2>
+        </a>
+        {{ with .Description }}
+        <p class="text-neutral-600 dark:text-neutral-400 mt-2">{{ . }}</p>
+        {{ end }}
+        <div class="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-500 mt-3">
+          {{ with .Date }}
+          <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>
+          {{ end }}
+          {{ with .ReadingTime }}
+          <span>{{ . }} min read</span>
+          {{ end }}
+        </div>
+      </div>
+    </article>
+    {{ end }}
+  </section>
+  {{ end }}
+</article>
+{{ end }}

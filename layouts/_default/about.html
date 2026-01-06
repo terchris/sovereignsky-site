@@ -1,0 +1,15 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "info"
+  ) }}
+
+  {{/* Page Content */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
+</article>
+{{ end }}

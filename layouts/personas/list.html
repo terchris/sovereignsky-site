@@ -4,28 +4,21 @@
 {{ $audienceVocab := $vocab.audience.values | default (slice) }}
 {{ $audienceLabels := $vocab.audience.labels | default (dict) }}
 
-<article>
-  <header id="single_header" class="mt-5 max-w-prose">
-    {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
-      {{ partial "breadcrumbs.html" . }}
-    {{ end }}
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      {{ .Title | emojify }}
-    </h1>
-    {{ with .Params.description }}
-    <p class="mt-2 text-lg text-neutral-600 dark:text-neutral-400">
-      {{ . }}
-    </p>
-    {{ end }}
-  </header>
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "users"
+  ) }}
 
-  <section class="flex flex-col max-w-full mt-0">
-    <div class="min-w-0 min-h-0 max-w-prose">
-      <div class="article-content prose dark:prose-invert max-w-none mb-10">
-        {{ .Content }}
-      </div>
-    </div>
+  {{/* Section Content */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
 
+  {{/* Persona List */}}
+  <section class="mt-8">
     {{ partial "persona-list.html" (dict "personas" $personas "audienceVocab" $audienceVocab "audienceLabels" $audienceLabels) }}
   </section>
 </article>

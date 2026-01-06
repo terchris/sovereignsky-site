@@ -2,12 +2,9 @@
 title: "Networks"
 description: "Cables in and out of Norway — and the domestic routes we can document from public sources"
 echarts: true
-layout: "simple"
 ---
 
 Norway's digital infrastructure—**subsea cables** and **land-based routes** both internationally and within the country—carries everything from government services to private communications.
-
-{{< page-stats section="networks" >}}
 
 **Why it matters:** Most Norwegian municipalities, agencies, and companies run critical systems on [datacenters outside Norway](/datacenters/). The data travels through cables owned by companies subject to foreign [jurisdictions](/jurisdictions/) and laws. Understanding this infrastructure is key to understanding Norway's digital sovereignty.
 

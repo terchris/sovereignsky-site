@@ -2,7 +2,6 @@
 title: "Datacenters"
 description: "Cloud datacenter locations and their jurisdiction implications"
 echarts: true
-layout: "simple"
 ---
 
 Where your cloud provider stores data matters less than where the provider is headquartered. This map shows datacenter locations colored by **vendor jurisdiction** - not physical location.

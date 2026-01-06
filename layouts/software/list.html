@@ -22,14 +22,14 @@
 {{/* Country flags */}}
 {{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "UK" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU" "🇪🇺" "EU_EEA" "🇪🇺" }}
 
-<div class="max-w-6xl mx-auto" id="software-app">
+<div class="max-w-full" id="software-app">
 
-  <header class="mb-8">
-    <h1 class="text-3xl font-bold mb-4">{{ .Title }}</h1>
-    {{ with .Description }}
-    <p class="text-lg text-neutral-600 dark:text-neutral-300">{{ . }}</p>
-    {{ end }}
-  </header>
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "computer"
+  ) }}
 
   <!-- Search and Filters -->
   <div class="mb-6 space-y-4">
