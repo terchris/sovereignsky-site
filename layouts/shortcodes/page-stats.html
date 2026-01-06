@@ -317,4 +317,53 @@
     </div>
   </div>
 
+{{- else if eq $section "personas" -}}
+  {{- $personas := .Site.Data.personas.hasDefinedTerm | default (slice) -}}
+  {{- $total := len $personas -}}
+  {{- /* Count unique categories across all personas */ -}}
+  {{- $allCategories := slice -}}
+  {{- range $personas -}}
+    {{- with .filterCriteria.preferCategories -}}
+      {{- range . -}}
+        {{- if not (in $allCategories .) -}}
+          {{- $allCategories = $allCategories | append . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $catCount := len $allCategories -}}
+  {{- /* Count total example queries */ -}}
+  {{- $queryCount := 0 -}}
+  {{- range $personas -}}
+    {{- $queryCount = add $queryCount (len (.exampleQueries | default (slice))) -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "users" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">User Types</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Defined personas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "folder" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Categories</div>
+        <div class="stat-value text-secondary">{{ $catCount }}</div>
+        <div class="stat-desc">Software categories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          {{ partial "content-icon.html" (dict "name" "search" "color" "accent" "size" "8") }}
+        </div>
+        <div class="stat-title">Use Cases</div>
+        <div class="stat-value text-accent">{{ $queryCount }}</div>
+        <div class="stat-desc">Example queries</div>
+      </div>
+    </div>
+  </div>
+
 {{- end -}}

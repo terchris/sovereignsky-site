@@ -10,6 +10,8 @@ showTableOfContents: false
 showPagination: false
 ---
 
-These personas are used across the site (especially for event “audience” and software filtering). Pick one to jump into relevant events, laws, and products.
+{{< page-stats section="personas" >}}
+
+These personas are used across the site (especially for event "audience" and software filtering). Pick one to jump into relevant events, laws, and products.
 
 
