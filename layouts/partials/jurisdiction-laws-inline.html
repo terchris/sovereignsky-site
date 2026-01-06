@@ -90,32 +90,13 @@
   {{ $byType = merge $byType (dict $type ($existing | append .)) }}
 {{ end }}
 
-{{/* Define type order and labels */}}
-{{ $typeOrder := slice "privacy" "access" "surveillance" "localization" "security" "sector" }}
-{{ $typeLabels := dict
-    "privacy" "Privacy Laws"
-    "access" "Access Laws"
-    "surveillance" "Surveillance Laws"
-    "localization" "Localization Laws"
-    "security" "Security Laws"
-    "sector" "Sector-Specific Laws"
-}}
-{{ $typeEmojis := dict
-    "privacy" "🛡️"
-    "access" "🔓"
-    "surveillance" "👁️"
-    "localization" "📍"
-    "security" "🔒"
-    "sector" "📋"
-}}
-{{ $typeDescriptions := dict
-    "privacy" "Laws that protect individual data rights and privacy"
-    "access" "Laws that enable government or law enforcement data access"
-    "surveillance" "Laws that establish surveillance infrastructure or powers"
-    "localization" "Laws that require data to be stored within jurisdiction"
-    "security" "National security frameworks"
-    "sector" "Laws regulating specific sectors (AI, telecom, finance, etc.)"
-}}
+{{/* Get law type vocabulary from centralized data */}}
+{{ $lawTypes := site.Data.tag_vocabulary.lawTypes | default (dict) }}
+{{ $typeOrder := $lawTypes.values | default (slice "privacy" "access" "surveillance" "localization" "security" "sector") }}
+{{ $typeLabels := $lawTypes.labels | default (dict "privacy" "Privacy Laws" "access" "Access Laws" "surveillance" "Surveillance Laws" "localization" "Localization Laws" "security" "Security Laws" "sector" "Sector-Specific Laws") }}
+{{ $typeEmojis := $lawTypes.emojis | default (dict "privacy" "🛡️" "access" "🔓" "surveillance" "👁️" "localization" "📍" "security" "🔒" "sector" "📋") }}
+{{ $typeDescriptions := $lawTypes.descriptions | default (dict "privacy" "Laws that protect individual data rights and privacy" "access" "Laws that enable government or law enforcement data access" "surveillance" "Laws that establish surveillance infrastructure or powers" "localization" "Laws that require data to be stored within jurisdiction" "security" "National security frameworks" "sector" "Laws regulating specific sectors") }}
+{{ $typeBadgeClasses := $lawTypes.badgeClasses | default (dict "privacy" "badge-success" "access" "badge-warning" "surveillance" "badge-error" "localization" "badge-info" "security" "badge-secondary" "sector" "badge-ghost") }}
 
 {{ if gt (len $jurisdictionLaws) 0 }}
 <div class="not-prose">
@@ -123,21 +104,25 @@
     {{ $type := . }}
     {{ $lawsOfType := index $byType $type }}
     {{ if $lawsOfType }}
-    <div class="mb-8" id="{{ $type }}-laws">
-      <h3 class="text-lg font-semibold text-neutral-800 dark:text-neutral-100 mb-1 flex items-center gap-2">
-        <span>{{ index $typeEmojis $type }}</span>
-        <span>{{ index $typeLabels $type }}</span>
-      </h3>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-3">{{ index $typeDescriptions $type }}</p>
-      <div class="space-y-4">
+    <div class="mb-10" id="{{ $type }}-laws">
+      {{/* Section header */}}
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-2xl">{{ index $typeEmojis $type }}</span>
+        <div>
+          <h3 class="text-xl font-bold text-base-content m-0">{{ index $typeLabels $type }}</h3>
+          <p class="text-sm opacity-70 m-0">{{ index $typeDescriptions $type }}</p>
+        </div>
+      </div>
+
+      {{/* Law cards */}}
+      <div class="space-y-6">
         {{ range $lawsOfType }}
         {{/* Determine source of this law */}}
         {{ $lawSource := index $lawSources .id }}
         {{ $isNational := eq $lawSource $jurisdictionId }}
         {{ $sourceLabel := "" }}
-        {{ $sourceClass := "" }}
+        {{ $sourceBadgeClass := "badge-ghost" }}
         {{ if $isNational }}
-          {{/* Get the country flag for national laws */}}
           {{ $countryFlag := "" }}
           {{ range $regions }}
             {{ if eq .id $jurisdictionId }}
@@ -149,9 +134,8 @@
           {{ else }}
             {{ $sourceLabel = "National" }}
           {{ end }}
-          {{ $sourceClass = "bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300" }}
+          {{ $sourceBadgeClass = "badge-primary" }}
         {{ else }}
-          {{/* Find the bloc/jurisdiction name and flag for the source */}}
           {{ $sourceName := $lawSource }}
           {{ $sourceFlag := "" }}
           {{ range $blocs }}
@@ -165,62 +149,83 @@
           {{ else }}
             {{ $sourceLabel = printf "via %s" $sourceName }}
           {{ end }}
-          {{ $sourceClass = "bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300" }}
         {{ end }}
-        <div class="p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
-          <div class="flex items-start justify-between gap-4">
-            <div class="flex-1">
-              <div class="flex items-center gap-2 flex-wrap">
-                <a href="/laws/{{ .id }}/" class="text-base font-semibold text-neutral-900 dark:text-neutral-100 hover:text-primary-600 dark:hover:text-primary-400 no-underline">
-                  {{ .name }} ({{ .year }})
-                </a>
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium {{ $sourceClass }}">
-                  {{ $sourceLabel }}
-                </span>
+
+        {{/* Card */}}
+        <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-300">
+          <div class="card-body p-6">
+            {{/* Header row */}}
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 flex-wrap mb-1">
+                  <h4 class="card-title text-lg m-0">
+                    <a href="/laws/{{ .id }}/" class="link link-hover hover:text-primary">
+                      {{ .name }} ({{ .year }})
+                    </a>
+                  </h4>
+                  <div class="badge {{ $sourceBadgeClass }} badge-sm">{{ $sourceLabel }}</div>
+                </div>
+                <p class="text-sm opacity-60 m-0">{{ .full_name }}</p>
               </div>
-              <p class="text-sm text-neutral-600 dark:text-neutral-400 mt-0.5">{{ .full_name }}</p>
-              <p class="text-sm text-neutral-700 dark:text-neutral-300 mt-2">{{ .summary }}</p>
-              {{/* Show key attributes */}}
-              <div class="flex flex-wrap gap-2 mt-3">
-                {{/* Government Access */}}
-                {{ $accessClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400" }}
-                {{ if eq .government_access "broad" }}{{ $accessClass = "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300" }}{{ end }}
-                {{ if eq .government_access "targeted" }}{{ $accessClass = "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300" }}{{ end }}
-                {{ if eq .government_access "limited" }}{{ $accessClass = "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" }}{{ end }}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs {{ $accessClass }}">
-                  Gov Access: {{ .government_access }}
-                </span>
-                {{/* Data Protection */}}
-                {{ $protClass := "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400" }}
-                {{ if eq .data_protection "strong" }}{{ $protClass = "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" }}{{ end }}
-                {{ if eq .data_protection "moderate" }}{{ $protClass = "bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300" }}{{ end }}
-                {{ if eq .data_protection "weak" }}{{ $protClass = "bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300" }}{{ end }}
-                {{ if ne .data_protection "none" }}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs {{ $protClass }}">
-                  Protection: {{ .data_protection }}
-                </span>
-                {{ end }}
-                {{/* Boolean flags */}}
-                {{ if .extraterritorial }}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300">
-                  🌍 Extraterritorial
-                </span>
-                {{ end }}
-                {{ if .requires_localization }}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">
-                  📍 Localization
-                </span>
-                {{ end }}
-                {{ if .requires_backdoor }}
-                <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300">
-                  🔑 Backdoor
-                </span>
-                {{ end }}
-              </div>
+              <a href="/laws/{{ .id }}/" class="btn btn-ghost btn-sm">
+                Details
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </a>
             </div>
-            <a href="/laws/{{ .id }}/" class="shrink-0 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 no-underline">
-              Details →
-            </a>
+
+            {{/* Summary */}}
+            <p class="text-sm mt-2 mb-3">{{ .summary }}</p>
+
+            {{/* Attributes */}}
+            <div class="flex flex-wrap gap-2">
+              {{/* Government Access */}}
+              {{ $accessBadge := "badge-ghost" }}
+              {{ if eq .government_access "broad" }}{{ $accessBadge = "badge-error" }}{{ end }}
+              {{ if eq .government_access "targeted" }}{{ $accessBadge = "badge-warning" }}{{ end }}
+              {{ if eq .government_access "limited" }}{{ $accessBadge = "badge-success" }}{{ end }}
+              <div class="badge {{ $accessBadge }} gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                Gov: {{ .government_access }}
+              </div>
+
+              {{/* Data Protection */}}
+              {{ if and .data_protection (ne .data_protection "none") }}
+              {{ $protBadge := "badge-ghost" }}
+              {{ if eq .data_protection "strong" }}{{ $protBadge = "badge-success" }}{{ end }}
+              {{ if eq .data_protection "moderate" }}{{ $protBadge = "badge-warning" }}{{ end }}
+              {{ if eq .data_protection "weak" }}{{ $protBadge = "badge-error" }}{{ end }}
+              <div class="badge {{ $protBadge }} gap-1">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                Protection: {{ .data_protection }}
+              </div>
+              {{ end }}
+
+              {{/* Boolean flags */}}
+              {{ if .extraterritorial }}
+              <div class="badge badge-secondary gap-1">
+                🌍 Extraterritorial
+              </div>
+              {{ end }}
+
+              {{ if .requires_localization }}
+              <div class="badge badge-info gap-1">
+                📍 Localization Required
+              </div>
+              {{ end }}
+
+              {{ if .requires_backdoor }}
+              <div class="badge badge-error gap-1">
+                🔑 Backdoor Required
+              </div>
+              {{ end }}
+            </div>
           </div>
         </div>
         {{ end }}
@@ -230,5 +235,8 @@
   {{ end }}
 </div>
 {{ else }}
-<p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No laws found for this jurisdiction.</p>
+<div class="alert">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-info shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+  <span>No laws found for this jurisdiction.</span>
+</div>
 {{ end }}
