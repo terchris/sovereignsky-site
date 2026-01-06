@@ -22,8 +22,8 @@
   {{ with $pl.identifier }}{{ $s.SetInMap "placeById" . $pl }}{{ end }}
 {{ end }}
 
-{{/* Helpers (inline) */}}
-{{ $statusLabel := dict "active" "✅ Active" "planned" "🔶 Planned" }}
+{{/* Status badge helper - returns HTML with icon */}}
+{{/* We'll render status inline with partials */}}
 
 {{ $actorById := $s.Get "actorById" }}
 {{ $placeById := $s.Get "placeById" }}
@@ -36,7 +36,10 @@
 
 <div class="space-y-10">
   <section>
-    <h3 class="text-xl font-semibold">Subsea (Outside Norway)</h3>
+    <h3 class="text-xl font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "bolt" "color" "info" "size" "6") }}
+      Subsea (Outside Norway)
+    </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables running along the ocean floor connecting Norway to other countries. These cables are vulnerable to damage from fishing trawlers, anchors, and—in recent years—<a href="/tags/submarine-cables/" class="underline hover:text-primary-500">suspected sabotage</a>.</p>
     <div class="mt-3 overflow-x-auto">
       <table class="min-w-full text-sm">
@@ -79,7 +82,16 @@
                   {{ .connection_name }}
                 {{ end }}
               </td>
-              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">
+                {{ $status := .status | default "active" }}
+                {{ if eq $status "active" }}
+                <span class="badge badge-success badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                {{ else if eq $status "planned" }}
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                {{ else }}
+                <span class="badge badge-ghost badge-sm">{{ $status }}</span>
+                {{ end }}
+              </td>
               <td class="py-2 pr-4">{{ delimit $routeNames " ↔ " }}</td>
               <td class="py-2">{{ if gt (len $owners) 0 }}{{ delimit $owners ", " }}{{ else }}—{{ end }}</td>
             </tr>
@@ -91,7 +103,10 @@
   </section>
 
   <section>
-    <h3 class="text-xl font-semibold">Terrestrial (Outside Norway)</h3>
+    <h3 class="text-xl font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "location" "color" "secondary" "size" "6") }}
+      Terrestrial (Outside Norway)
+    </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Land-based fibre routes crossing Norway's borders to Sweden, Finland, and beyond.</p>
 
     <div class="mt-3 overflow-x-auto">
@@ -125,7 +140,16 @@
                   {{ .connection_name }}
                 {{ end }}
               </td>
-              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">
+                {{ $status := .status | default "active" }}
+                {{ if eq $status "active" }}
+                <span class="badge badge-success badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                {{ else if eq $status "planned" }}
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                {{ else }}
+                <span class="badge badge-ghost badge-sm">{{ $status }}</span>
+                {{ end }}
+              </td>
               <td class="py-2 pr-4">{{ if gt (len $routeNames) 0 }}{{ delimit $routeNames " ↔ " }}{{ else }}—{{ end }}</td>
               <td class="py-2">{{ .description | default "—" }}</td>
             </tr>
@@ -137,7 +161,10 @@
   </section>
 
   <section>
-    <h3 class="text-xl font-semibold">Domestic (Inside Norway)</h3>
+    <h3 class="text-xl font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "flag" "color" "primary" "size" "6") }}
+      Domestic (Inside Norway)
+    </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables and routes connecting regions within Norway—both undersea (coastal) and land-based.</p>
 
     <div class="mt-3 overflow-x-auto">
@@ -167,7 +194,16 @@
                   {{ .connection_name }}
                 {{ end }}
               </td>
-              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">
+                {{ $status := .status | default "active" }}
+                {{ if eq $status "active" }}
+                <span class="badge badge-success badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                {{ else if eq $status "planned" }}
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                {{ else }}
+                <span class="badge badge-ghost badge-sm">{{ $status }}</span>
+                {{ end }}
+              </td>
               <td class="py-2 pr-4">{{ .medium | default "—" }}</td>
               <td class="py-2">{{ if gt (len $opNames) 0 }}{{ delimit $opNames ", " }}{{ else }}—{{ end }}</td>
             </tr>
@@ -179,7 +215,10 @@
   </section>
 
   <section>
-    <h3 class="text-xl font-semibold">Arctic connectivity</h3>
+    <h3 class="text-xl font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "globe" "color" "accent" "size" "6") }}
+      Arctic Connectivity
+    </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables serving Svalbard and the Arctic region—critical for research, military, and civilian communications in the High North.</p>
     <div class="mt-3 overflow-x-auto">
       <table class="min-w-full text-sm">
@@ -202,7 +241,16 @@
                   {{ .connection_name }}
                 {{ end }}
               </td>
-              <td class="py-2 pr-4">{{ index $statusLabel (.status | default "active") | default (.status | default "active") }}</td>
+              <td class="py-2 pr-4">
+                {{ $status := .status | default "active" }}
+                {{ if eq $status "active" }}
+                <span class="badge badge-success badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                {{ else if eq $status "planned" }}
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "content-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                {{ else }}
+                <span class="badge badge-ghost badge-sm">{{ $status }}</span>
+                {{ end }}
+              </td>
               <td class="py-2">{{ .description | default "—" }}</td>
             </tr>
           {{ end }}

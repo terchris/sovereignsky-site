@@ -26,9 +26,7 @@
   <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
     <div class="stat">
       <div class="stat-figure text-primary">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
+        {{ partial "content-icon.html" (dict "name" "calendar" "color" "primary" "size" "8") }}
       </div>
       <div class="stat-title">Upcoming Events</div>
       <div class="stat-value text-primary">{{ $upcomingCount }}</div>
@@ -36,9 +34,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-secondary">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
+        {{ partial "content-icon.html" (dict "name" "clock" "color" "secondary" "size" "8") }}
       </div>
       <div class="stat-title">This Month</div>
       <div class="stat-value text-secondary">{{ $thisMonthCount }}</div>
@@ -46,10 +42,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-accent">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
+        {{ partial "content-icon.html" (dict "name" "location" "color" "accent" "size" "8") }}
       </div>
       <div class="stat-title">Focus</div>
       <div class="stat-value text-accent text-2xl">Norway</div>
@@ -95,9 +88,7 @@
 
   {{/* Legend */}}
   <div class="alert shadow-lg">
-    <svg class="w-6 h-6 stroke-info" fill="none" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-    </svg>
+    {{ partial "content-icon.html" (dict "name" "info" "color" "info" "size" "6") }}
     <div>
       <h3 class="font-bold">About these events</h3>
       <p class="text-sm">Curated by SovereignSky for digital sovereignty, cybersecurity, and national preparedness. Not affiliated with organizers unless noted.</p>

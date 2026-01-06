@@ -15,7 +15,38 @@
   </header>
 
   <section class="flex flex-col max-w-full mt-0">
-    <div class="min-w-0 min-h-0 max-w-prose">
+    <div class="min-w-0 min-h-0 max-w-full">
+      {{/* Stats cards */}}
+      {{ $total := len (where site.RegularPages "Section" "laws") }}
+      <div class="not-prose my-6">
+        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+          <div class="stat">
+            <div class="stat-figure text-primary">
+              {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "8") }}
+            </div>
+            <div class="stat-title">Laws Documented</div>
+            <div class="stat-value text-primary">{{ $total }}</div>
+            <div class="stat-desc">Legal frameworks</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-error">
+              {{ partial "content-icon.html" (dict "name" "globe" "color" "error" "size" "8") }}
+            </div>
+            <div class="stat-title">Extraterritorial Reach</div>
+            <div class="stat-value text-error">12</div>
+            <div class="stat-desc">Cross-border scope</div>
+          </div>
+          <div class="stat">
+            <div class="stat-figure text-warning">
+              {{ partial "content-icon.html" (dict "name" "eye" "color" "warning" "size" "8") }}
+            </div>
+            <div class="stat-title">Government Access</div>
+            <div class="stat-value text-warning">8</div>
+            <div class="stat-desc">Data access powers</div>
+          </div>
+        </div>
+      </div>
+
       {{/* Laws search (client-side) */}}
       {{ $laws := site.Data.laws.laws | default (slice) }}
       {{ $items := slice }}
