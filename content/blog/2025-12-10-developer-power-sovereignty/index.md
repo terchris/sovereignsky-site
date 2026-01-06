@@ -5,7 +5,7 @@ showHero: true
 description: "Why your technical decisions matter for your country's independence - and what you can do about it"
 summary: "Why your technical decisions matter for your country's independence - and what you can do about it"
 tags: ["sovereignty", "developers", "vendor-lock-in", "open-standards"]
-audiences: ["developers"]
+audiences: ["developer"]
 categories: ["Opinion"]
 ---
 

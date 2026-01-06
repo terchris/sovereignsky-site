@@ -19,6 +19,8 @@ institutional_authority: true
 practitioner_developed: true
 
 # Audience relevance
+audiences:
+  - "humanitarian"
 relevant_for:
   - "ngo"
   - "security"
@@ -54,10 +56,6 @@ tags:
   - "humanitarian"
   - "hybrid-warfare"
   - "critical-infrastructure"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
 
 # Categories
 categories:

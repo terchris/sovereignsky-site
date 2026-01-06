@@ -100,15 +100,18 @@
   },
 
   "audience": {
-    "_description": "Target audience for content and events. Values match termCode in personas.json",
-    "values": ["developer", "technical", "enterprise", "government", "humanitarian", "defence"],
+    "_description": "Target audience for content and events. Values match audienceType in personas.json",
+    "values": ["all", "developer", "it-ops", "enterprise", "public-sector", "humanitarian", "security", "consumer"],
+    "filterValues": ["public-sector", "security", "enterprise", "it-ops"],
     "labels": {
+      "all": "Everyone",
       "developer": "Developers",
-      "technical": "IT & Operations",
+      "it-ops": "IT & Operations",
       "enterprise": "Enterprise",
-      "government": "Public Sector",
-      "humanitarian": "Humanitarian Organizations",
-      "defence": "Defence & Civil Protection"
+      "public-sector": "Public Sector",
+      "humanitarian": "Humanitarian",
+      "security": "Security & Defence",
+      "consumer": "Consumers"
     }
   },
 
@@ -119,15 +122,18 @@
 
   "topics": {
     "_description": "Specific topics for content and events",
-    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables"],
+    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables", "sovereignty", "nis2"],
+    "filterValues": ["cybersecurity", "preparedness", "critical-infrastructure", "sovereignty"],
     "labels": {
       "hybrid-warfare": "Hybrid Warfare",
       "cybersecurity": "Cybersecurity",
       "critical-infrastructure": "Critical Infrastructure",
       "sanctions": "Sanctions",
       "gps-jamming": "GPS Jamming",
-      "preparedness": "Preparedness & Total Defence",
-      "submarine-cables": "Submarine Cables"
+      "preparedness": "Preparedness",
+      "submarine-cables": "Submarine Cables",
+      "sovereignty": "Sovereignty",
+      "nis2": "NIS2"
     }
   },
 

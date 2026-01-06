@@ -21,6 +21,9 @@ open_access: true
 academic_publisher: true
 
 # Audience relevance
+audiences:
+  - "humanitarian"
+  - "public-sector"
 relevant_for:
   - "ngo"
   - "government"
@@ -61,11 +64,6 @@ tags:
   - "biometrics"
   - "encryption"
   - "gdpr"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
-  - "public-sector"
 
 type: publications
 ---

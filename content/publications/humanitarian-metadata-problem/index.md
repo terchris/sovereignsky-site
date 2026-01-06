@@ -19,6 +19,8 @@ institutional_authority: true
 builds_on: "Privacy International's 2013 'Aiding Surveillance' report"
 
 # Audience relevance
+audiences:
+  - "humanitarian"
 relevant_for:
   - "ngo"
   - "government"
@@ -56,10 +58,6 @@ tags:
   - "humanitarian"
   - "surveillance"
   - "government-access"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
 
 # Categories
 categories:

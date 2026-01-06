@@ -20,6 +20,8 @@ peer_reviewed: false
 open_access: true
 
 # Audience relevance
+audiences:
+  - "humanitarian"
 relevant_for:
   - "ngo"
   - "government"
@@ -55,10 +57,6 @@ tags:
   - "humanitarian"
   - "hybrid-warfare"
   - "privacy"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
 
 type: publications
 ---

@@ -1,0 +1,593 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "sources.schema.json",
+    "title": "Data Sources Registry",
+    "description": "Registry of data sources with trust levels, scheduling, operations, and runtime statistics",
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "string",
+            "const": "https://schema.org"
+        },
+        "@type": {
+            "type": "string",
+            "const": "ItemList"
+        },
+        "name": {
+            "type": "string",
+            "description": "Name of this sources registry"
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of this sources registry"
+        },
+        "numberOfItems": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of sources in this registry"
+        },
+        "itemListElement": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/Source"
+            }
+        }
+    },
+    "required": [
+        "@context",
+        "@type",
+        "name",
+        "itemListElement"
+    ],
+    "$defs": {
+        "Source": {
+            "type": "object",
+            "description": "A data source with configuration, scheduling, and runtime statistics",
+            "properties": {
+                "@type": {
+                    "type": "string",
+                    "const": "DataCatalog"
+                },
+                "identifier": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9-]+$",
+                    "description": "Unique source identifier (kebab-case)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Display name of the source"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "What this source provides"
+                },
+                "url": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "uri",
+                    "description": "Source website URL (null for internal sources)"
+                },
+                "image": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Logo or image URL for this source"
+                },
+                "purpose": {
+                    "type": "string",
+                    "enum": [
+                        "catalog",
+                        "enrichment",
+                        "validation"
+                    ],
+                    "description": "Role this source plays: catalog (provides items), enrichment (adds data), validation (verifies)"
+                },
+                "domains": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "software-catalog",
+                            "alternatives-mapping",
+                            "cloud-comparison",
+                            "package-registry",
+                            "curated-list",
+                            "legislation",
+                            "research",
+                            "standards",
+                            "news",
+                            "events",
+                            "organizations",
+                            "knowledge-base"
+                        ]
+                    },
+                    "description": "Content domains this source provides (can be multiple)"
+                },
+                "audience": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Target audience personas for this source"
+                },
+                "creativeWorkStatus": {
+                    "type": "string",
+                    "enum": [
+                        "implemented",
+                        "planned",
+                        "blocked",
+                        "deprecated"
+                    ],
+                    "description": "Implementation status of this source's scraper"
+                },
+                "lastFetchedAt": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time",
+                    "description": "When this source was last scraped (null if never)"
+                },
+                "dateModified": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "When this source entry was last updated"
+                },
+                "license": {
+                    "type": "string",
+                    "description": "Data license (SPDX identifier, 'verify', 'api-terms', or 'varies')"
+                },
+                "schedule": {
+                    "$ref": "#/$defs/Schedule"
+                },
+                "publisher": {
+                    "$ref": "#/$defs/Publisher"
+                },
+                "trustInfo": {
+                    "$ref": "#/$defs/TrustInfo"
+                },
+                "technicalInfo": {
+                    "$ref": "#/$defs/TechnicalInfo"
+                },
+                "operations": {
+                    "$ref": "#/$defs/Operations"
+                },
+                "domainInfo": {
+                    "$ref": "#/$defs/DomainInfo"
+                }
+            },
+            "required": [
+                "@type",
+                "identifier",
+                "name",
+                "purpose",
+                "domains",
+                "creativeWorkStatus",
+                "dateModified",
+                "publisher",
+                "trustInfo",
+                "technicalInfo"
+            ]
+        },
+        "Schedule": {
+            "type": "object",
+            "description": "Scheduling information for this source",
+            "properties": {
+                "frequency": {
+                    "type": "string",
+                    "enum": [
+                        "hourly",
+                        "daily",
+                        "weekly",
+                        "monthly",
+                        "manual"
+                    ],
+                    "description": "How often this source should be scraped"
+                },
+                "lastRunAt": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time",
+                    "description": "When the last scrape run started (null if never)"
+                },
+                "nextRunAt": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "format": "date-time",
+                    "description": "When the next scrape is scheduled (null if not scheduled)"
+                }
+            },
+            "required": [
+                "frequency"
+            ]
+        },
+        "Publisher": {
+            "type": "object",
+            "description": "Organization that publishes this source",
+            "properties": {
+                "@type": {
+                    "type": "string",
+                    "enum": [
+                        "GovernmentOrganization",
+                        "NGO",
+                        "Corporation",
+                        "Organization",
+                        "Project",
+                        "Service"
+                    ],
+                    "description": "Type of publisher organization (schema.org types)"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Publisher name"
+                },
+                "legalName": {
+                    "type": "string",
+                    "description": "Official registered name"
+                },
+                "addressCountry": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "pattern": "^([A-Z]{2}|XX|EU)$",
+                    "description": "ISO 3166-1 alpha-2 country code, XX for unknown, EU for European Union, null for internal"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "Publisher website"
+                },
+                "parentOrganization": {
+                    "type": "string",
+                    "description": "Parent organization name if applicable"
+                }
+            },
+            "required": [
+                "@type",
+                "name"
+            ]
+        },
+        "TrustInfo": {
+            "type": "object",
+            "description": "Trust and jurisdiction information",
+            "properties": {
+                "trustLevel": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "description": "Trust level: 5=government-vetted, 4=foundation-backed, 3=expert-curated/primary-source, 2=community-curated/automated, 1=aggregator"
+                },
+                "trustLabel": {
+                    "type": "string",
+                    "enum": [
+                        "government-vetted",
+                        "foundation-backed",
+                        "expert-curated",
+                        "primary-source",
+                        "community-curated",
+                        "automated",
+                        "aggregator"
+                    ],
+                    "description": "Human-readable trust category"
+                },
+                "jurisdiction": {
+                    "type": "string",
+                    "description": "Geographic jurisdiction (ISO country code, 'EU', or 'global')"
+                }
+            },
+            "required": [
+                "trustLevel",
+                "trustLabel"
+            ]
+        },
+        "TechnicalInfo": {
+            "type": "object",
+            "description": "Technical details for scraping this source",
+            "properties": {
+                "encodingFormat": {
+                    "type": "string",
+                    "description": "MIME type of the data format (e.g., text/html, application/json)"
+                },
+                "dataAccess": {
+                    "type": "string",
+                    "enum": [
+                        "web-scraping",
+                        "api",
+                        "file-download",
+                        "manual"
+                    ],
+                    "description": "How data is accessed from this source"
+                },
+                "descriptionUsable": {
+                    "type": "boolean",
+                    "description": "Can we use descriptions from this source (based on license)?"
+                },
+                "folder": {
+                    "type": "string",
+                    "description": "Scraper folder name under src/scrapers/"
+                },
+                "filterStrategy": {
+                    "type": "string",
+                    "description": "How to filter noisy sources"
+                }
+            },
+            "required": [
+                "encodingFormat",
+                "dataAccess",
+                "folder"
+            ]
+        },
+        "Operations": {
+            "type": "object",
+            "description": "Per-operation statistics from the last pipeline run",
+            "additionalProperties": {
+                "$ref": "#/$defs/Operation"
+            }
+        },
+        "Operation": {
+            "type": "object",
+            "description": "Statistics for a single pipeline operation",
+            "properties": {
+                "actionStatus": {
+                    "type": "string",
+                    "enum": [
+                        "success",
+                        "failed",
+                        "pending",
+                        "skipped"
+                    ],
+                    "description": "Status of this operation"
+                },
+                "error": {
+                    "type": "string",
+                    "description": "Error message if actionStatus is 'failed' or 'skipped'"
+                },
+                "lastSuccessAt": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "When this operation last succeeded (useful when current run failed)"
+                },
+                "duration": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Duration in milliseconds"
+                },
+                "result": {
+                    "type": "string",
+                    "description": "Output file name from this operation"
+                },
+                "consumes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "What this operation consumes (e.g., '*.products', 'products missing description')"
+                },
+                "consumedBy": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "What operations consume this operation's output (e.g., 'wikidata.enrich')"
+                },
+                "pagesFound": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of pages found (scrape operation)"
+                },
+                "productsExtracted": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of products extracted (parse operation)"
+                },
+                "productsValid": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of valid products (normalize operation)"
+                },
+                "productsSkipped": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of skipped products (normalize operation)"
+                },
+                "categoriesTotal": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Total categories from source (mapCategories operation)"
+                },
+                "categoriesMapped": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Categories successfully mapped (mapCategories operation)"
+                },
+                "categoriesUnmapped": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Categories needing mapping (mapCategories operation)"
+                },
+                "relationshipsFound": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Alternative relationships found (extractAlternatives operation)"
+                },
+                "extracted": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Referenced products extracted (referencedProducts operation)"
+                },
+                "created": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "New products created (referencedProducts operation)"
+                },
+                "alreadyExisted": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Products that already existed (referencedProducts operation)"
+                },
+                "productsNew": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "New products added (merge operation)"
+                },
+                "productsMerged": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Products merged with existing (merge operation)"
+                },
+                "queriesExecuted": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of queries executed (query/search operations)"
+                },
+                "productsEnriched": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Products enriched (enrich operation)"
+                },
+                "vendorsEnriched": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Vendors enriched (enrich operation)"
+                },
+                "fieldsAdded": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Fields added by this operation"
+                }
+            },
+            "required": [
+                "actionStatus"
+            ]
+        },
+        "DomainInfo": {
+            "type": "object",
+            "description": "Domain-specific statistics, keyed by domain name",
+            "properties": {
+                "software-catalog": {
+                    "$ref": "#/$defs/SoftwareCatalogDomainInfo"
+                },
+                "alternatives-mapping": {
+                    "$ref": "#/$defs/AlternativesMappingDomainInfo"
+                },
+                "knowledge-base": {
+                    "$ref": "#/$defs/KnowledgeBaseDomainInfo"
+                },
+                "cloud-comparison": {
+                    "$ref": "#/$defs/CloudComparisonDomainInfo"
+                }
+            },
+            "additionalProperties": {
+                "type": "object",
+                "description": "Other domain-specific info"
+            }
+        },
+        "SoftwareCatalogDomainInfo": {
+            "type": "object",
+            "description": "Statistics for software-catalog domain",
+            "properties": {
+                "productCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Total number of products from this source"
+                },
+                "productsWithRepository": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Products with GitHub/GitLab repository links"
+                },
+                "productsWithDescription": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Products with usable descriptions"
+                },
+                "avgStars": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Average GitHub stars across products"
+                },
+                "platforms": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "description": "Product counts by platform (web, linux, macos, windows, etc.)"
+                },
+                "licenses": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "description": "Product counts by license (MIT, Apache-2.0, GPL-3.0, etc.)"
+                }
+            }
+        },
+        "AlternativesMappingDomainInfo": {
+            "type": "object",
+            "description": "Statistics for alternatives-mapping domain",
+            "properties": {
+                "targetProducts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of products that alternatives aim to replace"
+                },
+                "totalSolutions": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Total number of alternative solutions provided"
+                },
+                "avgSolutionsPerTarget": {
+                    "type": "number",
+                    "minimum": 0,
+                    "description": "Average alternatives per target product"
+                },
+                "topTargetProducts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Most frequently targeted products (e.g., slack, notion, figma)"
+                }
+            }
+        },
+        "KnowledgeBaseDomainInfo": {
+            "type": "object",
+            "description": "Statistics for knowledge-base domain (enrichment sources)",
+            "properties": {
+                "fieldsAdded": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Fields this source can add to products"
+                }
+            }
+        },
+        "CloudComparisonDomainInfo": {
+            "type": "object",
+            "description": "Statistics for cloud-comparison domain",
+            "properties": {
+                "providersCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of cloud providers covered"
+                },
+                "servicesCount": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Number of cloud services mapped"
+                }
+            }
+        }
+    }
+}

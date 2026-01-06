@@ -76,7 +76,7 @@
   {{- $endDate := .endDate -}}
   <article class="event-card card card-side bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-300{{ if .featured }} border-primary border-2{{ end }}" id="{{ .id }}" data-tags="{{ delimit .tags " " }}" data-audience="{{ delimit .audience " " }}" data-relevance="{{ .itRelevance }}">
     {{/* Date badge */}}
-    <div class="flex items-center justify-center bg-primary text-primary-content p-4 min-w-[80px] rounded-l-box">
+    <div class="flex items-center justify-center bg-primary text-primary-content p-4 min-w-[80px] rounded-l-box mr-2">
       <time datetime="{{ .startDate }}" class="text-center">
         {{- if $endDate -}}
           {{- $end := time $endDate -}}
@@ -89,14 +89,10 @@
       </time>
     </div>
 
-    <div class="card-body p-4 gap-2">
+    <div class="card-body py-4 pl-8 pr-4 gap-2">
       {{/* Title */}}
       <h3 class="card-title text-lg">
-        {{- if .url -}}
-        <a href="{{ .url }}" rel="noopener" target="_blank" class="link link-hover hover:text-primary">{{ .name }}</a>
-        {{- else -}}
-        {{ .name }}
-        {{- end -}}
+        <a href="/events/{{ .id }}/" class="link link-hover hover:text-primary">{{ .name }}</a>
       </h3>
 
       {{/* Description */}}

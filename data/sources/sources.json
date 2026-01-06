@@ -1,0 +1,461 @@
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Software Data Sources",
+    "description": "Registry of data sources with trust levels and publisher information for the software catalog",
+    "numberOfItems": 5,
+    "itemListElement": [
+        {
+            "@type": "DataCatalog",
+            "identifier": "euro-stack",
+            "name": "Euro Stack",
+            "description": "European-made and European-supported digital solutions directory with 1,100+ solutions",
+            "url": "https://euro-stack.com",
+            "image": "https://euro-stack.com/assets/images/logo-dark.png",
+            "purpose": "catalog",
+            "domains": [
+                "software-catalog",
+                "alternatives-mapping"
+            ],
+            "audience": [
+                "business",
+                "sovereignty",
+                "enterprise"
+            ],
+            "creativeWorkStatus": "implemented",
+            "lastFetchedAt": "2026-01-05T21:47:20.104Z",
+            "dateModified": "2026-01-05",
+            "license": "verify",
+            "schedule": {
+                "frequency": "weekly",
+                "lastRunAt": "2026-01-05T21:47:20.104Z",
+                "nextRunAt": "2026-01-12T21:47:20.104Z"
+            },
+            "publisher": {
+                "@type": "Corporation",
+                "name": "Abilian SAS",
+                "addressCountry": "FR",
+                "url": "https://abilian.com",
+                "parentOrganization": "EuroStack Industry Initiative"
+            },
+            "trustInfo": {
+                "trustLevel": 3,
+                "trustLabel": "expert-curated",
+                "jurisdiction": "EU"
+            },
+            "technicalInfo": {
+                "encodingFormat": "text/html",
+                "dataAccess": "web-scraping",
+                "descriptionUsable": false,
+                "folder": "euro-stack"
+            },
+            "operations": {
+                "scrape": {
+                    "actionStatus": "success",
+                    "pagesFound": 1150,
+                    "duration": 12000
+                },
+                "parse": {
+                    "actionStatus": "success",
+                    "productsExtracted": 1103
+                },
+                "normalize": {
+                    "actionStatus": "success",
+                    "productsValid": 1100,
+                    "productsSkipped": 3,
+                    "result": "euro-stack.json"
+                },
+                "mapCategories": {
+                    "actionStatus": "success",
+                    "categoriesTotal": 45,
+                    "categoriesMapped": 40,
+                    "categoriesUnmapped": 5,
+                    "result": "euro-stack-categories.json"
+                },
+                "extractAlternatives": {
+                    "actionStatus": "success",
+                    "relationshipsFound": 320,
+                    "result": "euro-stack-alternatives.json"
+                },
+                "referencedProducts": {
+                    "actionStatus": "success",
+                    "extracted": 85,
+                    "created": 72,
+                    "alreadyExisted": 13,
+                    "consumedBy": [
+                        "wikidata.enrich"
+                    ]
+                },
+                "merge": {
+                    "actionStatus": "success",
+                    "productsNew": 0,
+                    "productsMerged": 1103,
+                    "consumedBy": [
+                        "wikidata.enrich"
+                    ]
+                }
+            },
+            "domainInfo": {
+                "software-catalog": {
+                    "productCount": 1103,
+                    "productsWithRepository": 890,
+                    "productsWithDescription": 1050,
+                    "platforms": {
+                        "web": 980,
+                        "linux": 720,
+                        "macos": 450,
+                        "windows": 380
+                    },
+                    "licenses": {
+                        "MIT": 280,
+                        "Apache-2.0": 195,
+                        "GPL-3.0": 150,
+                        "AGPL-3.0": 85
+                    }
+                },
+                "alternatives-mapping": {
+                    "targetProducts": 85,
+                    "totalSolutions": 320,
+                    "avgSolutionsPerTarget": 3.8
+                }
+            }
+        },
+        {
+            "@type": "DataCatalog",
+            "identifier": "wikidata",
+            "name": "Wikidata",
+            "description": "Free and open knowledge base providing structured data for enrichment",
+            "url": "https://www.wikidata.org",
+            "purpose": "enrichment",
+            "domains": [
+                "knowledge-base"
+            ],
+            "audience": [
+                "developer",
+                "technical"
+            ],
+            "creativeWorkStatus": "implemented",
+            "lastFetchedAt": "2026-01-05T21:51:00.000Z",
+            "dateModified": "2026-01-05",
+            "license": "CC0-1.0",
+            "schedule": {
+                "frequency": "daily",
+                "lastRunAt": "2026-01-05T21:51:00.000Z",
+                "nextRunAt": "2026-01-06T21:51:00.000Z"
+            },
+            "publisher": {
+                "@type": "NGO",
+                "name": "Wikimedia Foundation",
+                "addressCountry": "US",
+                "url": "https://wikimediafoundation.org"
+            },
+            "trustInfo": {
+                "trustLevel": 4,
+                "trustLabel": "foundation-backed",
+                "jurisdiction": "global"
+            },
+            "technicalInfo": {
+                "encodingFormat": "application/sparql-results+json",
+                "dataAccess": "api",
+                "descriptionUsable": true,
+                "folder": "wikidata"
+            },
+            "operations": {
+                "query": {
+                    "actionStatus": "success",
+                    "queriesExecuted": 12,
+                    "duration": 45000
+                },
+                "enrich": {
+                    "actionStatus": "success",
+                    "consumes": [
+                        "*.products",
+                        "*.referencedProducts"
+                    ],
+                    "consumedBy": [
+                        "web-search.enrich"
+                    ],
+                    "productsEnriched": 1850,
+                    "vendorsEnriched": 650,
+                    "fieldsAdded": [
+                        "addressCountry",
+                        "url",
+                        "description",
+                        "foundingDate"
+                    ]
+                }
+            },
+            "domainInfo": {
+                "knowledge-base": {
+                    "fieldsAdded": [
+                        "addressCountry",
+                        "url",
+                        "description",
+                        "foundingDate"
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "DataCatalog",
+            "identifier": "openalternative",
+            "name": "OpenAlternative",
+            "description": "Open source alternatives to proprietary software with GitHub stats",
+            "url": "https://openalternative.co",
+            "purpose": "catalog",
+            "domains": [
+                "software-catalog",
+                "alternatives-mapping"
+            ],
+            "audience": [
+                "developer",
+                "cost-conscious"
+            ],
+            "creativeWorkStatus": "implemented",
+            "lastFetchedAt": "2026-01-05T21:50:56.644Z",
+            "dateModified": "2026-01-05",
+            "license": "verify",
+            "schedule": {
+                "frequency": "weekly",
+                "lastRunAt": "2026-01-05T21:50:56.644Z",
+                "nextRunAt": "2026-01-12T21:50:56.644Z"
+            },
+            "publisher": {
+                "@type": "Project",
+                "name": "OpenAlternative",
+                "addressCountry": "US",
+                "url": "https://openalternative.co"
+            },
+            "trustInfo": {
+                "trustLevel": 2,
+                "trustLabel": "community-curated",
+                "jurisdiction": "global"
+            },
+            "technicalInfo": {
+                "encodingFormat": "text/html",
+                "dataAccess": "web-scraping",
+                "descriptionUsable": false,
+                "folder": "openalternative"
+            },
+            "operations": {
+                "scrape": {
+                    "actionStatus": "success",
+                    "pagesFound": 700,
+                    "duration": 200000
+                },
+                "parse": {
+                    "actionStatus": "success",
+                    "productsExtracted": 649
+                },
+                "normalize": {
+                    "actionStatus": "success",
+                    "productsValid": 649,
+                    "productsSkipped": 0,
+                    "result": "openalternative.json"
+                },
+                "mapCategories": {
+                    "actionStatus": "success",
+                    "categoriesTotal": 89,
+                    "categoriesMapped": 45,
+                    "categoriesUnmapped": 44,
+                    "result": "openalternative-categories.json"
+                },
+                "extractAlternatives": {
+                    "actionStatus": "success",
+                    "relationshipsFound": 649,
+                    "result": "openalternative-alternatives.json"
+                },
+                "referencedProducts": {
+                    "actionStatus": "success",
+                    "extracted": 185,
+                    "created": 120,
+                    "alreadyExisted": 65,
+                    "consumedBy": [
+                        "wikidata.enrich"
+                    ]
+                },
+                "merge": {
+                    "actionStatus": "success",
+                    "productsNew": 465,
+                    "productsMerged": 184,
+                    "consumedBy": [
+                        "wikidata.enrich"
+                    ]
+                }
+            },
+            "domainInfo": {
+                "software-catalog": {
+                    "productCount": 649,
+                    "productsWithRepository": 620,
+                    "productsWithDescription": 649,
+                    "avgStars": 2847,
+                    "platforms": {
+                        "web": 580,
+                        "linux": 420,
+                        "macos": 390,
+                        "windows": 350
+                    },
+                    "licenses": {
+                        "MIT": 180,
+                        "GPL-3.0": 120,
+                        "Apache-2.0": 95,
+                        "AGPL-3.0": 45
+                    }
+                },
+                "alternatives-mapping": {
+                    "targetProducts": 185,
+                    "totalSolutions": 649,
+                    "avgSolutionsPerTarget": 3.5,
+                    "topTargetProducts": [
+                        "slack",
+                        "notion",
+                        "figma",
+                        "jira",
+                        "airtable"
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "DataCatalog",
+            "identifier": "web-search",
+            "name": "Web Search",
+            "description": "Search engine lookups to fill missing product descriptions and URLs",
+            "url": null,
+            "purpose": "enrichment",
+            "domains": [
+                "knowledge-base"
+            ],
+            "audience": [
+                "developer",
+                "technical"
+            ],
+            "creativeWorkStatus": "implemented",
+            "lastFetchedAt": "2026-01-05T22:00:00.000Z",
+            "dateModified": "2026-01-05",
+            "license": "api-terms",
+            "schedule": {
+                "frequency": "daily",
+                "lastRunAt": "2026-01-05T22:00:00.000Z",
+                "nextRunAt": "2026-01-06T22:00:00.000Z"
+            },
+            "publisher": {
+                "@type": "Service",
+                "name": "Search API",
+                "addressCountry": "US"
+            },
+            "trustInfo": {
+                "trustLevel": 2,
+                "trustLabel": "automated",
+                "jurisdiction": "global"
+            },
+            "technicalInfo": {
+                "encodingFormat": "application/json",
+                "dataAccess": "api",
+                "descriptionUsable": true,
+                "folder": "web-search"
+            },
+            "operations": {
+                "search": {
+                    "actionStatus": "failed",
+                    "error": "API rate limit exceeded (429)",
+                    "lastSuccessAt": "2026-01-04T22:00:00.000Z",
+                    "queriesExecuted": 120,
+                    "duration": 15000
+                },
+                "enrich": {
+                    "actionStatus": "skipped",
+                    "error": "Skipped due to search failure",
+                    "consumes": [
+                        "products missing description"
+                    ],
+                    "consumedBy": [
+                        "homepage-meta.enrich"
+                    ],
+                    "productsEnriched": 0,
+                    "fieldsAdded": [
+                        "description",
+                        "url"
+                    ]
+                }
+            },
+            "domainInfo": {
+                "knowledge-base": {
+                    "fieldsAdded": [
+                        "description",
+                        "url"
+                    ]
+                }
+            }
+        },
+        {
+            "@type": "DataCatalog",
+            "identifier": "homepage-meta",
+            "name": "Homepage Meta",
+            "description": "Extracts metadata from product homepages (logo, tagline, features)",
+            "url": null,
+            "purpose": "enrichment",
+            "domains": [
+                "knowledge-base"
+            ],
+            "audience": [
+                "developer",
+                "technical"
+            ],
+            "creativeWorkStatus": "planned",
+            "lastFetchedAt": null,
+            "dateModified": "2026-01-05",
+            "license": "varies",
+            "schedule": {
+                "frequency": "weekly",
+                "lastRunAt": null,
+                "nextRunAt": null
+            },
+            "publisher": {
+                "@type": "Service",
+                "name": "Internal Scraper",
+                "addressCountry": null
+            },
+            "trustInfo": {
+                "trustLevel": 3,
+                "trustLabel": "primary-source",
+                "jurisdiction": "global"
+            },
+            "technicalInfo": {
+                "encodingFormat": "text/html",
+                "dataAccess": "web-scraping",
+                "descriptionUsable": true,
+                "folder": "homepage-meta"
+            },
+            "operations": {
+                "fetch": {
+                    "actionStatus": "pending",
+                    "pagesFound": 0,
+                    "duration": 0
+                },
+                "enrich": {
+                    "actionStatus": "pending",
+                    "consumes": [
+                        "products with url"
+                    ],
+                    "consumedBy": [],
+                    "productsEnriched": 0,
+                    "fieldsAdded": [
+                        "logo",
+                        "tagline",
+                        "features"
+                    ]
+                }
+            },
+            "domainInfo": {
+                "knowledge-base": {
+                    "fieldsAdded": [
+                        "logo",
+                        "tagline",
+                        "features"
+                    ]
+                }
+            }
+        }
+    ]
+}

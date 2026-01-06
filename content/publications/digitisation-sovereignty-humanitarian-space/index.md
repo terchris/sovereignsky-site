@@ -39,6 +39,8 @@ academic_publisher: true
 funding: "European Research Council (grant no. 757247)"
 
 # Audience relevance
+audiences:
+  - "humanitarian"
 relevant_for:
   - "ngo"
   - "government"
@@ -77,10 +79,6 @@ tags:
   - "vendor-lock-in"
   - "cybersecurity"
   - "privacy"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
 
 # Categories
 categories:

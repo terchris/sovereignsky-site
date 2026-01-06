@@ -5,7 +5,7 @@ showHero: true
 description: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
 summary: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
 tags: ["vendor-lock-in", "exit-strategy", "multi-cloud", "open-standards", "developers"]
-audiences: ["developers", "enterprise"]
+audiences: ["developer", "enterprise"]
 categories: ["Technical"]
 ---
 

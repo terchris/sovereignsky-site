@@ -5,7 +5,7 @@ showHero: true
 description: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
 summary: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
 tags: ["sovereignty", "data-residency", "vendor-lock-in", "norway"]
-audiences: ["enterprise", "public-sector"]
+audiences: ["enterprise", "public-sector", "it-ops"]
 categories: ["Technical"]
 ---
 
