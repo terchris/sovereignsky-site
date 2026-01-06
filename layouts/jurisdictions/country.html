@@ -90,21 +90,16 @@
     {{ end }}
   {{ end }}
 
-  <article class="not-prose">
-    {{/* Hero Header */}}
-    <div class="bg-gradient-to-r from-primary to-secondary text-primary-content rounded-box p-8 mb-8">
-      <div class="flex items-center gap-4">
-        {{ if $countryFlag }}
-        <span class="text-6xl">{{ $countryFlag }}</span>
-        {{ end }}
-        <div>
-          <h1 class="text-4xl font-bold mb-2">{{ $countryName }}</h1>
-          {{ with $country.description }}
-          <p class="text-lg opacity-90 max-w-2xl">{{ . }}</p>
-          {{ end }}
-        </div>
-      </div>
-    </div>
+  <article class="max-w-full">
+    {{/* Detail Header with breadcrumbs */}}
+    {{ partial "detail-header.html" (dict
+        "title" $countryName
+        "description" ($country.description | default "")
+        "flag" $countryFlag
+        "breadcrumbs" (slice
+            (dict "title" "Jurisdictions" "url" "/jurisdictions/")
+        )
+    ) }}
 
     {{/* Stats Row */}}
     <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
