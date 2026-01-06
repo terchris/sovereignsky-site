@@ -1,6 +1,7 @@
 ---
 title: "Introducing the Norwegian Digital Sovereignty Index (NDSI)"
 date: 2025-12-16
+showHero: true
 description: "A free self-assessment tool to measure your organization's digital sovereignty readiness. Based on the EU Cloud Sovereignty Framework."
 summary: "How dependent is your organization on foreign cloud providers? Take the NDSI Quick Scan - 11 questions, 5 minutes, all data stays in your browser."
 tags: ["sovereignty", "eu", "public-sector"]

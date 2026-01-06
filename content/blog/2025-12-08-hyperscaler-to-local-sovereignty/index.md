@@ -1,6 +1,7 @@
 ---
 title: "From Hyperscaler to Local: Why Norwegian Organizations Are Rethinking Cloud Strategy"
 date: 2025-12-08
+showHero: true
 description: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
 summary: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
 tags: ["sovereignty", "data-residency", "vendor-lock-in", "norway"]

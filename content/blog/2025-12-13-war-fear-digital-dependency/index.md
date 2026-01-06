@@ -1,6 +1,7 @@
 ---
 title: "When Security Guarantees Crumble: What Norwegians' War Fear Reveals About Digital Dependency"
 date: 2025-12-13
+showHero: true
 description: "Norwegian trust in NATO collapsed from 80% to 47% in three months. If we can't rely on American security guarantees, can we rely on American digital infrastructure?"
 summary: "Norwegian trust in NATO collapsed from 80% to 47% in three months. If we can't rely on American security guarantees, can we rely on American digital infrastructure?"
 tags: ["sovereignty", "preparedness", "cybersecurity", "norway"]

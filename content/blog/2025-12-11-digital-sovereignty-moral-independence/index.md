@@ -1,6 +1,7 @@
 ---
 title: "When Your Values Become a Liability: Digital Sovereignty and Moral Independence"
 date: 2025-12-11
+showHero: true
 description: "The ICC sanctions show how US digital dominance can be weaponized against organizations that stand for justice. Who's next?"
 summary: "The ICC sanctions show how US digital dominance can be weaponized against organizations that stand for justice. Who's next?"
 tags: ["sovereignty", "sanctions", "humanitarian", "government-access", "cloud-act"]

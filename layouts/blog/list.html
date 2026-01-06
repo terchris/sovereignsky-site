@@ -12,28 +12,83 @@
     {{ .Content }}
   </section>
 
-  {{/* Blog post listing */}}
+  {{/* Blog post cards */}}
   {{ if gt .Pages 0 }}
-  <section class="grid gap-6 mt-8">
+  <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">
     {{ range .Pages.ByDate.Reverse }}
-    <article class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow">
-      <div class="card-body p-5">
-        <a href="{{ .RelPermalink }}" class="no-underline">
-          <h2 class="card-title text-xl hover:text-primary transition-colors">{{ .Title }}</h2>
-        </a>
-        {{ with .Description }}
-        <p class="text-neutral-600 dark:text-neutral-400 mt-2">{{ . }}</p>
-        {{ end }}
-        <div class="flex items-center gap-4 text-sm text-neutral-500 dark:text-neutral-500 mt-3">
-          {{ with .Date }}
-          <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>
+    {{/* Get featured image from page bundle */}}
+    {{ $featured := .Resources.GetMatch "featured*" }}
+
+    <a href="{{ .RelPermalink }}" class="card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200">
+      {{/* Cover image */}}
+      {{ if $featured }}
+      <figure class="h-48 overflow-hidden bg-base-200">
+        <img src="{{ $featured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+      </figure>
+      {{ else }}
+      {{/* Placeholder if no image */}}
+      <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+        <div class="text-primary/30">
+          {{ partial "content-icon.html" (dict "name" "pencil" "size" "16" "class" "w-16 h-16") }}
+        </div>
+      </figure>
+      {{ end }}
+
+      <div class="card-body p-4">
+        {{/* Category and reading time row */}}
+        <div class="flex items-center justify-between gap-2 mb-2">
+          {{/* Category badge */}}
+          {{ with .Params.categories }}
+          {{ $cat := index . 0 }}
+          {{ $catClass := "badge-ghost" }}
+          {{ if eq $cat "Analysis" }}
+            {{ $catClass = "badge-primary" }}
+          {{ else if eq $cat "News" }}
+            {{ $catClass = "badge-secondary" }}
+          {{ else if eq $cat "Guide" }}
+            {{ $catClass = "badge-info" }}
+          {{ else if eq $cat "Opinion" }}
+            {{ $catClass = "badge-accent" }}
           {{ end }}
+          <span class="badge badge-sm {{ $catClass }}">{{ $cat }}</span>
+          {{ end }}
+
+          {{/* Reading time */}}
           {{ with .ReadingTime }}
-          <span>{{ . }} min read</span>
+          <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ . }} min read</span>
           {{ end }}
         </div>
+
+        {{/* Title */}}
+        <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
+
+        {{/* Description */}}
+        {{ with .Description }}
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+        {{ end }}
+
+        {{/* Date and tags */}}
+        <div class="mt-auto pt-3 border-t border-base-200">
+          <div class="flex items-center justify-between gap-2">
+            {{/* Date */}}
+            {{ with .Date }}
+            <time datetime="{{ .Format "2006-01-02" }}" class="text-xs text-neutral-500 dark:text-neutral-500">
+              {{ .Format "Jan 2, 2006" }}
+            </time>
+            {{ end }}
+
+            {{/* Tags (show first 2) */}}
+            {{ with .Params.tags }}
+            <div class="flex items-center gap-1 overflow-hidden">
+              {{ range first 2 . }}
+              <span class="text-xs px-1.5 py-0.5 rounded bg-base-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 truncate max-w-[80px]">{{ . }}</span>
+              {{ end }}
+            </div>
+            {{ end }}
+          </div>
+        </div>
       </div>
-    </article>
+    </a>
     {{ end }}
   </section>
   {{ end }}

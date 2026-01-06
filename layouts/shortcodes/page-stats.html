@@ -263,4 +263,58 @@
     </div>
   </div>
 
+{{- else if eq $section "blog" -}}
+  {{- $posts := where .Site.RegularPages "Section" "blog" -}}
+  {{- $total := len $posts -}}
+  {{- /* Count categories */ -}}
+  {{- $categories := slice -}}
+  {{- $totalReadingTime := 0 -}}
+  {{- range $posts -}}
+    {{- $totalReadingTime = add $totalReadingTime .ReadingTime -}}
+    {{- range .Params.categories -}}
+      {{- if not (in $categories .) -}}
+        {{- $categories = $categories | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $catCount := len $categories -}}
+  {{- /* Count unique tags */ -}}
+  {{- $tags := slice -}}
+  {{- range $posts -}}
+    {{- range .Params.tags -}}
+      {{- if not (in $tags .) -}}
+        {{- $tags = $tags | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $tagCount := len $tags -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "pencil" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Articles</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Blog posts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "clock" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Reading Time</div>
+        <div class="stat-value text-secondary">{{ $totalReadingTime }}</div>
+        <div class="stat-desc">Minutes total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          {{ partial "content-icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
+        </div>
+        <div class="stat-title">Topics</div>
+        <div class="stat-value text-accent">{{ $tagCount }}</div>
+        <div class="stat-desc">Unique tags</div>
+      </div>
+    </div>
+  </div>
+
 {{- end -}}

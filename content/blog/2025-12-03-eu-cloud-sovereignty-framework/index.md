@@ -1,6 +1,7 @@
 ---
 title: "EU Launches €180 Million Sovereign Cloud Initiative"
 date: 2025-12-03
+showHero: true
 description: "The European Commission commits major funding to reduce dependence on US hyperscalers"
 summary: "The European Commission commits major funding to reduce dependence on US hyperscalers"
 tags: ["sovereignty", "eu", "public-sector"]
