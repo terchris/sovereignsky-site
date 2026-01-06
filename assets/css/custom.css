@@ -185,10 +185,14 @@ footer.pt-8 {
 }
 
 .badge {
-  display: inline-block;
-  padding: 0.1875rem 0.5rem;
-  font-size: 0.6875rem;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.25rem 0.625rem !important;
+  font-size: 0.75rem;
   font-weight: 500;
+  line-height: 1 !important;
+  height: auto !important;
   border-radius: 9999px;
   background: rgba(var(--color-neutral-100), 1);
   color: rgba(var(--color-neutral-700), 1);

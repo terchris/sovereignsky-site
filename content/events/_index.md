@@ -14,6 +14,4 @@ cascade:
   showAuthor: false
 ---
 
-{{< page-stats section="events" >}}
-
 {{< events >}}
