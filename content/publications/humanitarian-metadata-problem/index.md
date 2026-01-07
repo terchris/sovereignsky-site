@@ -2,74 +2,21 @@
 title: "The Humanitarian Metadata Problem: 'Doing No Harm' in the Digital Era"
 description: "Technical analysis of how metadata from telecommunications, messaging apps, cash transfers, and social media can endanger humanitarian beneficiaries and staff"
 date: 2020-11-01
-lastmod: 2020-11-01
-
-# Source metadata
-publication_type: "report"
+external_url: "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy"
 publisher: "ICRC / Privacy International"
-year: 2020
-institutions:
-  - "International Committee of the Red Cross (ICRC)"
-  - "Privacy International"
-
-# Credibility markers
-peer_reviewed: false
-open_access: true
-institutional_authority: true
-builds_on: "Privacy International's 2013 'Aiding Surveillance' report"
-
-# Audience relevance
-audiences:
-  - "humanitarian"
-relevant_for:
-  - "ngo"
-  - "government"
-  - "humanitarian"
-  - "technology"
-  - "privacy"
-
-# Topics covered
 topics:
   - "metadata"
   - "surveillance"
   - "telecommunications"
   - "messaging apps"
   - "mobile money"
-  - "cash transfers"
-  - "social media"
   - "data protection"
   - "privacy"
-
-# Key takeaways for sidebar
-takeaways:
-  - "Metadata reveals behaviour patterns even when content is encrypted"
-  - "Mobile phones 'ping' cell towers even when turned off — enabling tracking"
-  - "SMS transaction confirmations expose mobile money details to interception"
-  - "Cash transfer data can be used to financially profile recipients"
-  - "Social media 'shadow profiles' exist even for people without accounts"
-  - "Humanitarian metadata has no special legal protection in most jurisdictions"
-
-# External link
-external_url: "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy"
-
-# Tags for cross-site linking
-tags:
-  - "privacy"
+personas:
   - "humanitarian"
-  - "surveillance"
-  - "government-access"
-
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "report"
-institutions_list:
-  - "icrc"
-  - "privacy-international"
-
+  - "public-sector"
+  - "it-ops"
+  - "consumer"
 type: publications
 ---
 

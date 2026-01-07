@@ -294,7 +294,7 @@
 
         {{/* Related Blog Posts */}}
         {{ if gt (len $relatedPosts) 0 }}
-        <h2 id="blog">Related Articles</h2>
+        <h2 id="blog">{{ $personaName }} Related Articles</h2>
         <div class="not-prose">
           <div class="grid gap-4 sm:grid-cols-2">
             {{ range $relatedPosts }}
@@ -320,7 +320,7 @@
 
         {{/* Suggested Laws */}}
         {{ if gt (len $suggestedLaws) 0 }}
-        <h2 id="laws">Relevant Laws</h2>
+        <h2 id="laws">{{ $personaName }} Relevant Laws</h2>
         <div class="not-prose">
           <div class="grid gap-3 sm:grid-cols-2">
             {{ range $suggestedLaws }}
@@ -353,27 +353,16 @@
         </div>
         {{ end }}
 
-        {{/* Upcoming Events */}}
-        {{ if $isAudience }}
-        <h2 id="events">Upcoming Events</h2>
-        <div class="not-prose">
-          {{ partial "event-list.html" (dict "audience" $term "limit" 6 "compact" false) }}
-          <div class="mt-4">
-            <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events for {{ $personaName }}</a>
-          </div>
-        </div>
-        {{ end }}
-
         {{/* Related Publications */}}
         {{ if gt (len $relatedPubs) 0 }}
-        <h2 id="publications">Related Publications</h2>
+        <h2 id="publications">{{ $personaName }} Related Publications</h2>
         <div class="not-prose">
           <div class="grid gap-3">
             {{ range $relatedPubs }}
               {{ $pubFeatured := .Resources.GetMatch "featured*" }}
               <a href="{{ .RelPermalink }}" class="flex items-center gap-4 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
                 {{ if $pubFeatured }}
-                <img src="{{ $pubFeatured.RelPermalink }}" alt="{{ .Title }}" class="w-16 h-16 object-cover rounded" />
+                <img src="{{ $pubFeatured.RelPermalink }}" alt="{{ .Title }}" class="w-24 h-auto max-h-24 object-contain rounded" />
                 {{ else }}
                 <div class="w-16 h-16 bg-base-200 rounded flex items-center justify-center">
                   {{ partial "content-icon.html" (dict "name" "book" "size" "6" "class" "text-base-content/30") }}
@@ -388,6 +377,17 @@
           </div>
           <div class="mt-4">
             <a href="/publications/" class="btn btn-sm btn-outline">View all publications</a>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Upcoming Events */}}
+        {{ if $isAudience }}
+        <h2 id="events">{{ $personaName }} Upcoming Events</h2>
+        <div class="not-prose">
+          {{ partial "event-list.html" (dict "audience" $term "limit" 6 "compact" false) }}
+          <div class="mt-4">
+            <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events for {{ $personaName }}</a>
           </div>
         </div>
         {{ end }}

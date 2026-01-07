@@ -1,72 +1,20 @@
 ---
 title: "Humanitarian Security in an Age of Uncertainty: The Intersection of Digital and Physical Risks"
-description: "Practitioner guidance on integrating digital threats into security risk management, covering geopolitical shifts, disinformation, supply chain attacks, and the security triangle in digital contexts"
+description: "Practitioner guidance on integrating digital threats into security risk management"
 date: 2024-01-01
-lastmod: 2024-01-01
-
-# Source metadata
-publication_type: "guidance"
+external_url: "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf"
 publisher: "Global Interagency Security Forum (GISF)"
-year: 2024
-institutions:
-  - "Global Interagency Security Forum (GISF)"
-funding: "USAID (Award No. 720FDA20GR00341)"
-
-# Credibility markers
-peer_reviewed: false
-open_access: true
-institutional_authority: true
-practitioner_developed: true
-
-# Audience relevance
-audiences:
-  - "humanitarian"
-relevant_for:
-  - "ngo"
-  - "security"
-  - "humanitarian"
-  - "risk management"
-
-# Topics covered
 topics:
   - "security risk management"
   - "cybersecurity"
   - "disinformation"
   - "supply chain"
-  - "phishing"
   - "hybrid warfare"
   - "geopolitics"
-  - "digital literacy"
-
-# Key takeaways for sidebar
-takeaways:
-  - "GPS jamming and cyber attacks are now routine in conflict zones"
-  - "Disinformation is among the greatest threats to staff physical security"
-  - "Digital attacks have no geographic or temporal limitations"
-  - "NGOs are viewed as 'easy targets' by threat actors"
-  - "Humanitarian orgs share digital infrastructure with military/government targets"
-  - "The security triangle (acceptance, protection, deterrence) needs digital adaptation"
-
-# External link
-external_url: "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf"
-
-# Tags for cross-site linking
-tags:
-  - "cybersecurity"
+personas:
   - "humanitarian"
-  - "hybrid-warfare"
-  - "critical-infrastructure"
-
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "guidance"
-institutions_list:
-  - "gisf"
-
+  - "security"
+  - "it-ops"
 type: publications
 ---
 

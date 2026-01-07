@@ -58,14 +58,18 @@ C=$(docker ps -q | xargs -I {} docker inspect {} --format '{{.Name}} {{range .Mo
 
 ## When to Restart Hugo
 
-Hugo's live reload handles most changes automatically, but you need to restart for:
+**IMPORTANT:** You must restart Hugo after most code changes. Hugo's live reload is unreliable for:
 
-- New layout files (e.g., `layouts/blog/list.html`)
-- Changes to partials structure
-- New shortcodes
-- Config file changes (`config.toml`, `params.toml`)
+- **Template/layout changes** (any file in `layouts/`)
+- **Partial changes** (`layouts/partials/`)
+- **Shortcode changes** (`layouts/shortcodes/`)
+- **CSS changes** (`assets/css/`) - CSS is bundled and fingerprinted
+- **Config file changes** (`config.toml`, `params.toml`)
+- **Data file changes** (`data/`)
 
-Content file changes (`.md` files) typically don't require a restart.
+Only content file changes (`.md` files) reliably auto-reload without restart.
+
+**When in doubt, restart Hugo.** It only takes a few seconds and prevents debugging phantom issues from stale caches.
 
 ## Local URLs
 

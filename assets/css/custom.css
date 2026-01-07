@@ -1,5 +1,10 @@
 /* Custom styles for SovereignSky */
 
+/* Missing Tailwind utilities not in Blowfish compiled CSS */
+.w-16 { width: 4rem; }
+.h-16 { height: 4rem; }
+.max-h-24 { max-height: 6rem; }
+
 /* Footer separation - using more specific selectors */
 footer,
 .footer,

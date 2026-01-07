@@ -2,17 +2,8 @@
 title: "Digitisation and Sovereignty in Humanitarian Space"
 description: "Academic analysis of how digitalisation and reliance on global platforms reshape power relations, authority, and sovereignty in humanitarian operations"
 date: 2022-03-20
-lastmod: 2023-05-01
-
-# Source metadata
-publication_type: "article"
+external_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10153061/"
 publisher: "Taylor & Francis"
-journal: "Geopolitics"
-volume: "28"
-issue: "3"
-pages: "1362-1397"
-year: 2022
-doi: "10.1080/14650045.2022.2047468"
 authors:
   - "Aaron Martin"
   - "Gargi Sharma"
@@ -24,30 +15,6 @@ authors:
   - "Margie Cheesman"
   - "Stephan Scheel"
   - "Huub Dijstelbloem"
-institutions:
-  - "Tilburg Institute for Law, Technology, and Society (TILT), Tilburg University"
-  - "Centre for International Governance Innovation"
-  - "International Committee of the Red Cross (ICRC)"
-  - "Oxford Internet Institute, University of Oxford"
-  - "University of Duisburg-Essen"
-  - "Institute for Advanced Study, University of Amsterdam"
-
-# Credibility markers
-peer_reviewed: true
-open_access: true
-academic_publisher: true
-funding: "European Research Council (grant no. 757247)"
-
-# Audience relevance
-audiences:
-  - "humanitarian"
-relevant_for:
-  - "ngo"
-  - "government"
-  - "humanitarian"
-  - "technology policy"
-
-# Topics covered
 topics:
   - "digital sovereignty"
   - "cloud sovereignty"
@@ -56,43 +23,10 @@ topics:
   - "biometrics"
   - "data protection"
   - "platform dependency"
-  - "Palantir"
-  - "function creep"
-
-# Key takeaways for sidebar
-takeaways:
-  - "Digital technologies can be 'dual use' — tools of care and tools of surveillance"
-  - "WFP-Palantir partnership raised concerns about US security ties in humanitarian work"
-  - "Biometric systems refused by Houthis in Yemen on sovereignty grounds"
-  - "Humanitarian orgs risk becoming 'collateral damage' in great power cyber conflicts"
-  - "Blockchain promises of sovereignty often fall short in practice"
-  - "Data used for aid registration can be repurposed for deportation"
-
-# External link
-external_url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10153061/"
-
-# Tags for cross-site linking
-tags:
-  - "sovereignty"
+personas:
   - "humanitarian"
-  - "biometrics"
-  - "vendor-lock-in"
-  - "cybersecurity"
-  - "privacy"
-
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "article"
-institutions_list:
-  - "tilburg-university"
-  - "icrc"
-  - "oxford-internet-institute"
-  - "cigi"
-
+  - "public-sector"
+  - "enterprise"
 type: publications
 ---
 

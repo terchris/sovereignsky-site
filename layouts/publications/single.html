@@ -197,26 +197,32 @@
         </div>
         {{ end }}
 
-        {{/* Relevant For Card */}}
-        {{ with .Params.relevant_for }}
+        {{/* Relevant For Card - uses personas from data */}}
+        {{ with .Params.personas }}
+        {{ $personasList := site.Data.personas.personas.itemListElement | default (slice) }}
         <div class="card bg-base-100 shadow-sm border border-base-300">
           <div class="card-body p-4">
             <h3 class="card-title text-sm font-semibold flex items-center gap-2">
               {{ partial "content-icon.html" (dict "name" "users" "color" "info" "size" "4") }}
               Relevant For
             </h3>
-            <ul class="mt-2 space-y-0.5">
+            <ul class="mt-2 space-y-1">
               {{ range . }}
-              {{ $label := . }}
-              {{ if eq . "ngo" }}{{ $label = "NGOs" }}
-              {{ else if eq . "government" }}{{ $label = "Government" }}
-              {{ else if eq . "humanitarian" }}{{ $label = "Humanitarian Orgs" }}
-              {{ else if eq . "healthcare" }}{{ $label = "Healthcare" }}
-              {{ else if eq . "defense" }}{{ $label = "Defense" }}
-              {{ else if eq . "emergency-management" }}{{ $label = "Emergency Management" }}
-              {{ else if eq . "critical-infrastructure" }}{{ $label = "Critical Infrastructure" }}
+              {{ $audienceType := . }}
+              {{ $persona := dict }}
+              {{ range $personasList }}
+                {{ if eq .audienceType $audienceType }}
+                  {{ $persona = . }}
+                {{ end }}
               {{ end }}
-              <li><span class="text-sm">{{ $label }}</span></li>
+              {{ $name := $persona.name | default ($audienceType | humanize | title) }}
+              {{ $icon := $persona.icon | default "user" }}
+              <li>
+                <a href="/personas/{{ $audienceType }}/" class="flex items-center gap-2 text-sm hover:text-primary">
+                  {{ partial "content-icon.html" (dict "name" $icon "size" "4") }}
+                  {{ $name }}
+                </a>
+              </li>
               {{ end }}
             </ul>
           </div>
