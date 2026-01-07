@@ -1,0 +1,188 @@
+{{ define "main" }}
+{{ .Scratch.Set "scope" "single" }}
+
+{{/* Get event data from frontmatter */}}
+{{ $title := .Title }}
+{{ $titleOriginal := .Params.titleOriginal | default "" }}
+{{ $description := .Params.description | default "" }}
+{{ $date := .Params.date | default "" }}
+{{ $endDate := .Params.endDate | default "" }}
+{{ $status := .Params.status | default "scheduled" }}
+{{ $attendanceMode := .Params.attendanceMode | default "offline" }}
+
+{{ $locationName := .Params.locationName | default "" }}
+{{ $locationCity := .Params.locationCity | default "" }}
+{{ $locationCountry := .Params.locationCountry | default "" }}
+
+{{ $organizerName := .Params.organizerName | default "" }}
+{{ $organizerUrl := .Params.organizerUrl | default "" }}
+
+{{ $externalUrl := .Params.externalUrl | default "" }}
+{{ $itRelevance := .Params.itRelevance | default "" }}
+{{ $featured := .Params.featured | default false }}
+
+{{ $tags := .Params.tags | default (slice) }}
+{{ $audiences := .Params.audiences | default (slice) }}
+
+{{ $vocab := site.Data.tag_vocabulary }}
+
+<article class="max-w-4xl mx-auto">
+  {{/* Hero Header */}}
+  <header class="mb-12">
+    {{/* Date and Title Row */}}
+    {{ if $date }}
+    {{ $start := time $date }}
+    <div class="flex items-start gap-16 mb-8">
+      {{/* Large Date Badge */}}
+      <div class="bg-primary text-primary-content px-6 py-4 rounded-xl text-center min-w-[100px] shadow-lg flex-shrink-0 mt-1">
+        {{ if $endDate }}
+        {{ $end := time $endDate }}
+        <div class="text-3xl font-bold leading-tight">{{ $start.Day }}-{{ $end.Day }}</div>
+        {{ else }}
+        <div class="text-4xl font-bold leading-tight">{{ $start.Day }}</div>
+        {{ end }}
+        <div class="text-base uppercase tracking-wide opacity-90">{{ $start.Format "Jan" }}</div>
+        <div class="text-sm opacity-75">{{ $start.Year }}</div>
+      </div>
+
+      {{/* Title and Original Name */}}
+      <div class="flex-1 pt-1">
+        {{ if $featured }}<span class="badge badge-warning mb-2">Featured Event</span>{{ end }}
+        <h1 class="text-3xl lg:text-4xl font-bold leading-tight mb-2">{{ $title }}</h1>
+        {{ if and $titleOriginal (ne $titleOriginal $title) }}
+        <p class="text-lg text-neutral-500 dark:text-neutral-400 italic">{{ $titleOriginal }}</p>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* Description */}}
+    {{ if $description }}
+    <p class="text-lg text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">{{ $description }}</p>
+    {{ end }}
+
+    {{/* Info Cards Row */}}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      {{/* Location Card */}}
+      {{ if or $locationCity $locationName }}
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-primary">
+              {{ partial "content-icon.html" (dict "name" "location" "size" "6") }}
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Location</div>
+              <div class="font-medium">
+                {{ $locationCity }}{{ if and $locationName (ne $locationName $locationCity) }}<br><span class="text-sm text-neutral-600 dark:text-neutral-400">{{ $locationName }}</span>{{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* Organizer Card */}}
+      {{ if $organizerName }}
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-primary">
+              {{ partial "content-icon.html" (dict "name" "users" "size" "6") }}
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Organizer</div>
+              <div class="font-medium">
+                {{ if $organizerUrl }}
+                <a href="{{ $organizerUrl }}" target="_blank" rel="noopener" class="link link-hover">{{ $organizerName }}</a>
+                {{ else }}
+                {{ $organizerName }}
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* Format Card */}}
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body p-4">
+          <div class="flex items-center gap-3">
+            <div class="text-primary">
+              {{ if eq $attendanceMode "online" }}
+              {{ partial "content-icon.html" (dict "name" "globe" "size" "6") }}
+              {{ else }}
+              {{ partial "content-icon.html" (dict "name" "calendar" "size" "6") }}
+              {{ end }}
+            </div>
+            <div>
+              <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Format</div>
+              <div class="font-medium">
+                {{ if eq $attendanceMode "online" }}Online Event
+                {{ else if eq $attendanceMode "mixed" }}Hybrid (In-Person + Online)
+                {{ else }}In-Person Event
+                {{ end }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{/* Tags and Audiences */}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {{/* Topics */}}
+      {{ if $tags }}
+      <div class="p-4 bg-base-200 rounded-lg">
+        <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">Topics</div>
+        <div class="flex flex-wrap gap-2">
+          {{ $vocabTopics := $vocab.topics.labels }}
+          {{ range $tags }}
+          {{ $label := index $vocabTopics . | default (. | humanize | title) }}
+          <span class="badge badge-lg badge-outline">{{ $label }}</span>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+      {{/* Audiences */}}
+      {{ if $audiences }}
+      <div class="p-4 bg-base-200 rounded-lg">
+        <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">Target Audience</div>
+        <div class="flex flex-wrap gap-2">
+          {{ $vocabAudience := $vocab.audience.labels }}
+          {{ range $audiences }}
+          {{ $label := index $vocabAudience . | default (. | humanize | title) }}
+          <a href="/audiences/{{ . }}/" class="badge badge-lg badge-primary">{{ $label }}</a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+    </div>
+
+    {{/* CTA Button */}}
+    {{ if $externalUrl }}
+    <a href="{{ $externalUrl }}" target="_blank" rel="noopener" class="btn btn-primary btn-lg gap-2">
+      {{ partial "content-icon.html" (dict "name" "external" "size" "5") }}
+      Visit Event Website
+    </a>
+    {{ end }}
+  </header>
+
+  {{/* Divider */}}
+  <hr class="border-base-300 mb-8">
+
+  {{/* Content */}}
+  <section class="prose dark:prose-invert prose-lg max-w-none mb-12">
+    {{ .Content }}
+  </section>
+
+  {{/* Back link */}}
+  <footer class="pt-8 border-t border-base-300">
+    <a href="/events/" class="btn btn-ghost gap-2">
+      ← Back to all events
+    </a>
+  </footer>
+</article>
+{{ end }}

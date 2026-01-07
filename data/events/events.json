@@ -19,7 +19,7 @@
     },
     "url": "https://www.dsb.no/kurs-og-konferanser/samfunnssikkerhets-konferansen-2026/",
     "tags": ["preparedness", "cybersecurity", "critical-infrastructure"],
-    "audience": ["government", "defence", "enterprise"],
+    "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "high"
   },
   {
@@ -42,7 +42,7 @@
     },
     "url": "https://www.hackcon.org/",
     "tags": ["cybersecurity"],
-    "audience": ["technical", "developer", "enterprise"],
+    "audience": ["it-ops", "developer", "enterprise"],
     "itRelevance": "high"
   },
   {
@@ -65,7 +65,7 @@
     },
     "url": "https://www.datasenterindustrien.no/about/events/datacenter-forum-oslo",
     "tags": ["critical-infrastructure", "sovereignty"],
-    "audience": ["technical", "enterprise", "government"],
+    "audience": ["it-ops", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
@@ -88,7 +88,7 @@
     },
     "url": "https://ndcsecurity.com/",
     "tags": ["cybersecurity"],
-    "audience": ["developer", "technical"],
+    "audience": ["developer", "it-ops"],
     "itRelevance": "high"
   },
   {
@@ -111,7 +111,7 @@
     },
     "url": "https://www.totalforsvar.no",
     "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
-    "audience": ["government", "defence", "enterprise"],
+    "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "medium"
   },
   {
@@ -134,7 +134,7 @@
     },
     "url": "https://nordicaisummit.org/",
     "tags": ["sovereignty"],
-    "audience": ["enterprise", "government"],
+    "audience": ["enterprise", "public-sector"],
     "itRelevance": "medium"
   },
   {
@@ -157,7 +157,7 @@
     },
     "url": "https://www.befkon.no/",
     "tags": ["preparedness", "critical-infrastructure"],
-    "audience": ["government", "defence", "enterprise"],
+    "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "medium"
   },
   {
@@ -180,7 +180,7 @@
     },
     "url": "https://www.datasenterindustrien.no/about/events/datasenterdagen",
     "tags": ["critical-infrastructure", "sovereignty", "cybersecurity"],
-    "audience": ["technical", "enterprise", "government"],
+    "audience": ["it-ops", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
@@ -203,7 +203,7 @@
     },
     "url": "https://www.ncsc.gov.uk/section/cyberuk/cyberuk-2026",
     "tags": ["cybersecurity", "critical-infrastructure"],
-    "audience": ["government", "technical", "enterprise"],
+    "audience": ["public-sector", "it-ops", "enterprise"],
     "itRelevance": "high"
   },
   {
@@ -226,7 +226,7 @@
     },
     "url": "https://nfea.no/arrangementer/cyber-security-2026/",
     "tags": ["cybersecurity", "critical-infrastructure"],
-    "audience": ["technical", "enterprise"],
+    "audience": ["it-ops", "enterprise"],
     "itRelevance": "high"
   },
   {
@@ -249,7 +249,7 @@
     },
     "url": "https://oslotechshow.com/",
     "tags": ["cybersecurity", "critical-infrastructure", "sovereignty"],
-    "audience": ["technical", "developer", "enterprise", "government"],
+    "audience": ["it-ops", "developer", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
@@ -272,7 +272,7 @@
     },
     "url": "https://www.cyberkonf.no/",
     "tags": ["cybersecurity", "sovereignty", "preparedness"],
-    "audience": ["technical", "developer", "defence", "government"],
+    "audience": ["it-ops", "developer", "security", "public-sector"],
     "itRelevance": "high"
   },
   {
@@ -295,7 +295,7 @@
     },
     "url": "https://cycon.org/",
     "tags": ["cybersecurity", "preparedness"],
-    "audience": ["defence", "government", "technical"],
+    "audience": ["security", "public-sector", "it-ops"],
     "itRelevance": "high"
   },
   {
@@ -318,7 +318,7 @@
     },
     "url": "https://www.sikkerhetsfestivalen.no",
     "tags": ["cybersecurity", "nis2", "critical-infrastructure"],
-    "audience": ["technical", "developer", "enterprise", "government"],
+    "audience": ["it-ops", "developer", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
@@ -341,7 +341,7 @@
     },
     "url": "https://ndcoslo.com/",
     "tags": ["cybersecurity"],
-    "audience": ["developer", "technical"],
+    "audience": ["developer", "it-ops"],
     "itRelevance": "medium"
   },
   {
@@ -364,7 +364,7 @@
     },
     "url": null,
     "tags": ["cybersecurity", "preparedness"],
-    "audience": ["defence", "government", "enterprise"],
+    "audience": ["security", "public-sector", "enterprise"],
     "itRelevance": "medium"
   },
   {
@@ -387,7 +387,7 @@
     },
     "url": "https://www.dsb.no/totalforsvarsaret",
     "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
-    "audience": ["government", "defence", "enterprise", "humanitarian"],
+    "audience": ["public-sector", "security", "enterprise", "humanitarian"],
     "itRelevance": "high",
     "featured": true
   },
@@ -411,7 +411,7 @@
     },
     "url": "https://one-conference.nl/",
     "tags": ["cybersecurity", "critical-infrastructure"],
-    "audience": ["government", "technical", "enterprise"],
+    "audience": ["public-sector", "it-ops", "enterprise"],
     "itRelevance": "high"
   }
 ]

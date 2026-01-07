@@ -1,0 +1,107 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "book"
+  ) }}
+
+  {{/* Section Content - render markdown content which includes stats */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
+
+  {{/* Publication cards */}}
+  {{ if gt .Pages 0 }}
+  <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">
+    {{ range .Pages }}
+    {{/* Get featured image from page bundle */}}
+    {{ $featured := .Resources.GetMatch "featured*" }}
+
+    <a href="{{ .RelPermalink }}" class="card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200">
+      {{/* Cover image */}}
+      {{ if $featured }}
+      <figure class="h-48 overflow-hidden bg-base-200">
+        <img src="{{ $featured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+      </figure>
+      {{ else }}
+      {{/* Placeholder if no image */}}
+      <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+        <div class="text-primary/30">
+          {{ partial "content-icon.html" (dict "name" "book" "size" "16" "class" "w-16 h-16") }}
+        </div>
+      </figure>
+      {{ end }}
+
+      <div class="card-body p-4">
+        {{/* Publication type and year row */}}
+        <div class="flex items-center justify-between gap-2 mb-2">
+          {{/* Publication type badge */}}
+          {{ with .Params.publication_type }}
+          {{ $typeLabel := . }}
+          {{ $typeClass := "badge-ghost" }}
+          {{ if eq . "book" }}
+            {{ $typeLabel = "Book" }}
+            {{ $typeClass = "badge-primary" }}
+          {{ else if eq . "report" }}
+            {{ $typeLabel = "Report" }}
+            {{ $typeClass = "badge-secondary" }}
+          {{ else if eq . "paper" }}
+            {{ $typeLabel = "Paper" }}
+            {{ $typeClass = "badge-accent" }}
+          {{ else if eq . "guide" }}
+            {{ $typeLabel = "Guide" }}
+            {{ $typeClass = "badge-info" }}
+          {{ end }}
+          <span class="badge badge-sm {{ $typeClass }}">{{ $typeLabel }}</span>
+          {{ end }}
+
+          {{/* Year */}}
+          {{ with .Params.year }}
+          <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ . }}</span>
+          {{ end }}
+        </div>
+
+        {{/* Title */}}
+        <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors">{{ .Title }}</h2>
+
+        {{/* Description */}}
+        {{ with .Description }}
+        <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+        {{ end }}
+
+        {{/* Publisher/Institution */}}
+        <div class="mt-auto pt-3 border-t border-base-200">
+          <div class="flex items-center justify-between">
+            {{/* Publisher or first institution */}}
+            <span class="text-xs text-neutral-500 dark:text-neutral-500 truncate">
+              {{ with .Params.publisher }}{{ . }}{{ else }}{{ with .Params.institutions }}{{ index . 0 }}{{ end }}{{ end }}
+            </span>
+
+            {{/* Credibility icons */}}
+            <div class="flex items-center gap-1">
+              {{ if .Params.open_access }}
+              <span class="tooltip tooltip-left" data-tip="Open Access">
+                <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                </svg>
+              </span>
+              {{ end }}
+              {{ if .Params.peer_reviewed }}
+              <span class="tooltip tooltip-left" data-tip="Peer Reviewed">
+                <svg class="w-4 h-4 text-info" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    {{ end }}
+  </section>
+  {{ end }}
+</article>
+{{ end }}

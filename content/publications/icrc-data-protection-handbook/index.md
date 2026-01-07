@@ -1,72 +1,22 @@
 ---
 title: "Handbook on Data Protection in Humanitarian Action"
 description: "The authoritative reference on data protection for humanitarian organisations, covering cloud services, biometrics, digital identity, and risk assessment frameworks"
-date: 2020-06-01
-lastmod: 2024-01-15
-
-# Source metadata
-publication_type: "book"
+date: 2024-01-15
+external_url: "https://www.cambridge.org/core/books/handbook-on-data-protection-in-humanitarian-action/025CE3DFD1FAD908DD1412C20E49F955"
 publisher: "Cambridge University Press"
-edition: "3rd Edition"
-year: 2024
 authors:
   - "Massimo Marelli"
-institutions:
-  - "International Committee of the Red Cross (ICRC)"
-  - "Brussels Privacy Hub, Vrije Universiteit Brussel"
-
-# Credibility markers
-peer_reviewed: true
-open_access: true
-academic_publisher: true
-
-# Audience relevance
-relevant_for:
-  - "ngo"
-  - "government"
-  - "humanitarian"
-  - "healthcare"
-
-# Topics covered
 topics:
   - "data protection"
   - "cloud sovereignty"
   - "government access"
   - "CLOUD Act"
-  - "FISA 702"
   - "biometrics"
-  - "risk assessment"
   - "digital identity"
-  - "humanitarian technology"
-
-# Key takeaways for sidebar
-takeaways:
-  - "US CLOUD Act compels disclosure regardless of where data is stored"
-  - "No 'humanitarian exemption' exists in surveillance laws"
-  - "Providers may be prohibited from notifying you of data requests"
-  - "Data localisation alone provides no protection"
-  - "Encryption with customer-controlled keys is the strongest mitigation"
-  - "Vendor jurisdiction matters more than data location"
-
-# External link
-external_url: "https://www.cambridge.org/core/books/handbook-on-data-protection-in-humanitarian-action/025CE3DFD1FAD908DD1412C20E49F955"
-
-# Tags for cross-site linking (match blog post tags)
-tags:
-  - "sovereignty"
-  - "humanitarian"
-  - "cloud-act"
-  - "government-access"
-  - "privacy"
-  - "biometrics"
-  - "encryption"
-  - "gdpr"
-
-# Audience taxonomy
-audiences:
+personas:
   - "humanitarian"
   - "public-sector"
-
+  - "it-ops"
 type: publications
 ---
 

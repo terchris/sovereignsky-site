@@ -4,9 +4,9 @@
 {{/* Resolve provider_id (prefer front matter) */}}
 {{ $providerId := .Params.provider_id | default "" }}
 {{ if not $providerId }}
-{{ with .File }}
-{{ $providerId = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
-{{ end }}
+  {{ with .File }}
+    {{ $providerId = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
+  {{ end }}
 {{ end }}
 
 {{/* Lookups */}}
@@ -14,15 +14,15 @@
 {{ $providers := $datacenters.providers | default (slice) }}
 {{ $provider := dict }}
 {{ range $providers }}
-{{ if eq .provider_id $providerId }}
-{{ $provider = . }}
-{{ end }}
+  {{ if eq .provider_id $providerId }}
+    {{ $provider = . }}
+  {{ end }}
 {{ end }}
 
 {{ $regions := site.Data.regions }}
 {{ $regionsById := dict }}
 {{ range $regions }}
-{{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
 {{ end }}
 
 {{/* Provider HQ metadata */}}
@@ -33,31 +33,23 @@
 {{ $hqRisk := "unknown" }}
 {{ $hqSlug := "" }}
 {{ if $provider }}
-{{ $hqId = $provider.vendor_country_id | default "" }}
+  {{ $hqId = $provider.vendor_country_id | default "" }}
 {{ end }}
 {{ if $hqId }}
-{{ $hq = index $regionsById $hqId }}
-{{ if $hq }}
-{{ $hqName = $hq.name }}
-{{ $hqFlag = $hq.flag }}
-{{ $hqRisk = $hq.risk_level }}
-{{ $hqSlug = $hq.slug }}
+  {{ $hq = index $regionsById $hqId }}
+  {{ if $hq }}
+    {{ $hqName = $hq.name }}
+    {{ $hqFlag = $hq.flag }}
+    {{ $hqRisk = $hq.risk_level }}
+    {{ $hqSlug = $hq.slug }}
+  {{ end }}
 {{ end }}
-{{ end }}
-
-{{/* Risk -> dot */}}
-{{ $dot := "bg-neutral-400" }}
-{{ if eq $hqRisk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
-{{ if eq $hqRisk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
-{{ if eq $hqRisk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
-{{ if eq $hqRisk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
-{{ if eq $hqRisk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
 {{/* Risk label + emoji */}}
 {{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
-{{ if .label }}{{ $riskLabel = .label }}{{ end }}
+  {{ if .label }}{{ $riskLabel = .label }}{{ end }}
 {{ end }}
 {{ $riskEmoji := "" }}
 {{ if eq $hqRisk "low" }}{{ $riskEmoji = "✅" }}{{ end }}
@@ -66,250 +58,247 @@
 {{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
 {{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
 
-{{/* Jurisdiction blocs (from HQ country metadata) */}}
-{{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
-{{ $blocsById = merge $blocsById (dict .id .) }}
-{{ end }}
-{{ $blocNames := slice }}
-{{ if $hq }}
-{{ range ($hq.blocs | default (slice)) }}
-{{ $b := index $blocsById . }}
-{{ if $b }}
-{{ $blocNames = $blocNames | append $b.name }}
-{{ end }}
-{{ end }}
-{{ end }}
-
 {{/* Compute provider physical-country distribution for sidebar */}}
 {{ $countryCounts := dict }}
+{{ $providerRegions := slice }}
 {{ if $provider }}
-{{ range ($provider.regions | default (slice)) }}
-{{ $cid := .country_id | default "" }}
-{{ if $cid }}
-{{ $prev := index $countryCounts $cid | default 0 }}
-{{ $countryCounts = merge $countryCounts (dict $cid (add $prev 1)) }}
-{{ end }}
-{{ end }}
+  {{ $providerRegions = $provider.regions | default (slice) }}
+  {{ range $providerRegions }}
+    {{ $cid := .country_id | default "" }}
+    {{ if $cid }}
+      {{ $prev := index $countryCounts $cid | default 0 }}
+      {{ $countryCounts = merge $countryCounts (dict $cid (add $prev 1)) }}
+    {{ end }}
+  {{ end }}
 {{ end }}
 
 {{ $countryItems := slice }}
 {{ range $cid, $count := $countryCounts }}
-{{ $meta := index $regionsById $cid }}
-{{ $name := $cid }}
-{{ if $meta }}{{ $name = $meta.name | default $cid }}{{ end }}
-{{ $countryItems = $countryItems | append (dict "id" $cid "count" $count "meta" $meta "name" $name) }}
+  {{ $meta := index $regionsById $cid }}
+  {{ $name := $cid }}
+  {{ $flag := "" }}
+  {{ $slug := "" }}
+  {{ if $meta }}
+    {{ $name = $meta.name | default $cid }}
+    {{ $flag = $meta.flag | default "" }}
+    {{ $slug = $meta.slug | default "" }}
+  {{ end }}
+  {{ $countryItems = $countryItems | append (dict "id" $cid "count" $count "meta" $meta "name" $name "flag" $flag "slug" $slug) }}
 {{ end }}
-{{/* Sorted: name asc (primary), then id asc */}}
-{{ $countryItems = sort $countryItems "id" "asc" }}
-{{ $countryItems = sort $countryItems "name" "asc" }}
+{{ $countryItems = sort $countryItems "count" "desc" }}
 
 {{/* Compare list (same type) */}}
 {{ $compare := slice }}
 {{ $ptype := "" }}
 {{ if $provider }}{{ $ptype = $provider.provider_type | default "" }}{{ end }}
 {{ if $ptype }}
-{{ $same := where $providers "provider_type" $ptype }}
-{{ range $same }}
-{{ if ne .provider_id $providerId }}
-{{ $compare = $compare | append . }}
-{{ end }}
-{{ end }}
+  {{ $same := where $providers "provider_type" $ptype }}
+  {{ range $same }}
+    {{ if ne .provider_id $providerId }}
+      {{ $regionCount := len (.regions | default (slice)) }}
+      {{ $compare = $compare | append (dict "provider_id" .provider_id "provider_name" .provider_name "region_count" $regionCount) }}
+    {{ end }}
+  {{ end }}
+  {{ $compare = sort $compare "region_count" "desc" }}
 {{ end }}
 
-{{/* Sidebar filter country sets */}}
-{{ $jur := site.Data.jurisdictions }}
-{{ $eu := dict }}
-{{ $eea := dict }}
-{{ range ($jur.blocs | default (slice)) }}
-{{ if eq .id "eu" }}{{ $eu = . }}{{ end }}
-{{ if eq .id "eea" }}{{ $eea = . }}{{ end }}
+{{/* Provider name for display */}}
+{{ $providerName := "" }}
+{{ if $provider }}
+  {{ $providerName = $provider.provider_name | default $providerId }}
 {{ end }}
-{{ $euMembers := $eu.members | default (slice) }}
-{{ $eeaMembers := $eea.members | default (slice) }}
 
-<article>
-    {{/* Header */}}
-    <header id="single_header" class="mt-5 max-w-prose">
-        {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
-        {{ partial "breadcrumbs.html" . }}
+{{/* Display title */}}
+{{ $displayTitle := .Title }}
+{{ if or (not .Title) (eq .Title "Index") (eq .Title "") }}
+  {{ if $providerName }}
+    {{ $displayTitle = printf "%s Datacenters" $providerName }}
+  {{ end }}
+{{ end }}
+
+<article class="max-w-full">
+  {{/* Detail Header with breadcrumbs */}}
+  {{ partial "detail-header.html" (dict
+      "title" $displayTitle
+      "description" .Description
+      "icon" "server"
+      "breadcrumbs" (slice
+          (dict "title" "Datacenters" "url" "/datacenters/")
+      )
+  ) }}
+
+  {{/* Two-column layout */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+
+    {{/* Right Sidebar */}}
+    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
+      <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
+
+        {{/* External link button */}}
+        {{ with $provider.vendor_website }}
+        <a class="btn btn-primary btn-outline w-full gap-2"
+           href="{{ . }}"
+           target="_blank"
+           rel="noopener noreferrer">
+          {{ partial "content-icon.html" (dict "name" "external" "size" "4") }}
+          Visit website
+        </a>
         {{ end }}
-        <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-            {{ .Title | emojify }}
-        </h1>
-        <div class="mt-1 mb-4 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-            {{ partial "article-meta/basic.html" (dict "context" . "scope" "single") }}
+
+        {{/* Provider Details Card */}}
+        {{ if $provider }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+              Provider Details
+            </h3>
+            <dl class="mt-2 text-sm">
+              {{/* HQ */}}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Headquarters</dt>
+                <dd class="font-medium">{{ if $hqFlag }}{{ $hqFlag }} {{ end }}{{ $hqName }}</dd>
+              </div>
+              {{/* Total Regions */}}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Total Regions</dt>
+                <dd class="font-medium">{{ len $providerRegions }}</dd>
+              </div>
+              {{/* Countries */}}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Countries</dt>
+                <dd class="font-medium">{{ len $countryCounts }}</dd>
+              </div>
+              {{/* Provider Type */}}
+              {{ with $provider.provider_type }}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
+                <dd class="font-medium">{{ . | title }}</dd>
+              </div>
+              {{ end }}
+              {{/* Data updated */}}
+              {{ with $provider.updated }}
+              <div class="pt-2 mt-2 border-t border-base-200">
+                <div class="text-xs text-neutral-500 dark:text-neutral-400">Data updated {{ . }}</div>
+              </div>
+              {{ end }}
+            </dl>
+          </div>
         </div>
+        {{ end }}
 
-        {{/* Provider + Risk Assessment boxes are rendered inside page content via shortcodes,
-        so their headings appear in Hugo's Table of Contents. */}}
-    </header>
-
-    {{/* Body with right sidebar */}}
-    <section class="flex flex-col max-w-full mt-0 lg:flex-row">
-        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }} {{ $topClass :=cond (hasPrefix
-            site.Params.header.layout "fixed" ) "lg:top-[140px]" "lg:top-10" }} {{ $showSidebar :=or $showToc (gt (len
-            $countryItems) 0) (gt (len $compare) 0) }} {{ if $showSidebar }} <div
-            class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-2xs">
-            <div class="toc ps-5 print:hidden lg:sticky {{ $topClass }}">
-                {{ if $showToc }}
-                {{ partial "toc.html" . }}
-                {{ end }}
-
-                {{ if gt (len $countryItems) 0 }}
-                <div class="mt-6">
-                    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Countries</div>
-                    <div class="text-sm text-neutral-500 dark:text-neutral-400">Where this provider has regions</div>
-                    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-                        <div class="max-h-72 overflow-auto pr-1">
-                            <div class="flex flex-wrap gap-2">
-                                {{ range $countryItems }}
-                                {{ $cid := .id }}
-                                {{ $count := .count }}
-                                {{ $meta := .meta }}
-                                {{ $flag := "" }}
-                                {{ $name := $cid }}
-                                {{ $slug := "" }}
-                                {{ if $meta }}
-                                {{ $flag = $meta.flag }}
-                                {{ $name = $meta.name }}
-                                {{ $slug = $meta.slug }}
-                                {{ end }}
-                                {{ if $slug }}
-                                <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-                                    href="/jurisdictions/{{ $slug }}/" title="Regions in {{ $name }}: {{ $count }}">
-                                    <span class="font-medium">{{ $name }}</span>
-                                    <span class="text-neutral-500 dark:text-neutral-400">{{ if $flag }}{{ $flag }}{{ end
-                                        }}
-                                        {{ $count }}</span>
-                                </a>
-                                {{ else }}
-                                <span
-                                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-                                    title="Regions in {{ $name }}: {{ $count }}">
-                                    <span class="font-medium">{{ $name }}</span>
-                                    <span class="text-neutral-500 dark:text-neutral-400">{{ if $flag }}{{ $flag }}{{ end
-                                        }}
-                                        {{ $count }}</span>
-                                </span>
-                                {{ end }}
-                                {{ end }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{ end }}
-
-                {{/* Related content - all content types based on matching tags */}}
-                {{ partial "related-content-sidebar.html" . }}
-
-                {{ if gt (len $compare) 0 }}
-                <div class="mt-6">
-                    <div class="text-lg font-semibold text-neutral-800 dark:text-neutral-100">Compare</div>
-                    <div class="text-sm text-neutral-500 dark:text-neutral-400">Other providers in the same category
-                    </div>
-                    <div class="min-w-[220px] py-2 border-dotted border-s-1 -ms-5 ps-5 dark:border-neutral-600">
-                        <div class="flex flex-wrap gap-2">
-                            {{ range first 8 $compare }}
-                            <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-                                href="/datacenters/{{ .provider_id }}/">
-                                <span class="font-medium">{{ .provider_name }}</span>
-                                <span class="text-neutral-500 dark:text-neutral-400">{{ len (.regions | default (slice))
-                                    }}</span>
-                            </a>
-                            {{ end }}
-                        </div>
-                    </div>
-                </div>
-                {{ end }}
+        {{/* Jurisdiction Card */}}
+        {{ if $hqSlug }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
+              Jurisdiction
+            </h3>
+            <div class="mt-2">
+              <a href="/jurisdictions/{{ $hqSlug }}/"
+                 class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
+                {{ if $hqFlag }}{{ $hqFlag }} {{ end }}{{ $hqName }} laws
+              </a>
+              {{ if $riskEmoji }}
+              <div class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+                {{ $riskEmoji }} {{ $riskLabel | title }} risk jurisdiction
+              </div>
+              {{ end }}
             </div>
+          </div>
+        </div>
+        {{ end }}
+
+        {{/* Countries Card */}}
+        {{ if gt (len $countryItems) 0 }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "globe" "color" "info" "size" "4") }}
+              Countries
+            </h3>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+              {{ len $countryItems }} countries, {{ len $providerRegions }} regions
             </div>
-            {{ end }}
+            <ul class="space-y-0.5 max-h-48 overflow-y-auto">
+              {{ range $countryItems }}
+              <li>
+                {{ if .slug }}
+                <a href="/jurisdictions/{{ .slug }}/"
+                   title="{{ .name }}: {{ .count }} regions"
+                   class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
+                  <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
+                </a>
+                {{ else }}
+                <span class="text-sm block px-2 py-1 -mx-2 flex justify-between items-center">
+                  <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
+                </span>
+                {{ end }}
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
 
-            <div class="min-w-0 min-h-0 max-w-fit">
-                <div class="article-content prose dark:prose-invert max-w-5xl mb-20">
-                    {{ .Content }}
-                </div>
+        {{/* Compare Card */}}
+        {{ if gt (len $compare) 0 }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "compare" "color" "secondary" "size" "4") }}
+              Compare
+            </h3>
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+              Other {{ $ptype }} providers
             </div>
+            <ul class="space-y-0.5">
+              {{ range first 8 $compare }}
+              <li>
+                <a href="/datacenters/{{ .provider_id }}/"
+                   title="{{ .provider_name }}: {{ .region_count }} regions"
+                   class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
+                  <span>{{ .provider_name }}</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">{{ .region_count }}</span>
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
 
-            {{/* Location filter JS (scoped to provider pages) */}}
-            <script type="application/json" id="ss-dc-eu-members">{{ $euMembers | jsonify }}</script>
-            <script type="application/json" id="ss-dc-eea-members">{{ $eeaMembers | jsonify }}</script>
-            <script>
-                (function () {
-                    'use strict'
-                    const root = document
-                    const input = root.querySelector('.ss-dc-loc-filter-input')
-                    const clearBtn = root.querySelector('.ss-dc-loc-filter-clear')
-                    const btns = [...root.querySelectorAll('[data-ss-dc-set]')]
-                    const chips = [...root.querySelectorAll('.ss-dc-region-chip')]
-                    const groups = [...root.querySelectorAll('.ss-dc-country-group')]
+        {{/* Related content */}}
+        {{ partial "related-content-sidebar.html" . }}
 
-                    if (!input || chips.length === 0) return
+        {{/* Table of Contents */}}
+        {{ $showToc := in .TableOfContents "<ul" }}
+        {{ if $showToc }}
+        <div class="mt-6">
+          {{ partial "toc.html" . }}
+        </div>
+        {{ end }}
 
-                    const euMembers = JSON.parse((root.getElementById('ss-dc-eu-members') || {}).textContent || '[]')
-                    const eeaMembers = JSON.parse((root.getElementById('ss-dc-eea-members') || {}).textContent || '[]')
+      </div>
+    </div>
 
-                    const sets = {
-                        euEea: new Set([...(euMembers || []), ...(eeaMembers || [])]),
-                        nordics: new Set(['NO', 'SE', 'DK', 'FI', 'IS']),
-                        us: new Set(['US']),
-                        apac: new Set(['JP', 'KR', 'SG', 'AU', 'NZ', 'IN', 'ID', 'TH', 'PH', 'MY', 'HK', 'TW', 'CN'])
-                    }
+    {{/* Main Content */}}
+    <div class="min-w-0 flex-1">
+      <div class="article-content prose dark:prose-invert max-w-none mb-20">
+        {{ .Content }}
 
-                    let activeSet = null
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="/datacenters/">← Back to all datacenters</a>
+        </p>
+      </div>
+    </div>
 
-                    function normalize(s) {
-                        return (s || '').toString().toLowerCase().trim()
-                    }
-
-                    function apply() {
-                        const q = normalize(input.value)
-                        const set = activeSet ? sets[activeSet] : null
-
-                        chips.forEach(chip => {
-                            const search = normalize(chip.getAttribute('data-search'))
-                            const cid = chip.getAttribute('data-country-id')
-                            const matchText = !q || search.includes(q)
-                            const matchSet = !set || (cid && set.has(cid))
-                            chip.style.display = (matchText && matchSet) ? '' : 'none'
-                        })
-
-                        groups.forEach(g => {
-                            const visible = g.querySelector('.ss-dc-region-chip:not([style*="display: none"])')
-                            g.style.display = visible ? '' : 'none'
-                        })
-                    }
-
-                    function setActiveSet(name) {
-                        activeSet = name
-                        btns.forEach(b => {
-                            const isActive = b.getAttribute('data-ss-dc-set') === name
-                            b.style.borderColor = isActive ? 'rgb(59 130 246)' : ''
-                        })
-                        apply()
-                    }
-
-                    input.addEventListener('input', apply)
-                    if (clearBtn) {
-                        clearBtn.addEventListener('click', () => {
-                            input.value = ''
-                            setActiveSet(null)
-                        })
-                    }
-
-                    btns.forEach(b => {
-                        b.addEventListener('click', () => {
-                            const name = b.getAttribute('data-ss-dc-set')
-                            setActiveSet(name)
-                        })
-                    })
-
-                    apply()
-                })()
-            </script>
-    </section>
+  </section>
 </article>
 {{ end }}

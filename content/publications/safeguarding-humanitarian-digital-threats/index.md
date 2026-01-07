@@ -1,65 +1,24 @@
 ---
 title: "Safeguarding Humanitarian Organisations from Digital Threats"
-description: "ICRC analysis of how cyber operations, data breaches, and disinformation cause real-world harm to humanitarian organisations — and the legal, policy, and operational responses needed"
+description: "ICRC analysis of how cyber operations, data breaches, and disinformation cause real-world harm to humanitarian organisations"
 date: 2022-10-13
-lastmod: 2022-10-13
-
-# Source metadata
-publication_type: "analysis"
+external_url: "https://blogs.icrc.org/law-and-policy/2022/10/13/safeguarding-humanitarian-organizations-from-digital-threats/"
 publisher: "ICRC Humanitarian Law & Policy Blog"
-year: 2022
 authors:
   - "Tilman Rodenhäuser"
   - "Balthasar Staehelin"
   - "Massimo Marelli"
-institutions:
-  - "International Committee of the Red Cross (ICRC)"
-
-# Credibility markers
-peer_reviewed: false
-open_access: true
-
-# Audience relevance
-relevant_for:
-  - "ngo"
-  - "government"
-  - "humanitarian"
-  - "cybersecurity"
-
-# Topics covered
 topics:
   - "cybersecurity"
   - "digital threats"
   - "international humanitarian law"
   - "data breaches"
   - "disinformation"
-  - "digital emblem"
-  - "humanitarian cloud"
-
-# Key takeaways for sidebar
-takeaways:
-  - "Humanitarian organisations are #NotATarget under international law — online and offline"
-  - "The 2022 ICRC breach exposed data of 515,000+ vulnerable people"
-  - "Cyber operations against humanitarian orgs may constitute war crimes"
-  - "Disinformation campaigns directly threaten staff safety in the field"
-  - "IHL protection applies to digital infrastructure, not just physical"
-  - "Proposed innovations: digital emblem, humanitarian cloud, cyber delegation"
-
-# External link
-external_url: "https://blogs.icrc.org/law-and-policy/2022/10/13/safeguarding-humanitarian-organizations-from-digital-threats/"
-
-# Tags for cross-site linking
-tags:
-  - "cybersecurity"
-  - "sovereignty"
+personas:
   - "humanitarian"
-  - "hybrid-warfare"
-  - "privacy"
-
-# Audience taxonomy
-audiences:
-  - "humanitarian"
-
+  - "public-sector"
+  - "security"
+  - "it-ops"
 type: publications
 ---
 

@@ -1,0 +1,369 @@
+{{- /*
+  page-stats.html shortcode
+  Displays statistics specific to the current section/page using DaisyUI stat component
+
+  Usage:
+    {{< page-stats section="software" >}}
+    {{< page-stats section="datacenters" >}}
+    {{< page-stats section="jurisdictions" >}}
+    {{< page-stats section="laws" >}}
+    {{< page-stats section="networks" >}}
+    {{< page-stats section="events" >}}
+    {{< page-stats section="publications" >}}
+*/ -}}
+
+{{- $section := .Get "section" | default "" -}}
+
+{{- if eq $section "software" -}}
+  {{- $count := len (index .Site.Data "productsList") -}}
+  {{- $highRisk := 0 -}}
+  {{- $lowRisk := 0 -}}
+  {{- range (index .Site.Data "productsList") -}}
+    {{- if eq .riskLevel "High" -}}{{- $highRisk = add $highRisk 1 -}}{{- end -}}
+    {{- if eq .riskLevel "Low" -}}{{- $lowRisk = add $lowRisk 1 -}}{{- end -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "computer" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Products Analyzed</div>
+        <div class="stat-value text-primary">{{ $count }}</div>
+        <div class="stat-desc">Software products</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-error">
+          {{ partial "content-icon.html" (dict "name" "warning" "color" "error" "size" "8") }}
+        </div>
+        <div class="stat-title">High Risk</div>
+        <div class="stat-value text-error">{{ $highRisk }}</div>
+        <div class="stat-desc">Needs attention</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-success">
+          {{ partial "content-icon.html" (dict "name" "shield" "color" "success" "size" "8") }}
+        </div>
+        <div class="stat-title">Low Risk</div>
+        <div class="stat-value text-success">{{ $lowRisk }}</div>
+        <div class="stat-desc">Sovereign-friendly</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "datacenters" -}}
+  {{- /* Count from datacenter data */ -}}
+  {{- $providers := .Site.Data.datacenters.providers | default slice -}}
+  {{- $providerCount := len $providers -}}
+  {{- /* Count total regions and unique countries */ -}}
+  {{- $regionCount := 0 -}}
+  {{- $countries := slice -}}
+  {{- range $providers -}}
+    {{- $regionCount = add $regionCount (len .regions) -}}
+    {{- range .regions -}}
+      {{- with .country_id -}}
+        {{- if not (in $countries .) -}}
+          {{- $countries = $countries | append . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $countryCount := len $countries -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "server" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Datacenter Regions</div>
+        <div class="stat-value text-primary">{{ $regionCount }}</div>
+        <div class="stat-desc">Available locations</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "building" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Providers</div>
+        <div class="stat-value text-secondary">{{ $providerCount }}</div>
+        <div class="stat-desc">Cloud providers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          {{ partial "content-icon.html" (dict "name" "flag" "color" "accent" "size" "8") }}
+        </div>
+        <div class="stat-title">Countries</div>
+        <div class="stat-value text-accent">{{ $countryCount }}</div>
+        <div class="stat-desc">Jurisdictions covered</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "jurisdictions" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "jurisdictions") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "flag" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Countries Mapped</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Detailed analysis</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-success">
+          {{ partial "content-icon.html" (dict "name" "shield" "color" "success" "size" "8") }}
+        </div>
+        <div class="stat-title">EU Members</div>
+        <div class="stat-value text-success">27</div>
+        <div class="stat-desc">GDPR protected</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-warning">
+          {{ partial "content-icon.html" (dict "name" "eye" "color" "warning" "size" "8") }}
+        </div>
+        <div class="stat-title">Five Eyes</div>
+        <div class="stat-value text-warning">5</div>
+        <div class="stat-desc">Intelligence sharing</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-error">
+          {{ partial "content-icon.html" (dict "name" "warning" "color" "error" "size" "8") }}
+        </div>
+        <div class="stat-title">Sanctioned</div>
+        <div class="stat-value text-error">5</div>
+        <div class="stat-desc">Restricted access</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "laws" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "laws") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Laws Documented</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Legal frameworks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-error">
+          {{ partial "content-icon.html" (dict "name" "globe" "color" "error" "size" "8") }}
+        </div>
+        <div class="stat-title">Extraterritorial Reach</div>
+        <div class="stat-value text-error">12</div>
+        <div class="stat-desc">Cross-border scope</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-warning">
+          {{ partial "content-icon.html" (dict "name" "eye" "color" "warning" "size" "8") }}
+        </div>
+        <div class="stat-title">Government Access</div>
+        <div class="stat-value text-warning">8</div>
+        <div class="stat-desc">Data access powers</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "networks" -}}
+  {{- $networks := index .Site.Data "networks" "networks" -}}
+  {{- $total := len $networks -}}
+  {{- $subsea := 0 -}}
+  {{- $terrestrial := 0 -}}
+  {{- $active := 0 -}}
+  {{- range $networks -}}
+    {{- if eq .medium "subsea" -}}{{- $subsea = add $subsea 1 -}}{{- end -}}
+    {{- if eq .medium "terrestrial" -}}{{- $terrestrial = add $terrestrial 1 -}}{{- end -}}
+    {{- if eq .status "active" -}}{{- $active = add $active 1 -}}{{- end -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Total Connections</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Mapped networks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-info">
+          {{ partial "content-icon.html" (dict "name" "bolt" "color" "info" "size" "8") }}
+        </div>
+        <div class="stat-title">Submarine Cables</div>
+        <div class="stat-value text-info">{{ $subsea }}</div>
+        <div class="stat-desc">Undersea routes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "location" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Land Connections</div>
+        <div class="stat-value text-secondary">{{ $terrestrial }}</div>
+        <div class="stat-desc">Terrestrial routes</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-success">
+          {{ partial "content-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+        </div>
+        <div class="stat-title">Active</div>
+        <div class="stat-value text-success">{{ $active }}</div>
+        <div class="stat-desc">Operational now</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "events" -}}
+  {{- $events := index .Site.Data "events" "events" -}}
+  {{- $total := len $events -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "calendar" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Events in 2026</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Curated events</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "tag" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Topic Areas</div>
+        <div class="stat-value text-secondary">6</div>
+        <div class="stat-desc">Focus categories</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "publications" -}}
+  {{- $total := len (where .Site.RegularPages "Section" "publications") -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "book" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Key Publications</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Essential reading</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "users" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Audience Types</div>
+        <div class="stat-value text-secondary">5</div>
+        <div class="stat-desc">Target groups</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "blog" -}}
+  {{- $posts := where .Site.RegularPages "Section" "blog" -}}
+  {{- $total := len $posts -}}
+  {{- /* Count categories */ -}}
+  {{- $categories := slice -}}
+  {{- $totalReadingTime := 0 -}}
+  {{- range $posts -}}
+    {{- $totalReadingTime = add $totalReadingTime .ReadingTime -}}
+    {{- range .Params.categories -}}
+      {{- if not (in $categories .) -}}
+        {{- $categories = $categories | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $catCount := len $categories -}}
+  {{- /* Count unique tags */ -}}
+  {{- $tags := slice -}}
+  {{- range $posts -}}
+    {{- range .Params.tags -}}
+      {{- if not (in $tags .) -}}
+        {{- $tags = $tags | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $tagCount := len $tags -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "pencil" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">Articles</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Blog posts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "clock" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Reading Time</div>
+        <div class="stat-value text-secondary">{{ $totalReadingTime }}</div>
+        <div class="stat-desc">Minutes total</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          {{ partial "content-icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
+        </div>
+        <div class="stat-title">Topics</div>
+        <div class="stat-value text-accent">{{ $tagCount }}</div>
+        <div class="stat-desc">Unique tags</div>
+      </div>
+    </div>
+  </div>
+
+{{- else if eq $section "personas" -}}
+  {{- $personas := .Site.Data.personas.hasDefinedTerm | default (slice) -}}
+  {{- $total := len $personas -}}
+  {{- /* Count unique categories across all personas */ -}}
+  {{- $allCategories := slice -}}
+  {{- range $personas -}}
+    {{- with .filterCriteria.preferCategories -}}
+      {{- range . -}}
+        {{- if not (in $allCategories .) -}}
+          {{- $allCategories = $allCategories | append . -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $catCount := len $allCategories -}}
+  {{- /* Count total example queries */ -}}
+  {{- $queryCount := 0 -}}
+  {{- range $personas -}}
+    {{- $queryCount = add $queryCount (len (.exampleQueries | default (slice))) -}}
+  {{- end -}}
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "users" "color" "primary" "size" "8") }}
+        </div>
+        <div class="stat-title">User Types</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Defined personas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          {{ partial "content-icon.html" (dict "name" "folder" "color" "secondary" "size" "8") }}
+        </div>
+        <div class="stat-title">Categories</div>
+        <div class="stat-value text-secondary">{{ $catCount }}</div>
+        <div class="stat-desc">Software categories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-figure text-accent">
+          {{ partial "content-icon.html" (dict "name" "search" "color" "accent" "size" "8") }}
+        </div>
+        <div class="stat-title">Use Cases</div>
+        <div class="stat-value text-accent">{{ $queryCount }}</div>
+        <div class="stat-desc">Example queries</div>
+      </div>
+    </div>
+  </div>
+
+{{- end -}}

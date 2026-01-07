@@ -2,8 +2,7 @@
 title: "Total Defence Year 2026"
 description: "Norway's national mobilization for crisis and war preparedness. Learn why digital sovereignty is essential for national resilience."
 date: 2025-01-02
-showHero: true
-heroStyle: "big"
+showHero: false
 
 # Sidebar metadata
 takeaways:

@@ -33,6 +33,8 @@ disableImageOptimization = false
   cardViewScreenWidth = false
 
 [article]
+  showHero = true
+  heroStyle = "big"
   showDate = true
   showDateUpdated = false
   showAuthor = true

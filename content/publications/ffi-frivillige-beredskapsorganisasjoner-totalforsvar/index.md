@@ -1,88 +1,18 @@
 ---
-title: "Frivillige beredskapsorganisasjoner i fremtidens totalforsvar"
-description: "FFI-rapport om frivillige beredskapsorganisasjoners ressurser og rolle i å sikre sivilbefolkningens behov og understøtte samfunnet i hele krisespekteret"
-date: 2024-01-01
-lastmod: 2024-01-01
-
-# Source metadata
-publication_type: "report"
-publisher: "Forsvarets forskningsinstitutt (FFI)"
-year: 2024
-institutions:
-  - "Forsvarets forskningsinstitutt (FFI)"
-  - "Norske Kvinners Sanitetsforening"
-
-# Authors
-authors:
-  - "Tonje Grunnan"
-  - "Tord Apalvik"
-  - "Frida Skjei"
-  - "Stig Rune Sellevåg"
-
-# Identifiers
-isbn: "9788246435336"
-
-# Credibility markers
-peer_reviewed: false
-open_access: true
-institutional_authority: true
-commissioned_by: "Norske Kvinners Sanitetsforening"
-
-# Audience relevance
-relevant_for:
-  - "government"
-  - "ngo"
-  - "humanitarian"
-  - "defence"
-  - "emergency-management"
-
-# Topics covered
+title: "FFI: Frivillige beredskapsorganisasjoner i totalforsvaret"
+description: "Norwegian Defence Research Establishment analysis of voluntary preparedness organizations' role in total defence"
+date: 2023-01-01
+external_url: "https://www.ffi.no/"
+publisher: "Norwegian Defence Research Establishment (FFI)"
 topics:
+  - "voluntary organizations"
   - "total defence"
-  - "civil-military cooperation"
-  - "voluntary organisations"
-  - "emergency preparedness"
-  - "crisis management"
-  - "civil protection"
-  - "humanitarian law"
-  - "coordination"
-
-# Key takeaways for sidebar
-takeaways:
-  - "Voluntary emergency organisations have relevant resources that can strengthen public emergency response across the crisis spectrum"
-  - "Norwegian Red Cross, Norwegian People's Aid, and Sanitetsforening can each mobilise thousands of volunteers with specialised competencies"
-  - "Voluntary resources are unevenly distributed across geographic regions"
-  - "Mutual knowledge of resources and joint training is essential for effective cooperation"
-  - "Increased voluntary initiative should be expected in security crises or armed conflict"
-  - "Authorities must respect legal obligations and the independence and characteristics of voluntary organisations"
-
-# External link
-external_url: "https://www.ffi.no/publikasjoner/arkiv/frivillige-beredskapsorganisasjoner-i-fremtidens-totalforsvar"
-
-# Tags for cross-site linking
-tags:
-  - "total-defence"
-  - "civil-military"
+  - "civil preparedness"
+  - "crisis response"
+personas:
+  - "public-sector"
   - "humanitarian"
-  - "emergency-preparedness"
-  - "norway"
-
-# Audience taxonomy
-audiences:
-  - "government"
-  - "humanitarian"
-
-# Categories
-categories:
-  - "Reference"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "report"
-institutions_list:
-  - "ffi"
-  - "sanitetsforeningen"
-
+  - "security"
 type: publications
 ---
 

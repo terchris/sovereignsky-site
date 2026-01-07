@@ -2,7 +2,6 @@
 title: "Networks"
 description: "Cables in and out of Norway — and the domestic routes we can document from public sources"
 echarts: true
-layout: "simple"
 ---
 
 Norway's digital infrastructure—**subsea cables** and **land-based routes** both internationally and within the country—carries everything from government services to private communications.

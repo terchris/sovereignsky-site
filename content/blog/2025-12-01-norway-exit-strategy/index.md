@@ -1,10 +1,11 @@
 ---
 title: "Norway's Digitalisation Minister: All Organizations Need a Cloud Exit Strategy"
 date: 2025-12-01
+showHero: true
 description: "Minister Karianne Tung urges Norwegian organizations to prepare contingency plans for US cloud providers"
 summary: "Minister Karianne Tung urges Norwegian organizations to prepare contingency plans for US cloud providers"
 tags: ["sovereignty", "norway", "exit-strategy", "vendor-lock-in", "cloud-act", "government-access"]
-audiences: ["public-sector"]
+audiences: ["public-sector", "it-ops", "enterprise", "humanitarian"]
 ---
 
 In March 2025, Norway's Minister of Digitalisation and Public Governance, Karianne Tung, made headlines by urging all government and public organizations to prepare for potential disruptions to American cloud services.

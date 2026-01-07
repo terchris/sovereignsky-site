@@ -1,11 +1,12 @@
 ---
-title: "Jurisdiction & Laws"
+title: "Jurisdictions"
 description: "Understanding data sovereignty laws and their impact on your software choices"
 echarts: true
-layout: "simple"
 ---
 
 When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
+
+{{< page-stats section="jurisdictions" >}}
 
 ## Map
 

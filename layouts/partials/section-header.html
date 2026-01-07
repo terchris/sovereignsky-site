@@ -1,0 +1,39 @@
+{{/*
+  section-header.html - Standardized header for list/section pages
+
+  Usage:
+    {{ partial "section-header.html" (dict
+        "title" "Networks"
+        "description" "Description text here"
+        "icon" "globe"
+    ) }}
+
+  Parameters:
+    title: Page title (required)
+    description: Short description (optional)
+    icon: Icon name from content-icon.html (optional)
+    align: "left" or "center" (default: "left")
+*/}}
+
+{{ $title := .title | default "Untitled" }}
+{{ $description := .description | default "" }}
+{{ $icon := .icon | default "" }}
+{{ $align := .align | default "left" }}
+
+<header class="mb-6">
+  <div class="flex items-center gap-3 mb-2">
+    {{ if $icon }}
+    <div class="text-primary">
+      {{ partial "content-icon.html" (dict "name" $icon "size" "10" "class" "w-10 h-10") }}
+    </div>
+    {{ end }}
+    <h1 class="text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      {{ $title }}
+    </h1>
+  </div>
+  {{ if $description }}
+  <p class="text-lg text-neutral-600 dark:text-neutral-400">
+    {{ $description }}
+  </p>
+  {{ end }}
+</header>

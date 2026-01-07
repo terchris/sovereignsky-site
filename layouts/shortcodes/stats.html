@@ -1,0 +1,143 @@
+{{- /*
+  stats.html shortcode
+  Displays a grid of statistics with large numbers
+
+  Usage:
+    {{< stats >}}
+    {{< stats style="compact" >}}
+*/ -}}
+
+{{- $style := .Get "style" | default "default" -}}
+
+{{- /* Count software products */ -}}
+{{- $softwareCount := len (index .Site.Data "productsList") -}}
+
+{{- /* Count datacenter regions from JSON data */ -}}
+{{- $datacenters := index .Site.Data "datacenters" -}}
+{{- $datacenterCount := 0 -}}
+{{- range $datacenters.providers -}}
+  {{- $datacenterCount = add $datacenterCount (len .regions) -}}
+{{- end -}}
+
+{{- /* Count jurisdictions */ -}}
+{{- $jurisdictionPages := where .Site.RegularPages "Section" "jurisdictions" -}}
+{{- $jurisdictionCount := len $jurisdictionPages -}}
+
+{{- /* Count laws */ -}}
+{{- $lawPages := where .Site.RegularPages "Section" "laws" -}}
+{{- $lawCount := len $lawPages -}}
+
+{{- /* Count networks */ -}}
+{{- $networks := index .Site.Data "networks" "networks" -}}
+{{- $networkCount := len $networks -}}
+{{- $subseaCount := 0 -}}
+{{- range $networks -}}
+  {{- if eq .medium "subsea" -}}
+    {{- $subseaCount = add $subseaCount 1 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Count events */ -}}
+{{- $events := index .Site.Data "events" "events" -}}
+{{- $eventCount := len $events -}}
+
+{{- /* Count publications */ -}}
+{{- $publicationPages := where .Site.RegularPages "Section" "publications" -}}
+{{- $publicationCount := len $publicationPages -}}
+
+<style>
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+@media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+.stat-card { text-decoration: none !important; }
+</style>
+<div class="not-prose my-8">
+  <div class="stats-grid">
+    {{/* Software Products */}}
+    <a href="/software/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-primary transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:bg-primary/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "computer" "color" "primary" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-primary">{{ $softwareCount }}</div>
+        <div class="stat-title text-sm opacity-70">Software Products</div>
+      </div>
+    </a>
+
+    {{/* Datacenter Regions */}}
+    <a href="/datacenters/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-secondary transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center mb-2 group-hover:bg-secondary/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "server" "color" "secondary" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-secondary">{{ $datacenterCount }}</div>
+        <div class="stat-title text-sm opacity-70">Datacenter Regions</div>
+      </div>
+    </a>
+
+    {{/* Jurisdictions */}}
+    <a href="/jurisdictions/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-accent transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "flag" "color" "accent" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-accent">{{ $jurisdictionCount }}</div>
+        <div class="stat-title text-sm opacity-70">Jurisdictions Mapped</div>
+      </div>
+    </a>
+
+    {{/* Laws */}}
+    <a href="/laws/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-warning transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-warning/10 flex items-center justify-center mb-2 group-hover:bg-warning/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-warning">{{ $lawCount }}</div>
+        <div class="stat-title text-sm opacity-70">Laws Documented</div>
+      </div>
+    </a>
+
+    {{/* Network Connections */}}
+    <a href="/networks/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-info transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-info/10 flex items-center justify-center mb-2 group-hover:bg-info/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "globe" "color" "info" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-info">{{ $networkCount }}</div>
+        <div class="stat-title text-sm opacity-70">Network Connections</div>
+      </div>
+    </a>
+
+    {{/* Submarine Cables */}}
+    <a href="/networks/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-success transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mb-2 group-hover:bg-success/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "bolt" "color" "success" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-success">{{ $subseaCount }}</div>
+        <div class="stat-title text-sm opacity-70">Submarine Cables</div>
+      </div>
+    </a>
+
+    {{/* Events */}}
+    <a href="/events/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-error transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center mb-2 group-hover:bg-error/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "calendar" "color" "error" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-error">{{ $eventCount }}</div>
+        <div class="stat-title text-sm opacity-70">Events in 2026</div>
+      </div>
+    </a>
+
+    {{/* Publications */}}
+    <a href="/publications/" class="group card bg-base-100 shadow-md hover:shadow-xl border border-base-300 hover:border-primary transition-all duration-300 hover:-translate-y-1">
+      <div class="card-body p-4 items-center text-center">
+        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:bg-primary/20 transition-colors">
+          {{ partial "content-icon.html" (dict "name" "book" "color" "primary" "size" "6") }}
+        </div>
+        <div class="stat-value text-3xl md:text-4xl font-bold text-primary">{{ $publicationCount }}</div>
+        <div class="stat-title text-sm opacity-70">Key Publications</div>
+      </div>
+    </a>
+  </div>
+</div>

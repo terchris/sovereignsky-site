@@ -1,6 +1,89 @@
 {
   "_description": "Controlled vocabulary for tags. Use these exact values across the site.",
 
+  "contentTypes": {
+    "_description": "Content type categories for Related sections and navigation. Icons match Heroicons used on homepage.",
+    "values": ["law", "blog", "publications", "jurisdictions", "datacenters", "software", "events", "networks", "personas"],
+    "labels": {
+      "law": "Law",
+      "blog": "Blog Post",
+      "publications": "Publication",
+      "jurisdictions": "Jurisdiction",
+      "datacenters": "Datacenter",
+      "software": "Software",
+      "events": "Event",
+      "networks": "Network",
+      "personas": "Persona"
+    },
+    "icons": {
+      "law": "scale",
+      "blog": "pencil",
+      "publications": "book",
+      "jurisdictions": "flag",
+      "datacenters": "server",
+      "software": "computer",
+      "events": "calendar",
+      "networks": "globe",
+      "personas": "user"
+    },
+    "colors": {
+      "law": "warning",
+      "blog": "info",
+      "publications": "primary",
+      "jurisdictions": "accent",
+      "datacenters": "secondary",
+      "software": "primary",
+      "events": "error",
+      "networks": "info",
+      "personas": "secondary"
+    }
+  },
+
+  "lawTypes": {
+    "_description": "Law type categories with display metadata",
+    "values": ["privacy", "access", "surveillance", "localization", "security", "sector"],
+    "labels": {
+      "privacy": "Privacy Laws",
+      "access": "Access Laws",
+      "surveillance": "Surveillance Laws",
+      "localization": "Localization Laws",
+      "security": "Security Laws",
+      "sector": "Sector-Specific Laws"
+    },
+    "shortLabels": {
+      "privacy": "Privacy",
+      "access": "Access",
+      "surveillance": "Surveillance",
+      "localization": "Localization",
+      "security": "Security",
+      "sector": "Sector"
+    },
+    "emojis": {
+      "privacy": "🛡️",
+      "access": "🔓",
+      "surveillance": "👁️",
+      "localization": "📍",
+      "security": "🔒",
+      "sector": "📋"
+    },
+    "descriptions": {
+      "privacy": "Laws that protect individual data rights and privacy",
+      "access": "Laws that enable government or law enforcement data access",
+      "surveillance": "Laws that establish surveillance infrastructure or powers",
+      "localization": "Laws that require data to be stored within jurisdiction",
+      "security": "National security frameworks",
+      "sector": "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+    },
+    "badgeClasses": {
+      "privacy": "badge-success",
+      "access": "badge-warning",
+      "surveillance": "badge-error",
+      "localization": "badge-info",
+      "security": "badge-secondary",
+      "sector": "badge-ghost"
+    }
+  },
+
   "laws": {
     "_description": "Match law IDs for cross-linking to /laws/{id}/",
     "values": ["gdpr", "cloud-act", "fisa-702", "ai-act", "data-act", "nis2", "dsa", "dma", "dora", "patriot-act", "eo-12333", "tola-act", "investigatory-powers-act", "pipl", "national-intelligence-law"]
@@ -17,15 +100,18 @@
   },
 
   "audience": {
-    "_description": "Target audience for content and events. Values match termCode in personas.json",
-    "values": ["developer", "technical", "enterprise", "government", "humanitarian", "defence"],
+    "_description": "Target audience for content and events. Values match audienceType in personas.json",
+    "values": ["all", "developer", "it-ops", "enterprise", "public-sector", "humanitarian", "security", "consumer"],
+    "filterValues": ["public-sector", "security", "enterprise", "it-ops"],
     "labels": {
+      "all": "Everyone",
       "developer": "Developers",
-      "technical": "IT & Operations",
+      "it-ops": "IT & Operations",
       "enterprise": "Enterprise",
-      "government": "Public Sector",
-      "humanitarian": "Humanitarian Organizations",
-      "defence": "Defence & Civil Protection"
+      "public-sector": "Public Sector",
+      "humanitarian": "Humanitarian",
+      "security": "Security & Defence",
+      "consumer": "Consumers"
     }
   },
 
@@ -36,15 +122,18 @@
 
   "topics": {
     "_description": "Specific topics for content and events",
-    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables"],
+    "values": ["hybrid-warfare", "cybersecurity", "critical-infrastructure", "sanctions", "gps-jamming", "preparedness", "submarine-cables", "sovereignty", "nis2"],
+    "filterValues": ["cybersecurity", "preparedness", "critical-infrastructure", "sovereignty"],
     "labels": {
       "hybrid-warfare": "Hybrid Warfare",
       "cybersecurity": "Cybersecurity",
       "critical-infrastructure": "Critical Infrastructure",
       "sanctions": "Sanctions",
       "gps-jamming": "GPS Jamming",
-      "preparedness": "Preparedness & Total Defence",
-      "submarine-cables": "Submarine Cables"
+      "preparedness": "Preparedness",
+      "submarine-cables": "Submarine Cables",
+      "sovereignty": "Sovereignty",
+      "nis2": "NIS2"
     }
   },
 

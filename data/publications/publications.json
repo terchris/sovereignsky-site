@@ -1,0 +1,137 @@
+[
+  {
+    "id": "digitisation-sovereignty-humanitarian-space",
+    "name": "Digitisation and Sovereignty in Humanitarian Space",
+    "description": "Academic analysis of how digitalisation and reliance on global platforms reshape power relations, authority, and sovereignty in humanitarian operations",
+    "datePublished": "2022-03-20",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10153061/",
+    "author": [
+      "Aaron Martin",
+      "Gargi Sharma",
+      "Siddharth Peter de Souza",
+      "Linnet Taylor",
+      "Boudewijn van Eerd",
+      "Sean Martin McDonald",
+      "Massimo Marelli",
+      "Margie Cheesman",
+      "Stephan Scheel",
+      "Huub Dijstelbloem"
+    ],
+    "publisher": "Taylor & Francis",
+    "about": [
+      "digital sovereignty",
+      "cloud sovereignty",
+      "humanitarian technology",
+      "blockchain",
+      "biometrics",
+      "data protection",
+      "platform dependency"
+    ],
+    "audience": ["humanitarian", "public-sector", "enterprise"]
+  },
+  {
+    "id": "safeguarding-humanitarian-digital-threats",
+    "name": "Safeguarding Humanitarian Organisations from Digital Threats",
+    "description": "ICRC analysis of how cyber operations, data breaches, and disinformation cause real-world harm to humanitarian organisations",
+    "datePublished": "2022-10-13",
+    "url": "https://blogs.icrc.org/law-and-policy/2022/10/13/safeguarding-humanitarian-organizations-from-digital-threats/",
+    "author": [
+      "Tilman Rodenhäuser",
+      "Balthasar Staehelin",
+      "Massimo Marelli"
+    ],
+    "publisher": "ICRC Humanitarian Law & Policy Blog",
+    "about": [
+      "cybersecurity",
+      "digital threats",
+      "international humanitarian law",
+      "data breaches",
+      "disinformation"
+    ],
+    "audience": ["humanitarian", "public-sector", "security", "it-ops"]
+  },
+  {
+    "id": "humanitarian-metadata-problem",
+    "name": "The Humanitarian Metadata Problem: 'Doing No Harm' in the Digital Era",
+    "description": "Technical analysis of how metadata from telecommunications, messaging apps, cash transfers, and social media can endanger humanitarian beneficiaries and staff",
+    "datePublished": "2020-11-01",
+    "url": "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy",
+    "publisher": "ICRC / Privacy International",
+    "about": [
+      "metadata",
+      "surveillance",
+      "telecommunications",
+      "messaging apps",
+      "mobile money",
+      "data protection",
+      "privacy"
+    ],
+    "audience": ["humanitarian", "public-sector", "it-ops", "consumer"]
+  },
+  {
+    "id": "gisf-digital-physical-security",
+    "name": "Humanitarian Security in an Age of Uncertainty: The Intersection of Digital and Physical Risks",
+    "description": "Practitioner guidance on integrating digital threats into security risk management",
+    "datePublished": "2024-01-01",
+    "url": "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf",
+    "publisher": "Global Interagency Security Forum (GISF)",
+    "about": [
+      "security risk management",
+      "cybersecurity",
+      "disinformation",
+      "supply chain",
+      "hybrid warfare",
+      "geopolitics"
+    ],
+    "audience": ["humanitarian", "security", "it-ops"]
+  },
+  {
+    "id": "icrc-data-protection-handbook",
+    "name": "Handbook on Data Protection in Humanitarian Action",
+    "description": "The authoritative reference on data protection for humanitarian organisations, covering cloud services, biometrics, digital identity, and risk assessment frameworks",
+    "datePublished": "2024-01-15",
+    "url": "https://www.cambridge.org/core/books/handbook-on-data-protection-in-humanitarian-action/025CE3DFD1FAD908DD1412C20E49F955",
+    "author": ["Massimo Marelli"],
+    "publisher": "Cambridge University Press",
+    "about": [
+      "data protection",
+      "cloud sovereignty",
+      "government access",
+      "CLOUD Act",
+      "biometrics",
+      "digital identity"
+    ],
+    "audience": ["humanitarian", "public-sector", "it-ops"]
+  },
+  {
+    "id": "totalberedskapsmeldingen-2025",
+    "name": "Totalberedskapsmeldingen 2025",
+    "description": "Norwegian Government's comprehensive national preparedness strategy covering civil-military cooperation, digital resilience, and societal security",
+    "datePublished": "2025-01-01",
+    "url": "https://www.regjeringen.no/",
+    "publisher": "Norwegian Government",
+    "about": [
+      "national preparedness",
+      "civil protection",
+      "digital resilience",
+      "critical infrastructure",
+      "total defence"
+    ],
+    "audience": ["public-sector", "security", "humanitarian", "enterprise", "it-ops"]
+  },
+  {
+    "id": "ffi-frivillige-beredskapsorganisasjoner-totalforsvar",
+    "name": "FFI: Frivillige beredskapsorganisasjoner i totalforsvaret",
+    "description": "Norwegian Defence Research Establishment analysis of voluntary preparedness organizations' role in total defence",
+    "datePublished": "2023-01-01",
+    "url": "https://www.ffi.no/",
+    "publisher": "Norwegian Defence Research Establishment (FFI)",
+    "about": [
+      "voluntary organizations",
+      "total defence",
+      "civil preparedness",
+      "crisis response"
+    ],
+    "audience": ["public-sector", "humanitarian", "security"]
+  }
+]

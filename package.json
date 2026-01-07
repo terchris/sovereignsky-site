@@ -2,7 +2,8 @@
   "scripts": {
     "validate": "node scripts/validate.js",
     "generate:networks": "node scripts/generate-network-pages.js",
-    "generate:laws": "node scripts/generate-laws-pages.js"
+    "generate:laws": "node scripts/generate-laws-pages.js",
+    "generate:publications": "node scripts/generate-publications-pages.js"
   },
   "devDependencies": {
     "ajv": "^8.17.1",

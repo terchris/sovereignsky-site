@@ -1,92 +1,21 @@
 ---
-title: "Totalberedskapsmeldingen: Forberedt på krise og krig"
-description: "Norwegian government white paper on strengthening civil resilience and total preparedness for crisis and war"
-date: 2025-01-10
-lastmod: 2025-01-10
-
-# Source metadata
-publication_type: "white-paper"
+title: "Totalberedskapsmeldingen 2025"
+description: "Norwegian Government's comprehensive national preparedness strategy covering civil-military cooperation, digital resilience, and societal security"
+date: 2025-01-01
+external_url: "https://www.regjeringen.no/"
 publisher: "Norwegian Government"
-year: 2025
-institutions:
-  - "Statsministerens kontor (Prime Minister's Office)"
-  - "Justis- og beredskapsdepartementet (Ministry of Justice and Public Security)"
-
-# Document reference
-document_reference: "Meld. St. 9 (2024–2025)"
-
-# Credibility markers
-peer_reviewed: false
-open_access: true
-institutional_authority: true
-government_policy: true
-
-# Audience relevance
-relevant_for:
-  - "government"
-  - "defence"
-  - "emergency-management"
-  - "ngo"
-  - "humanitarian"
-  - "critical-infrastructure"
-
-# Topics covered
 topics:
-  - "total defence"
-  - "civil preparedness"
-  - "crisis management"
-  - "civil-military cooperation"
-  - "hybrid threats"
-  - "cyber security"
-  - "food security"
-  - "critical infrastructure"
+  - "national preparedness"
   - "civil protection"
-  - "voluntary organisations"
-
-# Key takeaways for sidebar
-takeaways:
-  - "Historic turning point for Norwegian total preparedness — moving beyond 'deep peace' planning since the 1990s"
-  - "Three main goals: civil society prepared for crisis/war, resilient against hybrid threats, supporting military efforts"
-  - "Over 100 measures across all sectors of society"
-  - "Long-term plan for civil preparedness to be developed starting 2025"
-  - "Sivilforsvaret to increase from 8,000 to 12,000 personnel over eight years"
-  - "1998 shelter construction ban to be lifted — new buildings required to include shelters"
-  - "Civil labour duty in security crisis or war to be legislated"
-  - "50% food self-sufficiency target by 2030; grain reserves for 3 months by 2029"
-  - "New cyber preparedness scheme through public-private cooperation"
-  - "Mandatory preparedness councils in all municipalities, regions and critical sectors"
-
-# External link
-external_url: "https://www.regjeringen.no/no/dokumenter/meld.-st.-9-20242025/id3082364/"
-
-# Tags for cross-site linking
-tags:
-  - "total-defence"
-  - "civil-preparedness"
-  - "norway"
-  - "government-policy"
-  - "cyber-security"
-  - "critical-infrastructure"
-
-# Audience taxonomy
-audiences:
-  - "government"
+  - "digital resilience"
+  - "critical infrastructure"
+  - "total defence"
+personas:
+  - "public-sector"
+  - "security"
   - "humanitarian"
-
-# Categories
-categories:
-  - "Reference"
-  - "Policy"
-
-# Taxonomies for Hugo filtering
-publication_types:
-  - "white-paper"
-  - "government-document"
-institutions_list:
-  - "norwegian-government"
-  - "smk"
-  - "justisdepartementet"
-
+  - "enterprise"
+  - "it-ops"
 type: publications
 ---
 

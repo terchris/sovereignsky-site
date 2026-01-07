@@ -1,18 +1,24 @@
 {{ define "main" }}
 {{ .Scratch.Set "scope" "single" }}
-<article class="max-w-7xl mx-auto px-4">
-  {{/* Header */}}
-  <header class="mt-5 mb-8">
-    {{ if .Params.showBreadcrumbs | default true }}
-    {{ partial "breadcrumbs.html" . }}
-    {{ end }}
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      {{ .Title | emojify }}
-    </h1>
-    {{ with .Description }}
-    <p class="mt-3 text-lg text-neutral-600 dark:text-neutral-400">{{ . }}</p>
-    {{ end }}
-  </header>
+
+{{/* Get publication type label */}}
+{{ $typeLabel := .Params.publication_type | default "Publication" }}
+{{ if eq .Params.publication_type "book" }}{{ $typeLabel = "Book" }}
+{{ else if eq .Params.publication_type "report" }}{{ $typeLabel = "Report" }}
+{{ else if eq .Params.publication_type "paper" }}{{ $typeLabel = "Paper" }}
+{{ else if eq .Params.publication_type "guide" }}{{ $typeLabel = "Guide" }}
+{{ end }}
+
+<article class="max-w-full">
+  {{/* Detail Header with breadcrumbs */}}
+  {{ partial "detail-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "book"
+      "breadcrumbs" (slice
+          (dict "title" "Publications" "url" "/publications/")
+      )
+  ) }}
 
   {{/* Featured Image */}}
   {{ $featured := .Resources.GetMatch "featured*" }}
@@ -22,49 +28,212 @@
   </figure>
   {{ end }}
 
-  {{/* Two-column layout: Main content LEFT, Sidebar RIGHT */}}
+  {{/* Two-column layout */}}
   <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
-    {{/* Right Sidebar - appears first in DOM but ordered last on desktop */}}
-    <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-xs">
-      <div class="toc ps-5 print:hidden lg:sticky lg:top-24">
+    {{/* Right Sidebar */}}
+    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
+      <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
 
-        {{/* 1. Source metadata */}}
-        {{ partial "metadata-source-sidebar.html" . }}
-
-        {{/* Buttons - before Key Takeaways */}}
+        {{/* External link button */}}
         {{ $sourceUrl := .Params.external_url | default .Params.source_url }}
         {{ with $sourceUrl }}
-        <div class="mt-4">
-          {{ partial "external-button.html" (dict "url" . "label" "Read original") }}
+        <a class="btn btn-primary btn-outline w-full gap-2"
+           href="{{ . }}"
+           target="_blank"
+           rel="noopener noreferrer">
+          {{ partial "content-icon.html" (dict "name" "external" "size" "4") }}
+          Read original
+        </a>
+        {{ end }}
+
+        {{/* Details Card */}}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+              Details
+            </h3>
+            <dl class="mt-2 text-sm">
+              {{/* Type */}}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
+                <dd class="font-medium">{{ $typeLabel }}</dd>
+              </div>
+              {{/* Year */}}
+              {{ with .Params.year }}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Year</dt>
+                <dd class="font-medium">{{ . }}</dd>
+              </div>
+              {{ end }}
+              {{/* Publisher */}}
+              {{ with .Params.publisher }}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Publisher</dt>
+                <dd class="font-medium text-right">{{ . }}</dd>
+              </div>
+              {{ end }}
+              {{/* Edition */}}
+              {{ with .Params.edition }}
+              <div class="flex justify-between py-1">
+                <dt class="text-neutral-500 dark:text-neutral-400">Edition</dt>
+                <dd class="font-medium">{{ . }}</dd>
+              </div>
+              {{ end }}
+              {{/* Credibility indicators */}}
+              {{ if or .Params.peer_reviewed .Params.open_access .Params.academic_publisher }}
+              <div class="pt-2 mt-2 border-t border-base-200 space-y-1">
+                {{ if .Params.open_access }}
+                <div class="text-success text-xs flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                  </svg>
+                  Open Access
+                </div>
+                {{ end }}
+                {{ if .Params.peer_reviewed }}
+                <div class="text-info text-xs flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Peer Reviewed
+                </div>
+                {{ end }}
+                {{ if .Params.academic_publisher }}
+                <div class="text-secondary text-xs flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  Academic Publisher
+                </div>
+                {{ end }}
+              </div>
+              {{ end }}
+            </dl>
+          </div>
+        </div>
+
+        {{/* Authors/Institutions Card */}}
+        {{ if or .Params.authors .Params.institutions }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "users" "color" "accent" "size" "4") }}
+              Authors
+            </h3>
+            <div class="mt-2 text-sm">
+              {{ with .Params.authors }}
+              <ul class="space-y-1">
+                {{ range . }}
+                <li>{{ . }}</li>
+                {{ end }}
+              </ul>
+              {{ end }}
+              {{ with .Params.institutions }}
+              <div class="mt-3 pt-3 border-t border-base-200">
+                <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">Institutions</div>
+                <ul class="space-y-1 text-neutral-600 dark:text-neutral-400">
+                  {{ range . }}
+                  <li>{{ . }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+          </div>
         </div>
         {{ end }}
-        <div class="mt-3">
-          {{ partial "internal-button.html" (dict "url" "/publications/" "icon" "📚" "label" "All Publications") }}
+
+        {{/* Key Takeaways Card */}}
+        {{ with .Params.takeaways }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "lightbulb" "color" "warning" "size" "4") }}
+              Key Takeaways
+            </h3>
+            <ul class="mt-2 space-y-2 text-sm">
+              {{ range . }}
+              <li class="flex gap-2">
+                <span class="text-warning shrink-0">•</span>
+                <span>{{ . }}</span>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
         </div>
+        {{ end }}
 
-        {{/* 3. Key Takeaways */}}
-        {{ partial "metadata-takeaways-sidebar.html" . }}
+        {{/* Topics Card */}}
+        {{ if or .Params.topics .Params.tags }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "tag" "color" "secondary" "size" "4") }}
+              Topics
+            </h3>
+            <div class="mt-2">
+              {{ with .Params.topics }}
+              <ul class="space-y-0.5">
+                {{ range . }}
+                <li><span class="text-sm">{{ . }}</span></li>
+                {{ end }}
+              </ul>
+              {{ end }}
+              {{ with .Params.tags }}
+              <div class="mt-3 pt-3 border-t border-base-200">
+                <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">Tags</div>
+                <ul class="space-y-0.5">
+                  {{ range . }}
+                  <li><a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ . }}</a></li>
+                  {{ end }}
+                </ul>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+        {{ end }}
 
-        {{/* 4. Tags (linked to tag pages) */}}
-        {{ partial "metadata-tags-sidebar.html" . }}
+        {{/* Relevant For Card - uses personas from data */}}
+        {{ with .Params.personas }}
+        {{ $personasList := site.Data.personas.personas.itemListElement | default (slice) }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "users" "color" "info" "size" "4") }}
+              Relevant For
+            </h3>
+            <ul class="mt-2 space-y-1">
+              {{ range . }}
+              {{ $audienceType := . }}
+              {{ $persona := dict }}
+              {{ range $personasList }}
+                {{ if eq .audienceType $audienceType }}
+                  {{ $persona = . }}
+                {{ end }}
+              {{ end }}
+              {{ $name := $persona.name | default ($audienceType | humanize | title) }}
+              {{ $icon := $persona.icon | default "user" }}
+              <li>
+                <a href="/personas/{{ $audienceType }}/" class="flex items-center gap-2 text-sm hover:text-primary">
+                  {{ partial "content-icon.html" (dict "name" $icon "size" "4") }}
+                  {{ $name }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
 
-        {{/* Personas (connect publications to /personas) */}}
-        {{ partial "persona-chips.html" . }}
-
-        {{/* 5. Topics */}}
-        {{ partial "metadata-topics-sidebar.html" . }}
-
-        {{/* 6. Relevant For */}}
-        {{ partial "metadata-relevant-for-sidebar.html" . }}
-
-        {{/* 6. Related content - all content types based on matching tags */}}
+        {{/* Related content */}}
         {{ partial "related-content-sidebar.html" . }}
 
-        {{/* 7. Table of Contents - at the bottom */}}
-        {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-        {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-        {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
+        {{/* Table of Contents */}}
+        {{ $showToc := in .TableOfContents "<ul" }}
         {{ if $showToc }}
         <div class="mt-6">
           {{ partial "toc.html" . }}
@@ -74,9 +243,9 @@
       </div>
     </div>
 
-    {{/* Main Content - LEFT */}}
-    <div class="min-w-0 min-h-0 max-w-fit">
-      <div class="article-content prose dark:prose-invert max-w-3xl mb-20">
+    {{/* Main Content */}}
+    <div class="min-w-0 flex-1">
+      <div class="article-content prose dark:prose-invert max-w-none mb-20">
         {{/* Summary/Excerpt intro */}}
         {{ with .Params.summary }}
         <div class="text-lg text-neutral-600 dark:text-neutral-400 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-700">
@@ -96,16 +265,13 @@
           {{ end }}
         </blockquote>
         {{ end }}
-      </div>
 
-      {{/* Footer navigation */}}
-      <footer class="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-700">
-        <div class="flex flex-wrap gap-4 text-sm">
-          <a href="/publications/" class="text-primary-600 hover:text-primary-700 dark:text-primary-400 no-underline">
-            ← All Publications
-          </a>
-        </div>
-      </footer>
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="/publications/">← Back to all publications</a>
+        </p>
+      </div>
     </div>
 
   </section>
