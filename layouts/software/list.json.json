@@ -1,11 +1,11 @@
 {{- $products := slice -}}
 {{- range .Pages -}}
-{{- $product := index (where site.Data.products.products "id" .Params.software_id) 0 -}}
+{{- $product := index (where site.Data.products.products.products "id" .Params.software_id) 0 -}}
 {{- if $product -}}
-{{- $vendor := index (where site.Data.vendors.vendors "id" $product.vendor_id) 0 -}}
+{{- $vendor := index (where site.Data.products.vendors.vendors "id" $product.vendor_id) 0 -}}
 {{- $useAreaNames := slice -}}
 {{- range $product.use_areas -}}
-  {{- $area := index (where site.Data.useAreas "id" .) 0 -}}
+  {{- $area := index (where site.Data.products.useAreas "id" .) 0 -}}
   {{- if $area -}}
     {{- $useAreaNames = $useAreaNames | append $area.name -}}
   {{- end -}}

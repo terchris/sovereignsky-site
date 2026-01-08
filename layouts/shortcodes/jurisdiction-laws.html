@@ -7,8 +7,8 @@
 */}}
 
 {{ $jurisdictionId := .Get "jurisdiction" | default "" }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
-{{ $definitions := site.Data.laws.definitions | default (dict) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
+{{ $definitions := site.Data.laws.laws.definitions | default (dict) }}
 {{ $regions := site.Data.regions | default (slice) }}
 {{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
 

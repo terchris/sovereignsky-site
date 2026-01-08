@@ -45,7 +45,7 @@
 {{/* Find laws whose ID matches a tag OR applies to this country_id */}}
 {{/* Exclude the current law page (if this is a law page) */}}
 {{ $relatedLaws := slice }}
-{{ range (site.Data.laws.laws | default (slice)) }}
+{{ range (site.Data.laws.laws.laws | default (slice)) }}
   {{ $law := . }}
   {{ $matched := false }}
   {{/* Skip if this is the current law page */}}
@@ -108,7 +108,7 @@
 {{ $hasContent := or (gt (len $relatedLaws) 0) (gt (len $relatedPages) 0) }}
 {{ if $hasContent }}
   {{/* Get content types from vocabulary */}}
-  {{ $contentTypes := site.Data.tag_vocabulary.contentTypes | default (dict) }}
+  {{ $contentTypes := site.Data.hugo.ui_vocabulary.contentTypes | default (dict) }}
   {{ $icons := $contentTypes.icons | default (dict) }}
   {{ $colors := $contentTypes.colors | default (dict) }}
 

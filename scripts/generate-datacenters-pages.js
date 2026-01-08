@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /datacenters/{provider}/ pages from data/datacenters.json
+ * Generate /datacenters/{provider}/ pages from data/datacenters/providers.json
  *
  * This script generates:
  * - content/datacenters/{provider_id}/index.md for each provider (e.g., /datacenters/aws/, /datacenters/azure/)
@@ -146,8 +146,7 @@ function groupRegionsByCountry(regions) {
 }
 
 function main() {
-  const datacenters = readJson(path.join(DATA_DIR, 'datacenters.json'));
-  const providers = datacenters.providers || [];
+  const providers = readJson(path.join(DATA_DIR, 'datacenters', 'providers.json'));
   const regionList = readJson(path.join(DATA_DIR, 'regions.json'));
   const jurisdictions = readJson(path.join(DATA_DIR, 'jurisdictions.json'));
 
@@ -220,7 +219,7 @@ function main() {
       return a.countryName.localeCompare(b.countryName);
     });
 
-    const locationsUpdated = p.updated || (p.meta && p.meta.updated) || (datacenters.meta && datacenters.meta.generated) || '';
+    const locationsUpdated = p.updated || (p.meta && p.meta.updated) || '';
     const locationsUpdatedMd = locationsUpdated
       ? `\n_Last updated: ${locationsUpdated}_\n`
       : '';

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Autofill enrichment fields in data/laws.json for all laws.
+ * Autofill enrichment fields in data/laws/laws.json for all laws.
  *
  * Goal: ensure every law has:
  * - what_it_does: string[]
@@ -20,7 +20,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const LAWS_PATH = path.join(__dirname, '..', 'data', 'laws.json');
+const LAWS_PATH = path.join(__dirname, '..', 'data', 'laws', 'laws.json');
 
 function readJson(p) {
     return JSON.parse(fs.readFileSync(p, 'utf8'));

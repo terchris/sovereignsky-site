@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /datacenters/{country}/ pages from data/regions.json + data/datacenters.json
+ * Generate /datacenters/{country}/ pages from data/regions.json + data/datacenters/providers.json
  *
  * Creates one page per country that has at least one datacenter region physically located there.
  * Example: /datacenters/norway/ shows all provider regions located in Norway, with a map auto-zoomed to Norway.
@@ -34,10 +34,9 @@ function formatTitle(country) {
 
 function main() {
   const regions = readJson(path.join(DATA_DIR, 'regions.json'));
-  const datacenters = readJson(path.join(DATA_DIR, 'datacenters.json'));
+  const providers = readJson(path.join(DATA_DIR, 'datacenters', 'providers.json'));
 
   const regionById = new Map(regions.map((r) => [r.id, r]));
-  const providers = (datacenters.providers || []);
   const providerIds = new Set(providers.map((p) => p.provider_id).filter(Boolean));
 
   // Count datacenter regions by physical country, and capture provider counts per country.

@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Content Topics",
+  "description": "High-level themes for categorizing content on SovereignSky",
+  "filterValues": ["cybersecurity", "preparedness", "critical-infrastructure", "sovereignty"],
+  "itemListElement": [
+    {
+      "identifier": "sovereignty",
+      "name": "Digital Sovereignty",
+      "description": "Control over digital infrastructure, data residency, vendor independence, and freedom from foreign jurisdictional reach."
+    },
+    {
+      "identifier": "preparedness",
+      "name": "Preparedness & Resilience",
+      "description": "Total defence concepts, crisis response capabilities, national resilience, and civil protection measures."
+    },
+    {
+      "identifier": "cybersecurity",
+      "name": "Cybersecurity",
+      "description": "Digital threat landscape, security risk management, hybrid warfare, and protective measures."
+    },
+    {
+      "identifier": "data-protection",
+      "name": "Data Protection",
+      "description": "Privacy, government access to data, surveillance laws like CLOUD Act, biometrics, and personal data handling."
+    },
+    {
+      "identifier": "critical-infrastructure",
+      "name": "Critical Infrastructure",
+      "description": "Essential services, supply chains, telecommunications, networks, and infrastructure dependencies."
+    },
+    {
+      "identifier": "humanitarian",
+      "name": "Humanitarian Operations",
+      "description": "International humanitarian law, humanitarian technology, NGO-specific challenges, and neutrality in digital operations."
+    },
+    {
+      "identifier": "compliance",
+      "name": "Legal & Compliance",
+      "description": "Regulatory frameworks like NIS2, GDPR, sector-specific requirements, and legal obligations."
+    }
+  ]
+}

@@ -49,8 +49,8 @@
     </div>
   </div>
 
-  {{/* Audience filter - from personas.json */}}
-  {{ $personas := site.Data.personas.personas.itemListElement }}
+  {{/* Audience filter - from audience.json */}}
+  {{ $audienceData := site.Data.audience.audience }}
   <div class="mb-6">
     <div class="text-sm font-semibold opacity-70 mb-3">Filter by Audience:</div>
     <div class="flex flex-wrap gap-2" data-filter-group="audience">
@@ -58,25 +58,27 @@
         {{ partial "content-icon.html" (dict "name" "users" "size" "4") }}
         All
       </button>
-      {{- range $personas }}
-      {{- if ne .audienceType "all" }}
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .audienceType }}">
+      {{- range $audienceData.itemListElement }}
+      <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .identifier }}">
         {{ partial "content-icon.html" (dict "name" .icon "size" "4") }}
         {{ .name }}
       </button>
       {{- end }}
-      {{- end }}
     </div>
   </div>
 
-  {{/* Topic filter - generated from tag_vocabulary.json */}}
-  {{ $vocab := site.Data.tag_vocabulary }}
+  {{/* Topic filter - from data/topics/topics.json */}}
+  {{ $topicsData := site.Data.topics.topics }}
+  {{ $topicLabels := dict }}
+  {{ range $topicsData.itemListElement }}
+    {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
+  {{ end }}
   <div class="flex flex-wrap items-center gap-2 mb-6">
     <span class="text-sm font-semibold opacity-70">Topic:</span>
     <div class="join" data-filter-group="tags">
       <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>
-      {{- range $vocab.topics.filterValues }}
-      <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $vocab.topics.labels . | default (. | humanize | title) }}</button>
+      {{- range $topicsData.filterValues }}
+      <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $topicLabels . | default (. | humanize | title) }}</button>
       {{- end }}
     </div>
   </div>

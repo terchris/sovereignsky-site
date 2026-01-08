@@ -1,0 +1,56 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Law Types",
+  "description": "Categories for classifying data-related laws",
+  "itemListElement": [
+    {
+      "identifier": "privacy",
+      "name": "Privacy Laws",
+      "shortName": "Privacy",
+      "description": "Laws that protect individual data rights and privacy",
+      "emoji": "🛡️",
+      "badgeClass": "badge-success"
+    },
+    {
+      "identifier": "access",
+      "name": "Access Laws",
+      "shortName": "Access",
+      "description": "Laws that enable government or law enforcement data access",
+      "emoji": "🔓",
+      "badgeClass": "badge-warning"
+    },
+    {
+      "identifier": "surveillance",
+      "name": "Surveillance Laws",
+      "shortName": "Surveillance",
+      "description": "Laws that establish surveillance infrastructure or powers",
+      "emoji": "👁️",
+      "badgeClass": "badge-error"
+    },
+    {
+      "identifier": "localization",
+      "name": "Localization Laws",
+      "shortName": "Localization",
+      "description": "Laws that require data to be stored within jurisdiction",
+      "emoji": "📍",
+      "badgeClass": "badge-info"
+    },
+    {
+      "identifier": "security",
+      "name": "Security Laws",
+      "shortName": "Security",
+      "description": "National security frameworks",
+      "emoji": "🔒",
+      "badgeClass": "badge-secondary"
+    },
+    {
+      "identifier": "sector",
+      "name": "Sector-Specific Laws",
+      "shortName": "Sector",
+      "description": "Laws regulating specific sectors (AI, telecom, finance, etc.)",
+      "emoji": "📋",
+      "badgeClass": "badge-ghost"
+    }
+  ]
+}

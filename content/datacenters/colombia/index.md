@@ -1,4 +1,24 @@
 ---
+title: "🇨🇴 Colombia Datacenters"
+description: "Datacenter regions physically located in Colombia."
+echarts: true
 layout: "country"
+country_id: "CO"
+showTableOfContents: true
 ---
 
+Datacenter regions physically located in **Colombia** across all providers.
+
+## Map
+
+{{< datacenter-map countries="CO" showFilters="false" >}}
+
+{{< datacenter-country-providers country="CO" >}}
+
+{{< datacenter-country-regions country="CO" >}}
+
+## Jurisdiction
+
+→ [Jurisdiction for Colombia](/jurisdictions/colombia/)
+
+→ [Back to all datacenters](/datacenters/)

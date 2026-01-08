@@ -11,7 +11,7 @@
 {{ $personas := .personas | default (slice) }}
 {{ $audienceVocab := .audienceVocab | default (slice) }}
 {{ $audienceLabels := .audienceLabels | default (dict) }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
 {{ $blogPages := where site.RegularPages "Section" "blog" }}
 {{ $publicationPages := where site.RegularPages "Section" "publications" }}
 
@@ -25,28 +25,16 @@
   {{ $blocsById = merge $blocsById (dict .id .) }}
 {{ end }}
 
-{{/* Fallback: derive audience vocab/labels directly from tag-vocabulary.json if not provided */}}
-{{ $vocab := site.Data.tag_vocabulary | default (dict) }}
-{{ if and $vocab (eq (len $audienceVocab) 0) }}
-  {{ $audienceVocab = $vocab.audience.values | default (slice) }}
-{{ end }}
-{{ if and $vocab (eq (len $audienceLabels) 0) }}
-  {{ $audienceLabels = $vocab.audience.labels | default (dict) }}
-{{ end }}
-
-{{/* Final fallback: keep personas usable even if vocab data isn't present for some reason */}}
+{{/* Fallback: derive audience vocab/labels from audience.json if not provided */}}
 {{ if eq (len $audienceVocab) 0 }}
-  {{ $audienceVocab = slice "developer" "technical" "enterprise" "government" "humanitarian" "defence" }}
+  {{ range site.Data.audience.audience.itemListElement }}
+    {{ $audienceVocab = $audienceVocab | append .identifier }}
+  {{ end }}
 {{ end }}
 {{ if eq (len $audienceLabels) 0 }}
-  {{ $audienceLabels = dict
-    "developer" "Developers"
-    "technical" "IT & Operations"
-    "enterprise" "Enterprise"
-    "government" "Public Sector"
-    "humanitarian" "Humanitarian Organizations"
-    "defence" "Defence & Civil Protection"
-  }}
+  {{ range site.Data.audience.audience.itemListElement }}
+    {{ $audienceLabels = merge $audienceLabels (dict .identifier .name) }}
+  {{ end }}
 {{ end }}
 
 {{/* Law type -> anchor on /laws/ page */}}
@@ -118,7 +106,7 @@
       {{ $softwareURL := "/software/" }}
       {{ if gt (len $softwareQs) 0 }}{{ $softwareURL = printf "%s?%s" $softwareURL (delimit $softwareQs "&") }}{{ end }}
 
-      {{/* Build events deep link (only if this persona is in tag-vocabulary audience values) */}}
+      {{/* Build events deep link (only if this persona is in ui_vocabulary audience values) */}}
       {{ $eventsURL := "/events/" }}
       {{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
 

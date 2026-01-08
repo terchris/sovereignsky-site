@@ -94,7 +94,7 @@
         {{/* Count laws by type for this jurisdiction */}}
         {{ if ne ($.Scratch.Get "laws_jurisdictionId") "" }}
           {{ $jurisdictionId := $.Scratch.Get "laws_jurisdictionId" }}
-          {{ range site.Data.laws.laws }}
+          {{ range site.Data.laws.laws.laws }}
             {{ $law := . }}
             {{ range .applies_to }}
               {{ if eq . $jurisdictionId }}

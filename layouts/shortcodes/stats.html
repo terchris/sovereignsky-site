@@ -10,12 +10,12 @@
 {{- $style := .Get "style" | default "default" -}}
 
 {{- /* Count software products */ -}}
-{{- $softwareCount := len (index .Site.Data "productsList") -}}
+{{- $softwareCount := len (index (index .Site.Data "products") "productsList") -}}
 
 {{- /* Count datacenter regions from JSON data */ -}}
-{{- $datacenters := index .Site.Data "datacenters" -}}
+{{- $providers := index (index .Site.Data "datacenters") "providers" -}}
 {{- $datacenterCount := 0 -}}
-{{- range $datacenters.providers -}}
+{{- range $providers -}}
   {{- $datacenterCount = add $datacenterCount (len .regions) -}}
 {{- end -}}
 

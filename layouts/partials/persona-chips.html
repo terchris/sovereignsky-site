@@ -43,17 +43,10 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     {{ end }}
 
     {{ if gt (len $personas) 0 }}
-    {{ $vocab := site.Data.tag_vocabulary | default (dict) }}
-    {{ $labels := $vocab.audience.labels | default (dict) }}
-    {{ if eq (len $labels) 0 }}
-    {{ $labels = dict
-    "developer" "Developers"
-    "technical" "IT & Operations"
-    "enterprise" "Enterprise"
-    "government" "Public Sector"
-    "humanitarian" "Humanitarian Organizations"
-    "defence" "Defence & Civil Protection"
-    }}
+    {{/* Build labels from audience.json */}}
+    {{ $labels := dict }}
+    {{ range site.Data.audience.audience.itemListElement }}
+      {{ $labels = merge $labels (dict .identifier .name) }}
     {{ end }}
 
     <div class="mt-6">

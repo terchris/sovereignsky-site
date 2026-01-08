@@ -265,7 +265,7 @@
             </h3>
             {{/* Build a lookup map for law full names */}}
             {{ $lawsById := dict }}
-            {{ range (site.Data.laws.laws | default (slice)) }}
+            {{ range (site.Data.laws.laws.laws | default (slice)) }}
               {{ $lawsById = merge $lawsById (dict .id .) }}
             {{ end }}
 
@@ -408,7 +408,7 @@
         {{/* Related Laws (same jurisdiction) - kept as fallback/supplement */}}
         {{ if gt (len $appliesTo) 0 }}
         {{ $relatedLaws := slice }}
-        {{ range (site.Data.laws.laws | default (slice)) }}
+        {{ range (site.Data.laws.laws.laws | default (slice)) }}
           {{ $otherLaw := . }}
           {{ if ne $otherLaw.id $lawId }}
             {{ $found := false }}

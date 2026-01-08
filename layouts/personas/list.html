@@ -1,8 +1,14 @@
 {{ define "main" }}
-{{ $personas := site.Data.personas.personas.itemListElement | default (slice) }}
-{{ $vocab := site.Data.tag_vocabulary }}
-{{ $audienceVocab := $vocab.audience.values | default (slice) }}
-{{ $audienceLabels := $vocab.audience.labels | default (dict) }}
+{{/* Get audiences from audience.json */}}
+{{ $audienceData := site.Data.audience.audience }}
+{{ $audiences := $audienceData.itemListElement | default (slice) }}
+{{/* Build audience values and labels from data */}}
+{{ $audienceVocab := slice }}
+{{ $audienceLabels := dict }}
+{{ range $audiences }}
+  {{ $audienceVocab = $audienceVocab | append .identifier }}
+  {{ $audienceLabels = merge $audienceLabels (dict .identifier .name) }}
+{{ end }}
 
 {{/* Build a map of persona pages for image lookup */}}
 {{ $personaPages := dict }}
@@ -23,17 +29,15 @@
     {{ .Content }}
   </section>
 
-  {{/* Persona Cards Grid */}}
+  {{/* Audience Cards Grid */}}
   <section class="mt-8">
-    {{ if gt (len $personas) 0 }}
+    {{ if gt (len $audiences) 0 }}
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {{ range $personas }}
+      {{ range $audiences }}
         {{ $p := . }}
-        {{ $term := $p.audienceType | default "" }}
-        {{/* Skip "all" persona - not useful to display */}}
-        {{ if eq $term "all" }}{{ continue }}{{ end }}
+        {{ $term := $p.identifier | default "" }}
         {{ $name := $p.name | default ($term | humanize | title) }}
-        {{ $desc := $p.disambiguatingDescription | default "" }}
+        {{ $desc := $p.description | default "" }}
         {{ $icon := $p.icon | default "user" }}
         {{ $isAudience := in $audienceVocab $term }}
 
@@ -93,7 +97,7 @@
       {{ end }}
     </div>
     {{ else }}
-    <p class="text-neutral-600 dark:text-neutral-400">No personas found.</p>
+    <p class="text-neutral-600 dark:text-neutral-400">No audiences found.</p>
     {{ end }}
   </section>
 </article>

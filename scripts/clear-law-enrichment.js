@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Clear enrichment fields from data/laws.json.
+ * Clear enrichment fields from data/laws/laws.json.
  *
  * Use this when you do NOT want to ship potentially unverified text.
  * It removes the optional enrichment fields so only the core, existing fields remain.
@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const LAWS_PATH = path.join(__dirname, '..', 'data', 'laws.json');
+const LAWS_PATH = path.join(__dirname, '..', 'data', 'laws', 'laws.json');
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));

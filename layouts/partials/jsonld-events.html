@@ -1,11 +1,10 @@
-{{- /* 
+{{- /*
   jsonld-events.html
   Generates schema.org JSON-LD for events from /data/events.json
   Usage: {{ partial "jsonld-events.html" . }}
 */ -}}
 
 {{- $events := site.Data.events.events -}}
-{{- $vocab := site.Data.tag_vocabulary -}}
 {{- if $events -}}
 <script type="application/ld+json">
 {

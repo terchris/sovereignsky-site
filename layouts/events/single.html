@@ -24,7 +24,17 @@
 {{ $tags := .Params.tags | default (slice) }}
 {{ $audiences := .Params.audiences | default (slice) }}
 
-{{ $vocab := site.Data.tag_vocabulary }}
+{{/* Build topic labels from topics.json */}}
+{{ $topicLabels := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
+{{ end }}
+
+{{/* Build audience labels from audience.json */}}
+{{ $audienceLabels := dict }}
+{{ range site.Data.audience.audience.itemListElement }}
+  {{ $audienceLabels = merge $audienceLabels (dict .identifier .name) }}
+{{ end }}
 
 <article class="max-w-4xl mx-auto">
   {{/* Hero Header */}}
@@ -137,10 +147,9 @@
       <div class="p-4 bg-base-200 rounded-lg">
         <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">Topics</div>
         <div class="flex flex-wrap gap-2">
-          {{ $vocabTopics := $vocab.topics.labels }}
           {{ range $tags }}
-          {{ $label := index $vocabTopics . | default (. | humanize | title) }}
-          <span class="badge badge-lg badge-outline">{{ $label }}</span>
+          {{ $label := index $topicLabels . | default (. | humanize | title) }}
+          <a href="/topics/{{ . }}/" class="badge badge-lg badge-outline hover:badge-primary">{{ $label }}</a>
           {{ end }}
         </div>
       </div>
@@ -151,9 +160,8 @@
       <div class="p-4 bg-base-200 rounded-lg">
         <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-3 font-semibold">Target Audience</div>
         <div class="flex flex-wrap gap-2">
-          {{ $vocabAudience := $vocab.audience.labels }}
           {{ range $audiences }}
-          {{ $label := index $vocabAudience . | default (. | humanize | title) }}
+          {{ $label := index $audienceLabels . | default (. | humanize | title) }}
           <a href="/audiences/{{ . }}/" class="badge badge-lg badge-primary">{{ $label }}</a>
           {{ end }}
         </div>

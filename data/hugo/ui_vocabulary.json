@@ -1,0 +1,41 @@
+{
+  "_description": "UI vocabulary for Hugo templates - icons and colors for content types. Domain-specific data lives in respective data folders (audience.json, topics.json, law_types.json).",
+
+  "contentTypes": {
+    "_description": "Content type categories for Related sections and navigation. Icons match Heroicons.",
+    "values": ["law", "blog", "publications", "jurisdictions", "datacenters", "software", "events", "networks", "audiences"],
+    "labels": {
+      "law": "Law",
+      "blog": "Blog Post",
+      "publications": "Publication",
+      "jurisdictions": "Jurisdiction",
+      "datacenters": "Datacenter",
+      "software": "Software",
+      "events": "Event",
+      "networks": "Network",
+      "audiences": "Audience"
+    },
+    "icons": {
+      "law": "scale",
+      "blog": "pencil",
+      "publications": "book",
+      "jurisdictions": "flag",
+      "datacenters": "server",
+      "software": "computer",
+      "events": "calendar",
+      "networks": "globe",
+      "audiences": "user"
+    },
+    "colors": {
+      "law": "warning",
+      "blog": "info",
+      "publications": "primary",
+      "jurisdictions": "accent",
+      "datacenters": "secondary",
+      "software": "primary",
+      "events": "error",
+      "networks": "info",
+      "audiences": "secondary"
+    }
+  }
+}

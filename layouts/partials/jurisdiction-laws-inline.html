@@ -9,7 +9,7 @@
 
 {{ $jurisdictionId := .jurisdictionId | default "" }}
 {{ $country := .country | default dict }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
 {{ $regions := site.Data.regions | default (slice) }}
 {{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
 
@@ -90,13 +90,20 @@
   {{ $byType = merge $byType (dict $type ($existing | append .)) }}
 {{ end }}
 
-{{/* Get law type vocabulary from centralized data */}}
-{{ $lawTypes := site.Data.tag_vocabulary.lawTypes | default (dict) }}
-{{ $typeOrder := $lawTypes.values | default (slice "privacy" "access" "surveillance" "localization" "security" "sector") }}
-{{ $typeLabels := $lawTypes.labels | default (dict "privacy" "Privacy Laws" "access" "Access Laws" "surveillance" "Surveillance Laws" "localization" "Localization Laws" "security" "Security Laws" "sector" "Sector-Specific Laws") }}
-{{ $typeEmojis := $lawTypes.emojis | default (dict "privacy" "🛡️" "access" "🔓" "surveillance" "👁️" "localization" "📍" "security" "🔒" "sector" "📋") }}
-{{ $typeDescriptions := $lawTypes.descriptions | default (dict "privacy" "Laws that protect individual data rights and privacy" "access" "Laws that enable government or law enforcement data access" "surveillance" "Laws that establish surveillance infrastructure or powers" "localization" "Laws that require data to be stored within jurisdiction" "security" "National security frameworks" "sector" "Laws regulating specific sectors") }}
-{{ $typeBadgeClasses := $lawTypes.badgeClasses | default (dict "privacy" "badge-success" "access" "badge-warning" "surveillance" "badge-error" "localization" "badge-info" "security" "badge-secondary" "sector" "badge-ghost") }}
+{{/* Get law type vocabulary from law_types.json */}}
+{{ $lawTypesData := site.Data.laws.law_types.itemListElement | default (slice) }}
+{{ $typeOrder := slice }}
+{{ $typeLabels := dict }}
+{{ $typeEmojis := dict }}
+{{ $typeDescriptions := dict }}
+{{ $typeBadgeClasses := dict }}
+{{ range $lawTypesData }}
+  {{ $typeOrder = $typeOrder | append .identifier }}
+  {{ $typeLabels = merge $typeLabels (dict .identifier .name) }}
+  {{ $typeEmojis = merge $typeEmojis (dict .identifier .emoji) }}
+  {{ $typeDescriptions = merge $typeDescriptions (dict .identifier .description) }}
+  {{ $typeBadgeClasses = merge $typeBadgeClasses (dict .identifier .badgeClass) }}
+{{ end }}
 
 {{ if gt (len $jurisdictionLaws) 0 }}
 <div class="not-prose">

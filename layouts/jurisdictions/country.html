@@ -71,7 +71,7 @@
   {{ end }}
   {{ $lawCount := 0 }}
   {{ $seenLaws := slice }}
-  {{ range site.Data.laws.laws }}
+  {{ range site.Data.laws.laws.laws }}
     {{ $lawId := .id }}
     {{ range .applies_to }}
       {{ $applyTo := . }}
@@ -225,7 +225,7 @@
               {{ $.Scratch.Set "laws_total" 0 }}
               {{ $.Scratch.Set "laws_byType" (dict) }}
               {{ $.Scratch.Set "laws_seen" (slice) }}
-              {{ range site.Data.laws.laws }}
+              {{ range site.Data.laws.laws.laws }}
                 {{ $law := . }}
                 {{ $lawId := .id }}
                 {{ range .applies_to }}
@@ -259,10 +259,15 @@
                   </h3>
                   <p class="text-xs opacity-60 -mt-1">{{ $.Scratch.Get "laws_total" }} applicable laws</p>
                   <ul class="menu menu-sm bg-base-200 rounded-box mt-2 p-1 w-full">
-                    {{ $lawTypes := site.Data.tag_vocabulary.lawTypes | default (dict) }}
-                    {{ $typeOrder := $lawTypes.values | default (slice "privacy" "access" "surveillance" "localization" "security" "sector") }}
-                    {{ $shortLabels := $lawTypes.shortLabels | default (dict "privacy" "Privacy" "access" "Access" "surveillance" "Surveillance" "localization" "Localization" "security" "Security" "sector" "Sector") }}
-                    {{ $emojis := $lawTypes.emojis | default (dict "privacy" "🛡️" "access" "🔓" "surveillance" "👁️" "localization" "📍" "security" "🔒" "sector" "📋") }}
+                    {{/* Build law type lookups from law_types.json */}}
+                    {{ $typeOrder := slice }}
+                    {{ $shortLabels := dict }}
+                    {{ $emojis := dict }}
+                    {{ range site.Data.laws.law_types.itemListElement }}
+                      {{ $typeOrder = $typeOrder | append .identifier }}
+                      {{ $shortLabels = merge $shortLabels (dict .identifier .shortName) }}
+                      {{ $emojis = merge $emojis (dict .identifier .emoji) }}
+                    {{ end }}
                     {{ $byType := $.Scratch.Get "laws_byType" }}
                     {{ range $typeOrder }}
                       {{ $type := . }}

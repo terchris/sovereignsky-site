@@ -10,7 +10,7 @@
 {{ $lawType := .Get "type" | default "" }}
 {{ $govAccess := .Get "government_access" | default "" }}
 {{ $dataProt := .Get "data_protection" | default "" }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
 
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}

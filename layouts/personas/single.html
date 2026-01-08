@@ -1,30 +1,34 @@
 {{ define "main" }}
 {{ .Scratch.Set "scope" "single" }}
 
-{{/* Get persona data from JSON based on page's persona_id param or slug */}}
+{{/* Get audience data from JSON based on page's persona_id param or slug */}}
 {{ $personaId := .Params.persona_id | default (path.Base .File.Dir) }}
-{{ $personas := site.Data.personas.personas.itemListElement | default (slice) }}
+{{ $audienceData := site.Data.audience.audience }}
+{{ $audiences := $audienceData.itemListElement | default (slice) }}
 {{ $persona := dict }}
-{{ range $personas }}
-  {{ if eq .audienceType $personaId }}
+{{ range $audiences }}
+  {{ if eq .identifier $personaId }}
     {{ $persona = . }}
   {{ end }}
 {{ end }}
 
-{{ $term := $persona.audienceType | default $personaId }}
+{{ $term := $persona.identifier | default $personaId }}
 {{ $personaName := $persona.name | default ($term | humanize | title) }}
-{{ $personaShortDesc := .Params.summary | default $persona.disambiguatingDescription | default "" }}
-{{ $personaDesc := .Params.description | default $persona.description | default "" }}
+{{ $personaShortDesc := .Params.summary | default $persona.description | default "" }}
+{{ $personaDesc := .Params.description | default $persona.abstract | default "" }}
 {{ $personaIcon := $persona.icon | default "user" }}
 
-{{/* Get vocabulary data */}}
-{{ $vocab := site.Data.tag_vocabulary | default (dict) }}
-{{ $audienceVocab := $vocab.audience.values | default (slice) }}
-{{ $audienceLabels := $vocab.audience.labels | default (dict) }}
+{{/* Build audience vocab/labels from audience.json */}}
+{{ $audienceVocab := slice }}
+{{ $audienceLabels := dict }}
+{{ range $audiences }}
+  {{ $audienceVocab = $audienceVocab | append .identifier }}
+  {{ $audienceLabels = merge $audienceLabels (dict .identifier .name) }}
+{{ end }}
 {{ $isAudience := in $audienceVocab $term }}
 
 {{/* Law and region lookups */}}
-{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .id .) }}

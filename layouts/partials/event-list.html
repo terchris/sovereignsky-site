@@ -13,7 +13,16 @@
 */ -}}
 
 {{- $events := site.Data.events.events -}}
-{{- $vocab := site.Data.tag_vocabulary -}}
+{{- /* Build topic labels from topics.json */ -}}
+{{- $topicLabels := dict -}}
+{{- range site.Data.topics.topics.itemListElement -}}
+  {{- $topicLabels = merge $topicLabels (dict .identifier .name) -}}
+{{- end -}}
+{{- /* Build audience labels from audience.json */ -}}
+{{- $audienceLabels := dict -}}
+{{- range site.Data.audience.audience.itemListElement -}}
+  {{- $audienceLabels = merge $audienceLabels (dict .identifier .name) -}}
+{{- end -}}
 {{- $filter := .filter | default "" -}}
 {{- $audience := .audience | default "" -}}
 {{- $itRelevance := .itRelevance | default "" -}}
@@ -148,10 +157,9 @@
       {{- if not $compact }}
       {{- with .tags }}
       <div class="flex flex-wrap gap-1 mt-1">
-        {{- $vocabTopics := $vocab.topics.labels -}}
         {{- $tagColors := dict "cybersecurity" "border-error text-error" "preparedness" "border-warning text-warning" "critical-infrastructure" "border-info text-info" "sovereignty" "border-success text-success" -}}
         {{- range . }}
-        {{- $label := index $vocabTopics . | default (. | humanize | title) }}
+        {{- $label := index $topicLabels . | default (. | humanize | title) }}
         {{- $color := index $tagColors . | default "border-base-300" }}
         <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full border {{ $color }}">{{ $label }}</span>
         {{- end }}
@@ -160,8 +168,7 @@
 
       {{- with .audience }}
       <div class="text-xs opacity-50 mt-1">
-        {{- $vocabAudience := $vocab.audience.labels -}}
-        {{- range $i, $a := . }}{{- if $i }} · {{ end }}{{- $label := index $vocabAudience $a | default ($a | humanize | title) }}{{ $label }}{{- end }}
+        {{- range $i, $a := . }}{{- if $i }} · {{ end }}{{- $label := index $audienceLabels $a | default ($a | humanize | title) }}{{ $label }}{{- end }}
       </div>
       {{- end }}
       {{- end }}

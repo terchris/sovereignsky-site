@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /laws/{law-id}/ pages from data/laws.json
+ * Generate /laws/{law-id}/ pages from data/laws/laws.json
  *
  * Creates stub pages for each law. If a page already exists with content,
  * it preserves the content and only updates the frontmatter.
@@ -302,9 +302,9 @@ function buildDefaultBody(law) {
 }
 
 function main() {
-  console.log('Generating /laws/ pages from data/laws.json...\n');
+  console.log('Generating /laws/ pages from data/laws/laws.json...\n');
 
-  const lawsData = readJson(path.join(DATA_DIR, 'laws.json'));
+  const lawsData = readJson(path.join(DATA_DIR, 'laws', 'laws.json'));
   const laws = lawsData.laws || [];
   const definitions = lawsData.definitions || {};
 

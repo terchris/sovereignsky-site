@@ -41,7 +41,7 @@
       </div>
 
       {{/* Laws search (client-side) */}}
-      {{ $laws := site.Data.laws.laws | default (slice) }}
+      {{ $laws := site.Data.laws.laws.laws | default (slice) }}
       {{ $items := slice }}
       {{ range $laws }}
         {{ $items = $items | append (dict

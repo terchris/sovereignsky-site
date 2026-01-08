@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /jurisdictions/ pages from data/regions.json, data/jurisdictions.json, and data/laws.json
+ * Generate /jurisdictions/ pages from data/regions.json, data/jurisdictions.json, and data/laws/laws.json
  *
  * This script generates:
  * - /jurisdictions/{country-slug}/ for each country (e.g., /jurisdictions/norway/, /jurisdictions/usa/)
@@ -20,7 +20,7 @@ const CONTENT_DIR = path.join(__dirname, '..', 'content', 'jurisdictions');
 // Load data files
 const regions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'regions.json'), 'utf8'));
 const jurisdictions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'jurisdictions.json'), 'utf8'));
-const lawsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'laws.json'), 'utf8'));
+const lawsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'laws', 'laws.json'), 'utf8'));
 
 // Create lookups
 const blocsById = {};

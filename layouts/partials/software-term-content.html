@@ -49,7 +49,7 @@
       <div class="inline-flex flex-wrap gap-2 mt-2">
         <a href="/software/" class="filter-link">All</a>
         {{ range $term, $pages := site.Taxonomies.use_areas }}
-        {{ $area := index (where site.Data.useAreas "id" $term) 0 }}
+        {{ $area := index (where site.Data.products.useAreas "id" $term) 0 }}
         {{ $displayName := $term | title }}
         {{ if $area }}{{ $displayName = $area.name }}{{ end }}
         <a href="/use_areas/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "use_area" }}{{ if eq $.Title $term }}active{{ end }}{{ end }}">
@@ -82,9 +82,9 @@
   <!-- Product Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {{ range .Pages }}
-    {{ $product := index (where site.Data.products.products "id" .Params.software_id) 0 }}
+    {{ $product := index (where site.Data.products.products.products "id" .Params.software_id) 0 }}
     {{ if $product }}
-    {{ $vendor := index (where site.Data.vendors.vendors "id" $product.vendor_id) 0 }}
+    {{ $vendor := index (where site.Data.products.vendors.vendors "id" $product.vendor_id) 0 }}
     {{ $riskLevel := $product.risk_level | default "moderate" }}
     {{ $riskColor := index $riskColors $riskLevel | default "neutral" }}
 
@@ -119,7 +119,7 @@
           <!-- Footer: Use areas -->
           <div class="flex flex-wrap gap-1.5">
             {{ range $product.use_areas }}
-            {{ $area := index (where site.Data.useAreas "id" .) 0 }}
+            {{ $area := index (where site.Data.products.useAreas "id" .) 0 }}
             {{ if $area }}
             <span class="text-xs px-2 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">
               {{ $area.name }}
