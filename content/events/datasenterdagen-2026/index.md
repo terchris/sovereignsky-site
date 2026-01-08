@@ -10,9 +10,9 @@ locationCountry: "NO"
 organizerName: "Norwegian Datacenter Industry"
 organizerUrl: "https://www.datasenterindustrien.no"
 externalUrl: "https://www.datasenterindustrien.no/about/events/datasenterdagen"
-tags:
+topics:
   - "critical-infrastructure"
-  - "sovereignty"
+  - "digital-sovereignty"
   - "cybersecurity"
 audiences:
   - "it-ops"

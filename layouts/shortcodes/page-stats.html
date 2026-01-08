@@ -318,7 +318,7 @@
   </div>
 
 {{- else if eq $section "personas" -}}
-  {{- $personas := .Site.Data.personas.hasDefinedTerm | default (slice) -}}
+  {{- $personas := .Site.Data.audience.audience.itemListElement | default (slice) -}}
   {{- $total := len $personas -}}
   {{- /* Count unique categories across all personas */ -}}
   {{- $allCategories := slice -}}

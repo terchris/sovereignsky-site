@@ -10,9 +10,9 @@ locationCountry: "NO"
 organizerName: "Datacenter Forum / Norwegian Datacenter Industry"
 organizerUrl: "https://www.datasenterindustrien.no"
 externalUrl: "https://www.datasenterindustrien.no/about/events/datacenter-forum-oslo"
-tags:
+topics:
   - "critical-infrastructure"
-  - "sovereignty"
+  - "digital-sovereignty"
 audiences:
   - "it-ops"
   - "enterprise"

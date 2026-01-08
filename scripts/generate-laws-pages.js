@@ -371,7 +371,27 @@ ${body}
     fs.writeFileSync(indexPath, content);
   });
 
-  console.log(`Created: ${created} new law pages`);
+  // Generate _index.md for the list page
+  const listIndexPath = path.join(CONTENT_DIR, '_index.md');
+  const listIndexContent = `---
+title: "Laws"
+description: "Data sovereignty and privacy laws from jurisdictions worldwide, including access powers, localization requirements, and protection frameworks"
+---
+
+{{< page-stats section="laws" >}}
+`;
+
+  const listIndexIsNew = !fs.existsSync(listIndexPath);
+  fs.writeFileSync(listIndexPath, listIndexContent);
+  if (listIndexIsNew) {
+    console.log(`CREATE: _index.md`);
+    created++;
+  } else {
+    console.log(`UPDATE: _index.md`);
+    updated++;
+  }
+
+  console.log(`\nCreated: ${created} new law pages`);
   console.log(`Updated: ${updated} existing law pages`);
   console.log(`Total: ${laws.length} laws in /laws/{identifier}/index.md`);
 }

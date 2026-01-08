@@ -12,9 +12,8 @@ locationCountry: "NO"
 organizerName: "Sikkerhetsfestivalen"
 organizerUrl: "https://www.sikkerhetsfestivalen.no"
 externalUrl: "https://www.sikkerhetsfestivalen.no"
-tags:
+topics:
   - "cybersecurity"
-  - "nis2"
   - "critical-infrastructure"
 audiences:
   - "it-ops"

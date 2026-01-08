@@ -4,7 +4,7 @@
  * Generate /publications/{publication-id}/ pages from data/publications/publications.json
  *
  * JSON Structure (schema.org-aligned):
- * - id, name, description, datePublished, url, author, publisher, about, audience
+ * - identifier, name, description, datePublished, url, author, publisher, topics, audience, tags
  * - abstract (short), summary (longer) for generated headings
  * - image (filename or URL) for hero image
  *
@@ -12,7 +12,7 @@
  * - datePublished → date (schema.org → Hugo)
  * - name → title
  * - url → external_url
- * - about → topics
+ * - topics → topics (direct mapping)
  * - author → authors
  *
  * Creates stub pages for each publication. If a page already exists with content,
@@ -108,10 +108,10 @@ async function handleImage(pub, pubDir) {
   if (pub.image.startsWith('http://') || pub.image.startsWith('https://')) {
     try {
       await downloadImage(pub.image, destPath);
-      console.log(`  Downloaded image for: ${pub.id}`);
+      console.log(`  Downloaded image for: ${pub.identifier}`);
       return true;
     } catch (err) {
-      console.warn(`  Warning: Failed to download image for ${pub.id}: ${err.message}`);
+      console.warn(`  Warning: Failed to download image for ${pub.identifier}: ${err.message}`);
       return false;
     }
   }
@@ -119,10 +119,10 @@ async function handleImage(pub, pubDir) {
   // It's a local filename - copy from images folder
   const srcPath = path.join(IMAGES_DIR, pub.image);
   if (copyImage(srcPath, destPath)) {
-    console.log(`  Copied image for: ${pub.id}`);
+    console.log(`  Copied image for: ${pub.identifier}`);
     return true;
   } else {
-    console.warn(`  Warning: Image not found for ${pub.id}: ${srcPath}`);
+    console.warn(`  Warning: Image not found for ${pub.identifier}: ${srcPath}`);
     return false;
   }
 }
@@ -215,9 +215,9 @@ function buildFrontmatter(pub) {
     lines.push(...yamlStringList('authors', pub.author));
   }
 
-  // Topics (from schema.org 'about')
-  if (pub.about && pub.about.length > 0) {
-    lines.push(...yamlStringList('topics', pub.about));
+  // Topics
+  if (pub.topics && pub.topics.length > 0) {
+    lines.push(...yamlStringList('topics', pub.topics));
   }
 
   // Audience (for persona filtering)
@@ -272,7 +272,7 @@ async function main() {
   let updated = 0;
 
   for (const pub of publications) {
-    const pubDir = path.join(CONTENT_DIR, pub.id);
+    const pubDir = path.join(CONTENT_DIR, pub.identifier);
     const indexPath = path.join(pubDir, 'index.md');
 
     ensureDir(pubDir);
@@ -293,7 +293,7 @@ async function main() {
       customBody = extractBodyAfterSummary(parsed.body);
 
       if (customBody && !customBody.includes('No additional commentary yet')) {
-        console.log(`  Preserving custom content for: ${pub.id}`);
+        console.log(`  Preserving custom content for: ${pub.identifier}`);
       } else {
         customBody = '';
       }

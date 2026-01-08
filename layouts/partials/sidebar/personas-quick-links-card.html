@@ -1,0 +1,48 @@
+{{/*
+  personas-quick-links-card.html
+  Shows quick links to filtered content for this persona
+*/}}
+{{ $personaId := .Params.persona_id | default (path.Base .File.Dir) }}
+{{ $audienceData := site.Data.audience.audience }}
+{{ $audiences := $audienceData.itemListElement | default (slice) }}
+{{ $persona := dict }}
+{{ range $audiences }}
+  {{ if eq .identifier $personaId }}
+    {{ $persona = . }}
+  {{ end }}
+{{ end }}
+
+{{ $term := $persona.identifier | default $personaId }}
+{{ $audienceVocab := slice }}
+{{ range $audiences }}
+  {{ $audienceVocab = $audienceVocab | append .identifier }}
+{{ end }}
+{{ $isAudience := in $audienceVocab $term }}
+
+{{/* Build URLs */}}
+{{ $eventsURL := "/events/" }}
+{{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "link" "color" "primary" "size" "4") }}
+      Quick Links
+    </h3>
+    <div class="mt-2 space-y-2">
+      <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
+        {{ partial "content-icon.html" (dict "name" "calendar" "size" "4") }}
+        Browse Events
+        {{ if $isAudience }}<span class="badge badge-xs badge-primary">filtered</span>{{ end }}
+      </a>
+      <a href="/software/" class="btn btn-sm btn-outline w-full justify-start gap-2">
+        {{ partial "content-icon.html" (dict "name" "computer" "size" "4") }}
+        Browse Software
+      </a>
+      <a href="/laws/" class="btn btn-sm btn-outline w-full justify-start gap-2">
+        {{ partial "content-icon.html" (dict "name" "scale" "size" "4") }}
+        Browse Laws
+      </a>
+    </div>
+  </div>
+</div>

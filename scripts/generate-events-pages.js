@@ -78,10 +78,10 @@ function buildFrontmatter(event) {
         lines.push(`externalUrl: "${event.url}"`);
     }
 
-    // Tags taxonomy
-    if (event.tags && event.tags.length > 0) {
-        lines.push(`tags:`);
-        event.tags.forEach(tag => lines.push(`  - "${tag}"`));
+    // Topics taxonomy
+    if (event.topics && event.topics.length > 0) {
+        lines.push(`topics:`);
+        event.topics.forEach(topic => lines.push(`  - "${topic}"`));
     }
 
     // Audiences taxonomy (was "audience" in JSON)
@@ -128,7 +128,7 @@ let created = 0;
 let updated = 0;
 
 events.forEach(event => {
-    const eventDir = path.join(EVENTS_CONTENT_DIR, event.id);
+    const eventDir = path.join(EVENTS_CONTENT_DIR, event.identifier);
     const indexPath = path.join(eventDir, 'index.md');
 
     ensureDir(eventDir);

@@ -12,10 +12,10 @@ locationCountry: "NO"
 organizerName: "Lillehammer-regionen Vekst"
 organizerUrl: "https://www.cyberkonf.no"
 externalUrl: "https://www.cyberkonf.no/"
-tags:
+topics:
   - "cybersecurity"
-  - "sovereignty"
-  - "preparedness"
+  - "digital-sovereignty"
+  - "national-preparedness"
 audiences:
   - "it-ops"
   - "developer"

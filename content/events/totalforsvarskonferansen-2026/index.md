@@ -11,8 +11,8 @@ locationCountry: "NO"
 organizerName: "Norwegian Total Defence Forum"
 organizerUrl: "https://www.totalforsvar.no"
 externalUrl: "https://www.totalforsvar.no"
-tags:
-  - "preparedness"
+topics:
+  - "national-preparedness"
   - "critical-infrastructure"
   - "cybersecurity"
 audiences:

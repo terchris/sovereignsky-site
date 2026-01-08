@@ -3,6 +3,7 @@
   "@type": "ItemList",
   "name": "SovereignSky Topics",
   "description": "Curated topics for categorizing content across the site",
+  "filterValues": ["cybersecurity", "critical-infrastructure", "digital-sovereignty", "national-preparedness"],
   "itemListElement": [
     {
       "identifier": "cloud-sovereignty",

@@ -11,7 +11,7 @@ locationCountry: "NO"
 organizerName: "HackCon"
 organizerUrl: "https://www.hackcon.org"
 externalUrl: "https://www.hackcon.org/"
-tags:
+topics:
   - "cybersecurity"
 audiences:
   - "it-ops"

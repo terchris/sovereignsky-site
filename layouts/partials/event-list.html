@@ -36,10 +36,10 @@
 {{- range $events -}}
   {{- $include := true -}}
   
-  {{- /* Filter by tag */ -}}
+  {{- /* Filter by topic */ -}}
   {{- if $filter -}}
     {{- $include = false -}}
-    {{- range .tags -}}
+    {{- range .topics -}}
       {{- if eq . $filter -}}
         {{- $include = true -}}
       {{- end -}}
@@ -83,7 +83,7 @@
   {{- range $filtered }}
   {{- $start := time .startDate -}}
   {{- $endDate := .endDate -}}
-  <article class="event-card card card-side bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-300{{ if .featured }} border-primary border-2{{ end }}" id="{{ .id }}" data-tags="{{ delimit .tags " " }}" data-audience="{{ delimit .audience " " }}" data-relevance="{{ .itRelevance }}">
+  <article class="event-card card card-side bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-300{{ if .featured }} border-primary border-2{{ end }}" id="{{ .identifier }}" data-topics="{{ delimit .topics " " }}" data-audience="{{ delimit .audience " " }}" data-relevance="{{ .itRelevance }}">
     {{/* Date badge */}}
     <div class="flex items-center justify-center bg-primary text-primary-content p-4 min-w-[80px] rounded-l-box mr-2">
       <time datetime="{{ .startDate }}" class="text-center">
@@ -101,7 +101,7 @@
     <div class="card-body py-4 pl-8 pr-4 gap-2">
       {{/* Title */}}
       <h3 class="card-title text-lg">
-        <a href="/events/{{ .id }}/" class="link link-hover hover:text-primary">{{ .name }}</a>
+        <a href="/events/{{ .identifier }}/" class="link link-hover hover:text-primary">{{ .name }}</a>
       </h3>
 
       {{/* Description */}}
@@ -153,14 +153,14 @@
         {{- end }}
       </div>
 
-      {{/* Tags */}}
+      {{/* Topics */}}
       {{- if not $compact }}
-      {{- with .tags }}
+      {{- with .topics }}
       <div class="flex flex-wrap gap-1 mt-1">
-        {{- $tagColors := dict "cybersecurity" "border-error text-error" "preparedness" "border-warning text-warning" "critical-infrastructure" "border-info text-info" "sovereignty" "border-success text-success" -}}
+        {{- $topicColors := dict "cybersecurity" "border-error text-error" "national-preparedness" "border-warning text-warning" "critical-infrastructure" "border-info text-info" "digital-sovereignty" "border-success text-success" -}}
         {{- range . }}
         {{- $label := index $topicLabels . | default (. | humanize | title) }}
-        {{- $color := index $tagColors . | default "border-base-300" }}
+        {{- $color := index $topicColors . | default "border-base-300" }}
         <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full border {{ $color }}">{{ $label }}</span>
         {{- end }}
       </div>

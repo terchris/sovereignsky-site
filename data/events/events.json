@@ -1,6 +1,6 @@
 [
   {
-    "id": "samfunnssikkerhetskonferansen-2026",
+    "identifier": "samfunnssikkerhetskonferansen-2026",
     "name": "Civil Security Conference 2026",
     "nameOriginal": "Samfunnssikkerhetskonferansen 2026",
     "description": "National conference on civil security, total defence, and digital preparedness, including cybersecurity and information security.",
@@ -18,12 +18,12 @@
       "url": "https://www.dsb.no"
     },
     "url": "https://www.dsb.no/kurs-og-konferanser/samfunnssikkerhets-konferansen-2026/",
-    "tags": ["preparedness", "cybersecurity", "critical-infrastructure"],
+    "topics": ["national-preparedness", "cybersecurity", "critical-infrastructure"],
     "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "high"
   },
   {
-    "id": "hackcon-21",
+    "identifier": "hackcon-21",
     "name": "HackCon #21",
     "nameOriginal": "HackCon #21",
     "description": "The Norwegian Cyber Security Convention. Norway's premier IT security conference for technical and strategic security professionals, featuring over 1600 presentations on vulnerabilities, research, and best practices.",
@@ -41,12 +41,12 @@
       "url": "https://www.hackcon.org"
     },
     "url": "https://www.hackcon.org/",
-    "tags": ["cybersecurity"],
+    "topics": ["cybersecurity"],
     "audience": ["it-ops", "developer", "enterprise"],
     "itRelevance": "high"
   },
   {
-    "id": "datacenter-forum-oslo-2026",
+    "identifier": "datacenter-forum-oslo-2026",
     "name": "Datacenter Forum Oslo 2026",
     "nameOriginal": "Datacenter Forum Oslo 2026",
     "description": "The 12th annual edition of Datacenter Forum Oslo, bringing together professionals from the datacenter sector to discuss infrastructure, sustainability, and digital transformation.",
@@ -64,12 +64,12 @@
       "url": "https://www.datasenterindustrien.no"
     },
     "url": "https://www.datasenterindustrien.no/about/events/datacenter-forum-oslo",
-    "tags": ["critical-infrastructure", "sovereignty"],
+    "topics": ["critical-infrastructure", "digital-sovereignty"],
     "audience": ["it-ops", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
-    "id": "ndc-security-2026",
+    "identifier": "ndc-security-2026",
     "name": "NDC Security 2026",
     "nameOriginal": "NDC Security 2026",
     "description": "Security conference for software developers featuring 60+ sessions, workshops, and presentations on application security, DevSecOps, and secure coding practices.",
@@ -87,12 +87,12 @@
       "url": "https://ndcconferences.com"
     },
     "url": "https://ndcsecurity.com/",
-    "tags": ["cybersecurity"],
+    "topics": ["cybersecurity"],
     "audience": ["developer", "it-ops"],
     "itRelevance": "high"
   },
   {
-    "id": "totalforsvarskonferansen-2026",
+    "identifier": "totalforsvarskonferansen-2026",
     "name": "Total Defence Conference 2026",
     "nameOriginal": "Totalforsvarskonferansen 2026",
     "description": "Annual conference on total defence with civil-military cooperation, including critical infrastructure, IT, and digital resilience.",
@@ -110,12 +110,12 @@
       "url": "https://www.totalforsvar.no"
     },
     "url": "https://www.totalforsvar.no",
-    "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
+    "topics": ["national-preparedness", "critical-infrastructure", "cybersecurity"],
     "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "medium"
   },
   {
-    "id": "nordic-ai-union-summit-2026",
+    "identifier": "nordic-ai-union-summit-2026",
     "name": "Nordic AI Union Summit 2026",
     "nameOriginal": "Nordic AI Union Summit 2026",
     "description": "Summit exploring AI in the workplace from a Nordic perspective, bringing together decision-makers, politicians, and AI experts to discuss responsible AI adoption and worker implications.",
@@ -133,12 +133,12 @@
       "url": "https://nordicaisummit.org"
     },
     "url": "https://nordicaisummit.org/",
-    "tags": ["sovereignty"],
+    "topics": ["digital-sovereignty"],
     "audience": ["enterprise", "public-sector"],
     "itRelevance": "medium"
   },
   {
-    "id": "befkon-2026",
+    "identifier": "befkon-2026",
     "name": "BEFKON - Defence and Preparedness Conference Innlandet 2026",
     "nameOriginal": "Beredskaps- og forsvarskonferansen Innlandet 2026",
     "description": "Regional conference gathering preparedness actors, Armed Forces, industry, and political leadership from Innlandet to discuss total defence status and challenges during the Total Defence Year 2026.",
@@ -156,12 +156,12 @@
       "url": "https://www.befkon.no"
     },
     "url": "https://www.befkon.no/",
-    "tags": ["preparedness", "critical-infrastructure"],
+    "topics": ["national-preparedness", "critical-infrastructure"],
     "audience": ["public-sector", "security", "enterprise"],
     "itRelevance": "medium"
   },
   {
-    "id": "datasenterdagen-2026",
+    "identifier": "datasenterdagen-2026",
     "name": "Datasenterdagen 2026",
     "nameOriginal": "Datasenterdagen 2026",
     "description": "Annual datacenter conference exploring hybrid cloud, security, infrastructure, and Norway's role in sustainable data management amid international uncertainty and climate challenges.",
@@ -179,12 +179,12 @@
       "url": "https://www.datasenterindustrien.no"
     },
     "url": "https://www.datasenterindustrien.no/about/events/datasenterdagen",
-    "tags": ["critical-infrastructure", "sovereignty", "cybersecurity"],
+    "topics": ["critical-infrastructure", "digital-sovereignty", "cybersecurity"],
     "audience": ["it-ops", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
-    "id": "cyberuk-2026",
+    "identifier": "cyberuk-2026",
     "name": "CYBERUK 2026",
     "nameOriginal": "CYBERUK 2026",
     "description": "UK National Cyber Security Centre's flagship conference marking NCSC's 10th anniversary. Theme: 'The Next Decade: Accelerating Our Cyber Defence' - exploring future defence strategies, resilience, and emerging threats.",
@@ -202,12 +202,12 @@
       "url": "https://www.ncsc.gov.uk"
     },
     "url": "https://www.ncsc.gov.uk/section/cyberuk/cyberuk-2026",
-    "tags": ["cybersecurity", "critical-infrastructure"],
+    "topics": ["cybersecurity", "critical-infrastructure"],
     "audience": ["public-sector", "it-ops", "enterprise"],
     "itRelevance": "high"
   },
   {
-    "id": "nfea-cyber-security-2026",
+    "identifier": "nfea-cyber-security-2026",
     "name": "NFEA Cyber Security 2026",
     "nameOriginal": "NFEA Cyber Security 2026",
     "description": "Conference on industrial and operational technology (OT) cybersecurity, featuring practical examples of incident handling, international standards, and best practices for securing critical infrastructure.",
@@ -225,12 +225,12 @@
       "url": "https://nfea.no"
     },
     "url": "https://nfea.no/arrangementer/cyber-security-2026/",
-    "tags": ["cybersecurity", "critical-infrastructure"],
+    "topics": ["cybersecurity", "critical-infrastructure"],
     "audience": ["it-ops", "enterprise"],
     "itRelevance": "high"
   },
   {
-    "id": "oslo-tech-show-2026",
+    "identifier": "oslo-tech-show-2026",
     "name": "Oslo Tech Show 2026",
     "nameOriginal": "Oslo Tech Show 2026",
     "description": "Nordic region's leading exhibition for innovation and technology, featuring AI, cybersecurity, cloud, DevOps, mobile, infrastructure, and datacenters. Free entry with world-class speakers and hands-on demos.",
@@ -248,12 +248,12 @@
       "url": "https://oslotechshow.com"
     },
     "url": "https://oslotechshow.com/",
-    "tags": ["cybersecurity", "critical-infrastructure", "sovereignty"],
+    "topics": ["cybersecurity", "critical-infrastructure", "digital-sovereignty"],
     "audience": ["it-ops", "developer", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
-    "id": "cybersikkerhetskonferansen-2026",
+    "identifier": "cybersikkerhetskonferansen-2026",
     "name": "Total Defence Cybersecurity Conference 2026",
     "nameOriginal": "Totalforsvarets Cybersikkerhetskonferanse 2026",
     "description": "Conference focused on cybersecurity, digital sovereignty, and total defence. Arena for exploring how totalforsvaret can be strengthened through open dialogue, expert deep-dives, and political perspectives.",
@@ -271,12 +271,12 @@
       "url": "https://www.cyberkonf.no"
     },
     "url": "https://www.cyberkonf.no/",
-    "tags": ["cybersecurity", "sovereignty", "preparedness"],
+    "topics": ["cybersecurity", "digital-sovereignty", "national-preparedness"],
     "audience": ["it-ops", "developer", "security", "public-sector"],
     "itRelevance": "high"
   },
   {
-    "id": "cycon-2026",
+    "identifier": "cycon-2026",
     "name": "CyCon 2026",
     "nameOriginal": "CyCon 2026",
     "description": "NATO CCDCOE's premier multidisciplinary conference examining technical, legal, policy, strategic, and military dimensions of cyber defence. Brings together global experts on cyber conflict and security.",
@@ -294,12 +294,12 @@
       "url": "https://ccdcoe.org"
     },
     "url": "https://cycon.org/",
-    "tags": ["cybersecurity", "preparedness"],
+    "topics": ["cybersecurity", "national-preparedness"],
     "audience": ["security", "public-sector", "it-ops"],
     "itRelevance": "high"
   },
   {
-    "id": "sikkerhetsfestivalen-2026",
+    "identifier": "sikkerhetsfestivalen-2026",
     "name": "Security Festival 2026",
     "nameOriginal": "Sikkerhetsfestivalen 2026",
     "description": "Norway's largest gathering for cybersecurity and information security professionals, with high relevance for total defence and NIS2 compliance.",
@@ -317,12 +317,12 @@
       "url": "https://www.sikkerhetsfestivalen.no"
     },
     "url": "https://www.sikkerhetsfestivalen.no",
-    "tags": ["cybersecurity", "nis2", "critical-infrastructure"],
+    "topics": ["cybersecurity", "critical-infrastructure"],
     "audience": ["it-ops", "developer", "enterprise", "public-sector"],
     "itRelevance": "high"
   },
   {
-    "id": "ndc-oslo-2026",
+    "identifier": "ndc-oslo-2026",
     "name": "NDC Oslo 2026",
     "nameOriginal": "NDC Oslo 2026",
     "description": "Major 5-day software developer conference with 160+ sessions, 150 speakers, and 12 workshops covering modern development practices, architecture, security, and emerging technologies.",
@@ -340,12 +340,12 @@
       "url": "https://ndcconferences.com"
     },
     "url": "https://ndcoslo.com/",
-    "tags": ["cybersecurity"],
+    "topics": ["cybersecurity"],
     "audience": ["developer", "it-ops"],
     "itRelevance": "medium"
   },
   {
-    "id": "forsvarskonferansen-2026",
+    "identifier": "forsvarskonferansen-2026",
     "name": "Defence Conference 2026",
     "nameOriginal": "Forsvarskonferansen 2026",
     "description": "Conference on defence, technology, and security, including digitalization and the cyber domain.",
@@ -363,12 +363,12 @@
       "url": null
     },
     "url": null,
-    "tags": ["cybersecurity", "preparedness"],
+    "topics": ["cybersecurity", "national-preparedness"],
     "audience": ["security", "public-sector", "enterprise"],
     "itRelevance": "medium"
   },
   {
-    "id": "tfx26",
+    "identifier": "tfx26",
     "name": "Exercise Total Defence 2026 (TFX26)",
     "nameOriginal": "Øvelse Totalforsvar 2026 (TFX26)",
     "description": "National total defence exercise focusing on civil-military cooperation, critical societal functions, and digital crisis management. Norway's largest exercise since the Cold War.",
@@ -386,13 +386,13 @@
       "url": "https://www.dsb.no"
     },
     "url": "https://www.dsb.no/totalforsvarsaret",
-    "tags": ["preparedness", "critical-infrastructure", "cybersecurity"],
+    "topics": ["national-preparedness", "critical-infrastructure", "cybersecurity"],
     "audience": ["public-sector", "security", "enterprise", "humanitarian"],
     "itRelevance": "high",
     "featured": true
   },
   {
-    "id": "one-conference-2026",
+    "identifier": "one-conference-2026",
     "name": "ONE Conference 2026",
     "nameOriginal": "ONE Conference 2026",
     "description": "Europe's prime cybersecurity event organized by the Dutch National Cyber Security Centre. Leading platform for sharing knowledge, best practices, and research on technical security, law enforcement, governance, and public-private partnerships.",
@@ -410,7 +410,7 @@
       "url": "https://www.ncsc.nl"
     },
     "url": "https://one-conference.nl/",
-    "tags": ["cybersecurity", "critical-infrastructure"],
+    "topics": ["cybersecurity", "critical-infrastructure"],
     "audience": ["public-sector", "it-ops", "enterprise"],
     "itRelevance": "high"
   }

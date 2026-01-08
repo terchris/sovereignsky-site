@@ -11,7 +11,7 @@ locationCountry: "NO"
 organizerName: "NDC Conferences"
 organizerUrl: "https://ndcconferences.com"
 externalUrl: "https://ndcoslo.com/"
-tags:
+topics:
   - "cybersecurity"
 audiences:
   - "developer"

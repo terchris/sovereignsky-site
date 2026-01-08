@@ -11,7 +11,8 @@
       "description": "Software developers and engineers building applications and systems.",
       "abstract": "You hold the keys to Norway's digital independence. Your technical choices — open standards over vendor SDKs, containers over serverless, portable databases — determine whether critical services can function on their own. Every line of code is a vote for sovereignty.",
       "icon": "code",
-      "interests": ["open-source", "api-security", "encryption", "cloud-sovereignty", "platform-dependency"]
+      "topics": ["open-source", "api-security", "encryption", "cloud-sovereignty", "platform-dependency"],
+      "lawTypes": ["privacy", "security"]
     },
     {
       "identifier": "it-ops",
@@ -19,7 +20,8 @@
       "description": "IT administrators and operations teams managing infrastructure and security.",
       "abstract": "You manage the infrastructure Norway depends on. When ministers call for exit strategies, you're the one who knows where every dependency lives. Map your systems, document your providers, and build the resilience that keeps critical services running — no matter what happens in Washington.",
       "icon": "server",
-      "interests": ["cybersecurity", "critical-infrastructure", "cloud-sovereignty", "digital-resilience", "supply-chain"]
+      "topics": ["cybersecurity", "critical-infrastructure", "cloud-sovereignty", "digital-resilience", "supply-chain"],
+      "lawTypes": ["security", "localization", "privacy"]
     },
     {
       "identifier": "enterprise",
@@ -27,7 +29,8 @@
       "description": "Business managers and decision makers responsible for technology strategy.",
       "abstract": "What happens to your business when you can't access your systems? With 81% of Norwegian cloud running on US platforms, your exit strategy is a boardroom issue. The companies that will survive geopolitical disruption are those planning for it today — not scrambling when the lock-out notice arrives.",
       "icon": "building",
-      "interests": ["platform-dependency", "cloud-sovereignty", "data-protection", "supply-chain", "digital-resilience"]
+      "topics": ["platform-dependency", "cloud-sovereignty", "data-protection", "supply-chain", "digital-resilience"],
+      "lawTypes": ["privacy", "security", "sector"]
     },
     {
       "identifier": "public-sector",
@@ -35,7 +38,8 @@
       "description": "Government agencies and public administration organisations.",
       "abstract": "Hospitals need to admit patients. Ambulances need GPS. Pensions need to be paid. You keep society running — and 96% of Norwegian state agencies now depend on cloud services subject to foreign law. When the minister calls for exit strategies, she's talking about your systems. Prepare now, because citizens are counting on you.",
       "icon": "flag",
-      "interests": ["digital-sovereignty", "government-access", "critical-infrastructure", "national-preparedness", "data-protection"]
+      "topics": ["digital-sovereignty", "government-access", "critical-infrastructure", "national-preparedness", "data-protection"],
+      "lawTypes": ["access", "privacy", "security", "sector"]
     },
     {
       "identifier": "humanitarian",
@@ -43,7 +47,8 @@
       "description": "NGOs, aid organizations, and humanitarian operations.",
       "abstract": "When crisis strikes, you're the ones who show up. You coordinate volunteers, locate the vulnerable, deliver aid. But your contact lists, your volunteer databases, your coordination tools — they're all on servers controlled by a foreign power. No one has physical archives anymore. If you can't organize, you can't help. Build your digital independence now, before the crisis that needs you arrives.",
       "icon": "heart-handshake",
-      "interests": ["humanitarian-technology", "data-protection", "biometrics", "digital-identity", "international-humanitarian-law", "platform-dependency"]
+      "topics": ["humanitarian-technology", "data-protection", "biometrics", "digital-identity", "international-humanitarian-law", "platform-dependency"],
+      "lawTypes": ["privacy", "access"]
     },
     {
       "identifier": "security",
@@ -51,7 +56,8 @@
       "description": "Military, police, intelligence, and civil protection organisations.",
       "abstract": "Military, police, intelligence, and civil protection organizations requiring high-assurance, sovereign solutions for sensitive operations.",
       "icon": "shield-check",
-      "interests": ["total-defence", "cybersecurity", "national-preparedness", "critical-infrastructure", "surveillance", "encryption"]
+      "topics": ["total-defence", "cybersecurity", "national-preparedness", "critical-infrastructure", "surveillance", "encryption"],
+      "lawTypes": ["access", "surveillance", "security"]
     },
     {
       "identifier": "consumer",
@@ -59,7 +65,8 @@
       "description": "End users looking for privacy-respecting alternatives to Big Tech.",
       "abstract": "End users and the general public looking for privacy-respecting everyday apps and services as alternatives to Big Tech.",
       "icon": "user",
-      "interests": ["privacy", "data-protection", "encryption", "surveillance", "metadata"]
+      "topics": ["privacy", "data-protection", "encryption", "surveillance", "metadata"],
+      "lawTypes": ["privacy", "surveillance"]
     }
   ]
 }

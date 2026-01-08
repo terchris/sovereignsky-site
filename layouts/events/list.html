@@ -75,7 +75,7 @@
   {{ end }}
   <div class="flex flex-wrap items-center gap-2 mb-6">
     <span class="text-sm font-semibold opacity-70">Topic:</span>
-    <div class="join" data-filter-group="tags">
+    <div class="join" data-filter-group="topics">
       <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>
       {{- range $topicsData.filterValues }}
       <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $topicLabels . | default (. | humanize | title) }}</button>
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const eventCards = document.querySelectorAll('.event-card');
 
   let activeFilters = {
-    tags: 'all',
+    topics: 'all',
     audience: 'all'
   };
 
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateURL() {
     const params = new URLSearchParams();
-    if (activeFilters.tags && activeFilters.tags !== 'all') params.set('tag', activeFilters.tags);
+    if (activeFilters.topics && activeFilters.topics !== 'all') params.set('topic', activeFilters.topics);
     if (activeFilters.audience && activeFilters.audience !== 'all') params.set('audience', activeFilters.audience);
     const qs = params.toString();
     const newURL = qs ? `?${qs}` : window.location.pathname;
@@ -140,13 +140,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function applyFilters() {
     eventCards.forEach(card => {
-      const cardTags = card.dataset.tags || '';
+      const cardTopics = card.dataset.topics || '';
       const cardAudience = card.dataset.audience || '';
 
-      const matchesTags = activeFilters.tags === 'all' || cardTags.includes(activeFilters.tags);
+      const matchesTopics = activeFilters.topics === 'all' || cardTopics.includes(activeFilters.topics);
       const matchesAudience = activeFilters.audience === 'all' || cardAudience.includes(activeFilters.audience);
 
-      if (matchesTags && matchesAudience) {
+      if (matchesTopics && matchesAudience) {
         card.style.display = '';
       } else {
         card.style.display = 'none';
@@ -173,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize from URL
   const params = new URLSearchParams(window.location.search);
   const urlAudience = params.get('audience') || 'all';
-  const urlTag = params.get('tag') || params.get('tags') || 'all';
+  const urlTopic = params.get('topic') || params.get('topics') || 'all';
   setActiveButton('audience', urlAudience);
-  setActiveButton('tags', urlTag);
+  setActiveButton('topics', urlTopic);
   applyFilters();
 
   filterButtons.forEach(btn => {
