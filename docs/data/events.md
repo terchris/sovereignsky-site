@@ -2,6 +2,10 @@
 
 Conferences, meetups, and events related to digital sovereignty, cybersecurity, and preparedness.
 
+## TODO
+
+- [ ] Rename `nameOriginal` to `alternateName` (schema.org standard)
+
 ## Files
 
 - `events.json` - Array of event objects

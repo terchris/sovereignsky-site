@@ -1,44 +1,158 @@
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Content Topics",
-  "description": "High-level themes for categorizing content on SovereignSky",
-  "filterValues": ["cybersecurity", "preparedness", "critical-infrastructure", "sovereignty"],
+  "name": "SovereignSky Topics",
+  "description": "Curated topics for categorizing content across the site",
   "itemListElement": [
     {
-      "identifier": "sovereignty",
-      "name": "Digital Sovereignty",
-      "description": "Control over digital infrastructure, data residency, vendor independence, and freedom from foreign jurisdictional reach."
-    },
-    {
-      "identifier": "preparedness",
-      "name": "Preparedness & Resilience",
-      "description": "Total defence concepts, crisis response capabilities, national resilience, and civil protection measures."
-    },
-    {
-      "identifier": "cybersecurity",
-      "name": "Cybersecurity",
-      "description": "Digital threat landscape, security risk management, hybrid warfare, and protective measures."
+      "identifier": "cloud-sovereignty",
+      "name": "Cloud Sovereignty",
+      "description": "Control over cloud infrastructure, data location, and jurisdiction",
+      "icon": "cloud"
     },
     {
       "identifier": "data-protection",
       "name": "Data Protection",
-      "description": "Privacy, government access to data, surveillance laws like CLOUD Act, biometrics, and personal data handling."
+      "description": "Laws, policies and practices for protecting personal and sensitive data",
+      "icon": "shield"
+    },
+    {
+      "identifier": "digital-sovereignty",
+      "name": "Digital Sovereignty",
+      "description": "National and organizational control over digital infrastructure and data",
+      "icon": "flag"
+    },
+    {
+      "identifier": "cybersecurity",
+      "name": "Cybersecurity",
+      "description": "Protection of systems, networks, and data from digital attacks",
+      "icon": "lock"
+    },
+    {
+      "identifier": "government-access",
+      "name": "Government Access",
+      "description": "Legal frameworks enabling government access to data (CLOUD Act, FISA, etc.)",
+      "icon": "eye"
+    },
+    {
+      "identifier": "humanitarian-technology",
+      "name": "Humanitarian Technology",
+      "description": "Digital tools and systems used in humanitarian operations",
+      "icon": "heart-handshake"
+    },
+    {
+      "identifier": "biometrics",
+      "name": "Biometrics",
+      "description": "Biological identification systems and their privacy implications",
+      "icon": "fingerprint"
+    },
+    {
+      "identifier": "digital-identity",
+      "name": "Digital Identity",
+      "description": "Electronic identity systems, authentication, and verification",
+      "icon": "id-card"
+    },
+    {
+      "identifier": "blockchain",
+      "name": "Blockchain",
+      "description": "Distributed ledger technology and its applications",
+      "icon": "link"
+    },
+    {
+      "identifier": "privacy",
+      "name": "Privacy",
+      "description": "Individual privacy rights and privacy-preserving technologies",
+      "icon": "user-shield"
+    },
+    {
+      "identifier": "metadata",
+      "name": "Metadata",
+      "description": "Data about data and its surveillance implications",
+      "icon": "database"
+    },
+    {
+      "identifier": "surveillance",
+      "name": "Surveillance",
+      "description": "Monitoring and tracking of individuals and organizations",
+      "icon": "eye"
+    },
+    {
+      "identifier": "platform-dependency",
+      "name": "Platform Dependency",
+      "description": "Risks of reliance on third-party technology platforms",
+      "icon": "alert-triangle"
+    },
+    {
+      "identifier": "total-defence",
+      "name": "Total Defence",
+      "description": "Coordination of military and civilian resources for national security",
+      "icon": "shield-check"
+    },
+    {
+      "identifier": "national-preparedness",
+      "name": "National Preparedness",
+      "description": "Planning and readiness for crises and emergencies",
+      "icon": "alert-circle"
+    },
+    {
+      "identifier": "civil-protection",
+      "name": "Civil Protection",
+      "description": "Protection of civilians during emergencies and conflicts",
+      "icon": "users"
     },
     {
       "identifier": "critical-infrastructure",
       "name": "Critical Infrastructure",
-      "description": "Essential services, supply chains, telecommunications, networks, and infrastructure dependencies."
+      "description": "Essential systems and assets vital for society's functioning",
+      "icon": "server"
     },
     {
-      "identifier": "humanitarian",
-      "name": "Humanitarian Operations",
-      "description": "International humanitarian law, humanitarian technology, NGO-specific challenges, and neutrality in digital operations."
+      "identifier": "digital-resilience",
+      "name": "Digital Resilience",
+      "description": "Ability to withstand and recover from digital disruptions",
+      "icon": "refresh-cw"
     },
     {
-      "identifier": "compliance",
-      "name": "Legal & Compliance",
-      "description": "Regulatory frameworks like NIS2, GDPR, sector-specific requirements, and legal obligations."
+      "identifier": "international-humanitarian-law",
+      "name": "International Humanitarian Law",
+      "description": "Legal protections for civilians and combatants in armed conflict",
+      "icon": "scale"
+    },
+    {
+      "identifier": "disinformation",
+      "name": "Disinformation",
+      "description": "False information spread deliberately to deceive",
+      "icon": "message-circle-warning"
+    },
+    {
+      "identifier": "supply-chain",
+      "name": "Supply Chain",
+      "description": "Technology supply chain security and dependencies",
+      "icon": "truck"
+    },
+    {
+      "identifier": "open-source",
+      "name": "Open Source",
+      "description": "Open source software and its role in digital sovereignty",
+      "icon": "code"
+    },
+    {
+      "identifier": "api-security",
+      "name": "API Security",
+      "description": "Security of application programming interfaces",
+      "icon": "plug"
+    },
+    {
+      "identifier": "encryption",
+      "name": "Encryption",
+      "description": "Cryptographic protection of data and communications",
+      "icon": "key"
+    },
+    {
+      "identifier": "cloud-act",
+      "name": "CLOUD Act",
+      "description": "US law enabling government access to data stored by US companies globally",
+      "icon": "gavel"
     }
   ]
 }

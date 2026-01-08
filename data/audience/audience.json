@@ -10,49 +10,56 @@
       "name": "Developers",
       "description": "Software developers and engineers building applications and systems.",
       "abstract": "You hold the keys to Norway's digital independence. Your technical choices — open standards over vendor SDKs, containers over serverless, portable databases — determine whether critical services can function on their own. Every line of code is a vote for sovereignty.",
-      "icon": "code"
+      "icon": "code",
+      "interests": ["open-source", "api-security", "encryption", "cloud-sovereignty", "platform-dependency"]
     },
     {
       "identifier": "it-ops",
       "name": "IT & Operations",
       "description": "IT administrators and operations teams managing infrastructure and security.",
       "abstract": "You manage the infrastructure Norway depends on. When ministers call for exit strategies, you're the one who knows where every dependency lives. Map your systems, document your providers, and build the resilience that keeps critical services running — no matter what happens in Washington.",
-      "icon": "server"
+      "icon": "server",
+      "interests": ["cybersecurity", "critical-infrastructure", "cloud-sovereignty", "digital-resilience", "supply-chain"]
     },
     {
       "identifier": "enterprise",
       "name": "Enterprise",
       "description": "Business managers and decision makers responsible for technology strategy.",
       "abstract": "What happens to your business when you can't access your systems? With 81% of Norwegian cloud running on US platforms, your exit strategy is a boardroom issue. The companies that will survive geopolitical disruption are those planning for it today — not scrambling when the lock-out notice arrives.",
-      "icon": "building"
+      "icon": "building",
+      "interests": ["platform-dependency", "cloud-sovereignty", "data-protection", "supply-chain", "digital-resilience"]
     },
     {
       "identifier": "public-sector",
       "name": "Public Sector",
       "description": "Government agencies and public administration organisations.",
       "abstract": "Hospitals need to admit patients. Ambulances need GPS. Pensions need to be paid. You keep society running — and 96% of Norwegian state agencies now depend on cloud services subject to foreign law. When the minister calls for exit strategies, she's talking about your systems. Prepare now, because citizens are counting on you.",
-      "icon": "flag"
+      "icon": "flag",
+      "interests": ["digital-sovereignty", "government-access", "critical-infrastructure", "national-preparedness", "data-protection"]
     },
     {
       "identifier": "humanitarian",
       "name": "Humanitarian",
       "description": "NGOs, aid organizations, and humanitarian operations.",
       "abstract": "When crisis strikes, you're the ones who show up. You coordinate volunteers, locate the vulnerable, deliver aid. But your contact lists, your volunteer databases, your coordination tools — they're all on servers controlled by a foreign power. No one has physical archives anymore. If you can't organize, you can't help. Build your digital independence now, before the crisis that needs you arrives.",
-      "icon": "heart-handshake"
+      "icon": "heart-handshake",
+      "interests": ["humanitarian-technology", "data-protection", "biometrics", "digital-identity", "international-humanitarian-law", "platform-dependency"]
     },
     {
       "identifier": "security",
       "name": "Security & Defence",
       "description": "Military, police, intelligence, and civil protection organisations.",
       "abstract": "Military, police, intelligence, and civil protection organizations requiring high-assurance, sovereign solutions for sensitive operations.",
-      "icon": "shield-check"
+      "icon": "shield-check",
+      "interests": ["total-defence", "cybersecurity", "national-preparedness", "critical-infrastructure", "surveillance", "encryption"]
     },
     {
       "identifier": "consumer",
       "name": "Consumers",
       "description": "End users looking for privacy-respecting alternatives to Big Tech.",
       "abstract": "End users and the general public looking for privacy-respecting everyday apps and services as alternatives to Big Tech.",
-      "icon": "user"
+      "icon": "user",
+      "interests": ["privacy", "data-protection", "encryption", "surveillance", "metadata"]
     }
   ]
 }

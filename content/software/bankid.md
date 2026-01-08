@@ -11,7 +11,7 @@ risk_label: "Low Risk"
 has_us_exposure: false
 open_source: false
 data_portability: "none"
-date: 2026-01-07
+date: 2026-01-08
 layout: single
 type: software
 

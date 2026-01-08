@@ -61,11 +61,11 @@
                 <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
                 <dd class="font-medium">{{ $typeLabel }}</dd>
               </div>
-              {{/* Year */}}
-              {{ with .Params.year }}
+              {{/* Year - extracted from Hugo date field */}}
+              {{ if not .Date.IsZero }}
               <div class="flex justify-between py-1">
                 <dt class="text-neutral-500 dark:text-neutral-400">Year</dt>
-                <dd class="font-medium">{{ . }}</dd>
+                <dd class="font-medium">{{ .Date.Year }}</dd>
               </div>
               {{ end }}
               {{/* Publisher */}}
@@ -114,6 +114,38 @@
             </dl>
           </div>
         </div>
+
+        {{/* Relevant For Card - uses audience from data */}}
+        {{ with .Params.audience }}
+        {{ $audienceList := site.Data.audience.audience.itemListElement | default (slice) }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "users" "color" "info" "size" "4") }}
+              Relevant For
+            </h3>
+            <ul class="mt-2 space-y-1">
+              {{ range . }}
+              {{ $audienceId := . }}
+              {{ $audience := dict }}
+              {{ range $audienceList }}
+                {{ if eq .identifier $audienceId }}
+                  {{ $audience = . }}
+                {{ end }}
+              {{ end }}
+              {{ $name := $audience.name | default ($audienceId | humanize | title) }}
+              {{ $icon := $audience.icon | default "user" }}
+              <li>
+                <a href="/personas/{{ $audienceId }}/" class="flex items-center gap-2 text-sm hover:text-primary">
+                  {{ partial "content-icon.html" (dict "name" $icon "size" "4") }}
+                  {{ $name }}
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
 
         {{/* Authors/Institutions Card */}}
         {{ if or .Params.authors .Params.institutions }}
@@ -166,8 +198,9 @@
         </div>
         {{ end }}
 
-        {{/* Topics Card */}}
+        {{/* Topics Card - looks up metadata from topics.json, falls back to plain text */}}
         {{ if or .Params.topics .Params.tags }}
+        {{ $topicsList := site.Data.topics.topics.itemListElement | default (slice) }}
         <div class="card bg-base-100 shadow-sm border border-base-300">
           <div class="card-body p-4">
             <h3 class="card-title text-sm font-semibold flex items-center gap-2">
@@ -176,9 +209,21 @@
             </h3>
             <div class="mt-2">
               {{ with .Params.topics }}
-              <ul class="space-y-0.5">
+              <ul class="space-y-1">
                 {{ range . }}
-                <li><span class="text-sm">{{ . }}</span></li>
+                {{ $topicId := . }}
+                {{ $topic := dict }}
+                {{ range $topicsList }}
+                  {{ if eq .identifier $topicId }}
+                    {{ $topic = . }}
+                  {{ end }}
+                {{ end }}
+                {{ $name := $topic.name | default ($topicId | humanize | title) }}
+                {{ $icon := $topic.icon | default "hash" }}
+                <li class="flex items-center gap-2 text-sm">
+                  {{ partial "content-icon.html" (dict "name" $icon "size" "3") }}
+                  {{ $name }}
+                </li>
                 {{ end }}
               </ul>
               {{ end }}
@@ -193,38 +238,6 @@
               </div>
               {{ end }}
             </div>
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Relevant For Card - uses audience from data */}}
-        {{ with .Params.personas }}
-        {{ $audienceList := site.Data.audience.audience.itemListElement | default (slice) }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "users" "color" "info" "size" "4") }}
-              Relevant For
-            </h3>
-            <ul class="mt-2 space-y-1">
-              {{ range . }}
-              {{ $audienceId := . }}
-              {{ $audience := dict }}
-              {{ range $audienceList }}
-                {{ if eq .identifier $audienceId }}
-                  {{ $audience = . }}
-                {{ end }}
-              {{ end }}
-              {{ $name := $audience.name | default ($audienceId | humanize | title) }}
-              {{ $icon := $audience.icon | default "user" }}
-              <li>
-                <a href="/personas/{{ $audienceId }}/" class="flex items-center gap-2 text-sm hover:text-primary">
-                  {{ partial "content-icon.html" (dict "name" $icon "size" "4") }}
-                  {{ $name }}
-                </a>
-              </li>
-              {{ end }}
-            </ul>
           </div>
         </div>
         {{ end }}

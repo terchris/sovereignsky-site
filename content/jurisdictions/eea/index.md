@@ -26,7 +26,7 @@ These laws apply to all member states of the European Economic Area.
 
 Extends EU internal market to EFTA states (except Switzerland). Includes adoption of EU data protection laws.
 
-- **Severity:** 🛡️ Protective
+- **Severity:** undefined
 - **Details:** [Read more →](/laws/eea-agreement/)
 
 ---
@@ -41,7 +41,7 @@ These laws are inherited from parent frameworks.
 
 Comprehensive data protection law giving individuals control over their personal data. Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.
 
-- **Severity:** 🛡️ Protective
+- **Severity:** undefined
 - **Applies via:** [European Union](/jurisdictions/eu/)
 - **Details:** [Read more →](/laws/gdpr/)
 
@@ -53,7 +53,7 @@ Comprehensive data protection law giving individuals control over their personal
 
 Rules on data sharing between businesses, access to data by public sector, and cloud switching rights.
 
-- **Severity:** 🛡️ Protective
+- **Severity:** undefined
 - **Applies via:** [European Union](/jurisdictions/eu/)
 - **Details:** [Read more →](/laws/data-act/)
 
@@ -65,7 +65,7 @@ Rules on data sharing between businesses, access to data by public sector, and c
 
 Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI.
 
-- **Severity:** 🛡️ Protective
+- **Severity:** undefined
 - **Applies via:** [European Union](/jurisdictions/eu/)
 - **Details:** [Read more →](/laws/ai-act/)
 

@@ -3,6 +3,9 @@
     "id": "digitisation-sovereignty-humanitarian-space",
     "name": "Digitisation and Sovereignty in Humanitarian Space",
     "description": "Academic analysis of how digitalisation and reliance on global platforms reshape power relations, authority, and sovereignty in humanitarian operations",
+    "abstract": "Peer-reviewed analysis of how humanitarian organisations' dependence on US tech platforms creates fundamental tensions with their mandate for independence and neutrality.",
+    "summary": "Through cases including WFP's Palantir partnership, biometric registration standoffs in Yemen, and blockchain payment systems, researchers from six institutions with an ICRC practitioner examine how digital technology disrupts humanitarian space. The core finding: platform dependencies create vulnerabilities that may exceed physical security risks, while \"decentralised\" systems still operate within existing power structures.",
+    "image": "digitisation-sovereignty-humanitarian-space.png",
     "datePublished": "2022-03-20",
     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10153061/",
     "author": [
@@ -19,13 +22,13 @@
     ],
     "publisher": "Taylor & Francis",
     "about": [
-      "digital sovereignty",
-      "cloud sovereignty",
-      "humanitarian technology",
+      "digital-sovereignty",
+      "cloud-sovereignty",
+      "humanitarian-technology",
       "blockchain",
       "biometrics",
-      "data protection",
-      "platform dependency"
+      "data-protection",
+      "platform-dependency"
     ],
     "audience": ["humanitarian", "public-sector", "enterprise"]
   },
@@ -33,6 +36,9 @@
     "id": "safeguarding-humanitarian-digital-threats",
     "name": "Safeguarding Humanitarian Organisations from Digital Threats",
     "description": "ICRC analysis of how cyber operations, data breaches, and disinformation cause real-world harm to humanitarian organisations",
+    "abstract": "ICRC analysis establishing that International Humanitarian Law protections extend to cyberspace—digital attacks on humanitarian organisations violate international law and may constitute war crimes.",
+    "summary": "Written in response to the 2022 ICRC data breach affecting 515,000 people, three senior officials document how cyber operations, data breaches, and disinformation cause real-world harm. The report proposes protective measures including a digital Red Cross emblem and sovereign humanitarian cloud infrastructure separate from commercial providers.",
+    "image": "safeguarding-humanitarian-digital-threats.png",
     "datePublished": "2022-10-13",
     "url": "https://blogs.icrc.org/law-and-policy/2022/10/13/safeguarding-humanitarian-organizations-from-digital-threats/",
     "author": [
@@ -43,9 +49,9 @@
     "publisher": "ICRC Humanitarian Law & Policy Blog",
     "about": [
       "cybersecurity",
-      "digital threats",
-      "international humanitarian law",
-      "data breaches",
+      "digital-threats",
+      "international-humanitarian-law",
+      "data-breaches",
       "disinformation"
     ],
     "audience": ["humanitarian", "public-sector", "security", "it-ops"]
@@ -54,6 +60,9 @@
     "id": "humanitarian-metadata-problem",
     "name": "The Humanitarian Metadata Problem: 'Doing No Harm' in the Digital Era",
     "description": "Technical analysis of how metadata from telecommunications, messaging apps, cash transfers, and social media can endanger humanitarian beneficiaries and staff",
+    "abstract": "Technical analysis of how metadata from telecommunications, messaging, and payments can identify, locate, and profile individuals in crisis situations—risks that persist even when content is encrypted.",
+    "summary": "This ICRC/Privacy International report documents how even \"off\" phones can be tracked via cell tower pings, how messaging apps reveal relationships and behaviour patterns through metadata, and how mobile money creates financial profiles. The finding applies beyond humanitarian work: any organisation handling sensitive data faces the same metadata exposure risks.",
+    "image": "humanitarian-metadata-problem.png",
     "datePublished": "2020-11-01",
     "url": "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy",
     "publisher": "ICRC / Privacy International",
@@ -61,9 +70,9 @@
       "metadata",
       "surveillance",
       "telecommunications",
-      "messaging apps",
-      "mobile money",
-      "data protection",
+      "messaging-apps",
+      "mobile-money",
+      "data-protection",
       "privacy"
     ],
     "audience": ["humanitarian", "public-sector", "it-ops", "consumer"]
@@ -72,15 +81,18 @@
     "id": "gisf-digital-physical-security",
     "name": "Humanitarian Security in an Age of Uncertainty: The Intersection of Digital and Physical Risks",
     "description": "Practitioner guidance on integrating digital threats into security risk management",
+    "abstract": "Practitioner guidance establishing that digital security is a security risk management problem requiring integration across programmes, operations, and security teams—not just an IT issue.",
+    "summary": "The leading humanitarian security network documents how digital attacks translate to physical harm through disinformation endangering field staff, supply chain compromises, and shared infrastructure risks. The report adapts the traditional NGO security triangle (acceptance, protection, deterrence) to digital contexts and identifies critical gaps in staff training and resource equity between headquarters and field.",
+    "image": "gisf-digital-physical-security.png",
     "datePublished": "2024-01-01",
     "url": "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf",
     "publisher": "Global Interagency Security Forum (GISF)",
     "about": [
-      "security risk management",
+      "security-risk-management",
       "cybersecurity",
       "disinformation",
-      "supply chain",
-      "hybrid warfare",
+      "supply-chain",
+      "hybrid-warfare",
       "geopolitics"
     ],
     "audience": ["humanitarian", "security", "it-ops"]
@@ -89,17 +101,20 @@
     "id": "icrc-data-protection-handbook",
     "name": "Handbook on Data Protection in Humanitarian Action",
     "description": "The authoritative reference on data protection for humanitarian organisations, covering cloud services, biometrics, digital identity, and risk assessment frameworks",
+    "abstract": "The authoritative 382-page reference establishing that vendor jurisdiction—not data location—determines cloud security risk, with detailed analysis of how US laws enable government access to humanitarian data.",
+    "summary": "This third edition (2024) provides the most thorough publicly available analysis of CLOUD Act, FISA 702, and PATRIOT Act implications for cloud-hosted sensitive data. The handbook documents that there are no humanitarian exemption clauses in these laws, and that organisations may never know their data was accessed due to non-disclosure obligations on providers. Mitigation strategies include encryption, Swiss-jurisdiction providers, and contractual notification requirements.",
+    "image": "icrc-data-protection-handbook.png",
     "datePublished": "2024-01-15",
     "url": "https://www.cambridge.org/core/books/handbook-on-data-protection-in-humanitarian-action/025CE3DFD1FAD908DD1412C20E49F955",
     "author": ["Massimo Marelli"],
     "publisher": "Cambridge University Press",
     "about": [
-      "data protection",
-      "cloud sovereignty",
-      "government access",
-      "CLOUD Act",
+      "data-protection",
+      "cloud-sovereignty",
+      "government-access",
+      "cloud-act",
       "biometrics",
-      "digital identity"
+      "digital-identity"
     ],
     "audience": ["humanitarian", "public-sector", "it-ops"]
   },
@@ -107,15 +122,18 @@
     "id": "totalberedskapsmeldingen-2025",
     "name": "Totalberedskapsmeldingen 2025",
     "description": "Norwegian Government's comprehensive national preparedness strategy covering civil-military cooperation, digital resilience, and societal security",
+    "abstract": "Norway's landmark 2025 white paper marking a \"historic turning point\" from post-Cold War peace assumptions to preparedness for crisis and war, containing over 100 specific measures.",
+    "summary": "Presented by the Prime Minister on 10 January 2025, this document follows up the Totalberedskapskommisjonen recommendations with measures including expanding Sivilforsvaret to 12,000 personnel, lifting the 1998 shelter construction ban, mandatory preparedness councils, 50% food self-sufficiency by 2030, and new cyber preparedness schemes through public-private cooperation.",
+    "image": "totalberedskapsmeldingen-2025.png",
     "datePublished": "2025-01-01",
     "url": "https://www.regjeringen.no/",
     "publisher": "Norwegian Government",
     "about": [
-      "national preparedness",
-      "civil protection",
-      "digital resilience",
-      "critical infrastructure",
-      "total defence"
+      "national-preparedness",
+      "civil-protection",
+      "digital-resilience",
+      "critical-infrastructure",
+      "total-defence"
     ],
     "audience": ["public-sector", "security", "humanitarian", "enterprise", "it-ops"]
   },
@@ -123,14 +141,17 @@
     "id": "ffi-frivillige-beredskapsorganisasjoner-totalforsvar",
     "name": "FFI: Frivillige beredskapsorganisasjoner i totalforsvaret",
     "description": "Norwegian Defence Research Establishment analysis of voluntary preparedness organizations' role in total defence",
+    "abstract": "Norwegian Defence Research analysis of how voluntary organisations like Red Cross and People's Aid can strengthen total defence, finding significant but underutilised resources requiring better coordination frameworks.",
+    "summary": "Commissioned by Norske Kvinners Sanitetsforening, this FFI report maps the capabilities of Norway's major voluntary emergency organisations and recommends their formal inclusion in coordination arenas at central, regional, and local levels. The research anticipates increased voluntary participation during security crises and identifies the need for legal frameworks governing their role within international humanitarian law.",
+    "image": "ffi-frivillige-beredskapsorganisasjoner-totalforsvar.png",
     "datePublished": "2023-01-01",
     "url": "https://www.ffi.no/",
     "publisher": "Norwegian Defence Research Establishment (FFI)",
     "about": [
-      "voluntary organizations",
-      "total defence",
-      "civil preparedness",
-      "crisis response"
+      "voluntary-organizations",
+      "total-defence",
+      "civil-preparedness",
+      "crisis-response"
     ],
     "audience": ["public-sector", "humanitarian", "security"]
   }

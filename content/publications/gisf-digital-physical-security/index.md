@@ -5,26 +5,26 @@ date: 2024-01-01
 external_url: "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf"
 publisher: "Global Interagency Security Forum (GISF)"
 topics:
-  - "security risk management"
+  - "security-risk-management"
   - "cybersecurity"
   - "disinformation"
-  - "supply chain"
-  - "hybrid warfare"
+  - "supply-chain"
+  - "hybrid-warfare"
   - "geopolitics"
-personas:
+audience:
   - "humanitarian"
   - "security"
   - "it-ops"
 type: publications
 ---
 
+## Abstract
+
+Practitioner guidance establishing that digital security is a security risk management problem requiring integration across programmes, operations, and security teams—not just an IT issue.
+
 ## Summary
 
-The leading security risk management network for humanitarian organisations examines how digital threats intersect with physical security. Published January 2024, this GISF research article addresses a critical gap: most security guidance treats digital and physical risks separately, but in practice they are deeply interconnected.
-
-The report documents how digital attacks translate to real-world harm: disinformation campaigns that endanger field staff, supply chain compromises that expose beneficiary data, and phishing attacks that enable physical targeting. It applies the traditional NGO security triangle — acceptance, protection, deterrence — to digital contexts and finds each requires significant adaptation.
-
-The core message: **digital security is no longer an IT problem. It is a security risk management problem that requires integration across programmes, operations, and security teams.**
+The leading humanitarian security network documents how digital attacks translate to physical harm through disinformation endangering field staff, supply chain compromises, and shared infrastructure risks. The report adapts the traditional NGO security triangle (acceptance, protection, deterrence) to digital contexts and identifies critical gaps in staff training and resource equity between headquarters and field.
 
 ---
 

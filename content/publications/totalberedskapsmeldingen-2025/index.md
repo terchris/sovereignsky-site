@@ -5,12 +5,12 @@ date: 2025-01-01
 external_url: "https://www.regjeringen.no/"
 publisher: "Norwegian Government"
 topics:
-  - "national preparedness"
-  - "civil protection"
-  - "digital resilience"
-  - "critical infrastructure"
-  - "total defence"
-personas:
+  - "national-preparedness"
+  - "civil-protection"
+  - "digital-resilience"
+  - "critical-infrastructure"
+  - "total-defence"
+audience:
   - "public-sector"
   - "security"
   - "humanitarian"
@@ -19,11 +19,13 @@ personas:
 type: publications
 ---
 
+## Abstract
+
+Norway's landmark 2025 white paper marking a "historic turning point" from post-Cold War peace assumptions to preparedness for crisis and war, containing over 100 specific measures.
+
 ## Summary
 
-The Totalberedskapsmeldingen (Total Preparedness Report) is a landmark Norwegian government white paper presented on 10 January 2025 by Prime Minister Jonas Gahr Støre and Minister of Justice and Public Security Emilie Enger Mehl. The document marks what the government describes as a "historic turning point" for Norwegian preparedness, moving beyond the post-Cold War assumption of "deep peace" that has characterised planning since the 1990s.
-
-The white paper follows up on the recommendations of the Totalberedskapskommisjonen (Total Preparedness Commission) and contains over 100 specific measures affecting individuals, public sector, business, and all societal sectors.
+Presented by the Prime Minister on 10 January 2025, this document follows up the Totalberedskapskommisjonen recommendations with measures including expanding Sivilforsvaret to 12,000 personnel, lifting the 1998 shelter construction ban, mandatory preparedness councils, 50% food self-sufficiency by 2030, and new cyber preparedness schemes through public-private cooperation.
 
 ---
 

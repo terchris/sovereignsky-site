@@ -1,0 +1,44 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Law Relationship Types",
+  "description": "Types of relationships between laws",
+  "itemListElement": [
+    {
+      "identifier": "complements",
+      "name": "Complements",
+      "description": "Works alongside, covers related area",
+      "emoji": "🤝"
+    },
+    {
+      "identifier": "conflicts_with",
+      "name": "Conflicts with",
+      "description": "Creates legal tension or contradiction",
+      "emoji": "⚔️"
+    },
+    {
+      "identifier": "implements",
+      "name": "Implements",
+      "description": "National law implementing EU directive or regulation",
+      "emoji": "📥"
+    },
+    {
+      "identifier": "extends",
+      "name": "Extends",
+      "description": "Extends scope to additional jurisdictions or areas",
+      "emoji": "➕"
+    },
+    {
+      "identifier": "interprets",
+      "name": "Interprets",
+      "description": "Court ruling or decision interpreting the law",
+      "emoji": "⚖️"
+    },
+    {
+      "identifier": "succeeds",
+      "name": "Succeeds",
+      "description": "Replaces or succeeds previous framework",
+      "emoji": "🔄"
+    }
+  ]
+}

@@ -160,6 +160,37 @@ ${body}
     fs.writeFileSync(indexPath, content);
 });
 
-console.log(`Created: ${created} new event pages`);
+// Generate _index.md for the list page
+const listIndexPath = path.join(EVENTS_CONTENT_DIR, '_index.md');
+const listIndexContent = `---
+title: "Events"
+description: "Conferences, exercises, and gatherings focused on digital sovereignty, cybersecurity, and national preparedness."
+date: ${new Date().toISOString().split('T')[0]}
+showHero: false
+showDate: false
+showAuthor: false
+showReadingTime: false
+showTableOfContents: false
+showPagination: false
+
+cascade:
+  showDate: false
+  showAuthor: false
+---
+
+{{< events >}}
+`;
+
+const listIndexIsNew = !fs.existsSync(listIndexPath);
+fs.writeFileSync(listIndexPath, listIndexContent);
+if (listIndexIsNew) {
+    console.log(`CREATE: _index.md`);
+    created++;
+} else {
+    console.log(`UPDATE: _index.md`);
+    updated++;
+}
+
+console.log(`\nCreated: ${created} new event pages`);
 console.log(`Updated: ${updated} existing event pages`);
 console.log(`Total: ${events.length} events in /events/{id}/index.md`);

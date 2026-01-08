@@ -15,8 +15,9 @@
 {{ $term := $persona.identifier | default $personaId }}
 {{ $personaName := $persona.name | default ($term | humanize | title) }}
 {{ $personaShortDesc := .Params.summary | default $persona.description | default "" }}
-{{ $personaDesc := .Params.description | default $persona.abstract | default "" }}
+{{ $personaDesc := .Params.abstract | default $persona.abstract | default "" }}
 {{ $personaIcon := $persona.icon | default "user" }}
+{{ $personaInterests := $persona.interests | default (slice) }}
 
 {{/* Build audience vocab/labels from audience.json */}}
 {{ $audienceVocab := slice }}
@@ -101,12 +102,13 @@
   {{ $suggestedLaws = where $laws "type" "in" $lawTypes | first 8 }}
 {{ end }}
 
-{{/* Get related blog posts */}}
+{{/* Get related blog posts - by direct audience match OR by topic interests */}}
 {{ $blogPages := where site.RegularPages "Section" "blog" }}
 {{ $relatedPosts := slice }}
 {{ range $blogPages }}
   {{ $post := . }}
   {{ $match := false }}
+  {{/* Direct persona/audience match */}}
   {{ with $post.Params.personas }}
     {{ if in . $term }}{{ $match = true }}{{ end }}
   {{ end }}
@@ -118,25 +120,43 @@
       {{ end }}
     {{ end }}
   {{ end }}
+  {{/* Topic interests match - check if post topics overlap with persona interests */}}
+  {{ if not $match }}
+    {{ $postTopics := $post.Params.topics | default (slice) }}
+    {{ range $postTopics }}
+      {{ if in $personaInterests . }}
+        {{ $match = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
   {{ if $match }}
     {{ $relatedPosts = $relatedPosts | append $post }}
   {{ end }}
 {{ end }}
 {{ $relatedPosts = sort $relatedPosts "Date" "desc" | first 6 }}
 
-{{/* Get related publications */}}
-{{ $publicationPages := where site.RegularPages "Section" "publications" }}
+{{/* Get related publications - by direct audience match OR by topic interests */}}
 {{ $relatedPubs := slice }}
-{{ range $publicationPages }}
+{{ $pubsSection := where site.RegularPages "Section" "publications" }}
+{{ range $pubsSection }}
   {{ $pub := . }}
   {{ $match := false }}
+  {{/* Direct persona/audience match */}}
   {{ with $pub.Params.personas }}
     {{ if in . $term }}{{ $match = true }}{{ end }}
   {{ end }}
   {{ if not $match }}
-    {{ range ($pub.Params.audiences | default (slice)) }}
-      {{ $mapped := index $blogAudienceToPersona . }}
-      {{ if and $mapped (eq $mapped $term) }}
+    {{ range ($pub.Params.audience | default (slice)) }}
+      {{ if eq . $term }}
+        {{ $match = true }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{/* Topic interests match - check if publication topics overlap with persona interests */}}
+  {{ if not $match }}
+    {{ $pubTopics := $pub.Params.topics | default (slice) }}
+    {{ range $pubTopics }}
+      {{ if in $personaInterests . }}
         {{ $match = true }}
       {{ end }}
     {{ end }}

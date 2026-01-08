@@ -1,8 +1,10 @@
 # Content Structure Harmonization Plan
 
-## Status: Decisions Made — Ready for Implementation
+## Status: Phase 1 Complete — Data Folder Restructured
 
 **Goal**: Standardize field naming across all content types to align with schema.org and Hugo best practices.
+
+**Last Updated**: 2026-01-08
 
 ---
 
@@ -31,7 +33,7 @@ Frontmatter field:   audience: ["humanitarian", "public-sector"]
 Taxonomy:            audience = "audience"
 Curated pages:       /personas/humanitarian/    (editorial, 3 latest per category)
 Complete lists:      /audience/humanitarian/    (auto-generated, ALL content)
-Data folder:         data/personas/             (keep current)
+Data folder:         data/audience/audience.json  ✅ DONE
 ```
 
 **Two-tier navigation:**
@@ -304,73 +306,74 @@ This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
 ### Configuration (1 file)
 - [ ] `hugo.toml` — Change `audience = "audiences"` to `audience = "audience"`, add `topic = "topics"`
 
-### Data Files (4 files)
-- [x] `data/audience/audience.json` — NEW: Renamed from personas.json, new field names ✓ CREATED
-- [ ] `data/personas/personas.json` — DELETE after migration
-- [ ] `data/publications/publications.json` — Update field names to match standard
-- [x] `data/topics/topics.json` — NEW: 7 fixed topic categories ✓ CREATED
+### Data Files — ✅ COMPLETED
+- [x] `data/audience/audience.json` — Created with `identifier` field, `filterValues` for UI
+- [x] `data/topics/topics.json` — Created with 7 topic categories, `filterValues` for UI
+- [x] `data/laws/laws.json` — Moved from root
+- [x] `data/laws/law_types.json` — Created (extracted from ui_vocabulary)
+- [x] `data/hugo/ui_vocabulary.json` — Created (contentTypes only, cleaned up)
+- [x] `data/products/` — Moved products.json, productsList.json, useAreas.json, vendors.json
+- [x] `data/personas/personas.json` — DELETED (replaced by audience.json)
+- [x] Old root files deleted: datacenters.json, laws.json, tag_vocabulary.json, networks-trawler.json
 
-**Field changes in audience.json:**
-| Old Field | New Field |
-|-----------|-----------|
-| `audienceType` | `identifier` |
-| `disambiguatingDescription` | *(removed)* |
-| `description` (long) | `description` (short, ~150 chars) |
-| Long inspiring text | → markdown body content |
+### Templates — ✅ COMPLETED (data paths updated)
+- [x] `layouts/personas/single.html` — Now reads from `data/audience/audience.json`
+- [x] `layouts/personas/list.html` — Now reads from `data/audience/audience.json`
+- [x] `layouts/publications/single.html` — Now reads from `data/audience/audience.json`
+- [x] `layouts/events/single.html` — Topics now clickable (link to `/topics/...`)
+- [x] `layouts/events/list.html` — Now reads from `data/audience/audience.json` and `data/topics/topics.json`
+- [x] `layouts/partials/event-list.html` — Updated data references
+- [x] `layouts/partials/persona-list.html` — Updated data references
+- [x] `layouts/partials/persona-chips.html` — Updated data references
+- [x] `layouts/partials/jurisdiction-laws-inline.html` — Now reads from `data/laws/law_types.json`
+- [x] `layouts/partials/jsonld-events.html` — Removed unused ui_vocabulary reference
 
-### Generator Scripts (3 files)
-- [ ] `scripts/generate-persona-pages.js` — Update to read from `data/audience/audience.json`, use `identifier` field
-- [ ] `scripts/generate-publications-pages.js` — Change output from `personas:` to `audience:`
-- [ ] `scripts/generate-laws-pages.js` — Add `audience` field generation
+### Generator Scripts — ✅ COMPLETED (data paths updated)
+- [x] Scripts updated to read from new data folder locations
+- [ ] `scripts/generate-events-pages.js` — Should output `topics:` from `tags` field (TODO)
 
-### Templates (7+ files)
-- [ ] `layouts/personas/single.html` — Change `.Params.personas` → `.Params.audience`, add "See all →" links to `/audience/X/`
-- [ ] `layouts/personas/list.html` — Update data references
-- [ ] `layouts/publications/single.html` — Change `.Params.personas` → `.Params.audience`
-- [ ] `layouts/events/single.html` — Change `.Params.audiences` → `.Params.audience`
-- [ ] `layouts/events/list.html` — Update data references
-- [ ] `layouts/partials/persona-list.html` — Update references
-- [ ] `layouts/partials/persona-chips.html` — Update references
-- [ ] `layouts/audience/list.html` — NEW: Custom template for taxonomy list page (optional)
-- [ ] `layouts/audience/term.html` — NEW: Custom template for `/audience/humanitarian/` (optional)
-
-### Content Files (34 files)
+### Content Files (34 files) — TODO
 - [ ] `content/blog/**/*.md` (9 files) — Change `audiences:` → `audience:`
-- [ ] `content/events/**/*.md` (18 files) — Change `audiences:` → `audience:`
+- [ ] `content/events/**/*.md` (18 files) — Change `audiences:` → `audience:`, add `topics:`
 - [ ] `content/publications/**/*.md` (7 files) — Change `personas:` → `audience:`
 
 ### Taxonomy Term Pages (Optional)
 - [ ] `content/audience/_index.md` — Custom content for `/audience/` list page
-- [ ] `content/audience/humanitarian/_index.md` — Custom intro for `/audience/humanitarian/`
+- [ ] `content/topics/_index.md` — Custom content for `/topics/` list page
 
 ---
 
 ## 6. Implementation Order
 
-### Phase 1: Config
-1. Update `hugo.toml` — change `audience = "audiences"` to `audience = "audience"`
+### Phase 1: Data Folder Restructure — ✅ COMPLETED
+1. ✅ Created `data/audience/audience.json` with `identifier` field
+2. ✅ Created `data/topics/topics.json` with 7 categories
+3. ✅ Moved `data/laws/laws.json`, created `data/laws/law_types.json`
+4. ✅ Created `data/hugo/ui_vocabulary.json` (contentTypes only)
+5. ✅ Moved products data to `data/products/`
+6. ✅ Updated all templates to use new data paths
+7. ✅ Deleted old/unused data files
 
-### Phase 2: Templates
-2. Update all templates to use `.Params.audience`
-3. Add "See all →" links to persona single template
-4. Test that persona pages still work
-5. Verify `/audience/humanitarian/` auto-generates
+### Phase 2: Taxonomy Configuration — TODO
+1. [ ] Update `hugo.toml`:
+   - Change `audience = "audiences"` → `audience = "audience"`
+   - Add `topic = "topics"`
+2. [ ] Verify taxonomy pages generate at `/audience/...` and `/topics/...`
 
-### Phase 3: Generator Scripts
-6. Update `generate-publications-pages.js` to output `audience:`
-7. Update `generate-laws-pages.js` to include `audience:`
-8. Run generators
+### Phase 3: Content Frontmatter — TODO
+3. [ ] Update blog frontmatter: `audiences:` → `audience:`
+4. [ ] Update events frontmatter: `audiences:` → `audience:`, add `topics:`
+5. [ ] Update publications frontmatter: `personas:` → `audience:`
 
-### Phase 4: Content
-9. Update blog frontmatter: `audiences:` → `audience:`
-10. Update events frontmatter: `audiences:` → `audience:`
-11. Re-run publication generator (already uses `audience`)
+### Phase 4: Generator Scripts — TODO
+6. [ ] Update `generate-events-pages.js` to output `topics:` from JSON `tags` field
+7. [ ] Run generators to regenerate content pages
 
-### Phase 5: Verify
-12. Test all persona pages show correct filtered content
-13. Test taxonomy pages `/audience/X/` show ALL content
-14. Test "See all →" links work
-15. Test all content pages render
+### Phase 5: Verify — TODO
+8. [ ] Test persona pages show correct filtered content
+9. [ ] Test taxonomy pages `/audience/X/` show ALL content
+10. [ ] Test taxonomy pages `/topics/X/` show ALL content
+11. [ ] Test "See all →" links work
 
 ---
 
@@ -428,27 +431,32 @@ audience:
 
 Each data type in its own folder: `data/{type}/{type}.json`
 
-### Current Status
+### Current Status (Updated 2026-01-08)
 
-| Data Type | Current Location | Target Location | Status |
-|-----------|------------------|-----------------|--------|
-| Audience | `data/personas/personas.json` | `data/audience/audience.json` | ✅ Created |
-| Topics | — | `data/topics/topics.json` | ✅ Created |
-| Events | `data/events/events.json` | ✓ Already correct | ✅ Done |
-| Publications | `data/publications/publications.json` | ✓ Already correct | ✅ Done |
-| Networks | `data/networks/networks.json` | ✓ Already correct | ✅ Done |
-| Laws | `data/laws.json` | `data/laws/laws.json` | ⏳ To migrate |
-| Jurisdictions | `data/jurisdictions.json` | `data/jurisdictions/jurisdictions.json` | ⏳ To migrate |
-| Vendors | `data/vendors.json` | `data/vendors/vendors.json` | ⏳ To migrate |
-| Regions | `data/regions.json` | `data/regions/regions.json` | ⏳ To migrate |
-| Use Areas | `data/useAreas.json` | `data/useAreas/useAreas.json` | ⏳ To migrate |
-| Datacenters | `data/datacenters.json` + `data/datacenters/*.json` | Consolidate in `data/datacenters/` | ⏳ To review |
-| Schemas | `data/schemas/*.json` | ✓ Already correct | ✅ Done |
-| Products | `data/products.json`, `data/productsList.json` | *(deferred)* | — |
+| Data Type | Location | Status |
+|-----------|----------|--------|
+| Audience | `data/audience/audience.json` | ✅ Done |
+| Topics | `data/topics/topics.json` | ✅ Done |
+| Laws | `data/laws/laws.json` | ✅ Moved |
+| Law Types | `data/laws/law_types.json` | ✅ Created |
+| Events | `data/events/events.json` | ✅ Done |
+| Publications | `data/publications/publications.json` | ✅ Done |
+| Networks | `data/networks/` | ✅ Done |
+| Datacenters | `data/datacenters/` | ✅ Done |
+| Products | `data/products/products.json` | ✅ Moved |
+| Vendors | `data/products/vendors.json` | ✅ Moved |
+| Use Areas | `data/products/useAreas.json` | ✅ Moved |
+| Hugo UI | `data/hugo/ui_vocabulary.json` | ✅ Created |
+| Schemas | `data/schemas/*.json` | ✅ Done |
+| Jurisdictions | `data/jurisdictions.json` | ⏳ Still at root |
+| Regions | `data/regions.json` | ⏳ Still at root |
 
-### Files to Delete After Migration
-
-- [ ] `data/personas/personas.json` (replaced by `data/audience/audience.json`)
+### Files Deleted
+- [x] `data/personas/personas.json` — Replaced by `data/audience/audience.json`
+- [x] `data/datacenters.json` — Data in `data/datacenters/` folder
+- [x] `data/laws.json` — Moved to `data/laws/laws.json`
+- [x] `data/tag_vocabulary.json` — Unused, deleted
+- [x] `data/networks-trawler.json` — Unused, deleted
 
 ---
 
@@ -521,12 +529,21 @@ Each data type in its own folder: `data/{type}/{type}.json`
 
 ## 11. Next Steps
 
+### Completed
 1. ✅ Plan complete
 2. ✅ Decision: Use Option D (personas + taxonomy for "see all")
 3. ✅ Decision: Add `topics` taxonomy (7 fixed categories in `data/topics/topics.json`)
-4. [ ] Implement Phase 1-5
-5. [ ] Test
-6. [ ] Commit & PR
+4. ✅ Data folder restructured (commit: `46f21f2`)
+5. ✅ Templates updated to use new data paths
+6. ✅ Events single page: Topics now clickable links
+
+### Remaining Work
+7. [ ] **hugo.toml**: Add `topic = "topics"` taxonomy, change `audience = "audiences"` → `audience = "audience"`
+8. [ ] **Content frontmatter**: Update `audiences:` → `audience:` in blog/events/publications
+9. [ ] **Events**: Add `topics:` field to frontmatter (currently uses `tags` in JSON data)
+10. [ ] **Generator scripts**: Update `generate-events-pages.js` to output `topics:` field
+11. [ ] Test taxonomy pages `/topics/...` and `/audience/...`
+12. [ ] Commit & PR
 
 ---
 
