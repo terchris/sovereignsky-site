@@ -1,4 +1,15 @@
 {{ define "main" }}
+{{/* Build lookup maps */}}
+{{ $topicsLookup := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicsLookup = merge $topicsLookup (dict .identifier .) }}
+{{ end }}
+
+{{ $topicLabels := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
+{{ end }}
+
 <article class="max-w-full">
   {{/* Section Header */}}
   {{ partial "section-header.html" (dict
@@ -7,90 +18,250 @@
       "icon" "pencil"
   ) }}
 
-  {{/* Section Content */}}
-  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
-    {{ .Content }}
-  </section>
-
-  {{/* Blog post cards */}}
-  {{ if gt .Pages 0 }}
-  <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8">
-    {{ range .Pages.ByDate.Reverse }}
-    {{/* Get featured image from page bundle */}}
-    {{ $featured := .Resources.GetMatch "featured*" }}
-
-    <a href="{{ .RelPermalink }}" class="card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200">
-      {{/* Cover image */}}
-      {{ if $featured }}
-      <figure class="h-48 overflow-hidden bg-base-200">
-        <img src="{{ $featured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-      </figure>
-      {{ else }}
-      {{/* Placeholder if no image */}}
-      <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-        <div class="text-primary/30">
-          {{ partial "content-icon.html" (dict "name" "pencil" "size" "16" "class" "w-16 h-16") }}
-        </div>
-      </figure>
+  {{/* Stats cards */}}
+  {{ $total := len .Pages }}
+  {{ $totalReadingTime := 0 }}
+  {{ $uniqueTopics := slice }}
+  {{ range .Pages }}
+    {{ $totalReadingTime = add $totalReadingTime .ReadingTime }}
+    {{ range .Params.topics }}
+      {{ if not (in $uniqueTopics .) }}
+        {{ $uniqueTopics = $uniqueTopics | append . }}
       {{ end }}
+    {{ end }}
+  {{ end }}
 
-      <div class="card-body p-4">
-        {{/* Category and reading time row */}}
-        <div class="flex items-center justify-between gap-2 mb-2">
-          {{/* Category badge */}}
-          {{ with .Params.categories }}
-          {{ $cat := index . 0 }}
-          {{ $catClass := "badge-ghost" }}
-          {{ if eq $cat "Analysis" }}
-            {{ $catClass = "badge-primary" }}
-          {{ else if eq $cat "News" }}
-            {{ $catClass = "badge-secondary" }}
-          {{ else if eq $cat "Guide" }}
-            {{ $catClass = "badge-info" }}
-          {{ else if eq $cat "Opinion" }}
-            {{ $catClass = "badge-accent" }}
-          {{ end }}
-          <span class="badge badge-sm {{ $catClass }}">{{ $cat }}</span>
-          {{ end }}
+  <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
+    <div class="stat">
+      <div class="stat-figure text-primary">
+        {{ partial "content-icon.html" (dict "name" "pencil" "color" "primary" "size" "8") }}
+      </div>
+      <div class="stat-title">Blog Posts</div>
+      <div class="stat-value text-primary">{{ $total }}</div>
+      <div class="stat-desc">Articles published</div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        {{ partial "content-icon.html" (dict "name" "clock" "color" "secondary" "size" "8") }}
+      </div>
+      <div class="stat-title">Reading Time</div>
+      <div class="stat-value text-secondary">{{ $totalReadingTime }}</div>
+      <div class="stat-desc">Minutes total</div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-accent">
+        {{ partial "content-icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
+      </div>
+      <div class="stat-title">Topics Covered</div>
+      <div class="stat-value text-accent">{{ len $uniqueTopics }}</div>
+      <div class="stat-desc">Subject areas</div>
+    </div>
+  </div>
 
-          {{/* Reading time */}}
-          {{ with .ReadingTime }}
-          <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ . }} min read</span>
-          {{ end }}
-        </div>
+  {{/* Audience filter - from audience.json */}}
+  {{ $audienceData := site.Data.audience.audience }}
+  <div class="mb-6">
+    <div class="text-sm font-semibold opacity-70 mb-3">Filter by Audience:</div>
+    <div class="flex flex-wrap gap-2" data-filter-group="audience">
+      <button class="btn btn-sm btn-active gap-1" data-filter="all">
+        {{ partial "content-icon.html" (dict "name" "users" "size" "4") }}
+        All
+      </button>
+      {{- range $audienceData.itemListElement }}
+      <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .identifier }}">
+        {{ partial "content-icon.html" (dict "name" .icon "size" "4") }}
+        {{ .name }}
+      </button>
+      {{- end }}
+    </div>
+  </div>
 
-        {{/* Title */}}
-        <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
+  {{/* Topic filter - dynamically from blog posts */}}
+  <div class="flex flex-wrap items-center gap-2 mb-6">
+    <span class="text-sm font-semibold opacity-70">Topic:</span>
+    <div class="join" data-filter-group="topics">
+      <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>
+      {{- range $uniqueTopics }}
+      <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $topicLabels . | default (. | humanize | title) }}</button>
+      {{- end }}
+    </div>
+  </div>
 
-        {{/* Description */}}
-        {{ with .Description }}
-        <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+  {{/* Blog Grid */}}
+  <div id="blog-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {{ range .Pages.ByDate.Reverse }}
+    {{ $featured := .Resources.GetMatch "featured*" }}
+    {{ $topics := .Params.topics | default (slice) }}
+    {{ $audiences := .Params.audiences | default .Params.audience | default (slice) }}
+    {{ $tags := .Params.tags | default (slice) }}
+
+    <article
+      class="blog-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200"
+      data-topics="{{ delimit $topics "," }}"
+      data-audience="{{ delimit $audiences "," }}"
+    >
+      <a href="{{ .RelPermalink }}" class="block no-underline">
+        {{/* Cover image */}}
+        {{ if $featured }}
+        <figure class="h-48 overflow-hidden bg-base-200">
+          <img src="{{ $featured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        </figure>
+        {{ else }}
+        {{/* Placeholder if no image */}}
+        <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+          <div class="text-primary/30">
+            {{ partial "content-icon.html" (dict "name" "pencil" "size" "16" "class" "w-16 h-16") }}
+          </div>
+        </figure>
         {{ end }}
 
-        {{/* Date and tags */}}
-        <div class="mt-auto pt-3 border-t border-base-200">
-          <div class="flex items-center justify-between gap-2">
+        <div class="card-body p-4">
+          {{/* Date and reading time row */}}
+          <div class="flex items-center justify-between gap-2 mb-2">
             {{/* Date */}}
             {{ with .Date }}
-            <time datetime="{{ .Format "2006-01-02" }}" class="text-xs text-neutral-500 dark:text-neutral-500">
+            <time datetime="{{ .Format "2006-01-02" }}" class="text-xs text-neutral-500 dark:text-neutral-400">
               {{ .Format "Jan 2, 2006" }}
             </time>
             {{ end }}
 
-            {{/* Tags (show first 2) */}}
-            {{ with .Params.tags }}
-            <div class="flex items-center gap-1 overflow-hidden">
-              {{ range first 2 . }}
-              <span class="text-xs px-1.5 py-0.5 rounded bg-base-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 truncate max-w-[80px]">{{ . }}</span>
-              {{ end }}
-            </div>
+            {{/* Reading time */}}
+            {{ with .ReadingTime }}
+            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ . }} min read</span>
             {{ end }}
           </div>
+
+          {{/* Title */}}
+          <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
+
+          {{/* Description */}}
+          {{ with .Description }}
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+          {{ end }}
+
+          {{/* Topics and tags */}}
+          <div class="mt-auto pt-3 border-t border-base-200">
+            <div class="flex flex-wrap gap-1">
+              {{ range first 2 $topics }}
+                {{ $topicInfo := index $topicsLookup . }}
+                {{ if $topicInfo }}
+                <span class="text-xs px-1.5 py-0.5 rounded bg-primary/10 text-primary-700 dark:text-primary-300">{{ $topicInfo.name }}</span>
+                {{ end }}
+              {{ end }}
+              {{ range first 2 $tags }}
+              <span class="text-xs px-1.5 py-0.5 rounded bg-base-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </article>
     {{ end }}
-  </section>
-  {{ end }}
+  </div>
+
+  {{/* No results message */}}
+  <div id="no-results" class="hidden alert alert-warning my-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+    <span>No posts match the selected filters.</span>
+  </div>
+
 </article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('[data-filter-group] button[data-filter]');
+  const blogCards = document.querySelectorAll('.blog-card');
+  const noResults = document.getElementById('no-results');
+
+  let activeFilters = {
+    topics: 'all',
+    audience: 'all'
+  };
+
+  function setActiveButton(filterGroup, filterValue) {
+    const groupEl = document.querySelector(`[data-filter-group="${filterGroup}"]`);
+    if (!groupEl) return;
+    const btn = groupEl.querySelector(`button[data-filter="${filterValue}"]`);
+    const fallback = groupEl.querySelector(`button[data-filter="all"]`);
+    const target = btn || fallback;
+    if (!target) return;
+
+    // Update active state
+    groupEl.querySelectorAll('button').forEach(b => {
+      b.classList.remove('btn-active');
+      b.classList.add('btn-ghost');
+    });
+    target.classList.add('btn-active');
+    target.classList.remove('btn-ghost');
+
+    // Update state
+    activeFilters[filterGroup] = target.dataset.filter;
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (activeFilters.topics && activeFilters.topics !== 'all') params.set('topic', activeFilters.topics);
+    if (activeFilters.audience && activeFilters.audience !== 'all') params.set('audience', activeFilters.audience);
+    const qs = params.toString();
+    const newURL = qs ? `?${qs}` : window.location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    blogCards.forEach(card => {
+      const cardTopics = card.dataset.topics || '';
+      const cardAudience = card.dataset.audience || '';
+
+      const matchesTopics = activeFilters.topics === 'all' || cardTopics.includes(activeFilters.topics);
+      const matchesAudience = activeFilters.audience === 'all' || cardAudience.includes(activeFilters.audience);
+
+      if (matchesTopics && matchesAudience) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    // Show/hide no results message
+    if (visibleCount === 0) {
+      noResults.classList.remove('hidden');
+    } else {
+      noResults.classList.add('hidden');
+    }
+  }
+
+  // Initialize from URL
+  const params = new URLSearchParams(window.location.search);
+  const urlAudience = params.get('audience') || 'all';
+  const urlTopic = params.get('topic') || params.get('topics') || 'all';
+  setActiveButton('audience', urlAudience);
+  setActiveButton('topics', urlTopic);
+  applyFilters();
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const groupEl = this.closest('[data-filter-group]');
+      const filterGroup = groupEl.dataset.filterGroup;
+      const filterValue = this.dataset.filter;
+
+      // Update active state in this group
+      groupEl.querySelectorAll('button').forEach(b => {
+        b.classList.remove('btn-active');
+        b.classList.add('btn-ghost');
+      });
+      this.classList.add('btn-active');
+      this.classList.remove('btn-ghost');
+
+      // Update filter state
+      activeFilters[filterGroup] = filterValue;
+
+      applyFilters();
+      updateURL();
+    });
+  });
+});
+</script>
 {{ end }}
