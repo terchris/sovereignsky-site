@@ -1,64 +1,49 @@
 ---
 title: "Data Security Law"
-law_id: "data-security-law"
-full_name: "Data Security Law of the People's Republic of China"
-year: 2021
-scope: "national"
-applies_to:
+identifier: "data-security-law"
+alternateName: "Data Security Law of the People's Republic of China"
+description: "Chinese law establishing data classification, cross-border transfer controls, and government access for national security."
+abstract: "The Data Security Law creates a tiered data classification system (core, important, general) with corresponding protection requirements. Cross-border transfers of 'important data' face restrictions and assessments. The state can access data for national security purposes, and organizations must cooperate with public security requests."
+summary: "China's Data Security Law of 2021 complements the Cybersecurity Law with comprehensive data governance. It establishes a classification system: 'core data' relating to national security receives the highest protection; 'important data' in regulated catalogs requires security assessments before cross-border transfer; 'general data' faces fewer restrictions. All data processing must serve China's national security and development interests. Organizations must cooperate with government data requests and maintain security measures. The law has extraterritorial reach: activities outside China harming Chinese national security or citizens' interests can be penalized. For international organizations, the Data Security Law complicates cross-border data flows—transferring data from China to headquarters may require government approval and security assessments."
+legislationDate: "2021"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.chinalawtranslate.com/en/datasecuritylaw/"
+legislationJurisdiction:
   - "CN"
-source_url: "https://www.chinalawtranslate.com/en/datasecuritylaw/"
-law_type: "access"
-law_type_description: "Enables government or law enforcement data access"
-government_access: "broad"
-government_access_description: "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "access"
+categoryDescription: "Laws that enable government or law enforcement data access"
+governmentAccess: "broad"
+dataProtection: "none"
 extraterritorial: true
-requires_localization: true
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Data classification system, cross-border transfer restrictions, and government access for national security."
-  - "May require certain categories of data to be stored or processed within the jurisdiction."
-  - "Enables broad government access to data under national security or law‑enforcement powers."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Organizations handling “important data” in China"
-  - "Entities conducting cross‑border data transfers"
-  - "Businesses subject to data classification controls"
-key_provisions:
-  - title: "Core scope"
-    description: "Data classification system, cross-border transfer restrictions, and government access for national security."
-  - title: "Key obligations"
-    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-  - "Implement data residency controls and verify vendor/subprocessor locations."
-enforcement:
-  notes: "Enforced by Chinese authorities through data classification and transfer control mechanisms."
-related_laws:
+requiresLocalization: true
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "government-access"
+  - "digital-sovereignty"
+tags:
+  - "data-classification"
+  - "cross-border-transfer"
+  - "important-data"
+  - "national-security"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "public-sector"
+isRelatedTo:
   complements:
-    - id: "national-intelligence-law"
+    - identifier: "national-intelligence-law"
       name: "National Intelligence Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "cybersecurity-law"
+      legislationDate: "2017"
+    - identifier: "cybersecurity-law"
       name: "Cybersecurity Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "pipl"
+      legislationDate: "2017"
+    - identifier: "pipl"
       name: "PIPL"
-      year: 2021
-      flag: "🇨🇳"
+      legislationDate: "2021"
 layout: "single"
 type: "laws"
 ---
 
-Data classification system, cross-border transfer restrictions, and government access for national security.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

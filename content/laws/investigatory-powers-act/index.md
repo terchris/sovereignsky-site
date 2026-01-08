@@ -1,59 +1,47 @@
 ---
 title: "Investigatory Powers Act"
-law_id: "investigatory-powers-act"
-full_name: "Investigatory Powers Act 2016 (Snoopers' Charter)"
-year: 2016
-scope: "national"
-applies_to:
+identifier: "investigatory-powers-act"
+alternateName: "Investigatory Powers Act 2016 (Snoopers' Charter)"
+description: "UK law granting intelligence and law enforcement agencies broad surveillance powers including bulk data collection and equipment interference."
+abstract: "The IPA provides the legal framework for UK intelligence agencies to intercept communications, collect bulk data, and conduct equipment interference (hacking). It requires communications providers to retain connection records and assist with decryption. The law has been criticized as the most extensive surveillance legislation in Western democracies."
+summary: "The Investigatory Powers Act 2016, nicknamed the 'Snoopers' Charter', consolidates and expands UK surveillance powers. Intelligence agencies (GCHQ, MI5, MI6) can conduct bulk interception of communications, retain bulk datasets, and hack devices (equipment interference). ISPs must retain 'internet connection records' showing which websites users visit for 12 months. The law requires communications providers to assist authorities in removing encryption where feasible and maintain permanent interception capabilities. Warrants for targeted interception require judicial approval, but bulk powers have less oversight. The law applies to both domestic and foreign communications accessible from UK territory. While the UK has strong data protection through UK GDPR, the IPA creates significant surveillance exposure, particularly for communications transiting UK infrastructure or stored with UK-accessible providers."
+legislationDate: "2016"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.legislation.gov.uk/ukpga/2016/25/contents"
+legislationJurisdiction:
   - "GB"
-source_url: "https://www.legislation.gov.uk/ukpga/2016/25/contents"
-law_type: "surveillance"
-law_type_description: "Establishes surveillance infrastructure or powers"
-government_access: "broad"
-government_access_description: "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "surveillance"
+categoryDescription: "Laws that establish surveillance infrastructure or powers"
+governmentAccess: "broad"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Broad surveillance powers including bulk data collection, equipment interference, and communications interception."
-  - "Requires ISPs to retain browsing history."
-  - "Enables broad government access to data under national security or law‑enforcement powers."
-who_it_applies_to:
-  - "Telecom operators and service providers"
-  - "Government agencies conducting surveillance"
-  - "Users whose communications may be retained/intercepted"
-key_provisions:
-  - title: "Core scope"
-    description: "Broad surveillance powers including bulk data collection, equipment interference, and communications interception."
-  - title: "Key obligations"
-    description: "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-enforcement:
-  notes: "Oversight involves judicial/commissioner mechanisms; compliance obligations are imposed on providers via warrants/notices."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "surveillance"
+  - "encryption"
+tags:
+  - "surveillance"
+  - "bulk-collection"
+  - "equipment-interference"
+  - "data-retention"
+audience:
+  - "humanitarian"
+  - "enterprise"
+  - "security"
+isRelatedTo:
   complements:
-    - id: "national-security-act-uk"
+    - identifier: "national-security-act-uk"
       name: "National Security Act"
-      year: 2023
-      flag: "🇬🇧"
+      legislationDate: "2023"
   conflicts_with:
-    - id: "uk-gdpr"
+    - identifier: "uk-gdpr"
       name: "UK GDPR"
-      year: 2021
-      flag: "🇬🇧"
+      legislationDate: "2021"
 layout: "single"
 type: "laws"
 ---
 
-Broad surveillance powers including bulk data collection, equipment interference, and communications interception. Requires ISPs to retain browsing history.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

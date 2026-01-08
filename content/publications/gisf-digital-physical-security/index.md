@@ -15,6 +15,12 @@ audience:
   - "humanitarian"
   - "security"
   - "it-ops"
+tags:
+  - "security-triangle"
+  - "staff-training"
+  - "field-operations"
+  - "supply-chain"
+  - "hybrid-threats"
 type: publications
 ---
 

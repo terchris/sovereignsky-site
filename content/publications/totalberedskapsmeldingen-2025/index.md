@@ -16,6 +16,12 @@ audience:
   - "humanitarian"
   - "enterprise"
   - "it-ops"
+tags:
+  - "sivilforsvaret"
+  - "shelter-construction"
+  - "food-security"
+  - "public-private"
+  - "norway"
 type: publications
 ---
 

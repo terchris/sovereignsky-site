@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/laws.schema.json",
+  "title": "Laws Collection",
+  "description": "Schema for laws.json - collection of data sovereignty laws (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of law entries",
+      "items": {
+        "type": "object",
+        "required": [
+          "@type",
+          "identifier",
+          "name",
+          "description",
+          "legislationDate",
+          "legislationJurisdiction",
+          "category",
+          "governmentAccess",
+          "dataProtection",
+          "extraterritorial",
+          "requiresLocalization",
+          "requiresBackdoor"
+        ],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Legislation"
+          },
+          "identifier": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "alternateName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "abstract": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "legislationDate": {
+            "type": "string",
+            "pattern": "^[0-9]{4}$"
+          },
+          "legislationJurisdiction": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "legislationLegalForce": {
+            "type": "string",
+            "enum": ["InForce", "NotInForce", "PartiallyInForce"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["privacy", "access", "surveillance", "localization", "security", "sector"]
+          },
+          "governmentAccess": {
+            "type": "string",
+            "enum": ["broad", "targeted", "limited", "none"]
+          },
+          "dataProtection": {
+            "type": "string",
+            "enum": ["strong", "moderate", "weak", "none"]
+          },
+          "extraterritorial": {
+            "type": "boolean"
+          },
+          "requiresLocalization": {
+            "type": "boolean"
+          },
+          "requiresBackdoor": {
+            "type": "boolean"
+          },
+          "isRelatedTo": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["identifier", "type"],
+              "properties": {
+                "identifier": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": ["implements", "interprets", "conflicts_with", "complements", "succeeds", "extends", "amends", "extended_by"]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "topics": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "audience": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "reviewStatus": {
+            "type": "string",
+            "enum": ["ai-generated", "verified"]
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

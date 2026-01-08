@@ -30,7 +30,8 @@
       "data-protection",
       "platform-dependency"
     ],
-    "audience": ["humanitarian", "public-sector", "enterprise"]
+    "audience": ["humanitarian", "public-sector", "enterprise"],
+    "tags": ["digital-platforms", "power-relations", "platform-dependency", "biometric-data", "blockchain-payments"]
   },
   {
     "id": "safeguarding-humanitarian-digital-threats",
@@ -54,7 +55,8 @@
       "data-breaches",
       "disinformation"
     ],
-    "audience": ["humanitarian", "public-sector", "security", "it-ops"]
+    "audience": ["humanitarian", "public-sector", "security", "it-ops"],
+    "tags": ["cyberattacks", "data-breach", "disinformation", "digital-emblem", "law-of-war"]
   },
   {
     "id": "humanitarian-metadata-problem",
@@ -75,7 +77,8 @@
       "data-protection",
       "privacy"
     ],
-    "audience": ["humanitarian", "public-sector", "it-ops", "consumer"]
+    "audience": ["humanitarian", "public-sector", "it-ops", "consumer"],
+    "tags": ["metadata", "cell-tower", "messaging-apps", "mobile-money", "encryption"]
   },
   {
     "id": "gisf-digital-physical-security",
@@ -95,7 +98,8 @@
       "hybrid-warfare",
       "geopolitics"
     ],
-    "audience": ["humanitarian", "security", "it-ops"]
+    "audience": ["humanitarian", "security", "it-ops"],
+    "tags": ["security-triangle", "staff-training", "field-operations", "supply-chain", "hybrid-threats"]
   },
   {
     "id": "icrc-data-protection-handbook",
@@ -116,7 +120,8 @@
       "biometrics",
       "digital-identity"
     ],
-    "audience": ["humanitarian", "public-sector", "it-ops"]
+    "audience": ["humanitarian", "public-sector", "it-ops"],
+    "tags": ["cloud-act", "fisa-702", "patriot-act", "swiss-jurisdiction", "vendor-jurisdiction"]
   },
   {
     "id": "totalberedskapsmeldingen-2025",
@@ -135,7 +140,8 @@
       "critical-infrastructure",
       "total-defence"
     ],
-    "audience": ["public-sector", "security", "humanitarian", "enterprise", "it-ops"]
+    "audience": ["public-sector", "security", "humanitarian", "enterprise", "it-ops"],
+    "tags": ["sivilforsvaret", "shelter-construction", "food-security", "public-private", "norway"]
   },
   {
     "id": "ffi-frivillige-beredskapsorganisasjoner-totalforsvar",
@@ -153,6 +159,7 @@
       "civil-preparedness",
       "crisis-response"
     ],
-    "audience": ["public-sector", "humanitarian", "security"]
+    "audience": ["public-sector", "humanitarian", "security"],
+    "tags": ["red-cross", "voluntary-sector", "coordination", "legal-frameworks", "norway"]
   }
 ]

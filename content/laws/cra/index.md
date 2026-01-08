@@ -1,58 +1,48 @@
 ---
 title: "CRA"
-law_id: "cra"
-full_name: "Cyber Resilience Act"
-year: 2024
-scope: "bloc"
-applies_to:
+identifier: "cra"
+alternateName: "Cyber Resilience Act"
+description: "EU regulation establishing mandatory cybersecurity requirements for products with digital elements sold in the EU market."
+abstract: "The CRA imposes security-by-design obligations on manufacturers of connected devices and software. Products must meet essential cybersecurity requirements, handle vulnerabilities throughout their lifecycle, and carry CE marking certifying compliance. Critical products face third-party conformity assessment."
+summary: "The Cyber Resilience Act addresses cybersecurity gaps in IoT devices, consumer electronics, and software. Manufacturers must design products with security in mind, document cybersecurity risks, provide security updates for the product lifetime (minimum 5 years), and report actively exploited vulnerabilities to ENISA within 24 hours. Products are categorized by risk: default (self-assessment), Class I (internal control with standards), and Class II critical products (third-party assessment). Open source software has limited exemptions for non-commercial development. Importers and distributors share responsibility for ensuring compliance. The regulation complements NIS2 (organizational security) and DORA (financial sector) by addressing product-level security, creating a comprehensive cybersecurity framework. Non-compliance can result in fines up to €15 million or 2.5% of global turnover."
+legislationDate: "2024"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
-law_type: "security"
-law_type_description: "National security framework without direct data access provisions"
-government_access: "none"
-government_access_description: "No government access provisions in this law"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "security"
+categoryDescription: "National security frameworks"
+governmentAccess: "none"
+dataProtection: "none"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Cybersecurity requirements for products with digital elements."
-  - "Mandates security-by-design, vulnerability handling, and CE marking for connected devices and software."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Manufacturers of products with digital elements"
-  - "Software vendors/distributors"
-  - "Importers and integrators placing products on the EU market"
-key_provisions:
-  - title: "Core scope"
-    description: "Cybersecurity requirements for products with digital elements."
-  - title: "Key obligations"
-    description: "Defines security obligations (risk management, incident response, and governance) for covered entities."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-enforcement:
-  notes: "Market surveillance authorities enforce product compliance; enforcement is tied to product safety/CE‑style compliance regimes."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "cybersecurity"
+  - "supply-chain"
+tags:
+  - "product-security"
+  - "iot"
+  - "vulnerability-management"
+  - "ce-marking"
+audience:
+  - "enterprise"
+  - "developer"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "nis2"
+    - identifier: "nis2"
       name: "NIS2 Directive"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "dora"
+    - identifier: "dora"
       name: "DORA"
-      year: 2025
+      legislationDate: "2025"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Cybersecurity requirements for products with digital elements. Mandates security-by-design, vulnerability handling, and CE marking for connected devices and software.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

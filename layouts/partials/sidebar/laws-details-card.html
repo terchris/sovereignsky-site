@@ -1,0 +1,114 @@
+{{/* Law Details Card - shows classification and metadata for laws */}}
+{{ $year := .Params.legislationDate | default "" }}
+
+{{/* Classification fields */}}
+{{ $lawType := .Params.category | default "privacy" }}
+{{ $governmentAccess := .Params.governmentAccess | default "none" }}
+{{ $dataProtection := .Params.dataProtection | default "none" }}
+{{ $extraterritorial := .Params.extraterritorial | default false }}
+{{ $requiresLocalization := .Params.requiresLocalization | default false }}
+{{ $requiresBackdoor := .Params.requiresBackdoor | default false }}
+
+{{/* Law Type badge styling */}}
+{{ $typeEmoji := "" }}
+{{ $typeLabel := $lawType }}
+{{ if eq $lawType "privacy" }}
+  {{ $typeEmoji = "🛡️" }}
+  {{ $typeLabel = "Privacy" }}
+{{ else if eq $lawType "access" }}
+  {{ $typeEmoji = "🔓" }}
+  {{ $typeLabel = "Access" }}
+{{ else if eq $lawType "surveillance" }}
+  {{ $typeEmoji = "👁️" }}
+  {{ $typeLabel = "Surveillance" }}
+{{ else if eq $lawType "localization" }}
+  {{ $typeEmoji = "📍" }}
+  {{ $typeLabel = "Localization" }}
+{{ else if eq $lawType "security" }}
+  {{ $typeEmoji = "🔒" }}
+  {{ $typeLabel = "Security" }}
+{{ else if eq $lawType "sector" }}
+  {{ $typeEmoji = "📋" }}
+  {{ $typeLabel = "Sector" }}
+{{ end }}
+
+{{/* Government Access label */}}
+{{ $accessLabel := $governmentAccess }}
+{{ if eq $governmentAccess "broad" }}
+  {{ $accessLabel = "Broad" }}
+{{ else if eq $governmentAccess "targeted" }}
+  {{ $accessLabel = "Targeted" }}
+{{ else if eq $governmentAccess "limited" }}
+  {{ $accessLabel = "Limited" }}
+{{ else if eq $governmentAccess "none" }}
+  {{ $accessLabel = "None" }}
+{{ end }}
+
+{{/* Data Protection label */}}
+{{ $protectionLabel := $dataProtection }}
+{{ if eq $dataProtection "strong" }}
+  {{ $protectionLabel = "Strong" }}
+{{ else if eq $dataProtection "moderate" }}
+  {{ $protectionLabel = "Moderate" }}
+{{ else if eq $dataProtection "weak" }}
+  {{ $protectionLabel = "Weak" }}
+{{ else if eq $dataProtection "none" }}
+  {{ $protectionLabel = "None" }}
+{{ end }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+      Details
+    </h3>
+    <dl class="mt-2 text-sm">
+      {{/* Year */}}
+      {{ if $year }}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Year</dt>
+        <dd class="font-medium">{{ $year }}</dd>
+      </div>
+      {{ end }}
+
+      {{/* Law Type */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
+        <dd class="font-medium {{ if eq $lawType "privacy" }}text-success{{ else if eq $lawType "access" }}text-warning{{ else if eq $lawType "surveillance" }}text-error{{ end }}">
+          {{ $typeEmoji }} {{ $typeLabel }}
+        </dd>
+      </div>
+
+      {{/* Government Access */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Gov Access</dt>
+        <dd class="font-medium {{ if eq $governmentAccess "limited" }}text-success{{ else if eq $governmentAccess "targeted" }}text-warning{{ else if eq $governmentAccess "broad" }}text-error{{ end }}">
+          {{ $accessLabel }}
+        </dd>
+      </div>
+
+      {{/* Data Protection */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Protection</dt>
+        <dd class="font-medium {{ if eq $dataProtection "strong" }}text-success{{ else if eq $dataProtection "moderate" }}text-warning{{ else if eq $dataProtection "weak" }}text-error{{ end }}">
+          {{ $protectionLabel }}
+        </dd>
+      </div>
+
+      {{/* Boolean flags */}}
+      {{ if or $extraterritorial $requiresLocalization $requiresBackdoor }}
+      <div class="pt-2 mt-2 border-t border-base-200 space-y-1">
+        {{ if $extraterritorial }}
+        <div class="text-neutral-600 dark:text-neutral-300">🌍 Extraterritorial</div>
+        {{ end }}
+        {{ if $requiresLocalization }}
+        <div class="text-neutral-600 dark:text-neutral-300">📍 Requires Localization</div>
+        {{ end }}
+        {{ if $requiresBackdoor }}
+        <div class="text-error">🔑 Requires Backdoor</div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

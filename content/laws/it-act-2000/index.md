@@ -1,53 +1,43 @@
 ---
 title: "IT Act"
-law_id: "it-act-2000"
-full_name: "Information Technology Act 2000"
-year: 2000
-scope: "national"
-applies_to:
+identifier: "it-act-2000"
+alternateName: "Information Technology Act 2000"
+description: "Indian law enabling government interception, monitoring, and decryption of any computer resource in the interest of national security."
+abstract: "Section 69 grants the government power to direct any agency to intercept, monitor, or decrypt any information transmitted through any computer resource when necessary for national security, public order, or investigation of offenses. Intermediaries must assist with interception and content blocking."
+summary: "India's Information Technology Act 2000 (amended 2008) provides the legal framework for government access to digital information. Section 69 empowers the central or state government to direct interception, monitoring, or decryption of any information in a computer resource for sovereignty, security, friendly relations with foreign states, public order, or investigating offenses. Section 69A enables blocking access to information. Section 79 establishes intermediary liability and safe harbors. The IT Rules 2021 imposed significant requirements on social media intermediaries including content takedown, user traceability (requiring messaging services to identify message originators), and compliance officer appointments. Combined with the new DPDP Act, India has both data protection and broad government access powers. The lack of independent judicial oversight for interception orders raises civil liberties concerns."
+legislationDate: "2000"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.meity.gov.in/content/information-technology-act-2000"
+legislationJurisdiction:
   - "IN"
-source_url: "https://www.meity.gov.in/content/information-technology-act-2000"
-law_type: "access"
-law_type_description: "Enables government or law enforcement data access"
-government_access: "broad"
-government_access_description: "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "access"
+categoryDescription: "Laws that enable government or law enforcement data access"
+governmentAccess: "broad"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: true
-review_status: "ai-generated"
-what_it_does:
-  - "Government can intercept, monitor and decrypt any computer resource in the interest of national security."
-  - "May compel technical assistance such as decryption support or access enablement under legal process."
-who_it_applies_to:
-  - "Online platforms and intermediaries in India"
-  - "Organizations receiving decryption/interception orders"
-  - "Users subject to cybercrime provisions"
-key_provisions:
-  - title: "Core scope"
-    description: "Government can intercept, monitor and decrypt any computer resource in the interest of national security."
-  - title: "Key obligations"
-    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-enforcement:
-  notes: "Enforced via Indian authorities and courts; interception/decryption directions depend on orders under the Act and rules."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: true
+reviewStatus: "ai-generated"
+topics:
+  - "government-access"
+  - "surveillance"
+tags:
+  - "interception"
+  - "decryption"
+  - "intermediary-liability"
+  - "content-blocking"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "security"
+isRelatedTo:
   complements:
-    - id: "dpdp-act"
+    - identifier: "dpdp-act"
       name: "DPDP Act"
-      year: 2023
-      flag: "🇮🇳"
+      legislationDate: "2023"
 layout: "single"
 type: "laws"
 ---
 
-Government can intercept, monitor and decrypt any computer resource in the interest of national security.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

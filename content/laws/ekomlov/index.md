@@ -1,57 +1,46 @@
 ---
 title: "Ekomloven"
-law_id: "ekomlov"
-full_name: "Lov om elektronisk kommunikasjon (Electronic Communications Act)"
-year: 2003
-scope: "national"
-applies_to:
+identifier: "ekomlov"
+alternateName: "Lov om elektronisk kommunikasjon (Electronic Communications Act)"
+description: "Norwegian law regulating electronic communications networks, services, and lawful interception requirements."
+abstract: "Ekomloven governs electronic communications in Norway, covering network operators, service providers, and numbering resources. It includes provisions for lawful interception by authorities and security obligations for critical communications infrastructure."
+summary: "The Norwegian Electronic Communications Act regulates the telecommunications sector including fixed and mobile networks, internet access, and broadcasting transmission. Providers must obtain authorization, meet quality of service requirements, and comply with net neutrality rules. The law includes provisions enabling lawful interception by law enforcement and intelligence services under court orders. Communications providers must maintain technical capabilities to intercept communications when legally required. The Act also addresses emergency communications, critical infrastructure protection, and consumer rights. Nkom (Norwegian Communications Authority) supervises compliance, while interception activities are overseen by the courts and control committees. The law complements Sikkerhetsloven for national security matters."
+legislationDate: "2003"
+legislationLegalForce: "InForce"
+sourceUrl: "https://lovdata.no/dokument/NL/lov/2003-07-04-83"
+legislationJurisdiction:
   - "NO"
-source_url: "https://lovdata.no/dokument/NL/lov/2003-07-04-83"
-law_type: "sector"
-law_type_description: "Regulates specific sector (AI, telecom, finance, etc.)"
-government_access: "targeted"
-government_access_description: "Access with warrants or court orders for specific investigations"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "sector"
+categoryDescription: "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+governmentAccess: "targeted"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Regulates electronic communications networks and services, including data retention and lawful interception requirements."
-  - "Enables targeted government access under warrants or court orders for specific investigations."
-who_it_applies_to:
-  - "Telecom/electronic communications providers"
-  - "Network operators"
-  - "Entities subject to lawful interception/retention duties (as applicable)"
-key_provisions:
-  - title: "Core scope"
-    description: "Regulates electronic communications networks and services, including data retention and lawful interception requirements."
-  - title: "Key obligations"
-    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
-enforcement:
-  notes: "Enforced by Norwegian regulators under telecom rules; obligations depend on implementing regulations and orders."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "surveillance"
+  - "government-access"
+tags:
+  - "telecommunications"
+  - "lawful-interception"
+  - "norway"
+  - "network-security"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "security"
+isRelatedTo:
   complements:
-    - id: "personopplysningsloven"
+    - identifier: "personopplysningsloven"
       name: "Personopplysningsloven"
-      year: 2018
-      flag: "🇳🇴"
-    - id: "sikkerhetsloven"
+      legislationDate: "2018"
+    - identifier: "sikkerhetsloven"
       name: "Sikkerhetsloven"
-      year: 2019
-      flag: "🇳🇴"
+      legislationDate: "2019"
 layout: "single"
 type: "laws"
 ---
 
-Regulates electronic communications networks and services, including data retention and lawful interception requirements.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

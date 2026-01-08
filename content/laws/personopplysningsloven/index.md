@@ -1,63 +1,50 @@
 ---
 title: "Personopplysningsloven"
-law_id: "personopplysningsloven"
-full_name: "Lov om behandling av personopplysninger (Personal Data Act)"
-year: 2018
-scope: "national"
-applies_to:
+identifier: "personopplysningsloven"
+alternateName: "Lov om behandling av personopplysninger (Personal Data Act)"
+description: "Norwegian national law implementing GDPR through the EEA Agreement, with supplementary provisions specific to Norway."
+abstract: "Personopplysningsloven makes GDPR applicable in Norway through the EEA Agreement and adds national provisions where GDPR allows member state flexibility. Datatilsynet (the Norwegian Data Protection Authority) supervises compliance and handles complaints."
+summary: "The Norwegian Personal Data Act (Personopplysningsloven) implements GDPR in Norway through the EEA Agreement mechanism. While GDPR forms the core of Norwegian data protection law, the Act includes supplementary national rules where GDPR permits flexibility: age of consent for children's data (13 years), national identification numbers, processing for archiving and research purposes, and employment-related processing. Datatilsynet serves as Norway's independent supervisory authority with powers to investigate, issue orders, and impose administrative fines. The Act interacts with other Norwegian legislation including Sikkerhetsloven (national security) and Ekomloven (electronic communications), creating a comprehensive framework for data protection in Norway."
+legislationDate: "2018"
+legislationLegalForce: "InForce"
+sourceUrl: "https://lovdata.no/dokument/NL/lov/2018-06-15-38"
+legislationJurisdiction:
   - "NO"
-source_url: "https://lovdata.no/dokument/NL/lov/2018-06-15-38"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Norwegian implementation of GDPR."
-  - "Regulates processing of personal data and establishes Datatilsynet as the supervisory authority."
-who_it_applies_to:
-  - "Controllers and processors in Norway"
-  - "Organizations processing Norwegian residents’ personal data"
-  - "Public and private entities subject to Norwegian GDPR implementation"
-key_provisions:
-  - title: "Core scope"
-    description: "Norwegian implementation of GDPR."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "Norwegian Data Protection Authority (Datatilsynet)"
-  notes: "Enforced under Norwegian GDPR implementation; sectoral rules may also apply."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "privacy"
+  - "norway"
+  - "gdpr-implementation"
+audience:
+  - "enterprise"
+  - "public-sector"
+isRelatedTo:
   complements:
-    - id: "ekomlov"
+    - identifier: "ekomlov"
       name: "Ekomloven"
-      year: 2003
-      flag: "🇳🇴"
-    - id: "sikkerhetsloven"
+      legislationDate: "2003"
+    - identifier: "sikkerhetsloven"
       name: "Sikkerhetsloven"
-      year: 2019
-      flag: "🇳🇴"
+      legislationDate: "2019"
   implements:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Norwegian implementation of GDPR. Regulates processing of personal data and establishes Datatilsynet as the supervisory authority.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

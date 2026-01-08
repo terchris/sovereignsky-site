@@ -1,0 +1,130 @@
+{{/*
+  common-single-page.html - Unified base template for detail pages
+
+  Usage:
+    {{ partial "common-single-page.html" (dict
+        "page" .
+        "icon" "scale"
+        "section" "Laws"
+        "sectionUrl" "/laws/"
+        "headerDescription" .Params.alternateName
+        "externalUrl" .Params.sourceUrl
+        "externalLabel" "Official text"
+        "sidebarCards" (slice
+            "sidebar/laws-details-card.html"
+            "sidebar/laws-appliesto.html"
+            "sidebar/common-audience-card.html"
+        )
+        "showToc" true
+    ) }}
+
+  Parameters:
+    page: The page context (required)
+    icon: Icon name for header (optional)
+    flag: Emoji flag for header (optional, takes precedence over icon)
+    section: Section name for breadcrumb (required)
+    sectionUrl: URL for section breadcrumb (required)
+    headerDescription: Description shown in header (optional)
+    externalUrl: External link URL (optional)
+    externalLabel: External link button text (default: "Read original")
+    sidebarCards: Slice of partial paths to include in sidebar (required)
+    showToc: Whether to show table of contents (default: true)
+*/}}
+
+{{ $page := .page }}
+{{ $icon := .icon | default "" }}
+{{ $flag := .flag | default "" }}
+{{ $section := .section | default "Content" }}
+{{ $sectionUrl := .sectionUrl | default "/" }}
+{{ $headerDescription := .headerDescription | default "" }}
+{{ $externalUrl := .externalUrl | default "" }}
+{{ $externalLabel := .externalLabel | default "Read original" }}
+{{ $sidebarCards := .sidebarCards | default (slice) }}
+{{ $showToc := .showToc | default true }}
+
+<article class="max-w-full">
+  {{/* Detail Header with breadcrumbs */}}
+  {{ partial "common-detail-header.html" (dict
+      "title" $page.Title
+      "description" $headerDescription
+      "icon" $icon
+      "flag" $flag
+      "breadcrumbs" (slice
+          (dict "title" $section "url" $sectionUrl)
+      )
+  ) }}
+
+  {{/* Featured Image (if exists) */}}
+  {{ $featured := $page.Resources.GetMatch "featured*" }}
+  {{ with $featured }}
+  <figure class="mb-8">
+    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" class="w-full max-w-3xl rounded-lg shadow-md">
+  </figure>
+  {{ end }}
+
+  {{/* Two-column layout */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+
+    {{/* Right Sidebar */}}
+    {{ partial "sidebar/common-sidebar.html" $page }}
+
+        {{/* External link button */}}
+        {{ if $externalUrl }}
+        <a class="btn btn-primary btn-outline w-full gap-2"
+           href="{{ $externalUrl }}"
+           target="_blank"
+           rel="noopener noreferrer">
+          {{ partial "content-icon.html" (dict "name" "external" "size" "4") }}
+          {{ $externalLabel }}
+        </a>
+        {{ end }}
+
+        {{/* Section-specific sidebar cards */}}
+        {{ range $sidebarCards }}
+          {{ partial . $page }}
+        {{ end }}
+
+        {{/* Table of Contents */}}
+        {{ if $showToc }}
+        {{ $hasToc := in $page.TableOfContents "<ul" }}
+        {{ if $hasToc }}
+        <div class="mt-6">
+          {{ partial "toc.html" $page }}
+        </div>
+        {{ end }}
+        {{ end }}
+
+    {{ partial "sidebar/common-sidebar-end.html" $page }}
+
+    {{/* Main Content */}}
+    <div class="min-w-0 flex-1">
+      <div class="article-content prose dark:prose-invert max-w-none mb-20">
+        {{/* Abstract */}}
+        {{ partial "common-content-section.html" (dict "title" "Abstract" "content" $page.Params.abstract) }}
+
+        {{/* Summary */}}
+        {{ partial "common-content-section.html" (dict "title" "Summary" "content" $page.Params.summary "border" true) }}
+
+        {{/* Main article content */}}
+        {{ $page.Content }}
+
+        {{/* Quote from original if provided */}}
+        {{ with $page.Params.quote }}
+        <blockquote class="border-l-4 border-primary-500 pl-4 my-8 italic text-neutral-600 dark:text-neutral-400">
+          {{ . | markdownify }}
+          {{ with $page.Params.quote_attribution }}
+          <footer class="mt-2 text-sm not-italic">— {{ . }}</footer>
+          {{ end }}
+        </blockquote>
+        {{ end }}
+
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="{{ $sectionUrl }}">← Back to all {{ $section | lower }}</a>
+        </p>
+      </div>
+    </div>
+
+  </section>
+</article>

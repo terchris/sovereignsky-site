@@ -225,6 +225,11 @@ function buildFrontmatter(pub) {
     lines.push(...yamlStringList('audience', pub.audience));
   }
 
+  // Tags
+  if (pub.tags && pub.tags.length > 0) {
+    lines.push(...yamlStringList('tags', pub.tags));
+  }
+
   // Hugo type
   lines.push(`type: publications`);
 

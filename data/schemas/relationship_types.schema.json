@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/relationship_types.schema.json",
+  "title": "Law Relationship Types",
+  "description": "Schema for relationship_types.json - types of relationships between laws (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of relationship type entries",
+      "items": {
+        "type": "object",
+        "required": ["identifier", "name", "description", "emoji"],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the relationship type",
+            "enum": ["complements", "conflicts_with", "implements", "extends", "interprets", "succeeds"]
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the relationship type"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "Emoji icon for display"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

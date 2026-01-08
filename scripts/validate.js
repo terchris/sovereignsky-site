@@ -34,6 +34,18 @@ const validations = [
     schema: "data/schemas/networks-places.schema.json",
     data: "data/networks/networks-places.json",
   },
+  {
+    schema: "data/schemas/laws.schema.json",
+    data: "data/laws/laws.json",
+  },
+  {
+    schema: "data/schemas/law_types.schema.json",
+    data: "data/laws/law_types.json",
+  },
+  {
+    schema: "data/schemas/relationship_types.schema.json",
+    data: "data/laws/relationship_types.json",
+  },
 ];
 
 // Load JSON file with error handling

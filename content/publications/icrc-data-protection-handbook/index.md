@@ -17,6 +17,12 @@ audience:
   - "humanitarian"
   - "public-sector"
   - "it-ops"
+tags:
+  - "cloud-act"
+  - "fisa-702"
+  - "patriot-act"
+  - "swiss-jurisdiction"
+  - "vendor-jurisdiction"
 type: publications
 ---
 

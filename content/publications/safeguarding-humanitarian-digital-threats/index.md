@@ -19,6 +19,12 @@ audience:
   - "public-sector"
   - "security"
   - "it-ops"
+tags:
+  - "cyberattacks"
+  - "data-breach"
+  - "disinformation"
+  - "digital-emblem"
+  - "law-of-war"
 type: publications
 ---
 

@@ -1,48 +1,37 @@
 ---
 title: "APPI"
-law_id: "appi"
-full_name: "Act on the Protection of Personal Information"
-year: 2003
-scope: "national"
-applies_to:
+identifier: "appi"
+alternateName: "Act on the Protection of Personal Information"
+description: "Japan's data protection law, substantially revised in 2020 and 2022 to strengthen protections and align with international standards."
+abstract: "APPI protects personal information handled by business operators. The 2020 amendments introduced individual rights (deletion, usage suspension), strengthened cross-border transfer rules, and created the Personal Information Protection Commission (PPC). Japan has mutual EU adequacy, enabling data flows."
+summary: "Japan's APPI, originally enacted in 2003, was substantially revised in 2020 and 2022 to align with GDPR and strengthen protections. Business operators must specify utilization purposes, obtain consent for sensitive data, implement security measures, and respond to individual requests for disclosure, correction, and deletion. The 2020 amendments introduced rights to request deletion and usage suspension, created penalties for database theft, and strengthened the Personal Information Protection Commission's enforcement powers. Cross-border transfers require consent plus adequacy assessment, consent plus contractual safeguards, or group company systems with equivalent protections. Japan and the EU recognize each other's adequacy, creating a 'data free-flow highway' between the two economies. The PPC actively updates guidelines for emerging technologies including cookies, AI, and biometrics."
+legislationDate: "2003"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.ppc.go.jp/en/legal/"
+legislationJurisdiction:
   - "JP"
-source_url: "https://www.ppc.go.jp/en/legal/"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Businesses handling personal information in Japan"
-  - "Organizations transferring personal data internationally"
-  - "Data processors/service providers"
-key_provisions:
-  - title: "Core scope"
-    description: "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "Personal Information Protection Commission (PPC, Japan)"
-  notes: "Enforced by the PPC; cross‑border transfer rules and safeguards apply."
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "adequacy"
+  - "cross-border-transfer"
+  - "individual-rights"
+audience:
+  - "enterprise"
+  - "it-ops"
 layout: "single"
 type: "laws"
 ---
 
-Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

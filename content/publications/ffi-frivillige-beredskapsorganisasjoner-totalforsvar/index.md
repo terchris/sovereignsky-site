@@ -13,6 +13,12 @@ audience:
   - "public-sector"
   - "humanitarian"
   - "security"
+tags:
+  - "red-cross"
+  - "voluntary-sector"
+  - "coordination"
+  - "legal-frameworks"
+  - "norway"
 type: publications
 ---
 

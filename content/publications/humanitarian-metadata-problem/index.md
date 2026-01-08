@@ -17,6 +17,12 @@ audience:
   - "public-sector"
   - "it-ops"
   - "consumer"
+tags:
+  - "metadata"
+  - "cell-tower"
+  - "messaging-apps"
+  - "mobile-money"
+  - "encryption"
 type: publications
 ---
 

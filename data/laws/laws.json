@@ -1,2414 +1,1482 @@
 {
-  "$schema": "./schemas/law.schema.json",
-  "definitions": {
-    "type": {
-      "description": "Primary purpose of the law",
-      "values": {
-        "privacy": "Protects individual data rights and privacy",
-        "access": "Enables government or law enforcement data access",
-        "surveillance": "Establishes surveillance infrastructure or powers",
-        "localization": "Requires data to be stored within jurisdiction",
-        "security": "National security framework without direct data access provisions",
-        "sector": "Regulates specific sector (AI, telecom, finance, etc.)"
-      }
-    },
-    "government_access": {
-      "description": "Level of government access to data enabled by the law",
-      "values": {
-        "broad": "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion",
-        "targeted": "Access with warrants or court orders for specific investigations",
-        "limited": "Strong procedural safeguards, narrow scope, independent oversight",
-        "none": "No government access provisions in this law"
-      }
-    },
-    "data_protection": {
-      "description": "Level of individual data protection provided",
-      "values": {
-        "strong": "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA",
-        "moderate": "Some protections but with significant exceptions or weaker enforcement",
-        "weak": "Limited rights or broad government/national security exemptions",
-        "none": "No individual data protection provisions"
-      }
-    },
-    "extraterritorial": {
-      "description": "Whether the law claims jurisdiction beyond the country's borders",
-      "type": "boolean"
-    },
-    "requires_localization": {
-      "description": "Whether the law requires data to be stored within the jurisdiction",
-      "type": "boolean"
-    },
-    "requires_backdoor": {
-      "description": "Whether authorities can compel decryption, backdoor access, or technical assistance",
-      "type": "boolean"
-    }
-  },
-  "laws": [
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Laws",
+  "itemListElement": [
     {
-      "id": "gdpr",
+      "@type": "Legislation",
+      "identifier": "gdpr",
       "name": "GDPR",
-      "full_name": "General Data Protection Regulation",
-      "year": 2018,
-      "summary": "Comprehensive data protection law giving individuals control over their personal data. Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.",
-      "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
-      "scope": "bloc",
-      "applies_to": [
+      "alternateName": "General Data Protection Regulation",
+      "description": "EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.",
+      "abstract": "The GDPR establishes strict requirements for processing personal data of EU residents. It requires a lawful basis for all processing, grants individuals rights to access, correct, delete and port their data, and imposes significant penalties up to 4% of global turnover for violations.",
+      "summary": "The GDPR is the world's most influential data protection regulation. It applies to any organization processing personal data of EU residents, regardless of where the organization is located. Key requirements include obtaining a lawful basis before processing (consent, contract, legal obligation, vital interests, public task, or legitimate interests), implementing data protection by design, appointing Data Protection Officers for large-scale processing, conducting impact assessments for high-risk activities, and reporting breaches within 72 hours. The regulation creates direct tension with US surveillance laws like CLOUD Act, FISA 702, and EO 12333, which can compel disclosure of data that GDPR protects.",
+      "legislationDate": "2018",
+      "legislationJurisdiction": [
         "eu"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "eprivacy",
+          "identifier": "eprivacy",
           "type": "complements"
         },
         {
-          "id": "led",
+          "identifier": "led",
           "type": "complements"
         },
         {
-          "id": "schrems-ii",
+          "identifier": "schrems-ii",
           "type": "complements"
         },
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "conflicts_with"
         },
         {
-          "id": "fisa-702",
+          "identifier": "fisa-702",
           "type": "conflicts_with"
         },
         {
-          "id": "eo-12333",
+          "identifier": "eo-12333",
           "type": "conflicts_with"
         },
         {
-          "id": "eea-agreement",
+          "identifier": "eea-agreement",
           "type": "extended_by"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Comprehensive data protection law giving individuals control over their personal data.",
-        "Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Data controllers",
-        "Data processors",
-        "Organizations processing EU personal data (including outside the EU)"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Comprehensive data protection law giving individuals control over their personal data."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Independent Data Protection Authorities (DPAs) in each member state",
-        "notes": "Enforcement and interpretations vary by authority; major cases often set de facto market standards."
-      }
+      "topics": ["data-protection", "privacy"],
+      "tags": ["personal-data", "individual-rights"],
+      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "data-act",
+      "@type": "Legislation",
+      "identifier": "data-act",
       "name": "Data Act",
-      "full_name": "Regulation on harmonised rules on fair access to and use of data",
-      "year": 2024,
-      "summary": "Rules on data sharing between businesses, access to data by public sector, and cloud switching rights.",
+      "alternateName": "Regulation on harmonised rules on fair access to and use of data",
+      "description": "EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.",
+      "abstract": "The Data Act creates new rights for users to access and share data generated by connected devices and related services. It establishes obligations for data holders, enables public sector access to private data in emergencies, and gives customers the right to switch cloud providers without lock-in.",
+      "summary": "The Data Act addresses the growing importance of non-personal data in the digital economy. It grants users of connected products (IoT devices, industrial machinery) the right to access data they generate and share it with third parties. Data holders must make data available in standardized formats. The Act also creates a framework for public bodies to request private sector data during emergencies like pandemics or natural disasters. For cloud services, it mandates interoperability standards and prohibits contractual barriers to switching providers. Organizations must implement technical measures to prevent unlawful international data transfers upon government requests from non-EU countries.",
+      "legislationDate": "2024",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "sector",
-      "government_access": "limited",
-      "data_protection": "moderate",
+      "category": "sector",
+      "governmentAccess": "limited",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "dga",
+          "identifier": "dga",
           "type": "complements"
         },
         {
-          "id": "ai-act",
+          "identifier": "ai-act",
           "type": "complements"
         },
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Rules on data sharing between businesses, access to data by public sector, and cloud switching rights.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Data holders (device/service providers)",
-        "Users of connected products and related services",
-        "Cloud providers (switching/interoperability)"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Rules on data sharing between businesses, access to data by public sector, and cloud switching rights."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Enforced by member states via competent authorities; penalties are set by national law."
-      }
+      "topics": ["digital-sovereignty", "cloud-sovereignty"],
+      "tags": ["data-sharing", "cloud-switching", "iot", "interoperability"],
+      "audience": ["enterprise", "it-ops", "developer"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "ai-act",
+      "@type": "Legislation",
+      "identifier": "ai-act",
       "name": "AI Act",
-      "full_name": "Regulation on Artificial Intelligence",
-      "year": 2024,
-      "summary": "Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI.",
+      "alternateName": "Regulation on Artificial Intelligence",
+      "description": "World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.",
+      "abstract": "The AI Act categorizes AI systems by risk level: prohibited (social scoring, emotion recognition at work, predictive policing), high-risk (critical infrastructure, education, employment, law enforcement), and limited/minimal risk. High-risk AI must meet strict requirements for data quality, documentation, transparency, human oversight, and accuracy.",
+      "summary": "The EU AI Act is the first comprehensive legal framework for artificial intelligence globally. It bans AI systems deemed unacceptable (social scoring, real-time biometric identification in public spaces for law enforcement, manipulation techniques). High-risk AI in areas like critical infrastructure, education, employment, credit scoring, and law enforcement must undergo conformity assessments, maintain technical documentation, implement human oversight mechanisms, and meet accuracy and robustness standards. General-purpose AI models have transparency obligations including disclosing training data summaries and energy consumption. Foundation model providers face additional requirements around systemic risk assessment. The regulation applies extraterritorially to anyone placing AI systems on the EU market.",
+      "legislationDate": "2024",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "sector",
-      "government_access": "none",
-      "data_protection": "moderate",
+      "category": "sector",
+      "governmentAccess": "none",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         },
         {
-          "id": "data-act",
+          "identifier": "data-act",
           "type": "complements"
         },
         {
-          "id": "dsa",
+          "identifier": "dsa",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "AI system providers",
-        "Deployers/users of high‑risk AI",
-        "Importers/distributors of AI systems"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Risk-based framework for AI systems, prohibiting certain practices and requiring transparency for high-risk AI."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Enforced by national market surveillance/competent authorities; governance includes EU‑level coordination."
-      }
+      "topics": ["digital-sovereignty"],
+      "tags": ["artificial-intelligence", "machine-learning", "risk-assessment", "transparency"],
+      "audience": ["enterprise", "developer", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "nis2",
+      "@type": "Legislation",
+      "identifier": "nis2",
       "name": "NIS2 Directive",
-      "full_name": "Directive on measures for a high common level of cybersecurity across the Union",
-      "year": 2024,
-      "summary": "Mandatory cybersecurity requirements for essential and important entities. Requires risk management, incident reporting within 24 hours, and supply chain security. Directors face personal liability for non-compliance.",
+      "alternateName": "Directive on measures for a high common level of cybersecurity across the Union",
+      "description": "EU directive mandating cybersecurity requirements for essential and important entities across critical sectors.",
+      "abstract": "NIS2 significantly expands the scope of the original NIS Directive to cover more sectors and entity types. It requires organizations to implement risk management measures, report significant incidents within 24 hours, secure their supply chains, and ensure management bodies are trained and accountable for cybersecurity.",
+      "summary": "The NIS2 Directive establishes a harmonized cybersecurity baseline across the EU. It covers 'essential entities' (energy, transport, banking, health, digital infrastructure) and 'important entities' (postal services, waste management, manufacturing, digital providers). Organizations must implement appropriate technical and organizational measures, conduct regular risk assessments, have incident response plans, and ensure business continuity. Incident reporting has strict timelines: early warning within 24 hours, incident notification within 72 hours, and final report within one month. Management bodies must approve cybersecurity measures and can be held personally liable for non-compliance. Member states must establish CSIRTs and cooperate through the EU Cyber Crisis Liaison Organisation Network.",
+      "legislationDate": "2024",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "security",
-      "government_access": "none",
-      "data_protection": "none",
+      "category": "security",
+      "governmentAccess": "none",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "dora",
+          "identifier": "dora",
           "type": "complements"
         },
         {
-          "id": "cra",
+          "identifier": "cra",
           "type": "complements"
         },
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Mandatory cybersecurity requirements for essential and important entities.",
-        "Requires risk management, incident reporting within 24 hours, and supply chain security."
-      ],
-      "who_it_applies_to": [
-        "Essential and important entities",
-        "Operators of critical services (sector-dependent)",
-        "Management bodies responsible for compliance"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Mandatory cybersecurity requirements for essential and important entities."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines security obligations (risk management, incident response, and governance) for covered entities."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-      ],
-      "enforcement": {
-        "notes": "Implemented and enforced by member states via national competent authorities; penalties are set in national law."
-      }
+      "topics": ["cybersecurity", "critical-infrastructure"],
+      "tags": ["incident-response", "supply-chain"],
+      "audience": ["enterprise", "it-ops", "security", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "dora",
+      "@type": "Legislation",
+      "identifier": "dora",
       "name": "DORA",
-      "full_name": "Digital Operational Resilience Act",
-      "year": 2025,
-      "summary": "Digital resilience requirements for financial entities including banks, insurers, and crypto providers. Mandates ICT risk management, incident reporting, and oversight of third-party ICT service providers.",
+      "alternateName": "Digital Operational Resilience Act",
+      "description": "EU regulation establishing ICT risk management and digital resilience requirements for the financial sector.",
+      "abstract": "DORA creates a comprehensive framework for digital operational resilience in financial services. It requires financial entities to implement robust ICT risk management, report major ICT incidents, test their digital resilience regularly, and manage risks from third-party ICT service providers including cloud platforms.",
+      "summary": "The Digital Operational Resilience Act harmonizes ICT risk management across the EU financial sector. It applies to banks, insurers, investment firms, payment providers, crypto-asset service providers, and critical ICT third-party providers. Financial entities must establish ICT risk management frameworks, maintain incident response capabilities, and conduct regular digital resilience testing including threat-led penetration testing. Third-party risk management is a core focus: entities must identify dependencies, assess concentration risk, and ensure contractual arrangements include audit rights and exit strategies. Critical ICT third-party providers (like major cloud platforms) face direct EU oversight through a Lead Overseer framework. DORA addresses concentration risk in the financial sector's reliance on a small number of technology providers.",
+      "legislationDate": "2025",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "sector",
-      "government_access": "none",
-      "data_protection": "none",
+      "category": "sector",
+      "governmentAccess": "none",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "nis2",
+          "identifier": "nis2",
           "type": "complements"
         },
         {
-          "id": "cra",
+          "identifier": "cra",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Digital resilience requirements for financial entities including banks, insurers, and crypto providers.",
-        "Mandates ICT risk management, incident reporting, and oversight of third-party ICT service providers."
-      ],
-      "who_it_applies_to": [
-        "Financial entities (banks, insurers, investment firms, etc.)",
-        "ICT service providers to financial sector",
-        "Critical third‑party providers (as designated)"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Digital resilience requirements for financial entities including banks, insurers, and crypto providers."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Supervised by financial regulators and competent authorities; sanctions and supervisory measures are sector‑specific."
-      }
+      "topics": ["cybersecurity", "critical-infrastructure", "digital-resilience"],
+      "tags": ["financial-services", "ict-risk", "third-party-risk", "resilience-testing"],
+      "audience": ["enterprise", "it-ops", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "dsa",
+      "@type": "Legislation",
+      "identifier": "dsa",
       "name": "DSA",
-      "full_name": "Digital Services Act",
-      "year": 2022,
-      "summary": "Platform liability and transparency rules. Requires notice-and-takedown procedures, algorithmic transparency for very large platforms, and risk assessments for systemic risks.",
+      "alternateName": "Digital Services Act",
+      "description": "EU regulation establishing platform liability rules and transparency requirements for online intermediaries and marketplaces.",
+      "abstract": "The DSA creates a tiered liability framework for online intermediaries based on their size and role. It requires notice-and-takedown mechanisms, transparency reporting, algorithmic accountability for very large platforms (VLOPs), and risk assessments for systemic risks to democracy, public health, and fundamental rights.",
+      "summary": "The Digital Services Act modernizes the EU's e-Commerce Directive for the platform age. All online intermediaries must establish notice-and-action mechanisms for illegal content and publish transparency reports. Online platforms face additional obligations around traceability of traders, advertising transparency, and recommender system parameters. Very Large Online Platforms and Search Engines (over 45 million EU users) must conduct annual systemic risk assessments, submit to independent audits, provide data access to researchers, and implement crisis response protocols. The Act also bans dark patterns, targeted advertising to minors, and profiling based on sensitive data. The European Commission directly supervises VLOPs while member states oversee smaller platforms through Digital Services Coordinators.",
+      "legislationDate": "2022",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2022/2065/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "sector",
-      "government_access": "limited",
-      "data_protection": "moderate",
+      "category": "sector",
+      "governmentAccess": "limited",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "dma",
+          "identifier": "dma",
           "type": "complements"
         },
         {
-          "id": "ai-act",
+          "identifier": "ai-act",
           "type": "complements"
         },
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Platform liability and transparency rules.",
-        "Requires notice-and-takedown procedures, algorithmic transparency for very large platforms, and risk assessments for systemic risks.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Online platforms and intermediaries",
-        "Very large platforms/search engines (VLOPs/VLOSEs)",
-        "Traders using online platforms"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Platform liability and transparency rules."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Enforced by national Digital Services Coordinators; the European Commission has direct powers for VLOPs/VLOSEs."
-      }
+      "topics": ["digital-sovereignty", "platform-dependency"],
+      "tags": ["platform-regulation", "content-moderation", "transparency", "online-safety"],
+      "audience": ["enterprise", "developer", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "dma",
+      "@type": "Legislation",
+      "identifier": "dma",
       "name": "DMA",
-      "full_name": "Digital Markets Act",
-      "year": 2022,
-      "summary": "Regulates gatekeeper platforms to ensure fair competition. Requires interoperability, data portability, and prohibits self-preferencing by dominant platforms.",
+      "alternateName": "Digital Markets Act",
+      "description": "EU regulation imposing obligations on designated 'gatekeeper' platforms to ensure fair competition and contestability.",
+      "abstract": "The DMA targets large platforms that act as gatekeepers between businesses and consumers. Designated gatekeepers must allow interoperability, enable data portability, refrain from self-preferencing, and provide fair access terms to business users. Non-compliance can result in fines up to 10% of global turnover.",
+      "summary": "The Digital Markets Act addresses the market power of dominant digital platforms. The European Commission designates gatekeepers based on turnover, user thresholds, and market position in core platform services (search, social networks, messaging, app stores, advertising, cloud). Gatekeepers face specific obligations: they cannot combine personal data across services without consent, must allow third-party app installation and default settings changes, cannot rank their own products favorably, must provide advertisers with performance data, and must enable messaging interoperability. Business users get rights to access their data, use alternative payment systems, and receive fair treatment in rankings. The Commission can impose fines up to 10% of global turnover and, for systematic infringement, order structural remedies including forced divestiture.",
+      "legislationDate": "2022",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2022/1925/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "sector",
-      "government_access": "none",
-      "data_protection": "moderate",
+      "category": "sector",
+      "governmentAccess": "none",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "dsa",
+          "identifier": "dsa",
           "type": "complements"
         },
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Regulates gatekeeper platforms to ensure fair competition.",
-        "Requires interoperability, data portability, and prohibits self-preferencing by dominant platforms.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Large “gatekeeper” platforms",
-        "Business users relying on gatekeepers",
-        "App developers and ecosystem partners"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Regulates gatekeeper platforms to ensure fair competition."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Enforced by the European Commission for designated gatekeepers; remedies can include fines and behavioral/structural measures."
-      }
+      "topics": ["digital-sovereignty", "platform-dependency"],
+      "tags": ["competition", "gatekeeper", "interoperability", "data-portability"],
+      "audience": ["enterprise", "developer"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "led",
+      "@type": "Legislation",
+      "identifier": "led",
       "name": "LED",
-      "full_name": "Law Enforcement Directive",
-      "year": 2016,
-      "summary": "Data protection rules for police and criminal justice authorities. Provides rights for individuals whose data is processed for law enforcement purposes, with appropriate safeguards.",
+      "alternateName": "Law Enforcement Directive",
+      "description": "EU directive setting data protection rules for police and criminal justice authorities.",
+      "abstract": "The LED establishes data protection safeguards for law enforcement processing. It grants individuals rights when their data is processed by police, prosecutors, and courts, while providing appropriate flexibility for effective law enforcement. It complements the GDPR by covering the criminal justice domain.",
+      "summary": "The Law Enforcement Directive regulates personal data processing by police, prosecutors, and courts for criminal law purposes. Unlike the GDPR which excludes law enforcement, the LED provides targeted protections balanced against public security needs. Individuals have rights to access their data, request correction, and lodge complaints, though these may be restricted during active investigations. Controllers must implement appropriate safeguards, distinguish between different categories of data subjects (suspects, victims, witnesses), and ensure data quality and purpose limitation. Transfers to third countries require adequacy decisions or appropriate safeguards. Member states supervise compliance through their data protection authorities, with some exceptions for judicial activities. The LED ensures that law enforcement cooperation across EU borders occurs within a consistent data protection framework.",
+      "legislationDate": "2016",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/dir/2016/680/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "access",
-      "government_access": "targeted",
-      "data_protection": "moderate",
+      "category": "access",
+      "governmentAccess": "targeted",
+      "dataProtection": "moderate",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Data protection rules for police and criminal justice authorities.",
-        "Provides rights for individuals whose data is processed for law enforcement purposes, with appropriate safeguards.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Law enforcement authorities",
-        "Criminal justice bodies",
-        "Processors handling law-enforcement data on behalf of authorities"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Data protection rules for police and criminal justice authorities."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforcement is handled by national supervisory authorities and courts under member‑state law."
-      }
+      "topics": ["government-access", "data-protection"],
+      "tags": ["law-enforcement", "criminal-justice", "police", "data-protection"],
+      "audience": ["public-sector", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "eprivacy",
+      "@type": "Legislation",
+      "identifier": "eprivacy",
       "name": "ePrivacy Directive",
-      "full_name": "Directive on privacy and electronic communications",
-      "year": 2002,
-      "summary": "Privacy rules for electronic communications including cookies, spam, and confidentiality of communications. Complements GDPR for the communications sector.",
+      "alternateName": "Directive on privacy and electronic communications",
+      "description": "EU directive protecting privacy in electronic communications, covering cookies, spam, and confidentiality of communications.",
+      "abstract": "The ePrivacy Directive protects confidentiality of electronic communications and regulates the use of cookies and similar tracking technologies. It requires consent for storing information on user devices, prohibits unsolicited marketing communications, and ensures the confidentiality of communications content and metadata.",
+      "summary": "The ePrivacy Directive complements the GDPR for the electronic communications sector. It protects the confidentiality of communications, prohibiting interception or surveillance without user consent or legal authorization. For cookies and similar tracking technologies, it requires informed consent before placing non-essential trackers on user devices. The directive also regulates unsolicited communications: email marketing requires prior opt-in consent, while telephone marketing may use opt-out depending on member state implementation. Traffic data (who contacted whom, when, from where) and location data receive special protection and may only be processed with consent or when anonymized. A proposed ePrivacy Regulation has been under negotiation since 2017 to update these rules for modern communications services including OTT messaging apps.",
+      "legislationDate": "2002",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/dir/2002/58/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "moderate",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "moderate",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Privacy rules for electronic communications including cookies, spam, and confidentiality of communications.",
-        "Complements GDPR for the communications sector."
-      ],
-      "who_it_applies_to": [
-        "Telecom and electronic communications providers",
-        "Website/app operators using cookies or similar identifiers",
-        "Marketers sending electronic communications"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Privacy rules for electronic communications including cookies, spam, and confidentiality of communications."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Enforcement is generally handled by national authorities under member‑state implementing laws."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["electronic-communications", "cookies", "privacy", "marketing"],
+      "audience": ["enterprise", "developer", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "cra",
+      "@type": "Legislation",
+      "identifier": "cra",
       "name": "CRA",
-      "full_name": "Cyber Resilience Act",
-      "year": 2024,
-      "summary": "Cybersecurity requirements for products with digital elements. Mandates security-by-design, vulnerability handling, and CE marking for connected devices and software.",
+      "alternateName": "Cyber Resilience Act",
+      "description": "EU regulation establishing mandatory cybersecurity requirements for products with digital elements sold in the EU market.",
+      "abstract": "The CRA imposes security-by-design obligations on manufacturers of connected devices and software. Products must meet essential cybersecurity requirements, handle vulnerabilities throughout their lifecycle, and carry CE marking certifying compliance. Critical products face third-party conformity assessment.",
+      "summary": "The Cyber Resilience Act addresses cybersecurity gaps in IoT devices, consumer electronics, and software. Manufacturers must design products with security in mind, document cybersecurity risks, provide security updates for the product lifetime (minimum 5 years), and report actively exploited vulnerabilities to ENISA within 24 hours. Products are categorized by risk: default (self-assessment), Class I (internal control with standards), and Class II critical products (third-party assessment). Open source software has limited exemptions for non-commercial development. Importers and distributors share responsibility for ensuring compliance. The regulation complements NIS2 (organizational security) and DORA (financial sector) by addressing product-level security, creating a comprehensive cybersecurity framework. Non-compliance can result in fines up to €15 million or 2.5% of global turnover.",
+      "legislationDate": "2024",
+      "legislationJurisdiction": [
+        "eu"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj",
-      "scope": "bloc",
-      "applies_to": [
-        "eu"
-      ],
-      "type": "security",
-      "government_access": "none",
-      "data_protection": "none",
+      "category": "security",
+      "governmentAccess": "none",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "nis2",
+          "identifier": "nis2",
           "type": "complements"
         },
         {
-          "id": "dora",
+          "identifier": "dora",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Cybersecurity requirements for products with digital elements.",
-        "Mandates security-by-design, vulnerability handling, and CE marking for connected devices and software.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Manufacturers of products with digital elements",
-        "Software vendors/distributors",
-        "Importers and integrators placing products on the EU market"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Cybersecurity requirements for products with digital elements."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines security obligations (risk management, incident response, and governance) for covered entities."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-      ],
-      "enforcement": {
-        "notes": "Market surveillance authorities enforce product compliance; enforcement is tied to product safety/CE‑style compliance regimes."
-      }
+      "topics": ["cybersecurity", "supply-chain"],
+      "tags": ["product-security", "iot", "vulnerability-management", "ce-marking"],
+      "audience": ["enterprise", "developer", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "dga",
+      "@type": "Legislation",
+      "identifier": "dga",
       "name": "DGA",
-      "full_name": "Data Governance Act",
-      "year": 2022,
-      "summary": "Framework for data intermediaries and data altruism organizations. Facilitates data sharing while maintaining trust through registration and oversight requirements.",
-      "url": "https://eur-lex.europa.eu/eli/reg/2022/868/oj",
-      "scope": "bloc",
-      "applies_to": [
+      "alternateName": "Data Governance Act",
+      "description": "EU regulation creating a framework for data intermediaries and data altruism organizations to facilitate trusted data sharing.",
+      "abstract": "The DGA establishes rules for data intermediation services and data altruism organizations. It creates conditions for re-using protected public sector data, sets registration requirements for data intermediaries acting as neutral brokers, and enables individuals and companies to donate data for the common good.",
+      "summary": "The Data Governance Act builds infrastructure for Europe's data economy by enabling trusted data sharing. It covers three areas: First, it allows re-use of protected public sector data (commercially confidential, statistically confidential, or personal data) under secure processing conditions. Second, it creates a notification regime for data intermediation services - neutral brokers that help parties share data without themselves using it. These services must maintain strict separation between data intermediation and other commercial activities. Third, it establishes 'data altruism organizations' - registered entities that collect data donated for objectives of general interest like scientific research or public services. The Act complements the Data Act, which focuses on data access rights, while the DGA focuses on building trust frameworks and institutions for data sharing.",
+      "legislationDate": "2022",
+      "legislationJurisdiction": [
         "eu"
       ],
-      "type": "sector",
-      "government_access": "none",
-      "data_protection": "moderate",
+      "legislationLegalForce": "InForce",
+      "url": "https://eur-lex.europa.eu/eli/reg/2022/868/oj",
+      "category": "sector",
+      "governmentAccess": "none",
+      "dataProtection": "moderate",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "data-act",
+          "identifier": "data-act",
           "type": "complements"
         },
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Framework for data intermediaries and data altruism organizations.",
-        "Facilitates data sharing while maintaining trust through registration and oversight requirements."
-      ],
-      "who_it_applies_to": [
-        "Data intermediaries",
-        "Public-sector bodies sharing protected data",
-        "Data altruism organizations"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Framework for data intermediaries and data altruism organizations."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Supervised by member‑state authorities (varies by role: intermediaries, altruism, public‑sector data sharing)."
-      }
+      "topics": ["digital-sovereignty"],
+      "tags": ["data-sharing", "data-intermediary", "data-altruism", "public-sector-data"],
+      "audience": ["enterprise", "public-sector", "developer"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "eea-agreement",
+      "@type": "Legislation",
+      "identifier": "eea-agreement",
       "name": "EEA Agreement",
-      "full_name": "Agreement on the European Economic Area",
-      "year": 1994,
-      "summary": "Extends EU internal market to EFTA states (except Switzerland). Includes adoption of EU data protection laws.",
-      "url": "https://www.efta.int/eea/eea-agreement",
-      "scope": "bloc",
-      "applies_to": [
+      "alternateName": "Agreement on the European Economic Area",
+      "description": "Treaty extending EU internal market rules, including data protection regulations, to Norway, Iceland, and Liechtenstein.",
+      "abstract": "The EEA Agreement integrates EFTA states (except Switzerland) into the EU single market. Relevant EU legislation, including GDPR and other data protection rules, is incorporated into the EEA legal framework, ensuring equivalent protection across EEA countries.",
+      "summary": "The EEA Agreement creates a legal framework for extending EU internal market rules to Iceland, Liechtenstein, and Norway. When the EU adopts new legislation affecting the single market, including data protection regulations like GDPR, these are incorporated into the EEA Agreement through a Joint Committee decision. This means GDPR applies throughout the EEA, not just the EU. For data protection purposes, transfers between EU and EEA countries are treated as internal transfers, not third-country transfers. The EFTA Surveillance Authority monitors compliance in EEA EFTA states, parallel to the European Commission's role in EU states.",
+      "legislationDate": "1994",
+      "legislationJurisdiction": [
         "eea"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.efta.int/eea/eea-agreement",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "extends"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Extends EU internal market to EFTA states (except Switzerland).",
-        "Includes adoption of EU data protection laws."
-      ],
-      "who_it_applies_to": [
-        "Organizations and service providers in scope",
-        "Public authorities (where applicable)",
-        "Individuals whose data/communications are affected"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Extends EU internal market to EFTA states (except Switzerland)."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Enforcement varies by jurisdiction and implementation; see the official text for details."
-      }
+      "topics": ["data-protection"],
+      "tags": ["single-market", "efta", "data-transfers", "harmonization"],
+      "audience": ["enterprise", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "personopplysningsloven",
+      "@type": "Legislation",
+      "identifier": "personopplysningsloven",
       "name": "Personopplysningsloven",
-      "full_name": "Lov om behandling av personopplysninger (Personal Data Act)",
-      "year": 2018,
-      "summary": "Norwegian implementation of GDPR. Regulates processing of personal data and establishes Datatilsynet as the supervisory authority.",
-      "url": "https://lovdata.no/dokument/NL/lov/2018-06-15-38",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Lov om behandling av personopplysninger (Personal Data Act)",
+      "description": "Norwegian national law implementing GDPR through the EEA Agreement, with supplementary provisions specific to Norway.",
+      "abstract": "Personopplysningsloven makes GDPR applicable in Norway through the EEA Agreement and adds national provisions where GDPR allows member state flexibility. Datatilsynet (the Norwegian Data Protection Authority) supervises compliance and handles complaints.",
+      "summary": "The Norwegian Personal Data Act (Personopplysningsloven) implements GDPR in Norway through the EEA Agreement mechanism. While GDPR forms the core of Norwegian data protection law, the Act includes supplementary national rules where GDPR permits flexibility: age of consent for children's data (13 years), national identification numbers, processing for archiving and research purposes, and employment-related processing. Datatilsynet serves as Norway's independent supervisory authority with powers to investigate, issue orders, and impose administrative fines. The Act interacts with other Norwegian legislation including Sikkerhetsloven (national security) and Ekomloven (electronic communications), creating a comprehensive framework for data protection in Norway.",
+      "legislationDate": "2018",
+      "legislationJurisdiction": [
         "NO"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://lovdata.no/dokument/NL/lov/2018-06-15-38",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "implements"
         },
         {
-          "id": "ekomlov",
+          "identifier": "ekomlov",
           "type": "complements"
         },
         {
-          "id": "sikkerhetsloven",
+          "identifier": "sikkerhetsloven",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Norwegian implementation of GDPR.",
-        "Regulates processing of personal data and establishes Datatilsynet as the supervisory authority."
-      ],
-      "who_it_applies_to": [
-        "Controllers and processors in Norway",
-        "Organizations processing Norwegian residents’ personal data",
-        "Public and private entities subject to Norwegian GDPR implementation"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Norwegian implementation of GDPR."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Norwegian Data Protection Authority (Datatilsynet)",
-        "notes": "Enforced under Norwegian GDPR implementation; sectoral rules may also apply."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "privacy", "norway", "gdpr-implementation"],
+      "audience": ["enterprise", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "ekomlov",
+      "@type": "Legislation",
+      "identifier": "ekomlov",
       "name": "Ekomloven",
-      "full_name": "Lov om elektronisk kommunikasjon (Electronic Communications Act)",
-      "year": 2003,
-      "summary": "Regulates electronic communications networks and services, including data retention and lawful interception requirements.",
+      "alternateName": "Lov om elektronisk kommunikasjon (Electronic Communications Act)",
+      "description": "Norwegian law regulating electronic communications networks, services, and lawful interception requirements.",
+      "abstract": "Ekomloven governs electronic communications in Norway, covering network operators, service providers, and numbering resources. It includes provisions for lawful interception by authorities and security obligations for critical communications infrastructure.",
+      "summary": "The Norwegian Electronic Communications Act regulates the telecommunications sector including fixed and mobile networks, internet access, and broadcasting transmission. Providers must obtain authorization, meet quality of service requirements, and comply with net neutrality rules. The law includes provisions enabling lawful interception by law enforcement and intelligence services under court orders. Communications providers must maintain technical capabilities to intercept communications when legally required. The Act also addresses emergency communications, critical infrastructure protection, and consumer rights. Nkom (Norwegian Communications Authority) supervises compliance, while interception activities are overseen by the courts and control committees. The law complements Sikkerhetsloven for national security matters.",
+      "legislationDate": "2003",
+      "legislationJurisdiction": [
+        "NO"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://lovdata.no/dokument/NL/lov/2003-07-04-83",
-      "scope": "national",
-      "applies_to": [
-        "NO"
-      ],
-      "type": "sector",
-      "government_access": "targeted",
-      "data_protection": "none",
+      "category": "sector",
+      "governmentAccess": "targeted",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "personopplysningsloven",
+          "identifier": "personopplysningsloven",
           "type": "complements"
         },
         {
-          "id": "sikkerhetsloven",
+          "identifier": "sikkerhetsloven",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Regulates electronic communications networks and services, including data retention and lawful interception requirements.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Telecom/electronic communications providers",
-        "Network operators",
-        "Entities subject to lawful interception/retention duties (as applicable)"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Regulates electronic communications networks and services, including data retention and lawful interception requirements."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Identify sector-specific obligations and document controls, audits, and reporting duties."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Norwegian regulators under telecom rules; obligations depend on implementing regulations and orders."
-      }
+      "topics": ["surveillance", "government-access"],
+      "tags": ["telecommunications", "lawful-interception", "norway", "network-security"],
+      "audience": ["enterprise", "it-ops", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "sikkerhetsloven",
+      "@type": "Legislation",
+      "identifier": "sikkerhetsloven",
       "name": "Sikkerhetsloven",
-      "full_name": "Lov om nasjonal sikkerhet (National Security Act)",
-      "year": 2019,
-      "summary": "Protects national security interests, including requirements for security clearances and protection of sensitive information.",
-      "url": "https://lovdata.no/dokument/NL/lov/2018-06-01-24",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Lov om nasjonal sikkerhet (National Security Act)",
+      "description": "Norwegian law protecting national security through security clearances, classified information protection, and critical infrastructure safeguards.",
+      "abstract": "Sikkerhetsloven establishes Norway's framework for protecting national security interests. It covers security clearances, protection of classified information, security in government procurement, and safeguarding critical infrastructure from threats including foreign ownership and intelligence activities.",
+      "summary": "The Norwegian Security Act creates a comprehensive framework for national security. It requires security clearances for personnel accessing classified information and establishes classification levels (RESTRICTED, CONFIDENTIAL, SECRET, TOP SECRET). Organizations handling classified information must implement security measures and undergo security audits. The Act enables the government to impose security requirements on critical infrastructure operators and assess foreign investments for national security risks. It covers information security (protecting classified data), personnel security (vetting individuals), and supply chain security (managing risks in procurement). NSM (Norwegian National Security Authority) oversees implementation, while PST (Police Security Service) handles threat assessments. The law interacts with data protection rules, allowing certain national security exemptions while maintaining proportionality requirements.",
+      "legislationDate": "2019",
+      "legislationJurisdiction": [
         "NO"
       ],
-      "type": "security",
-      "government_access": "targeted",
-      "data_protection": "none",
+      "legislationLegalForce": "InForce",
+      "url": "https://lovdata.no/dokument/NL/lov/2018-06-01-24",
+      "category": "security",
+      "governmentAccess": "targeted",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "personopplysningsloven",
+          "identifier": "personopplysningsloven",
           "type": "complements"
         },
         {
-          "id": "ekomlov",
+          "identifier": "ekomlov",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Protects national security interests, including requirements for security clearances and protection of sensitive information.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Operators of security‑sensitive services",
-        "Suppliers handling classified/sensitive information",
-        "Organizations designated under national security rules"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Protects national security interests, including requirements for security clearances and protection of sensitive information."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines security obligations (risk management, incident response, and governance) for covered entities."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-      ],
-      "enforcement": {
-        "notes": "Enforced by national security authorities; applicability depends on designation of security‑sensitive functions."
-      }
+      "topics": ["cybersecurity", "critical-infrastructure"],
+      "tags": ["national-security", "security-clearance", "classified-information", "critical-infrastructure"],
+      "audience": ["public-sector", "security", "enterprise"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "bdsg",
+      "@type": "Legislation",
+      "identifier": "bdsg",
       "name": "BDSG",
-      "full_name": "Bundesdatenschutzgesetz (Federal Data Protection Act)",
-      "year": 2018,
-      "summary": "German federal data protection law supplementing GDPR with additional national requirements.",
-      "url": "https://www.gesetze-im-internet.de/bdsg_2018/",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Bundesdatenschutzgesetz (Federal Data Protection Act)",
+      "description": "German federal law supplementing GDPR with national provisions for employment data, public sector processing, and video surveillance.",
+      "abstract": "The BDSG supplements GDPR with German-specific rules where EU law allows national flexibility. It contains detailed provisions for employment data processing, public sector data handling, video surveillance, and data protection officers. German data protection authorities at federal and state levels supervise compliance.",
+      "summary": "Germany's Federal Data Protection Act (BDSG) works alongside GDPR to form the complete data protection framework in Germany. While GDPR provides the primary rules, BDSG exercises national opening clauses for specific areas. Employment data processing receives detailed regulation, covering recruitment, employee monitoring, and works council involvement. Public sector processing rules address federal agencies' specific obligations. Video surveillance in publicly accessible areas has enhanced requirements. The BDSG also specifies when data protection officers are mandatory (beyond GDPR minimums), addresses credit scoring, and sets rules for automated decision-making. Germany's federal structure means enforcement is split between the BfDI (Federal Commissioner) for federal bodies and sixteen state authorities for private sector and state-level public bodies.",
+      "legislationDate": "2018",
+      "legislationJurisdiction": [
         "DE"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.gesetze-im-internet.de/bdsg_2018/",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "implements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "German federal data protection law supplementing GDPR with additional national requirements."
-      ],
-      "who_it_applies_to": [
-        "German controllers and processors",
-        "Employers and public bodies in Germany",
-        "Organizations subject to GDPR with German-specific rules"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "German federal data protection law supplementing GDPR with additional national requirements."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Enforced alongside GDPR by German supervisory authorities; includes German-specific rules and exemptions."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "privacy", "germany", "employment-data"],
+      "audience": ["enterprise", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "fadp",
+      "@type": "Legislation",
+      "identifier": "fadp",
       "name": "FADP",
-      "full_name": "Federal Act on Data Protection (revised)",
-      "year": 2023,
-      "summary": "Swiss data protection law revised in 2023 to align more closely with GDPR while maintaining Swiss specifics.",
-      "url": "https://www.fedlex.admin.ch/eli/cc/2022/491/en",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Federal Act on Data Protection (revised)",
+      "description": "Swiss data protection law substantially revised in 2023 to align with GDPR while preserving Swiss legal traditions.",
+      "abstract": "The revised FADP modernizes Swiss data protection to maintain EU adequacy while reflecting Swiss legal specifics. It introduces privacy-by-design requirements, breach notification, and substantial penalties. Switzerland remains outside the EEA but benefits from EU adequacy decisions recognizing equivalent protection.",
+      "summary": "Switzerland's Federal Act on Data Protection underwent major revision in 2023 to align with GDPR and maintain the EU adequacy decision enabling free data flows. Unlike GDPR, FADP applies primarily to private sector processing and federal agencies (cantonal authorities have separate rules). Key changes include: expanded scope covering all processing affecting Swiss residents, mandatory breach notification within 72 hours, privacy-by-design and privacy-by-default requirements, data protection impact assessments for high-risk processing, and stronger penalties (up to CHF 250,000 for individuals). The law maintains Swiss-specific features like the definition of 'sensitive personal data' including trade union membership and social assistance data. Cross-border transfers require adequacy assessments or safeguards similar to GDPR. The FDPIC (Federal Data Protection and Information Commissioner) supervises compliance.",
+      "legislationDate": "2023",
+      "legislationJurisdiction": [
         "CH"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.fedlex.admin.ch/eli/cc/2022/491/en",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Swiss data protection law revised in 2023 to align more closely with GDPR while maintaining Swiss specifics.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Organizations in Switzerland processing personal data",
-        "Foreign entities targeting Swiss residents (in some cases)",
-        "Controllers/processors under Swiss law"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Swiss data protection law revised in 2023 to align more closely with GDPR while maintaining Swiss specifics."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Swiss authorities under the Federal Act on Data Protection; specific remedies depend on Swiss law."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "privacy", "switzerland", "adequacy"],
+      "audience": ["enterprise", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "cloud-act",
+      "@type": "Legislation",
+      "identifier": "cloud-act",
       "name": "CLOUD Act",
-      "full_name": "Clarifying Lawful Overseas Use of Data Act",
-      "year": 2018,
-      "summary": "US can compel US companies to hand over data regardless of where it is stored. This extraterritorial reach is a key concern for data sovereignty.",
+      "alternateName": "Clarifying Lawful Overseas Use of Data Act",
+      "description": "US law enabling law enforcement to compel US technology companies to disclose data regardless of where it is physically stored.",
+      "abstract": "The CLOUD Act establishes that US jurisdiction follows the company, not the data location. US companies must comply with warrants for data they control even if stored in EU datacenters. This creates direct conflicts with GDPR and undermines the 'datacenter location' approach to data sovereignty.",
+      "summary": "The CLOUD Act allows US law enforcement to compel US-based technology companies to provide data stored on their servers regardless of physical location. Storing data in an EU datacenter operated by Microsoft, Amazon, or Google does not shield it from US government access. The law was passed in response to the Microsoft Ireland case where Microsoft refused to hand over emails stored in Ireland. It creates legal conflicts with GDPR: US companies face an impossible choice between complying with US law (disclose data) or EU law (protect data). For humanitarian organizations and enterprises handling sensitive data, CLOUD Act exposure is a critical sovereignty concern. Mitigations include using non-US providers, client-side encryption with self-managed keys, and zero-knowledge architectures. The EU-US Data Privacy Framework does not eliminate CLOUD Act powers; US companies remain subject to disclosure orders.",
+      "legislationDate": "2018",
+      "legislationJurisdiction": [
+        "US"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.congress.gov/bill/115th-congress/house-bill/4943",
-      "scope": "national",
-      "applies_to": [
-        "US"
-      ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "conflicts_with"
         },
         {
-          "id": "schrems-ii",
+          "identifier": "schrems-ii",
           "type": "conflicts_with"
         },
         {
-          "id": "fisa-702",
+          "identifier": "fisa-702",
           "type": "complements"
         },
         {
-          "id": "eo-12333",
+          "identifier": "eo-12333",
           "type": "complements"
         },
         {
-          "id": "patriot-act",
+          "identifier": "patriot-act",
           "type": "complements"
         },
         {
-          "id": "ecpa",
+          "identifier": "ecpa",
           "type": "complements"
         },
         {
-          "id": "eu-us-dpf",
+          "identifier": "eu-us-dpf",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "US can compel US companies to hand over data regardless of where it is stored.",
-        "This extraterritorial reach is a key concern for data sovereignty.",
-        "Enables broad government access to data under national security or law‑enforcement powers.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "US-based service providers",
-        "Foreign affiliates of US providers (via control)",
-        "Organizations using US cloud services"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "US can compel US companies to hand over data regardless of where it is stored."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Orders are issued through US legal process; providers may be compelled to disclose data even if stored abroad."
-      }
+      "topics": ["government-access", "surveillance", "cloud-act"],
+      "tags": ["government-access", "surveillance", "extraterritorial", "data-sovereignty"],
+      "audience": ["humanitarian", "enterprise", "public-sector", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "fisa-702",
+      "@type": "Legislation",
+      "identifier": "fisa-702",
       "name": "FISA Section 702",
-      "full_name": "Foreign Intelligence Surveillance Act Section 702",
-      "year": 2008,
-      "summary": "Allows surveillance of non-US persons located outside the US for foreign intelligence purposes. EU citizens have limited legal protections.",
+      "alternateName": "Foreign Intelligence Surveillance Act Section 702",
+      "description": "US law authorizing warrantless surveillance of non-US persons located outside the United States for foreign intelligence purposes.",
+      "abstract": "FISA Section 702 allows the NSA and other agencies to collect communications of foreign targets without individual warrants. Communications providers must assist with collection. Non-US persons have minimal legal protections, and 'incidental collection' of US persons' communications raises ongoing civil liberties concerns.",
+      "summary": "FISA Section 702 authorizes intelligence agencies to conduct surveillance targeting non-US persons reasonably believed to be located outside the US for foreign intelligence purposes. Unlike traditional FISA, Section 702 does not require individual court orders for each target. The FISA Court approves annual targeting and minimization procedures, but not individual targets. Major tech companies including Google, Microsoft, Facebook, and Apple must comply with directives to provide access to communications. The PRISM program operates under Section 702 authority. For EU data protection, Section 702 is problematic because it enables bulk collection of Europeans' data with no meaningful judicial oversight or individual rights. The Schrems II ruling cited Section 702 as a key reason for invalidating the EU-US Privacy Shield. Recent reauthorizations have expanded some authorities while adding limited safeguards.",
+      "legislationDate": "2008",
+      "legislationJurisdiction": [
+        "US"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.congress.gov/bill/110th-congress/house-bill/6304",
-      "scope": "national",
-      "applies_to": [
-        "US"
-      ],
-      "type": "surveillance",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "surveillance",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "conflicts_with"
         },
         {
-          "id": "schrems-ii",
+          "identifier": "schrems-ii",
           "type": "conflicts_with"
         },
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "complements"
         },
         {
-          "id": "eo-12333",
+          "identifier": "eo-12333",
           "type": "complements"
         },
         {
-          "id": "patriot-act",
+          "identifier": "patriot-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Allows surveillance of non-US persons located outside the US for foreign intelligence purposes.",
-        "EU citizens have limited legal protections.",
-        "Enables broad government access to data under national security or law‑enforcement powers.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Electronic communication service providers (as compelled)",
-        "Non‑US persons located outside the US (as targets)",
-        "Organizations whose traffic transits US infrastructure"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Allows surveillance of non-US persons located outside the US for foreign intelligence purposes."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Operates through US intelligence legal mechanisms; transparency is limited and oversight is specialized."
-      }
+      "topics": ["surveillance", "government-access"],
+      "tags": ["surveillance", "intelligence", "prism", "foreign-intelligence"],
+      "audience": ["humanitarian", "enterprise", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "patriot-act",
+      "@type": "Legislation",
+      "identifier": "patriot-act",
       "name": "Patriot Act",
-      "full_name": "Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism Act",
-      "year": 2001,
-      "summary": "Broad access to records for national security investigations, including Section 215 bulk data collection.",
+      "alternateName": "Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism Act",
+      "description": "Post-9/11 US law significantly expanding surveillance powers for terrorism investigations, including Section 215 business records collection.",
+      "abstract": "The Patriot Act expanded FBI and NSA authorities for national security investigations. Section 215 allowed bulk collection of telephony metadata until reformed by the USA FREEDOM Act. The law lowered barriers for obtaining business records, enabled roving wiretaps, and expanded information sharing between intelligence and law enforcement.",
+      "summary": "The USA PATRIOT Act, passed after September 11, 2001, dramatically expanded US surveillance capabilities. Key provisions include Section 215, which authorized the FBI to obtain 'any tangible things' relevant to terrorism investigations including business records, until the USA FREEDOM Act restricted bulk collection. The law enabled National Security Letters (NSLs) demanding records from communications providers without court approval. It facilitated information sharing between foreign intelligence and domestic law enforcement. 'Sneak and peek' searches allow delayed notification of search warrants. Roving wiretaps can follow targets across devices without new court orders. While some provisions have sunset dates requiring reauthorization, the framework fundamentally changed US surveillance law. For international organizations, the Patriot Act exemplifies the broad access authorities that create tension with data protection regimes like GDPR.",
+      "legislationDate": "2001",
+      "legislationJurisdiction": [
+        "US"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.congress.gov/bill/107th-congress/house-bill/3162",
-      "scope": "national",
-      "applies_to": [
-        "US"
-      ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "complements"
         },
         {
-          "id": "fisa-702",
+          "identifier": "fisa-702",
           "type": "complements"
         },
         {
-          "id": "eo-12333",
+          "identifier": "eo-12333",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Broad access to records for national security investigations, including Section 215 bulk data collection.",
-        "Enables broad government access to data under national security or law‑enforcement powers.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "US authorities conducting national security investigations",
-        "Service providers receiving lawful demands",
-        "Organizations holding relevant records"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Broad access to records for national security investigations, including Section 215 bulk data collection."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced via US national security and law‑enforcement processes; scope depends on the specific provision invoked."
-      }
+      "topics": ["surveillance", "government-access"],
+      "tags": ["surveillance", "national-security", "terrorism", "business-records"],
+      "audience": ["humanitarian", "enterprise", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "eo-12333",
+      "@type": "Legislation",
+      "identifier": "eo-12333",
       "name": "EO 12333",
-      "full_name": "Executive Order 12333 - United States Intelligence Activities",
-      "year": 1981,
-      "summary": "Presidential directive authorizing US intelligence agencies to collect foreign intelligence outside US territory. Applies to data in transit through US infrastructure and data held by US companies abroad.",
+      "alternateName": "Executive Order 12333 - United States Intelligence Activities",
+      "description": "Presidential directive authorizing US intelligence agencies to collect signals intelligence on foreign targets outside US territory.",
+      "abstract": "EO 12333 provides the primary legal framework for NSA signals intelligence collection overseas. Unlike FISA which covers collection inside the US, EO 12333 governs bulk collection of data transiting international cables and stored abroad. Non-US persons receive minimal protections under this framework.",
+      "summary": "Executive Order 12333, signed by President Reagan in 1981 and amended multiple times since, authorizes US intelligence agencies to conduct signals intelligence collection outside US borders. This includes intercepting communications transiting international fiber optic cables (upstream collection) and accessing data stored in foreign datacenters. Unlike FISA, which involves judicial oversight, EO 12333 collection is governed primarily by executive branch policies with limited external review. The order was central to Schrems II because it enables bulk collection of European communications without individualized suspicion or meaningful redress. For data sovereignty, EO 12333 is particularly concerning because data need not be held by a US company—any data traversing US infrastructure or accessible from US territory may be subject to collection. PPD-28 and EO 14086 have added some safeguards for allied nations' citizens, but fundamental collection authorities remain intact.",
+      "legislationDate": "1981",
+      "legislationJurisdiction": [
+        "US"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.archives.gov/federal-register/codification/executive-order/12333.html",
-      "scope": "national",
-      "applies_to": [
-        "US"
-      ],
-      "type": "surveillance",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "surveillance",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "conflicts_with"
         },
         {
-          "id": "schrems-ii",
+          "identifier": "schrems-ii",
           "type": "conflicts_with"
         },
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "complements"
         },
         {
-          "id": "fisa-702",
+          "identifier": "fisa-702",
           "type": "complements"
         },
         {
-          "id": "patriot-act",
+          "identifier": "patriot-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Presidential directive authorizing US intelligence agencies to collect foreign intelligence outside US territory.",
-        "Applies to data in transit through US infrastructure and data held by US companies abroad.",
-        "Enables broad government access to data under national security or law‑enforcement powers.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "US intelligence agencies",
-        "Organizations whose data is collected abroad/in transit",
-        "Service providers handling international communications"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Presidential directive authorizing US intelligence agencies to collect foreign intelligence outside US territory."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Executive authority exercised by intelligence agencies; oversight is primarily internal/executive and specialized."
-      }
+      "topics": ["surveillance", "government-access"],
+      "tags": ["surveillance", "signals-intelligence", "bulk-collection", "executive-order"],
+      "audience": ["humanitarian", "enterprise", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "ecpa",
+      "@type": "Legislation",
+      "identifier": "ecpa",
       "name": "ECPA",
-      "full_name": "Electronic Communications Privacy Act",
-      "year": 1986,
-      "summary": "Government access to electronic communications and stored data with various warrant requirements.",
-      "url": "https://www.congress.gov/bill/99th-congress/house-bill/4952",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Electronic Communications Privacy Act",
+      "description": "US law governing government access to electronic communications, with different standards for content, metadata, and stored communications.",
+      "abstract": "ECPA sets rules for when government can access electronic communications. Passed in 1986, its framework distinguishes between communications content (higher protection), stored communications (varying by age), and metadata (lower protection). The law has been criticized as outdated for the cloud computing era.",
+      "summary": "The Electronic Communications Privacy Act of 1986 established the legal framework for government access to electronic communications in the US. It has three main parts: Title I (Wiretap Act) requires warrants for real-time interception of content. Title II (Stored Communications Act) governs access to stored communications with varying standards—a warrant for content under 180 days old, but only a subpoena for older content (though DOJ policy now requires warrants). Title III (Pen Register Act) covers metadata collection with minimal judicial oversight. ECPA's framework predates cloud computing and treats email stored on servers differently than physical mail. Courts have struggled to apply 1986 concepts to modern services. The CLOUD Act amended ECPA to clarify extraterritorial application. For international users, ECPA's relatively weak protections for stored data and metadata are a concern when using US services.",
+      "legislationDate": "1986",
+      "legislationJurisdiction": [
         "US"
       ],
-      "type": "access",
-      "government_access": "targeted",
-      "data_protection": "weak",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.congress.gov/bill/99th-congress/house-bill/4952",
+      "category": "access",
+      "governmentAccess": "targeted",
+      "dataProtection": "weak",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Government access to electronic communications and stored data with various warrant requirements.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Electronic communication service providers",
-        "US law enforcement seeking stored communications",
-        "Organizations holding electronic communications/records"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Government access to electronic communications and stored data with various warrant requirements."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced via US criminal procedure and court orders; requirements vary by data type and age/storage."
-      }
+      "topics": ["government-access", "metadata"],
+      "tags": ["electronic-communications", "stored-data", "wiretap", "metadata"],
+      "audience": ["enterprise", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "investigatory-powers-act",
+      "@type": "Legislation",
+      "identifier": "investigatory-powers-act",
       "name": "Investigatory Powers Act",
-      "full_name": "Investigatory Powers Act 2016 (Snoopers' Charter)",
-      "year": 2016,
-      "summary": "Broad surveillance powers including bulk data collection, equipment interference, and communications interception. Requires ISPs to retain browsing history.",
-      "url": "https://www.legislation.gov.uk/ukpga/2016/25/contents",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Investigatory Powers Act 2016 (Snoopers' Charter)",
+      "description": "UK law granting intelligence and law enforcement agencies broad surveillance powers including bulk data collection and equipment interference.",
+      "abstract": "The IPA provides the legal framework for UK intelligence agencies to intercept communications, collect bulk data, and conduct equipment interference (hacking). It requires communications providers to retain connection records and assist with decryption. The law has been criticized as the most extensive surveillance legislation in Western democracies.",
+      "summary": "The Investigatory Powers Act 2016, nicknamed the 'Snoopers' Charter', consolidates and expands UK surveillance powers. Intelligence agencies (GCHQ, MI5, MI6) can conduct bulk interception of communications, retain bulk datasets, and hack devices (equipment interference). ISPs must retain 'internet connection records' showing which websites users visit for 12 months. The law requires communications providers to assist authorities in removing encryption where feasible and maintain permanent interception capabilities. Warrants for targeted interception require judicial approval, but bulk powers have less oversight. The law applies to both domestic and foreign communications accessible from UK territory. While the UK has strong data protection through UK GDPR, the IPA creates significant surveillance exposure, particularly for communications transiting UK infrastructure or stored with UK-accessible providers.",
+      "legislationDate": "2016",
+      "legislationJurisdiction": [
         "GB"
       ],
-      "type": "surveillance",
-      "government_access": "broad",
-      "data_protection": "none",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.legislation.gov.uk/ukpga/2016/25/contents",
+      "category": "surveillance",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "uk-gdpr",
+          "identifier": "uk-gdpr",
           "type": "conflicts_with"
         },
         {
-          "id": "national-security-act-uk",
+          "identifier": "national-security-act-uk",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Broad surveillance powers including bulk data collection, equipment interference, and communications interception.",
-        "Requires ISPs to retain browsing history.",
-        "Enables broad government access to data under national security or law‑enforcement powers."
-      ],
-      "who_it_applies_to": [
-        "Telecom operators and service providers",
-        "Government agencies conducting surveillance",
-        "Users whose communications may be retained/intercepted"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Broad surveillance powers including bulk data collection, equipment interference, and communications interception."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Oversight involves judicial/commissioner mechanisms; compliance obligations are imposed on providers via warrants/notices."
-      }
+      "topics": ["surveillance", "encryption"],
+      "tags": ["surveillance", "bulk-collection", "equipment-interference", "data-retention"],
+      "audience": ["humanitarian", "enterprise", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "national-security-act-uk",
+      "@type": "Legislation",
+      "identifier": "national-security-act-uk",
       "name": "National Security Act",
-      "full_name": "National Security Act 2023",
-      "year": 2023,
-      "summary": "Powers to address foreign interference, espionage and state threats.",
-      "url": "https://www.legislation.gov.uk/ukpga/2023/32/contents",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "National Security Act 2023",
+      "description": "UK law creating new criminal offenses for espionage, foreign interference, and sabotage, with powers to address state threats.",
+      "abstract": "The National Security Act modernizes UK espionage laws for the digital age. It creates offenses for obtaining and disclosing protected information, foreign interference in UK politics, and sabotage of critical infrastructure. It also establishes a foreign influence registration scheme.",
+      "summary": "The UK National Security Act 2023 updates laws against espionage and foreign interference that dated back to the Official Secrets Act 1911. It creates new offenses for obtaining, copying, or disclosing protected information to foreign powers; foreign interference in UK politics and civil society; and sabotage of critical national infrastructure. The Act establishes a Foreign Influence Registration Scheme requiring registration of activities conducted at the direction of foreign powers. It provides new powers to restrict individuals assessed as threats to national security, including prevention and investigation measures. The law responds to evolving state-level threats including cyber operations and covert influence campaigns. For organizations, it increases the legal risks of unauthorized disclosure and may affect partnerships with foreign entities.",
+      "legislationDate": "2023",
+      "legislationJurisdiction": [
         "GB"
       ],
-      "type": "security",
-      "government_access": "targeted",
-      "data_protection": "none",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.legislation.gov.uk/ukpga/2023/32/contents",
+      "category": "security",
+      "governmentAccess": "targeted",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "investigatory-powers-act",
+          "identifier": "investigatory-powers-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Powers to address foreign interference, espionage and state threats.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Individuals and organizations involved in sensitive activities",
-        "Entities subject to foreign interference/espionage offenses",
-        "Organizations interacting with UK national security processes"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Powers to address foreign interference, espionage and state threats."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines security obligations (risk management, incident response, and governance) for covered entities."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-      ],
-      "enforcement": {
-        "notes": "Enforced through UK law enforcement and prosecutorial processes; application depends on specific offenses and powers used."
-      }
+      "topics": ["cybersecurity", "critical-infrastructure"],
+      "tags": ["espionage", "foreign-interference", "national-security", "state-threats"],
+      "audience": ["public-sector", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "uk-gdpr",
+      "@type": "Legislation",
+      "identifier": "uk-gdpr",
       "name": "UK GDPR",
-      "full_name": "UK General Data Protection Regulation",
-      "year": 2021,
-      "summary": "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR.",
-      "url": "https://www.legislation.gov.uk/eur/2016/679/contents",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "UK General Data Protection Regulation",
+      "description": "Post-Brexit retained version of EU GDPR forming the core of UK data protection law alongside the Data Protection Act 2018.",
+      "abstract": "UK GDPR incorporates EU GDPR into UK law following Brexit. It provides substantially similar protections including rights of access, erasure, and data portability. The ICO (Information Commissioner's Office) supervises compliance. The UK benefits from EU adequacy, enabling free data flows between UK and EU.",
+      "summary": "Following Brexit, the UK retained GDPR through the European Union (Withdrawal) Act, creating 'UK GDPR'. Combined with the Data Protection Act 2018, this forms UK data protection law. UK GDPR mirrors EU GDPR with modifications: references to EU institutions replaced with UK equivalents, the ICO as supervisory authority, and national security exemptions reflecting UK law. The EU granted the UK adequacy status in 2021, allowing data to flow freely between EU/EEA and UK without additional safeguards. However, this adequacy is reviewed periodically and could be revoked if UK law diverges significantly from EU standards. The tension between UK GDPR's protections and the broad surveillance powers under the Investigatory Powers Act remains a concern for EU adequacy assessments.",
+      "legislationDate": "2021",
+      "legislationJurisdiction": [
         "GB"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.legislation.gov.uk/eur/2016/679/contents",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "implements"
         },
         {
-          "id": "investigatory-powers-act",
+          "identifier": "investigatory-powers-act",
           "type": "conflicts_with"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Controllers and processors subject to UK data protection law",
-        "Organizations offering goods/services to UK residents (in some cases)",
-        "Public/private sector organizations handling UK personal data"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "UK Information Commissioner’s Office (ICO)",
-        "notes": "UK GDPR is enforced by the ICO; interpretations can differ from EU post‑Brexit."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "privacy", "brexit", "adequacy"],
+      "audience": ["enterprise", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "national-intelligence-law",
+      "@type": "Legislation",
+      "identifier": "national-intelligence-law",
       "name": "National Intelligence Law",
-      "full_name": "National Intelligence Law of the People's Republic of China",
-      "year": 2017,
-      "summary": "Organizations and citizens must support, assist and cooperate with national intelligence work. This creates backdoor access concerns for any Chinese software.",
+      "alternateName": "National Intelligence Law of the People's Republic of China",
+      "description": "Chinese law requiring all organizations and citizens to support, assist, and cooperate with state intelligence activities.",
+      "abstract": "Article 7 states that organizations and citizens 'shall support, assist, and cooperate with state intelligence work.' This creates concerns that any Chinese company or technology must provide intelligence assistance when requested, effectively mandating potential backdoors in Chinese products and services.",
+      "summary": "China's National Intelligence Law of 2017 is central to concerns about Chinese technology companies and data sovereignty. Article 7 requires all organizations and citizens to 'support, assist, and cooperate with state intelligence work' while Article 14 allows intelligence agencies to demand assistance. This creates inherent security concerns for any technology, software, or service originating from China: companies may be compelled to provide access or build backdoors without disclosure. The law applies extraterritorially to Chinese entities and citizens abroad. Combined with the Cybersecurity Law, Data Security Law, and PIPL, it forms a comprehensive framework where data protection coexists with broad state access requirements. For organizations assessing supply chain risk, the National Intelligence Law is a key factor when evaluating Chinese-origin technology.",
+      "legislationDate": "2017",
+      "legislationJurisdiction": [
+        "CN"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/",
-      "scope": "national",
-      "applies_to": [
-        "CN"
-      ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": true,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": true,
+      "isRelatedTo": [
         {
-          "id": "cybersecurity-law",
+          "identifier": "cybersecurity-law",
           "type": "complements"
         },
         {
-          "id": "data-security-law",
+          "identifier": "data-security-law",
           "type": "complements"
         },
         {
-          "id": "pipl",
+          "identifier": "pipl",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Organizations and citizens must support, assist and cooperate with national intelligence work.",
-        "This creates backdoor access concerns for any Chinese software.",
-        "May compel technical assistance such as decryption support or access enablement under legal process.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Organizations and citizens in China",
-        "Companies operating in China",
-        "Entities asked to provide assistance to intelligence work"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Organizations and citizens must support, assist and cooperate with national intelligence work."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Applies through Chinese state authorities; compelled assistance may be subject to secrecy requirements."
-      }
+      "topics": ["surveillance", "government-access", "supply-chain"],
+      "tags": ["intelligence", "state-access", "backdoor", "supply-chain-risk"],
+      "audience": ["humanitarian", "enterprise", "security", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "cybersecurity-law",
+      "@type": "Legislation",
+      "identifier": "cybersecurity-law",
       "name": "Cybersecurity Law",
-      "full_name": "Cybersecurity Law of the People's Republic of China",
-      "year": 2017,
-      "summary": "Data localization requirements, security reviews, and network operator obligations for critical infrastructure.",
+      "alternateName": "Cybersecurity Law of the People's Republic of China",
+      "description": "Chinese law establishing data localization requirements for critical infrastructure operators and security review processes.",
+      "abstract": "The Cybersecurity Law requires critical information infrastructure operators to store personal information and important data within China. Cross-border transfers require security assessments. Network operators must assist public security with technical support and decryption capabilities.",
+      "summary": "China's Cybersecurity Law of 2017 establishes foundational requirements for network security. Critical Information Infrastructure Operators (CIIOs) in sectors like telecoms, energy, transport, and finance must localize personal information and 'important data' collected in China. Cross-border transfers require government security assessments. Network products and services used by CIIOs must undergo security reviews. The law requires network operators to maintain logs for at least six months and provide technical support to public security organs for investigations. Real-name registration is required for online accounts. The law's broad definitions and vague language create compliance uncertainty. Combined with the National Intelligence Law, it means Chinese network operators must both assist intelligence work and implement technical capabilities for lawful access.",
+      "legislationDate": "2017",
+      "legislationJurisdiction": [
+        "CN"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.chinalawtranslate.com/en/cybersecuritylaw/",
-      "scope": "national",
-      "applies_to": [
-        "CN"
-      ],
-      "type": "localization",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "localization",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": true,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": true,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "national-intelligence-law",
+          "identifier": "national-intelligence-law",
           "type": "complements"
         },
         {
-          "id": "data-security-law",
+          "identifier": "data-security-law",
           "type": "complements"
         },
         {
-          "id": "pipl",
+          "identifier": "pipl",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Data localization requirements, security reviews, and network operator obligations for critical infrastructure.",
-        "May require certain categories of data to be stored or processed within the jurisdiction.",
-        "Enables broad government access to data under national security or law‑enforcement powers."
-      ],
-      "who_it_applies_to": [
-        "Network operators in China",
-        "Critical information infrastructure operators",
-        "Providers handling personal/important data"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Data localization requirements, security reviews, and network operator obligations for critical infrastructure."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates residency/local storage requirements for certain data categories and may restrict cross‑border transfers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement data residency controls and verify vendor/subprocessor locations."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Chinese regulators; includes security reviews and localization obligations for certain operators."
-      }
+      "topics": ["cybersecurity", "digital-sovereignty", "critical-infrastructure"],
+      "tags": ["data-localization", "critical-infrastructure", "security-review", "real-name-registration"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "data-security-law",
+      "@type": "Legislation",
+      "identifier": "data-security-law",
       "name": "Data Security Law",
-      "full_name": "Data Security Law of the People's Republic of China",
-      "year": 2021,
-      "summary": "Data classification system, cross-border transfer restrictions, and government access for national security.",
+      "alternateName": "Data Security Law of the People's Republic of China",
+      "description": "Chinese law establishing data classification, cross-border transfer controls, and government access for national security.",
+      "abstract": "The Data Security Law creates a tiered data classification system (core, important, general) with corresponding protection requirements. Cross-border transfers of 'important data' face restrictions and assessments. The state can access data for national security purposes, and organizations must cooperate with public security requests.",
+      "summary": "China's Data Security Law of 2021 complements the Cybersecurity Law with comprehensive data governance. It establishes a classification system: 'core data' relating to national security receives the highest protection; 'important data' in regulated catalogs requires security assessments before cross-border transfer; 'general data' faces fewer restrictions. All data processing must serve China's national security and development interests. Organizations must cooperate with government data requests and maintain security measures. The law has extraterritorial reach: activities outside China harming Chinese national security or citizens' interests can be penalized. For international organizations, the Data Security Law complicates cross-border data flows—transferring data from China to headquarters may require government approval and security assessments.",
+      "legislationDate": "2021",
+      "legislationJurisdiction": [
+        "CN"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.chinalawtranslate.com/en/datasecuritylaw/",
-      "scope": "national",
-      "applies_to": [
-        "CN"
-      ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": true,
-      "requires_localization": true,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": true,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "national-intelligence-law",
+          "identifier": "national-intelligence-law",
           "type": "complements"
         },
         {
-          "id": "cybersecurity-law",
+          "identifier": "cybersecurity-law",
           "type": "complements"
         },
         {
-          "id": "pipl",
+          "identifier": "pipl",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Data classification system, cross-border transfer restrictions, and government access for national security.",
-        "May require certain categories of data to be stored or processed within the jurisdiction.",
-        "Enables broad government access to data under national security or law‑enforcement powers.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Organizations handling “important data” in China",
-        "Entities conducting cross‑border data transfers",
-        "Businesses subject to data classification controls"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Data classification system, cross-border transfer restrictions, and government access for national security."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting).",
-        "Implement data residency controls and verify vendor/subprocessor locations."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Chinese authorities through data classification and transfer control mechanisms."
-      }
+      "topics": ["government-access", "digital-sovereignty"],
+      "tags": ["data-classification", "cross-border-transfer", "important-data", "national-security"],
+      "audience": ["enterprise", "it-ops", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "pipl",
+      "@type": "Legislation",
+      "identifier": "pipl",
       "name": "PIPL",
-      "full_name": "Personal Information Protection Law",
-      "year": 2021,
-      "summary": "China's comprehensive personal data protection law with strict cross-border transfer requirements.",
-      "url": "https://www.chinalawtranslate.com/en/pipl/",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Personal Information Protection Law",
+      "description": "China's comprehensive personal data protection law providing GDPR-like rights while operating alongside state access requirements.",
+      "abstract": "PIPL grants individuals rights over their personal information including consent requirements, access, deletion, and portability. Cross-border transfers require consent plus a government assessment or standard contracts. However, PIPL coexists with laws requiring cooperation with state intelligence and security activities.",
+      "summary": "China's Personal Information Protection Law of 2021 is often compared to GDPR but operates in a fundamentally different legal context. PIPL provides individual rights: informed consent for processing, access to personal information, correction of errors, deletion rights, and data portability. Processing requires a lawful basis (consent, contract, legal obligation, public interest, etc.). Cross-border transfers need individual consent plus one of: government security assessment, standard contractual clauses, or certification. However, PIPL explicitly exempts state security and emergency response activities. The coexistence of PIPL's individual protections with the National Intelligence Law's access requirements creates an unusual framework: organizations must protect personal data while simultaneously being prepared to disclose it to state security when requested. For international data transfers involving China, this dual nature complicates compliance.",
+      "legislationDate": "2021",
+      "legislationJurisdiction": [
         "CN"
       ],
-      "type": "privacy",
-      "government_access": "targeted",
-      "data_protection": "moderate",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.chinalawtranslate.com/en/pipl/",
+      "category": "privacy",
+      "governmentAccess": "targeted",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": true,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": true,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "national-intelligence-law",
+          "identifier": "national-intelligence-law",
           "type": "complements"
         },
         {
-          "id": "cybersecurity-law",
+          "identifier": "cybersecurity-law",
           "type": "complements"
         },
         {
-          "id": "data-security-law",
+          "identifier": "data-security-law",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "China's comprehensive personal data protection law with strict cross-border transfer requirements.",
-        "May require certain categories of data to be stored or processed within the jurisdiction.",
-        "Enables targeted government access under warrants or court orders for specific investigations.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Personal information handlers in China",
-        "Organizations offering products/services to people in China (in some cases)",
-        "Processors handling personal information on behalf of handlers"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "China's comprehensive personal data protection law with strict cross-border transfer requirements."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes.",
-        "Implement data residency controls and verify vendor/subprocessor locations."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Chinese regulators; cross‑border transfers and localization rules can be strict depending on data type."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["personal-data", "consent", "cross-border-transfer", "individual-rights"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "yarovaya-law",
+      "@type": "Legislation",
+      "identifier": "yarovaya-law",
       "name": "Yarovaya Law",
-      "full_name": "Yarovaya Law (Federal Law No. 374-FZ)",
-      "year": 2016,
-      "summary": "Mandatory data retention for 6 months, decryption assistance requirements for authorities.",
+      "alternateName": "Yarovaya Law (Federal Law No. 374-FZ)",
+      "description": "Russian anti-terrorism law requiring communications data retention for 6 months and mandatory assistance with decryption.",
+      "abstract": "The Yarovaya Law requires telecom providers and internet companies to retain communications content for 6 months and metadata for 3 years. Companies must provide authorities with decryption assistance, effectively requiring backdoor capabilities. Encrypted messaging services must register encryption keys with the government.",
+      "summary": "Russia's Yarovaya Law, passed in 2016 as anti-terrorism legislation, imposes extensive surveillance requirements. Communications providers must retain the content of all communications (voice, text, images, video) for 6 months and metadata for 3 years. When requested, providers must assist the FSB with decrypting communications. Messaging services using encryption must provide the government with decryption keys or face blocking. Several services including LinkedIn and Telegram have been blocked for non-compliance (Telegram was later unblocked after cooperation). The storage requirements are massive, requiring providers to build significant infrastructure. Combined with SORM and data localization requirements, the Yarovaya Law ensures Russian authorities have comprehensive access to communications occurring within Russia.",
+      "legislationDate": "2016",
+      "legislationJurisdiction": [
+        "RU"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.loc.gov/item/global-legal-monitor/2016-07-26/russia-new-anti-terrorism-law/",
-      "scope": "national",
-      "applies_to": [
-        "RU"
-      ],
-      "type": "surveillance",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "surveillance",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": true,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": true,
+      "isRelatedTo": [
         {
-          "id": "sorm",
+          "identifier": "sorm",
           "type": "complements"
         },
         {
-          "id": "data-localization-law",
+          "identifier": "data-localization-law",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Mandatory data retention for 6 months, decryption assistance requirements for authorities.",
-        "May compel technical assistance such as decryption support or access enablement under legal process."
-      ],
-      "who_it_applies_to": [
-        "Telecom operators and internet services in Russia",
-        "Messaging providers subject to retention/assistance duties",
-        "Operators handling communications metadata/content (as required)"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Mandatory data retention for 6 months, decryption assistance requirements for authorities."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Russian authorities; providers may face retention and decryption/assistance obligations."
-      }
+      "topics": ["surveillance", "encryption"],
+      "tags": ["data-retention", "decryption", "anti-terrorism", "encryption-keys"],
+      "audience": ["enterprise", "it-ops", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "data-localization-law",
+      "@type": "Legislation",
+      "identifier": "data-localization-law",
       "name": "Data Localization Law",
-      "full_name": "Federal Law No. 242-FZ on Personal Data Localization",
-      "year": 2015,
-      "summary": "Personal data of Russian citizens must be stored on servers physically located in Russia.",
+      "alternateName": "Federal Law No. 242-FZ on Personal Data Localization",
+      "description": "Russian law requiring personal data of Russian citizens to be stored on servers physically located within Russia.",
+      "abstract": "Federal Law 242-FZ mandates that databases containing Russian citizens' personal data must be physically located in Russia. Companies collecting such data must record, systematize, accumulate, and store it on Russian servers. Cross-border transfer is permitted only after initial localization.",
+      "summary": "Russia's data localization law, effective September 2015, requires personal data of Russian citizens to be stored within Russia. The primary database must be on Russian territory; copies may exist abroad, but the original recording and storage must occur domestically. This has forced international companies to establish Russian infrastructure or exit the market. LinkedIn was blocked in 2016 for non-compliance. The law serves multiple purposes: enabling domestic surveillance (data is accessible to SORM), reducing dependence on foreign services, and building domestic cloud industry. Combined with SORM backdoor requirements and Yarovaya retention mandates, data localization ensures Russian authorities have access to personal data of Russian citizens regardless of what foreign service they use—if the service operates in Russia, the data must be stored there.",
+      "legislationDate": "2015",
+      "legislationJurisdiction": [
+        "RU"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.loc.gov/item/global-legal-monitor/2014-12-15/russia-new-law-requires-local-storage-of-personal-data/",
-      "scope": "national",
-      "applies_to": [
-        "RU"
-      ],
-      "type": "localization",
-      "government_access": "limited",
-      "data_protection": "weak",
+      "category": "localization",
+      "governmentAccess": "limited",
+      "dataProtection": "weak",
       "extraterritorial": false,
-      "requires_localization": true,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": true,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "sorm",
+          "identifier": "sorm",
           "type": "complements"
         },
         {
-          "id": "yarovaya-law",
+          "identifier": "yarovaya-law",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Personal data of Russian citizens must be stored on servers physically located in Russia.",
-        "May require certain categories of data to be stored or processed within the jurisdiction."
-      ],
-      "who_it_applies_to": [
-        "Organizations collecting Russian citizens’ personal data",
-        "Online services targeting Russian users",
-        "Service providers storing/processing Russian personal data"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Personal data of Russian citizens must be stored on servers physically located in Russia."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates residency/local storage requirements for certain data categories and may restrict cross‑border transfers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Implement data residency controls and verify vendor/subprocessor locations."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Russian regulators; noncompliance can lead to blocking or administrative measures."
-      }
+      "topics": ["digital-sovereignty"],
+      "tags": ["data-localization", "data-residency", "russian-servers", "cross-border"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "sorm",
+      "@type": "Legislation",
+      "identifier": "sorm",
       "name": "SORM",
-      "full_name": "System for Operative Investigative Activities",
-      "year": 1995,
-      "summary": "Mandatory surveillance backdoors in all telecommunications equipment for FSB access.",
-      "url": "https://www.eff.org/deeplinks/2012/10/russias-sorm-surveillance",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "System for Operative Investigative Activities",
+      "description": "Russian system requiring all telecommunications providers to install FSB-accessible surveillance backdoors.",
+      "abstract": "SORM mandates that all telecommunications equipment in Russia include hardware and software enabling direct FSB access to communications. Providers must install and maintain surveillance equipment at their expense, with direct connections to FSB facilities for real-time monitoring.",
+      "summary": "SORM (Sistema Operativno-Rozysknykh Meropriyatiy) is Russia's surveillance system requiring all telecom providers to install backdoor access for the FSB. First established for telephone surveillance in 1995 (SORM-1), it expanded to internet (SORM-2) and later to all communications data (SORM-3). Providers must purchase and install certified surveillance equipment connected directly to FSB facilities. The FSB can access communications in real-time without provider involvement; companies simply provide the technical capability. Unlike Western lawful interception where providers receive and process warrants, SORM's architecture gives the FSB direct access. While warrants are theoretically required, providers have no ability to verify them. Any telecommunications provider operating in Russia must implement SORM, making it impossible to offer truly private communications services in the Russian market.",
+      "legislationDate": "1995",
+      "legislationJurisdiction": [
         "RU"
       ],
-      "type": "surveillance",
-      "government_access": "broad",
-      "data_protection": "none",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.eff.org/deeplinks/2012/10/russias-sorm-surveillance",
+      "category": "surveillance",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": true,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": true,
+      "isRelatedTo": [
         {
-          "id": "yarovaya-law",
+          "identifier": "yarovaya-law",
           "type": "complements"
         },
         {
-          "id": "data-localization-law",
+          "identifier": "data-localization-law",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Mandatory surveillance backdoors in all telecommunications equipment for FSB access.",
-        "May compel technical assistance such as decryption support or access enablement under legal process."
-      ],
-      "who_it_applies_to": [
-        "Telecom operators and ISPs in Russia",
-        "Network equipment vendors/integrators",
-        "Authorities conducting interception under SORM"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Mandatory surveillance backdoors in all telecommunications equipment for FSB access."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Establishes surveillance or interception capabilities and related retention/assistance requirements."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced by Russian security services; providers must enable lawful interception capabilities."
-      }
+      "topics": ["surveillance", "encryption"],
+      "tags": ["surveillance-backdoor", "fsb-access", "telecommunications", "real-time-monitoring"],
+      "audience": ["enterprise", "it-ops", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "it-act-2000",
+      "@type": "Legislation",
+      "identifier": "it-act-2000",
       "name": "IT Act",
-      "full_name": "Information Technology Act 2000",
-      "year": 2000,
-      "summary": "Government can intercept, monitor and decrypt any computer resource in the interest of national security.",
+      "alternateName": "Information Technology Act 2000",
+      "description": "Indian law enabling government interception, monitoring, and decryption of any computer resource in the interest of national security.",
+      "abstract": "Section 69 grants the government power to direct any agency to intercept, monitor, or decrypt any information transmitted through any computer resource when necessary for national security, public order, or investigation of offenses. Intermediaries must assist with interception and content blocking.",
+      "summary": "India's Information Technology Act 2000 (amended 2008) provides the legal framework for government access to digital information. Section 69 empowers the central or state government to direct interception, monitoring, or decryption of any information in a computer resource for sovereignty, security, friendly relations with foreign states, public order, or investigating offenses. Section 69A enables blocking access to information. Section 79 establishes intermediary liability and safe harbors. The IT Rules 2021 imposed significant requirements on social media intermediaries including content takedown, user traceability (requiring messaging services to identify message originators), and compliance officer appointments. Combined with the new DPDP Act, India has both data protection and broad government access powers. The lack of independent judicial oversight for interception orders raises civil liberties concerns.",
+      "legislationDate": "2000",
+      "legislationJurisdiction": [
+        "IN"
+      ],
+      "legislationLegalForce": "InForce",
       "url": "https://www.meity.gov.in/content/information-technology-act-2000",
-      "scope": "national",
-      "applies_to": [
-        "IN"
-      ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": true,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": true,
+      "isRelatedTo": [
         {
-          "id": "dpdp-act",
+          "identifier": "dpdp-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Government can intercept, monitor and decrypt any computer resource in the interest of national security.",
-        "May compel technical assistance such as decryption support or access enablement under legal process."
-      ],
-      "who_it_applies_to": [
-        "Online platforms and intermediaries in India",
-        "Organizations receiving decryption/interception orders",
-        "Users subject to cybercrime provisions"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Government can intercept, monitor and decrypt any computer resource in the interest of national security."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced via Indian authorities and courts; interception/decryption directions depend on orders under the Act and rules."
-      }
+      "topics": ["government-access", "surveillance"],
+      "tags": ["interception", "decryption", "intermediary-liability", "content-blocking"],
+      "audience": ["enterprise", "it-ops", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "dpdp-act",
+      "@type": "Legislation",
+      "identifier": "dpdp-act",
       "name": "DPDP Act",
-      "full_name": "Digital Personal Data Protection Act 2023",
-      "year": 2023,
-      "summary": "Personal data protection with broad government exemptions for national security.",
-      "url": "https://www.meity.gov.in/data-protection-framework",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Digital Personal Data Protection Act 2023",
+      "description": "India's first comprehensive data protection law providing individual rights while maintaining broad government exemptions.",
+      "abstract": "The DPDP Act grants data principals (individuals) rights including access, correction, erasure, and grievance redress. Data fiduciaries (controllers) must process data based on consent or legitimate purposes. However, the government has broad exemption powers for sovereignty, security, and public order.",
+      "summary": "India's Digital Personal Data Protection Act 2023 creates the country's first comprehensive data protection framework. It establishes rights for 'data principals' including informed consent, access to information, correction and erasure, and grievance redress. 'Data fiduciaries' (similar to controllers) must process personal data lawfully, implement security safeguards, and fulfill data principal requests. The Act creates a Data Protection Board to adjudicate complaints and impose penalties up to ₹250 crore (~$30M). However, Section 17 gives the central government sweeping exemption powers for state security, sovereignty, public order, and other specified purposes. This means the strong protections can be bypassed for government activities. Cross-border transfer is permitted to countries not blacklisted by the government. The interaction between DPDP and the IT Act's surveillance powers creates a regime where individual protections coexist with extensive government access.",
+      "legislationDate": "2023",
+      "legislationJurisdiction": [
         "IN"
       ],
-      "type": "privacy",
-      "government_access": "targeted",
-      "data_protection": "moderate",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.meity.gov.in/data-protection-framework",
+      "category": "privacy",
+      "governmentAccess": "targeted",
+      "dataProtection": "moderate",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "it-act-2000",
+          "identifier": "it-act-2000",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Personal data protection with broad government exemptions for national security.",
-        "Enables targeted government access under warrants or court orders for specific investigations."
-      ],
-      "who_it_applies_to": [
-        "Data fiduciaries (controllers) in India",
-        "Data processors acting on behalf of fiduciaries",
-        "Organizations processing digital personal data in India"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Personal data protection with broad government exemptions for national security."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Enforced by India’s Data Protection Board (and related processes) with penalties defined in the Act and rules."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "consent", "data-principal-rights", "government-exemptions"],
+      "audience": ["enterprise", "it-ops", "public-sector"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "tola-act",
+      "@type": "Legislation",
+      "identifier": "tola-act",
       "name": "TOLA Act",
-      "full_name": "Telecommunications and Other Legislation Amendment (Assistance and Access) Act 2018",
-      "year": 2018,
-      "summary": "Can compel companies to build backdoors and assist in decryption, with secrecy requirements preventing disclosure.",
-      "url": "https://www.legislation.gov.au/Details/C2018A00148",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Telecommunications and Other Legislation Amendment (Assistance and Access) Act 2018",
+      "description": "Australian law enabling authorities to compel technology companies to build backdoors, assist with decryption, and provide technical capabilities for surveillance.",
+      "abstract": "TOLA creates three types of notices: Technical Assistance Requests (voluntary), Technical Assistance Notices (mandatory), and Technical Capability Notices (requiring new capabilities). Companies can be compelled to assist with decryption, modify systems, and build new interception capabilities. Gag orders prevent disclosure.",
+      "summary": "Australia's Assistance and Access Act 2018 is among the most far-reaching encryption legislation in democratic countries. It allows authorities to issue: Technical Assistance Requests (TARs) asking for voluntary help; Technical Assistance Notices (TANs) compelling specific assistance within existing capabilities; and Technical Capability Notices (TCNs) requiring companies to build new capabilities. Critically, TCNs can require companies to create technical means for accessing encrypted communications. While the law technically prohibits requiring 'systemic weaknesses' in encryption, the definition is ambiguous and companies cannot publicly discuss what they've been compelled to do due to secrecy provisions. This creates uncertainty about whether Australian-linked technology products contain mandated vulnerabilities. The law applies to Australian companies and foreign companies with Australian nexus, raising concerns for any software or service developed or operated from Australia.",
+      "legislationDate": "2018",
+      "legislationJurisdiction": [
         "AU"
       ],
-      "type": "access",
-      "government_access": "broad",
-      "data_protection": "none",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.legislation.gov.au/Details/C2018A00148",
+      "category": "access",
+      "governmentAccess": "broad",
+      "dataProtection": "none",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": true,
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Can compel companies to build backdoors and assist in decryption, with secrecy requirements preventing disclosure.",
-        "May compel technical assistance such as decryption support or access enablement under legal process."
-      ],
-      "who_it_applies_to": [
-        "Telecom and tech service providers",
-        "Software/hardware vendors receiving assistance requests",
-        "Organizations subject to secrecy/assistance obligations"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Can compel companies to build backdoors and assist in decryption, with secrecy requirements preventing disclosure."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-      ],
-      "enforcement": {
-        "notes": "Enforced via Australian authorities; assistance notices may include secrecy obligations."
-      }
+      "requiresLocalization": false,
+      "requiresBackdoor": true,
+      "isRelatedTo": [],
+      "topics": ["government-access", "encryption"],
+      "tags": ["encryption-backdoor", "technical-capability", "decryption", "five-eyes"],
+      "audience": ["enterprise", "developer", "security"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "pipeda",
+      "@type": "Legislation",
+      "identifier": "pipeda",
       "name": "PIPEDA",
-      "full_name": "Personal Information Protection and Electronic Documents Act",
-      "year": 2000,
-      "summary": "Canadian federal privacy law for private sector organizations. Provides fair information principles.",
-      "url": "https://laws-lois.justice.gc.ca/eng/acts/p-8.6/",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Personal Information Protection and Electronic Documents Act",
+      "description": "Canada's federal privacy law for commercial activities, establishing fair information principles for private sector data handling.",
+      "abstract": "PIPEDA governs how private sector organizations collect, use, and disclose personal information in commercial activities. Based on fair information principles, it requires consent, limits collection to necessary purposes, ensures accuracy, and provides access rights. The Privacy Commissioner investigates complaints but has limited enforcement powers.",
+      "summary": "PIPEDA applies to private sector organizations collecting, using, or disclosing personal information in commercial activities across Canada (except in provinces with substantially similar legislation: Quebec, BC, Alberta). It implements ten fair information principles: accountability, identifying purposes, consent, limiting collection, limiting use/disclosure/retention, accuracy, safeguards, openness, individual access, and challenging compliance. Organizations must obtain meaningful consent, which varies by sensitivity and context. Individuals have rights to access their information and challenge its accuracy. The Privacy Commissioner of Canada investigates complaints, makes recommendations, and can seek court orders for compliance. Recent amendments (Bill C-27) propose replacing PIPEDA with the Consumer Privacy Protection Act, adding stronger penalties and algorithmic transparency requirements. Canada has EU adequacy status for commercial data transfers.",
+      "legislationDate": "2000",
+      "legislationJurisdiction": [
         "CA"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://laws-lois.justice.gc.ca/eng/acts/p-8.6/",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Canadian federal privacy law for private sector organizations.",
-        "Provides fair information principles."
-      ],
-      "who_it_applies_to": [
-        "Private-sector organizations in Canada",
-        "Organizations handling personal information in commercial activities",
-        "Service providers processing data for covered orgs"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Canadian federal privacy law for private sector organizations."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Office of the Privacy Commissioner of Canada (OPC)",
-        "notes": "Enforcement historically relied on investigations and recommendations; remedies depend on the specific framework and amendments."
-      }
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [],
+      "topics": ["privacy", "data-protection"],
+      "tags": ["fair-information-principles", "consent", "privacy-commissioner", "adequacy"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "appi",
+      "@type": "Legislation",
+      "identifier": "appi",
       "name": "APPI",
-      "full_name": "Act on the Protection of Personal Information",
-      "year": 2003,
-      "summary": "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR.",
-      "url": "https://www.ppc.go.jp/en/legal/",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Act on the Protection of Personal Information",
+      "description": "Japan's data protection law, substantially revised in 2020 and 2022 to strengthen protections and align with international standards.",
+      "abstract": "APPI protects personal information handled by business operators. The 2020 amendments introduced individual rights (deletion, usage suspension), strengthened cross-border transfer rules, and created the Personal Information Protection Commission (PPC). Japan has mutual EU adequacy, enabling data flows.",
+      "summary": "Japan's APPI, originally enacted in 2003, was substantially revised in 2020 and 2022 to align with GDPR and strengthen protections. Business operators must specify utilization purposes, obtain consent for sensitive data, implement security measures, and respond to individual requests for disclosure, correction, and deletion. The 2020 amendments introduced rights to request deletion and usage suspension, created penalties for database theft, and strengthened the Personal Information Protection Commission's enforcement powers. Cross-border transfers require consent plus adequacy assessment, consent plus contractual safeguards, or group company systems with equivalent protections. Japan and the EU recognize each other's adequacy, creating a 'data free-flow highway' between the two economies. The PPC actively updates guidelines for emerging technologies including cookies, AI, and biometrics.",
+      "legislationDate": "2003",
+      "legislationJurisdiction": [
         "JP"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.ppc.go.jp/en/legal/",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Businesses handling personal information in Japan",
-        "Organizations transferring personal data internationally",
-        "Data processors/service providers"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Japanese data protection law, revised in 2020 to strengthen protections and align with GDPR."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Personal Information Protection Commission (PPC, Japan)",
-        "notes": "Enforced by the PPC; cross‑border transfer rules and safeguards apply."
-      }
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [],
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "adequacy", "cross-border-transfer", "individual-rights"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "pipa",
+      "@type": "Legislation",
+      "identifier": "pipa",
       "name": "PIPA",
-      "full_name": "Personal Information Protection Act",
-      "year": 2011,
-      "summary": "Comprehensive Korean data protection law with strong enforcement and individual rights.",
-      "url": "https://www.pipc.go.kr/eng/index.do",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Personal Information Protection Act",
+      "description": "South Korea's comprehensive data protection law with strong enforcement, individual rights, and strict cross-border transfer requirements.",
+      "abstract": "Korea's PIPA provides robust individual rights and imposes strict requirements on personal information handlers. The Personal Information Protection Commission (PIPC) enforces compliance with significant fines. Cross-border transfers require consent and adequate safeguards. Korea has EU adequacy status.",
+      "summary": "South Korea's Personal Information Protection Act provides comprehensive data protection with strong enforcement. The law applies broadly to public and private sector personal information handling. Key requirements include: specific purpose limitation, consent for collection (with strict standards for sensitive data), security measures commensurate with risk, and individual rights to access, correct, delete, and suspend processing. The Personal Information Protection Commission (PIPC) supervises compliance and can impose administrative fines up to 3% of relevant revenue plus criminal penalties for severe violations. Data breach notification is mandatory within 24 hours. Cross-border transfers require consent plus one of: adequacy determination, binding corporate rules, or PIPC-recognized certifications. Korea achieved EU adequacy in 2021. The law is notably stricter than some GDPR requirements, particularly around consent standards and data minimization.",
+      "legislationDate": "2011",
+      "legislationJurisdiction": [
         "KR"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.pipc.go.kr/eng/index.do",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Comprehensive Korean data protection law with strong enforcement and individual rights.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Organizations processing personal information in Korea",
-        "Online services collecting/using personal data",
-        "Data processors and vendors"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Comprehensive Korean data protection law with strong enforcement and individual rights."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Personal Information Protection Commission (PIPC, Korea)",
-        "notes": "Enforced by the PIPC with strong powers and administrative sanctions."
-      }
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [],
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "adequacy", "consent", "strong-enforcement"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "privacy-act-2020",
+      "@type": "Legislation",
+      "identifier": "privacy-act-2020",
       "name": "Privacy Act 2020",
-      "full_name": "Privacy Act 2020",
-      "year": 2020,
-      "summary": "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement.",
-      "url": "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html",
-      "scope": "national",
-      "applies_to": [
+      "alternateName": "Privacy Act 2020",
+      "description": "New Zealand's modernized privacy law strengthening individual rights, requiring breach notification, and enhancing enforcement powers.",
+      "abstract": "The Privacy Act 2020 replaced 1993 legislation to address digital-age challenges. It introduces mandatory breach notification, strengthens compliance notices and enforcement, adds cross-border disclosure requirements, and creates offenses for misleading agencies about individual requests.",
+      "summary": "New Zealand's Privacy Act 2020 modernizes the 1993 framework for contemporary data practices. Key changes include: mandatory notification of privacy breaches likely to cause serious harm (within 72 hours to the Privacy Commissioner plus affected individuals); stronger enforcement through compliance notices that are legally binding; new criminal offenses for deliberately misleading agencies about individual information requests; and enhanced cross-border disclosure rules requiring reasonable belief that recipients will protect information to comparable standards. The thirteen Information Privacy Principles remain the core framework, covering collection, storage, access, correction, retention, and disclosure. The Privacy Commissioner can issue binding compliance notices, order agencies to pay damages, and refer matters for prosecution. New Zealand maintains EU adequacy, facilitating data flows. The law applies to agencies 'carrying on business' in New Zealand even if based elsewhere.",
+      "legislationDate": "2020",
+      "legislationJurisdiction": [
         "NZ"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": false,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement."
-      ],
-      "who_it_applies_to": [
-        "Agencies and organizations in New Zealand covered by the Act",
-        "Organizations disclosing personal information overseas",
-        "Entities subject to breach notification duties"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "authority": "Office of the Privacy Commissioner (New Zealand)",
-        "notes": "Enforced via investigations and compliance mechanisms; includes breach notification requirements."
-      }
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [],
+      "topics": ["privacy", "data-protection"],
+      "tags": ["data-protection", "breach-notification", "adequacy", "privacy-principles"],
+      "audience": ["enterprise", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "schrems-ii",
+      "@type": "Legislation",
+      "identifier": "schrems-ii",
       "name": "Schrems II",
-      "full_name": "Data Protection Commissioner v Facebook Ireland Limited and Maximillian Schrems (Case C-311/18)",
-      "year": 2020,
-      "summary": "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection. Organizations must now assess destination country surveillance laws before transferring personal data.",
-      "url": "https://curia.europa.eu/juris/liste.jsf?num=C-311/18",
-      "scope": "bloc",
-      "applies_to": [
+      "alternateName": "Data Protection Commissioner v Facebook Ireland Limited and Maximillian Schrems (Case C-311/18)",
+      "description": "Landmark 2020 CJEU ruling that invalidated EU-US Privacy Shield and imposed strict requirements for international data transfers.",
+      "abstract": "The Court of Justice of the European Union ruled that US surveillance laws (particularly FISA 702 and EO 12333) provide insufficient protection for EU personal data. Privacy Shield was invalidated. Standard Contractual Clauses remain valid but require case-by-case assessment of destination country protections.",
+      "summary": "The Schrems II judgment fundamentally changed international data transfer law. The CJEU found that US surveillance practices under FISA 702 and EO 12333 do not meet EU standards for data protection—specifically, they lack proportionality, independent oversight, and effective judicial remedies for EU citizens. Privacy Shield was invalidated because its reliance on US self-certification could not overcome these structural deficiencies. Standard Contractual Clauses (SCCs) remain a valid transfer mechanism, but exporters must now conduct Transfer Impact Assessments (TIAs) to verify that destination country law does not prevent SCCs from being effective. If the assessment reveals inadequate protection, transfers must stop or additional supplementary measures must be implemented. The ruling affects any transfer to countries without EU adequacy decisions, requiring organizations to assess surveillance laws globally. The EU-US Data Privacy Framework (2023) attempts to address Schrems II concerns, but its durability is uncertain.",
+      "legislationDate": "2020",
+      "legislationJurisdiction": [
         "eu"
       ],
-      "type": "privacy",
-      "government_access": "limited",
-      "data_protection": "strong",
+      "legislationLegalForce": "InForce",
+      "url": "https://curia.europa.eu/juris/liste.jsf?num=C-311/18",
+      "category": "privacy",
+      "governmentAccess": "limited",
+      "dataProtection": "strong",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "interprets"
         },
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "conflicts_with"
         },
         {
-          "id": "fisa-702",
+          "identifier": "fisa-702",
           "type": "conflicts_with"
         },
         {
-          "id": "eo-12333",
+          "identifier": "eo-12333",
           "type": "conflicts_with"
         },
         {
-          "id": "eu-us-dpf",
+          "identifier": "eu-us-dpf",
           "type": "succeeds"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection.",
-        "Organizations must now assess destination country surveillance laws before transferring personal data.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "Organizations transferring personal data internationally",
-        "Data exporters/importers using SCCs and safeguards",
-        "Supervisory authorities evaluating transfers"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "A CJEU judgment applied via supervisory authorities and courts when assessing international transfers."
-      }
+      "topics": ["privacy", "government-access", "surveillance"],
+      "tags": ["cjeu", "transfer-impact-assessment", "privacy-shield", "surveillance"],
+      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
+      "reviewStatus": "ai-generated"
     },
     {
-      "id": "eu-us-dpf",
+      "@type": "Legislation",
+      "identifier": "eu-us-dpf",
       "name": "EU-US DPF",
-      "full_name": "EU-US Data Privacy Framework",
-      "year": 2023,
-      "summary": "Adequacy decision enabling data transfers from EU to participating US companies. Established safeguards for US intelligence access and redress mechanisms for EU citizens. Successor to invalidated Privacy Shield.",
-      "url": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-transfers_en",
-      "scope": "bloc",
-      "applies_to": [
+      "alternateName": "EU-US Data Privacy Framework",
+      "description": "2023 adequacy decision enabling personal data transfers from EU to certified US companies, successor to invalidated Privacy Shield.",
+      "abstract": "The EU-US Data Privacy Framework is an adequacy decision allowing transfers to US companies that self-certify compliance with DPF principles. It addresses Schrems II concerns through Executive Order 14086, which limits US intelligence access and creates a Data Protection Review Court for EU citizens' complaints.",
+      "summary": "The EU-US Data Privacy Framework replaced Privacy Shield following its Schrems II invalidation. The framework rests on two pillars: (1) the DPF Principles that certified US companies must follow (similar to Privacy Shield), and (2) Executive Order 14086 which imposes constraints on US intelligence activities. EO 14086 limits signals intelligence to specified national security objectives, requires proportionality assessment, and creates a two-tier redress mechanism culminating in the Data Protection Review Court (DPRC) for EU citizens to challenge surveillance. Companies must self-certify through the Department of Commerce. However, the framework faces uncertainty: critics argue EO 14086's limitations are insufficient and can be modified by future presidents, FISA 702 and CLOUD Act powers remain intact, and the DPRC's independence is questioned. A Schrems III challenge is anticipated. Organizations should treat DPF as enabling certain transfers while maintaining awareness it may be invalidated, similar to its predecessors.",
+      "legislationDate": "2023",
+      "legislationJurisdiction": [
         "eu",
         "US"
       ],
-      "type": "privacy",
-      "government_access": "targeted",
-      "data_protection": "moderate",
+      "legislationLegalForce": "InForce",
+      "url": "https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/eu-us-data-transfers_en",
+      "category": "privacy",
+      "governmentAccess": "targeted",
+      "dataProtection": "moderate",
       "extraterritorial": true,
-      "requires_localization": false,
-      "requires_backdoor": false,
-      "related_laws": [
+      "requiresLocalization": false,
+      "requiresBackdoor": false,
+      "isRelatedTo": [
         {
-          "id": "gdpr",
+          "identifier": "gdpr",
           "type": "complements"
         },
         {
-          "id": "schrems-ii",
+          "identifier": "schrems-ii",
           "type": "complements"
         },
         {
-          "id": "cloud-act",
+          "identifier": "cloud-act",
           "type": "complements"
         }
       ],
-      "review_status": "ai-generated",
-      "what_it_does": [
-        "Adequacy decision enabling data transfers from EU to participating US companies.",
-        "Established safeguards for US intelligence access and redress mechanisms for EU citizens.",
-        "Enables targeted government access under warrants or court orders for specific investigations.",
-        "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-      ],
-      "who_it_applies_to": [
-        "EU data exporters",
-        "US companies self‑certifying under the framework",
-        "Oversight/redress bodies handling complaints"
-      ],
-      "key_provisions": [
-        {
-          "title": "Core scope",
-          "description": "Adequacy decision enabling data transfers from EU to participating US companies."
-        },
-        {
-          "title": "Key obligations",
-          "description": "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-        }
-      ],
-      "compliance_actions": [
-        "Assess whether you are in scope (by jurisdiction, entity type, and data flows).",
-        "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts).",
-        "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-      ],
-      "enforcement": {
-        "notes": "Operates as an adequacy framework with oversight and redress mechanisms; practical enforcement depends on participating bodies and complaint processes."
-      }
+      "topics": ["privacy", "data-protection"],
+      "tags": ["adequacy-decision", "transatlantic-data-flows", "self-certification", "eo-14086"],
+      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
+      "reviewStatus": "ai-generated"
     }
-  ],
-  "meta": {
-    "version": "2.1",
-    "updated": "2025-12-25",
-    "description": "Data sovereignty laws and regulations indexed by SovereignSky"
-  }
+  ]
 }

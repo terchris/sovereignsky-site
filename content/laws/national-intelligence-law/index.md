@@ -1,63 +1,51 @@
 ---
 title: "National Intelligence Law"
-law_id: "national-intelligence-law"
-full_name: "National Intelligence Law of the People's Republic of China"
-year: 2017
-scope: "national"
-applies_to:
+identifier: "national-intelligence-law"
+alternateName: "National Intelligence Law of the People's Republic of China"
+description: "Chinese law requiring all organizations and citizens to support, assist, and cooperate with state intelligence activities."
+abstract: "Article 7 states that organizations and citizens 'shall support, assist, and cooperate with state intelligence work.' This creates concerns that any Chinese company or technology must provide intelligence assistance when requested, effectively mandating potential backdoors in Chinese products and services."
+summary: "China's National Intelligence Law of 2017 is central to concerns about Chinese technology companies and data sovereignty. Article 7 requires all organizations and citizens to 'support, assist, and cooperate with state intelligence work' while Article 14 allows intelligence agencies to demand assistance. This creates inherent security concerns for any technology, software, or service originating from China: companies may be compelled to provide access or build backdoors without disclosure. The law applies extraterritorially to Chinese entities and citizens abroad. Combined with the Cybersecurity Law, Data Security Law, and PIPL, it forms a comprehensive framework where data protection coexists with broad state access requirements. For organizations assessing supply chain risk, the National Intelligence Law is a key factor when evaluating Chinese-origin technology."
+legislationDate: "2017"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/"
+legislationJurisdiction:
   - "CN"
-source_url: "https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/"
-law_type: "access"
-law_type_description: "Enables government or law enforcement data access"
-government_access: "broad"
-government_access_description: "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "access"
+categoryDescription: "Laws that enable government or law enforcement data access"
+governmentAccess: "broad"
+dataProtection: "none"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: true
-review_status: "ai-generated"
-what_it_does:
-  - "Organizations and citizens must support, assist and cooperate with national intelligence work."
-  - "This creates backdoor access concerns for any Chinese software."
-  - "May compel technical assistance such as decryption support or access enablement under legal process."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Organizations and citizens in China"
-  - "Companies operating in China"
-  - "Entities asked to provide assistance to intelligence work"
-key_provisions:
-  - title: "Core scope"
-    description: "Organizations and citizens must support, assist and cooperate with national intelligence work."
-  - title: "Key obligations"
-    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-enforcement:
-  notes: "Applies through Chinese state authorities; compelled assistance may be subject to secrecy requirements."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: true
+reviewStatus: "ai-generated"
+topics:
+  - "surveillance"
+  - "government-access"
+  - "supply-chain"
+tags:
+  - "intelligence"
+  - "state-access"
+  - "backdoor"
+  - "supply-chain-risk"
+audience:
+  - "humanitarian"
+  - "enterprise"
+  - "security"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "cybersecurity-law"
+    - identifier: "cybersecurity-law"
       name: "Cybersecurity Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "data-security-law"
+      legislationDate: "2017"
+    - identifier: "data-security-law"
       name: "Data Security Law"
-      year: 2021
-      flag: "🇨🇳"
-    - id: "pipl"
+      legislationDate: "2021"
+    - identifier: "pipl"
       name: "PIPL"
-      year: 2021
-      flag: "🇨🇳"
+      legislationDate: "2021"
 layout: "single"
 type: "laws"
 ---
 
-Organizations and citizens must support, assist and cooperate with national intelligence work. This creates backdoor access concerns for any Chinese software.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

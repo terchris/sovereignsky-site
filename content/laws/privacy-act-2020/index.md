@@ -1,47 +1,37 @@
 ---
 title: "Privacy Act 2020"
-law_id: "privacy-act-2020"
-full_name: "Privacy Act 2020"
-year: 2020
-scope: "national"
-applies_to:
+identifier: "privacy-act-2020"
+alternateName: "Privacy Act 2020"
+description: "New Zealand's modernized privacy law strengthening individual rights, requiring breach notification, and enhancing enforcement powers."
+abstract: "The Privacy Act 2020 replaced 1993 legislation to address digital-age challenges. It introduces mandatory breach notification, strengthens compliance notices and enforcement, adds cross-border disclosure requirements, and creates offenses for misleading agencies about individual requests."
+summary: "New Zealand's Privacy Act 2020 modernizes the 1993 framework for contemporary data practices. Key changes include: mandatory notification of privacy breaches likely to cause serious harm (within 72 hours to the Privacy Commissioner plus affected individuals); stronger enforcement through compliance notices that are legally binding; new criminal offenses for deliberately misleading agencies about individual information requests; and enhanced cross-border disclosure rules requiring reasonable belief that recipients will protect information to comparable standards. The thirteen Information Privacy Principles remain the core framework, covering collection, storage, access, correction, retention, and disclosure. The Privacy Commissioner can issue binding compliance notices, order agencies to pay damages, and refer matters for prosecution. New Zealand maintains EU adequacy, facilitating data flows. The law applies to agencies 'carrying on business' in New Zealand even if based elsewhere."
+legislationDate: "2020"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html"
+legislationJurisdiction:
   - "NZ"
-source_url: "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement."
-who_it_applies_to:
-  - "Agencies and organizations in New Zealand covered by the Act"
-  - "Organizations disclosing personal information overseas"
-  - "Entities subject to breach notification duties"
-key_provisions:
-  - title: "Core scope"
-    description: "Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "Office of the Privacy Commissioner (New Zealand)"
-  notes: "Enforced via investigations and compliance mechanisms; includes breach notification requirements."
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "breach-notification"
+  - "adequacy"
+  - "privacy-principles"
+audience:
+  - "enterprise"
+  - "it-ops"
 layout: "single"
 type: "laws"
 ---
 
-Updated New Zealand privacy law with mandatory breach notification and strengthened enforcement.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

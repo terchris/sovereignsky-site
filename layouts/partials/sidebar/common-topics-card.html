@@ -1,0 +1,29 @@
+{{/* Topics Card - looks up metadata from topics.json for icons */}}
+{{ with .Params.topics }}
+{{ $topicsList := site.Data.topics.topics.itemListElement | default (slice) }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "tag" "color" "secondary" "size" "4") }}
+      Topics
+    </h3>
+    <ul class="mt-2 space-y-1">
+      {{ range . }}
+      {{ $topicId := . }}
+      {{ $topic := dict }}
+      {{ range $topicsList }}
+        {{ if eq .identifier $topicId }}
+          {{ $topic = . }}
+        {{ end }}
+      {{ end }}
+      {{ $name := $topic.name | default ($topicId | humanize | title) }}
+      {{ $icon := $topic.icon | default "hash" }}
+      <li class="flex items-center gap-2 text-sm">
+        {{ partial "content-icon.html" (dict "name" $icon "size" "3") }}
+        {{ $name }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

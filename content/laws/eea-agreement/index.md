@@ -1,53 +1,42 @@
 ---
 title: "EEA Agreement"
-law_id: "eea-agreement"
-full_name: "Agreement on the European Economic Area"
-year: 1994
-scope: "bloc"
-applies_to:
+identifier: "eea-agreement"
+alternateName: "Agreement on the European Economic Area"
+description: "Treaty extending EU internal market rules, including data protection regulations, to Norway, Iceland, and Liechtenstein."
+abstract: "The EEA Agreement integrates EFTA states (except Switzerland) into the EU single market. Relevant EU legislation, including GDPR and other data protection rules, is incorporated into the EEA legal framework, ensuring equivalent protection across EEA countries."
+summary: "The EEA Agreement creates a legal framework for extending EU internal market rules to Iceland, Liechtenstein, and Norway. When the EU adopts new legislation affecting the single market, including data protection regulations like GDPR, these are incorporated into the EEA Agreement through a Joint Committee decision. This means GDPR applies throughout the EEA, not just the EU. For data protection purposes, transfers between EU and EEA countries are treated as internal transfers, not third-country transfers. The EFTA Surveillance Authority monitors compliance in EEA EFTA states, parallel to the European Commission's role in EU states."
+legislationDate: "1994"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.efta.int/eea/eea-agreement"
+legislationJurisdiction:
   - "eea"
-source_url: "https://www.efta.int/eea/eea-agreement"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Extends EU internal market to EFTA states (except Switzerland)."
-  - "Includes adoption of EU data protection laws."
-who_it_applies_to:
-  - "Organizations and service providers in scope"
-  - "Public authorities (where applicable)"
-  - "Individuals whose data/communications are affected"
-key_provisions:
-  - title: "Core scope"
-    description: "Extends EU internal market to EFTA states (except Switzerland)."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  notes: "Enforcement varies by jurisdiction and implementation; see the official text for details."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "data-protection"
+tags:
+  - "single-market"
+  - "efta"
+  - "data-transfers"
+  - "harmonization"
+audience:
+  - "enterprise"
+  - "public-sector"
+isRelatedTo:
   extends:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Extends EU internal market to EFTA states (except Switzerland). Includes adoption of EU data protection laws.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

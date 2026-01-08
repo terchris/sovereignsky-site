@@ -1,48 +1,37 @@
 ---
 title: "PIPA"
-law_id: "pipa"
-full_name: "Personal Information Protection Act"
-year: 2011
-scope: "national"
-applies_to:
+identifier: "pipa"
+alternateName: "Personal Information Protection Act"
+description: "South Korea's comprehensive data protection law with strong enforcement, individual rights, and strict cross-border transfer requirements."
+abstract: "Korea's PIPA provides robust individual rights and imposes strict requirements on personal information handlers. The Personal Information Protection Commission (PIPC) enforces compliance with significant fines. Cross-border transfers require consent and adequate safeguards. Korea has EU adequacy status."
+summary: "South Korea's Personal Information Protection Act provides comprehensive data protection with strong enforcement. The law applies broadly to public and private sector personal information handling. Key requirements include: specific purpose limitation, consent for collection (with strict standards for sensitive data), security measures commensurate with risk, and individual rights to access, correct, delete, and suspend processing. The Personal Information Protection Commission (PIPC) supervises compliance and can impose administrative fines up to 3% of relevant revenue plus criminal penalties for severe violations. Data breach notification is mandatory within 24 hours. Cross-border transfers require consent plus one of: adequacy determination, binding corporate rules, or PIPC-recognized certifications. Korea achieved EU adequacy in 2021. The law is notably stricter than some GDPR requirements, particularly around consent standards and data minimization."
+legislationDate: "2011"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.pipc.go.kr/eng/index.do"
+legislationJurisdiction:
   - "KR"
-source_url: "https://www.pipc.go.kr/eng/index.do"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Comprehensive Korean data protection law with strong enforcement and individual rights."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Organizations processing personal information in Korea"
-  - "Online services collecting/using personal data"
-  - "Data processors and vendors"
-key_provisions:
-  - title: "Core scope"
-    description: "Comprehensive Korean data protection law with strong enforcement and individual rights."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "Personal Information Protection Commission (PIPC, Korea)"
-  notes: "Enforced by the PIPC with strong powers and administrative sanctions."
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "adequacy"
+  - "consent"
+  - "strong-enforcement"
+audience:
+  - "enterprise"
+  - "it-ops"
 layout: "single"
 type: "laws"
 ---
 
-Comprehensive Korean data protection law with strong enforcement and individual rights.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

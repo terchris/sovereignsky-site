@@ -1,0 +1,66 @@
+{{/* Applies To Card - shows jurisdictions where the law applies */}}
+{{ $appliesTo := .Params.legislationJurisdiction | default (slice) }}
+
+{{ if gt (len $appliesTo) 0 }}
+{{/* Build lookup maps for regions and blocs */}}
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ end }}
+
+{{ $blocsById := dict }}
+{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ end }}
+
+{{/* Build applies-to items with metadata */}}
+{{ $appliesToItems := slice }}
+{{ range $appliesTo }}
+  {{ $id := . }}
+  {{ $name := $id }}
+  {{ $flag := "" }}
+  {{ $slug := "" }}
+
+  {{/* Check if it's a region (country) */}}
+  {{ $region := index $regionsById $id }}
+  {{ if $region }}
+    {{ $name = $region.name | default $id }}
+    {{ $flag = $region.flag | default "" }}
+    {{ $slug = $region.slug | default "" }}
+  {{ else }}
+    {{/* Check if it's a bloc */}}
+    {{ $bloc := index $blocsById $id }}
+    {{ if $bloc }}
+      {{ $name = $bloc.name | default $id }}
+      {{ $flag = $bloc.flag | default "" }}
+      {{ $slug = $bloc.slug | default "" }}
+    {{ end }}
+  {{ end }}
+
+  {{ $appliesToItems = $appliesToItems | append (dict "id" $id "name" $name "flag" $flag "slug" $slug) }}
+{{ end }}
+
+{{ if gt (len $appliesToItems) 0 }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "flag" "color" "accent" "size" "4") }}
+      Applies To
+    </h3>
+    <ul class="space-y-1 mt-2">
+      {{ range $appliesToItems }}
+      <li>
+        {{ if .slug }}
+        <a href="/jurisdictions/{{ .slug }}/" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
+          {{ if .flag }}{{ .flag }}{{ end }} {{ .name }}
+        </a>
+        {{ else }}
+        <span class="text-sm">{{ if .flag }}{{ .flag }}{{ end }} {{ .name }}</span>
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}
+{{ end }}

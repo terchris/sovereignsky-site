@@ -1,62 +1,49 @@
 ---
 title: "Cybersecurity Law"
-law_id: "cybersecurity-law"
-full_name: "Cybersecurity Law of the People's Republic of China"
-year: 2017
-scope: "national"
-applies_to:
+identifier: "cybersecurity-law"
+alternateName: "Cybersecurity Law of the People's Republic of China"
+description: "Chinese law establishing data localization requirements for critical infrastructure operators and security review processes."
+abstract: "The Cybersecurity Law requires critical information infrastructure operators to store personal information and important data within China. Cross-border transfers require security assessments. Network operators must assist public security with technical support and decryption capabilities."
+summary: "China's Cybersecurity Law of 2017 establishes foundational requirements for network security. Critical Information Infrastructure Operators (CIIOs) in sectors like telecoms, energy, transport, and finance must localize personal information and 'important data' collected in China. Cross-border transfers require government security assessments. Network products and services used by CIIOs must undergo security reviews. The law requires network operators to maintain logs for at least six months and provide technical support to public security organs for investigations. Real-name registration is required for online accounts. The law's broad definitions and vague language create compliance uncertainty. Combined with the National Intelligence Law, it means Chinese network operators must both assist intelligence work and implement technical capabilities for lawful access."
+legislationDate: "2017"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.chinalawtranslate.com/en/cybersecuritylaw/"
+legislationJurisdiction:
   - "CN"
-source_url: "https://www.chinalawtranslate.com/en/cybersecuritylaw/"
-law_type: "localization"
-law_type_description: "Requires data to be stored within jurisdiction"
-government_access: "broad"
-government_access_description: "Bulk collection, minimal oversight, backdoor requirements, or extraterritorial compulsion"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "localization"
+categoryDescription: "Laws that require data to be stored within jurisdiction"
+governmentAccess: "broad"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: true
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Data localization requirements, security reviews, and network operator obligations for critical infrastructure."
-  - "May require certain categories of data to be stored or processed within the jurisdiction."
-  - "Enables broad government access to data under national security or law‑enforcement powers."
-who_it_applies_to:
-  - "Network operators in China"
-  - "Critical information infrastructure operators"
-  - "Providers handling personal/important data"
-key_provisions:
-  - title: "Core scope"
-    description: "Data localization requirements, security reviews, and network operator obligations for critical infrastructure."
-  - title: "Key obligations"
-    description: "Creates residency/local storage requirements for certain data categories and may restrict cross‑border transfers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Implement data residency controls and verify vendor/subprocessor locations."
-enforcement:
-  notes: "Enforced by Chinese regulators; includes security reviews and localization obligations for certain operators."
-related_laws:
+requiresLocalization: true
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "cybersecurity"
+  - "digital-sovereignty"
+  - "critical-infrastructure"
+tags:
+  - "data-localization"
+  - "critical-infrastructure"
+  - "security-review"
+  - "real-name-registration"
+audience:
+  - "enterprise"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "national-intelligence-law"
+    - identifier: "national-intelligence-law"
       name: "National Intelligence Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "data-security-law"
+      legislationDate: "2017"
+    - identifier: "data-security-law"
       name: "Data Security Law"
-      year: 2021
-      flag: "🇨🇳"
-    - id: "pipl"
+      legislationDate: "2021"
+    - identifier: "pipl"
       name: "PIPL"
-      year: 2021
-      flag: "🇨🇳"
+      legislationDate: "2021"
 layout: "single"
 type: "laws"
 ---
 
-Data localization requirements, security reviews, and network operator obligations for critical infrastructure.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

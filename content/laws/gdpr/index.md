@@ -1,131 +1,112 @@
 ---
 title: "GDPR"
-law_id: "gdpr"
-full_name: "General Data Protection Regulation"
-year: 2018
-scope: "bloc"
-applies_to:
+identifier: "gdpr"
+alternateName: "General Data Protection Regulation"
+description: "EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement."
+abstract: "The GDPR establishes strict requirements for processing personal data of EU residents. It requires a lawful basis for all processing, grants individuals rights to access, correct, delete and port their data, and imposes significant penalties up to 4% of global turnover for violations."
+summary: "The GDPR is the world's most influential data protection regulation. It applies to any organization processing personal data of EU residents, regardless of where the organization is located. Key requirements include obtaining a lawful basis before processing (consent, contract, legal obligation, vital interests, public task, or legitimate interests), implementing data protection by design, appointing Data Protection Officers for large-scale processing, conducting impact assessments for high-risk activities, and reporting breaches within 72 hours. The regulation creates direct tension with US surveillance laws like CLOUD Act, FISA 702, and EO 12333, which can compel disclosure of data that GDPR protects."
+legislationDate: "2018"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Comprehensive data protection law giving individuals control over their personal data."
-  - "Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Data controllers"
-  - "Data processors"
-  - "Organizations processing EU personal data (including outside the EU)"
-key_provisions:
-  - title: "Core scope"
-    description: "Comprehensive data protection law giving individuals control over their personal data."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "Independent Data Protection Authorities (DPAs) in each member state"
-  notes: "Enforcement and interpretations vary by authority; major cases often set de facto market standards."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "data-protection"
+  - "privacy"
+tags:
+  - "personal-data"
+  - "individual-rights"
+audience:
+  - "humanitarian"
+  - "enterprise"
+  - "public-sector"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "eprivacy"
+    - identifier: "eprivacy"
       name: "ePrivacy Directive"
-      year: 2002
+      legislationDate: "2002"
       flag: "🇪🇺"
-    - id: "led"
+    - identifier: "led"
       name: "LED"
-      year: 2016
+      legislationDate: "2016"
       flag: "🇪🇺"
-    - id: "schrems-ii"
+    - identifier: "schrems-ii"
       name: "Schrems II"
-      year: 2020
+      legislationDate: "2020"
       flag: "🇪🇺"
-    - id: "data-act"
+    - identifier: "data-act"
       name: "Data Act"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "ai-act"
+    - identifier: "ai-act"
       name: "AI Act"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "nis2"
+    - identifier: "nis2"
       name: "NIS2 Directive"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "dsa"
+    - identifier: "dsa"
       name: "DSA"
-      year: 2022
+      legislationDate: "2022"
       flag: "🇪🇺"
-    - id: "dma"
+    - identifier: "dma"
       name: "DMA"
-      year: 2022
+      legislationDate: "2022"
       flag: "🇪🇺"
-    - id: "dga"
+    - identifier: "dga"
       name: "DGA"
-      year: 2022
+      legislationDate: "2022"
       flag: "🇪🇺"
-    - id: "fadp"
+    - identifier: "fadp"
       name: "FADP"
-      year: 2023
-      flag: "🇨🇭"
-    - id: "eu-us-dpf"
+      legislationDate: "2023"
+    - identifier: "eu-us-dpf"
       name: "EU-US DPF"
-      year: 2023
+      legislationDate: "2023"
       flag: "🇪🇺"
   conflicts_with:
-    - id: "cloud-act"
+    - identifier: "cloud-act"
       name: "CLOUD Act"
-      year: 2018
-      flag: "🇺🇸"
-    - id: "fisa-702"
+      legislationDate: "2018"
+    - identifier: "fisa-702"
       name: "FISA Section 702"
-      year: 2008
-      flag: "🇺🇸"
-    - id: "eo-12333"
+      legislationDate: "2008"
+    - identifier: "eo-12333"
       name: "EO 12333"
-      year: 1981
-      flag: "🇺🇸"
+      legislationDate: "1981"
   extended_by:
-    - id: "eea-agreement"
+    - identifier: "eea-agreement"
       name: "EEA Agreement"
-      year: 1994
+      legislationDate: "1994"
       flag: "🇪🇺"
   implemented_by:
-    - id: "personopplysningsloven"
+    - identifier: "personopplysningsloven"
       name: "Personopplysningsloven"
-      year: 2018
-      flag: "🇳🇴"
-    - id: "bdsg"
+      legislationDate: "2018"
+    - identifier: "bdsg"
       name: "BDSG"
-      year: 2018
-      flag: "🇩🇪"
-    - id: "uk-gdpr"
+      legislationDate: "2018"
+    - identifier: "uk-gdpr"
       name: "UK GDPR"
-      year: 2021
-      flag: "🇬🇧"
+      legislationDate: "2021"
   interpreted_by:
-    - id: "schrems-ii"
+    - identifier: "schrems-ii"
       name: "Schrems II"
-      year: 2020
+      legislationDate: "2020"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Comprehensive data protection law giving individuals control over their personal data. Requires lawful basis for processing, data minimization, and grants rights including access, erasure, and portability.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

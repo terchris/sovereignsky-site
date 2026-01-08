@@ -27,6 +27,12 @@ audience:
   - "humanitarian"
   - "public-sector"
   - "enterprise"
+tags:
+  - "digital-platforms"
+  - "power-relations"
+  - "platform-dependency"
+  - "biometric-data"
+  - "blockchain-payments"
 type: publications
 ---
 

@@ -1,5 +1,39 @@
 {{ define "main" }}
-<article class="max-w-full">
+{{/* Build lookup maps */}}
+{{ $lawTypes := dict }}
+{{ range site.Data.laws.law_types.itemListElement }}
+  {{ $lawTypes = merge $lawTypes (dict .identifier .) }}
+{{ end }}
+
+{{ $jurisdictionLookup := dict }}
+{{ range site.Data.jurisdictions.blocs }}
+  {{ $jurisdictionLookup = merge $jurisdictionLookup (dict .id .) }}
+{{ end }}
+{{ range site.Data.jurisdictions.countries }}
+  {{ $jurisdictionLookup = merge $jurisdictionLookup (dict .id .) }}
+{{ end }}
+
+{{/* Category badge styling */}}
+{{ $categoryColors := dict
+  "privacy" "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border-green-300 dark:border-green-700"
+  "access" "bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 border-orange-300 dark:border-orange-700"
+  "surveillance" "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border-red-300 dark:border-red-700"
+  "localization" "bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 border-blue-300 dark:border-blue-700"
+  "security" "bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 border-purple-300 dark:border-purple-700"
+  "sector" "bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-600"
+}}
+
+{{ $categoryEmoji := dict
+  "privacy" "🛡️"
+  "access" "🔓"
+  "surveillance" "👁️"
+  "localization" "📍"
+  "security" "🔒"
+  "sector" "📋"
+}}
+
+<div class="max-w-full" id="laws-app">
+
   {{/* Section Header */}}
   {{ partial "section-header.html" (dict
       "title" .Title
@@ -7,187 +41,380 @@
       "icon" "scale"
   ) }}
 
-  <section class="flex flex-col max-w-full mt-0">
-    <div class="min-w-0 min-h-0 max-w-full">
-      {{/* Stats cards */}}
-      {{ $total := len (where site.RegularPages "Section" "laws") }}
-      <div class="not-prose my-6">
-        <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
-          <div class="stat">
-            <div class="stat-figure text-primary">
-              {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "8") }}
-            </div>
-            <div class="stat-title">Laws Documented</div>
-            <div class="stat-value text-primary">{{ $total }}</div>
-            <div class="stat-desc">Legal frameworks</div>
-          </div>
-          <div class="stat">
-            <div class="stat-figure text-error">
-              {{ partial "content-icon.html" (dict "name" "globe" "color" "error" "size" "8") }}
-            </div>
-            <div class="stat-title">Extraterritorial Reach</div>
-            <div class="stat-value text-error">12</div>
-            <div class="stat-desc">Cross-border scope</div>
-          </div>
-          <div class="stat">
-            <div class="stat-figure text-warning">
-              {{ partial "content-icon.html" (dict "name" "eye" "color" "warning" "size" "8") }}
-            </div>
-            <div class="stat-title">Government Access</div>
-            <div class="stat-value text-warning">8</div>
-            <div class="stat-desc">Data access powers</div>
-          </div>
+  {{/* Stats cards */}}
+  {{ $total := len .Pages }}
+  {{ $extraterritorial := 0 }}
+  {{ $govAccess := 0 }}
+  {{ range .Pages }}
+    {{ if .Params.extraterritorial }}{{ $extraterritorial = add $extraterritorial 1 }}{{ end }}
+    {{ if and .Params.governmentAccess (ne .Params.governmentAccess "none") }}{{ $govAccess = add $govAccess 1 }}{{ end }}
+  {{ end }}
+
+  <div class="not-prose my-6">
+    <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "8") }}
         </div>
+        <div class="stat-title">Laws Documented</div>
+        <div class="stat-value text-primary">{{ $total }}</div>
+        <div class="stat-desc">Legal frameworks</div>
       </div>
-
-      {{/* Laws search (client-side) */}}
-      {{ $laws := site.Data.laws.laws.laws | default (slice) }}
-      {{ $items := slice }}
-      {{ range $laws }}
-        {{ $items = $items | append (dict
-          "id" .id
-          "name" .name
-          "full_name" (.full_name | default "")
-          "year" (.year | default 0)
-          "type" (.type | default "")
-          "scope" (.scope | default "")
-          "applies_to" (.applies_to | default (slice))
-        ) }}
-      {{ end }}
-
-      <div class="not-prose mt-6 mb-8">
-        <div class="p-4 rounded-lg bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700">
-          <div class="flex flex-wrap items-center gap-3">
-            <div class="flex-1 min-w-[240px]">
-              <label for="laws-search-input" class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Search laws</label>
-              <input
-                id="laws-search-input"
-                type="search"
-                placeholder="Search by name (e.g., GDPR, CLOUD Act, NIS2)…"
-                autocomplete="off"
-                class="mt-1 w-full px-3 py-2 rounded border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
-            </div>
-            <div class="flex items-end gap-2">
-              <button
-                id="laws-search-clear"
-                type="button"
-                class="px-3 py-2 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-              >
-                Clear
-              </button>
-            </div>
-            <div class="ml-auto text-sm text-neutral-600 dark:text-neutral-300" id="laws-search-summary"></div>
-          </div>
-
-          <div class="mt-3">
-            <div class="text-xs text-neutral-500 dark:text-neutral-400">Matches</div>
-            <div id="laws-search-results" class="mt-2 flex flex-wrap gap-2"></div>
-            <div id="laws-search-empty" class="mt-2 text-sm text-neutral-500 dark:text-neutral-400 hidden">No matches.</div>
-          </div>
+      <div class="stat">
+        <div class="stat-figure text-error">
+          {{ partial "content-icon.html" (dict "name" "globe" "color" "error" "size" "8") }}
         </div>
-
-        <script type="application/json" id="laws-search-data">{{ $items | jsonify | safeHTML }}</script>
-        <script>
-          (function () {
-            function readJsonScript(id, fallback) {
-              var el = document.getElementById(id);
-              if (!el) return fallback;
-              try {
-                var v = JSON.parse(el.textContent || 'null');
-                if (typeof v === 'string') {
-                  try { return JSON.parse(v); } catch (e2) { return v; }
-                }
-                return v;
-              } catch (e) {
-                return fallback;
-              }
-            }
-
-            var input = document.getElementById('laws-search-input');
-            var clearBtn = document.getElementById('laws-search-clear');
-            var resultsEl = document.getElementById('laws-search-results');
-            var emptyEl = document.getElementById('laws-search-empty');
-            var summaryEl = document.getElementById('laws-search-summary');
-            var data = readJsonScript('laws-search-data', []);
-
-            if (!input || !resultsEl) return;
-
-            function norm(s) { return String(s || '').toLowerCase(); }
-
-            function lawSearchText(law) {
-              var parts = [];
-              parts.push(law.id);
-              parts.push(law.name);
-              parts.push(law.full_name);
-              parts.push(law.type);
-              parts.push(law.scope);
-              (law.applies_to || []).forEach(function (a) { parts.push(a); });
-              return norm(parts.join(' '));
-            }
-
-            var indexed = (data || []).map(function (l) {
-              return Object.assign({}, l, { _q: lawSearchText(l) });
-            });
-
-            function render(items, query) {
-              resultsEl.innerHTML = '';
-              if (summaryEl) summaryEl.textContent = query ? (items.length + ' match' + (items.length === 1 ? '' : 'es')) : '';
-              if (!items.length) {
-                if (emptyEl) emptyEl.classList.remove('hidden');
-                return;
-              }
-              if (emptyEl) emptyEl.classList.add('hidden');
-              items.forEach(function (law) {
-                var a = document.createElement('a');
-                a.href = '/laws/' + law.id + '/';
-                a.className = 'inline-flex items-center gap-2 no-underline px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm';
-                var name = document.createElement('span');
-                name.className = 'font-medium';
-                name.textContent = law.name || law.id;
-                a.appendChild(name);
-                if (law.year) {
-                  var year = document.createElement('span');
-                  year.className = 'text-neutral-500 dark:text-neutral-400';
-                  year.textContent = '(' + law.year + ')';
-                  a.appendChild(year);
-                }
-                resultsEl.appendChild(a);
-              });
-            }
-
-            function update() {
-              var q = norm(input.value || '').trim();
-              if (!q) { render([], ''); return; }
-              var out = indexed.filter(function (law) { return law._q.indexOf(q) !== -1; }).slice(0, 20);
-              render(out, q);
-            }
-
-            input.addEventListener('input', update);
-            input.addEventListener('keydown', function (e) {
-              if (e.key === 'Escape') {
-                input.value = '';
-                update();
-                input.blur();
-              }
-            });
-            if (clearBtn) {
-              clearBtn.addEventListener('click', function () {
-                input.value = '';
-                update();
-                input.focus();
-              });
-            }
-
-            render([], '');
-          })();
-        </script>
+        <div class="stat-title">Extraterritorial Reach</div>
+        <div class="stat-value text-error">{{ $extraterritorial }}</div>
+        <div class="stat-desc">Cross-border scope</div>
       </div>
-
-      <div class="article-content prose dark:prose-invert max-w-none mb-20">
-        {{ .Content }}
+      <div class="stat">
+        <div class="stat-figure text-warning">
+          {{ partial "content-icon.html" (dict "name" "eye" "color" "warning" "size" "8") }}
+        </div>
+        <div class="stat-title">Government Access</div>
+        <div class="stat-value text-warning">{{ $govAccess }}</div>
+        <div class="stat-desc">Data access powers</div>
       </div>
     </div>
-  </section>
-</article>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="mb-6 space-y-4">
+    <!-- Search Box -->
+    <div class="relative">
+      <input
+        type="text"
+        id="laws-search"
+        placeholder="Search laws by name, jurisdiction, or description..."
+        class="w-full px-4 py-3 pl-10 border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-base"
+      >
+      <svg class="absolute h-5 w-5 text-neutral-400" style="left: 12px; top: 50%; transform: translateY(-50%);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg space-y-3">
+      <!-- Category Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-28">Category:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn category-filter active" data-filter="category" data-value="all">All</button>
+          {{ range site.Data.laws.law_types.itemListElement }}
+          <button class="filter-btn category-filter" data-filter="category" data-value="{{ .identifier }}">{{ .emoji }} {{ .name }}</button>
+          {{ end }}
+        </div>
+      </div>
+
+      <!-- Jurisdiction Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-28">Jurisdiction:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn jurisdiction-filter active" data-filter="jurisdiction" data-value="all">All</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="eu">🇪🇺 EU</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="US">🇺🇸 USA</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="GB">🇬🇧 UK</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="NO">🇳🇴 Norway</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="CN">🇨🇳 China</button>
+          <button class="filter-btn jurisdiction-filter" data-filter="jurisdiction" data-value="RU">🇷🇺 Russia</button>
+        </div>
+      </div>
+
+      <!-- Features Filter -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-28">Features:</span>
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn feature-filter" data-filter="extraterritorial" data-value="true">🌍 Extraterritorial</button>
+          <button class="filter-btn feature-filter" data-filter="localization" data-value="true">📍 Requires Localization</button>
+          <button class="filter-btn feature-filter" data-filter="backdoor" data-value="true">🔑 Requires Backdoor</button>
+        </div>
+      </div>
+
+      <!-- Clear Filters -->
+      <div id="active-filters" class="hidden flex items-center gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+        <span class="text-sm text-neutral-500 dark:text-neutral-400">Active filters:</span>
+        <div id="filter-tags" class="flex flex-wrap gap-1"></div>
+        <button id="clear-filters" class="text-sm text-primary-600 dark:text-primary-400 hover:underline ml-2">Clear all</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results count -->
+  <div class="flex justify-between items-center mb-4">
+    <div class="text-sm text-neutral-600 dark:text-neutral-400">
+      Showing <span id="showing-count">{{ $total }}</span> of <span id="total-count">{{ $total }}</span> laws
+    </div>
+  </div>
+
+  <!-- Laws Grid -->
+  <div id="laws-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    {{ range .Pages }}
+      {{ $category := .Params.category | default "privacy" }}
+      {{ $categoryInfo := index $lawTypes $category }}
+      {{ $colorClass := index $categoryColors $category | default (index $categoryColors "sector") }}
+      {{ $emoji := index $categoryEmoji $category | default "📋" }}
+      {{ $jurisdictions := .Params.legislationJurisdiction | default (slice) }}
+      {{ $firstJurisdiction := index $jurisdictions 0 | default "" }}
+
+      <article
+        class="law-card overflow-hidden rounded-lg border-2 {{ $colorClass }} bg-white dark:bg-neutral-900 hover:shadow-lg transition-all"
+        data-identifier="{{ .Params.identifier }}"
+        data-category="{{ $category }}"
+        data-jurisdictions="{{ delimit $jurisdictions "," }}"
+        data-extraterritorial="{{ .Params.extraterritorial | default false }}"
+        data-localization="{{ .Params.requiresLocalization | default false }}"
+        data-backdoor="{{ .Params.requiresBackdoor | default false }}"
+        data-name="{{ .Title }}"
+        data-alternatename="{{ .Params.alternateName | default "" }}"
+        data-description="{{ .Params.description | default "" }}"
+        data-year="{{ .Params.legislationDate | default "" }}"
+      >
+        <a href="{{ .RelPermalink }}" class="block p-3 no-underline">
+          {{/* Header with emoji and year */}}
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-lg">{{ $emoji }}</span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ .Params.legislationDate }}</span>
+          </div>
+
+          {{/* Title */}}
+          <h2 class="font-semibold text-base text-neutral-900 dark:text-neutral-100 leading-tight mb-1">{{ .Title }}</h2>
+
+          {{/* Alternate name (short) */}}
+          {{ with .Params.alternateName }}
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 truncate mb-2">{{ . }}</div>
+          {{ end }}
+
+          {{/* Jurisdiction flags */}}
+          <div class="flex items-center gap-1 mb-2">
+            {{ range $jurisdictions }}
+              {{ $j := index $jurisdictionLookup . }}
+              {{ if $j }}
+                <span class="text-sm" title="{{ $j.name }}">{{ $j.flag }}</span>
+              {{ else }}
+                <span class="text-xs px-1.5 py-0.5 bg-neutral-200 dark:bg-neutral-700 rounded">{{ . }}</span>
+              {{ end }}
+            {{ end }}
+          </div>
+
+          {{/* Feature badges */}}
+          <div class="flex flex-wrap gap-1 text-xs">
+            {{ if .Params.extraterritorial }}
+            <span class="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 rounded">🌍 Extraterritorial</span>
+            {{ end }}
+            {{ if .Params.requiresLocalization }}
+            <span class="px-1.5 py-0.5 bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 rounded">📍 Localization</span>
+            {{ end }}
+            {{ if .Params.requiresBackdoor }}
+            <span class="px-1.5 py-0.5 bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 rounded">🔑 Backdoor</span>
+            {{ end }}
+            {{ if and .Params.governmentAccess (ne .Params.governmentAccess "none") }}
+            <span class="px-1.5 py-0.5 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300 rounded">👁️ Gov Access</span>
+            {{ end }}
+          </div>
+        </a>
+      </article>
+    {{ end }}
+  </div>
+
+  <!-- No results -->
+  <div id="no-results" class="hidden text-center py-12 text-neutral-500 dark:text-neutral-400">
+    <p class="text-lg mb-2">No laws match your filters.</p>
+    <p class="text-sm">Try adjusting your filters or search terms.</p>
+  </div>
+
+</div>
+
+<style>
+.filter-btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgb(212, 212, 212);
+  background-color: white;
+  color: rgb(64, 64, 64);
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.dark .filter-btn {
+  border-color: rgb(82, 82, 82);
+  background-color: rgb(23, 23, 23);
+  color: rgb(212, 212, 212);
+}
+.filter-btn:hover {
+  border-color: rgb(var(--color-primary-500));
+  color: rgb(var(--color-primary-600));
+}
+.dark .filter-btn:hover {
+  color: rgb(var(--color-primary-400));
+}
+.filter-btn.active {
+  background-color: rgb(var(--color-primary-500));
+  border-color: rgb(var(--color-primary-500));
+  color: white;
+}
+.law-card.hidden {
+  display: none;
+}
+</style>
+
+<script>
+(function() {
+  let filters = { category: 'all', jurisdiction: 'all', extraterritorial: 'all', localization: 'all', backdoor: 'all', search: '' };
+
+  const grid = document.getElementById('laws-grid');
+  const searchInput = document.getElementById('laws-search');
+  const noResults = document.getElementById('no-results');
+  const showingCount = document.getElementById('showing-count');
+  const totalCount = document.getElementById('total-count');
+  const activeFiltersDiv = document.getElementById('active-filters');
+  const filterTags = document.getElementById('filter-tags');
+
+  const allCards = Array.from(grid.querySelectorAll('.law-card'));
+
+  function init() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('category')) filters.category = params.get('category');
+    if (params.get('jurisdiction')) filters.jurisdiction = params.get('jurisdiction');
+    if (params.get('q')) {
+      filters.search = params.get('q');
+      searchInput.value = filters.search;
+    }
+    updateFilterButtons();
+    applyFilters();
+    setupEventListeners();
+  }
+
+  function setupEventListeners() {
+    let searchTimeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        filters.search = e.target.value.toLowerCase();
+        applyFilters();
+        updateURL();
+      }, 300);
+    });
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filterType = btn.dataset.filter;
+        const value = btn.dataset.value;
+
+        if (filterType === 'category') {
+          filters.category = value;
+          document.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else if (filterType === 'jurisdiction') {
+          filters.jurisdiction = value;
+          document.querySelectorAll('.jurisdiction-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else if (filterType === 'extraterritorial' || filterType === 'localization' || filterType === 'backdoor') {
+          if (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+            filters[filterType] = 'all';
+          } else {
+            btn.classList.add('active');
+            filters[filterType] = value;
+          }
+        }
+
+        applyFilters();
+        updateURL();
+      });
+    });
+
+    document.getElementById('clear-filters').addEventListener('click', () => {
+      filters = { category: 'all', jurisdiction: 'all', extraterritorial: 'all', localization: 'all', backdoor: 'all', search: '' };
+      searchInput.value = '';
+      updateFilterButtons();
+      applyFilters();
+      updateURL();
+    });
+  }
+
+  function updateFilterButtons() {
+    document.querySelectorAll('.category-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.category);
+    });
+    document.querySelectorAll('.jurisdiction-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.value === filters.jurisdiction);
+    });
+    document.querySelectorAll('.feature-filter').forEach(btn => {
+      const filterType = btn.dataset.filter;
+      btn.classList.toggle('active', filters[filterType] === btn.dataset.value);
+    });
+  }
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    allCards.forEach(card => {
+      const category = card.dataset.category;
+      const jurisdictions = card.dataset.jurisdictions.split(',');
+      const extraterritorial = card.dataset.extraterritorial;
+      const localization = card.dataset.localization;
+      const backdoor = card.dataset.backdoor;
+      const name = card.dataset.name.toLowerCase();
+      const alternateName = card.dataset.alternatename.toLowerCase();
+      const description = card.dataset.description.toLowerCase();
+      const year = card.dataset.year;
+
+      let visible = true;
+
+      if (filters.category !== 'all' && category !== filters.category) visible = false;
+      if (filters.jurisdiction !== 'all' && !jurisdictions.includes(filters.jurisdiction)) visible = false;
+      if (filters.extraterritorial === 'true' && extraterritorial !== 'true') visible = false;
+      if (filters.localization === 'true' && localization !== 'true') visible = false;
+      if (filters.backdoor === 'true' && backdoor !== 'true') visible = false;
+
+      if (filters.search) {
+        const searchStr = `${name} ${alternateName} ${description} ${year} ${jurisdictions.join(' ')}`;
+        if (!searchStr.includes(filters.search)) visible = false;
+      }
+
+      card.classList.toggle('hidden', !visible);
+      if (visible) visibleCount++;
+    });
+
+    totalCount.textContent = allCards.length;
+    showingCount.textContent = visibleCount;
+    noResults.classList.toggle('hidden', visibleCount > 0);
+    updateActiveFiltersDisplay();
+  }
+
+  function updateActiveFiltersDisplay() {
+    const hasActiveFilters = filters.category !== 'all' || filters.jurisdiction !== 'all' ||
+                              filters.extraterritorial !== 'all' || filters.localization !== 'all' ||
+                              filters.backdoor !== 'all' || filters.search;
+    activeFiltersDiv.classList.toggle('hidden', !hasActiveFilters);
+
+    if (hasActiveFilters) {
+      let tags = '';
+      if (filters.search) tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">Search: "${filters.search}"</span>`;
+      if (filters.category !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.category}</span>`;
+      if (filters.jurisdiction !== 'all') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">${filters.jurisdiction}</span>`;
+      if (filters.extraterritorial === 'true') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">🌍 Extraterritorial</span>`;
+      if (filters.localization === 'true') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">📍 Localization</span>`;
+      if (filters.backdoor === 'true') tags += `<span class="px-2 py-0.5 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 text-xs rounded-full">🔑 Backdoor</span>`;
+      filterTags.innerHTML = tags;
+    }
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (filters.category !== 'all') params.set('category', filters.category);
+    if (filters.jurisdiction !== 'all') params.set('jurisdiction', filters.jurisdiction);
+    if (filters.search) params.set('q', filters.search);
+    const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 {{ end }}

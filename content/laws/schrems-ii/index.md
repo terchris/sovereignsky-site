@@ -1,81 +1,70 @@
 ---
 title: "Schrems II"
-law_id: "schrems-ii"
-full_name: "Data Protection Commissioner v Facebook Ireland Limited and Maximillian Schrems (Case C-311/18)"
-year: 2020
-scope: "bloc"
-applies_to:
+identifier: "schrems-ii"
+alternateName: "Data Protection Commissioner v Facebook Ireland Limited and Maximillian Schrems (Case C-311/18)"
+description: "Landmark 2020 CJEU ruling that invalidated EU-US Privacy Shield and imposed strict requirements for international data transfers."
+abstract: "The Court of Justice of the European Union ruled that US surveillance laws (particularly FISA 702 and EO 12333) provide insufficient protection for EU personal data. Privacy Shield was invalidated. Standard Contractual Clauses remain valid but require case-by-case assessment of destination country protections."
+summary: "The Schrems II judgment fundamentally changed international data transfer law. The CJEU found that US surveillance practices under FISA 702 and EO 12333 do not meet EU standards for data protection—specifically, they lack proportionality, independent oversight, and effective judicial remedies for EU citizens. Privacy Shield was invalidated because its reliance on US self-certification could not overcome these structural deficiencies. Standard Contractual Clauses (SCCs) remain a valid transfer mechanism, but exporters must now conduct Transfer Impact Assessments (TIAs) to verify that destination country law does not prevent SCCs from being effective. If the assessment reveals inadequate protection, transfers must stop or additional supplementary measures must be implemented. The ruling affects any transfer to countries without EU adequacy decisions, requiring organizations to assess surveillance laws globally. The EU-US Data Privacy Framework (2023) attempts to address Schrems II concerns, but its durability is uncertain."
+legislationDate: "2020"
+legislationLegalForce: "InForce"
+sourceUrl: "https://curia.europa.eu/juris/liste.jsf?num=C-311/18"
+legislationJurisdiction:
   - "eu"
-source_url: "https://curia.europa.eu/juris/liste.jsf?num=C-311/18"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection."
-  - "Organizations must now assess destination country surveillance laws before transferring personal data."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Organizations transferring personal data internationally"
-  - "Data exporters/importers using SCCs and safeguards"
-  - "Supervisory authorities evaluating transfers"
-key_provisions:
-  - title: "Core scope"
-    description: "Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  notes: "A CJEU judgment applied via supervisory authorities and courts when assessing international transfers."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "government-access"
+  - "surveillance"
+tags:
+  - "cjeu"
+  - "transfer-impact-assessment"
+  - "privacy-shield"
+  - "surveillance"
+audience:
+  - "humanitarian"
+  - "enterprise"
+  - "public-sector"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
-    - id: "eu-us-dpf"
+    - identifier: "eu-us-dpf"
       name: "EU-US DPF"
-      year: 2023
+      legislationDate: "2023"
       flag: "🇪🇺"
   conflicts_with:
-    - id: "cloud-act"
+    - identifier: "cloud-act"
       name: "CLOUD Act"
-      year: 2018
-      flag: "🇺🇸"
-    - id: "fisa-702"
+      legislationDate: "2018"
+    - identifier: "fisa-702"
       name: "FISA Section 702"
-      year: 2008
-      flag: "🇺🇸"
-    - id: "eo-12333"
+      legislationDate: "2008"
+    - identifier: "eo-12333"
       name: "EO 12333"
-      year: 1981
-      flag: "🇺🇸"
+      legislationDate: "1981"
   interprets:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
   succeeds:
-    - id: "eu-us-dpf"
+    - identifier: "eu-us-dpf"
       name: "EU-US DPF"
-      year: 2023
+      legislationDate: "2023"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Landmark CJEU ruling that invalidated the EU-US Privacy Shield and imposed strict requirements on data transfers to countries without adequate protection. Organizations must now assess destination country surveillance laws before transferring personal data.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

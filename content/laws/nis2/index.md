@@ -1,61 +1,51 @@
 ---
 title: "NIS2 Directive"
-law_id: "nis2"
-full_name: "Directive on measures for a high common level of cybersecurity across the Union"
-year: 2024
-scope: "bloc"
-applies_to:
+identifier: "nis2"
+alternateName: "Directive on measures for a high common level of cybersecurity across the Union"
+description: "EU directive mandating cybersecurity requirements for essential and important entities across critical sectors."
+abstract: "NIS2 significantly expands the scope of the original NIS Directive to cover more sectors and entity types. It requires organizations to implement risk management measures, report significant incidents within 24 hours, secure their supply chains, and ensure management bodies are trained and accountable for cybersecurity."
+summary: "The NIS2 Directive establishes a harmonized cybersecurity baseline across the EU. It covers 'essential entities' (energy, transport, banking, health, digital infrastructure) and 'important entities' (postal services, waste management, manufacturing, digital providers). Organizations must implement appropriate technical and organizational measures, conduct regular risk assessments, have incident response plans, and ensure business continuity. Incident reporting has strict timelines: early warning within 24 hours, incident notification within 72 hours, and final report within one month. Management bodies must approve cybersecurity measures and can be held personally liable for non-compliance. Member states must establish CSIRTs and cooperate through the EU Cyber Crisis Liaison Organisation Network."
+legislationDate: "2024"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
-law_type: "security"
-law_type_description: "National security framework without direct data access provisions"
-government_access: "none"
-government_access_description: "No government access provisions in this law"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "security"
+categoryDescription: "National security frameworks"
+governmentAccess: "none"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Mandatory cybersecurity requirements for essential and important entities."
-  - "Requires risk management, incident reporting within 24 hours, and supply chain security."
-who_it_applies_to:
-  - "Essential and important entities"
-  - "Operators of critical services (sector-dependent)"
-  - "Management bodies responsible for compliance"
-key_provisions:
-  - title: "Core scope"
-    description: "Mandatory cybersecurity requirements for essential and important entities."
-  - title: "Key obligations"
-    description: "Defines security obligations (risk management, incident response, and governance) for covered entities."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Implement risk management, incident reporting, and supplier security processes appropriate to the framework."
-enforcement:
-  notes: "Implemented and enforced by member states via national competent authorities; penalties are set in national law."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "cybersecurity"
+  - "critical-infrastructure"
+tags:
+  - "incident-response"
+  - "supply-chain"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "security"
+  - "public-sector"
+isRelatedTo:
   complements:
-    - id: "dora"
+    - identifier: "dora"
       name: "DORA"
-      year: 2025
+      legislationDate: "2025"
       flag: "🇪🇺"
-    - id: "cra"
+    - identifier: "cra"
       name: "CRA"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Mandatory cybersecurity requirements for essential and important entities. Requires risk management, incident reporting within 24 hours, and supply chain security. Directors face personal liability for non-compliance.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 

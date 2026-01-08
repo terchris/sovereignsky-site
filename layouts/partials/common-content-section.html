@@ -1,0 +1,36 @@
+{{/*
+  common-content-section.html - Styled content section with heading
+
+  Usage:
+    {{ partial "common-content-section.html" (dict
+        "title" "Abstract"
+        "content" .Params.abstract
+    ) }}
+
+    {{ partial "common-content-section.html" (dict
+        "title" "Summary"
+        "content" .Params.summary
+        "border" true
+    ) }}
+
+  Parameters:
+    title: Section heading (required)
+    content: Text content, supports markdown (required)
+    border: Add bottom border (optional, default false)
+    class: Additional CSS classes (optional)
+*/}}
+
+{{ $title := .title | default "" }}
+{{ $content := .content | default "" }}
+{{ $border := .border | default false }}
+{{ $class := .class | default "" }}
+
+{{ if and $title $content }}
+<section class="mb-6 {{ $class }}">
+  <h2 class="text-xl font-bold mb-3 text-neutral-800 dark:text-neutral-200">{{ $title }}</h2>
+  <div class="text-neutral-600 dark:text-neutral-400">
+    {{ $content | markdownify }}
+  </div>
+</section>
+{{ if $border }}<hr class="my-6">{{ end }}
+{{ end }}
