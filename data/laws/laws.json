@@ -53,10 +53,23 @@
           "type": "extended_by"
         }
       ],
-      "topics": ["data-protection", "privacy"],
-      "tags": ["personal-data", "individual-rights"],
-      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "data-protection",
+        "privacy"
+      ],
+      "tags": [
+        "personal-data",
+        "individual-rights"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "public-sector",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "gdpr.png"
     },
     {
       "@type": "Legislation",
@@ -92,10 +105,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty", "cloud-sovereignty"],
-      "tags": ["data-sharing", "cloud-switching", "iot", "interoperability"],
-      "audience": ["enterprise", "it-ops", "developer"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty",
+        "cloud-sovereignty"
+      ],
+      "tags": [
+        "data-sharing",
+        "cloud-switching",
+        "iot",
+        "interoperability"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "developer"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "data-act.png"
     },
     {
       "@type": "Legislation",
@@ -131,10 +158,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty"],
-      "tags": ["artificial-intelligence", "machine-learning", "risk-assessment", "transparency"],
-      "audience": ["enterprise", "developer", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty"
+      ],
+      "tags": [
+        "artificial-intelligence",
+        "machine-learning",
+        "risk-assessment",
+        "transparency"
+      ],
+      "audience": [
+        "enterprise",
+        "developer",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "ai-act.png"
     },
     {
       "@type": "Legislation",
@@ -170,10 +210,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "critical-infrastructure"],
-      "tags": ["incident-response", "supply-chain"],
-      "audience": ["enterprise", "it-ops", "security", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "incident-response",
+        "supply-chain"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "nis2.png"
     },
     {
       "@type": "Legislation",
@@ -205,10 +258,25 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "critical-infrastructure", "digital-resilience"],
-      "tags": ["financial-services", "ict-risk", "third-party-risk", "resilience-testing"],
-      "audience": ["enterprise", "it-ops", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure",
+        "digital-resilience"
+      ],
+      "tags": [
+        "financial-services",
+        "ict-risk",
+        "third-party-risk",
+        "resilience-testing"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "dora.png"
     },
     {
       "@type": "Legislation",
@@ -244,10 +312,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty", "platform-dependency"],
-      "tags": ["platform-regulation", "content-moderation", "transparency", "online-safety"],
-      "audience": ["enterprise", "developer", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty",
+        "platform-dependency"
+      ],
+      "tags": [
+        "platform-regulation",
+        "content-moderation",
+        "transparency",
+        "online-safety"
+      ],
+      "audience": [
+        "enterprise",
+        "developer",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "dsa.png"
     },
     {
       "@type": "Legislation",
@@ -279,10 +361,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty", "platform-dependency"],
-      "tags": ["competition", "gatekeeper", "interoperability", "data-portability"],
-      "audience": ["enterprise", "developer"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty",
+        "platform-dependency"
+      ],
+      "tags": [
+        "competition",
+        "gatekeeper",
+        "interoperability",
+        "data-portability"
+      ],
+      "audience": [
+        "enterprise",
+        "developer"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "dma.png"
     },
     {
       "@type": "Legislation",
@@ -310,10 +405,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["government-access", "data-protection"],
-      "tags": ["law-enforcement", "criminal-justice", "police", "data-protection"],
-      "audience": ["public-sector", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "data-protection"
+      ],
+      "tags": [
+        "law-enforcement",
+        "criminal-justice",
+        "police",
+        "data-protection"
+      ],
+      "audience": [
+        "public-sector",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "led.png"
     },
     {
       "@type": "Legislation",
@@ -341,10 +449,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["electronic-communications", "cookies", "privacy", "marketing"],
-      "audience": ["enterprise", "developer", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "electronic-communications",
+        "cookies",
+        "privacy",
+        "marketing"
+      ],
+      "audience": [
+        "enterprise",
+        "developer",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "eprivacy.png"
     },
     {
       "@type": "Legislation",
@@ -376,10 +498,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "supply-chain"],
-      "tags": ["product-security", "iot", "vulnerability-management", "ce-marking"],
-      "audience": ["enterprise", "developer", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "supply-chain"
+      ],
+      "tags": [
+        "product-security",
+        "iot",
+        "vulnerability-management",
+        "ce-marking"
+      ],
+      "audience": [
+        "enterprise",
+        "developer",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "cra.png"
     },
     {
       "@type": "Legislation",
@@ -411,10 +547,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty"],
-      "tags": ["data-sharing", "data-intermediary", "data-altruism", "public-sector-data"],
-      "audience": ["enterprise", "public-sector", "developer"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty"
+      ],
+      "tags": [
+        "data-sharing",
+        "data-intermediary",
+        "data-altruism",
+        "public-sector-data"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector",
+        "developer"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "dga.png"
     },
     {
       "@type": "Legislation",
@@ -442,10 +591,22 @@
           "type": "extends"
         }
       ],
-      "topics": ["data-protection"],
-      "tags": ["single-market", "efta", "data-transfers", "harmonization"],
-      "audience": ["enterprise", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "data-protection"
+      ],
+      "tags": [
+        "single-market",
+        "efta",
+        "data-transfers",
+        "harmonization"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "eea-agreement.png"
     },
     {
       "@type": "Legislation",
@@ -481,10 +642,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "privacy", "norway", "gdpr-implementation"],
-      "audience": ["enterprise", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "privacy",
+        "norway",
+        "gdpr-implementation"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "personopplysningsloven.png"
     },
     {
       "@type": "Legislation",
@@ -516,10 +690,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "government-access"],
-      "tags": ["telecommunications", "lawful-interception", "norway", "network-security"],
-      "audience": ["enterprise", "it-ops", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "government-access"
+      ],
+      "tags": [
+        "telecommunications",
+        "lawful-interception",
+        "norway",
+        "network-security"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "ekomlov.png"
     },
     {
       "@type": "Legislation",
@@ -551,10 +739,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "critical-infrastructure"],
-      "tags": ["national-security", "security-clearance", "classified-information", "critical-infrastructure"],
-      "audience": ["public-sector", "security", "enterprise"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "national-security",
+        "security-clearance",
+        "classified-information",
+        "critical-infrastructure"
+      ],
+      "audience": [
+        "public-sector",
+        "security",
+        "enterprise"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "sikkerhetsloven.png"
     },
     {
       "@type": "Legislation",
@@ -582,10 +784,23 @@
           "type": "implements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "privacy", "germany", "employment-data"],
-      "audience": ["enterprise", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "privacy",
+        "germany",
+        "employment-data"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "bdsg.png"
     },
     {
       "@type": "Legislation",
@@ -613,10 +828,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "privacy", "switzerland", "adequacy"],
-      "audience": ["enterprise", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "privacy",
+        "switzerland",
+        "adequacy"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "fadp.png"
     },
     {
       "@type": "Legislation",
@@ -668,10 +896,26 @@
           "type": "complements"
         }
       ],
-      "topics": ["government-access", "surveillance", "cloud-act"],
-      "tags": ["government-access", "surveillance", "extraterritorial", "data-sovereignty"],
-      "audience": ["humanitarian", "enterprise", "public-sector", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "surveillance",
+        "cloud-act"
+      ],
+      "tags": [
+        "government-access",
+        "surveillance",
+        "extraterritorial",
+        "data-sovereignty"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "public-sector",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "cloud-act.png"
     },
     {
       "@type": "Legislation",
@@ -715,10 +959,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "government-access"],
-      "tags": ["surveillance", "intelligence", "prism", "foreign-intelligence"],
-      "audience": ["humanitarian", "enterprise", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "government-access"
+      ],
+      "tags": [
+        "surveillance",
+        "intelligence",
+        "prism",
+        "foreign-intelligence"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "fisa-702.png"
     },
     {
       "@type": "Legislation",
@@ -754,10 +1012,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "government-access"],
-      "tags": ["surveillance", "national-security", "terrorism", "business-records"],
-      "audience": ["humanitarian", "enterprise", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "government-access"
+      ],
+      "tags": [
+        "surveillance",
+        "national-security",
+        "terrorism",
+        "business-records"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "patriot-act.png"
     },
     {
       "@type": "Legislation",
@@ -801,10 +1073,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "government-access"],
-      "tags": ["surveillance", "signals-intelligence", "bulk-collection", "executive-order"],
-      "audience": ["humanitarian", "enterprise", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "government-access"
+      ],
+      "tags": [
+        "surveillance",
+        "signals-intelligence",
+        "bulk-collection",
+        "executive-order"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "eo-12333.png"
     },
     {
       "@type": "Legislation",
@@ -832,10 +1118,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["government-access", "metadata"],
-      "tags": ["electronic-communications", "stored-data", "wiretap", "metadata"],
-      "audience": ["enterprise", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "metadata"
+      ],
+      "tags": [
+        "electronic-communications",
+        "stored-data",
+        "wiretap",
+        "metadata"
+      ],
+      "audience": [
+        "enterprise",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "ecpa.png"
     },
     {
       "@type": "Legislation",
@@ -867,10 +1166,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "encryption"],
-      "tags": ["surveillance", "bulk-collection", "equipment-interference", "data-retention"],
-      "audience": ["humanitarian", "enterprise", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "encryption"
+      ],
+      "tags": [
+        "surveillance",
+        "bulk-collection",
+        "equipment-interference",
+        "data-retention"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "investigatory-powers-act.png"
     },
     {
       "@type": "Legislation",
@@ -898,10 +1211,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "critical-infrastructure"],
-      "tags": ["espionage", "foreign-interference", "national-security", "state-threats"],
-      "audience": ["public-sector", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "espionage",
+        "foreign-interference",
+        "national-security",
+        "state-threats"
+      ],
+      "audience": [
+        "public-sector",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "national-security-act-uk.png"
     },
     {
       "@type": "Legislation",
@@ -933,10 +1259,23 @@
           "type": "conflicts_with"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "privacy", "brexit", "adequacy"],
-      "audience": ["enterprise", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "privacy",
+        "brexit",
+        "adequacy"
+      ],
+      "audience": [
+        "enterprise",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "uk-gdpr.png"
     },
     {
       "@type": "Legislation",
@@ -972,10 +1311,26 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "government-access", "supply-chain"],
-      "tags": ["intelligence", "state-access", "backdoor", "supply-chain-risk"],
-      "audience": ["humanitarian", "enterprise", "security", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "government-access",
+        "supply-chain"
+      ],
+      "tags": [
+        "intelligence",
+        "state-access",
+        "backdoor",
+        "supply-chain-risk"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "security",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "national-intelligence-law.png"
     },
     {
       "@type": "Legislation",
@@ -1011,10 +1366,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["cybersecurity", "digital-sovereignty", "critical-infrastructure"],
-      "tags": ["data-localization", "critical-infrastructure", "security-review", "real-name-registration"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "cybersecurity",
+        "digital-sovereignty",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "data-localization",
+        "critical-infrastructure",
+        "security-review",
+        "real-name-registration"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "cybersecurity-law.png"
     },
     {
       "@type": "Legislation",
@@ -1050,10 +1419,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["government-access", "digital-sovereignty"],
-      "tags": ["data-classification", "cross-border-transfer", "important-data", "national-security"],
-      "audience": ["enterprise", "it-ops", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "digital-sovereignty"
+      ],
+      "tags": [
+        "data-classification",
+        "cross-border-transfer",
+        "important-data",
+        "national-security"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "data-security-law.png"
     },
     {
       "@type": "Legislation",
@@ -1089,10 +1472,23 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["personal-data", "consent", "cross-border-transfer", "individual-rights"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "personal-data",
+        "consent",
+        "cross-border-transfer",
+        "individual-rights"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "pipl.png"
     },
     {
       "@type": "Legislation",
@@ -1124,10 +1520,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "encryption"],
-      "tags": ["data-retention", "decryption", "anti-terrorism", "encryption-keys"],
-      "audience": ["enterprise", "it-ops", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "encryption"
+      ],
+      "tags": [
+        "data-retention",
+        "decryption",
+        "anti-terrorism",
+        "encryption-keys"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "yarovaya-law.png"
     },
     {
       "@type": "Legislation",
@@ -1159,10 +1569,22 @@
           "type": "complements"
         }
       ],
-      "topics": ["digital-sovereignty"],
-      "tags": ["data-localization", "data-residency", "russian-servers", "cross-border"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "digital-sovereignty"
+      ],
+      "tags": [
+        "data-localization",
+        "data-residency",
+        "russian-servers",
+        "cross-border"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "data-localization-law.png"
     },
     {
       "@type": "Legislation",
@@ -1194,10 +1616,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["surveillance", "encryption"],
-      "tags": ["surveillance-backdoor", "fsb-access", "telecommunications", "real-time-monitoring"],
-      "audience": ["enterprise", "it-ops", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "surveillance",
+        "encryption"
+      ],
+      "tags": [
+        "surveillance-backdoor",
+        "fsb-access",
+        "telecommunications",
+        "real-time-monitoring"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "sorm.png"
     },
     {
       "@type": "Legislation",
@@ -1225,10 +1661,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["government-access", "surveillance"],
-      "tags": ["interception", "decryption", "intermediary-liability", "content-blocking"],
-      "audience": ["enterprise", "it-ops", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "surveillance"
+      ],
+      "tags": [
+        "interception",
+        "decryption",
+        "intermediary-liability",
+        "content-blocking"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "it-act-2000.png"
     },
     {
       "@type": "Legislation",
@@ -1256,10 +1706,24 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "consent", "data-principal-rights", "government-exemptions"],
-      "audience": ["enterprise", "it-ops", "public-sector"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "consent",
+        "data-principal-rights",
+        "government-exemptions"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops",
+        "public-sector"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "dpdp-act.png"
     },
     {
       "@type": "Legislation",
@@ -1282,10 +1746,24 @@
       "requiresLocalization": false,
       "requiresBackdoor": true,
       "isRelatedTo": [],
-      "topics": ["government-access", "encryption"],
-      "tags": ["encryption-backdoor", "technical-capability", "decryption", "five-eyes"],
-      "audience": ["enterprise", "developer", "security"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "government-access",
+        "encryption"
+      ],
+      "tags": [
+        "encryption-backdoor",
+        "technical-capability",
+        "decryption",
+        "five-eyes"
+      ],
+      "audience": [
+        "enterprise",
+        "developer",
+        "security"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "tola-act.png"
     },
     {
       "@type": "Legislation",
@@ -1308,10 +1786,23 @@
       "requiresLocalization": false,
       "requiresBackdoor": false,
       "isRelatedTo": [],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["fair-information-principles", "consent", "privacy-commissioner", "adequacy"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "fair-information-principles",
+        "consent",
+        "privacy-commissioner",
+        "adequacy"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "pipeda.png"
     },
     {
       "@type": "Legislation",
@@ -1334,10 +1825,23 @@
       "requiresLocalization": false,
       "requiresBackdoor": false,
       "isRelatedTo": [],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "adequacy", "cross-border-transfer", "individual-rights"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "adequacy",
+        "cross-border-transfer",
+        "individual-rights"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "appi.png"
     },
     {
       "@type": "Legislation",
@@ -1360,10 +1864,23 @@
       "requiresLocalization": false,
       "requiresBackdoor": false,
       "isRelatedTo": [],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "adequacy", "consent", "strong-enforcement"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "adequacy",
+        "consent",
+        "strong-enforcement"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "pipa.png"
     },
     {
       "@type": "Legislation",
@@ -1386,10 +1903,23 @@
       "requiresLocalization": false,
       "requiresBackdoor": false,
       "isRelatedTo": [],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["data-protection", "breach-notification", "adequacy", "privacy-principles"],
-      "audience": ["enterprise", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "data-protection",
+        "breach-notification",
+        "adequacy",
+        "privacy-principles"
+      ],
+      "audience": [
+        "enterprise",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "privacy-act-2020.png"
     },
     {
       "@type": "Legislation",
@@ -1433,10 +1963,26 @@
           "type": "succeeds"
         }
       ],
-      "topics": ["privacy", "government-access", "surveillance"],
-      "tags": ["cjeu", "transfer-impact-assessment", "privacy-shield", "surveillance"],
-      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "government-access",
+        "surveillance"
+      ],
+      "tags": [
+        "cjeu",
+        "transfer-impact-assessment",
+        "privacy-shield",
+        "surveillance"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "public-sector",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "schrems-ii.png"
     },
     {
       "@type": "Legislation",
@@ -1473,10 +2019,25 @@
           "type": "complements"
         }
       ],
-      "topics": ["privacy", "data-protection"],
-      "tags": ["adequacy-decision", "transatlantic-data-flows", "self-certification", "eo-14086"],
-      "audience": ["humanitarian", "enterprise", "public-sector", "it-ops"],
-      "reviewStatus": "ai-generated"
+      "topics": [
+        "privacy",
+        "data-protection"
+      ],
+      "tags": [
+        "adequacy-decision",
+        "transatlantic-data-flows",
+        "self-certification",
+        "eo-14086"
+      ],
+      "audience": [
+        "humanitarian",
+        "enterprise",
+        "public-sector",
+        "it-ops"
+      ],
+      "reviewStatus": "ai-generated",
+      "body": "",
+      "image": "eu-us-dpf.png"
     }
   ]
 }

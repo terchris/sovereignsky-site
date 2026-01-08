@@ -3,20 +3,96 @@
 /**
  * Generate /laws/{identifier}/ pages from data/laws/laws.json
  *
- * Creates stub pages for each law. If a page already exists with content,
- * it preserves the content and only updates the frontmatter.
+ * Creates stub pages for each law. Body content comes from JSON.
  *
  * Handles bidirectional relationships: if law A relates to law B,
  * the inverse relationship is automatically added to law B's page.
+ *
+ * Image handling:
+ * - If image field is set, copies from images/laws/{filename} to content/laws/{id}/featured.png
+ * - If image starts with http, downloads from URL
  *
  * Usage: node scripts/generate-laws-pages.js
  */
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const CONTENT_DIR = path.join(__dirname, '..', 'content', 'laws');
+const IMAGES_DIR = path.join(__dirname, '..', 'images', 'laws');
+
+// Copy image from source to destination
+function copyImage(src, dest) {
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dest);
+    return true;
+  }
+  return false;
+}
+
+// Download image from URL
+function downloadImage(url, dest) {
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https') ? https : http;
+    const file = fs.createWriteStream(dest);
+
+    protocol.get(url, (response) => {
+      if (response.statusCode === 301 || response.statusCode === 302) {
+        file.close();
+        fs.unlinkSync(dest);
+        downloadImage(response.headers.location, dest).then(resolve).catch(reject);
+        return;
+      }
+
+      if (response.statusCode !== 200) {
+        file.close();
+        fs.unlinkSync(dest);
+        reject(new Error(`Failed to download: ${response.statusCode}`));
+        return;
+      }
+
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
+        resolve(true);
+      });
+    }).on('error', (err) => {
+      file.close();
+      if (fs.existsSync(dest)) fs.unlinkSync(dest);
+      reject(err);
+    });
+  });
+}
+
+// Handle image for a law
+async function handleImage(law, lawDir) {
+  if (!law.image) return false;
+
+  const destPath = path.join(lawDir, 'featured.png');
+
+  // Check if it's a URL
+  if (law.image.startsWith('http://') || law.image.startsWith('https://')) {
+    try {
+      await downloadImage(law.image, destPath);
+      console.log(`  Downloaded image for: ${law.identifier}`);
+      return true;
+    } catch (err) {
+      console.warn(`  Warning: Failed to download image for ${law.identifier}: ${err.message}`);
+      return false;
+    }
+  }
+
+  // It's a local filename - copy from images folder
+  const srcPath = path.join(IMAGES_DIR, law.image);
+  if (copyImage(srcPath, destPath)) {
+    return true;
+  }
+  // Silent - no warning if image doesn't exist (many laws won't have images)
+  return false;
+}
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -289,14 +365,15 @@ function buildFrontmatter(law, lawTypes, relationships) {
   return lines.join('\n');
 }
 
-// Build default body content for new pages
-// Note: Abstract and Summary are now in frontmatter and rendered via common-content-section partial
-function buildDefaultBody(law) {
-  return `*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
-`;
+// Get body content from JSON or use default
+function getBodyContent(law) {
+  if (law.body && law.body.trim()) {
+    return law.body;
+  }
+  return `*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*`;
 }
 
-function main() {
+async function main() {
   console.log('Generating /laws/ pages from data/laws/laws.json...\n');
 
   const lawsData = readJson(path.join(DATA_DIR, 'laws', 'laws.json'));
@@ -333,26 +410,21 @@ function main() {
   let created = 0;
   let updated = 0;
 
-  laws.forEach(law => {
+  for (const law of laws) {
     const lawDir = path.join(CONTENT_DIR, law.identifier);
     const indexPath = path.join(lawDir, 'index.md');
 
     ensureDir(lawDir);
 
-    let body = buildDefaultBody(law);
+    // Handle image (copy or download)
+    await handleImage(law, lawDir);
 
-    // Check if file exists and has custom content
+    // Get body from JSON
+    const body = getBodyContent(law);
+
+    // Track created vs updated
     if (fs.existsSync(indexPath)) {
-      const existing = fs.readFileSync(indexPath, 'utf8');
-      const parsed = parseMarkdown(existing);
-
-      // If there's custom body content (not just the default), preserve it
-      if (parsed.body && !parsed.body.includes('No additional commentary yet')) {
-        body = parsed.body;
-        updated++;
-      } else {
-        updated++;
-      }
+      updated++;
     } else {
       created++;
     }
@@ -369,7 +441,7 @@ ${body}
 `;
 
     fs.writeFileSync(indexPath, content);
-  });
+  }
 
   // Generate _index.md for the list page
   const listIndexPath = path.join(CONTENT_DIR, '_index.md');
@@ -396,4 +468,7 @@ description: "Data sovereignty and privacy laws from jurisdictions worldwide, in
   console.log(`Total: ${laws.length} laws in /laws/{identifier}/index.md`);
 }
 
-main();
+main().catch(err => {
+  console.error('Error:', err);
+  process.exit(1);
+});
