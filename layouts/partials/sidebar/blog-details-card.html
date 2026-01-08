@@ -1,0 +1,38 @@
+{{/* Blog Details Card - displays date, author, reading time */}}
+{{ $date := .Date }}
+{{ $readingTime := .ReadingTime }}
+{{ $authors := .Params.authors | default (slice) }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+      Details
+    </h3>
+    <dl class="mt-2 text-sm space-y-2">
+      {{/* Date */}}
+      {{ with $date }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Published</dt>
+        <dd class="font-medium">{{ .Format "Jan 2, 2006" }}</dd>
+      </div>
+      {{ end }}
+
+      {{/* Reading Time */}}
+      {{ with $readingTime }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Reading time</dt>
+        <dd class="font-medium">{{ . }} min</dd>
+      </div>
+      {{ end }}
+
+      {{/* Authors */}}
+      {{ if gt (len $authors) 0 }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Author{{ if gt (len $authors) 1 }}s{{ end }}</dt>
+        <dd class="font-medium">{{ delimit $authors ", " }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

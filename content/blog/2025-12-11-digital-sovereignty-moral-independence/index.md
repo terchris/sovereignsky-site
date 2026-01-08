@@ -1,12 +1,24 @@
 ---
 title: "When Your Values Become a Liability: Digital Sovereignty and Moral Independence"
+identifier: "2025-12-11-digital-sovereignty-moral-independence"
 date: 2025-12-11
-showHero: true
 description: "The ICC sanctions show how US digital dominance can be weaponized against organizations that stand for justice. Who's next?"
 summary: "The ICC sanctions show how US digital dominance can be weaponized against organizations that stand for justice. Who's next?"
-tags: ["sovereignty", "sanctions", "humanitarian", "government-access", "cloud-act"]
-audiences: ["humanitarian", "public-sector"]
-categories: ["Opinion"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+  - "government-access"
+  - "cloud-act"
+tags:
+  - "sanctions"
+  - "humanitarian"
+audiences:
+  - "humanitarian"
+  - "public-sector"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 In February 2025, the United States [sanctioned the International Criminal Court](https://www.whitehouse.gov/presidential-actions/2025/02/imposing-sanctions-on-the-international-criminal-court/) - the world's war crimes tribunal. Judges. Prosecutors. Staff. An institution created to hold perpetrators of genocide and crimes against humanity accountable.

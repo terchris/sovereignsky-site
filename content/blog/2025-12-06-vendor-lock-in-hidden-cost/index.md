@@ -1,12 +1,24 @@
 ---
 title: "Cloud Vendor Lock-in: The Hidden Cost of Developer Convenience"
+identifier: "2025-12-06-vendor-lock-in-hidden-cost"
 date: 2025-12-06
-showHero: true
 description: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
 summary: "How quick decisions to use proprietary cloud services create long-term migration debt and what organizations can do about it"
-tags: ["vendor-lock-in", "exit-strategy", "multi-cloud", "open-standards", "developers"]
-audiences: ["developer", "enterprise"]
-categories: ["Technical"]
+showHero: true
+topics:
+  - "platform-dependency"
+tags:
+  - "exit-strategy"
+  - "multi-cloud"
+  - "open-standards"
+  - "developers"
+audiences:
+  - "developer"
+  - "enterprise"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 When developers spin up an Azure Function with a Service Bus trigger, or configure an AWS Lambda with SQS, they're making a quick decision that could cost their organization millions in migration debt. The problem isn't that these services are bad - they're excellent. The problem is that nobody asked whether portability mattered.

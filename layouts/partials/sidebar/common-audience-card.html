@@ -1,5 +1,7 @@
 {{/* Relevant For Card - displays audience with icons from audience.json */}}
-{{ with .Params.audience }}
+{{/* Supports both .Params.audience (singular) and .Params.audiences (plural) */}}
+{{ $audienceParams := .Params.audience | default .Params.audiences | default (slice) }}
+{{ if gt (len $audienceParams) 0 }}
 {{ $audienceList := site.Data.audience.audience.itemListElement | default (slice) }}
 <div class="card bg-base-100 shadow-sm border border-base-300">
   <div class="card-body p-4">
@@ -8,7 +10,7 @@
       Relevant For
     </h3>
     <ul class="mt-2 space-y-1">
-      {{ range . }}
+      {{ range $audienceParams }}
       {{ $audienceId := . }}
       {{ $audience := dict }}
       {{ range $audienceList }}

@@ -1,11 +1,20 @@
 ---
 title: "EU Launches €180 Million Sovereign Cloud Initiative"
+identifier: "2025-12-03-eu-cloud-sovereignty-framework"
 date: 2025-12-03
-showHero: true
 description: "The European Commission commits major funding to reduce dependence on US hyperscalers"
 summary: "The European Commission commits major funding to reduce dependence on US hyperscalers"
-tags: ["sovereignty", "eu", "public-sector"]
-audiences: ["public-sector", "enterprise", "it-ops"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+audiences:
+  - "public-sector"
+  - "enterprise"
+  - "it-ops"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 The European Union is taking decisive action to address its overwhelming dependence on American cloud providers. In October 2025, the European Commission announced a €180 million tender for sovereign cloud services - a clear signal that digital sovereignty is now a strategic priority.
