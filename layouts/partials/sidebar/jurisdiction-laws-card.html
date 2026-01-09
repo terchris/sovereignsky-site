@@ -1,0 +1,97 @@
+{{/* Jurisdiction Laws Summary Card - shows laws by type */}}
+{{ $countryId := .Params.country_id | default "" }}
+{{ $country := dict }}
+{{ if $countryId }}
+  {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+  {{ with index $match 0 }}
+    {{ $country = . }}
+  {{ end }}
+{{ end }}
+
+{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+
+{{ if $countryId }}
+  {{/* Build applicable IDs list (country + blocs + inherited) */}}
+  {{ $applicableIds := slice $countryId }}
+  {{ $countryBlocs := $country.blocs | default (slice) }}
+
+  {{ range $countryBlocs }}
+    {{ $blocId := . }}
+    {{ $applicableIds = $applicableIds | append $blocId }}
+    {{ range $blocsData }}
+      {{ if eq .id $blocId }}
+        {{ range (.inherits_from | default (slice)) }}
+          {{ $applicableIds = $applicableIds | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Count laws by type */}}
+  {{ $.Scratch.Set "laws_total" 0 }}
+  {{ $.Scratch.Set "laws_byType" (dict) }}
+  {{ $.Scratch.Set "laws_seen" (slice) }}
+
+  {{ range site.Data.laws.laws.itemListElement }}
+    {{ $law := . }}
+    {{ $lawId := .identifier }}
+    {{ range .legislationJurisdiction }}
+      {{ $applyTo := . }}
+      {{ range $applicableIds }}
+        {{ if eq $applyTo . }}
+          {{ $seen := $.Scratch.Get "laws_seen" }}
+          {{ $alreadyCounted := false }}
+          {{ range $seen }}
+            {{ if eq . $lawId }}{{ $alreadyCounted = true }}{{ end }}
+          {{ end }}
+          {{ if not $alreadyCounted }}
+            {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
+            {{ $lawType := $law.category | default "other" }}
+            {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
+            {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
+            {{ $.Scratch.Add "laws_seen" $lawId }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $totalLaws := $.Scratch.Get "laws_total" }}
+  {{ if gt $totalLaws 0 }}
+  <div class="card bg-base-100 shadow-sm border border-base-300">
+    <div class="card-body p-4">
+      <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+        {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "4") }}
+        Laws by Type
+      </h3>
+      <p class="text-xs opacity-60 -mt-1">{{ $totalLaws }} applicable laws</p>
+      <ul class="menu menu-sm bg-base-200 rounded-box mt-2 p-1 w-full">
+        {{/* Build law type lookups */}}
+        {{ $typeOrder := slice }}
+        {{ $shortLabels := dict }}
+        {{ $emojis := dict }}
+        {{ range site.Data.laws.law_types.itemListElement }}
+          {{ $typeOrder = $typeOrder | append .identifier }}
+          {{ $shortLabels = merge $shortLabels (dict .identifier .shortName) }}
+          {{ $emojis = merge $emojis (dict .identifier .emoji) }}
+        {{ end }}
+        {{ $byType := $.Scratch.Get "laws_byType" }}
+        {{ range $typeOrder }}
+          {{ $type := . }}
+          {{ $count := index $byType $type }}
+          {{ if $count }}
+            {{ $label := index $shortLabels $type }}
+            {{ $emoji := index $emojis $type }}
+            <li>
+              <a href="#{{ $type }}-laws" class="flex justify-between items-center gap-2 min-w-0">
+                <span class="flex items-center gap-1 truncate">{{ $emoji }} {{ $label }}</span>
+                <span class="badge badge-sm flex-shrink-0">{{ $count }}</span>
+              </a>
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

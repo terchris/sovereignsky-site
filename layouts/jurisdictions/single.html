@@ -94,13 +94,13 @@
         {{/* Count laws by type for this jurisdiction */}}
         {{ if ne ($.Scratch.Get "laws_jurisdictionId") "" }}
           {{ $jurisdictionId := $.Scratch.Get "laws_jurisdictionId" }}
-          {{ range site.Data.laws.laws.laws }}
+          {{ range site.Data.laws.laws.itemListElement }}
             {{ $law := . }}
-            {{ range .applies_to }}
+            {{ range .legislationJurisdiction }}
               {{ if eq . $jurisdictionId }}
                 {{ $.Scratch.Set "laws_showLaws" true }}
                 {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
-                {{ $lawType := $law.type | default "other" }}
+                {{ $lawType := $law.category | default "other" }}
                 {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
                 {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
               {{ end }}

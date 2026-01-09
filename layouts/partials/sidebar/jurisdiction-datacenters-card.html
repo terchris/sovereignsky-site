@@ -1,0 +1,41 @@
+{{/* Jurisdiction Datacenters Card - link to datacenter page */}}
+{{ $countryId := .Params.country_id | default "" }}
+{{ $country := dict }}
+{{ if $countryId }}
+  {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+  {{ with index $match 0 }}
+    {{ $country = . }}
+  {{ end }}
+{{ end }}
+
+{{ if $country }}
+  {{ $countryFlag := $country.flag | default "" }}
+  {{ $slug := $country.slug | default "" }}
+
+  {{/* Count datacenters */}}
+  {{ $datacenterCount := 0 }}
+  {{ range (site.Data.datacenters.providers | default (slice)) }}
+    {{ range (.regions | default (slice)) }}
+      {{ if eq .country_id $countryId }}
+        {{ $datacenterCount = add $datacenterCount 1 }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if $slug }}
+  <div class="card bg-base-100 shadow-sm border border-base-300">
+    <div class="card-body p-4">
+      <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+        {{ partial "content-icon.html" (dict "name" "server" "color" "secondary" "size" "4") }}
+        Datacenters
+      </h3>
+      <a href="/datacenters/{{ $slug }}/" class="btn btn-sm btn-outline btn-secondary mt-2 gap-2">
+        {{ if $countryFlag }}{{ $countryFlag }}{{ end }} View {{ $datacenterCount }} Regions
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

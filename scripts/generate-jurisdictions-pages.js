@@ -158,67 +158,15 @@ function formatLaw(law, showSource = false) {
   return md;
 }
 
-// Generate country page
+// Generate country page - minimal frontmatter only, template renders from JSON
 function generateCountryPage(region) {
-  const laws = getCountryLaws(region);
-  const riskInfo = jurisdictions.risk_levels[region.risk_level] || {};
-
-  // Build frontmatter
-  let md = `---
+  return `---
 title: "${region.flag} ${region.name}"
 description: "Data sovereignty laws and regulations in ${region.name}"
 layout: "country"
-showTableOfContents: true
+country_id: "${region.id}"
 ---
-
-${region.description}
-
-## Risk Assessment
-
-**Overall Risk Level:** ${getRiskBadge(region.risk_level)}
-
-${riskInfo.description || ''}
-
 `;
-
-  // National laws
-  if (laws.national.length > 0) {
-    md += `## National Laws\n\n`;
-    md += `These laws are specific to ${region.name}.\n\n`;
-    laws.national.forEach(law => {
-      md += formatLaw(law, false);
-    });
-  }
-
-  // Bloc laws (direct membership)
-  if (laws.bloc_laws.length > 0) {
-    md += `## Applicable Bloc Laws\n\n`;
-    md += `These laws apply through ${region.name}'s membership in regional agreements.\n\n`;
-    laws.bloc_laws.forEach(law => {
-      md += formatLaw(law, true);
-    });
-  }
-
-  // Inherited laws
-  if (laws.inherited_laws.length > 0) {
-    md += `## Inherited Laws\n\n`;
-    md += `These laws apply through inherited agreements.\n\n`;
-    laws.inherited_laws.forEach(law => {
-      md += formatLaw(law, true);
-    });
-  }
-
-  // No laws message
-  if (laws.national.length === 0 && laws.bloc_laws.length === 0 && laws.inherited_laws.length === 0) {
-    md += `## Laws\n\nNo specific laws of concern have been identified for ${region.name}.\n\n`;
-  }
-
-  // Navigation
-  md += `---\n\n`;
-  md += `→ [View all jurisdictions](/jurisdictions/)\n`;
-  md += `→ [Browse software by jurisdiction](/software/)\n`;
-
-  return md;
 }
 
 // Generate bloc page
@@ -303,20 +251,15 @@ ${riskInfo.description || ''}
   return md;
 }
 
-// Generate main index page
+// Generate main index page with map shortcode
 function generateIndexPage() {
   return `---
 title: "Jurisdiction & Laws"
 description: "Understanding data sovereignty laws and their impact on your software choices"
 echarts: true
-layout: "simple"
 ---
 
 When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
-
-## Map
-
-Search, filter, and click a country to open its full jurisdiction page.
 
 {{< jurisdiction-map >}}
 
@@ -345,14 +288,6 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 - ✅ You store data in your home country
 - ✅ You use EU Data Boundary settings
 - ✅ You encrypt your data (unless you control the keys)
-
-**Mitigation strategies:**
-1. Choose vendors from safe jurisdictions (EU/EEA companies)
-2. Self-host where possible
-3. Use customer-managed encryption keys
-4. Understand what data you're storing and its sensitivity
-
-→ [Browse software by jurisdiction](/software/)
 `;
 }
 

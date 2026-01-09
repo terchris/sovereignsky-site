@@ -1,0 +1,39 @@
+{{/* Jurisdiction Memberships Card - shows bloc memberships */}}
+{{ $countryId := .Params.country_id | default "" }}
+{{ $country := dict }}
+{{ if $countryId }}
+  {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+  {{ with index $match 0 }}
+    {{ $country = . }}
+  {{ end }}
+{{ end }}
+
+{{ $blocs := $country.blocs | default (slice) }}
+{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+
+{{ if gt (len $blocs) 0 }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "globe" "color" "accent" "size" "4") }}
+      Memberships
+    </h3>
+    <div class="flex flex-wrap gap-2 mt-2">
+      {{ range $blocs }}
+        {{ $blocId := . }}
+        {{ $blocName := $blocId }}
+        {{ $blocFlag := "" }}
+        {{ range $blocsData }}
+          {{ if eq .id $blocId }}
+            {{ $blocName = .name }}
+            {{ $blocFlag = .flag | default "" }}
+          {{ end }}
+        {{ end }}
+        <a href="/jurisdictions/{{ $blocId | urlize }}/" class="badge badge-outline badge-lg gap-1 hover:badge-primary transition-colors">
+          {{ if $blocFlag }}{{ $blocFlag }}{{ end }} {{ $blocName }}
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

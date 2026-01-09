@@ -104,41 +104,85 @@
   {{ $mapData = $mapData | append $item }}
 {{ end }}
 
-<div class="not-prose mt-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
-  <div class="flex flex-col gap-3">
-    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-      <label for="laws-map-search" class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Search</label>
-      <div class="relative flex-1">
-        <input id="laws-map-search"
-               type="text"
-               class="w-full rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
-               placeholder="Country, bloc, or law (e.g. Norway, EU, CLOUD Act)…" />
-        <div id="laws-map-suggestions" class="absolute z-10 mt-1 w-full max-h-64 overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg" style="display:none;"></div>
-      </div>
-      <button id="laws-map-reset"
-              type="button"
-              class="inline-flex items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">
-        Reset
-      </button>
-    </div>
+{{/* Stats - count jurisdictions by risk level */}}
+{{ $totalCountries := len $regions }}
+{{ $lowRisk := 0 }}
+{{ $elevatedRisk := 0 }}
+{{ range $regions }}
+  {{ if eq .risk_level "low" }}{{ $lowRisk = add $lowRisk 1 }}{{ end }}
+  {{ if or (eq .risk_level "elevated") (eq .risk_level "high") (eq .risk_level "sanctioned") }}{{ $elevatedRisk = add $elevatedRisk 1 }}{{ end }}
+{{ end }}
 
-    <div class="flex flex-col gap-2">
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Risk</span>
-        <div id="laws-risk-chips" class="flex flex-wrap gap-2"></div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Blocs</span>
-        <div id="laws-bloc-chips" class="flex flex-wrap gap-2"></div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <label class="inline-flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-200 cursor-pointer">
-          <input id="laws-has-dc" type="checkbox" class="rounded border-neutral-300 dark:border-neutral-700" />
-          Has datacenters
-        </label>
-      </div>
+<div class="not-prose stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      {{ partial "content-icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
     </div>
+    <div class="stat-title">Countries Tracked</div>
+    <div class="stat-value text-primary">{{ $totalCountries }}</div>
+    <div class="stat-desc">Jurisdictions monitored</div>
   </div>
+  <div class="stat">
+    <div class="stat-figure text-success">
+      {{ partial "content-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+    </div>
+    <div class="stat-title">Low Risk</div>
+    <div class="stat-value text-success">{{ $lowRisk }}</div>
+    <div class="stat-desc">Safe jurisdictions</div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-error">
+      {{ partial "content-icon.html" (dict "name" "alert-triangle" "color" "error" "size" "8") }}
+    </div>
+    <div class="stat-title">Elevated+ Risk</div>
+    <div class="stat-value text-error">{{ $elevatedRisk }}</div>
+    <div class="stat-desc">Require caution</div>
+  </div>
+</div>
+
+{{/* Search Box */}}
+<div class="not-prose mb-6">
+  <label class="input input-bordered flex items-center gap-2 w-full">
+    <svg class="h-5 w-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+    </svg>
+    <input type="text" id="laws-map-search" class="grow" placeholder="Search jurisdictions by country, bloc, or law..." />
+  </label>
+  <div id="laws-map-suggestions" class="absolute z-10 mt-1 w-full max-h-64 overflow-auto rounded-lg border border-base-300 bg-base-100 shadow-lg" style="display:none;"></div>
+</div>
+
+{{/* Risk Level Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-4">
+  <span class="text-sm font-semibold opacity-70">Risk:</span>
+  <div class="join" id="laws-risk-chips" data-filter-group="risk">
+    <button class="join-item btn btn-sm btn-active" data-filter="risk" data-value="all">All</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="low">✅ Low</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="moderate">⚠️ Moderate</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="elevated">🔶 Elevated</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="high">🚨 High</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="sanctioned">⛔ Sanctioned</button>
+  </div>
+</div>
+
+{{/* Bloc Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-4">
+  <span class="text-sm font-semibold opacity-70">Bloc:</span>
+  <div class="join" id="laws-bloc-chips" data-filter-group="bloc">
+    <button class="join-item btn btn-sm btn-active" data-filter="bloc" data-value="all">All</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="eu">🇪🇺 EU</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="eea">🇪🇺 EEA</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="five-eyes">👁️ Five Eyes</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="adequacy">✓ Adequacy</button>
+  </div>
+</div>
+
+{{/* Features Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-6">
+  <span class="text-sm font-semibold opacity-70">Features:</span>
+  <div class="flex flex-wrap gap-2" data-filter-group="features">
+    <button class="btn btn-sm btn-ghost gap-1" id="laws-has-dc" data-filter="datacenters" data-value="true">🏢 Has Datacenters</button>
+  </div>
+  <button id="laws-map-reset" class="btn btn-sm btn-ghost ml-auto">Reset filters</button>
 </div>
 
 <div id="jurisdiction-map" class="not-prose mt-4" style="width: 100%; height: 520px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 12px;"></div>
@@ -294,8 +338,8 @@
       myChart.setOption(option);
 
       // --- UI state ---
-      var selectedRisks = new Set(); // empty = all
-      var selectedBlocs = new Set(); // empty = all
+      var selectedRisk = 'all'; // single selection: 'all', 'low', 'moderate', etc.
+      var selectedBloc = 'all'; // single selection: 'all', 'eu', 'eea', etc.
       var hasDatacentersOnly = false;
       var focusedIds = null; // null = no focus; [] = focused set
       var currentSort = 'datacenters';
@@ -307,69 +351,78 @@
       }
       var blocsById = blocById();
 
-      function getRiskLabel(level) {
-        var rl = (riskLevels && riskLevels[level]) ? riskLevels[level].label : null;
-        return rl || (level ? (level.charAt(0).toUpperCase() + level.slice(1)) : 'Unknown');
+      function setActiveButton(groupEl, value) {
+        groupEl.querySelectorAll('button').forEach(function(b) {
+          b.classList.remove('btn-active');
+          b.classList.add('btn-ghost');
+        });
+        var target = groupEl.querySelector('button[data-value="' + value + '"]') || groupEl.querySelector('button[data-value="all"]');
+        if (target) {
+          target.classList.add('btn-active');
+          target.classList.remove('btn-ghost');
+        }
       }
 
-      function buildChips() {
-        var riskWrap = document.getElementById('laws-risk-chips');
-        var blocWrap = document.getElementById('laws-bloc-chips');
-        if (!riskWrap || !blocWrap) return;
-
-        var riskOrder = ['low','moderate','elevated','high','sanctioned','unknown'];
-        riskWrap.innerHTML = '';
-        riskOrder.forEach(function(r) {
-          var label = getRiskLabel(r);
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.dataset.risk = r;
-          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
-          btn.textContent = label;
+      function setupFilterListeners() {
+        // Risk filter buttons
+        document.querySelectorAll('#laws-risk-chips button').forEach(function(btn) {
           btn.addEventListener('click', function() {
-            if (selectedRisks.has(r)) selectedRisks.delete(r); else selectedRisks.add(r);
+            selectedRisk = btn.dataset.value;
+            focusedIds = null;
+            setActiveButton(document.getElementById('laws-risk-chips'), selectedRisk);
+            renderAll();
+          });
+        });
+
+        // Bloc filter buttons
+        document.querySelectorAll('#laws-bloc-chips button').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            selectedBloc = btn.dataset.value;
+            focusedIds = null;
+            setActiveButton(document.getElementById('laws-bloc-chips'), selectedBloc);
+            renderAll();
+          });
+        });
+
+        // Has Datacenters toggle
+        var dcBtn = document.getElementById('laws-has-dc');
+        if (dcBtn) {
+          dcBtn.addEventListener('click', function() {
+            hasDatacentersOnly = !hasDatacentersOnly;
+            if (hasDatacentersOnly) {
+              dcBtn.classList.add('btn-active');
+              dcBtn.classList.remove('btn-ghost');
+            } else {
+              dcBtn.classList.remove('btn-active');
+              dcBtn.classList.add('btn-ghost');
+            }
             focusedIds = null;
             renderAll();
           });
-          riskWrap.appendChild(btn);
-        });
-
-        blocWrap.innerHTML = '';
-        (blocsData || []).forEach(function(b) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.dataset.bloc = b.id;
-          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
-          btn.textContent = (b.flag ? (b.flag + ' ') : '') + b.name;
-          btn.addEventListener('click', function() {
-            if (selectedBlocs.has(b.id)) selectedBlocs.delete(b.id); else selectedBlocs.add(b.id);
-            focusedIds = null;
-            renderAll();
-          });
-          blocWrap.appendChild(btn);
-        });
+        }
       }
 
-      function applyChipStyles() {
-        document.querySelectorAll('.laws-chip').forEach(function(el) {
-          var r = el.dataset.risk;
-          var b = el.dataset.bloc;
-          var active = false;
-          if (r) active = selectedRisks.has(r);
-          if (b) active = selectedBlocs.has(b);
-          el.style.borderColor = active ? (isDark ? '#3b82f6' : '#3b82f6') : '';
-          el.style.backgroundColor = active ? (isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.08)') : '';
-        });
+      function updateFilterButtons() {
+        setActiveButton(document.getElementById('laws-risk-chips'), selectedRisk);
+        setActiveButton(document.getElementById('laws-bloc-chips'), selectedBloc);
+        var dcBtn = document.getElementById('laws-has-dc');
+        if (dcBtn) {
+          if (hasDatacentersOnly) {
+            dcBtn.classList.add('btn-active');
+            dcBtn.classList.remove('btn-ghost');
+          } else {
+            dcBtn.classList.remove('btn-active');
+            dcBtn.classList.add('btn-ghost');
+          }
+        }
       }
 
       function matchCountry(d) {
         if (!d) return false;
-        if (selectedRisks.size > 0 && !selectedRisks.has(d.riskLevel || 'unknown')) return false;
-        if (selectedBlocs.size > 0) {
+        if (selectedRisk !== 'all' && (d.riskLevel || 'unknown') !== selectedRisk) return false;
+        if (selectedBloc !== 'all') {
           var blocs = d.blocs || [];
-          var ok = false;
-          selectedBlocs.forEach(function(id) { if (blocs.indexOf(id) !== -1) ok = true; });
-          if (!ok) return false;
+          if (blocs.indexOf(selectedBloc) === -1) return false;
         }
         if (hasDatacentersOnly && !(d.datacenterCount > 0)) return false;
         if (focusedIds && focusedIds.length > 0 && focusedIds.indexOf(d.id) === -1) return false;
@@ -436,21 +489,19 @@
       }
 
       function renderAll() {
-        applyChipStyles();
+        updateFilterButtons();
         updateMapStyles();
         renderCountriesList();
       }
 
       function resetAll() {
-        selectedRisks.clear();
-        selectedBlocs.clear();
+        selectedRisk = 'all';
+        selectedBloc = 'all';
         hasDatacentersOnly = false;
         focusedIds = null;
         currentSort = 'datacenters';
         var q = document.getElementById('laws-map-search');
         if (q) q.value = '';
-        var dc = document.getElementById('laws-has-dc');
-        if (dc) dc.checked = false;
         var sug = document.getElementById('laws-map-suggestions');
         if (sug) { sug.style.display = 'none'; sug.innerHTML = ''; }
         renderAll();
@@ -641,7 +692,7 @@
       });
 
       // controls wiring
-      buildChips();
+      setupFilterListeners();
       renderAll();
 
       var searchInput = document.getElementById('laws-map-search');
@@ -676,15 +727,6 @@
           showSuggestions([]);
         }
       });
-
-      var hasDc = document.getElementById('laws-has-dc');
-      if (hasDc) {
-        hasDc.addEventListener('change', function() {
-          hasDatacentersOnly = !!hasDc.checked;
-          focusedIds = null;
-          renderAll();
-        });
-      }
 
       var resetBtn = document.getElementById('laws-map-reset');
       if (resetBtn) resetBtn.addEventListener('click', resetAll);

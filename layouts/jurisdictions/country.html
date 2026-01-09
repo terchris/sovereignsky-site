@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ .Scratch.Set "scope" "single" }}
 
-  {{/* Resolve country from slug */}}
+  {{/* Resolve country from frontmatter or slug */}}
   {{ $slug := "" }}
   {{ with .File }}
     {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "jurisdictions/" .Dir) }}
@@ -29,23 +29,12 @@
     {{ $countryFlag = $country.flag | default "" }}
   {{ end }}
 
-  {{/* Auto-generate title from regions.json if frontmatter title is not set or is default */}}
-  {{ $autoTitle := "" }}
-  {{ if and $countryFlag $countryName }}
-    {{ $autoTitle = printf "%s %s" $countryFlag $countryName }}
-  {{ else if $countryName }}
-    {{ $autoTitle = $countryName }}
-  {{ end }}
-  {{ $displayTitle := .Title }}
-  {{ if and $autoTitle (or (not .Title) (eq .Title "Index") (eq .Title "")) }}
-    {{ $displayTitle = $autoTitle }}
-  {{ end }}
-
-  {{/* Pre-calculate stats for hero */}}
+  {{/* Pre-calculate stats */}}
   {{ $riskLevel := $country.risk_level | default "unknown" }}
   {{ $blocs := $country.blocs | default (slice) }}
+  {{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
 
-  {{/* Count datacenters in this country */}}
+  {{/* Count datacenters */}}
   {{ $datacenterCount := 0 }}
   {{ range (site.Data.datacenters.providers | default (slice)) }}
     {{ range (.regions | default (slice)) }}
@@ -57,7 +46,6 @@
 
   {{/* Count laws */}}
   {{ $applicableIds := slice $countryId }}
-  {{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
   {{ range $blocs }}
     {{ $blocId := . }}
     {{ $applicableIds = $applicableIds | append $blocId }}
@@ -71,9 +59,9 @@
   {{ end }}
   {{ $lawCount := 0 }}
   {{ $seenLaws := slice }}
-  {{ range site.Data.laws.laws.laws }}
-    {{ $lawId := .id }}
-    {{ range .applies_to }}
+  {{ range site.Data.laws.laws.itemListElement }}
+    {{ $lawId := .identifier }}
+    {{ range .legislationJurisdiction }}
       {{ $applyTo := . }}
       {{ range $applicableIds }}
         {{ if eq $applyTo . }}
@@ -160,160 +148,24 @@
       {{ end }}
     </div>
 
-    {{/* Body with right sidebar */}}
+    {{/* Two-column layout with shared sidebar */}}
     <section class="flex flex-col max-w-full mt-0 lg:flex-row">
-      {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-      {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-      {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
-      {{ $blocs := $country.blocs | default (slice) }}
-      {{ $showSidebar := or $showToc (gt (len $blocs) 0) }}
-      {{ if $showSidebar }}
-        <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-md lg:min-w-[300px]">
-          <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
-            {{ if $showToc }}
-              {{ partial "toc.html" . }}
-            {{ end }}
+      {{/* Right Sidebar using shared pattern */}}
+      {{ partial "sidebar/common-sidebar.html" . }}
 
-            {{/* Memberships Card */}}
-            {{ if gt (len $blocs) 0 }}
-            <div class="card bg-base-100 shadow-sm border border-base-300">
-              <div class="card-body p-4">
-                <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-                  {{ partial "content-icon.html" (dict "name" "globe" "color" "accent" "size" "4") }}
-                  Memberships
-                </h3>
-                <div class="flex flex-wrap gap-2 mt-2">
-                  {{ range $blocs }}
-                    {{ $blocId := . }}
-                    {{ $blocName := $blocId }}
-                    {{ $blocFlag := "" }}
-                    {{ range $blocsData }}
-                      {{ if eq .id $blocId }}
-                        {{ $blocName = .name }}
-                        {{ $blocFlag = .flag | default "" }}
-                      {{ end }}
-                    {{ end }}
-                    <a href="/jurisdictions/{{ $blocId | urlize }}/" class="badge badge-outline badge-lg gap-1 hover:badge-primary transition-colors">
-                      {{ if $blocFlag }}{{ $blocFlag }}{{ end }} {{ $blocName }}
-                    </a>
-                  {{ end }}
-                </div>
-              </div>
-            </div>
-            {{ end }}
+        {{/* Sidebar cards */}}
+        {{ partial "sidebar/jurisdiction-memberships-card.html" . }}
+        {{ partial "sidebar/jurisdiction-laws-card.html" . }}
+        {{ partial "sidebar/jurisdiction-datacenters-card.html" . }}
 
-            {{/* Laws Summary Card */}}
-            {{ if $countryId }}
-              {{ $applicableIds := slice $countryId }}
-              {{ $countryBlocs := $country.blocs | default (slice) }}
+        {{/* Related content */}}
+        {{ partial "related-content-sidebar.html" (dict "page" . "country_id" $countryId) }}
 
-              {{ range $countryBlocs }}
-                {{ $blocId := . }}
-                {{ $applicableIds = $applicableIds | append $blocId }}
-                {{ range $blocsData }}
-                  {{ if eq .id $blocId }}
-                    {{ range (.inherits_from | default (slice)) }}
-                      {{ $applicableIds = $applicableIds | append . }}
-                    {{ end }}
-                  {{ end }}
-                {{ end }}
-              {{ end }}
+      {{ partial "sidebar/common-sidebar-end.html" . }}
 
-              {{ $.Scratch.Set "laws_showLaws" false }}
-              {{ $.Scratch.Set "laws_total" 0 }}
-              {{ $.Scratch.Set "laws_byType" (dict) }}
-              {{ $.Scratch.Set "laws_seen" (slice) }}
-              {{ range site.Data.laws.laws.laws }}
-                {{ $law := . }}
-                {{ $lawId := .id }}
-                {{ range .applies_to }}
-                  {{ $applyTo := . }}
-                  {{ range $applicableIds }}
-                    {{ if eq $applyTo . }}
-                      {{ $seen := $.Scratch.Get "laws_seen" }}
-                      {{ $alreadyCounted := false }}
-                      {{ range $seen }}
-                        {{ if eq . $lawId }}{{ $alreadyCounted = true }}{{ end }}
-                      {{ end }}
-                      {{ if not $alreadyCounted }}
-                        {{ $.Scratch.Set "laws_showLaws" true }}
-                        {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
-                        {{ $lawType := $law.type | default "other" }}
-                        {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
-                        {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
-                        {{ $.Scratch.Add "laws_seen" $lawId }}
-                      {{ end }}
-                    {{ end }}
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-
-              {{ if $.Scratch.Get "laws_showLaws" }}
-              <div class="card bg-base-100 shadow-sm border border-base-300">
-                <div class="card-body p-4">
-                  <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-                    {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "4") }}
-                    Laws by Type
-                  </h3>
-                  <p class="text-xs opacity-60 -mt-1">{{ $.Scratch.Get "laws_total" }} applicable laws</p>
-                  <ul class="menu menu-sm bg-base-200 rounded-box mt-2 p-1 w-full">
-                    {{/* Build law type lookups from law_types.json */}}
-                    {{ $typeOrder := slice }}
-                    {{ $shortLabels := dict }}
-                    {{ $emojis := dict }}
-                    {{ range site.Data.laws.law_types.itemListElement }}
-                      {{ $typeOrder = $typeOrder | append .identifier }}
-                      {{ $shortLabels = merge $shortLabels (dict .identifier .shortName) }}
-                      {{ $emojis = merge $emojis (dict .identifier .emoji) }}
-                    {{ end }}
-                    {{ $byType := $.Scratch.Get "laws_byType" }}
-                    {{ range $typeOrder }}
-                      {{ $type := . }}
-                      {{ $count := index $byType $type }}
-                      {{ if $count }}
-                        {{ $label := index $shortLabels $type }}
-                        {{ $emoji := index $emojis $type }}
-                        <li>
-                          <a href="#{{ $type }}-laws" class="flex justify-between items-center gap-2 min-w-0">
-                            <span class="flex items-center gap-1 truncate">{{ $emoji }} {{ $label }}</span>
-                            <span class="badge badge-sm flex-shrink-0">{{ $count }}</span>
-                          </a>
-                        </li>
-                      {{ end }}
-                    {{ end }}
-                  </ul>
-                </div>
-              </div>
-              {{ end }}
-            {{ end }}
-
-            {{/* Datacenters Card */}}
-            {{ if $country }}
-            <div class="card bg-base-100 shadow-sm border border-base-300">
-              <div class="card-body p-4">
-                <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-                  {{ partial "content-icon.html" (dict "name" "server" "color" "secondary" "size" "4") }}
-                  Datacenters
-                </h3>
-                <a href="/datacenters/{{ $country.slug }}/" class="btn btn-sm btn-outline btn-secondary mt-2 gap-2">
-                  {{ if $countryFlag }}{{ $countryFlag }}{{ end }} View {{ $datacenterCount }} Regions
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                  </svg>
-                </a>
-              </div>
-            </div>
-            {{ end }}
-
-            {{/* Related content */}}
-            {{ partial "related-content-sidebar.html" (dict "page" . "country_id" $countryId) }}
-          </div>
-        </div>
-      {{ end }}
-
-      <div class="min-w-0 min-h-0 max-w-fit">
+      {{/* Main Content */}}
+      <div class="min-w-0 flex-1">
         <div class="article-content max-w-5xl mb-20">
           {{/* Risk Assessment Card */}}
           {{ $riskDescription := "" }}
@@ -341,11 +193,9 @@
           </div>
           {{ end }}
 
-          {{/* Check if there's any custom content in the markdown file */}}
+          {{/* Custom content from markdown */}}
           {{ $rawContent := .RawContent | strings.TrimSpace }}
           {{ $hasCustomContent := gt (len $rawContent) 0 }}
-
-          {{/* Render any custom page content from markdown */}}
           {{ if $hasCustomContent }}
           <div class="prose dark:prose-invert max-w-none mb-8">
             {{ .Content }}
