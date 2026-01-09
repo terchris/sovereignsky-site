@@ -25,44 +25,44 @@ Usage: {{< datacenter-map>}}
   {{ $mapPoints := slice }}
   {{ $providerMeta := slice }}
 
-  {{ range $datacenters.providers }}
+  {{ range $datacenters.datacenters }}
   {{ $provider := . }}
-  {{ $vendorCountry := index $regionsById .vendor_country_id }}
+  {{ $vendorCountry := index $regionsById .vendorCountryId }}
   {{ $vendorRisk := "unknown" }}
   {{ if $vendorCountry }}
   {{ $vendorRisk = $vendorCountry.riskLevel }}
   {{ end }}
 
   {{ $providerMeta = $providerMeta | append (dict
-  "provider_id" $provider.provider_id
-  "provider_name" $provider.provider_name
-  "provider_type" ($provider.provider_type | default "regional_cloud")
-  "vendor_country_id" $provider.vendor_country_id
-  "vendor_risk" $vendorRisk
-  "region_count" (len $provider.regions)
+  "identifier" $provider.identifier
+  "name" $provider.name
+  "providerType" ($provider.providerType | default "regional_cloud")
+  "vendorCountryId" $provider.vendorCountryId
+  "vendorRisk" $vendorRisk
+  "regionCount" (len $provider.regions)
   ) }}
 
   {{ range .regions }}
-  {{ $dcCountry := index $regionsById .country_id }}
+  {{ $dcCountry := index $regionsById .countryId }}
   {{ $dcRisk := "unknown" }}
-  {{ $dcCountryName := .country_id }}
+  {{ $dcCountryName := .countryId }}
   {{ if $dcCountry }}
   {{ $dcRisk = $dcCountry.riskLevel }}
   {{ if $dcCountry.name }}{{ $dcCountryName = $dcCountry.name }}{{ end }}
   {{ end }}
 
   {{ $point := dict
-  "provider_id" $provider.provider_id
-  "provider_name" $provider.provider_name
-  "vendor_country_id" $provider.vendor_country_id
-  "vendor_risk" $vendorRisk
-  "region_id" .region_id
-  "region_name" .region_name
-  "country_id" .country_id
-  "country_name" $dcCountryName
+  "providerIdentifier" $provider.identifier
+  "providerName" $provider.name
+  "vendorCountryId" $provider.vendorCountryId
+  "vendorRisk" $vendorRisk
+  "identifier" .identifier
+  "name" .name
+  "countryId" .countryId
+  "countryName" $dcCountryName
   "city" .city
   "coordinates" .coordinates
-  "dc_risk" $dcRisk
+  "dcRisk" $dcRisk
   }}
   {{ $mapPoints = $mapPoints | append $point }}
   {{ end }}
@@ -232,11 +232,11 @@ Usage: {{< datacenter-map>}}
           loadingDiv.style.display = 'none';
 
           var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
-          var selectedProviderIds = new Set((providers || []).map(function (p) { return p.provider_id; }));
+          var selectedProviderIds = new Set((providers || []).map(function (p) { return p.identifier; }));
           var selectedProviderTypes = new Set(['hyperscaler', 'regional_cloud', 'datacenter_operator']);
           var providerTypeById = {};
           (providers || []).forEach(function (p) {
-            providerTypeById[p.provider_id] = p.provider_type || 'regional_cloud';
+            providerTypeById[p.identifier] = p.providerType || 'regional_cloud';
           });
           if (typeof initialProvidersParam === 'string' && initialProvidersParam.trim().length > 0) {
             var wanted = initialProvidersParam.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
@@ -244,12 +244,12 @@ Usage: {{< datacenter-map>}}
           }
 
           function getVendorCategory(dc) {
-            var cc = dc && dc.vendor_country_id;
+            var cc = dc && dc.vendorCountryId;
             if (cc === 'US') return 'us';
             if (cc === 'CN') return 'china';
             if (cc === 'CH') return 'swiss';
             // EU/EEA vendors in our dataset are marked as low risk in regions.json
-            if ((dc && dc.vendor_risk) === 'low') return 'eu';
+            if ((dc && dc.vendorRisk) === 'low') return 'eu';
             // Fallback: treat as EU/EEA for now so points don't disappear.
             return 'eu';
           }
@@ -296,7 +296,7 @@ Usage: {{< datacenter-map>}}
           countryFilterSet = parseCsvSet(initialCountriesParam);
           if (countryFilterSet && countryFilterSet.size > 0) {
             var baseCountryPoints = (dcData || []).filter(function (d) {
-              return d && d.country_id && countryFilterSet.has(d.country_id);
+              return d && d.countryId && countryFilterSet.has(d.countryId);
             });
             // Only auto-zoom-to-points on the world map. On a country map we want to show the whole country.
             if (mapKey === 'world') {
@@ -318,11 +318,11 @@ Usage: {{< datacenter-map>}}
               if (typeof lat !== 'number' || typeof lng !== 'number') return;
 
               var city = (dc.city || '').trim();
-              var country = (dc.country_id || '').trim();
+              var country = (dc.countryId || '').trim();
               if (!city || !country) return;
 
               var key = country + '|' + city.toLowerCase();
-              var pointKey = (dc.provider_id || '') + '|' + (dc.region_id || '');
+              var pointKey = (dc.providerIdentifier || '') + '|' + (dc.identifier || '');
 
               if (!groups[key]) groups[key] = [];
               groups[key].push({ pointKey: pointKey, lat: lat, lng: lng });
@@ -381,27 +381,27 @@ Usage: {{< datacenter-map>}}
               var cat = getVendorCategory(dc);
               if (!seriesByCat[cat]) seriesByCat[cat] = [];
               if (dc.coordinates && dc.coordinates.length === 2) {
-                var pointKey = (dc.provider_id || '') + '|' + (dc.region_id || '');
+                var pointKey = (dc.providerIdentifier || '') + '|' + (dc.identifier || '');
                 var isMatch = hasSearch ? searchMatchKeys.has(pointKey) : false;
                 var dimOthers = hasSearch && !isMatch;
                 seriesByCat[cat].push({
-                  name: dc.provider_name + ' - ' + dc.region_name,
+                  name: dc.name + ' - ' + dc.name,
                   value: [dc.coordinates[1], dc.coordinates[0], 1], // [lng, lat, value]
                   symbolOffset: offsetsByPointKey[pointKey] || [0, 0],
                   __isMatch: isMatch,
                   itemStyle: {
                     opacity: dimOthers ? 0.15 : 1
                   },
-                  provider_id: dc.provider_id,
-                  provider_name: dc.provider_name,
-                  vendor_country_id: dc.vendor_country_id,
-                  vendor_risk: dc.vendor_risk,
-                  region_id: dc.region_id,
-                  region_name: dc.region_name,
-                  country_id: dc.country_id,
-                  country_name: dc.country_name,
+                  providerIdentifier: dc.providerIdentifier,
+                  providerName: dc.providerName,
+                  vendorCountryId: dc.vendorCountryId,
+                  vendorRisk: dc.vendorRisk,
+                  identifier: dc.identifier,
+                  name: dc.name,
+                  countryId: dc.countryId,
+                  countryName: dc.countryName,
                   city: dc.city,
-                  dc_risk: dc.dc_risk
+                  dcRisk: dc.dcRisk
                 });
               }
             });
@@ -439,10 +439,10 @@ Usage: {{< datacenter-map>}}
 
             var filteredDcData = (dcData || []).filter(function (dc) {
               if (countryFilterSet && countryFilterSet.size > 0) {
-                if (!dc.country_id || !countryFilterSet.has(dc.country_id)) return false;
+                if (!dc.countryId || !countryFilterSet.has(dc.countryId)) return false;
               }
-              if (!selectedProviderIds.has(dc.provider_id)) return false;
-              var t = providerTypeById[dc.provider_id] || 'regional_cloud';
+              if (!selectedProviderIds.has(dc.providerIdentifier)) return false;
+              var t = providerTypeById[dc.providerIdentifier] || 'regional_cloud';
               return selectedProviderTypes.has(t);
             });
 
@@ -471,15 +471,15 @@ Usage: {{< datacenter-map>}}
               tooltip: {
                 trigger: 'item',
                 formatter: function (params) {
-                  if (params.data && params.data.provider_name) {
+                  if (params.data && params.data.name) {
                     var d = params.data;
                     var jurisdictionWarning = '';
-                    if (d.vendor_country_id === 'US' && d.dc_risk === 'low') {
+                    if (d.vendorCountryId === 'US' && d.dcRisk === 'low') {
                       jurisdictionWarning = '<br/><span style="color:#ef4444">⚠️ US jurisdiction applies!</span>';
                     }
-                    return '<strong>' + d.provider_name + '</strong><br/>' +
-                      d.region_name + '<br/>' +
-                      '📍 ' + d.city + ', ' + d.country_id +
+                    return '<strong>' + d.name + '</strong><br/>' +
+                      d.name + '<br/>' +
+                      '📍 ' + d.city + ', ' + d.countryId +
                       jurisdictionWarning;
                   }
                   return '';
@@ -555,7 +555,7 @@ Usage: {{< datacenter-map>}}
 
           function applyPreset(preset) {
             if (preset === 'all') {
-              selectedProviderIds = new Set((providers || []).map(function (p) { return p.provider_id; }));
+              selectedProviderIds = new Set((providers || []).map(function (p) { return p.identifier; }));
               setAllCheckboxes(true);
               return;
             }
@@ -569,10 +569,10 @@ Usage: {{< datacenter-map>}}
             if (preset === 'us-hyperscalers') {
               ids = ['aws', 'azure', 'gcp'];
             } else if (preset === 'eu-eea') {
-              ids = (providers || []).filter(function (p) { return p.vendor_risk === 'low'; }).map(function (p) { return p.provider_id; });
+              ids = (providers || []).filter(function (p) { return p.vendorRisk === 'low'; }).map(function (p) { return p.identifier; });
             } else if (preset === 'non-us') {
               // "Non-US" should include China and any other non-US jurisdictions.
-              ids = (providers || []).filter(function (p) { return p.vendor_country_id !== 'US'; }).map(function (p) { return p.provider_id; });
+              ids = (providers || []).filter(function (p) { return p.vendorCountryId !== 'US'; }).map(function (p) { return p.identifier; });
             }
 
             selectedProviderIds = new Set(ids);
@@ -642,7 +642,7 @@ Usage: {{< datacenter-map>}}
 
           function providerById(id) {
             for (var i = 0; i < (providers || []).length; i++) {
-              if (providers[i].provider_id === id) return providers[i];
+              if (providers[i].identifier === id) return providers[i];
             }
             return null;
           }
@@ -653,23 +653,23 @@ Usage: {{< datacenter-map>}}
             var dcInfo = document.getElementById('dc-info');
             if (!detailsDiv || !dcName || !dcInfo) return;
 
-            dcName.innerHTML = d.provider_name + ' <span class="font-normal opacity-70">-</span> ' + d.region_name;
+            dcName.innerHTML = d.name + ' <span class="font-normal opacity-70">-</span> ' + d.name;
 
-            var vendorBadgeClass = (d.vendor_country_id === 'US')
+            var vendorBadgeClass = (d.vendorCountryId === 'US')
               ? 'badge-error'
-              : (d.vendor_country_id === 'CN')
+              : (d.vendorCountryId === 'CN')
                 ? 'badge-neutral'
-                : d.vendor_risk === 'low'
+                : d.vendorRisk === 'low'
                   ? 'badge-success'
                   : 'badge-info';
 
-            var vendorBadgeText = (d.vendor_country_id === 'US')
+            var vendorBadgeText = (d.vendorCountryId === 'US')
               ? '⚠️ US Jurisdiction'
-              : (d.vendor_country_id === 'CN')
+              : (d.vendorCountryId === 'CN')
                 ? '⚫ China Jurisdiction'
-                : d.vendor_risk === 'low'
+                : d.vendorRisk === 'low'
                   ? '✅ EU/EEA'
-                  : (d.vendor_country_id === 'CH' ? '🔷 Swiss' : '🔷 Other');
+                  : (d.vendorCountryId === 'CH' ? '🔷 Swiss' : '🔷 Other');
 
             var html = '<div class="space-y-4">';
 
@@ -680,52 +680,52 @@ Usage: {{< datacenter-map>}}
             html += '<div class="flex items-center gap-3">';
             html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>';
             html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Location</p>';
-            html += '<p class="font-semibold">' + d.city + ', ' + d.country_name + '</p></div>';
+            html += '<p class="font-semibold">' + d.city + ', ' + d.countryName + '</p></div>';
             html += '</div>';
 
             // Region ID
             html += '<div class="flex items-center gap-3">';
             html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg></div>';
             html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Region ID</p>';
-            html += '<p class="font-mono text-sm">' + d.region_id + '</p></div>';
+            html += '<p class="font-mono text-sm">' + d.identifier + '</p></div>';
             html += '</div>';
 
             // Vendor HQ
             html += '<div class="flex items-center gap-3">';
             html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>';
             html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Vendor HQ</p>';
-            html += '<p class="font-semibold">' + d.vendor_country_id + ' <span class="badge ' + vendorBadgeClass + ' badge-sm ml-1">' + vendorBadgeText + '</span></p></div>';
+            html += '<p class="font-semibold">' + d.vendorCountryId + ' <span class="badge ' + vendorBadgeClass + ' badge-sm ml-1">' + vendorBadgeText + '</span></p></div>';
             html += '</div>';
 
             // Provider
             html += '<div class="flex items-center gap-3">';
             html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></div>';
             html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Provider</p>';
-            html += '<p class="font-semibold">' + d.provider_name + '</p></div>';
+            html += '<p class="font-semibold">' + d.name + '</p></div>';
             html += '</div>';
 
             html += '</div>'; // End grid
 
             // Jurisdiction warning/info alerts
-            if (d.vendor_country_id === 'US' && d.dc_risk === 'low') {
+            if (d.vendorCountryId === 'US' && d.dcRisk === 'low') {
               html += '<div role="alert" class="alert alert-error">';
               html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
               html += '<div>';
               html += '<h4 class="font-bold">Jurisdiction Exposure</h4>';
-              html += '<p class="text-sm">This datacenter is physically in the EU/EEA, but ' + d.provider_name + ' is a US company. US laws like the <strong>CLOUD Act</strong> can compel data handover regardless of location.</p>';
+              html += '<p class="text-sm">This datacenter is physically in the EU/EEA, but ' + d.name + ' is a US company. US laws like the <strong>CLOUD Act</strong> can compel data handover regardless of location.</p>';
               html += '</div>';
               html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
               html += '</div>';
-            } else if (d.vendor_country_id === 'US') {
+            } else if (d.vendorCountryId === 'US') {
               html += '<div role="alert" class="alert alert-warning">';
               html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
               html += '<div>';
               html += '<h4 class="font-bold">US Jurisdiction</h4>';
-              html += '<p class="text-sm">' + d.provider_name + ' is subject to US laws including the CLOUD Act.</p>';
+              html += '<p class="text-sm">' + d.name + ' is subject to US laws including the CLOUD Act.</p>';
               html += '</div>';
               html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
               html += '</div>';
-            } else if (d.vendor_risk === 'low') {
+            } else if (d.vendorRisk === 'low') {
               html += '<div role="alert" class="alert alert-success">';
               html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
               html += '<div>';
@@ -733,7 +733,7 @@ Usage: {{< datacenter-map>}}
               html += '<p class="text-sm">This vendor is based in the EU/EEA. No extraterritorial data access laws apply.</p>';
               html += '</div>';
               html += '</div>';
-            } else if (d.vendor_country_id === 'CN') {
+            } else if (d.vendorCountryId === 'CN') {
               html += '<div role="alert" class="alert">';
               html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
               html += '<div>';
@@ -782,9 +782,9 @@ Usage: {{< datacenter-map>}}
               html += '<div class="text-xs px-3 py-2 text-neutral-500 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700">' + countLabel + ' • Click a result for details</div>';
               html += '<div>';
               items.forEach(function (it) {
-                html += '<button type="button" class="w-full text-left px-3 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm dc-search-item" data-provider-id="' + it.provider_id + '" data-region-id="' + it.region_id + '">';
-                html += '<div class="font-medium">' + it.provider_name + '</div>';
-                html += '<div class="text-xs text-neutral-500 dark:text-neutral-400">' + it.region_name + ' • ' + it.city + ', ' + it.country_id + '</div>';
+                html += '<button type="button" class="w-full text-left px-3 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm dc-search-item" data-provider-id="' + it.identifier + '" data-region-id="' + it.identifier + '">';
+                html += '<div class="font-medium">' + it.name + '</div>';
+                html += '<div class="text-xs text-neutral-500 dark:text-neutral-400">' + it.name + ' • ' + it.city + ', ' + it.countryId + '</div>';
                 html += '</button>';
               });
               html += '</div></div>';
@@ -796,7 +796,7 @@ Usage: {{< datacenter-map>}}
                 btn.addEventListener('click', function () {
                   var providerId = btn.getAttribute('data-provider-id');
                   var regionId = btn.getAttribute('data-region-id');
-                  var match = (dcData || []).find(function (d) { return d.provider_id === providerId && d.region_id === regionId; });
+                  var match = (dcData || []).find(function (d) { return d.providerIdentifier === providerId && d.identifier === regionId; });
                   if (!match) return;
 
                   // Ensure provider is selected so the point is visible.
@@ -826,11 +826,11 @@ Usage: {{< datacenter-map>}}
 
             function buildHaystack(d) {
               return [
-                d.provider_name, d.provider_id,
-                d.region_name, d.region_id,
+                d.providerName, d.providerIdentifier,
+                d.name, d.identifier,
                 d.city,
-                d.country_id,
-                d.country_name
+                d.countryId,
+                d.countryName
               ].map(normalize).join(' ');
             }
 
@@ -841,11 +841,11 @@ Usage: {{< datacenter-map>}}
 
               // If some providers are selected, search within those; if none selected, search all.
               var pool = (selectedProviderIds.size > 0)
-                ? (dcData || []).filter(function (d) { return selectedProviderIds.has(d.provider_id); })
+                ? (dcData || []).filter(function (d) { return selectedProviderIds.has(d.providerIdentifier); })
                 : (dcData || []);
               // Also respect provider type filters
               pool = pool.filter(function (d) {
-                var t = providerTypeById[d.provider_id] || 'regional_cloud';
+                var t = providerTypeById[d.providerIdentifier] || 'regional_cloud';
                 return selectedProviderTypes.has(t);
               });
 
@@ -867,14 +867,14 @@ Usage: {{< datacenter-map>}}
                 var scoreA = 0;
                 var scoreB = 0;
                 tokens.forEach(function (tok) {
-                  if (normalize(a.region_id) === tok || normalize(a.provider_id) === tok) scoreA += 10;
-                  if (normalize(b.region_id) === tok || normalize(b.provider_id) === tok) scoreB += 10;
+                  if (normalize(a.identifier) === tok || normalize(a.identifier) === tok) scoreA += 10;
+                  if (normalize(b.identifier) === tok || normalize(b.identifier) === tok) scoreB += 10;
                   if (qa.indexOf(tok) === 0) scoreA += 2;
                   if (qb.indexOf(tok) === 0) scoreB += 2;
                 });
                 if (scoreB !== scoreA) return scoreB - scoreA;
-                if (a.provider_name !== b.provider_name) return a.provider_name.localeCompare(b.provider_name);
-                return (a.region_name || '').localeCompare(b.region_name || '');
+                if (a.name !== b.name) return a.name.localeCompare(b.name);
+                return (a.name || '').localeCompare(b.name || '');
               });
 
               return matches.slice(0, 200);
@@ -925,7 +925,7 @@ Usage: {{< datacenter-map>}}
               }
 
               // Populate match keys for highlighting
-              searchMatchKeys = new Set((rawMatches || []).map(function (m) { return (m.provider_id || '') + '|' + (m.region_id || ''); }));
+              searchMatchKeys = new Set((rawMatches || []).map(function (m) { return (m.identifier || '') + '|' + (m.identifier || ''); }));
               searchGeo = (autoZoomEl && autoZoomEl.checked) ? computeGeoForMatches(rawMatches) : null;
               render();
             }
@@ -993,7 +993,7 @@ Usage: {{< datacenter-map>}}
             // Find matching datacenter
             var match = null;
             for (var i = 0; i < dcData.length; i++) {
-              if (dcData[i].provider_id === providerId && dcData[i].region_id === regionId) {
+              if (dcData[i].identifier === providerId && dcData[i].identifier === regionId) {
                 match = dcData[i];
                 break;
               }
@@ -1029,16 +1029,16 @@ Usage: {{< datacenter-map>}}
 
           // Update URL with datacenter parameter for sharing
           function updateUrlParam(d) {
-            if (d && d.provider_id && d.region_id) {
+            if (d && d.providerIdentifier && d.identifier) {
               var url = new URL(window.location);
-              url.searchParams.set('dc', d.provider_id + ':' + d.region_id);
+              url.searchParams.set('dc', d.providerIdentifier + ':' + d.identifier);
               history.replaceState(null, '', url);
             }
           }
 
           // Click handler
           myChart.on('click', function (params) {
-            if (params.data && params.data.provider_name) {
+            if (params.data && params.data.name) {
               showDetails(params.data);
               updateUrlParam(params.data);
             }

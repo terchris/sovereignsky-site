@@ -53,7 +53,7 @@
 
 {{- else if eq $section "datacenters" -}}
   {{- /* Count from datacenter data */ -}}
-  {{- $providers := index (index .Site.Data "datacenters") "providers" | default slice -}}
+  {{- $providers := index (index .Site.Data "datacenters") "datacenters" | default slice -}}
   {{- $providerCount := len $providers -}}
   {{- /* Count total regions and unique countries */ -}}
   {{- $regionCount := 0 -}}
@@ -61,7 +61,7 @@
   {{- range $providers -}}
     {{- $regionCount = add $regionCount (len .regions) -}}
     {{- range .regions -}}
-      {{- with .country_id -}}
+      {{- with .countryId -}}
         {{- if not (in $countries .) -}}
           {{- $countries = $countries | append . -}}
         {{- end -}}

@@ -7,7 +7,7 @@
   {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
 {{ end }}
 
-{{ $countryId := .Params.country_id | default "" }}
+{{ $countryId := .Params.countryId | default "" }}
 {{ $country := dict }}
 {{ if not $countryId }}
   {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
@@ -48,7 +48,7 @@
 {{ end }}
 
 {{/* Providers that have regions in this country */}}
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 {{ $providerItems := slice }}
 {{ $totalRegions := 0 }}
 {{ if $countryId }}
@@ -56,13 +56,13 @@
     {{ $p := . }}
     {{ $count := 0 }}
     {{ range ($p.regions | default (slice)) }}
-      {{ if eq .country_id $countryId }}
+      {{ if eq .countryId $countryId }}
         {{ $count = add $count 1 }}
       {{ end }}
     {{ end }}
     {{ if gt $count 0 }}
       {{ $totalRegions = add $totalRegions $count }}
-      {{ $providerItems = $providerItems | append (dict "provider" $p "count" $count "name" ($p.provider_name | default $p.provider_id)) }}
+      {{ $providerItems = $providerItems | append (dict "provider" $p "count" $count "name" ($p.name | default $p.identifier)) }}
     {{ end }}
   {{ end }}
 {{ end }}

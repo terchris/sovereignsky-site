@@ -16,7 +16,7 @@ Shows the count of regions in THAT country (not total regions).
 {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
-{{ $allProviders := $datacenters.providers | default (slice) }}
+{{ $allProviders := $datacenters.datacenters | default (slice) }}
 
 {{/* Filter providers that have regions in this country and count regions per provider */}}
 {{ $providersInCountry := slice }}
@@ -24,16 +24,16 @@ Shows the count of regions in THAT country (not total regions).
   {{ $provider := . }}
   {{ $countInCountry := 0 }}
   {{ range .regions }}
-    {{ if eq .country_id $countryId }}
+    {{ if eq .countryId $countryId }}
       {{ $countInCountry = add $countInCountry 1 }}
     {{ end }}
   {{ end }}
   {{ if gt $countInCountry 0 }}
     {{ $providersInCountry = $providersInCountry | append (dict
-      "provider_id" $provider.provider_id
-      "provider_name" $provider.provider_name
-      "provider_type" $provider.provider_type
-      "vendor_country_id" $provider.vendor_country_id
+      "identifier" $provider.identifier
+      "name" $provider.name
+      "providerType" $provider.providerType
+      "vendorCountryId" $provider.vendorCountryId
       "count_in_country" $countInCountry
     ) }}
   {{ end }}
@@ -54,17 +54,17 @@ Shows the count of regions in THAT country (not total regions).
 {{ range $groups }}
   {{ $key := .key }}
   {{ $title := .title }}
-  {{ $items := where $providersInCountry "provider_type" $key }}
+  {{ $items := where $providersInCountry "providerType" $key }}
   {{/* Sort by count desc, then name asc */}}
-  {{ $items = sort $items "provider_name" "asc" }}
+  {{ $items = sort $items "name" "asc" }}
   {{ $items = sort $items "count_in_country" "desc" }}
   {{ if gt (len $items) 0 }}
   <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
   <div class="flex flex-wrap gap-2">
     {{ range $items }}
-    {{ $vendor := index $regionsById .vendor_country_id }}
+    {{ $vendor := index $regionsById .vendorCountryId }}
     {{ $flag := "" }}
-    {{ $vendorName := .vendor_country_id }}
+    {{ $vendorName := .vendorCountryId }}
     {{ $risk := "unknown" }}
     {{ if $vendor }}
       {{ $flag = $vendor.flag }}
@@ -81,10 +81,10 @@ Shows the count of regions in THAT country (not total regions).
     {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
     <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-      href="/datacenters/{{ .provider_id }}/"
-      title="Type: {{ .provider_type }} • HQ: {{ $vendorName }} ({{ .vendor_country_id }}) • Risk: {{ $risk }} • Regions in country: {{ .count_in_country }}">
+      href="/datacenters/{{ .identifier }}/"
+      title="Type: {{ .providerType }} • HQ: {{ $vendorName }} ({{ .vendorCountryId }}) • Risk: {{ $risk }} • Regions in country: {{ .count_in_country }}">
       <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-      <span class="font-medium">{{ .provider_name }}</span>
+      <span class="font-medium">{{ .name }}</span>
       <span class="text-neutral-500 dark:text-neutral-400">
         {{ if $flag }}{{ $flag }}{{ end }} {{ .count_in_country }}
       </span>

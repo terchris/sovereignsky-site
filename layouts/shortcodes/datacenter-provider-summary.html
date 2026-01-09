@@ -4,11 +4,11 @@
   Requires page param: provider_id
 */}}
 
-{{ $providerId := .Page.Params.provider_id | default "" }}
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $providerId := .Page.Params.identifier | default "" }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 {{ $provider := dict }}
 {{ range $providers }}
-  {{ if eq .provider_id $providerId }}
+  {{ if eq .identifier $providerId }}
     {{ $provider = . }}
   {{ end }}
 {{ end }}
@@ -25,7 +25,7 @@
 {{ $hqRisk := "unknown" }}
 {{ $hqSlug := "" }}
 {{ if $provider }}
-  {{ $hqId = $provider.vendor_country_id | default "" }}
+  {{ $hqId = $provider.vendorCountryId | default "" }}
 {{ end }}
 {{ if $hqId }}
   {{ $hq = index $regionsById $hqId }}
@@ -68,9 +68,9 @@
       </span>
     {{ end }}
 
-    {{ if $provider.vendor_website }}
+    {{ if $provider.url }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="{{ $provider.vendor_website }}">
+         href="{{ $provider.url }}">
         <span class="font-medium">Official site</span>
         <span class="text-neutral-500 dark:text-neutral-400">↗</span>
       </a>

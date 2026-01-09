@@ -4,11 +4,11 @@
   Requires page param: provider_id
 */}}
 
-{{ $providerId := .Page.Params.provider_id | default "" }}
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $providerId := .Page.Params.identifier | default "" }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 {{ $provider := dict }}
 {{ range $providers }}
-  {{ if eq .provider_id $providerId }}
+  {{ if eq .identifier $providerId }}
     {{ $provider = . }}
   {{ end }}
 {{ end }}
@@ -25,7 +25,7 @@
 {{ $hqFlag := "" }}
 {{ $hqSlug := "" }}
 {{ if $provider }}
-  {{ $hqId = $provider.vendor_country_id | default "" }}
+  {{ $hqId = $provider.vendorCountryId | default "" }}
 {{ end }}
 {{ if $hqId }}
   {{ $hq = index $regionsById $hqId }}

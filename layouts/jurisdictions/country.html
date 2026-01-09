@@ -7,7 +7,7 @@
     {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "jurisdictions/" .Dir) }}
   {{ end }}
 
-  {{ $countryId := .Params.country_id | default "" }}
+  {{ $countryId := .Params.countryId | default "" }}
   {{ $country := dict }}
   {{ if not $countryId }}
     {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
@@ -36,9 +36,9 @@
 
   {{/* Count datacenters */}}
   {{ $datacenterCount := 0 }}
-  {{ range (site.Data.datacenters.providers | default (slice)) }}
+  {{ range (site.Data.datacenters.datacenters | default (slice)) }}
     {{ range (.regions | default (slice)) }}
-      {{ if eq .country_id $countryId }}
+      {{ if eq .countryId $countryId }}
         {{ $datacenterCount = add $datacenterCount 1 }}
       {{ end }}
     {{ end }}
@@ -160,7 +160,7 @@
         {{ partial "sidebar/bloc-datacenters-card.html" (dict "countryId" $countryId "countrySlug" $country.slug) }}
 
         {{/* Related content */}}
-        {{ partial "related-content-sidebar.html" (dict "page" . "country_id" $countryId) }}
+        {{ partial "related-content-sidebar.html" (dict "page" . "countryId" $countryId) }}
 
       {{ partial "sidebar/common-sidebar-end.html" . }}
 

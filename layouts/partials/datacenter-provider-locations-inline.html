@@ -15,7 +15,7 @@
 {{/* Group regions by country */}}
 {{ $byCountry := dict }}
 {{ range $providerRegions }}
-  {{ $countryId := .country_id }}
+  {{ $countryId := .countryId }}
   {{ $existing := index $byCountry $countryId | default (slice) }}
   {{ $byCountry = merge $byCountry (dict $countryId ($existing | append .)) }}
 {{ end }}

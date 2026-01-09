@@ -7,7 +7,7 @@ Renders region chips grouped by city for a specific country.
 
 {{ $countryId := .countryId }}
 {{ $regionsById := .regionsById }}
-{{ $allProviders := site.Data.datacenters.providers | default (slice) }}
+{{ $allProviders := site.Data.datacenters.datacenters | default (slice) }}
 
 {{/* Build regions grouped by city */}}
 {{ $regionsByCity := dict }}
@@ -15,7 +15,7 @@ Renders region chips grouped by city for a specific country.
 {{ range $allProviders }}
   {{ $provider := . }}
   {{ range (.regions | default (slice)) }}
-    {{ if eq .country_id $countryId }}
+    {{ if eq .countryId $countryId }}
       {{ $city := .city | default "Unknown" }}
       {{ $existing := index $regionsByCity $city | default (slice) }}
       {{ $regionsByCity = merge $regionsByCity (dict $city ($existing | append (dict
@@ -39,9 +39,9 @@ Renders region chips grouped by city for a specific country.
     {{ range $providers }}
     {{ $p := .provider }}
     {{ $r := .region }}
-    {{ $vendor := index $regionsById $p.vendor_country_id }}
+    {{ $vendor := index $regionsById $p.vendorCountryId }}
     {{ $flag := "" }}
-    {{ $vendorName := $p.vendor_country_id }}
+    {{ $vendorName := $p.vendorCountryId }}
     {{ $risk := "unknown" }}
     {{ if $vendor }}
       {{ $flag = $vendor.flag }}
@@ -57,10 +57,10 @@ Renders region chips grouped by city for a specific country.
     {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
     <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-      href="/datacenters/{{ $p.provider_id }}/"
-      title="{{ $p.provider_name }} • {{ $city }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
+      href="/datacenters/{{ $p.identifier }}/"
+      title="{{ $p.name }} • {{ $city }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
       <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-      <span class="font-medium">{{ $p.provider_name }}</span>
+      <span class="font-medium">{{ $p.name }}</span>
       {{ if $flag }}<span class="text-neutral-500 dark:text-neutral-400">{{ $flag }}</span>{{ end }}
     </a>
     {{ end }}

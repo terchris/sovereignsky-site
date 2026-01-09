@@ -52,8 +52,8 @@
             $.Scratch.Set "laws_dc_showDatacenters" true }} {{ end }} {{/* Build provider list for this country (for
             sidebar) */}} {{ $.Scratch.Set "laws_dc_matches" (slice) }} {{ $.Scratch.Set "laws_dc_total" 0 }} {{ if and
             ($.Scratch.Get "laws_dc_showDatacenters" ) (ne ($.Scratch.Get "laws_dc_countryId" ) "" ) }} {{ range
-            (site.Data.datacenters.providers | default (slice)) }} {{ $.Scratch.Set "laws_dc_providerCount" 0 }} {{
-            range (.regions | default (slice)) }} {{ if eq .country_id ($.Scratch.Get "laws_dc_countryId" ) }} {{
+            (site.Data.datacenters.datacenters | default (slice)) }} {{ $.Scratch.Set "laws_dc_providerCount" 0 }} {{
+            range (.regions | default (slice)) }} {{ if eq .countryId ($.Scratch.Get "laws_dc_countryId" ) }} {{
             $.Scratch.Set "laws_dc_providerCount" (add ($.Scratch.Get "laws_dc_providerCount" ) 1) }} {{ end }} {{ end
             }} {{ if gt ($.Scratch.Get "laws_dc_providerCount" ) 0 }} {{ $.Scratch.Set "laws_dc_total" (add
             ($.Scratch.Get "laws_dc_total" ) ($.Scratch.Get "laws_dc_providerCount" )) }} {{
@@ -204,10 +204,10 @@
                             {{ $count := .count }}
                             {{/* Get vendor info for flag and risk level */}}
                             {{ $flag := "" }}
-                            {{ $vendorName := $p.vendor_country_id }}
+                            {{ $vendorName := $p.vendorCountryId }}
                             {{ $risk := "unknown" }}
                             {{ range site.Data.regions }}
-                              {{ if eq .id $p.vendor_country_id }}
+                              {{ if eq .id $p.vendorCountryId }}
                                 {{ $flag = .flag }}
                                 {{ $vendorName = .name }}
                                 {{ $risk = .riskLevel }}
@@ -221,10 +221,10 @@
                             {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
                             {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
                             <a class="inline-flex items-center gap-1.5 no-underline px-2 py-0.5 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-xs"
-                                href="/datacenters/{{ $p.provider_id }}/"
-                                title="Type: {{ $p.provider_type }} • HQ: {{ $vendorName }} ({{ $p.vendor_country_id }}) • Risk: {{ $risk }} • Regions: {{ $count }}">
+                                href="/datacenters/{{ $p.identifier }}/"
+                                title="Type: {{ $p.providerType }} • HQ: {{ $vendorName }} ({{ $p.vendorCountryId }}) • Risk: {{ $risk }} • Regions: {{ $count }}">
                                 <span class="inline-block w-1.5 h-1.5 rounded-full {{ $dot }}"></span>
-                                <span class="font-medium">{{ $p.provider_name }}</span>
+                                <span class="font-medium">{{ $p.name }}</span>
                                 <span class="text-neutral-500 dark:text-neutral-400">{{ if $flag }}{{ $flag }}{{ end }} {{ $count }}</span>
                             </a>
                             {{ end }}

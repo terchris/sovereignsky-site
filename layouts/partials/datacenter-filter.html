@@ -73,12 +73,12 @@
     <div class="collapse-content">
       <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm pt-2">
         {{ range $providers }}
-        {{ $id := printf "dc-provider-%s" .provider_id }}
+        {{ $id := printf "dc-provider-%s" .identifier }}
         <label for="{{ $id }}" class="inline-flex items-center gap-2 cursor-pointer select-none dc-provider-label hover:text-primary"
-          data-provider-type="{{ .provider_type }}">
-          <input id="{{ $id }}" type="checkbox" class="checkbox checkbox-sm dc-provider-checkbox" data-provider-id="{{ .provider_id }}" checked>
-          <span class="font-medium">{{ .provider_name }}</span>
-          <span class="opacity-50">({{ .region_count }})</span>
+          data-provider-type="{{ .providerType }}">
+          <input id="{{ $id }}" type="checkbox" class="checkbox checkbox-sm dc-provider-checkbox" data-provider-id="{{ .identifier }}" checked>
+          <span class="font-medium">{{ .name }}</span>
+          <span class="opacity-50">({{ .regionCount }})</span>
         </label>
         {{ end }}
       </div>

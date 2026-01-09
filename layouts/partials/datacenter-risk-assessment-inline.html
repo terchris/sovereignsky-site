@@ -10,7 +10,7 @@
 {{ $provider := .provider | default dict }}
 {{ $regionsById := .regionsById | default dict }}
 
-{{ $hqId := $provider.vendor_country_id | default "" }}
+{{ $hqId := $provider.vendorCountryId | default "" }}
 {{ $hq := dict }}
 {{ $hqRisk := "unknown" }}
 {{ $hqName := "" }}

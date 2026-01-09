@@ -10,7 +10,7 @@
 {{ $provider := .provider | default dict }}
 {{ $regionsById := .regionsById | default dict }}
 
-{{ $hqId := $provider.vendor_country_id | default "" }}
+{{ $hqId := $provider.vendorCountryId | default "" }}
 {{ $hq := dict }}
 {{ $hqName := "" }}
 {{ $hqFlag := "" }}
@@ -58,9 +58,9 @@
       </span>
     {{ end }}
 
-    {{ if $provider.vendor_website }}
+    {{ if $provider.url }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="{{ $provider.vendor_website }}">
+         href="{{ $provider.url }}">
         <span class="font-medium">Official site</span>
         <span class="text-neutral-500 dark:text-neutral-400">↗</span>
       </a>

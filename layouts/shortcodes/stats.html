@@ -13,7 +13,7 @@
 {{- $softwareCount := len (index (index .Site.Data "products") "productsList") -}}
 
 {{- /* Count datacenter regions from JSON data */ -}}
-{{- $providers := index (index .Site.Data "datacenters") "providers" -}}
+{{- $providers := index (index .Site.Data "datacenters") "datacenters" -}}
 {{- $datacenterCount := 0 -}}
 {{- range $providers -}}
   {{- $datacenterCount = add $datacenterCount (len .regions) -}}

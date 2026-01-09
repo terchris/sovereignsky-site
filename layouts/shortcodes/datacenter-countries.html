@@ -6,13 +6,13 @@ Renders country chips (flag + number of datacenter regions physically located th
 Links to /datacenters/{country}/ pages.
 */}}
 
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 
 {{/* Count datacenter regions by physical country */}}
 {{ $counts := dict }}
 {{ range $providers }}
   {{ range (.regions | default (slice)) }}
-    {{ $cid := .country_id | default "" }}
+    {{ $cid := .countryId | default "" }}
     {{ if $cid }}
       {{ $prev := index $counts $cid | default 0 }}
       {{ $counts = merge $counts (dict $cid (add $prev 1)) }}

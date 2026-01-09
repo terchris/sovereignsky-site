@@ -5,7 +5,7 @@ Usage: {{< datacenter-providers >}}
 Renders provider cards linking to /datacenters/{provider_id}/
 */}}
 
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 
 {{/* Group providers by provider_type */}}
 {{ $groups := slice
@@ -17,25 +17,25 @@ Renders provider cards linking to /datacenters/{provider_id}/
 {{ range $groups }}
   {{ $key := .key }}
   {{ $title := .title }}
-  {{ $items := where $providers "provider_type" $key }}
-  {{ $items = sort $items "provider_id" "asc" }}
-  {{ $items = sort $items "provider_name" "asc" }}
+  {{ $items := where $providers "providerType" $key }}
+  {{ $items = sort $items "identifier" "asc" }}
+  {{ $items = sort $items "name" "asc" }}
 
   {{ if gt (len $items) 0 }}
   <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
   <div class="flex flex-wrap gap-2">
     {{ range $items }}
-      {{ $region := partial "get-region-by-id.html" .vendor_country_id }}
+      {{ $region := partial "get-region-by-id.html" .vendorCountryId }}
       {{ $flag := $region.flag | default "" }}
-      {{ $vendorName := $region.name | default .vendor_country_id }}
+      {{ $vendorName := $region.name | default .vendorCountryId }}
       {{ $risk := $region.riskLevel | default "unknown" }}
       {{ $regionCount := len (.regions | default (slice)) }}
 
       {{ partial "chip-link.html" (dict
-        "href" (printf "/datacenters/%s/" .provider_id)
-        "title" (printf "Type: %s • HQ: %s (%s) • Risk: %s • Regions: %d" .provider_type $vendorName .vendor_country_id $risk $regionCount)
+        "href" (printf "/datacenters/%s/" .identifier)
+        "title" (printf "Type: %s • HQ: %s (%s) • Risk: %s • Regions: %d" .providerType $vendorName .vendorCountryId $risk $regionCount)
         "risk" $risk
-        "label" .provider_name
+        "label" .name
         "meta" (string $regionCount)
         "flag" $flag
       ) }}

@@ -19,10 +19,10 @@
   {{ $datacenterCount := 0 }}
   {{ $providerCounts := dict }}
 
-  {{ range (site.Data.datacenters.providers | default (slice)) }}
-    {{ $providerName := .provider_name }}
+  {{ range (site.Data.datacenters.datacenters | default (slice)) }}
+    {{ $providerName := .name }}
     {{ range (.regions | default (slice)) }}
-      {{ $dcCountry := .country_id }}
+      {{ $dcCountry := .countryId }}
       {{ if in $allMembers $dcCountry }}
         {{ $datacenterCount = add $datacenterCount 1 }}
         {{ $currentCount := index $providerCounts $providerName | default 0 }}

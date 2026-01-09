@@ -314,7 +314,7 @@ Usage: {{< network-map>}}
                 ? endpointIds.map(function (pid) {
                     var p = geoByPlaceId[pid];
                     if (!p) return pid;
-                    var flag = iso2FlagEmoji(p.country_id);
+                    var flag = iso2FlagEmoji(p.countryId);
                     return (flag ? (flag + ' ') : '') + p.name;
                   })
                 : [];

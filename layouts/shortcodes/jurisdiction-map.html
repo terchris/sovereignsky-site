@@ -18,9 +18,9 @@
 {{/* Count datacenter regions by physical country (for tooltips + filters + list) */}}
 {{ $dc := site.Data.datacenters }}
 {{ $dcCounts := dict }}
-{{ range ($dc.providers | default (slice)) }}
+{{ range ($dc.datacenters | default (slice)) }}
   {{ range (.regions | default (slice)) }}
-    {{ $cid := .country_id | default "" }}
+    {{ $cid := .countryId | default "" }}
     {{ if $cid }}
       {{ $prev := index $dcCounts $cid | default 0 }}
       {{ $dcCounts = merge $dcCounts (dict $cid (add $prev 1)) }}

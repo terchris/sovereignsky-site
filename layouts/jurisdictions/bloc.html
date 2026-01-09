@@ -101,9 +101,9 @@
 
   {{/* Count datacenters across all member countries */}}
   {{ $datacenterCount := 0 }}
-  {{ range (site.Data.datacenters.providers | default (slice)) }}
+  {{ range (site.Data.datacenters.datacenters | default (slice)) }}
     {{ range (.regions | default (slice)) }}
-      {{ $dcCountry := .country_id }}
+      {{ $dcCountry := .countryId }}
       {{ if in $allMembers $dcCountry }}
         {{ $datacenterCount = add $datacenterCount 1 }}
       {{ end }}

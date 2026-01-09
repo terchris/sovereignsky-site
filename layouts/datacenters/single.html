@@ -2,7 +2,7 @@
 {{ .Scratch.Set "scope" "single" }}
 
 {{/* Resolve provider_id (prefer front matter) */}}
-{{ $providerId := .Params.provider_id | default "" }}
+{{ $providerId := .Params.identifier | default "" }}
 {{ if not $providerId }}
   {{ with .File }}
     {{ $providerId = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
@@ -11,10 +11,10 @@
 
 {{/* Lookups */}}
 {{ $datacenters := site.Data.datacenters }}
-{{ $providers := $datacenters.providers | default (slice) }}
+{{ $providers := $datacenters.datacenters | default (slice) }}
 {{ $provider := dict }}
 {{ range $providers }}
-  {{ if eq .provider_id $providerId }}
+  {{ if eq .identifier $providerId }}
     {{ $provider = . }}
   {{ end }}
 {{ end }}
@@ -33,7 +33,7 @@
 {{ $hqRisk := "unknown" }}
 {{ $hqSlug := "" }}
 {{ if $provider }}
-  {{ $hqId = $provider.vendor_country_id | default "" }}
+  {{ $hqId = $provider.vendorCountryId | default "" }}
 {{ end }}
 {{ if $hqId }}
   {{ $hq = index $regionsById $hqId }}
@@ -64,7 +64,7 @@
 {{ if $provider }}
   {{ $providerRegions = $provider.regions | default (slice) }}
   {{ range $providerRegions }}
-    {{ $cid := .country_id | default "" }}
+    {{ $cid := .countryId | default "" }}
     {{ if $cid }}
       {{ $prev := index $countryCounts $cid | default 0 }}
       {{ $countryCounts = merge $countryCounts (dict $cid (add $prev 1)) }}
@@ -90,22 +90,22 @@
 {{/* Compare list (same type) */}}
 {{ $compare := slice }}
 {{ $ptype := "" }}
-{{ if $provider }}{{ $ptype = $provider.provider_type | default "" }}{{ end }}
+{{ if $provider }}{{ $ptype = $provider.providerType | default "" }}{{ end }}
 {{ if $ptype }}
-  {{ $same := where $providers "provider_type" $ptype }}
+  {{ $same := where $providers "providerType" $ptype }}
   {{ range $same }}
-    {{ if ne .provider_id $providerId }}
+    {{ if ne .identifier $providerId }}
       {{ $regionCount := len (.regions | default (slice)) }}
-      {{ $compare = $compare | append (dict "provider_id" .provider_id "provider_name" .provider_name "region_count" $regionCount) }}
+      {{ $compare = $compare | append (dict "identifier" .identifier "name" .name "regionCount" $regionCount) }}
     {{ end }}
   {{ end }}
-  {{ $compare = sort $compare "region_count" "desc" }}
+  {{ $compare = sort $compare "regionCount" "desc" }}
 {{ end }}
 
 {{/* Provider name for display */}}
 {{ $providerName := "" }}
 {{ if $provider }}
-  {{ $providerName = $provider.provider_name | default $providerId }}
+  {{ $providerName = $provider.name | default $providerId }}
 {{ end }}
 
 {{/* Display title */}}
@@ -136,7 +136,7 @@
       <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
 
         {{/* External link button */}}
-        {{ with $provider.vendor_website }}
+        {{ with $provider.url }}
         <a class="btn btn-primary btn-outline w-full gap-2"
            href="{{ . }}"
            target="_blank"
@@ -171,7 +171,7 @@
                 <dd class="font-medium">{{ len $countryCounts }}</dd>
               </div>
               {{/* Provider Type */}}
-              {{ with $provider.provider_type }}
+              {{ with $provider.providerType }}
               <div class="flex justify-between py-1">
                 <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
                 <dd class="font-medium">{{ . | title }}</dd>
@@ -259,11 +259,11 @@
             <ul class="space-y-0.5">
               {{ range first 8 $compare }}
               <li>
-                <a href="/datacenters/{{ .provider_id }}/"
-                   title="{{ .provider_name }}: {{ .region_count }} regions"
+                <a href="/datacenters/{{ .identifier }}/"
+                   title="{{ .name }}: {{ .regionCount }} regions"
                    class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
-                  <span>{{ .provider_name }}</span>
-                  <span class="text-neutral-500 dark:text-neutral-400">{{ .region_count }}</span>
+                  <span>{{ .name }}</span>
+                  <span class="text-neutral-500 dark:text-neutral-400">{{ .regionCount }}</span>
                 </a>
               </li>
               {{ end }}
