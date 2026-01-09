@@ -1,0 +1,14 @@
+{{/*
+  Get Region By ID Partial
+  Usage: {{ partial "get-region-by-id.html" "NO" }}
+  Returns: Region dict from regions.json or empty dict if not found
+
+  Returns the full region object with: identifier, name, flag, slug, riskLevel, etc.
+*/}}
+{{- $id := . -}}
+{{- $region := dict -}}
+{{- $match := first 1 (where site.Data.regions "identifier" $id) -}}
+{{- with index $match 0 -}}
+  {{- $region = . -}}
+{{- end -}}
+{{- return $region -}}

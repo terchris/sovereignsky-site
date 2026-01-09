@@ -1,0 +1,42 @@
+{{/*
+  Chip Link Partial - renders a pill/chip with optional link
+  Usage: {{ partial "chip-link.html" (dict
+    "href" "/path/"
+    "title" "Tooltip text"
+    "risk" "low"
+    "label" "Main text"
+    "meta" "Secondary text"
+    "flag" "🇳🇴"
+  ) }}
+
+  If href is empty, renders as span instead of link.
+*/}}
+{{- $href := .href | default "" -}}
+{{- $title := .title | default "" -}}
+{{- $risk := .risk | default "unknown" -}}
+{{- $label := .label | default "" -}}
+{{- $meta := .meta | default "" -}}
+{{- $flag := .flag | default "" -}}
+
+{{- $dot := partial "get-risk-dot-color.html" $risk -}}
+
+{{- $classes := "inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm" -}}
+{{- $hoverClasses := "no-underline hover:border-primary-400 dark:hover:border-primary-500 transition-colors" -}}
+
+{{- if $href -}}
+<a class="{{ $classes }} {{ $hoverClasses }}" href="{{ $href }}" title="{{ $title }}">
+  <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+  <span class="font-medium">{{ $label }}</span>
+  <span class="text-neutral-500 dark:text-neutral-400">
+    {{- if $flag }}{{ $flag }} {{ end -}}{{- $meta -}}
+  </span>
+</a>
+{{- else -}}
+<span class="{{ $classes }}" title="{{ $title }}">
+  <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+  <span class="font-medium">{{ $label }}</span>
+  <span class="text-neutral-500 dark:text-neutral-400">
+    {{- if $flag }}{{ $flag }} {{ end -}}{{- $meta -}}
+  </span>
+</span>
+{{- end -}}

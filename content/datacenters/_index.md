@@ -4,8 +4,6 @@ description: "Cloud datacenter locations and their jurisdiction implications"
 echarts: true
 ---
 
-Where your cloud provider stores data matters less than where the provider is headquartered. This map shows datacenter locations colored by **vendor jurisdiction** - not physical location.
-
 {{< page-stats section="datacenters" >}}
 
 ## Regions by Country
@@ -13,8 +11,6 @@ Where your cloud provider stores data matters less than where the provider is he
 {{< datacenter-country-chart type="bar" height="600px" >}}
 
 **Note:** There is no central database of all cloud datacenter regions. This data is compiled from **public sources** (provider documentation, press releases, and official announcements) and is continuously updated as providers expand. Some providers do not publicly disclose all locations.
-
-## Datacenter Map
 
 {{< datacenter-map >}}
 

@@ -1,0 +1,21 @@
+{{/*
+  Get Risk Dot Color Partial
+  Usage: {{ partial "get-risk-dot-color.html" "low" }}
+  Returns: Tailwind background class for risk level dot (e.g., "bg-green-500")
+
+  Risk levels: low, moderate, elevated, high, sanctioned, unknown
+*/}}
+{{- $risk := . | default "unknown" -}}
+{{- $dot := "bg-neutral-400" -}}
+{{- if eq $risk "low" -}}
+  {{- $dot = "bg-green-500" -}}
+{{- else if eq $risk "moderate" -}}
+  {{- $dot = "bg-yellow-500" -}}
+{{- else if eq $risk "elevated" -}}
+  {{- $dot = "bg-orange-500" -}}
+{{- else if eq $risk "high" -}}
+  {{- $dot = "bg-red-500" -}}
+{{- else if eq $risk "sanctioned" -}}
+  {{- $dot = "bg-red-700" -}}
+{{- end -}}
+{{- return $dot -}}
