@@ -26,43 +26,47 @@ showTableOfContents: true
 
 ### National laws
 
-### undefined (undefined)
+### CLOUD Act (2018)
 
-**undefined**
+**Clarifying Lawful Overseas Use of Data Act**
 
-undefined
+US law enabling law enforcement to compel US technology companies to disclose data regardless of where it is physically stored.
 
-- **Severity:** unknown
-
----
-
-### undefined (undefined)
-
-**undefined**
-
-undefined
-
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.congress.gov/bill/115th-congress/house-bill/4943)
 
 ---
 
-### undefined (undefined)
+### FISA Section 702 (2008)
 
-**undefined**
+**Foreign Intelligence Surveillance Act Section 702**
 
-undefined
+US law authorizing warrantless surveillance of non-US persons located outside the United States for foreign intelligence purposes.
 
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.congress.gov/bill/110th-congress/house-bill/6304)
 
 ---
 
-### undefined (undefined)
+### Patriot Act (2001)
 
-**undefined**
+**Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism Act**
 
-undefined
+Post-9/11 US law significantly expanding surveillance powers for terrorism investigations, including Section 215 business records collection.
 
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.congress.gov/bill/107th-congress/house-bill/3162)
+
+---
+
+### ECPA (1986)
+
+**Electronic Communications Privacy Act**
+
+US law governing government access to electronic communications, with different standards for content, metadata, and stored communications.
+
+- **Severity:** targeted
+- **Source:** [Read the law](https://www.congress.gov/bill/99th-congress/house-bill/4952)
 
 ---
 

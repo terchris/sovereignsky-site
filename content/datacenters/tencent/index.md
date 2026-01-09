@@ -26,43 +26,47 @@ showTableOfContents: true
 
 ### National laws
 
-### undefined (undefined)
+### National Intelligence Law (2017)
 
-**undefined**
+**National Intelligence Law of the People's Republic of China**
 
-undefined
+Chinese law requiring all organizations and citizens to support, assist, and cooperate with state intelligence activities.
 
-- **Severity:** unknown
-
----
-
-### undefined (undefined)
-
-**undefined**
-
-undefined
-
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.chinalawtranslate.com/en/national-intelligence-law-of-the-p-r-c-2017/)
 
 ---
 
-### undefined (undefined)
+### Cybersecurity Law (2017)
 
-**undefined**
+**Cybersecurity Law of the People's Republic of China**
 
-undefined
+Chinese law establishing data localization requirements for critical infrastructure operators and security review processes.
 
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.chinalawtranslate.com/en/cybersecuritylaw/)
 
 ---
 
-### undefined (undefined)
+### Data Security Law (2021)
 
-**undefined**
+**Data Security Law of the People's Republic of China**
 
-undefined
+Chinese law establishing data classification, cross-border transfer controls, and government access for national security.
 
-- **Severity:** unknown
+- **Severity:** broad
+- **Source:** [Read the law](https://www.chinalawtranslate.com/en/datasecuritylaw/)
+
+---
+
+### PIPL (2021)
+
+**Personal Information Protection Law**
+
+China's comprehensive personal data protection law providing GDPR-like rights while operating alongside state access requirements.
+
+- **Severity:** targeted
+- **Source:** [Read the law](https://www.chinalawtranslate.com/en/pipl/)
 
 ---
 

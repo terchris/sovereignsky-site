@@ -26,82 +26,89 @@ showTableOfContents: true
 
 ### Bloc laws
 
-### undefined (undefined)
+### GDPR (2018)
 
-**undefined**
+**General Data Protection Regulation**
 
-undefined
+EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
 
-- **Severity:** unknown
+- **Severity:** limited
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
 
 ---
 
-### undefined (undefined)
+### Data Act (2024)
 
-**undefined**
+**Regulation on harmonised rules on fair access to and use of data**
 
-undefined
+EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
 
-- **Severity:** unknown
+- **Severity:** limited
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
 
 ---
 
-### undefined (undefined)
+### AI Act (2024)
 
-**undefined**
+**Regulation on Artificial Intelligence**
 
-undefined
+World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
 
-- **Severity:** unknown
+- **Severity:** none
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
 
 ---
 
-### undefined (undefined)
+### EEA Agreement (1994)
 
-**undefined**
+**Agreement on the European Economic Area**
 
-undefined
+Treaty extending EU internal market rules, including data protection regulations, to Norway, Iceland, and Liechtenstein.
 
-- **Severity:** unknown
+- **Severity:** limited
 - **Applies via:** [European Economic Area](/laws/eea/)
+- **Source:** [Read the law](https://www.efta.int/eea/eea-agreement)
 
 ---
 
 ### Inherited laws
 
-### undefined (undefined)
+### GDPR (2018)
 
-**undefined**
+**General Data Protection Regulation**
 
-undefined
+EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
 
-- **Severity:** unknown
+- **Severity:** limited
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
 
 ---
 
-### undefined (undefined)
+### Data Act (2024)
 
-**undefined**
+**Regulation on harmonised rules on fair access to and use of data**
 
-undefined
+EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
 
-- **Severity:** unknown
+- **Severity:** limited
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
 
 ---
 
-### undefined (undefined)
+### AI Act (2024)
 
-**undefined**
+**Regulation on Artificial Intelligence**
 
-undefined
+World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
 
-- **Severity:** unknown
+- **Severity:** none
 - **Applies via:** [European Union](/laws/eu/)
+- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
 
 ---
 

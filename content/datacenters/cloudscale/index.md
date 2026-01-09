@@ -26,13 +26,14 @@ showTableOfContents: true
 
 ### National laws
 
-### undefined (undefined)
+### FADP (2023)
 
-**undefined**
+**Federal Act on Data Protection (revised)**
 
-undefined
+Swiss data protection law substantially revised in 2023 to align with GDPR while preserving Swiss legal traditions.
 
-- **Severity:** unknown
+- **Severity:** limited
+- **Source:** [Read the law](https://www.fedlex.admin.ch/eli/cc/2022/491/en)
 
 ---
 

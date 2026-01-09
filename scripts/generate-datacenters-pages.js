@@ -38,7 +38,7 @@ function escapeAttr(input) {
 }
 
 function titleForProvider(p) {
-  return `${p.provider_name} Datacenters`;
+  return `${p.name} Datacenters`;
 }
 
 function riskBadge(vendorRisk, riskLevels) {
@@ -65,17 +65,33 @@ function getSeverityBadge(severity) {
   return badges[severity] || severity || 'unknown';
 }
 
-function buildBlocsById(jurisdictions) {
+function buildBlocsById(jurisdictions, lawsById) {
   const blocsById = {};
   (jurisdictions.blocs || []).forEach((bloc) => {
-    blocsById[bloc.id] = bloc;
+    // Resolve law IDs to actual law objects
+    const resolvedLaws = (bloc.laws || []).map((lawId) => {
+      const law = lawsById[lawId];
+      if (law) {
+        return {
+          identifier: law.identifier,
+          name: law.name || lawId,
+          year: law.legislationDate || '',
+          full_name: law.alternateName || law.name || '',
+          summary: law.description || law.summary || '',
+          severity: law.governmentAccess || 'unknown',
+          url: law.url || ''
+        };
+      }
+      return null;
+    }).filter(Boolean);
+    blocsById[bloc.identifier] = { ...bloc, laws: resolvedLaws };
   });
   return blocsById;
 }
 
 function getInheritedLaws(bloc, blocsById, visited = new Set()) {
-  if (!bloc || visited.has(bloc.id)) return [];
-  visited.add(bloc.id);
+  if (!bloc || visited.has(bloc.identifier)) return [];
+  visited.add(bloc.identifier);
 
   let laws = [];
   (bloc.inheritsFrom || []).forEach((parentId) => {
@@ -85,7 +101,7 @@ function getInheritedLaws(bloc, blocsById, visited = new Set()) {
       laws = laws.concat(parent.laws.map((law) => ({
         ...law,
         source_bloc: parent.name,
-        source_bloc_id: parent.id
+        source_bloc_id: parent.identifier
       })));
     }
     laws = laws.concat(getInheritedLaws(parent, blocsById, visited));
@@ -93,9 +109,26 @@ function getInheritedLaws(bloc, blocsById, visited = new Set()) {
   return laws;
 }
 
-function getCountryLaws(region, blocsById) {
+function getCountryLaws(region, blocsById, lawsById) {
+  // Resolve national law IDs to law objects
+  const nationalLaws = (region.nationalLaws || []).map((lawId) => {
+    const law = lawsById[lawId];
+    if (law) {
+      return {
+        identifier: law.identifier,
+        name: law.name || lawId,
+        year: law.legislationDate || '',
+        full_name: law.alternateName || law.name || '',
+        summary: law.description || law.summary || '',
+        severity: law.governmentAccess || 'unknown',
+        url: law.url || ''
+      };
+    }
+    return null;
+  }).filter(Boolean);
+
   const result = {
-    national: region.nationalLaws || [],
+    national: nationalLaws,
     bloc_laws: [],
     inherited_laws: []
   };
@@ -107,7 +140,7 @@ function getCountryLaws(region, blocsById) {
         result.bloc_laws.push({
           ...law,
           source_bloc: bloc.name,
-          source_bloc_id: bloc.id
+          source_bloc_id: bloc.identifier
         });
       });
     }
@@ -138,7 +171,7 @@ function formatLawMd(law, showSourceBloc = false) {
 function groupRegionsByCountry(regions) {
   const byCountry = new Map();
   (regions || []).forEach((r) => {
-    const cid = r.country_id || '??';
+    const cid = r.countryId || '??';
     if (!byCountry.has(cid)) byCountry.set(cid, []);
     byCountry.get(cid).push(r);
   });
@@ -146,30 +179,39 @@ function groupRegionsByCountry(regions) {
 }
 
 function main() {
-  const providers = readJson(path.join(DATA_DIR, 'datacenters', 'providers.json'));
+  const providers = readJson(path.join(DATA_DIR, 'datacenters', 'datacenters.json'));
   const regionList = readJson(path.join(DATA_DIR, 'regions.json'));
   const jurisdictions = readJson(path.join(DATA_DIR, 'jurisdictions.json'));
+  const lawsData = readJson(path.join(DATA_DIR, 'laws', 'laws.json'));
 
   const regionsById = {};
   regionList.forEach((r) => {
-    regionsById[r.id] = r;
+    regionsById[r.identifier] = r;
+  });
+
+  // Build laws lookup from laws.json
+  const lawsById = {};
+  ((lawsData && lawsData.itemListElement) || []).forEach((law) => {
+    if (law.identifier) {
+      lawsById[law.identifier] = law;
+    }
   });
 
   const riskLevels = jurisdictions.riskLevels || {};
-  const blocsById = buildBlocsById(jurisdictions);
+  const blocsById = buildBlocsById(jurisdictions, lawsById);
 
   ensureDir(CONTENT_DIR);
 
   let count = 0;
   providers.forEach((p) => {
-    const providerId = p.provider_id;
+    const providerId = p.identifier;
     if (!providerId) return;
 
     const providerDir = path.join(CONTENT_DIR, providerId);
     ensureDir(providerDir);
 
     const regions = p.regions || [];
-    const vendorCountry = p.vendor_country_id || 'Unknown';
+    const vendorCountry = p.vendorCountryId || 'Unknown';
     const vendorRegion = regionsById[vendorCountry];
     const vendorRisk = (vendorRegion && vendorRegion.riskLevel) ? vendorRegion.riskLevel : 'unknown';
     const vendorCountryName = (vendorRegion && vendorRegion.name) ? vendorRegion.name : vendorCountry;
@@ -182,7 +224,7 @@ function main() {
       .map((id) => blocsById[id] ? blocsById[id].name : id)
       .filter(Boolean);
 
-    const laws = vendorRegion ? getCountryLaws(vendorRegion, blocsById) : { national: [], bloc_laws: [], inherited_laws: [] };
+    const laws = vendorRegion ? getCountryLaws(vendorRegion, blocsById, lawsById) : { national: [], bloc_laws: [], inherited_laws: [] };
     const lawsMdParts = [];
     if (laws.national && laws.national.length > 0) {
       lawsMdParts.push('### National laws');
@@ -212,14 +254,14 @@ function main() {
         countryName: (cr && cr.name) ? cr.name : countryId,
         countryFlag: (cr && cr.flag) ? cr.flag : '',
         count: items.length,
-        regions: items.slice().sort((a, b) => (a.region_name || '').localeCompare(b.region_name || ''))
+        regions: items.slice().sort((a, b) => (a.name || '').localeCompare(b.name || ''))
       };
     }).sort((a, b) => {
       if (b.count !== a.count) return b.count - a.count;
       return a.countryName.localeCompare(b.countryName);
     });
 
-    const locationsUpdated = p.updated || (p.meta && p.meta.updated) || '';
+    const locationsUpdated = p.dateModified || (p.meta && p.meta.updated) || '';
     const locationsUpdatedMd = locationsUpdated
       ? `\n_Last updated: ${locationsUpdated}_\n`
       : '';
@@ -253,10 +295,10 @@ function main() {
       const safeName = escapeHtml(g.countryName || g.countryId || '');
       const summary = `${g.countryFlag ? g.countryFlag + ' ' : ''}${safeName} (${g.countryId}) — ${g.count}`;
       const chips = g.regions.map((r) => {
-        const regionLabel = r.region_name || r.region_id || 'Region';
+        const regionLabel = r.name || r.identifier || 'Region';
         const cityText = r.city ? `— ${r.city}` : '';
-        const idText = r.region_id ? `(${r.region_id})` : '';
-        const search = `${g.countryName} ${g.countryId} ${regionLabel} ${r.region_id || ''} ${r.city || ''}`.toLowerCase();
+        const idText = r.identifier ? `(${r.identifier})` : '';
+        const search = `${g.countryName} ${g.countryId} ${regionLabel} ${r.identifier || ''} ${r.city || ''}`.toLowerCase();
         return `<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
   data-country-id="${g.countryId}"
   data-search="${escapeAttr(search)}">
@@ -280,7 +322,7 @@ function main() {
     const md =
 `---
 title: "${titleForProvider(p)}"
-description: "Datacenter locations for ${p.provider_name}, colored by vendor jurisdiction"
+description: "Datacenter locations for ${p.name}, colored by vendor jurisdiction"
 echarts: true
 provider_id: "${providerId}"
 showTableOfContents: true
