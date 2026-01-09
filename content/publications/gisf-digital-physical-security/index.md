@@ -5,12 +5,8 @@ date: 2024-01-01
 external_url: "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf"
 publisher: "Global Interagency Security Forum (GISF)"
 topics:
-  - "security-risk-management"
   - "cybersecurity"
-  - "disinformation"
-  - "supply-chain"
-  - "hybrid-warfare"
-  - "geopolitics"
+  - "critical-infrastructure"
 audience:
   - "humanitarian"
   - "security"

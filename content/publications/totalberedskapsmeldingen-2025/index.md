@@ -6,10 +6,7 @@ external_url: "https://www.regjeringen.no/"
 publisher: "Norwegian Government"
 topics:
   - "national-preparedness"
-  - "civil-protection"
-  - "digital-resilience"
   - "critical-infrastructure"
-  - "total-defence"
 audience:
   - "public-sector"
   - "security"

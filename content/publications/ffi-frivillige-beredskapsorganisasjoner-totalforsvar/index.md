@@ -5,10 +5,7 @@ date: 2023-01-01
 external_url: "https://www.ffi.no/"
 publisher: "Norwegian Defence Research Establishment (FFI)"
 topics:
-  - "voluntary-organizations"
-  - "total-defence"
-  - "civil-preparedness"
-  - "crisis-response"
+  - "national-preparedness"
 audience:
   - "public-sector"
   - "humanitarian"

@@ -5,13 +5,8 @@ date: 2020-11-01
 external_url: "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy"
 publisher: "ICRC / Privacy International"
 topics:
-  - "metadata"
-  - "surveillance"
-  - "telecommunications"
-  - "messaging-apps"
-  - "mobile-money"
-  - "data-protection"
   - "privacy"
+  - "cybersecurity"
 audience:
   - "humanitarian"
   - "public-sector"

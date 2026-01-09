@@ -10,10 +10,6 @@ authors:
   - "Massimo Marelli"
 topics:
   - "cybersecurity"
-  - "digital-threats"
-  - "international-humanitarian-law"
-  - "data-breaches"
-  - "disinformation"
 audience:
   - "humanitarian"
   - "public-sector"

@@ -17,12 +17,8 @@ authors:
   - "Huub Dijstelbloem"
 topics:
   - "digital-sovereignty"
-  - "cloud-sovereignty"
-  - "humanitarian-technology"
-  - "blockchain"
-  - "biometrics"
-  - "data-protection"
-  - "platform-dependency"
+  - "digital-identity"
+  - "privacy"
 audience:
   - "humanitarian"
   - "public-sector"

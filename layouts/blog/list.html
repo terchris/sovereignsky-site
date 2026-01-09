@@ -58,34 +58,11 @@
     </div>
   </div>
 
-  {{/* Audience filter - from audience.json */}}
-  {{ $audienceData := site.Data.audience.audience }}
-  <div class="mb-6">
-    <div class="text-sm font-semibold opacity-70 mb-3">Filter by Audience:</div>
-    <div class="flex flex-wrap gap-2" data-filter-group="audience">
-      <button class="btn btn-sm btn-active gap-1" data-filter="all">
-        {{ partial "content-icon.html" (dict "name" "users" "size" "4") }}
-        All
-      </button>
-      {{- range $audienceData.itemListElement }}
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .identifier }}">
-        {{ partial "content-icon.html" (dict "name" .icon "size" "4") }}
-        {{ .name }}
-      </button>
-      {{- end }}
-    </div>
-  </div>
+  {{/* Audience filter - reusable partial */}}
+  {{ partial "audience-filter.html" . }}
 
-  {{/* Topic filter - dynamically from blog posts */}}
-  <div class="flex flex-wrap items-center gap-2 mb-6">
-    <span class="text-sm font-semibold opacity-70">Topic:</span>
-    <div class="join" data-filter-group="topics">
-      <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>
-      {{- range $uniqueTopics }}
-      <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $topicLabels . | default (. | humanize | title) }}</button>
-      {{- end }}
-    </div>
-  </div>
+  {{/* Topic filter - reusable partial */}}
+  {{ partial "topic-filter.html" (dict "topics" $uniqueTopics) }}
 
   {{/* Blog Grid */}}
   <div id="blog-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

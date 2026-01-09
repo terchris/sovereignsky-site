@@ -7,11 +7,8 @@ publisher: "Cambridge University Press"
 authors:
   - "Massimo Marelli"
 topics:
-  - "data-protection"
-  - "cloud-sovereignty"
-  - "government-access"
-  - "cloud-act"
-  - "biometrics"
+  - "privacy"
+  - "digital-sovereignty"
   - "digital-identity"
 audience:
   - "humanitarian"

@@ -23,15 +23,21 @@
     "publisher": "Taylor & Francis",
     "topics": [
       "digital-sovereignty",
-      "cloud-sovereignty",
-      "humanitarian-technology",
-      "blockchain",
-      "biometrics",
-      "data-protection",
-      "platform-dependency"
+      "digital-identity",
+      "privacy"
     ],
-    "audience": ["humanitarian", "public-sector", "enterprise"],
-    "tags": ["digital-platforms", "power-relations", "platform-dependency", "biometric-data", "blockchain-payments"]
+    "audience": [
+      "humanitarian",
+      "public-sector",
+      "enterprise"
+    ],
+    "tags": [
+      "digital-platforms",
+      "power-relations",
+      "platform-dependency",
+      "biometric-data",
+      "blockchain-payments"
+    ]
   },
   {
     "identifier": "safeguarding-humanitarian-digital-threats",
@@ -49,14 +55,21 @@
     ],
     "publisher": "ICRC Humanitarian Law & Policy Blog",
     "topics": [
-      "cybersecurity",
-      "digital-threats",
-      "international-humanitarian-law",
-      "data-breaches",
-      "disinformation"
+      "cybersecurity"
     ],
-    "audience": ["humanitarian", "public-sector", "security", "it-ops"],
-    "tags": ["cyberattacks", "data-breach", "disinformation", "digital-emblem", "law-of-war"]
+    "audience": [
+      "humanitarian",
+      "public-sector",
+      "security",
+      "it-ops"
+    ],
+    "tags": [
+      "cyberattacks",
+      "data-breach",
+      "disinformation",
+      "digital-emblem",
+      "law-of-war"
+    ]
   },
   {
     "identifier": "humanitarian-metadata-problem",
@@ -69,16 +82,22 @@
     "url": "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy",
     "publisher": "ICRC / Privacy International",
     "topics": [
+      "privacy",
+      "cybersecurity"
+    ],
+    "audience": [
+      "humanitarian",
+      "public-sector",
+      "it-ops",
+      "consumer"
+    ],
+    "tags": [
       "metadata",
-      "surveillance",
-      "telecommunications",
+      "cell-tower",
       "messaging-apps",
       "mobile-money",
-      "data-protection",
-      "privacy"
-    ],
-    "audience": ["humanitarian", "public-sector", "it-ops", "consumer"],
-    "tags": ["metadata", "cell-tower", "messaging-apps", "mobile-money", "encryption"]
+      "encryption"
+    ]
   },
   {
     "identifier": "gisf-digital-physical-security",
@@ -91,15 +110,21 @@
     "url": "https://gisf.ngo/wp-content/uploads/2024/01/Digital-Security-Final-Design-for-Publication.pdf",
     "publisher": "Global Interagency Security Forum (GISF)",
     "topics": [
-      "security-risk-management",
       "cybersecurity",
-      "disinformation",
-      "supply-chain",
-      "hybrid-warfare",
-      "geopolitics"
+      "critical-infrastructure"
     ],
-    "audience": ["humanitarian", "security", "it-ops"],
-    "tags": ["security-triangle", "staff-training", "field-operations", "supply-chain", "hybrid-threats"]
+    "audience": [
+      "humanitarian",
+      "security",
+      "it-ops"
+    ],
+    "tags": [
+      "security-triangle",
+      "staff-training",
+      "field-operations",
+      "supply-chain",
+      "hybrid-threats"
+    ]
   },
   {
     "identifier": "icrc-data-protection-handbook",
@@ -110,18 +135,27 @@
     "image": "icrc-data-protection-handbook.png",
     "datePublished": "2024-01-15",
     "url": "https://www.cambridge.org/core/books/handbook-on-data-protection-in-humanitarian-action/025CE3DFD1FAD908DD1412C20E49F955",
-    "author": ["Massimo Marelli"],
+    "author": [
+      "Massimo Marelli"
+    ],
     "publisher": "Cambridge University Press",
     "topics": [
-      "data-protection",
-      "cloud-sovereignty",
-      "government-access",
-      "cloud-act",
-      "biometrics",
+      "privacy",
+      "digital-sovereignty",
       "digital-identity"
     ],
-    "audience": ["humanitarian", "public-sector", "it-ops"],
-    "tags": ["cloud-act", "fisa-702", "patriot-act", "swiss-jurisdiction", "vendor-jurisdiction"]
+    "audience": [
+      "humanitarian",
+      "public-sector",
+      "it-ops"
+    ],
+    "tags": [
+      "cloud-act",
+      "fisa-702",
+      "patriot-act",
+      "swiss-jurisdiction",
+      "vendor-jurisdiction"
+    ]
   },
   {
     "identifier": "totalberedskapsmeldingen-2025",
@@ -135,13 +169,22 @@
     "publisher": "Norwegian Government",
     "topics": [
       "national-preparedness",
-      "civil-protection",
-      "digital-resilience",
-      "critical-infrastructure",
-      "total-defence"
+      "critical-infrastructure"
     ],
-    "audience": ["public-sector", "security", "humanitarian", "enterprise", "it-ops"],
-    "tags": ["sivilforsvaret", "shelter-construction", "food-security", "public-private", "norway"]
+    "audience": [
+      "public-sector",
+      "security",
+      "humanitarian",
+      "enterprise",
+      "it-ops"
+    ],
+    "tags": [
+      "sivilforsvaret",
+      "shelter-construction",
+      "food-security",
+      "public-private",
+      "norway"
+    ]
   },
   {
     "identifier": "ffi-frivillige-beredskapsorganisasjoner-totalforsvar",
@@ -154,12 +197,19 @@
     "url": "https://www.ffi.no/",
     "publisher": "Norwegian Defence Research Establishment (FFI)",
     "topics": [
-      "voluntary-organizations",
-      "total-defence",
-      "civil-preparedness",
-      "crisis-response"
+      "national-preparedness"
     ],
-    "audience": ["public-sector", "humanitarian", "security"],
-    "tags": ["red-cross", "voluntary-sector", "coordination", "legal-frameworks", "norway"]
+    "audience": [
+      "public-sector",
+      "humanitarian",
+      "security"
+    ],
+    "tags": [
+      "red-cross",
+      "voluntary-sector",
+      "coordination",
+      "legal-frameworks",
+      "norway"
+    ]
   }
 ]
