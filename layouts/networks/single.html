@@ -33,7 +33,7 @@
 {{ $regions := site.Data.regions }}
 {{ $regionsById := dict }}
 {{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{/* Get display title */}}

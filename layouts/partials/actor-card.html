@@ -17,21 +17,11 @@
 
 {{ $countryId := $actor.countryId | default "" }}
 
-{{/* Flag emoji lookup - common countries */}}
-{{ $flags := dict
-  "NO" "🇳🇴"
-  "US" "🇺🇸"
-  "GB" "🇬🇧"
-  "IE" "🇮🇪"
-  "DK" "🇩🇰"
-  "SE" "🇸🇪"
-  "FI" "🇫🇮"
-  "DE" "🇩🇪"
-  "NL" "🇳🇱"
-  "FR" "🇫🇷"
-  "IS" "🇮🇸"
-}}
-{{ $flag := index $flags $countryId | default "" }}
+{{/* Flag emoji from regions.json */}}
+{{ $flag := "" }}
+{{ if $countryId }}
+  {{ $flag = partial "get-country-flag.html" $countryId }}
+{{ end }}
 
 {{/* Actor type labels */}}
 {{ $typeLabels := dict
@@ -57,7 +47,7 @@
 {{ $regions := site.Data.regions | default (slice) }}
 {{ $countryName := $countryId }}
 {{ range $regions }}
-  {{ if eq .id $countryId }}
+  {{ if eq .identifier $countryId }}
     {{ $countryName = .name }}
   {{ end }}
 {{ end }}

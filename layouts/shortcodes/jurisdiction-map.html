@@ -10,7 +10,7 @@
 {{ $jurisdictions := site.Data.jurisdictions }}
 
 {{/* Get risk level definitions */}}
-{{ $riskLevels := $jurisdictions.risk_levels }}
+{{ $riskLevels := $jurisdictions.riskLevels }}
 
 {{/* Build country data for the map */}}
 {{ $mapData := slice }}
@@ -31,7 +31,7 @@
 {{/* Bloc lookup for tooltip labels */}}
 {{ $blocsById := dict }}
 {{ range ($jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
 {{ range $regions }}
@@ -40,43 +40,43 @@
   {{ $riskLabel := "Unknown" }}
   {{ $riskColor := "#9ca3af" }}
 
-  {{ if eq .risk_level "low" }}
+  {{ if eq .riskLevel "low" }}
     {{ $riskValue = 0 }}
     {{ $riskLabel = "Low Risk" }}
-    {{ $riskColor = index $riskLevels "low" "map_color" }}
-  {{ else if eq .risk_level "moderate" }}
+    {{ $riskColor = index $riskLevels "low" "mapColor" }}
+  {{ else if eq .riskLevel "moderate" }}
     {{ $riskValue = 1 }}
     {{ $riskLabel = "Moderate Risk" }}
-    {{ $riskColor = index $riskLevels "moderate" "map_color" }}
-  {{ else if eq .risk_level "elevated" }}
+    {{ $riskColor = index $riskLevels "moderate" "mapColor" }}
+  {{ else if eq .riskLevel "elevated" }}
     {{ $riskValue = 2 }}
     {{ $riskLabel = "Elevated Risk" }}
-    {{ $riskColor = index $riskLevels "elevated" "map_color" }}
-  {{ else if eq .risk_level "high" }}
+    {{ $riskColor = index $riskLevels "elevated" "mapColor" }}
+  {{ else if eq .riskLevel "high" }}
     {{ $riskValue = 3 }}
     {{ $riskLabel = "High Risk" }}
-    {{ $riskColor = index $riskLevels "high" "map_color" }}
-  {{ else if eq .risk_level "sanctioned" }}
+    {{ $riskColor = index $riskLevels "high" "mapColor" }}
+  {{ else if eq .riskLevel "sanctioned" }}
     {{ $riskValue = 4 }}
     {{ $riskLabel = "Sanctioned" }}
-    {{ $riskColor = index $riskLevels "sanctioned" "map_color" }}
+    {{ $riskColor = index $riskLevels "sanctioned" "mapColor" }}
   {{ end }}
 
   {{/* Map ISO 2-letter to ECharts GeoJSON country names */}}
   {{ $countryName := .name }}
-  {{ if eq .id "US" }}{{ $countryName = "United States" }}{{ end }}
-  {{ if eq .id "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
-  {{ if eq .id "KR" }}{{ $countryName = "Korea" }}{{ end }}
-  {{ if eq .id "RU" }}{{ $countryName = "Russia" }}{{ end }}
-  {{ if eq .id "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
+  {{ if eq .identifier "US" }}{{ $countryName = "United States" }}{{ end }}
+  {{ if eq .identifier "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
+  {{ if eq .identifier "KR" }}{{ $countryName = "Korea" }}{{ end }}
+  {{ if eq .identifier "RU" }}{{ $countryName = "Russia" }}{{ end }}
+  {{ if eq .identifier "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
 
   {{/* Build membership list */}}
   {{ $memberships := slice }}
-  {{ if .eu_member }}{{ $memberships = $memberships | append "EU" }}{{ end }}
-  {{ if .eea_member }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
-  {{ if .adequacy_decision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
+  {{ if .euMember }}{{ $memberships = $memberships | append "EU" }}{{ end }}
+  {{ if .eeaMember }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
+  {{ if .adequacyDecision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
 
-  {{ $dcCount := index $dcCounts .id | default 0 }}
+  {{ $dcCount := index $dcCounts .identifier | default 0 }}
   {{ $blocNames := slice }}
   {{ range (.blocs | default (slice)) }}
     {{ $b := index $blocsById . }}
@@ -88,12 +88,12 @@
   {{ $item := dict
       "name" $countryName
       "value" $riskValue
-      "id" .id
+      "id" .identifier
       "slug" .slug
       "riskLabel" $riskLabel
       "riskColor" $riskColor
-      "riskLevel" .risk_level
-      "laws" .national_laws
+      "riskLevel" .riskLevel
+      "laws" .nationalLaws
       "flag" .flag
       "originalName" .name
       "blocs" .blocs
@@ -109,8 +109,8 @@
 {{ $lowRisk := 0 }}
 {{ $elevatedRisk := 0 }}
 {{ range $regions }}
-  {{ if eq .risk_level "low" }}{{ $lowRisk = add $lowRisk 1 }}{{ end }}
-  {{ if or (eq .risk_level "elevated") (eq .risk_level "high") (eq .risk_level "sanctioned") }}{{ $elevatedRisk = add $elevatedRisk 1 }}{{ end }}
+  {{ if eq .riskLevel "low" }}{{ $lowRisk = add $lowRisk 1 }}{{ end }}
+  {{ if or (eq .riskLevel "elevated") (eq .riskLevel "high") (eq .riskLevel "sanctioned") }}{{ $elevatedRisk = add $elevatedRisk 1 }}{{ end }}
 {{ end }}
 
 <div class="not-prose stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
@@ -214,15 +214,15 @@
   // Region data from Hugo
   var regionsData = {{ $mapData | jsonify | safeJS }};
   var blocsData = {{ ($jurisdictions.blocs | default (slice)) | jsonify | safeJS }};
-  var riskLevels = {{ ($jurisdictions.risk_levels | default dict) | jsonify | safeJS }};
+  var riskLevels = {{ ($jurisdictions.riskLevels | default dict) | jsonify | safeJS }};
 
   // Risk level colors from jurisdictions.json
   var riskColors = {
-    low: '{{ index $riskLevels "low" "map_color" }}',
-    moderate: '{{ index $riskLevels "moderate" "map_color" }}',
-    elevated: '{{ index $riskLevels "elevated" "map_color" }}',
-    high: '{{ index $riskLevels "high" "map_color" }}',
-    sanctioned: '{{ index $riskLevels "sanctioned" "map_color" }}'
+    low: '{{ index $riskLevels "low" "mapColor" }}',
+    moderate: '{{ index $riskLevels "moderate" "mapColor" }}',
+    elevated: '{{ index $riskLevels "elevated" "mapColor" }}',
+    high: '{{ index $riskLevels "high" "mapColor" }}',
+    sanctioned: '{{ index $riskLevels "sanctioned" "mapColor" }}'
   };
 
   // Fetch world GeoJSON and initialize map (local copy to avoid CORS issues)
@@ -540,8 +540,8 @@
               if (l && l.full_name) names.push(l.full_name);
             });
           }
-          if (b && b.inherits_from) {
-            b.inherits_from.forEach(function(parentId) {
+          if (b && b.inheritsFrom) {
+            b.inheritsFrom.forEach(function(parentId) {
               names = names.concat(rec(parentId, stack));
             });
           }

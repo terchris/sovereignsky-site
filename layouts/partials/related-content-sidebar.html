@@ -49,7 +49,7 @@
   {{ $law := . }}
   {{ $matched := false }}
   {{/* Skip if this is the current law page */}}
-  {{ if and $lawId (eq .id $lawId) }}
+  {{ if and $lawId (eq .identifier $lawId) }}
     {{ $matched = false }}
   {{ else }}
     {{/* Match by tag */}}

@@ -11,7 +11,7 @@ Usage: {{< datacenter-providers>}}
   {{/* Build regions lookup by id */}}
   {{ $regionsById := dict }}
   {{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
   {{ end }}
 
   {{ $providers := $datacenters.providers | default (slice) }}
@@ -41,7 +41,7 @@ Usage: {{< datacenter-providers>}}
     {{ if $vendor }}
     {{ $flag = $vendor.flag }}
     {{ $vendorName = $vendor.name }}
-    {{ $risk = $vendor.risk_level }}
+    {{ $risk = $vendor.riskLevel }}
     {{ end }}
 
     {{/* small colored dot by risk */}}

@@ -13,10 +13,10 @@
     {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
     {{ with index $match 0 }}
       {{ $country = . }}
-      {{ $countryId = .id }}
+      {{ $countryId = .identifier }}
     {{ end }}
   {{ else }}
-    {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+    {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
     {{ with index $match 0 }}
       {{ $country = . }}
     {{ end }}
@@ -30,7 +30,7 @@
   {{ end }}
 
   {{/* Pre-calculate stats */}}
-  {{ $riskLevel := $country.risk_level | default "unknown" }}
+  {{ $riskLevel := $country.riskLevel | default "unknown" }}
   {{ $blocs := $country.blocs | default (slice) }}
   {{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
 
@@ -50,8 +50,8 @@
     {{ $blocId := . }}
     {{ $applicableIds = $applicableIds | append $blocId }}
     {{ range $blocsData }}
-      {{ if eq .id $blocId }}
-        {{ range (.inherits_from | default (slice)) }}
+      {{ if eq .identifier $blocId }}
+        {{ range (.inheritsFrom | default (slice)) }}
           {{ $applicableIds = $applicableIds | append . }}
         {{ end }}
       {{ end }}
@@ -157,7 +157,7 @@
         {{/* Sidebar cards */}}
         {{ partial "sidebar/jurisdiction-memberships-card.html" . }}
         {{ partial "sidebar/jurisdiction-laws-card.html" . }}
-        {{ partial "sidebar/jurisdiction-datacenters-card.html" . }}
+        {{ partial "sidebar/bloc-datacenters-card.html" (dict "countryId" $countryId "countrySlug" $country.slug) }}
 
         {{/* Related content */}}
         {{ partial "related-content-sidebar.html" (dict "page" . "country_id" $countryId) }}

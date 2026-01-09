@@ -78,7 +78,7 @@ function getInheritedLaws(bloc, blocsById, visited = new Set()) {
   visited.add(bloc.id);
 
   let laws = [];
-  (bloc.inherits_from || []).forEach((parentId) => {
+  (bloc.inheritsFrom || []).forEach((parentId) => {
     const parent = blocsById[parentId];
     if (!parent) return;
     if (parent.laws) {
@@ -95,7 +95,7 @@ function getInheritedLaws(bloc, blocsById, visited = new Set()) {
 
 function getCountryLaws(region, blocsById) {
   const result = {
-    national: region.national_laws || [],
+    national: region.nationalLaws || [],
     bloc_laws: [],
     inherited_laws: []
   };
@@ -155,7 +155,7 @@ function main() {
     regionsById[r.id] = r;
   });
 
-  const riskLevels = jurisdictions.risk_levels || {};
+  const riskLevels = jurisdictions.riskLevels || {};
   const blocsById = buildBlocsById(jurisdictions);
 
   ensureDir(CONTENT_DIR);
@@ -171,7 +171,7 @@ function main() {
     const regions = p.regions || [];
     const vendorCountry = p.vendor_country_id || 'Unknown';
     const vendorRegion = regionsById[vendorCountry];
-    const vendorRisk = (vendorRegion && vendorRegion.risk_level) ? vendorRegion.risk_level : 'unknown';
+    const vendorRisk = (vendorRegion && vendorRegion.riskLevel) ? vendorRegion.riskLevel : 'unknown';
     const vendorCountryName = (vendorRegion && vendorRegion.name) ? vendorRegion.name : vendorCountry;
     const vendorFlag = (vendorRegion && vendorRegion.flag) ? vendorRegion.flag : '';
     const vendorLawSlug = (vendorRegion && vendorRegion.slug) ? vendorRegion.slug : null;

@@ -1,519 +1,519 @@
 [
   {
-    "id": "NO",
+    "identifier": "NO",
     "slug": "norway",
     "name": "Norway",
     "flag": "🇳🇴",
     "description": "Norway is not an EU member but participates in the European Economic Area (EEA), adopting EU data protection regulations including GDPR. Norwegian companies and data centers offer strong sovereignty for organizations seeking to avoid non-European jurisdiction.",
-    "eu_member": false,
-    "eea_member": true,
+    "euMember": false,
+    "eeaMember": true,
     "blocs": [
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": [
       "personopplysningsloven",
       "ekomlov",
       "sikkerhetsloven"
     ]
   },
   {
-    "id": "IS",
+    "identifier": "IS",
     "slug": "iceland",
     "name": "Iceland",
     "flag": "🇮🇸",
     "description": "Iceland is not an EU member but participates in the European Economic Area (EEA), adopting key EU regulations including GDPR. It is generally considered sovereignty-friendly for EU data flows through the EEA framework.",
-    "eu_member": false,
-    "eea_member": true,
+    "euMember": false,
+    "eeaMember": true,
     "blocs": [
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "LI",
+    "identifier": "LI",
     "slug": "liechtenstein",
     "name": "Liechtenstein",
     "flag": "🇱🇮",
     "description": "Liechtenstein is not an EU member but participates in the European Economic Area (EEA), adopting key EU regulations including GDPR via the EEA Agreement.",
-    "eu_member": false,
-    "eea_member": true,
+    "euMember": false,
+    "eeaMember": true,
     "blocs": [
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "SE",
+    "identifier": "SE",
     "slug": "sweden",
     "name": "Sweden",
     "flag": "🇸🇪",
     "description": "Sweden is an EU member state with strong data protection traditions. Home to several major data centers and tech companies operating under EU law.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "DK",
+    "identifier": "DK",
     "slug": "denmark",
     "name": "Denmark",
     "flag": "🇩🇰",
     "description": "Denmark is an EU member state with robust digital infrastructure and data protection aligned with GDPR.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "FI",
+    "identifier": "FI",
     "slug": "finland",
     "name": "Finland",
     "flag": "🇫🇮",
     "description": "Finland is an EU member state known for transparency and strong rule of law. Popular location for data centers due to cold climate and renewable energy.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "DE",
+    "identifier": "DE",
     "slug": "germany",
     "name": "Germany",
     "flag": "🇩🇪",
     "description": "Germany has some of the strictest data protection interpretations in the EU. German Datenschutz (data protection) culture runs deep, with strong enforcement by state-level authorities.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": [
       "bdsg"
     ]
   },
   {
-    "id": "FR",
+    "identifier": "FR",
     "slug": "france",
     "name": "France",
     "flag": "🇫🇷",
     "description": "France is an EU member with the CNIL as one of Europe's most active data protection authorities. France has been pushing for European digital sovereignty.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "NL",
+    "identifier": "NL",
     "slug": "netherlands",
     "name": "Netherlands",
     "flag": "🇳🇱",
     "description": "Netherlands hosts major internet exchanges and data centers. EU member with strong tech sector and data protection traditions.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "PL",
+    "identifier": "PL",
     "slug": "poland",
     "name": "Poland",
     "flag": "🇵🇱",
     "description": "Poland is an EU member state with growing data center infrastructure.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "IE",
+    "identifier": "IE",
     "slug": "ireland",
     "name": "Ireland",
     "flag": "🇮🇪",
     "description": "Ireland hosts European headquarters for many US tech giants (Google, Meta, Microsoft). The Irish DPC is the lead supervisory authority for many cross-border cases, though criticized for slow enforcement.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "AT",
+    "identifier": "AT",
     "slug": "austria",
     "name": "Austria",
     "flag": "🇦🇹",
     "description": "Austria is an EU member known for privacy activism. The Schrems cases that invalidated Safe Harbor and Privacy Shield originated from Austrian privacy advocate Max Schrems.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "BE",
+    "identifier": "BE",
     "slug": "belgium",
     "name": "Belgium",
     "flag": "🇧🇪",
     "description": "Belgium is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "BG",
+    "identifier": "BG",
     "slug": "bulgaria",
     "name": "Bulgaria",
     "flag": "🇧🇬",
     "description": "Bulgaria is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "HR",
+    "identifier": "HR",
     "slug": "croatia",
     "name": "Croatia",
     "flag": "🇭🇷",
     "description": "Croatia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "CY",
+    "identifier": "CY",
     "slug": "cyprus",
     "name": "Cyprus",
     "flag": "🇨🇾",
     "description": "Cyprus is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "CZ",
+    "identifier": "CZ",
     "slug": "czechia",
     "name": "Czechia",
     "flag": "🇨🇿",
     "description": "Czechia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "EE",
+    "identifier": "EE",
     "slug": "estonia",
     "name": "Estonia",
     "flag": "🇪🇪",
     "description": "Estonia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "GR",
+    "identifier": "GR",
     "slug": "greece",
     "name": "Greece",
     "flag": "🇬🇷",
     "description": "Greece is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "HU",
+    "identifier": "HU",
     "slug": "hungary",
     "name": "Hungary",
     "flag": "🇭🇺",
     "description": "Hungary is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "LV",
+    "identifier": "LV",
     "slug": "latvia",
     "name": "Latvia",
     "flag": "🇱🇻",
     "description": "Latvia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "LT",
+    "identifier": "LT",
     "slug": "lithuania",
     "name": "Lithuania",
     "flag": "🇱🇹",
     "description": "Lithuania is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "LU",
+    "identifier": "LU",
     "slug": "luxembourg",
     "name": "Luxembourg",
     "flag": "🇱🇺",
     "description": "Luxembourg is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "MT",
+    "identifier": "MT",
     "slug": "malta",
     "name": "Malta",
     "flag": "🇲🇹",
     "description": "Malta is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "PT",
+    "identifier": "PT",
     "slug": "portugal",
     "name": "Portugal",
     "flag": "🇵🇹",
     "description": "Portugal is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "RO",
+    "identifier": "RO",
     "slug": "romania",
     "name": "Romania",
     "flag": "🇷🇴",
     "description": "Romania is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "SK",
+    "identifier": "SK",
     "slug": "slovakia",
     "name": "Slovakia",
     "flag": "🇸🇰",
     "description": "Slovakia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "SI",
+    "identifier": "SI",
     "slug": "slovenia",
     "name": "Slovenia",
     "flag": "🇸🇮",
     "description": "Slovenia is an EU member state subject to GDPR and EU legal frameworks.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "ES",
+    "identifier": "ES",
     "slug": "spain",
     "name": "Spain",
     "flag": "🇪🇸",
     "description": "Spain is an EU member state subject to GDPR and EU legal frameworks. Data stored with Spanish providers is governed by EU/EEA protections, with no extraterritorial access concerns comparable to US-style jurisdiction exposure.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "IT",
+    "identifier": "IT",
     "slug": "italy",
     "name": "Italy",
     "flag": "🇮🇹",
     "description": "Italy is an EU member state subject to GDPR and EU legal frameworks. Data stored with Italian providers is governed by EU/EEA protections, with no extraterritorial access concerns comparable to US-style jurisdiction exposure.",
-    "eu_member": true,
-    "eea_member": true,
+    "euMember": true,
+    "eeaMember": true,
     "blocs": [
       "eu",
       "eea"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": []
   },
   {
-    "id": "CH",
+    "identifier": "CH",
     "slug": "switzerland",
     "name": "Switzerland",
     "flag": "🇨🇭",
     "description": "Switzerland is not an EU/EEA member but has an EU adequacy decision. Known for banking secrecy and neutrality, with strong data protection under the revised FADP.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "adequacy"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": [
       "fadp"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "US",
+    "identifier": "US",
     "slug": "usa",
     "name": "USA",
     "flag": "🇺🇸",
     "description": "The United States has broad surveillance laws that grant government access to data held by US companies, regardless of where the data is stored. The CLOUD Act is particularly concerning for European organizations using US cloud providers.",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "five-eyes"
     ],
-    "law_concern": true,
-    "risk_level": "high",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "high",
+    "nationalLaws": [
       "cloud-act",
       "fisa-702",
       "patriot-act",
@@ -521,38 +521,38 @@
     ]
   },
   {
-    "id": "GB",
+    "identifier": "GB",
     "slug": "united-kingdom",
     "name": "United Kingdom",
     "flag": "🇬🇧",
     "description": "Post-Brexit, the UK has an EU adequacy decision but maintains broad surveillance powers under the Investigatory Powers Act. A Five Eyes member with extensive intelligence-sharing arrangements.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "five-eyes",
       "adequacy"
     ],
-    "law_concern": true,
-    "risk_level": "elevated",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "elevated",
+    "nationalLaws": [
       "investigatory-powers-act",
       "national-security-act",
       "uk-gdpr"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "CN",
+    "identifier": "CN",
     "slug": "china",
     "name": "China",
     "flag": "🇨🇳",
     "description": "China requires organizations and citizens to cooperate with national intelligence work. Data localization requirements and strict cross-border transfer rules make it difficult to use Chinese services while maintaining data sovereignty.",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": true,
-    "risk_level": "high",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "high",
+    "nationalLaws": [
       "national-intelligence-law",
       "cybersecurity-law",
       "data-security-law",
@@ -560,392 +560,392 @@
     ]
   },
   {
-    "id": "RU",
+    "identifier": "RU",
     "slug": "russia",
     "name": "Russia",
     "flag": "🇷🇺",
     "description": "Russia is subject to international sanctions following the 2022 invasion of Ukraine. Data localization laws require Russian citizen data to be stored in Russia, and SORM requires surveillance backdoors.",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": true,
-    "sanctions": true,
-    "risk_level": "sanctioned",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "sanctioned",
+    "nationalLaws": [
       "yarovaya-law",
       "data-localization-law",
       "sorm"
-    ]
+    ],
+    "sanctions": true
   },
   {
-    "id": "IL",
+    "identifier": "IL",
     "slug": "israel",
     "name": "Israel",
     "flag": "🇮🇱",
     "description": "Israel has an EU adequacy decision for certain sectors. Known for advanced cybersecurity industry but also surveillance technology exports.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "adequacy"
     ],
-    "law_concern": false,
-    "political_concern": true,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": [],
+    "adequacyDecision": true,
+    "politicalConcern": true
   },
   {
-    "id": "IN",
+    "identifier": "IN",
     "slug": "india",
     "name": "India",
     "flag": "🇮🇳",
     "description": "India has broad government surveillance powers under the IT Act. The new DPDP Act provides some protection but with significant government exemptions.",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": true,
-    "risk_level": "elevated",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "elevated",
+    "nationalLaws": [
       "it-act-2000",
       "dpdp-act"
     ]
   },
   {
-    "id": "AU",
+    "identifier": "AU",
     "slug": "australia",
     "name": "Australia",
     "flag": "🇦🇺",
     "description": "Australia is a Five Eyes member with the controversial TOLA Act allowing authorities to compel companies to build backdoors and assist in decryption.",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "five-eyes"
     ],
-    "law_concern": true,
-    "risk_level": "elevated",
-    "national_laws": [
+    "lawConcern": true,
+    "riskLevel": "elevated",
+    "nationalLaws": [
       "tola-act"
     ]
   },
   {
-    "id": "CA",
+    "identifier": "CA",
     "slug": "canada",
     "name": "Canada",
     "flag": "🇨🇦",
     "description": "Canada has an EU adequacy decision and PIPEDA provides reasonable data protection. However, as a Five Eyes member, there are intelligence-sharing concerns.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "five-eyes",
       "adequacy"
     ],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": [
       "pipeda"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "JP",
+    "identifier": "JP",
     "slug": "japan",
     "name": "Japan",
     "flag": "🇯🇵",
     "description": "Japan has an EU adequacy decision since 2019 and the APPI provides comprehensive data protection aligned with international standards.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "adequacy"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": [
       "appi"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "KR",
+    "identifier": "KR",
     "slug": "south-korea",
     "name": "South Korea",
     "flag": "🇰🇷",
     "description": "South Korea has an EU adequacy decision since 2022 and PIPA provides strong data protection with active enforcement.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "adequacy"
     ],
-    "law_concern": false,
-    "risk_level": "low",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "low",
+    "nationalLaws": [
       "pipa"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "NZ",
+    "identifier": "NZ",
     "slug": "new-zealand",
     "name": "New Zealand",
     "flag": "🇳🇿",
     "description": "New Zealand has an EU adequacy decision and the Privacy Act 2020. However, as a Five Eyes member, there are intelligence-sharing considerations.",
-    "eu_member": false,
-    "eea_member": false,
-    "adequacy_decision": true,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [
       "five-eyes",
       "adequacy"
     ],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": [
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": [
       "privacy-act-2020"
-    ]
+    ],
+    "adequacyDecision": true
   },
   {
-    "id": "AE",
+    "identifier": "AE",
     "slug": "united-arab-emirates",
     "name": "United Arab Emirates",
     "flag": "🇦🇪",
     "description": "United Arab Emirates. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "BH",
+    "identifier": "BH",
     "slug": "bahrain",
     "name": "Bahrain",
     "flag": "🇧🇭",
     "description": "Bahrain. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "BR",
+    "identifier": "BR",
     "slug": "brazil",
     "name": "Brazil",
     "flag": "🇧🇷",
     "description": "Brazil. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "CL",
+    "identifier": "CL",
     "slug": "chile",
     "name": "Chile",
     "flag": "🇨🇱",
     "description": "Chile. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "CO",
+    "identifier": "CO",
     "slug": "colombia",
     "name": "Colombia",
     "flag": "🇨🇴",
     "description": "Colombia. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "EG",
+    "identifier": "EG",
     "slug": "egypt",
     "name": "Egypt",
     "flag": "🇪🇬",
     "description": "Egypt. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "HK",
+    "identifier": "HK",
     "slug": "hong-kong",
     "name": "Hong Kong",
     "flag": "🇭🇰",
     "description": "Hong Kong. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "ID",
+    "identifier": "ID",
     "slug": "indonesia",
     "name": "Indonesia",
     "flag": "🇮🇩",
     "description": "Indonesia. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "MX",
+    "identifier": "MX",
     "slug": "mexico",
     "name": "Mexico",
     "flag": "🇲🇽",
     "description": "Mexico. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "MY",
+    "identifier": "MY",
     "slug": "malaysia",
     "name": "Malaysia",
     "flag": "🇲🇾",
     "description": "Malaysia. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "PH",
+    "identifier": "PH",
     "slug": "philippines",
     "name": "Philippines",
     "flag": "🇵🇭",
     "description": "Philippines. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "QA",
+    "identifier": "QA",
     "slug": "qatar",
     "name": "Qatar",
     "flag": "🇶🇦",
     "description": "Qatar. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "RS",
+    "identifier": "RS",
     "slug": "serbia",
     "name": "Serbia",
     "flag": "🇷🇸",
     "description": "Serbia. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "SA",
+    "identifier": "SA",
     "slug": "saudi-arabia",
     "name": "Saudi Arabia",
     "flag": "🇸🇦",
     "description": "Saudi Arabia. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "SG",
+    "identifier": "SG",
     "slug": "singapore",
     "name": "Singapore",
     "flag": "🇸🇬",
     "description": "Singapore. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "TH",
+    "identifier": "TH",
     "slug": "thailand",
     "name": "Thailand",
     "flag": "🇹🇭",
     "description": "Thailand. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "TR",
+    "identifier": "TR",
     "slug": "turkey",
     "name": "Turkey",
     "flag": "🇹🇷",
     "description": "Turkey. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "TW",
+    "identifier": "TW",
     "slug": "taiwan",
     "name": "Taiwan",
     "flag": "🇹🇼",
     "description": "Taiwan. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   },
   {
-    "id": "ZA",
+    "identifier": "ZA",
     "slug": "south-africa",
     "name": "South Africa",
     "flag": "🇿🇦",
     "description": "South Africa. (Placeholder entry to support datacenter country listing.)",
-    "eu_member": false,
-    "eea_member": false,
+    "euMember": false,
+    "eeaMember": false,
     "blocs": [],
-    "law_concern": false,
-    "risk_level": "moderate",
-    "national_laws": []
+    "lawConcern": false,
+    "riskLevel": "moderate",
+    "nationalLaws": []
   }
 ]

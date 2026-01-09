@@ -22,7 +22,7 @@
 {{ $regions := site.Data.regions }}
 {{ $regionsById := dict }}
 {{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{/* Provider HQ metadata */}}
@@ -40,13 +40,13 @@
   {{ if $hq }}
     {{ $hqName = $hq.name }}
     {{ $hqFlag = $hq.flag }}
-    {{ $hqRisk = $hq.risk_level }}
+    {{ $hqRisk = $hq.riskLevel }}
     {{ $hqSlug = $hq.slug }}
   {{ end }}
 {{ end }}
 
 {{/* Risk label + emoji */}}
-{{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
+{{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
   {{ if .label }}{{ $riskLabel = .label }}{{ end }}

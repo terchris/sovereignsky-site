@@ -1,62 +1,50 @@
-{{/* Jurisdiction Laws Summary Card - shows laws by type */}}
-{{ $countryId := .Params.country_id | default "" }}
-{{ $country := dict }}
-{{ if $countryId }}
-  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
-  {{ with index $match 0 }}
-    {{ $country = . }}
-  {{ end }}
-{{ end }}
+{{/* Bloc Laws Summary Card - shows laws by type for a bloc */}}
+{{ $blocId := .blocId }}
+{{ $bloc := .bloc }}
+{{ $blocsById := .blocsById }}
+{{ $page := .page }}
 
-{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
-
-{{ if $countryId }}
-  {{/* Build applicable IDs list (country + blocs + inherited) */}}
-  {{ $applicableIds := slice $countryId }}
-  {{ $countryBlocs := $country.blocs | default (slice) }}
-
-  {{ range $countryBlocs }}
-    {{ $blocId := . }}
-    {{ $applicableIds = $applicableIds | append $blocId }}
-    {{ range $blocsData }}
-      {{ if eq .identifier $blocId }}
-        {{ range (.inheritsFrom | default (slice)) }}
-          {{ $applicableIds = $applicableIds | append . }}
-        {{ end }}
+{{ if $blocId }}
+  {{/* Build applicable bloc IDs (this bloc + inherited) */}}
+  {{ $applicableBlocIds := slice $blocId }}
+  {{ range ($bloc.inheritsFrom | default (slice)) }}
+    {{ $applicableBlocIds = $applicableBlocIds | append . }}
+    {{ $parent := index $blocsById . }}
+    {{ if $parent }}
+      {{ range ($parent.inheritsFrom | default (slice)) }}
+        {{ $applicableBlocIds = $applicableBlocIds | append . }}
       {{ end }}
     {{ end }}
   {{ end }}
 
   {{/* Count laws by type */}}
-  {{ $.Scratch.Set "laws_total" 0 }}
-  {{ $.Scratch.Set "laws_byType" (dict) }}
-  {{ $.Scratch.Set "laws_seen" (slice) }}
+  {{ $totalLaws := 0 }}
+  {{ $byType := dict }}
+  {{ $seenLaws := slice }}
 
   {{ range site.Data.laws.laws.itemListElement }}
     {{ $law := . }}
     {{ $lawId := .identifier }}
     {{ range .legislationJurisdiction }}
       {{ $applyTo := . }}
-      {{ range $applicableIds }}
+      {{ range $applicableBlocIds }}
         {{ if eq $applyTo . }}
-          {{ $seen := $.Scratch.Get "laws_seen" }}
           {{ $alreadyCounted := false }}
-          {{ range $seen }}
+          {{ range $seenLaws }}
             {{ if eq . $lawId }}{{ $alreadyCounted = true }}{{ end }}
           {{ end }}
           {{ if not $alreadyCounted }}
-            {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
+            {{ $totalLaws = add $totalLaws 1 }}
             {{ $lawType := $law.category | default "other" }}
-            {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
-            {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
-            {{ $.Scratch.Add "laws_seen" $lawId }}
+            {{ $currentCount := index $byType $lawType | default 0 }}
+            {{ $byType = merge $byType (dict $lawType (add $currentCount 1)) }}
+            {{ $seenLaws = $seenLaws | append $lawId }}
           {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
 
-  {{ $totalLaws := $.Scratch.Get "laws_total" }}
   {{ if gt $totalLaws 0 }}
   <div class="card bg-base-100 shadow-sm border border-base-300">
     <div class="card-body p-4">
@@ -66,7 +54,6 @@
       </h3>
       <p class="text-xs opacity-60 -mt-1">{{ $totalLaws }} applicable laws</p>
       <div class="mt-2 space-y-3">
-        {{ $byType := $.Scratch.Get "laws_byType" }}
         {{ range site.Data.laws.law_types.itemListElement }}
           {{ $type := .identifier }}
           {{ $count := index $byType $type }}

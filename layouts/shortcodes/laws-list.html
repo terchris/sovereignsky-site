@@ -14,12 +14,12 @@
 
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{ $blocsById := dict }}
 {{ range (site.Data.jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
 {{ $filtered := slice }}

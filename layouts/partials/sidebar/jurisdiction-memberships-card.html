@@ -2,7 +2,7 @@
 {{ $countryId := .Params.country_id | default "" }}
 {{ $country := dict }}
 {{ if $countryId }}
-  {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
@@ -24,7 +24,7 @@
         {{ $blocName := $blocId }}
         {{ $blocFlag := "" }}
         {{ range $blocsData }}
-          {{ if eq .id $blocId }}
+          {{ if eq .identifier $blocId }}
             {{ $blocName = .name }}
             {{ $blocFlag = .flag | default "" }}
           {{ end }}

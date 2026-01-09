@@ -13,10 +13,10 @@
   {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
   {{ with index $match 0 }}
     {{ $country = . }}
-    {{ $countryId = .id }}
+    {{ $countryId = .identifier }}
   {{ end }}
 {{ else }}
-  {{ $match := first 1 (where site.Data.regions "id" $countryId) }}
+  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
@@ -44,7 +44,7 @@
 {{/* Build region lookup for use by partials */}}
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{/* Providers that have regions in this country */}}
@@ -74,8 +74,8 @@
 {{ $riskLabel := "" }}
 {{ $riskEmoji := "" }}
 {{ if $country }}
-  {{ $hqRisk = $country.risk_level | default "unknown" }}
-  {{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
+  {{ $hqRisk = $country.riskLevel | default "unknown" }}
+  {{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
   {{ $riskLabel = $hqRisk }}
   {{ with index $riskLevels $hqRisk }}
     {{ if .label }}{{ $riskLabel = .label }}{{ end }}

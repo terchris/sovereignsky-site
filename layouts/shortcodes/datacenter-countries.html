@@ -12,7 +12,7 @@ Usage: {{< datacenter-countries>}}
     {{/* Build regions lookup by id (ISO country code) */}}
     {{ $regionsById := dict }}
     {{ range $regions }}
-    {{ $regionsById = merge $regionsById (dict .id .) }}
+    {{ $regionsById = merge $regionsById (dict .identifier .) }}
     {{ end }}
 
     {{/* Count datacenter regions by physical country */}}
@@ -60,7 +60,7 @@ Usage: {{< datacenter-countries>}}
         {{ $flag = $meta.flag }}
         {{ $name = $meta.name }}
         {{ $slug = $meta.slug }}
-        {{ $risk = $meta.risk_level }}
+        {{ $risk = $meta.riskLevel }}
         {{ end }}
 
         {{/* small colored dot by risk */}}

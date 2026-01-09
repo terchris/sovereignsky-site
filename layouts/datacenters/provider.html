@@ -22,7 +22,7 @@
 {{/* Build region lookup */}}
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{/* Get vendor country info */}}
@@ -60,8 +60,8 @@
 {{ $riskLabel := "" }}
 {{ $riskEmoji := "" }}
 {{ if $vendorCountry }}
-  {{ $hqRisk = $vendorCountry.risk_level | default "unknown" }}
-  {{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
+  {{ $hqRisk = $vendorCountry.riskLevel | default "unknown" }}
+  {{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
   {{ $riskLabel = $hqRisk }}
   {{ with index $riskLevels $hqRisk }}
     {{ if .label }}{{ $riskLabel = .label }}{{ end }}

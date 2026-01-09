@@ -23,7 +23,7 @@
   {{ $countryBlocs = $country.blocs | default (slice) }}
 {{ else }}
   {{ range $regions }}
-    {{ if eq .id $jurisdictionId }}
+    {{ if eq .identifier $jurisdictionId }}
       {{ $countryBlocs = .blocs | default (slice) }}
     {{ end }}
   {{ end }}
@@ -35,8 +35,8 @@
   {{ $applicableIds = $applicableIds | append $blocId }}
   {{/* Find this bloc and check for inherits_from */}}
   {{ range $blocs }}
-    {{ if eq .id $blocId }}
-      {{ $inheritedFrom := .inherits_from | default (slice) }}
+    {{ if eq .identifier $blocId }}
+      {{ $inheritedFrom := .inheritsFrom | default (slice) }}
       {{ range $inheritedFrom }}
         {{ $applicableIds = $applicableIds | append . }}
         {{ $inheritanceMap = merge $inheritanceMap (dict . $blocId) }}
@@ -47,8 +47,8 @@
 
 {{/* Also check if this jurisdiction is itself a bloc with inherits_from */}}
 {{ range $blocs }}
-  {{ if eq .id $jurisdictionId }}
-    {{ $inheritedFrom := .inherits_from | default (slice) }}
+  {{ if eq .identifier $jurisdictionId }}
+    {{ $inheritedFrom := .inheritsFrom | default (slice) }}
     {{ range $inheritedFrom }}
       {{ $applicableIds = $applicableIds | append . }}
       {{ $inheritanceMap = merge $inheritanceMap (dict . $jurisdictionId) }}
@@ -132,7 +132,7 @@
         {{ if $isNational }}
           {{ $countryFlag := "" }}
           {{ range $regions }}
-            {{ if eq .id $jurisdictionId }}
+            {{ if eq .identifier $jurisdictionId }}
               {{ $countryFlag = .flag | default "" }}
             {{ end }}
           {{ end }}

@@ -18,7 +18,7 @@ Usage: {{< datacenter-map>}}
   {{/* Build regions lookup by country_id */}}
   {{ $regionsById := dict }}
   {{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
   {{ end }}
 
   {{/* Build datacenter points for the map */}}
@@ -30,7 +30,7 @@ Usage: {{< datacenter-map>}}
   {{ $vendorCountry := index $regionsById .vendor_country_id }}
   {{ $vendorRisk := "unknown" }}
   {{ if $vendorCountry }}
-  {{ $vendorRisk = $vendorCountry.risk_level }}
+  {{ $vendorRisk = $vendorCountry.riskLevel }}
   {{ end }}
 
   {{ $providerMeta = $providerMeta | append (dict
@@ -47,7 +47,7 @@ Usage: {{< datacenter-map>}}
   {{ $dcRisk := "unknown" }}
   {{ $dcCountryName := .country_id }}
   {{ if $dcCountry }}
-  {{ $dcRisk = $dcCountry.risk_level }}
+  {{ $dcRisk = $dcCountry.riskLevel }}
   {{ if $dcCountry.name }}{{ $dcCountryName = $dcCountry.name }}{{ end }}
   {{ end }}
 

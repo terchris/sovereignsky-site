@@ -15,7 +15,7 @@
 
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{ $hqId := "" }}
@@ -30,14 +30,14 @@
 {{ if $hqId }}
   {{ $hq = index $regionsById $hqId }}
   {{ if $hq }}
-    {{ $hqRisk = $hq.risk_level }}
+    {{ $hqRisk = $hq.riskLevel }}
     {{ $hqName = $hq.name }}
     {{ $hqFlag = $hq.flag }}
     {{ $hqSlug = $hq.slug }}
   {{ end }}
 {{ end }}
 
-{{ $riskLevels := (site.Data.jurisdictions.risk_levels | default dict) }}
+{{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
   {{ if .label }}{{ $riskLabel = .label }}{{ end }}
@@ -52,7 +52,7 @@
 
 {{ $blocsById := dict }}
 {{ range (site.Data.jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 {{ $blocNames := slice }}
 {{ if $hq }}

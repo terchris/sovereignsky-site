@@ -8,13 +8,13 @@
 {{/* Build region lookup from regions.json (countries) */}}
 {{ $regionLookup := dict }}
 {{ range site.Data.regions }}
-  {{ $regionLookup = merge $regionLookup (dict .id .) }}
+  {{ $regionLookup = merge $regionLookup (dict .identifier .) }}
 {{ end }}
 
 {{/* Build bloc lookup from jurisdictions.json */}}
 {{ $blocLookup := dict }}
 {{ range site.Data.jurisdictions.blocs }}
-  {{ $blocLookup = merge $blocLookup (dict .id .) }}
+  {{ $blocLookup = merge $blocLookup (dict .identifier .) }}
 {{ end }}
 
 {{/* Category badge colors using DaisyUI */}}

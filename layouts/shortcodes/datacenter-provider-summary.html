@@ -15,7 +15,7 @@
 
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{ $hqId := "" }}
@@ -32,7 +32,7 @@
   {{ if $hq }}
     {{ $hqName = $hq.name }}
     {{ $hqFlag = $hq.flag }}
-    {{ $hqRisk = $hq.risk_level }}
+    {{ $hqRisk = $hq.riskLevel }}
     {{ $hqSlug = $hq.slug }}
   {{ end }}
 {{ end }}
