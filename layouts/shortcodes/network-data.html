@@ -1,4 +1,4 @@
-{{/* 
+{{/*
   network-data shortcode
   Renders Networks page sections from data/networks/networks.json (+ data/networks/networks-actors.json for owner display).
 */}}
@@ -13,7 +13,7 @@
 {{ $s.Set "actorById" (dict) }}
 {{ range $actors }}
   {{ $actor := . }}
-  {{ with $actor.actor_id }}{{ $s.SetInMap "actorById" . $actor }}{{ end }}
+  {{ with $actor.identifier }}{{ $s.SetInMap "actorById" . $actor }}{{ end }}
 {{ end }}
 
 {{ $s.Set "placeById" (dict) }}
@@ -32,7 +32,7 @@
 {{ $internationalTerrestrial := where (where $connections "scope" "international") "medium" "terrestrial" }}
 {{ $domesticCables := where $connections "scope" "domestic" }}
 
-{{ $arcticCables := where $connections "connection_id" "in" (slice "svalbard-undersea" "arctic-way" "longyearbyen-ny-alesund") }}
+{{ $arcticCables := where $connections "identifier" "in" (slice "svalbard-undersea" "arctic-way" "longyearbyen-ny-alesund") }}
 
 <div class="space-y-10">
   <section>
@@ -52,21 +52,21 @@
           </tr>
         </thead>
         <tbody>
-          {{ range sort $internationalSubsea "connection_name" "asc" }}
-            {{ $id := .connection_id }}
+          {{ range sort $internationalSubsea "name" "asc" }}
+            {{ $id := .identifier }}
             {{ $page := site.GetPage (printf "/networks/%s" $id) }}
             {{ $owners := (slice) }}
-            {{ range (.owner_actor_ids | default (slice)) }}
+            {{ range (.ownerActorIds | default (slice)) }}
               {{ $a := index $actorById . }}
               {{ if $a }}
-                {{ $owners = $owners | append (printf "%s%s" ($a.actor_name | default .) (cond (ne ($a.country_id | default "") "") (printf " (%s)" $a.country_id) "")) }}
+                {{ $owners = $owners | append (printf "%s%s" ($a.name | default .) (cond (ne ($a.countryId | default "") "") (printf " (%s)" $a.countryId) "")) }}
               {{ else }}
                 {{ $owners = $owners | append . }}
               {{ end }}
             {{ end }}
 
             {{ $routeNames := (slice) }}
-            {{ range (.endpoint_place_ids | default (slice)) }}
+            {{ range (.endpointPlaceIds | default (slice)) }}
               {{ $pl := index $placeById . }}
               {{ if $pl }}
                 {{ $routeNames = $routeNames | append ($pl.name | default .) }}
@@ -77,9 +77,9 @@
             <tr class="border-b border-neutral-100 dark:border-neutral-800">
               <td class="py-2 pr-4 font-medium">
                 {{ if $page }}
-                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .name }}</a>
                 {{ else }}
-                  {{ .connection_name }}
+                  {{ .name }}
                 {{ end }}
               </td>
               <td class="py-2 pr-4">
@@ -120,11 +120,11 @@
           </tr>
         </thead>
         <tbody>
-          {{ range sort $internationalTerrestrial "connection_name" "asc" }}
-            {{ $id := .connection_id }}
+          {{ range sort $internationalTerrestrial "name" "asc" }}
+            {{ $id := .identifier }}
             {{ $page := site.GetPage (printf "/networks/%s" $id) }}
             {{ $routeNames := (slice) }}
-            {{ range (.endpoint_place_ids | default (slice)) }}
+            {{ range (.endpointPlaceIds | default (slice)) }}
               {{ $pl := index $placeById . }}
               {{ if $pl }}
                 {{ $routeNames = $routeNames | append ($pl.name | default .) }}
@@ -135,9 +135,9 @@
             <tr class="border-b border-neutral-100 dark:border-neutral-800">
               <td class="py-2 pr-4 font-medium">
                 {{ if $page }}
-                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .name }}</a>
                 {{ else }}
-                  {{ .connection_name }}
+                  {{ .name }}
                 {{ end }}
               </td>
               <td class="py-2 pr-4">
@@ -178,20 +178,20 @@
           </tr>
         </thead>
         <tbody>
-          {{ range sort $domesticCables "connection_name" "asc" }}
-            {{ $id := .connection_id }}
+          {{ range sort $domesticCables "name" "asc" }}
+            {{ $id := .identifier }}
             {{ $page := site.GetPage (printf "/networks/%s" $id) }}
             {{ $opNames := (slice) }}
-            {{ range (.operator_actor_ids | default (slice)) }}
+            {{ range (.operatorActorIds | default (slice)) }}
               {{ $a := index $actorById . }}
-              {{ $opNames = $opNames | append (cond $a ($a.actor_name | default .) .) }}
+              {{ $opNames = $opNames | append (cond $a ($a.name | default .) .) }}
             {{ end }}
             <tr class="border-b border-neutral-100 dark:border-neutral-800">
               <td class="py-2 pr-4 font-medium">
                 {{ if $page }}
-                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .name }}</a>
                 {{ else }}
-                  {{ .connection_name }}
+                  {{ .name }}
                 {{ end }}
               </td>
               <td class="py-2 pr-4">
@@ -230,15 +230,15 @@
           </tr>
         </thead>
         <tbody>
-          {{ range sort $arcticCables "connection_name" "asc" }}
-            {{ $id := .connection_id }}
+          {{ range sort $arcticCables "name" "asc" }}
+            {{ $id := .identifier }}
             {{ $page := site.GetPage (printf "/networks/%s" $id) }}
             <tr class="border-b border-neutral-100 dark:border-neutral-800">
               <td class="py-2 pr-4 font-medium">
                 {{ if $page }}
-                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .connection_name }}</a>
+                  <a class="hover:underline" href="{{ $page.RelPermalink }}">{{ .name }}</a>
                 {{ else }}
-                  {{ .connection_name }}
+                  {{ .name }}
                 {{ end }}
               </td>
               <td class="py-2 pr-4">
@@ -260,5 +260,4 @@
   </section>
 
 </div>
-
 

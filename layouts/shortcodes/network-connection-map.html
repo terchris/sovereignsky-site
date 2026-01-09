@@ -2,7 +2,7 @@
   Render a small network map for a single connection.
 
   Usage:
-    {{< network-connection-map connection_id="havfrue" >}}
+    {{< network-connection-map identifier="havfrue" >}}
 
   Data:
     - site.Data.networks["networks"] (connections)
@@ -10,34 +10,34 @@
 
   Notes:
     - Uses the connection's explicit route if present; otherwise generates a curved path
-      between consecutive endpoint_place_ids for a visually nice schematic.
+      between consecutive endpointPlaceIds for a visually nice schematic.
 */}}
 
-  {{ $connectionId := .Get "connection_id" | default "" }}
+  {{ $identifier := .Get "identifier" | default (.Get "connection_id") | default "" }}
   {{/* focusMode: "midpoint" (default), "norway" */}}
   {{ $focusMode := .Get "focusMode" | default "midpoint" }}
-{{ if not $connectionId }}
-  <p class="text-sm text-neutral-600 dark:text-neutral-300">Missing <code>connection_id</code> for <code>network-connection-map</code>.</p>
+{{ if not $identifier }}
+  <p class="text-sm text-neutral-600 dark:text-neutral-300">Missing <code>identifier</code> for <code>network-connection-map</code>.</p>
 {{ else }}
   {{ $networksRoot := site.Data.networks | default dict }}
   {{ $connections := (index $networksRoot "networks") | default (slice) }}
   {{ $places := (index $networksRoot "networks-places") | default (slice) }}
   {{ $connection := dict }}
   {{ range $connections }}
-    {{ if eq .connection_id $connectionId }}
+    {{ if eq .identifier $identifier }}
       {{ $connection = . }}
     {{ end }}
   {{ end }}
 
-  {{ if not (index $connection "connection_id") }}
-    <p class="text-sm text-neutral-600 dark:text-neutral-300">Unknown connection: <code>{{ $connectionId }}</code></p>
+  {{ if not (index $connection "identifier") }}
+    <p class="text-sm text-neutral-600 dark:text-neutral-300">Unknown connection: <code>{{ $identifier }}</code></p>
   {{ else }}
     <div class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
-      <div id="network-connection-map-{{ $connectionId }}" class="w-full" style="height: 420px;"></div>
+      <div id="network-connection-map-{{ $identifier }}" class="w-full" style="height: 420px;"></div>
     </div>
 
-    <script type="application/json" id="network-connection-map-places-{{ $connectionId }}">{{ $places | jsonify | safeHTML }}</script>
-    <script type="application/json" id="network-connection-map-connection-{{ $connectionId }}">{{ $connection | jsonify | safeHTML }}</script>
+    <script type="application/json" id="network-connection-map-places-{{ $identifier }}">{{ $places | jsonify | safeHTML }}</script>
+    <script type="application/json" id="network-connection-map-connection-{{ $identifier }}">{{ $connection | jsonify | safeHTML }}</script>
 
     <script>
       (function () {
@@ -57,13 +57,13 @@
           }
         }
 
-        var places = readJsonScript('network-connection-map-places-{{ $connectionId }}', []);
-        var conn = readJsonScript('network-connection-map-connection-{{ $connectionId }}', null);
+        var places = readJsonScript('network-connection-map-places-{{ $identifier }}', []);
+        var conn = readJsonScript('network-connection-map-connection-{{ $identifier }}', null);
         if (!conn) return;
 
         var geoByPlaceId = {};
         (places || []).forEach(function (p) {
-          var id = p && (p.identifier || p.place_id);
+          var id = p && p.identifier;
           var g = p && p.geo;
           if (!id || !g) return;
           if (typeof g.latitude !== 'number' || typeof g.longitude !== 'number') return;
@@ -117,14 +117,14 @@
           if (Array.isArray(conn.route) && conn.route.length >= 2) {
             return conn.route.map(function (p) { return [p[1], p[0]]; }); // [lng, lat]
           }
-          var eps = conn.endpoint_place_ids || [];
+          var eps = conn.endpointPlaceIds || conn.endpoint_place_ids || [];
           if (!Array.isArray(eps) || eps.length < 2) return null;
           var out = [];
           for (var i = 0; i < eps.length - 1; i++) {
             var a = geoByPlaceId[eps[i]];
             var b = geoByPlaceId[eps[i + 1]];
             if (!a || !b) continue;
-            var seg = generatePrettyRouteLngLat(a, b, (conn.connection_id || '') + ':' + eps[i] + '>' + eps[i + 1], mediumKey);
+            var seg = generatePrettyRouteLngLat(a, b, (conn.identifier || '') + ':' + eps[i] + '>' + eps[i + 1], mediumKey);
             if (seg && seg.length >= 2) {
               if (out.length) seg = seg.slice(1);
               out = out.concat(seg);
@@ -136,7 +136,7 @@
         var route = buildRouteLngLat();
         if (!route) return;
 
-        var endpoints = (conn.endpoint_place_ids || []).map(function (id) { return geoByPlaceId[id]; }).filter(Boolean);
+        var endpoints = (conn.endpointPlaceIds || conn.endpoint_place_ids || []).map(function (id) { return geoByPlaceId[id]; }).filter(Boolean);
         var points = endpoints.map(function (p) {
           return { name: p.name, value: [p.lng, p.lat, 10] };
         });
@@ -150,7 +150,7 @@
         var lineWidth = isPlanned ? 4 : 3;
         var lineOpacity = isPlanned ? 0.95 : 0.85;
 
-        var el = document.getElementById('network-connection-map-{{ $connectionId }}');
+        var el = document.getElementById('network-connection-map-{{ $identifier }}');
         var chart = echarts.init(el, null, { renderer: 'svg' });
 
         function fetchJson(url) {
@@ -212,7 +212,7 @@
             tooltip: { trigger: 'item' },
             series: [
               {
-                name: conn.connection_name,
+                name: conn.name,
                 type: 'lines',
                 coordinateSystem: 'geo',
                 polyline: true,
@@ -252,5 +252,4 @@
     </script>
   {{ end }}
 {{ end }}
-
 

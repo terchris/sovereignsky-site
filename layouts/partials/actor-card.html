@@ -7,7 +7,7 @@
     - actor: Actor object from networks-actors.json
     - connections: slice of connection objects this actor is related to
     - role: "owner" or "operator" (optional, for display)
-    - currentConnectionId: current page connection_id to highlight (optional)
+    - currentConnectionId: current page identifier to highlight (optional)
 */}}
 
 {{ $actor := .actor }}
@@ -15,7 +15,7 @@
 {{ $role := .role | default "" }}
 {{ $currentConnectionId := .currentConnectionId | default "" }}
 
-{{ $countryId := $actor.country_id | default "" }}
+{{ $countryId := $actor.countryId | default "" }}
 
 {{/* Flag emoji lookup - common countries */}}
 {{ $flags := dict
@@ -48,7 +48,7 @@
   "cable_manufacturer" "Cable Manufacturer"
   "installation_contractor" "Contractor"
 }}
-{{ $typeLabel := index $typeLabels ($actor.actor_type | default "") | default $actor.actor_type }}
+{{ $typeLabel := index $typeLabels ($actor.type | default "") | default $actor.type }}
 
 {{/* Get jurisdiction page if exists */}}
 {{ $jurisdictionPage := site.GetPage (printf "/jurisdictions/%s" (lower $countryId)) }}
@@ -64,7 +64,7 @@
 
 {{ $currentRole := "" }}
 {{ range $connections }}
-  {{ if eq .connection_id $currentConnectionId }}
+  {{ if eq .identifier $currentConnectionId }}
     {{ $currentRole = delimit .roles " & " }}
   {{ end }}
 {{ end }}
@@ -78,7 +78,7 @@
       {{ end }}
       <div class="flex-1 min-w-0">
         <h4 class="card-title text-base leading-tight">
-          {{ $actor.actor_name }}
+          {{ $actor.name }}
         </h4>
         <div class="flex flex-wrap gap-1 mt-1">
           {{ if $currentRole }}
@@ -107,7 +107,7 @@
       {{ end }}
 
       {{/* Website */}}
-      {{ with $actor.website }}
+      {{ with $actor.url }}
       <div class="flex items-center gap-2">
         {{ partial "content-icon.html" (dict "name" "link" "size" "4" "class" "opacity-50 shrink-0") }}
         <a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="link link-primary truncate">
@@ -124,8 +124,8 @@
       <p class="text-xs font-semibold uppercase tracking-wide opacity-60 mb-2">Networks</p>
       <ul class="space-y-1">
         {{ range $connections }}
-          {{ $isCurrent := eq .connection_id $currentConnectionId }}
-          {{ $page := site.GetPage (printf "/networks/%s" .connection_id) }}
+          {{ $isCurrent := eq .identifier $currentConnectionId }}
+          {{ $page := site.GetPage (printf "/networks/%s" .identifier) }}
           <li class="text-sm flex items-center gap-2">
             {{ if $isCurrent }}
             <span class="badge badge-xs badge-primary"></span>
@@ -133,9 +133,9 @@
             <span class="badge badge-xs badge-ghost"></span>
             {{ end }}
             {{ if and $page (not $isCurrent) }}
-              <a href="{{ $page.RelPermalink }}" class="link link-hover">{{ .connection_name }}</a>
+              <a href="{{ $page.RelPermalink }}" class="link link-hover">{{ .name }}</a>
             {{ else }}
-              <span class="{{ if $isCurrent }}font-semibold text-primary{{ end }}">{{ .connection_name }}</span>
+              <span class="{{ if $isCurrent }}font-semibold text-primary{{ end }}">{{ .name }}</span>
             {{ end }}
             {{ if .roles }}
               <span class="opacity-50 text-xs">({{ delimit .roles ", " }})</span>

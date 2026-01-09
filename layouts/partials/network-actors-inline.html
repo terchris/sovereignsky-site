@@ -1,35 +1,29 @@
 {{/*
-  Network Actors Shortcode
+  Network Actors Inline Partial
 
   Displays actor cards for owners and operators of a network connection.
 
-  Usage: {{< network-actors identifier="havfrue" >}}
+  Usage: {{ partial "network-actors-inline.html" (dict "identifier" $identifier "connection" $connection "connections" $connections "actors" $actors) }}
+
+  Parameters:
+    - identifier: current connection identifier
+    - connection: current connection object
+    - connections: all connections (for cross-referencing actor involvement)
+    - actors: all actor objects from networks-actors.json
 */}}
 
-{{ $identifier := .Get "identifier" | default (.Get "connection_id") | default (.Get 0) }}
+{{ $identifier := .identifier }}
+{{ $connection := .connection }}
+{{ $connections := .connections | default (slice) }}
+{{ $actors := .actors | default (slice) }}
 
-{{/* Load data - arrays at root level */}}
-{{ $networksRoot := site.Data.networks | default dict }}
-{{ $connections := index $networksRoot "networks" | default (slice) }}
-{{ $actors := index $networksRoot "networks-actors" | default (slice) }}
-
-{{/* Build lookups */}}
+{{/* Build actor lookup */}}
 {{ $actorById := dict }}
 {{ range $actors }}
   {{ if .identifier }}
     {{ $actorById = merge $actorById (dict .identifier .) }}
   {{ end }}
 {{ end }}
-
-{{ $connectionById := dict }}
-{{ range $connections }}
-  {{ if .identifier }}
-    {{ $connectionById = merge $connectionById (dict .identifier .) }}
-  {{ end }}
-{{ end }}
-
-{{/* Get current connection */}}
-{{ $connection := index $connectionById $identifier }}
 
 {{ if $connection }}
   {{/* Get actor IDs from owners and operators */}}

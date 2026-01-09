@@ -1,0 +1,224 @@
+{{/*
+  Network Connection Map Inline Partial
+
+  Usage: {{ partial "network-connection-map-inline.html" (dict "identifier" $identifier "connection" $connection "places" $places) }}
+
+  Parameters:
+    - identifier: connection identifier
+    - connection: connection object from networks.json
+    - places: slice of place objects from networks-places.json
+*/}}
+
+{{ $identifier := .identifier }}
+{{ $connection := .connection }}
+{{ $places := .places | default (slice) }}
+
+{{ if and $identifier $connection }}
+  <div class="w-full rounded-xl border border-neutral-200 dark:border-neutral-800 overflow-hidden">
+    <div id="network-connection-map-{{ $identifier }}" class="w-full" style="height: 420px;"></div>
+  </div>
+
+  <script type="application/json" id="network-connection-map-places-{{ $identifier }}">{{ $places | jsonify | safeHTML }}</script>
+  <script type="application/json" id="network-connection-map-connection-{{ $identifier }}">{{ $connection | jsonify | safeHTML }}</script>
+
+  <script>
+    (function () {
+      if (typeof echarts === 'undefined') return;
+
+      function readJsonScript(id, fallback) {
+        var el = document.getElementById(id);
+        if (!el) return fallback;
+        try {
+          var v = JSON.parse(el.textContent || 'null');
+          if (typeof v === 'string') {
+            try { return JSON.parse(v); } catch (e2) { return v; }
+          }
+          return v || fallback;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      var places = readJsonScript('network-connection-map-places-{{ $identifier }}', []);
+      var conn = readJsonScript('network-connection-map-connection-{{ $identifier }}', null);
+      if (!conn) return;
+
+      var geoByPlaceId = {};
+      (places || []).forEach(function (p) {
+        var id = p && p.identifier;
+        var g = p && p.geo;
+        if (!id || !g) return;
+        if (typeof g.latitude !== 'number' || typeof g.longitude !== 'number') return;
+        geoByPlaceId[id] = { lat: g.latitude, lng: g.longitude, name: p.name || id };
+      });
+
+      function stableHash01(str) {
+        var s = String(str || '');
+        var h = 2166136261;
+        for (var i = 0; i < s.length; i++) {
+          h ^= s.charCodeAt(i);
+          h = (h * 16777619) >>> 0;
+        }
+        return (h % 1000000) / 1000000;
+      }
+
+      function generatePrettyRouteLngLat(a, b, id, categoryKey) {
+        var ax = a.lng, ay = a.lat;
+        var bx = b.lng, by = b.lat;
+        var mx = (ax + bx) / 2;
+        var my = (ay + by) / 2;
+        var dx = bx - ax;
+        var dy = by - ay;
+        var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        var nx = -dy / dist;
+        var ny = dx / dist;
+
+        var t = stableHash01(id);
+        var sign = (t < 0.5) ? -1 : 1;
+        var base = (categoryKey === 'subsea') ? 0.18 : (categoryKey === 'terrestrial' ? 0.10 : 0.08);
+        var mag = dist * (base + (t * 0.08));
+        mag = Math.min(mag, 8);
+
+        var cx = mx + nx * mag * sign;
+        var cy = my + ny * mag * sign;
+
+        var n = Math.max(10, Math.min(28, Math.round(dist * 2)));
+        var pts = [];
+        for (var i = 0; i <= n; i++) {
+          var u = i / n;
+          var uu = 1 - u;
+          var x = uu * uu * ax + 2 * uu * u * cx + u * u * bx;
+          var y = uu * uu * ay + 2 * uu * u * cy + u * u * by;
+          pts.push([x, y]);
+        }
+        return pts;
+      }
+
+      function buildRouteLngLat() {
+        var mediumKey = conn.medium || 'subsea';
+        if (Array.isArray(conn.route) && conn.route.length >= 2) {
+          return conn.route.map(function (p) { return [p[1], p[0]]; });
+        }
+        var eps = conn.endpointPlaceIds || conn.endpoint_place_ids || [];
+        if (!Array.isArray(eps) || eps.length < 2) return null;
+        var out = [];
+        for (var i = 0; i < eps.length - 1; i++) {
+          var a = geoByPlaceId[eps[i]];
+          var b = geoByPlaceId[eps[i + 1]];
+          if (!a || !b) continue;
+          var seg = generatePrettyRouteLngLat(a, b, (conn.identifier || '') + ':' + eps[i] + '>' + eps[i + 1], mediumKey);
+          if (seg && seg.length >= 2) {
+            if (out.length) seg = seg.slice(1);
+            out = out.concat(seg);
+          }
+        }
+        return out.length >= 2 ? out : null;
+      }
+
+      var route = buildRouteLngLat();
+      if (!route) return;
+
+      var endpoints = (conn.endpointPlaceIds || conn.endpoint_place_ids || []).map(function (id) { return geoByPlaceId[id]; }).filter(Boolean);
+      var points = endpoints.map(function (p) {
+        return { name: p.name, value: [p.lng, p.lat, 10] };
+      });
+
+      var lineColor = (conn.scope === 'domestic')
+        ? '#22c55e'
+        : ((conn.medium === 'subsea') ? '#06b6d4' : (conn.medium === 'terrestrial' ? '#a855f7' : '#f59e0b'));
+      var isPlanned = (conn.status === 'planned');
+      var lineType = isPlanned ? 'dotted' : 'solid';
+      var lineWidth = isPlanned ? 4 : 3;
+      var lineOpacity = isPlanned ? 0.95 : 0.85;
+
+      var el = document.getElementById('network-connection-map-{{ $identifier }}');
+      var chart = echarts.init(el, null, { renderer: 'svg' });
+
+      function fetchJson(url) {
+        return fetch(url).then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); });
+      }
+
+      fetchJson('/data/world.json').then(function (geoJson) {
+        echarts.registerMap('world', geoJson);
+
+        function computeBoundsCenterAndZoom(routeLngLat) {
+          var minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
+          routeLngLat.forEach(function (p) {
+            if (!p || p.length < 2) return;
+            var lng = p[0], lat = p[1];
+            if (typeof lng !== 'number' || typeof lat !== 'number') return;
+            minLng = Math.min(minLng, lng);
+            maxLng = Math.max(maxLng, lng);
+            minLat = Math.min(minLat, lat);
+            maxLat = Math.max(maxLat, lat);
+          });
+          if (!isFinite(minLng)) return { center: [10, 65], zoom: 3 };
+
+          var center = [(minLng + maxLng) / 2, (minLat + maxLat) / 2];
+          var lngSpan = Math.max(1e-6, (maxLng - minLng));
+          var latSpan = Math.max(1e-6, (maxLat - minLat));
+          var span = Math.max(lngSpan, latSpan * 1.2);
+
+          var zoom = 360 / (span * 3.2);
+          zoom = Math.max(2.8, Math.min(5.2, zoom));
+
+          return { center: center, zoom: zoom };
+        }
+
+        var centerZoom = computeBoundsCenterAndZoom(route);
+        var center = centerZoom.center;
+        var zoom = centerZoom.zoom;
+        var isDark = document.documentElement.classList.contains('dark');
+
+        chart.setOption({
+          geo: {
+            map: 'world',
+            roam: true,
+            zoom: zoom,
+            center: center,
+            scaleLimit: { min: 1, max: 20 },
+            itemStyle: { areaColor: isDark ? '#0b1220' : '#f5f5f5', borderColor: isDark ? '#1f2937' : '#d4d4d4' },
+            emphasis: { itemStyle: { areaColor: isDark ? '#111827' : '#e5e5e5' } }
+          },
+          tooltip: { trigger: 'item' },
+          series: [
+            {
+              name: conn.name,
+              type: 'lines',
+              coordinateSystem: 'geo',
+              polyline: true,
+              data: [{ coords: route }],
+              lineStyle: { color: lineColor, width: lineWidth, type: lineType, opacity: lineOpacity }
+            },
+            {
+              name: 'Endpoints',
+              type: 'scatter',
+              coordinateSystem: 'geo',
+              data: points,
+              symbolSize: 9,
+              itemStyle: { color: '#0ea5e9' },
+              label: { show: true, formatter: '{b}', position: 'right', color: isDark ? '#e5e7eb' : '#111827' }
+            }
+          ]
+        });
+
+        function safeResize() {
+          try { chart.resize(); } catch (e) {}
+        }
+        requestAnimationFrame(safeResize);
+        setTimeout(safeResize, 50);
+        setTimeout(safeResize, 250);
+        if (typeof ResizeObserver !== 'undefined') {
+          try {
+            var ro = new ResizeObserver(function () { safeResize(); });
+            ro.observe(el);
+          } catch (e) {}
+        } else {
+          window.addEventListener('resize', safeResize);
+        }
+      }).catch(function () {});
+    })();
+  </script>
+{{ else }}
+  <p class="text-sm text-neutral-600 dark:text-neutral-300">Missing connection data for map.</p>
+{{ end }}
