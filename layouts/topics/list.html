@@ -1,0 +1,106 @@
+{{ define "main" }}
+{{/* Get topics from topics.json */}}
+{{ $topicsData := site.Data.topics.topics }}
+{{ $topics := $topicsData.itemListElement | default (slice) }}
+
+{{/* Count content per topic */}}
+{{ $contentCounts := dict }}
+{{ range $topics }}
+  {{ $id := .identifier }}
+  {{ $count := 0 }}
+  {{/* Count all pages with this topic */}}
+  {{ range site.RegularPages }}
+    {{ $pageTopics := .Params.topics | default (slice) }}
+    {{ if in $pageTopics $id }}
+      {{ $count = add $count 1 }}
+    {{ end }}
+  {{ end }}
+  {{ $contentCounts = merge $contentCounts (dict $id $count) }}
+{{ end }}
+
+{{/* Filter to only topics with content */}}
+{{ $topicsWithContent := slice }}
+{{ range $topics }}
+  {{ $count := index $contentCounts .identifier | default 0 }}
+  {{ if gt $count 0 }}
+    {{ $topicsWithContent = $topicsWithContent | append . }}
+  {{ end }}
+{{ end }}
+
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" "Content by Topic"
+      "description" "Browse all content organized by topic. Each topic page shows all blogs, events, publications, and laws related to that subject."
+      "icon" "tag"
+  ) }}
+
+  {{/* Stats */}}
+  {{ $totalTopics := len $topicsWithContent }}
+  {{ $totalContent := 0 }}
+  {{ range $topicsWithContent }}
+    {{ $totalContent = add $totalContent (index $contentCounts .identifier | default 0) }}
+  {{ end }}
+
+  <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
+    <div class="stat">
+      <div class="stat-figure text-primary">
+        {{ partial "content-icon.html" (dict "name" "tag" "color" "primary" "size" "8") }}
+      </div>
+      <div class="stat-title">Topics</div>
+      <div class="stat-value text-primary">{{ $totalTopics }}</div>
+      <div class="stat-desc">With content</div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-secondary">
+        {{ partial "content-icon.html" (dict "name" "document" "color" "secondary" "size" "8") }}
+      </div>
+      <div class="stat-title">Tagged Content</div>
+      <div class="stat-value text-secondary">{{ $totalContent }}</div>
+      <div class="stat-desc">Across all topics</div>
+    </div>
+  </div>
+
+  {{/* Topics Cards Grid */}}
+  <section class="mt-8">
+    {{ if gt (len $topicsWithContent) 0 }}
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {{ range $topicsWithContent }}
+        {{ $t := . }}
+        {{ $term := $t.identifier | default "" }}
+        {{ $name := $t.name | default ($term | humanize | title) }}
+        {{ $desc := $t.description | default "" }}
+        {{ $iconPath := $t.iconPath | default "" }}
+        {{ $count := index $contentCounts $term | default 0 }}
+
+        <a href="/topics/{{ $term }}/" class="card card-compact bg-base-100 shadow-sm hover:shadow-md transition-all group border border-base-200 hover:border-primary">
+          <div class="card-body">
+            {{/* Title with icon */}}
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                {{ if $iconPath }}
+                <div class="text-primary">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $iconPath }}"/>
+                  </svg>
+                </div>
+                {{ end }}
+                <h2 class="card-title text-sm group-hover:text-primary transition-colors m-0">{{ $name }}</h2>
+              </div>
+              <span class="badge badge-primary badge-sm">{{ $count }}</span>
+            </div>
+
+            {{/* Description */}}
+            {{ if $desc }}
+            <p class="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1 mb-0">{{ $desc }}</p>
+            {{ end }}
+          </div>
+        </a>
+      {{ end }}
+    </div>
+    {{ else }}
+    <p class="text-neutral-600 dark:text-neutral-400">No topics with content found.</p>
+    {{ end }}
+  </section>
+</article>
+{{ end }}

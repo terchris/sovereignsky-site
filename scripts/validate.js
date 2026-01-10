@@ -50,6 +50,14 @@ const validations = [
     schema: "data/schemas/blog.schema.json",
     data: "data/blog/blog.json",
   },
+  {
+    schema: "data/schemas/topics.schema.json",
+    data: "data/topics/topics.json",
+  },
+  {
+    schema: "data/schemas/audience.schema.json",
+    data: "data/audience/audience.json",
+  },
 ];
 
 // Load valid audience identifiers from audience.json

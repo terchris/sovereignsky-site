@@ -127,7 +127,7 @@ Publications in `data/publications/publications.json` use schema.org-aligned fie
 
 The Hugo server runs inside the devcontainer and is accessible at `http://localhost:1313`.
 
-To restart Hugo:
+To restart Hugo (kills existing process and starts fresh):
 ```bash
-docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && hugo server -D --bind 0.0.0.0 --disableFastRender"
+docker exec relaxed_napier bash -c "pkill hugo; cd /workspaces/sovereignsky-site && hugo server -D --bind 0.0.0.0 --disableFastRender"
 ```

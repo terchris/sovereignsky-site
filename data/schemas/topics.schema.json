@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/topics.schema.json",
+  "title": "Topics",
+  "description": "Schema for topics.json - curated topics for categorizing content (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "filterValues": {
+      "type": "array",
+      "description": "Topic identifiers used for filtering in UI",
+      "items": {
+        "type": "string"
+      }
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of topic entries",
+      "items": {
+        "type": "object",
+        "required": ["identifier", "name", "description", "icon", "iconPath"],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the topic (used in URLs and frontmatter)",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of the topic"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon name for reference (e.g., 'cloud', 'lock', 'key')"
+          },
+          "iconPath": {
+            "type": "string",
+            "description": "SVG path data for the icon (Heroicons outline style, stroke-based)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

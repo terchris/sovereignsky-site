@@ -9,151 +9,176 @@
       "identifier": "cloud-sovereignty",
       "name": "Cloud Sovereignty",
       "description": "Control over cloud infrastructure, data location, and jurisdiction",
-      "icon": "cloud"
+      "icon": "cloud",
+      "iconPath": "M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
     },
     {
       "identifier": "data-protection",
       "name": "Data Protection",
       "description": "Laws, policies and practices for protecting personal and sensitive data",
-      "icon": "shield"
+      "icon": "shield",
+      "iconPath": "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
     },
     {
       "identifier": "digital-sovereignty",
       "name": "Digital Sovereignty",
       "description": "National and organizational control over digital infrastructure and data",
-      "icon": "flag"
+      "icon": "flag",
+      "iconPath": "M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
     },
     {
       "identifier": "cybersecurity",
       "name": "Cybersecurity",
       "description": "Protection of systems, networks, and data from digital attacks",
-      "icon": "lock"
+      "icon": "lock",
+      "iconPath": "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
     },
     {
       "identifier": "government-access",
       "name": "Government Access",
       "description": "Legal frameworks enabling government access to data (CLOUD Act, FISA, etc.)",
-      "icon": "eye"
+      "icon": "eye",
+      "iconPath": "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
     },
     {
       "identifier": "humanitarian-technology",
       "name": "Humanitarian Technology",
       "description": "Digital tools and systems used in humanitarian operations",
-      "icon": "heart-handshake"
+      "icon": "heart",
+      "iconPath": "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
     },
     {
       "identifier": "biometrics",
       "name": "Biometrics",
       "description": "Biological identification systems and their privacy implications",
-      "icon": "fingerprint"
+      "icon": "fingerprint",
+      "iconPath": "M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"
     },
     {
       "identifier": "digital-identity",
       "name": "Digital Identity",
       "description": "Electronic identity systems, authentication, and verification",
-      "icon": "id-card"
+      "icon": "id-card",
+      "iconPath": "M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
     },
     {
       "identifier": "blockchain",
       "name": "Blockchain",
       "description": "Distributed ledger technology and its applications",
-      "icon": "link"
+      "icon": "link",
+      "iconPath": "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
     },
     {
       "identifier": "privacy",
       "name": "Privacy",
       "description": "Individual privacy rights and privacy-preserving technologies",
-      "icon": "user-shield"
+      "icon": "user-shield",
+      "iconPath": "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z M9 12l2 2 4-4"
     },
     {
       "identifier": "metadata",
       "name": "Metadata",
       "description": "Data about data and its surveillance implications",
-      "icon": "database"
+      "icon": "database",
+      "iconPath": "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"
     },
     {
       "identifier": "surveillance",
       "name": "Surveillance",
       "description": "Monitoring and tracking of individuals and organizations",
-      "icon": "eye"
+      "icon": "eye",
+      "iconPath": "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
     },
     {
       "identifier": "platform-dependency",
       "name": "Platform Dependency",
       "description": "Risks of reliance on third-party technology platforms",
-      "icon": "alert-triangle"
+      "icon": "alert-triangle",
+      "iconPath": "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
     },
     {
       "identifier": "total-defence",
       "name": "Total Defence",
       "description": "Coordination of military and civilian resources for national security",
-      "icon": "shield-check"
+      "icon": "shield-check",
+      "iconPath": "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
     },
     {
       "identifier": "national-preparedness",
       "name": "National Preparedness",
       "description": "Planning and readiness for crises and emergencies",
-      "icon": "alert-circle"
+      "icon": "alert-circle",
+      "iconPath": "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
     },
     {
       "identifier": "civil-protection",
       "name": "Civil Protection",
       "description": "Protection of civilians during emergencies and conflicts",
-      "icon": "users"
+      "icon": "users",
+      "iconPath": "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
     },
     {
       "identifier": "critical-infrastructure",
       "name": "Critical Infrastructure",
       "description": "Essential systems and assets vital for society's functioning",
-      "icon": "server"
+      "icon": "server",
+      "iconPath": "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
     },
     {
       "identifier": "digital-resilience",
       "name": "Digital Resilience",
       "description": "Ability to withstand and recover from digital disruptions",
-      "icon": "refresh-cw"
+      "icon": "refresh",
+      "iconPath": "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
     },
     {
       "identifier": "international-humanitarian-law",
       "name": "International Humanitarian Law",
       "description": "Legal protections for civilians and combatants in armed conflict",
-      "icon": "scale"
+      "icon": "scale",
+      "iconPath": "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
     },
     {
       "identifier": "disinformation",
       "name": "Disinformation",
       "description": "False information spread deliberately to deceive",
-      "icon": "message-circle-warning"
+      "icon": "message-warning",
+      "iconPath": "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
     },
     {
       "identifier": "supply-chain",
       "name": "Supply Chain",
       "description": "Technology supply chain security and dependencies",
-      "icon": "truck"
+      "icon": "truck",
+      "iconPath": "M8 17h8M8 17a2 2 0 11-4 0m4 0a2 2 0 10-4 0m12 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0M3 9h13a2 2 0 012 2v4a1 1 0 01-1 1h-1M3 9V6a1 1 0 011-1h9a1 1 0 011 1v3M3 9h4m12 6V9a2 2 0 00-2-2h-1"
     },
     {
       "identifier": "open-source",
       "name": "Open Source",
       "description": "Open source software and its role in digital sovereignty",
-      "icon": "code"
+      "icon": "code",
+      "iconPath": "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
     },
     {
       "identifier": "api-security",
       "name": "API Security",
       "description": "Security of application programming interfaces",
-      "icon": "plug"
+      "icon": "plug",
+      "iconPath": "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
     },
     {
       "identifier": "encryption",
       "name": "Encryption",
       "description": "Cryptographic protection of data and communications",
-      "icon": "key"
+      "icon": "key",
+      "iconPath": "M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
     },
     {
       "identifier": "cloud-act",
       "name": "CLOUD Act",
       "description": "US law enabling government access to data stored by US companies globally",
-      "icon": "gavel"
+      "icon": "gavel",
+      "iconPath": "M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"
     }
   ]
 }

@@ -1,12 +1,12 @@
 # Content Structure Harmonization Plan
 
-## Status: Complete — Only taxonomy page design remains
+## Status: COMPLETE ✅
 
 **Goal**: Standardize field naming across all content types to align with schema.org and Hugo best practices.
 
 **Last Updated**: 2026-01-10
 
-**Progress**: Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅ | Phase 4 ✅ | Phase 5 ✅ | Phase 6 (design) ❌
+**Progress**: Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅ | Phase 4 ✅ | Phase 5 ✅ | Phase 6 ✅
 
 ---
 
@@ -23,9 +23,12 @@
 - ✅ All JSON data uses `"audience":` — schema.org aligned
 - ✅ `data/audience/audience.json` — exists with all 7 personas
 
-**Remaining:**
-- ❌ `/audience/` pages have default Blowfish styling — need custom design
-- ⚠️ `/topics/` taxonomy not configured (optional)
+**Completed:**
+- ✅ `/audience/` list page - custom card grid with content counts
+- ✅ `/audience/{term}/` pages - unified card grid with type badges
+- ✅ Persona sidebar links to audience pages with "All {Persona} Content"
+- ✅ Curation explanation in persona sidebar
+- ⚠️ `/topics/` taxonomy not configured (optional future work)
 
 ### Key Architecture (COMPLETE)
 
@@ -363,10 +366,12 @@ URLs are `/audiences/humanitarian/` — this is fine and consistent with other H
 9. [x] Taxonomy pages work: `/audiences/humanitarian/`
 10. [ ] Topics taxonomy not configured (optional)
 
-### Phase 6: Design — ❌ NEW TODO
-11. [ ] `/audiences/` list page needs custom design (currently default Blowfish)
-12. [ ] `/audiences/{term}/` pages need custom design
-13. [ ] Consider custom taxonomy templates in `layouts/audiences/`
+### Phase 6: Design — ✅ COMPLETED
+11. [x] `/audience/` list page - custom card grid showing all audiences with content counts
+12. [x] `/audience/{term}/` pages - unified card grid with color-coded type badges (Article=blue, Event=red, Law=yellow, etc.)
+13. [x] Custom taxonomy templates created in `layouts/audience/`
+14. [x] Persona sidebar links to audience pages with "All {Persona} Content"
+15. [x] Curation explanation in persona sidebar above category cards
 
 ---
 
@@ -531,13 +536,13 @@ Each data type in its own folder: `data/{type}/{type}.json`
 6. ✅ Blog/Events use correct `audiences:` field
 7. ✅ Persona pages working at `/personas/`
 
-### Remaining Work (Small)
-8. [ ] **Fix Publications** (7 files): Change `audience:` → `audiences:`
-9. [ ] **Design taxonomy pages**: Custom templates for `/audiences/` and `/audiences/{term}/`
+### Completed
+8. [x] Standardized on `audience` (singular) everywhere
+9. [x] **Taxonomy pages designed**: Custom templates for `/audience/` and `/audience/{term}/`
+10. [x] Custom taxonomy templates created in `layouts/audience/`
 
-### Optional
-10. [ ] Add `topic = "topics"` taxonomy to hugo.toml
-11. [ ] Create custom taxonomy templates in `layouts/audiences/`
+### Optional Future Work
+11. [ ] Add `topic = "topics"` taxonomy to hugo.toml for `/topics/` pages
 
 ---
 

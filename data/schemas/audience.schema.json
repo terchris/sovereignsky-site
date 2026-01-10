@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/audience.schema.json",
+  "title": "Audiences",
+  "description": "Schema for audience.json - target audiences for content (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "filterValues": {
+      "type": "array",
+      "description": "Audience identifiers used for filtering in UI",
+      "items": {
+        "type": "string"
+      }
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of audience entries",
+      "items": {
+        "type": "object",
+        "required": ["identifier", "name", "description", "icon", "iconPath"],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the audience (used in URLs and frontmatter)",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Short description of the audience"
+          },
+          "abstract": {
+            "type": "string",
+            "description": "Longer description for persona pages"
+          },
+          "icon": {
+            "type": "string",
+            "description": "Icon name for reference (e.g., 'code', 'server', 'flag')"
+          },
+          "iconPath": {
+            "type": "string",
+            "description": "SVG path data for the icon (Heroicons outline style, stroke-based)"
+          },
+          "topics": {
+            "type": "array",
+            "description": "Topic identifiers relevant to this audience",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lawTypes": {
+            "type": "array",
+            "description": "Law type identifiers relevant to this audience",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -76,7 +76,7 @@
         {{ $term := $p.identifier | default "" }}
         {{ $name := $p.name | default ($term | humanize | title) }}
         {{ $desc := $p.description | default "" }}
-        {{ $icon := $p.icon | default "user" }}
+        {{ $iconPath := $p.iconPath | default "" }}
         {{ $count := index $contentCounts $term | default 0 }}
 
         {{/* Get the persona page and its featured image */}}
@@ -96,7 +96,11 @@
           {{/* Placeholder gradient with icon */}}
           <figure class="h-40 overflow-hidden bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 flex items-center justify-center">
             <div class="text-primary/30 group-hover:text-primary/50 transition-colors" style="width: 4rem; height: 4rem;">
-              {{ partial "content-icon.html" (dict "name" $icon "class" "w-full h-full") }}
+              {{ if $iconPath }}
+              <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $iconPath }}"/>
+              </svg>
+              {{ end }}
             </div>
           </figure>
           {{ end }}
@@ -105,9 +109,13 @@
             {{/* Title with icon */}}
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
+                {{ if $iconPath }}
                 <div class="text-primary">
-                  {{ partial "content-icon.html" (dict "name" $icon "size" "5") }}
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $iconPath }}"/>
+                  </svg>
                 </div>
+                {{ end }}
                 <h2 class="card-title text-base group-hover:text-primary transition-colors m-0">{{ $name }}</h2>
               </div>
               <span class="badge badge-primary badge-sm">{{ $count }}</span>
