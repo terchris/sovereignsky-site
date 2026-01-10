@@ -1,5 +1,13 @@
 # Plan: Data Integrity Checks
 
+## Status: Partially Complete (~40%)
+
+**Last Updated**: 2026-01-10
+
+**Progress**: Phase 1 ✅ partial | Phase 2 ✅ partial | Phase 3 ❌ | Phase 4 ✅ | Phase 5 ❌
+
+---
+
 ## Problem Statement
 
 JSON data files across the site have inconsistencies:
@@ -16,27 +24,39 @@ JSON data files across the site have inconsistencies:
 
 ## Current State
 
-### Data Files
+### Validation Script
+- ✅ `scripts/validate.js` exists with schema validation
+- ✅ `npm run validate` script configured
+- ✅ Cross-file audience validation added (checks against audience.json)
+
+### Data Files & Schemas
 | File | Schema | Status |
 |------|--------|--------|
-| data/topics/topics.json | data/schemas/topics.schema.json | Needs creation |
-| data/audience/audience.json | data/schemas/audience.schema.json | Needs creation |
-| data/publications/publications.json | data/schemas/publications.schema.json | Needs creation |
-| data/blog/blog.json | data/schemas/blog.schema.json | Needs creation |
-| data/laws/laws.json | data/schemas/laws.schema.json | Needs creation |
-| data/events/events.json | data/schemas/events.schema.json | Needs creation |
-| data/networks/networks.json | data/schemas/networks.schema.json | Exists |
+| data/topics/topics.json | data/schemas/topics.schema.json | ❌ Schema missing |
+| data/audience/audience.json | data/schemas/audience.schema.json | ❌ Schema missing |
+| data/publications/publications.json | data/schemas/publications.schema.json | ❌ Schema missing |
+| data/blog/blog.json | data/schemas/blog.schema.json | ✅ Created |
+| data/laws/laws.json | data/schemas/laws.schema.json | ✅ Exists & passes |
+| data/laws/law_types.json | data/schemas/law_types.schema.json | ✅ Exists & passes |
+| data/laws/relationship_types.json | data/schemas/relationship_types.schema.json | ✅ Exists & passes |
+| data/events/events.json | data/schemas/events.schema.json | ❌ Schema missing |
+| data/datacenters/datacenters.json | data/schemas/datacenters.schema.json | ❌ Schema missing |
+| data/networks/networks.json | data/schemas/networks.schema.json | ⚠️ Exists but fails (schema outdated) |
+| data/networks/networks-actors.json | data/schemas/networks-actors.schema.json | ⚠️ Exists but fails (schema outdated) |
 
 ### Known Integrity Issues
 - Publications use topics not in topics.json: 11 missing topics
 - Blog posts may reference undefined topics/audiences
 - Laws may reference undefined topics/audiences
+- Networks schemas are outdated (use old field names)
 
 ## Implementation Plan
 
-### Phase 1: Schema Validation Script
+### Phase 1: Schema Validation Script — ✅ DONE
 
-Create `scripts/validate-schemas.js`:
+~~Create `scripts/validate-schemas.js`:~~
+
+Implemented as `scripts/validate.js`:
 
 ```
 Purpose: Validate all JSON data files against their schemas
@@ -50,7 +70,9 @@ Features:
 - Exit code 1 on failure for CI
 ```
 
-### Phase 2: Cross-File Integrity Script
+### Phase 2: Cross-File Integrity Script — ✅ PARTIAL
+
+Audience validation added to `scripts/validate.js`. Topics validation still needed.
 
 Create `scripts/validate-integrity.js`:
 
@@ -84,7 +106,7 @@ Output:
 - Exit code 1 on failure
 ```
 
-### Phase 3: Missing Topics Resolution
+### Phase 3: Missing Topics Resolution — ❌ TODO
 
 After running integrity checks, fix the data:
 
@@ -107,9 +129,9 @@ Missing topics to add (11 total):
 - telecommunications
 - voluntary-organizations
 
-### Phase 4: NPM Scripts Integration
+### Phase 4: NPM Scripts Integration — ✅ DONE
 
-Add to package.json:
+Already in package.json:
 ```json
 {
   "scripts": {
@@ -121,7 +143,7 @@ Add to package.json:
 }
 ```
 
-### Phase 5: CI Integration
+### Phase 5: CI Integration — ❌ TODO
 
 Add validation to GitHub Actions workflow:
 - Run on push to main/feature branches

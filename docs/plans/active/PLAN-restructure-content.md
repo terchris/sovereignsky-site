@@ -1,10 +1,12 @@
 # Content Structure Harmonization Plan
 
-## Status: Phase 1 Complete — Data Folder Restructured
+## Status: Phase 1 Complete, Phases 2-5 TODO
 
 **Goal**: Standardize field naming across all content types to align with schema.org and Hugo best practices.
 
-**Last Updated**: 2026-01-08
+**Last Updated**: 2026-01-10
+
+**Progress**: Phase 1 (data folder) ✅ | Phase 2 (taxonomy config) ❌ | Phase 3 (frontmatter) partial | Phase 4 (scripts) ❌ | Phase 5 (verify) ❌
 
 ---
 
@@ -332,10 +334,10 @@ This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
 - [x] Scripts updated to read from new data folder locations
 - [ ] `scripts/generate-events-pages.js` — Should output `topics:` from `tags` field (TODO)
 
-### Content Files (34 files) — TODO
-- [ ] `content/blog/**/*.md` (9 files) — Change `audiences:` → `audience:`
+### Content Files (29 files) — PARTIAL
+- [ ] `content/blog/**/*.md` (11 files) — Change `audiences:` → `audience:`
 - [ ] `content/events/**/*.md` (18 files) — Change `audiences:` → `audience:`, add `topics:`
-- [ ] `content/publications/**/*.md` (7 files) — Change `personas:` → `audience:`
+- [x] `content/publications/**/*.md` (7 files) — ✅ Already uses `audience:`
 
 ### Taxonomy Term Pages (Optional)
 - [ ] `content/audience/_index.md` — Custom content for `/audience/` list page
@@ -360,10 +362,10 @@ This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
    - Add `topic = "topics"`
 2. [ ] Verify taxonomy pages generate at `/audience/...` and `/topics/...`
 
-### Phase 3: Content Frontmatter — TODO
-3. [ ] Update blog frontmatter: `audiences:` → `audience:`
-4. [ ] Update events frontmatter: `audiences:` → `audience:`, add `topics:`
-5. [ ] Update publications frontmatter: `personas:` → `audience:`
+### Phase 3: Content Frontmatter — PARTIAL
+3. [ ] Update blog frontmatter: `audiences:` → `audience:` (11 files)
+4. [ ] Update events frontmatter: `audiences:` → `audience:`, add `topics:` (18 files)
+5. [x] ✅ Publications already use `audience:` (7 files)
 
 ### Phase 4: Generator Scripts — TODO
 6. [ ] Update `generate-events-pages.js` to output `topics:` from JSON `tags` field
