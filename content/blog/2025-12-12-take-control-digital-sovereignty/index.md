@@ -11,7 +11,7 @@ topics:
 tags:
   - "open-standards"
   - "self-hosting"
-audiences:
+audience:
   - "public-sector"
   - "developer"
   - "it-ops"

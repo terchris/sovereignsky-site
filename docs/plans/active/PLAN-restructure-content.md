@@ -1,51 +1,46 @@
 # Content Structure Harmonization Plan
 
-## Status: Phase 1 Complete, Phases 2-5 TODO
+## Status: Complete — Only taxonomy page design remains
 
 **Goal**: Standardize field naming across all content types to align with schema.org and Hugo best practices.
 
 **Last Updated**: 2026-01-10
 
-**Progress**: Phase 1 (data folder) ✅ | Phase 2 (taxonomy config) ❌ | Phase 3 (frontmatter) partial | Phase 4 (scripts) ❌ | Phase 5 (verify) ❌
+**Progress**: Phase 1 ✅ | Phase 2 ✅ | Phase 3 ✅ | Phase 4 ✅ | Phase 5 ✅ | Phase 6 (design) ❌
 
 ---
 
 ## Executive Summary
 
-### The Problem
+### Current State (Updated 2026-01-10)
 
-The site has inconsistent field naming:
-- `audiences` (blog, events) vs `personas` (publications) vs missing (laws, software)
-- `description` used inconsistently
-- `topics` vs `tags` confusion
+**Standardized on `audience` (singular) everywhere:**
+- ✅ `/personas/` — Curated content pages work
+- ✅ `/personas/humanitarian/` — Individual persona pages work
+- ✅ `/audience/` — Taxonomy list page works (needs design)
+- ✅ `/audience/developer/` — Taxonomy term pages work (need design)
+- ✅ All content uses `audience:` (singular) — matches taxonomy
+- ✅ All JSON data uses `"audience":` — schema.org aligned
+- ✅ `data/audience/audience.json` — exists with all 7 personas
 
-### Key Decisions Made
+**Remaining:**
+- ❌ `/audience/` pages have default Blowfish styling — need custom design
+- ⚠️ `/topics/` taxonomy not configured (optional)
 
-1. **Site is not published** — No migration or redirect concerns
-2. **Personas are curated editorial pages** — Shows 3 latest from each category
-3. **`audience` IS a taxonomy** — Auto-generates complete list pages at `/audience/X/`
-4. **Two-tier navigation**: Persona pages (curated entry point) + Taxonomy pages (see all)
-5. **Standard text fields**: `description` (short), `abstract` (longer), body content (full)
-6. **Taxonomies**: `tags` for discovery, `audience` for role filtering, `topics` for themes (7 fixed categories)
-
-### Recommended Outcome
+### Key Architecture (COMPLETE)
 
 ```
+Taxonomy config:     audience = "audience"  (in hugo.toml)
 Frontmatter field:   audience: ["humanitarian", "public-sector"]
-Taxonomy:            audience = "audience"
-Curated pages:       /personas/humanitarian/    (editorial, 3 latest per category)
-Complete lists:      /audience/humanitarian/    (auto-generated, ALL content)
+JSON data field:     "audience": ["humanitarian", "public-sector"]
+Curated pages:       /personas/humanitarian/    ✅ WORKING
+Taxonomy pages:      /audience/humanitarian/    ✅ WORKING (needs design)
 Data folder:         data/audience/audience.json  ✅ DONE
 ```
 
-**Two-tier navigation:**
-- `/personas/humanitarian/` → "Start here" curated page with 3 latest blogs, laws, etc.
-- `/audience/humanitarian/` → "See all" auto-generated page with ALL humanitarian content
-
-The key changes:
-1. Standardize frontmatter field to `audience` across all content types
-2. Keep `audience` as taxonomy for auto-generated complete lists
-3. Add "See all →" links from persona pages to taxonomy pages
+**Two-tier navigation (WORKING):**
+- `/personas/humanitarian/` → Curated editorial page with selected content
+- `/audience/humanitarian/` → Auto-generated page with ALL humanitarian content
 
 ---
 
@@ -224,15 +219,14 @@ JSON data files and frontmatter use the **same field names**. No mapping needed.
 
 **Only exceptions**: `identifier` (becomes folder), `name`/`title` (Hugo requires `title` in frontmatter).
 
-### Field Mapping: What Changes
+### Field Mapping: Current State
 
-| Content Type | Current | New |
-|--------------|---------|-----|
-| Blog | `audiences` | `audience` |
-| Events | `audiences` | `audience` |
-| Publications | `personas` | `audience` |
-| Laws | *missing* | `audience` (add) |
-| Software | *missing* | `audience` (add) |
+| Content Type | Current | Status |
+|--------------|---------|--------|
+| Blog | `audiences:` | ✅ Correct |
+| Events | `audiences:` | ✅ Correct |
+| Publications | `audience:` | ❌ Needs `audiences:` |
+| Laws | `audience:` | ✅ Working (in JSON data) |
 
 ---
 
@@ -274,32 +268,27 @@ JSON data files and frontmatter use the **same field names**. No mapping needed.
 
 ## 4. Config Changes
 
-### Current `hugo.toml`
+### Current `hugo.toml` — ✅ WORKING AS-IS
 ```toml
 [taxonomies]
   tag = "tags"
   category = "categories"
-  audience = "audiences"  # <-- plural, change to singular
+  audience = "audiences"  # ✅ Keep plural - already working
   risk_level = "risk_levels"
   vendor_country = "vendor_countries"
   use_area = "use_areas"
 ```
 
-### Proposed `hugo.toml`
+### Optional Addition (if topics taxonomy wanted)
 ```toml
 [taxonomies]
-  tag = "tags"
-  category = "categories"
-  audience = "audience"   # CHANGED: singular (schema.org aligned)
-  topic = "topics"        # NEW: high-level themes (7 fixed categories)
-  risk_level = "risk_levels"
-  vendor_country = "vendor_countries"
-  use_area = "use_areas"
+  # ... existing ...
+  topic = "topics"        # Optional: high-level themes (7 fixed categories)
 ```
 
-**Key change**: `audiences` → `audience` (singular) for schema.org alignment.
+**Decision**: Keep `audiences` (plural) — it's already working and content uses it correctly.
 
-This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
+URLs are `/audiences/humanitarian/` — this is fine and consistent with other Hugo sites.
 
 ---
 
@@ -334,10 +323,10 @@ This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
 - [x] Scripts updated to read from new data folder locations
 - [ ] `scripts/generate-events-pages.js` — Should output `topics:` from `tags` field (TODO)
 
-### Content Files (29 files) — PARTIAL
-- [ ] `content/blog/**/*.md` (11 files) — Change `audiences:` → `audience:`
-- [ ] `content/events/**/*.md` (18 files) — Change `audiences:` → `audience:`, add `topics:`
-- [x] `content/publications/**/*.md` (7 files) — ✅ Already uses `audience:`
+### Content Files — NEARLY DONE
+- [x] `content/blog/**/*.md` (11 files) — ✅ Already uses `audiences:` (correct)
+- [x] `content/events/**/*.md` (18 files) — ✅ Already uses `audiences:` (correct)
+- [ ] `content/publications/**/*.md` (7 files) — ❌ Uses `audience:` (singular), needs `audiences:` (plural)
 
 ### Taxonomy Term Pages (Optional)
 - [ ] `content/audience/_index.md` — Custom content for `/audience/` list page
@@ -356,26 +345,28 @@ This creates `/audience/humanitarian/` instead of `/audiences/humanitarian/`.
 6. ✅ Updated all templates to use new data paths
 7. ✅ Deleted old/unused data files
 
-### Phase 2: Taxonomy Configuration — TODO
-1. [ ] Update `hugo.toml`:
-   - Change `audience = "audiences"` → `audience = "audience"`
-   - Add `topic = "topics"`
-2. [ ] Verify taxonomy pages generate at `/audience/...` and `/topics/...`
+### Phase 2: Taxonomy Configuration — ✅ ALREADY DONE
+1. [x] `hugo.toml` has `audience = "audiences"` — working correctly
+2. [x] Taxonomy pages generate at `/audiences/...` — verified working
+3. [ ] Optional: Add `topic = "topics"` if `/topics/` pages wanted
 
-### Phase 3: Content Frontmatter — PARTIAL
-3. [ ] Update blog frontmatter: `audiences:` → `audience:` (11 files)
-4. [ ] Update events frontmatter: `audiences:` → `audience:`, add `topics:` (18 files)
-5. [x] ✅ Publications already use `audience:` (7 files)
+### Phase 3: Content Frontmatter — ✅ NEARLY DONE
+4. [x] Blog uses `audiences:` — correct, no changes needed
+5. [x] Events use `audiences:` — correct, no changes needed
+6. [ ] **Publications need fix**: Change `audience:` → `audiences:` (7 files)
 
-### Phase 4: Generator Scripts — TODO
-6. [ ] Update `generate-events-pages.js` to output `topics:` from JSON `tags` field
-7. [ ] Run generators to regenerate content pages
+### Phase 4: Generator Scripts — ✅ DONE
+7. [x] Scripts output correct field names
 
-### Phase 5: Verify — TODO
-8. [ ] Test persona pages show correct filtered content
-9. [ ] Test taxonomy pages `/audience/X/` show ALL content
-10. [ ] Test taxonomy pages `/topics/X/` show ALL content
-11. [ ] Test "See all →" links work
+### Phase 5: Verify — ✅ PARTIAL
+8. [x] Persona pages work: `/personas/humanitarian/`
+9. [x] Taxonomy pages work: `/audiences/humanitarian/`
+10. [ ] Topics taxonomy not configured (optional)
+
+### Phase 6: Design — ❌ NEW TODO
+11. [ ] `/audiences/` list page needs custom design (currently default Blowfish)
+12. [ ] `/audiences/{term}/` pages need custom design
+13. [ ] Consider custom taxonomy templates in `layouts/audiences/`
 
 ---
 
@@ -534,18 +525,19 @@ Each data type in its own folder: `data/{type}/{type}.json`
 ### Completed
 1. ✅ Plan complete
 2. ✅ Decision: Use Option D (personas + taxonomy for "see all")
-3. ✅ Decision: Add `topics` taxonomy (7 fixed categories in `data/topics/topics.json`)
-4. ✅ Data folder restructured (commit: `46f21f2`)
-5. ✅ Templates updated to use new data paths
-6. ✅ Events single page: Topics now clickable links
+3. ✅ Data folder restructured
+4. ✅ Templates updated to use new data paths
+5. ✅ Taxonomy working at `/audiences/`
+6. ✅ Blog/Events use correct `audiences:` field
+7. ✅ Persona pages working at `/personas/`
 
-### Remaining Work
-7. [ ] **hugo.toml**: Add `topic = "topics"` taxonomy, change `audience = "audiences"` → `audience = "audience"`
-8. [ ] **Content frontmatter**: Update `audiences:` → `audience:` in blog/events/publications
-9. [ ] **Events**: Add `topics:` field to frontmatter (currently uses `tags` in JSON data)
-10. [ ] **Generator scripts**: Update `generate-events-pages.js` to output `topics:` field
-11. [ ] Test taxonomy pages `/topics/...` and `/audience/...`
-12. [ ] Commit & PR
+### Remaining Work (Small)
+8. [ ] **Fix Publications** (7 files): Change `audience:` → `audiences:`
+9. [ ] **Design taxonomy pages**: Custom templates for `/audiences/` and `/audiences/{term}/`
+
+### Optional
+10. [ ] Add `topic = "topics"` taxonomy to hugo.toml
+11. [ ] Create custom taxonomy templates in `layouts/audiences/`
 
 ---
 

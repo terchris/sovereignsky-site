@@ -11,7 +11,7 @@ topics:
 tags:
   - "preparedness"
   - "norway"
-audiences:
+audience:
   - "public-sector"
   - "enterprise"
   - "humanitarian"

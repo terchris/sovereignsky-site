@@ -13,7 +13,7 @@ organizerUrl: "https://www.hackcon.org"
 externalUrl: "https://www.hackcon.org/"
 topics:
   - "cybersecurity"
-audiences:
+audience:
   - "it-ops"
   - "developer"
   - "enterprise"

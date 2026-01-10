@@ -15,7 +15,7 @@ topics:
   - "cybersecurity"
   - "critical-infrastructure"
   - "digital-sovereignty"
-audiences:
+audience:
   - "it-ops"
   - "developer"
   - "enterprise"

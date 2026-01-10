@@ -84,9 +84,9 @@ function buildFrontmatter(event) {
         event.topics.forEach(topic => lines.push(`  - "${topic}"`));
     }
 
-    // Audiences taxonomy (was "audience" in JSON)
+    // Audience taxonomy
     if (event.audience && event.audience.length > 0) {
-        lines.push(`audiences:`);
+        lines.push(`audience:`);
         event.audience.forEach(aud => lines.push(`  - "${aud}"`));
     }
 

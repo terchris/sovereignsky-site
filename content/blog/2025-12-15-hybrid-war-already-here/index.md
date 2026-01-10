@@ -13,7 +13,7 @@ tags:
   - "hybrid-warfare"
   - "norway"
   - "gps-jamming"
-audiences:
+audience:
   - "public-sector"
   - "security"
 authors:

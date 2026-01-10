@@ -14,7 +14,7 @@ tags:
   - "russia"
   - "hybrid-warfare"
   - "submarine-cables"
-audiences:
+audience:
   - "it-ops"
   - "security"
 authors:

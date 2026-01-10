@@ -12,7 +12,7 @@ tags:
   - "multi-cloud"
   - "open-standards"
   - "developers"
-audiences:
+audience:
   - "developer"
   - "enterprise"
 authors:

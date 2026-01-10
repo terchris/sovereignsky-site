@@ -12,7 +12,7 @@ topics:
 tags:
   - "sanctions"
   - "humanitarian"
-audiences:
+audience:
   - "humanitarian"
   - "public-sector"
 authors:

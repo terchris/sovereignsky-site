@@ -38,7 +38,7 @@ tags:
 # Taxonomies
 categories:
   - "Reference"
-audiences:
+audience:
   - "government"
   - "enterprise"
 

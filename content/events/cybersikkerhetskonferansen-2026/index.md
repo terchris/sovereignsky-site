@@ -16,7 +16,7 @@ topics:
   - "cybersecurity"
   - "digital-sovereignty"
   - "national-preparedness"
-audiences:
+audience:
   - "it-ops"
   - "developer"
   - "security"

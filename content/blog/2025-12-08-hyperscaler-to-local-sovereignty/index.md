@@ -11,7 +11,7 @@ topics:
 tags:
   - "data-residency"
   - "norway"
-audiences:
+audience:
   - "enterprise"
   - "public-sector"
   - "it-ops"

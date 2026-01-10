@@ -13,7 +13,7 @@ externalUrl: "https://www.datasenterindustrien.no/about/events/datacenter-forum-
 topics:
   - "critical-infrastructure"
   - "digital-sovereignty"
-audiences:
+audience:
   - "it-ops"
   - "enterprise"
   - "public-sector"

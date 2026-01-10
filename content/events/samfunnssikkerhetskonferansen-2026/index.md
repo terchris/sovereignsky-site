@@ -16,7 +16,7 @@ topics:
   - "national-preparedness"
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "security"
   - "enterprise"

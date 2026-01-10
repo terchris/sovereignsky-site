@@ -8,7 +8,7 @@ showHero: true
 draft: true
 topics:
   - "digital-sovereignty"
-audiences:
+audience:
   - "public-sector"
   - "enterprise"
 authors:

@@ -14,7 +14,7 @@ externalUrl: "https://one-conference.nl/"
 topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "it-ops"
   - "enterprise"

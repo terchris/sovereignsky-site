@@ -11,7 +11,7 @@ topics:
 tags:
   - "developers"
   - "open-standards"
-audiences:
+audience:
   - "developer"
 authors:
   - "SovereignSky"

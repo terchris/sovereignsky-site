@@ -15,7 +15,7 @@ externalUrl: "https://www.sikkerhetsfestivalen.no"
 topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "it-ops"
   - "developer"
   - "enterprise"

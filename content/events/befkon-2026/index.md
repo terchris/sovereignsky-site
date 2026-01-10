@@ -14,7 +14,7 @@ externalUrl: "https://www.befkon.no/"
 topics:
   - "national-preparedness"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "security"
   - "enterprise"

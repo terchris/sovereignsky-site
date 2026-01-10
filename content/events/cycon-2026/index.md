@@ -14,7 +14,7 @@ externalUrl: "https://cycon.org/"
 topics:
   - "cybersecurity"
   - "national-preparedness"
-audiences:
+audience:
   - "security"
   - "public-sector"
   - "it-ops"

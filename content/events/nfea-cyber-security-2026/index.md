@@ -14,7 +14,7 @@ externalUrl: "https://nfea.no/arrangementer/cyber-security-2026/"
 topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "it-ops"
   - "enterprise"
 itRelevance: "high"

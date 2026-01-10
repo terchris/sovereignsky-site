@@ -13,7 +13,7 @@ organizerName: "TBA"
 topics:
   - "cybersecurity"
   - "national-preparedness"
-audiences:
+audience:
   - "security"
   - "public-sector"
   - "enterprise"

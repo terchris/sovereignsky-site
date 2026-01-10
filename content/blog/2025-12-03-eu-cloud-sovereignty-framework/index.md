@@ -7,7 +7,7 @@ summary: "The European Commission commits major funding to reduce dependence on 
 showHero: true
 topics:
   - "digital-sovereignty"
-audiences:
+audience:
   - "public-sector"
   - "enterprise"
   - "it-ops"

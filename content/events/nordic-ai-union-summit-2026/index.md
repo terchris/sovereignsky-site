@@ -12,7 +12,7 @@ organizerUrl: "https://nordicaisummit.org"
 externalUrl: "https://nordicaisummit.org/"
 topics:
   - "digital-sovereignty"
-audiences:
+audience:
   - "enterprise"
   - "public-sector"
 itRelevance: "medium"

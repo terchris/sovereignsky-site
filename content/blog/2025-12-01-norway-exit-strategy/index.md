@@ -14,7 +14,7 @@ topics:
 tags:
   - "norway"
   - "exit-strategy"
-audiences:
+audience:
   - "public-sector"
   - "it-ops"
   - "enterprise"

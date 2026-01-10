@@ -144,7 +144,7 @@ function generateFrontmatter(post) {
 
   // Audience (personas)
   if (post.audience && post.audience.length > 0) {
-    lines.push(`audiences:`);
+    lines.push(`audience:`);
     for (const aud of post.audience) {
       lines.push(`  - "${aud}"`);
     }

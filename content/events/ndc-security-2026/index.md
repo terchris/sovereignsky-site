@@ -13,7 +13,7 @@ organizerUrl: "https://ndcconferences.com"
 externalUrl: "https://ndcsecurity.com/"
 topics:
   - "cybersecurity"
-audiences:
+audience:
   - "developer"
   - "it-ops"
 itRelevance: "high"
