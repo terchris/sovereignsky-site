@@ -113,7 +113,7 @@
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["implements", "interprets", "conflicts_with", "complements", "succeeds", "extends", "amends", "extended_by"]
+                  "enum": ["implements", "interprets", "conflicts_with", "complements", "succeeds", "extends", "extended_by"]
                 }
               },
               "additionalProperties": false
@@ -134,6 +134,14 @@
           "reviewStatus": {
             "type": "string",
             "enum": ["ai-generated", "verified"]
+          },
+          "body": {
+            "type": "string",
+            "description": "Full markdown content of the law page"
+          },
+          "image": {
+            "type": "string",
+            "description": "Hero image filename (e.g., 'gdpr.png')"
           }
         },
         "additionalProperties": false

@@ -34,7 +34,7 @@
           "identifier": {
             "type": "string",
             "description": "Unique identifier for the relationship type",
-            "enum": ["complements", "conflicts_with", "implements", "extends", "interprets", "succeeds"]
+            "enum": ["complements", "conflicts_with", "implements", "extends", "interprets", "succeeds", "extended_by"]
           },
           "name": {
             "type": "string",
