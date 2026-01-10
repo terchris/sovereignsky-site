@@ -111,7 +111,7 @@ function generateSlimProduct(product, vendor) {
     vendor_name: vendor.name,
     vendor_country: vendor.country,
     vendor_country_name: vendor.country_name,
-    risk_level: product.risk_level,
+    riskLevel: product.riskLevel,
     jurisdiction_exposure: jurisdictionExposure,
     has_us_exposure: hasUSExposure,
     data_residency: product.hosting?.data_residency || [],
@@ -153,8 +153,8 @@ vendor_id: "${vendor.id}"
 vendor_name: "${vendor.name}"
 vendor_country: "${vendor.country}"
 vendor_country_name: "${vendor.country_name}"
-risk_level: "${product.risk_level}"
-risk_label: "${riskLabels[product.risk_level] || product.risk_level}"
+riskLevel: "${product.riskLevel}"
+risk_label: "${riskLabels[product.riskLevel] || product.riskLevel}"
 has_us_exposure: ${hasUSExposure}
 open_source: ${product.open_source || false}
 data_portability: "${product.data_portability || 'unknown'}"
@@ -170,8 +170,8 @@ jurisdiction_exposure:
 ${jurisdictionExposure.map(j => `  - "${j}"`).join('\n') || '  []'}
 
 # Taxonomies for Hugo filtering
-risk_levels:
-  - "${product.risk_level}"
+riskLevels:
+  - "${product.riskLevel}"
 vendor_countries:
   - "${vendor.country}"
 use_areas:
@@ -233,10 +233,10 @@ products.products.forEach(product => {
 
   if (existed) {
     updated++;
-    console.log(`  Updated: ${filename} (${product.risk_level})`);
+    console.log(`  Updated: ${filename} (${product.riskLevel})`);
   } else {
     created++;
-    console.log(`  Created: ${filename} (${product.risk_level})`);
+    console.log(`  Created: ${filename} (${product.riskLevel})`);
   }
 });
 

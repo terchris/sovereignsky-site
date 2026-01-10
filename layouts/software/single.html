@@ -18,8 +18,7 @@
 }}
 {{ $riskColor := index $riskColors $data.risk_level | default "neutral" }}
 
-{{/* Country flags */}}
-{{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU_EEA" "🇪🇺" }}
+{{/* Country flags - use partial "get-country-flag.html" for lookups */}}
 
 <article class="software-detail max-w-4xl mx-auto">
 
@@ -33,7 +32,7 @@
   <!-- Header -->
   <header class="mb-8">
     <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 mb-2">
-      {{ $vendorFlag := index $flags $vendor.country }}
+      {{ $vendorFlag := partial "get-country-flag.html" $vendor.country }}
       <span>{{ $vendorFlag }}</span>
       <span>{{ $vendor.name }}</span>
       {{ if gt (len $data.hosting.jurisdiction_exposure) 0 }}
@@ -70,7 +69,7 @@
         <span class="text-sm text-neutral-500 dark:text-neutral-400 block mb-1">Data Residency</span>
         <div class="flex flex-wrap gap-1">
           {{ range $data.hosting.data_residency }}
-          {{ $f := index $flags . }}
+          {{ $f := partial "get-country-flag.html" . }}
           <span class="inline-flex items-center gap-1 px-2 py-1 bg-white dark:bg-neutral-700 rounded text-sm">
             {{ $f }} {{ if eq . "EU_EEA" }}EU/EEA{{ else }}{{ . }}{{ end }}
           </span>
@@ -82,7 +81,7 @@
         {{ if gt (len $data.hosting.jurisdiction_exposure) 0 }}
         <div class="flex flex-wrap gap-1">
           {{ range $data.hosting.jurisdiction_exposure }}
-          {{ $f := index $flags . }}
+          {{ $f := partial "get-country-flag.html" . }}
           <span class="inline-flex items-center gap-1 px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded text-sm">
             {{ $f }} {{ . }}
           </span>
@@ -227,7 +226,7 @@
       {{ $altVendor := index (where site.Data.products.vendors.vendors "id" $alt.vendor_id) 0 }}
       <a href="/software/{{ $alt.slug }}/" class="block border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors">
         <div class="flex items-center gap-2 mb-2">
-          {{ $altFlag := index $flags $altVendor.country }}
+          {{ $altFlag := partial "get-country-flag.html" $altVendor.country }}
           <span>{{ $altFlag }}</span>
           <span class="font-semibold">{{ $alt.name }}</span>
         </div>

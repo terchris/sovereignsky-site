@@ -20,8 +20,8 @@
       <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 mr-2">Risk Level:</span>
       <div class="inline-flex flex-wrap gap-2 mt-2">
         <a href="/software/" class="filter-link">All</a>
-        {{ range $term, $pages := site.Taxonomies.risk_levels }}
-        <a href="/risk_levels/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "risk_level" }}{{ if eq ($.Title | lower) $term }}active{{ end }}{{ end }}">
+        {{ range $term, $pages := site.Taxonomies.riskLevels }}
+        <a href="/riskLevels/{{ $term | urlize }}/" class="filter-link {{ if eq $.Data.Singular "riskLevel" }}{{ if eq ($.Title | lower) $term }}active{{ end }}{{ end }}">
           {{ $term | title }}
           <span class="text-xs opacity-70">({{ len $pages }})</span>
         </a>
@@ -76,8 +76,7 @@
     "high" "red"
   }}
 
-  {{/* Country flags */}}
-  {{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU_EEA" "🇪🇺" }}
+  {{/* Country flags - use partial "get-country-flag.html" for lookups */}}
 
   <!-- Product Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -85,7 +84,7 @@
     {{ $product := index (where site.Data.products.products.products "id" .Params.software_id) 0 }}
     {{ if $product }}
     {{ $vendor := index (where site.Data.products.vendors.vendors "id" $product.vendor_id) 0 }}
-    {{ $riskLevel := $product.risk_level | default "moderate" }}
+    {{ $riskLevel := $product.riskLevel | default "moderate" }}
     {{ $riskColor := index $riskColors $riskLevel | default "neutral" }}
 
     <article class="software-card border border-neutral-200 dark:border-neutral-700 rounded-lg overflow-hidden hover:shadow-lg transition-all bg-white dark:bg-neutral-900">
@@ -105,7 +104,7 @@
           <div class="mb-3">
             <h2 class="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-1">{{ $product.name }}</h2>
             <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
-              {{ $vendorFlag := index $flags $vendor.country }}
+              {{ $vendorFlag := partial "get-country-flag.html" $vendor.country }}
               <span>{{ $vendorFlag }}</span>
               <span>{{ $vendor.country_name | default $vendor.country }}</span>
               <span class="text-neutral-300 dark:text-neutral-600">•</span>

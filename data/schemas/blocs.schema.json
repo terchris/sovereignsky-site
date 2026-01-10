@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/blocs.schema.json",
+  "title": "Geopolitical Blocs",
+  "description": "Schema for blocs.json - regional and supranational data governance frameworks (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "filterValues": {
+      "type": "array",
+      "description": "Valid risk level filter values",
+      "items": {
+        "type": "string",
+        "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+      }
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of geopolitical bloc entries",
+      "items": {
+        "type": "object",
+        "required": ["@type", "identifier", "name", "flag", "legalType", "localizationRequired", "description", "memberOf", "laws", "riskLevel", "abstract", "summary", "articleBody"],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Organization",
+            "description": "schema.org type for bloc entries"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the bloc",
+            "enum": ["eu", "eea", "asean-defa", "gcc-trust", "five-eyes", "au-dsm"]
+          },
+          "name": {
+            "type": "string",
+            "description": "Full display name"
+          },
+          "alternateName": {
+            "type": "string",
+            "description": "Abbreviated name or acronym"
+          },
+          "flag": {
+            "type": "string",
+            "description": "Emoji flag or icon representing the bloc"
+          },
+          "legalType": {
+            "type": "string",
+            "description": "Type of legal/political entity",
+            "enum": ["Supranational", "Economic Single Market", "Intergovernmental Pact", "Regulatory Union", "Intelligence Alliance", "Continental Framework"]
+          },
+          "localizationRequired": {
+            "type": "string",
+            "description": "Level of data localization requirements"
+          },
+          "inheritsFrom": {
+            "type": "array",
+            "description": "Parent bloc identifiers this bloc inherits rules from",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the bloc"
+          },
+          "memberOf": {
+            "type": "array",
+            "description": "ISO 3166-1 alpha-2 country codes of member states",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            },
+            "minItems": 1
+          },
+          "laws": {
+            "type": "array",
+            "description": "Identifiers of applicable laws",
+            "items": {
+              "type": "string"
+            }
+          },
+          "riskLevel": {
+            "type": "string",
+            "description": "Data sovereignty risk assessment level",
+            "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+          },
+          "abstract": {
+            "type": "string",
+            "description": "One-line summary for cards/lists"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Medium-length summary paragraph"
+          },
+          "articleBody": {
+            "type": "string",
+            "description": "Full article body content"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to representative image"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,38 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "globe"
+  ) }}
+
+  {{/* Section Content - render markdown content which includes map shortcode */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
+
+  {{/* Country List */}}
+  <section class="mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {{ range .Pages }}
+      <a href="{{ .RelPermalink }}" class="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
+        <div class="flex items-center gap-3">
+          {{ with .Params.flag }}<span class="text-2xl">{{ . }}</span>{{ end }}
+          <div>
+            <h3 class="font-semibold text-neutral-900 dark:text-neutral-100">{{ .Params.name | default .Title }}</h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">{{ .Params.abstract | default .Description | truncate 80 }}</p>
+          </div>
+        </div>
+        {{ with .Params.riskLevel }}
+        <div class="mt-2">
+          {{ $riskColors := dict "low" "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "moderate" "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" "elevated" "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" "high" "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" }}
+          <span class="inline-block px-2 py-0.5 text-xs rounded {{ index $riskColors . | default "bg-neutral-100 text-neutral-800" }}">{{ . | title }} Risk</span>
+        </div>
+        {{ end }}
+      </a>
+      {{ end }}
+    </div>
+  </section>
+</article>
+{{ end }}

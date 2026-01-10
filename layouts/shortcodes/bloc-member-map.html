@@ -1,0 +1,190 @@
+{{/*
+  Bloc Member Map - Shows member countries highlighted on a world map
+  Usage: {{< bloc-member-map members="NO,IS,LI,SE,DK,FI,..." >}}
+
+  Highlights member countries with full opacity, others are faded
+*/}}
+
+{{ $membersParam := .Get "members" | default "" }}
+{{ $members := split $membersParam "," }}
+
+{{ $regions := site.Data.regions }}
+
+{{/* Build country data for the map */}}
+{{ $mapData := slice }}
+
+{{ range $regions }}
+  {{/* Map ISO 2-letter to ECharts GeoJSON country names */}}
+  {{ $countryName := .name }}
+  {{ if eq .identifier "US" }}{{ $countryName = "United States" }}{{ end }}
+  {{ if eq .identifier "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
+  {{ if eq .identifier "KR" }}{{ $countryName = "Korea" }}{{ end }}
+  {{ if eq .identifier "RU" }}{{ $countryName = "Russia" }}{{ end }}
+  {{ if eq .identifier "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
+
+  {{ $isMember := in $members .identifier }}
+
+  {{ $item := dict
+      "name" $countryName
+      "value" (cond $isMember 1 0)
+      "id" .identifier
+      "slug" .slug
+      "flag" .flag
+      "originalName" .name
+      "isMember" $isMember
+    }}
+  {{ $mapData = $mapData | append $item }}
+{{ end }}
+
+<div id="bloc-member-map" class="not-prose" style="width: 100%; height: 400px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 12px;"></div>
+
+<div id="bloc-map-loading" class="text-center py-8">
+  <p class="text-neutral-500">Loading map...</p>
+</div>
+
+<script>
+(function() {
+  var chartDom = document.getElementById('bloc-member-map');
+  var loadingDiv = document.getElementById('bloc-map-loading');
+
+  var mapData = {{ $mapData | jsonify | safeJS }};
+
+  fetch('/data/world.json')
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(worldJson) {
+      echarts.registerMap('world', worldJson);
+      loadingDiv.style.display = 'none';
+
+      var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+      var isDark = document.documentElement.classList.contains('dark');
+
+      // Colors
+      var memberColor = '#3b82f6';
+      var nonMemberColor = isDark ? '#404040' : '#e5e5e5';
+
+      // Only include MEMBER countries in data array
+      // They get the blue color - everything else stays default gray
+      var chartData = mapData.filter(function(item) {
+        return item.isMember;
+      }).map(function(item) {
+        return {
+          name: item.name,
+          value: 1,
+          id: item.id,
+          slug: item.slug,
+          flag: item.flag,
+          originalName: item.originalName,
+          isMember: true,
+          itemStyle: {
+            areaColor: memberColor
+          }
+        };
+      });
+
+      var option = {
+        title: { show: false },
+        tooltip: {
+          trigger: 'item',
+          formatter: function(params) {
+            if (params.data && params.data.isMember) {
+              var displayName = params.data.originalName || params.name;
+              return '<strong>' + (params.data.flag || '') + ' ' + displayName + '</strong><br/>Member';
+            }
+            return null;
+          }
+        },
+        series: [
+          {
+            name: 'Bloc Members',
+            type: 'map',
+            map: 'world',
+            roam: true,
+            zoom: 1.5,
+            center: [15, 52],
+            scaleLimit: { min: 1, max: 8 },
+            label: { show: false },
+            emphasis: {
+              label: { show: false },
+              itemStyle: {
+                areaColor: '#2563eb'
+              }
+            },
+            itemStyle: {
+              areaColor: nonMemberColor,
+              borderColor: isDark ? '#525252' : '#d4d4d4',
+              borderWidth: 0.5
+            },
+            select: { disabled: true },
+            data: chartData
+          }
+        ]
+      };
+
+      myChart.setOption(option);
+
+      // Store chart and data globally for debugging
+      window._blocMapChart = myChart;
+      window._blocMapData = chartData;
+
+      // Function to apply member colors
+      // ECharts maps don't properly apply per-item areaColor on first render
+      function applyMemberColors() {
+        var memberStyles = chartData.map(function(item) {
+          return { name: item.name, itemStyle: { areaColor: '#3b82f6' } };
+        });
+        myChart.setOption({ series: [{ data: memberStyles }] });
+      }
+
+      // Use multiple timeouts to ensure colors are applied after all rendering phases
+      window.setTimeout(function() {
+        applyMemberColors();
+      }, 100);
+
+      window.setTimeout(function() {
+        applyMemberColors();
+      }, 500);
+
+      window.setTimeout(function() {
+        applyMemberColors();
+      }, 1000);
+
+      // Click to navigate to country page
+      myChart.on('click', function(params) {
+        if (params && params.data && params.data.isMember && params.data.slug) {
+          window.location.href = '/countries/' + params.data.slug + '/';
+        }
+      });
+
+      window.addEventListener('resize', function() {
+        myChart.resize();
+      });
+
+      // Handle dark mode toggle
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            var isDark = document.documentElement.classList.contains('dark');
+            var nonMemberColor = isDark ? '#404040' : '#e5e5e5';
+            myChart.setOption({
+              series: [{
+                itemStyle: {
+                  areaColor: nonMemberColor,
+                  borderColor: isDark ? '#525252' : '#d4d4d4'
+                }
+              }]
+            });
+            // Re-apply member colors after changing base style
+            applyMemberColors();
+          }
+        });
+      });
+      observer.observe(document.documentElement, { attributes: true });
+    })
+    .catch(function(error) {
+      console.error('Failed to load world map:', error);
+      loadingDiv.innerHTML = '<p class="text-red-500">Failed to load map.</p>';
+    });
+})();
+</script>

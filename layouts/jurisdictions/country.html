@@ -7,7 +7,7 @@
     {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "jurisdictions/" .Dir) }}
   {{ end }}
 
-  {{ $countryId := .Params.countryId | default "" }}
+  {{ $countryId := .Params.countryId | default .Params.country_id | default "" }}
   {{ $country := dict }}
   {{ if not $countryId }}
     {{ $match := first 1 (where site.Data.regions "slug" $slug) }}

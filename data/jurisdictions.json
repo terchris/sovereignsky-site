@@ -40,7 +40,11 @@
         "data-act",
         "ai-act"
       ],
-      "riskLevel": "low"
+      "riskLevel": "low",
+      "abstract": "Comprehensive data protection framework through GDPR covering 27 member states.",
+      "summary": "The European Union provides the world's most comprehensive data protection framework through GDPR. All 27 member states share common legal standards for privacy, data handling, and cross-border transfers within the bloc.",
+      "body": "",
+      "image": ""
     },
     {
       "identifier": "eea",
@@ -59,7 +63,11 @@
       "riskLevel": "low",
       "inheritsFrom": [
         "eu"
-      ]
+      ],
+      "abstract": "Extends EU single market and GDPR to Norway, Iceland, and Liechtenstein.",
+      "summary": "The European Economic Area extends the EU single market to Norway, Iceland, and Liechtenstein through the EEA Agreement. These countries adopt EU regulations including GDPR, providing equivalent data protection to EU member states.",
+      "body": "",
+      "image": ""
     },
     {
       "identifier": "EU_EEA",
@@ -73,7 +81,11 @@
       "inheritsFrom": [
         "eea"
       ],
-      "notes": "Virtual bloc for data residency classification. Inherits all members and laws from EEA (which inherits from EU)."
+      "notes": "Virtual bloc for data residency classification. Inherits all members and laws from EEA (which inherits from EU).",
+      "abstract": "Combined EU and EEA region for data residency classification purposes.",
+      "summary": "The EU/EEA region combines all 27 EU member states plus Norway, Iceland, and Liechtenstein. This classification is used when vendors offer 'EU data residency' without specifying exact countries, ensuring data remains within European jurisdiction.",
+      "body": "",
+      "image": ""
     },
     {
       "identifier": "five-eyes",
@@ -90,7 +102,11 @@
       ],
       "laws": [],
       "riskLevel": "elevated",
-      "notes": "While an intelligence-sharing alliance rather than a legal framework, Five Eyes membership indicates close cooperation on surveillance and data access between member nations."
+      "notes": "While an intelligence-sharing alliance rather than a legal framework, Five Eyes membership indicates close cooperation on surveillance and data access between member nations.",
+      "abstract": "Intelligence alliance with extensive surveillance cooperation and data sharing.",
+      "summary": "The Five Eyes alliance (US, UK, Canada, Australia, New Zealand) shares signals intelligence and has mutual legal assistance treaties enabling cross-border data access. Membership indicates elevated data sovereignty risk due to surveillance cooperation.",
+      "body": "",
+      "image": ""
     },
     {
       "identifier": "adequacy",
@@ -116,7 +132,11 @@
       ],
       "laws": [],
       "riskLevel": "low",
-      "notes": "Adequacy decisions can be challenged or revoked. The US Data Privacy Framework (2023) replaced Privacy Shield after Schrems II invalidation."
+      "notes": "Adequacy decisions can be challenged or revoked. The US Data Privacy Framework (2023) replaced Privacy Shield after Schrems II invalidation.",
+      "abstract": "Countries recognized by the EU as providing adequate data protection levels.",
+      "summary": "EU Adequacy Decisions recognize countries as providing data protection equivalent to EU standards, allowing free flow of personal data from the EU without additional safeguards. Decisions can be challenged or revoked, as demonstrated by Schrems II.",
+      "body": "",
+      "image": ""
     }
   ],
   "riskLevels": {

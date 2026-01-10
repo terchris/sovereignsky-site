@@ -40,22 +40,28 @@
   weight = 22
 
 [[main]]
+  name = "Countries"
+  parent = "Databases"
+  pageRef = "countries"
+  weight = 23
+
+[[main]]
   name = "Jurisdictions"
   parent = "Databases"
   pageRef = "jurisdictions"
-  weight = 23
+  weight = 24
 
 [[main]]
   name = "Laws"
   parent = "Databases"
   pageRef = "laws"
-  weight = 24
+  weight = 25
 
 [[main]]
   name = "Networks"
   parent = "Databases"
   pageRef = "networks"
-  weight = 25
+  weight = 26
 
 [[main]]
   name = "Learn"
@@ -119,6 +125,11 @@
   name = "Datacenters"
   pageRef = "datacenters"
   weight = 30
+
+[[footer]]
+  name = "Countries"
+  pageRef = "countries"
+  weight = 35
 
 [[footer]]
   name = "Jurisdictions"
