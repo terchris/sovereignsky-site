@@ -1,4 +1,5 @@
 ---
+title: "Philippines"
 countryId: "PH"
 name: "Philippines"
 flag: "🇵🇭"

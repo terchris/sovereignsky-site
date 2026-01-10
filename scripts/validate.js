@@ -58,6 +58,10 @@ const validations = [
     schema: "data/schemas/audience.schema.json",
     data: "data/audience/audience.json",
   },
+  {
+    schema: "data/schemas/countries.schema.json",
+    data: "data/countries/countries.json",
+  },
 ];
 
 // Load valid audience identifiers from audience.json

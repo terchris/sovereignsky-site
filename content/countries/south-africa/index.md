@@ -1,4 +1,5 @@
 ---
+title: "South Africa"
 countryId: "ZA"
 name: "South Africa"
 flag: "🇿🇦"

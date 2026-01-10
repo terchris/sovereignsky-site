@@ -1,15 +1,15 @@
 ---
 blocId: "five-eyes"
 name: "Five Eyes"
-flag: "👁️"
+flag: "👁"
 slug: "five-eyes"
-abstract: "Intelligence alliance with extensive surveillance cooperation and data sharing."
-summary: "The Five Eyes alliance (US, UK, Canada, Australia, New Zealand) shares signals intelligence and has mutual legal assistance treaties enabling cross-border data access. Membership indicates elevated data sovereignty risk due to surveillance cooperation."
+abstract: "Collaborative intelligence bloc with significant privacy implications."
+summary: "While not a trade bloc, the Five Eyes 2026 status indicates a region where government surveillance and mutual legal assistance can override commercial data privacy."
 body: ""
 image: ""
 riskLevel: "elevated"
 members: ["US","GB","CA","AU","NZ"]
-laws: []
+laws: ["us-cloud-act","uk-ipa-2016"]
 inheritsFrom: []
 echarts: true
 layout: "bloc"

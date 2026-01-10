@@ -1,4 +1,5 @@
 ---
+title: "Bulgaria"
 countryId: "BG"
 name: "Bulgaria"
 flag: "🇧🇬"

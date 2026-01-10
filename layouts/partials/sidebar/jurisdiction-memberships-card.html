@@ -16,14 +16,15 @@
 
 {{ $country := dict }}
 {{ if $countryId }}
-  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
+  {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $match := first 1 (where $countries "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
 {{ end }}
 
 {{ $blocs := $country.blocs | default (slice) }}
-{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{ if gt (len $blocs) 0 }}
 <div class="card bg-base-100 shadow-sm border border-base-300">
@@ -43,7 +44,7 @@
             {{ $blocFlag = .flag | default "" }}
           {{ end }}
         {{ end }}
-        <a href="/jurisdictions/{{ $blocId | urlize }}/" class="badge badge-outline badge-lg gap-1 hover:badge-primary transition-colors">
+        <a href="/countries/{{ $blocId | urlize }}/" class="badge badge-outline badge-lg gap-1 hover:badge-primary transition-colors">
           {{ if $blocFlag }}{{ $blocFlag }}{{ end }} {{ $blocName }}
         </a>
       {{ end }}

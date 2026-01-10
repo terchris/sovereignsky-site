@@ -1,4 +1,5 @@
 ---
+title: "Malaysia"
 countryId: "MY"
 name: "Malaysia"
 flag: "🇲🇾"

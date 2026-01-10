@@ -16,13 +16,14 @@
 
 {{ $country := dict }}
 {{ if $countryId }}
-  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
+  {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $match := first 1 (where $countries "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
 {{ end }}
 
-{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{ if $countryId }}
   {{/* Build applicable IDs list (country + blocs + inherited) */}}

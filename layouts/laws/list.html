@@ -5,17 +5,43 @@
   {{ $lawTypes = merge $lawTypes (dict .identifier .) }}
 {{ end }}
 
-{{/* Build region lookup from regions.json (countries) */}}
+{{/* Build region lookup from countries data */}}
 {{ $regionLookup := dict }}
-{{ range site.Data.regions }}
+{{ range (site.Data.countries.countries.itemListElement | default site.Data.regions) }}
   {{ $regionLookup = merge $regionLookup (dict .identifier .) }}
 {{ end }}
 
-{{/* Build bloc lookup from jurisdictions.json */}}
+{{/* Build bloc lookup from blocs data */}}
 {{ $blocLookup := dict }}
-{{ range site.Data.jurisdictions.blocs }}
+{{ range (site.Data.blocs.blocs.itemListElement | default site.Data.jurisdictions.blocs) }}
   {{ $blocLookup = merge $blocLookup (dict .identifier .) }}
 {{ end }}
+
+{{/* Collect unique jurisdictions from all laws */}}
+{{ $jurisdictionSet := slice }}
+{{ range site.Data.laws.laws.itemListElement }}
+  {{ range .legislationJurisdiction }}
+    {{ if not (in $jurisdictionSet .) }}
+      {{ $jurisdictionSet = $jurisdictionSet | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Build jurisdiction filter items (blocs first, then countries) */}}
+{{ $blocFilters := slice }}
+{{ $countryFilters := slice }}
+{{ range $jurisdictionSet }}
+  {{ $id := . }}
+  {{ $bloc := index $blocLookup $id }}
+  {{ $country := index $regionLookup $id }}
+  {{ if $bloc }}
+    {{ $blocFilters = $blocFilters | append (dict "id" $id "name" $bloc.name "flag" $bloc.flag "isBloc" true) }}
+  {{ else if $country }}
+    {{ $countryFilters = $countryFilters | append (dict "id" $id "name" $country.name "flag" $country.flag "isBloc" false) }}
+  {{ end }}
+{{ end }}
+{{ $blocFilters = sort $blocFilters "name" "asc" }}
+{{ $countryFilters = sort $countryFilters "name" "asc" }}
 
 {{/* Category badge colors using DaisyUI */}}
 {{ $categoryBadge := dict
@@ -26,6 +52,33 @@
   "security" "badge-secondary"
   "sector" "badge-ghost"
 }}
+
+{{/* Count laws per category */}}
+{{ $lawsPerCategory := dict }}
+{{ range site.Data.laws.laws.itemListElement }}
+  {{ $cat := .category | default "other" }}
+  {{ $prev := index $lawsPerCategory $cat | default 0 }}
+  {{ $lawsPerCategory = merge $lawsPerCategory (dict $cat (add $prev 1)) }}
+{{ end }}
+
+{{/* Count laws per jurisdiction */}}
+{{ $lawsPerJurisdiction := dict }}
+{{ range site.Data.laws.laws.itemListElement }}
+  {{ range .legislationJurisdiction }}
+    {{ $prev := index $lawsPerJurisdiction . | default 0 }}
+    {{ $lawsPerJurisdiction = merge $lawsPerJurisdiction (dict . (add $prev 1)) }}
+  {{ end }}
+{{ end }}
+
+{{/* Count laws per feature */}}
+{{ $lawsExtraterritorial := 0 }}
+{{ $lawsLocalization := 0 }}
+{{ $lawsBackdoor := 0 }}
+{{ range site.Data.laws.laws.itemListElement }}
+  {{ if .extraterritorial }}{{ $lawsExtraterritorial = add $lawsExtraterritorial 1 }}{{ end }}
+  {{ if .requiresLocalization }}{{ $lawsLocalization = add $lawsLocalization 1 }}{{ end }}
+  {{ if .requiresBackdoor }}{{ $lawsBackdoor = add $lawsBackdoor 1 }}{{ end }}
+{{ end }}
 
 <div class="max-w-full" id="laws-app">
 
@@ -82,31 +135,92 @@
     </label>
   </div>
 
-  {{/* Category Filter */}}
-  <div class="flex flex-wrap items-center gap-2 mb-4">
-    <span class="text-sm font-semibold opacity-70">Category:</span>
-    <div class="join" data-filter-group="category">
-      <button class="join-item btn btn-sm btn-active" data-filter="category" data-value="all">All</button>{{- range site.Data.laws.law_types.itemListElement -}}<button class="join-item btn btn-sm btn-ghost" data-filter="category" data-value="{{ .identifier }}">{{ .emoji }} {{ .name }}</button>{{- end -}}
-    </div>
-  </div>
+  {{/* Filters */}}
+  <details class="collapse collapse-arrow bg-base-100 border border-base-300 mb-4">
+    <summary class="collapse-title text-sm font-semibold py-3 min-h-0">Filters</summary>
+    <div class="collapse-content">
+      <div class="space-y-4 pt-2">
+        {{/* Category */}}
+        <div data-filter-group="category">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-medium opacity-60">Category:</span>
+            <button class="btn btn-sm btn-active" data-filter="category" data-value="all">All</button>
+          </div>
+          <div class="flex flex-wrap gap-1">
+            {{- range site.Data.laws.law_types.itemListElement -}}
+            {{ $count := index $lawsPerCategory .identifier | default 0 }}
+            {{ if gt $count 0 }}
+            <button class="btn btn-sm btn-ghost" data-filter="category" data-value="{{ .identifier }}">{{ .emoji }} {{ .name }} <span class="badge badge-sm">{{ $count }}</span></button>
+            {{ else }}
+            <button class="btn btn-sm btn-ghost btn-disabled opacity-40" disabled>{{ .emoji }} {{ .name }} <span class="badge badge-sm">0</span></button>
+            {{ end }}
+            {{- end -}}
+          </div>
+        </div>
 
-  {{/* Jurisdiction Filter */}}
-  <div class="flex flex-wrap items-center gap-2 mb-4">
-    <span class="text-sm font-semibold opacity-70">Jurisdiction:</span>
-    <div class="join" data-filter-group="jurisdiction">
-      <button class="join-item btn btn-sm btn-active" data-filter="jurisdiction" data-value="all">All</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="eu">🇪🇺 EU</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="US">🇺🇸 USA</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="GB">🇬🇧 UK</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="NO">🇳🇴 Norway</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="CN">🇨🇳 China</button><button class="join-item btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="RU">🇷🇺 Russia</button>
-    </div>
-  </div>
+        {{/* Jurisdiction */}}
+        <div data-filter-group="jurisdiction">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span class="text-xs font-medium opacity-60">Jurisdiction:</span>
+            <button class="btn btn-sm btn-active" data-filter="jurisdiction" data-value="all">All</button>
+          </div>
+          {{- if gt (len $blocFilters) 0 -}}
+          <div class="mb-2">
+            <div class="text-xs opacity-50 mb-1">Blocs</div>
+            <div class="flex flex-wrap gap-1">
+              {{- range $blocFilters -}}
+              {{ $count := index $lawsPerJurisdiction .id | default 0 }}
+              {{ if gt $count 0 }}
+              <button class="btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="{{ .id }}">{{ .flag }} {{ .name }} <span class="badge badge-sm">{{ $count }}</span></button>
+              {{ else }}
+              <button class="btn btn-sm btn-ghost btn-disabled opacity-40" disabled>{{ .flag }} {{ .name }} <span class="badge badge-sm">0</span></button>
+              {{ end }}
+              {{- end -}}
+            </div>
+          </div>
+          {{- end -}}
+          {{- if gt (len $countryFilters) 0 -}}
+          <div>
+            <div class="text-xs opacity-50 mb-1">Countries</div>
+            <div class="flex flex-wrap gap-1">
+              {{- range $countryFilters -}}
+              {{ $count := index $lawsPerJurisdiction .id | default 0 }}
+              {{ if gt $count 0 }}
+              <button class="btn btn-sm btn-ghost" data-filter="jurisdiction" data-value="{{ .id }}">{{ .flag }} {{ .name }} <span class="badge badge-sm">{{ $count }}</span></button>
+              {{ else }}
+              <button class="btn btn-sm btn-ghost btn-disabled opacity-40" disabled>{{ .flag }} {{ .name }} <span class="badge badge-sm">0</span></button>
+              {{ end }}
+              {{- end -}}
+            </div>
+          </div>
+          {{- end -}}
+        </div>
 
-  {{/* Features Filter - toggle buttons */}}
-  <div class="flex flex-wrap items-center gap-2 mb-6">
-    <span class="text-sm font-semibold opacity-70">Features:</span>
-    <div class="flex flex-wrap gap-2" data-filter-group="features">
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="extraterritorial" data-value="true">🌍 Extraterritorial</button>
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="localization" data-value="true">📍 Localization</button>
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="backdoor" data-value="true">🔑 Backdoor</button>
+        {{/* Features */}}
+        <div data-filter-group="features">
+          <div class="text-xs font-medium opacity-60 mb-2">Features</div>
+          <div class="flex flex-wrap gap-1">
+            {{ if gt $lawsExtraterritorial 0 }}
+            <button class="btn btn-sm btn-ghost gap-1" data-filter="extraterritorial" data-value="true">🌍 Extraterritorial <span class="badge badge-sm">{{ $lawsExtraterritorial }}</span></button>
+            {{ else }}
+            <button class="btn btn-sm btn-ghost btn-disabled opacity-40 gap-1" disabled>🌍 Extraterritorial <span class="badge badge-sm">0</span></button>
+            {{ end }}
+            {{ if gt $lawsLocalization 0 }}
+            <button class="btn btn-sm btn-ghost gap-1" data-filter="localization" data-value="true">📍 Localization <span class="badge badge-sm">{{ $lawsLocalization }}</span></button>
+            {{ else }}
+            <button class="btn btn-sm btn-ghost btn-disabled opacity-40 gap-1" disabled>📍 Localization <span class="badge badge-sm">0</span></button>
+            {{ end }}
+            {{ if gt $lawsBackdoor 0 }}
+            <button class="btn btn-sm btn-ghost gap-1" data-filter="backdoor" data-value="true">🔑 Backdoor <span class="badge badge-sm">{{ $lawsBackdoor }}</span></button>
+            {{ else }}
+            <button class="btn btn-sm btn-ghost btn-disabled opacity-40 gap-1" disabled>🔑 Backdoor <span class="badge badge-sm">0</span></button>
+            {{ end }}
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </details>
+
 
   {{/* Active filters display */}}
   <div id="active-filters" class="hidden alert mb-4">
@@ -251,15 +365,20 @@
       }, 300);
     });
 
-    // Category and Jurisdiction filters (mutually exclusive within group)
+    // Category and Jurisdiction filters (toggle on/off)
     document.querySelectorAll('[data-filter-group="category"] button, [data-filter-group="jurisdiction"] button').forEach(btn => {
       btn.addEventListener('click', () => {
         const groupEl = btn.closest('[data-filter-group]');
         const filterGroup = groupEl.dataset.filterGroup;
         const value = btn.dataset.value;
 
-        filters[filterGroup] = value;
-        setActiveButton(groupEl, value);
+        // If clicking the already active filter (not "all"), toggle it off
+        if (value !== 'all' && filters[filterGroup] === value) {
+          filters[filterGroup] = 'all';
+        } else {
+          filters[filterGroup] = value;
+        }
+        setActiveButton(groupEl, filters[filterGroup]);
         applyFilters();
         updateURL();
       });

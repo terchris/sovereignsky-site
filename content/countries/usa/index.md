@@ -1,4 +1,5 @@
 ---
+title: "USA"
 countryId: "US"
 name: "USA"
 flag: "🇺🇸"

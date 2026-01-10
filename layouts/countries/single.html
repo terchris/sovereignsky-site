@@ -9,14 +9,15 @@
 
 {{ $countryId := .Params.countryId | default .Params.country_id | default "" }}
 {{ $country := dict }}
+{{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
 {{ if not $countryId }}
-  {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
+  {{ $match := first 1 (where $countries "slug" $slug) }}
   {{ with index $match 0 }}
     {{ $country = . }}
     {{ $countryId = .identifier }}
   {{ end }}
 {{ else }}
-  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
+  {{ $match := first 1 (where $countries "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
@@ -34,9 +35,9 @@
 {{/* Auto-generate clean title without flag (partial will add flag) */}}
 {{ $displayTitle := $countryName }}
 
-{{/* Build region lookup for use by partials */}}
+{{/* Build country lookup for use by partials */}}
 {{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
+{{ range ($countries | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
@@ -83,6 +84,24 @@
 
         {{/* Country Details Card */}}
         {{ partial "sidebar/datacenter-country-details-card.html" (dict "country" $country "providerCount" (len $providerItems) "regionCount" $totalRegions) }}
+
+        {{/* Link to datacenters page (only if country has datacenters) */}}
+        {{ if gt $totalRegions 0 }}
+        <div class="card bg-base-100 shadow-sm border border-base-300">
+          <div class="card-body p-4">
+            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+              {{ partial "content-icon.html" (dict "name" "server" "color" "primary" "size" "4") }}
+              Datacenters
+            </h3>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">
+              View datacenter providers and locations.
+            </p>
+            <a href="/datacenters/{{ $slug }}/" class="btn btn-sm btn-outline btn-primary mt-2">
+              View {{ $countryName }} Datacenters
+            </a>
+          </div>
+        </div>
+        {{ end }}
 
         {{/* Risk Assessment Card */}}
         {{ partial "sidebar/jurisdiction-risk-card.html" (dict "countryId" $countryId) }}

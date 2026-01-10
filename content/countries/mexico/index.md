@@ -1,4 +1,5 @@
 ---
+title: "Mexico"
 countryId: "MX"
 name: "Mexico"
 flag: "🇲🇽"

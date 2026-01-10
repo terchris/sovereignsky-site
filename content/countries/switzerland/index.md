@@ -1,4 +1,5 @@
 ---
+title: "Switzerland"
 countryId: "CH"
 name: "Switzerland"
 flag: "🇨🇭"

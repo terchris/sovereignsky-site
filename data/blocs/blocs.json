@@ -20,7 +20,24 @@
       "abstract": "Supranational bloc with the world's most integrated digital laws.",
       "summary": "In 2026, the EU shifted focus from mere privacy (GDPR) to ethical AI deployment and mandatory interoperability for cloud services. It is the primary regulator for global digital standards.",
       "articleBody": "The 'Brussels Effect' reached its peak in 2026 with the AI Act becoming fully enforceable in August. This law mandates transparency for general-purpose AI and prohibits high-risk biometric surveillance, influencing how data is processed globally.",
-      "image": "https://example.com/images/blocs/eu-digital-2026.png"
+      "image": "https://example.com/images/blocs/eu-digital-2026.png",
+      "adequacyDecisions": [
+        { "countryId": "AD", "countryName": "Andorra", "date": "2010-10-21", "scope": "full" },
+        { "countryId": "AR", "countryName": "Argentina", "date": "2003-07-05", "scope": "full" },
+        { "countryId": "CA", "countryName": "Canada", "date": "2001-12-20", "scope": "partial", "notes": "Commercial organizations under PIPEDA" },
+        { "countryId": "FO", "countryName": "Faroe Islands", "date": "2010-03-05", "scope": "full" },
+        { "countryId": "GG", "countryName": "Guernsey", "date": "2003-11-21", "scope": "full" },
+        { "countryId": "IL", "countryName": "Israel", "date": "2011-01-31", "scope": "full" },
+        { "countryId": "IM", "countryName": "Isle of Man", "date": "2004-04-28", "scope": "full" },
+        { "countryId": "JP", "countryName": "Japan", "date": "2019-01-23", "scope": "full", "notes": "Mutual adequacy agreement" },
+        { "countryId": "JE", "countryName": "Jersey", "date": "2008-05-08", "scope": "full" },
+        { "countryId": "NZ", "countryName": "New Zealand", "date": "2012-12-19", "scope": "full" },
+        { "countryId": "KR", "countryName": "South Korea", "date": "2021-12-17", "scope": "full" },
+        { "countryId": "CH", "countryName": "Switzerland", "date": "2000-07-26", "scope": "full" },
+        { "countryId": "GB", "countryName": "United Kingdom", "date": "2021-06-28", "scope": "conditional", "notes": "Subject to sunset clause review" },
+        { "countryId": "UY", "countryName": "Uruguay", "date": "2012-08-21", "scope": "full" },
+        { "countryId": "US", "countryName": "United States", "date": "2023-07-10", "scope": "partial", "notes": "Data Privacy Framework (DPF) certified organizations only" }
+      ]
     },
     {
       "@type": "Organization",

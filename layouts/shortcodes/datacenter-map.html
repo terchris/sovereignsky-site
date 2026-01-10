@@ -7,12 +7,13 @@ Usage: {{< datacenter-map>}}
   */}}
 
   {{ $datacenters := site.Data.datacenters }}
-  {{ $regions := site.Data.regions }}
-  {{ $jurisdictions := site.Data.jurisdictions }}
+  {{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $jurisdictions := site.Data.blocs }}
   {{ $providersParam := .Get "providers" | default "" }}
   {{ $countriesParam := .Get "countries" | default "" }}
   {{ $countryOnlyParam := .Get "countryOnly" | default "" }}
   {{ $showFilters := .Get "showFilters" | default "true" }}
+  {{ $highlightCountries := .Get "highlightCountries" | default $countriesParam }}
   {{ $showFiltersBool := ne $showFilters "false" }}
 
   {{/* Build regions lookup by country_id */}}
@@ -95,6 +96,13 @@ Usage: {{< datacenter-map>}}
   <script type="application/json" id="dc-map-initial-countries">{{ $countriesParam | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-show-filters">{{ $showFiltersBool | jsonify | safeHTML }}</script>
   <script type="application/json" id="dc-map-country-only">{{ $countryOnlyParam | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-highlight-countries">{{ $highlightCountries | jsonify | safeHTML }}</script>
+  {{/* Build country code to name mapping for highlighting */}}
+  {{ $countryNameMap := dict }}
+  {{ range $regions }}
+    {{ $countryNameMap = merge $countryNameMap (dict .identifier .name) }}
+  {{ end }}
+  <script type="application/json" id="dc-map-country-names">{{ $countryNameMap | jsonify | safeHTML }}</script>
 
   <script>
     (function () {
@@ -123,6 +131,8 @@ Usage: {{< datacenter-map>}}
       var initialCountriesParam = readJsonScript('dc-map-initial-countries', '');
       var showFilters = readJsonScript('dc-map-show-filters', true);
       var countryOnlyParam = readJsonScript('dc-map-country-only', null);
+      var highlightCountriesParam = readJsonScript('dc-map-highlight-countries', '');
+      var countryNameMap = readJsonScript('dc-map-country-names', {});
 
       // Vendor-jurisdiction categories (explicit 4-way split so legend matches UX)
       var vendorCategoryOrder = ['us', 'eu', 'swiss', 'china'];
@@ -261,6 +271,36 @@ Usage: {{< datacenter-map>}}
           var searchMatchKeys = new Set();
           var countryFilterSet = null;
           var hasRendered = false;
+
+          // Parse highlight countries for map coloring
+          // ECharts uses specific country names - map our names to ECharts names
+          var echartsNameOverrides = {
+            'USA': 'United States',
+            'United States of America': 'United States',
+            'UK': 'United Kingdom',
+            'Great Britain': 'United Kingdom',
+            'Russia': 'Russian Federation',
+            'South Korea': 'Korea',
+            'North Korea': 'Dem. Rep. Korea',
+            'Czech Republic': 'Czechia',
+            'UAE': 'United Arab Emirates'
+          };
+          var highlightCountrySet = parseCsvSet(highlightCountriesParam);
+          var highlightRegions = [];
+          if (highlightCountrySet && highlightCountrySet.size > 0) {
+            highlightCountrySet.forEach(function(code) {
+              var countryName = countryNameMap[code] || code;
+              // Apply ECharts name override if needed
+              countryName = echartsNameOverrides[countryName] || countryName;
+              highlightRegions.push({
+                name: countryName,
+                itemStyle: {
+                  areaColor: '#3b82f6',
+                  opacity: 0.6
+                }
+              });
+            });
+          }
           // Country maps always start in fit-to-country mode (zoom=1, center unset).
           // parseCsvSet defined above (before map fetch)
 
@@ -512,7 +552,8 @@ Usage: {{< datacenter-map>}}
                   itemStyle: {
                     areaColor: isDark ? '#525252' : '#d4d4d4'
                   }
-                }
+                },
+                regions: highlightRegions
               },
               series: scatterSeries
             };

@@ -1,4 +1,5 @@
 ---
+title: "Brazil"
 countryId: "BR"
 name: "Brazil"
 flag: "🇧🇷"

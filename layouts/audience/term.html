@@ -36,6 +36,12 @@
   "datacenters" (dict "icon" "server" "color" "neutral" "label" "Datacenter")
 }}
 
+{{/* Law types lookup */}}
+{{ $lawTypes := dict }}
+{{ range site.Data.laws.law_types.itemListElement }}
+  {{ $lawTypes = merge $lawTypes (dict .identifier .) }}
+{{ end }}
+
 {{/* Count by type for stats */}}
 {{ $typeCounts := dict }}
 {{ range $allPages }}
@@ -193,6 +199,16 @@
             {{/* Description preview */}}
             {{ with .Description }}
             <p class="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+            {{ end }}
+
+            {{/* Law type badge */}}
+            {{ if eq $section "laws" }}
+              {{ $lawType := index $lawTypes (.Params.category | default "") }}
+              {{ with $lawType }}
+              <div class="mt-2">
+                <span class="badge badge-sm badge-outline">{{ .emoji }} {{ .name }}</span>
+              </div>
+              {{ end }}
             {{ end }}
           </div>
         </a>

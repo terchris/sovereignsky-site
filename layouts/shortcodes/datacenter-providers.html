@@ -6,39 +6,92 @@ Renders provider cards linking to /datacenters/{provider_id}/
 */}}
 
 {{ $providers := site.Data.datacenters.datacenters | default (slice) }}
+{{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
+
+{{/* Build regions lookup */}}
+{{ $regionsById := dict }}
+{{ range $countries }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ end }}
+
+{{/* Build provider data with counts */}}
+{{ $providerData := slice }}
+{{ range $providers }}
+  {{ $provider := . }}
+  {{ $regionCount := 0 }}
+  {{ $providerCountries := slice }}
+  {{ $providerCities := slice }}
+  {{ range (.regions | default (slice)) }}
+    {{ $regionCount = add $regionCount 1 }}
+    {{ if not (in $providerCountries .countryId) }}
+      {{ $providerCountries = $providerCountries | append .countryId }}
+    {{ end }}
+    {{ $cityName := .city | default .name }}
+    {{ if not (in $providerCities $cityName) }}
+      {{ $providerCities = $providerCities | append $cityName }}
+    {{ end }}
+  {{ end }}
+
+  {{ $providerData = $providerData | append (dict
+    "identifier" $provider.identifier
+    "name" $provider.name
+    "providerType" $provider.providerType
+    "vendorCountryId" $provider.vendorCountryId
+    "count" $regionCount
+    "countryCount" (len $providerCountries)
+    "cityCount" (len $providerCities)
+  ) }}
+{{ end }}
+
+{{/* Sort by count desc, then name */}}
+{{ $providerData = sort $providerData "name" "asc" }}
+{{ $providerData = sort $providerData "count" "desc" }}
 
 {{/* Group providers by provider_type */}}
 {{ $groups := slice
   (dict "key" "hyperscaler" "title" "Hyperscalers")
-  (dict "key" "regional_cloud" "title" "Regional cloud providers")
-  (dict "key" "datacenter_operator" "title" "Datacenter operators")
+  (dict "key" "regional_cloud" "title" "Regional Cloud Providers")
+  (dict "key" "datacenter_operator" "title" "Datacenter Operators")
 }}
 
 {{ range $groups }}
   {{ $key := .key }}
   {{ $title := .title }}
-  {{ $items := where $providers "providerType" $key }}
-  {{ $items = sort $items "identifier" "asc" }}
-  {{ $items = sort $items "name" "asc" }}
+  {{ $items := where $providerData "providerType" $key }}
 
   {{ if gt (len $items) 0 }}
-  <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
-  <div class="flex flex-wrap gap-2">
+  <h3 class="mt-6 mb-4 text-lg font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
+  <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
     {{ range $items }}
-      {{ $region := partial "get-region-by-id.html" .vendorCountryId }}
-      {{ $flag := $region.flag | default "" }}
-      {{ $vendorName := $region.name | default .vendorCountryId }}
-      {{ $risk := $region.riskLevel | default "unknown" }}
-      {{ $regionCount := len (.regions | default (slice)) }}
+    {{ $vendor := index $regionsById .vendorCountryId }}
+    {{ $flag := "" }}
+    {{ $vendorName := .vendorCountryId }}
+    {{ $risk := "unknown" }}
+    {{ if $vendor }}
+      {{ $flag = $vendor.flag }}
+      {{ $vendorName = $vendor.name }}
+      {{ $risk = $vendor.riskLevel }}
+    {{ end }}
 
-      {{ partial "chip-link.html" (dict
-        "href" (printf "/datacenters/%s/" .identifier)
-        "title" (printf "Type: %s • HQ: %s (%s) • Risk: %s • Regions: %d" .providerType $vendorName .vendorCountryId $risk $regionCount)
-        "risk" $risk
-        "label" .name
-        "meta" (string $regionCount)
-        "flag" $flag
-      ) }}
+    {{ $dot := "bg-neutral-400" }}
+    {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+    {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+    {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+    {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+    {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
+    <a href="/datacenters/{{ .identifier }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+        <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+        {{ if $flag }}<span class="text-sm">{{ $flag }}</span>{{ end }}
+      </div>
+      <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+        <div>Datacenters: {{ .count }}</div>
+        <div>Countries: {{ .countryCount }}</div>
+        <div>Cities: {{ .cityCount }}</div>
+      </div>
+    </a>
     {{ end }}
   </div>
   {{ end }}

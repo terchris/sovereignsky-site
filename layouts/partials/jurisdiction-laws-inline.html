@@ -10,8 +10,8 @@
 {{ $jurisdictionId := .jurisdictionId | default "" }}
 {{ $country := .country | default dict }}
 {{ $laws := site.Data.laws.laws.itemListElement | default (slice) }}
-{{ $regions := site.Data.regions | default (slice) }}
-{{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{/* Build list of all applicable jurisdiction IDs (including inherited) */}}
 {{ $applicableIds := slice $jurisdictionId }}
@@ -146,7 +146,7 @@
           {{ $sourceName := $lawSource }}
           {{ $sourceFlag := "" }}
           {{ range $blocs }}
-            {{ if eq .id $lawSource }}
+            {{ if eq .identifier $lawSource }}
               {{ $sourceName = .name }}
               {{ $sourceFlag = .flag | default "" }}
             {{ end }}

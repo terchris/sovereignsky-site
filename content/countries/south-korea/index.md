@@ -1,4 +1,5 @@
 ---
+title: "South Korea"
 countryId: "KR"
 name: "South Korea"
 flag: "🇰🇷"

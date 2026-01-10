@@ -9,7 +9,7 @@
 
   {{ $blocId := .Params.blocId | default "" }}
   {{ $bloc := dict }}
-  {{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+  {{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
   {{ if not $blocId }}
     {{ $match := first 1 (where $blocsData "slug" $slug) }}
@@ -35,7 +35,7 @@
   {{ end }}
 
   {{/* Get effective members (direct + inherited) */}}
-  {{ $directMembers := $bloc.members | default (slice) }}
+  {{ $directMembers := $bloc.memberOf | default $bloc.members | default (slice) }}
   {{ $allMembers := slice }}
   {{ range $directMembers }}
     {{ $allMembers = $allMembers | append . }}
@@ -45,7 +45,7 @@
   {{ range ($bloc.inheritsFrom | default (slice)) }}
     {{ $parentBloc := index $blocsById . }}
     {{ if $parentBloc }}
-      {{ range ($parentBloc.members | default (slice)) }}
+      {{ range ($parentBloc.memberOf | default $parentBloc.members | default (slice)) }}
         {{ if not (in $allMembers .) }}
           {{ $allMembers = $allMembers | append . }}
         {{ end }}
@@ -54,7 +54,7 @@
       {{ range ($parentBloc.inheritsFrom | default (slice)) }}
         {{ $grandparent := index $blocsById . }}
         {{ if $grandparent }}
-          {{ range ($grandparent.members | default (slice)) }}
+          {{ range ($grandparent.memberOf | default $grandparent.members | default (slice)) }}
             {{ if not (in $allMembers .) }}
               {{ $allMembers = $allMembers | append . }}
             {{ end }}
@@ -110,9 +110,8 @@
     {{ end }}
   {{ end }}
 
-  {{/* Build comma-separated list of member country IDs for map */}}
-  {{/* Use direct members only for the map visualization */}}
-  {{ $directMemberIds := delimit $directMembers "," }}
+  {{/* Build comma-separated list of all member country IDs for map */}}
+  {{ $allMemberIds := delimit $allMembers "," }}
 
   <article class="max-w-full">
     {{/* Detail Header with breadcrumbs */}}
@@ -220,18 +219,65 @@
     </div>
     {{ end }}
 
-    {{/* Map of Member Countries - disabled due to ECharts rendering issues
+    {{/* Map of Member Countries with Datacenters */}}
     {{ if gt (len $directMembers) 0 }}
     <div class="mb-8">
-      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2" id="map">Member Countries Map</h2>
+      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2" id="map">Datacenters in {{ $blocName }}</h2>
       <p class="text-neutral-600 dark:text-neutral-400 mb-4">
-        Direct members of {{ $blocName }} are highlighted in blue.
+        Datacenter locations across {{ $memberCount }} member countries.
       </p>
-      {{ $mapShortcode := printf "{{< bloc-member-map members=\"%s\" >}}" $directMemberIds }}
+      {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $allMemberIds }}
       {{ $mapShortcode | $.RenderString }}
     </div>
     {{ end }}
-    */}}
+
+    {{/* Applicable Laws */}}
+    {{ if gt $lawCount 0 }}
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2" id="laws">Applicable Laws</h2>
+      <p class="text-neutral-600 dark:text-neutral-400 mb-6">
+        {{ $lawCount }} laws and regulations apply to {{ $blocName }}.
+      </p>
+
+      {{/* Build law data from seenLaws */}}
+      {{ $lawData := slice }}
+      {{ range $seenLaws }}
+        {{ $lawId := . }}
+        {{ $lawMatch := first 1 (where site.Data.laws.laws.itemListElement "identifier" $lawId) }}
+        {{ with index $lawMatch 0 }}
+          {{ $law := . }}
+          {{ $lawData = $lawData | append (dict
+            "identifier" $law.identifier
+            "name" $law.name
+            "alternateName" ($law.alternateName | default "")
+            "slug" ($law.slug | default $law.identifier)
+            "dateEnacted" ($law.dateEnacted | default $law.legislationDate | default "")
+            "category" ($law.category | default "")
+            "legislationJurisdiction" ($law.legislationJurisdiction | default (slice))
+          ) }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Sort by name */}}
+      {{ $lawData = sort $lawData "name" "asc" }}
+
+      <div class="not-prose" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+        {{ range $lawData }}
+        <a href="/laws/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xl">⚖️</span>
+            <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+          </div>
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+            {{ with .alternateName }}<div>{{ . }}</div>{{ end }}
+            {{ with .category }}<div class="capitalize">{{ . | humanize }}</div>{{ end }}
+            {{ with .dateEnacted }}<div>Enacted: {{ . }}</div>{{ end }}
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
 
     {{/* Member Countries Grid */}}
     {{ if gt $memberCount 0 }}
@@ -241,44 +287,162 @@
         {{ $memberCount }} countries are part of {{ $blocName }}.
       </p>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {{ range $allMembers }}
-          {{ $countryMatch := first 1 (where site.Data.regions "identifier" .) }}
-          {{ with index $countryMatch 0 }}
+      {{/* Build sorted list of member country data */}}
+      {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+      {{ $memberCountryData := slice }}
+      {{ range $allMembers }}
+        {{ $memberId := . }}
+        {{ $countryMatch := first 1 (where $countries "identifier" $memberId) }}
+        {{ with index $countryMatch 0 }}
           {{ $country := . }}
-          {{ $isDirect := in $directMembers .identifier }}
 
           {{/* Count datacenters for this country */}}
           {{ $countryDcCount := 0 }}
           {{ range (site.Data.datacenters.datacenters | default (slice)) }}
             {{ range (.regions | default (slice)) }}
-              {{ if eq .countryId $country.identifier }}
+              {{ if eq .countryId $memberId }}
                 {{ $countryDcCount = add $countryDcCount 1 }}
               {{ end }}
             {{ end }}
           {{ end }}
 
-          <a href="/countries/{{ .slug }}/" class="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl">{{ .flag }}</span>
-              <div class="flex-1">
-                <h3 class="font-semibold text-neutral-900 dark:text-neutral-100">{{ .name }}</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-400">
-                  {{ if gt $countryDcCount 0 }}{{ $countryDcCount }} datacenter region{{ if ne $countryDcCount 1 }}s{{ end }}{{ else }}No datacenters{{ end }}
-                </p>
-              </div>
+          {{/* Count local laws for this country */}}
+          {{ $countryLawCount := 0 }}
+          {{ range (site.Data.laws.laws.itemListElement | default (slice)) }}
+            {{ if in .legislationJurisdiction $memberId }}
+              {{ $countryLawCount = add $countryLawCount 1 }}
+            {{ end }}
+          {{ end }}
+
+          {{ $memberCountryData = $memberCountryData | append (dict
+            "identifier" $memberId
+            "name" $country.name
+            "flag" $country.flag
+            "slug" $country.slug
+            "dcCount" $countryDcCount
+            "lawCount" $countryLawCount
+          ) }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Sort by country name */}}
+      {{ $memberCountryData = sort $memberCountryData "name" "asc" }}
+
+      <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+        {{ range $memberCountryData }}
+        <a href="/countries/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xl">{{ .flag }}</span>
+            <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+          </div>
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+            <div>Datacenters: {{ .dcCount }}</div>
+            <div>Local laws: {{ .lawCount }}</div>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+
+    {{/* Datacenter Providers in Bloc */}}
+    {{ if gt $datacenterCount 0 }}
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2" id="providers">Datacenter Providers in {{ $blocName }}</h2>
+      <p class="text-neutral-600 dark:text-neutral-400 mb-4">
+        Providers with datacenter presence across member countries.
+      </p>
+
+      {{/* Build provider list with counts in bloc */}}
+      {{ $providersInBloc := slice }}
+      {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+      {{ $regionsById := dict }}
+      {{ range $countries }}
+        {{ $regionsById = merge $regionsById (dict .identifier .) }}
+      {{ end }}
+
+      {{ range (site.Data.datacenters.datacenters | default (slice)) }}
+        {{ $provider := . }}
+        {{ $countInBloc := 0 }}
+        {{ $providerCountries := slice }}
+        {{ $providerCities := slice }}
+        {{ range (.regions | default (slice)) }}
+          {{ if in $allMembers .countryId }}
+            {{ $countInBloc = add $countInBloc 1 }}
+            {{ if not (in $providerCountries .countryId) }}
+              {{ $providerCountries = $providerCountries | append .countryId }}
+            {{ end }}
+            {{ $cityName := .city | default .name }}
+            {{ if not (in $providerCities $cityName) }}
+              {{ $providerCities = $providerCities | append $cityName }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{ if gt $countInBloc 0 }}
+          {{ $providersInBloc = $providersInBloc | append (dict
+            "identifier" $provider.identifier
+            "name" $provider.name
+            "providerType" $provider.providerType
+            "vendorCountryId" $provider.vendorCountryId
+            "count" $countInBloc
+            "countryCount" (len $providerCountries)
+            "cityCount" (len $providerCities)
+          ) }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Sort by count desc, then name */}}
+      {{ $providersInBloc = sort $providersInBloc "name" "asc" }}
+      {{ $providersInBloc = sort $providersInBloc "count" "desc" }}
+
+      {{/* Group by provider type */}}
+      {{ $groups := slice
+        (dict "key" "hyperscaler" "title" "Hyperscalers")
+        (dict "key" "regional_cloud" "title" "Regional Cloud Providers")
+        (dict "key" "datacenter_operator" "title" "Datacenter Operators")
+      }}
+
+      {{ range $groups }}
+        {{ $key := .key }}
+        {{ $title := .title }}
+        {{ $items := where $providersInBloc "providerType" $key }}
+        {{ if gt (len $items) 0 }}
+        <h3 class="mt-6 mb-4 text-lg font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
+        <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+          {{ range $items }}
+          {{ $vendor := index $regionsById .vendorCountryId }}
+          {{ $flag := "" }}
+          {{ $vendorName := .vendorCountryId }}
+          {{ $risk := "unknown" }}
+          {{ if $vendor }}
+            {{ $flag = $vendor.flag }}
+            {{ $vendorName = $vendor.name }}
+            {{ $risk = $vendor.riskLevel }}
+          {{ end }}
+
+          {{ $dot := "bg-neutral-400" }}
+          {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+          {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+          {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+          {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+          {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
+          <a href="/datacenters/{{ .identifier }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+              <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+              {{ if $flag }}<span class="text-sm">{{ $flag }}</span>{{ end }}
             </div>
-            <div class="mt-2 flex items-center gap-2">
-              {{ $riskColors := dict "low" "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "moderate" "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" "elevated" "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" "high" "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" }}
-              <span class="inline-block px-2 py-0.5 text-xs rounded {{ index $riskColors .riskLevel | default "bg-neutral-100 text-neutral-800" }}">{{ .riskLevel | title }}</span>
-              {{ if not $isDirect }}
-              <span class="text-xs text-neutral-400">Inherited</span>
-              {{ end }}
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+              <div>Datacenters: {{ .count }}</div>
+              <div>Countries: {{ .countryCount }}</div>
+              <div>Cities: {{ .cityCount }}</div>
             </div>
           </a>
           {{ end }}
+        </div>
         {{ end }}
-      </div>
+      {{ end }}
     </div>
     {{ end }}
 

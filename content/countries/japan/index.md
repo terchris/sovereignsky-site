@@ -1,4 +1,5 @@
 ---
+title: "Japan"
 countryId: "JP"
 name: "Japan"
 flag: "🇯🇵"

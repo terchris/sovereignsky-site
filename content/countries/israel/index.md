@@ -1,4 +1,5 @@
 ---
+title: "Israel"
 countryId: "IL"
 name: "Israel"
 flag: "🇮🇱"

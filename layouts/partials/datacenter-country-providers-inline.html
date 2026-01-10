@@ -2,21 +2,26 @@
 Datacenter Country Providers list (inline partial)
 Usage: {{ partial "datacenter-country-providers-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
-Renders provider chips for providers with regions in a specific country.
+Renders provider cards for providers with regions in a specific country.
 */}}
 
 {{ $countryId := .countryId }}
 {{ $regionsById := .regionsById }}
 {{ $allProviders := site.Data.datacenters.datacenters | default (slice) }}
 
-{{/* Filter providers that have regions in this country and count regions per provider */}}
+{{/* Filter providers that have regions in this country and count regions/cities per provider */}}
 {{ $providersInCountry := slice }}
 {{ range $allProviders }}
   {{ $provider := . }}
   {{ $countInCountry := 0 }}
+  {{ $providerCities := slice }}
   {{ range .regions }}
     {{ if eq .countryId $countryId }}
       {{ $countInCountry = add $countInCountry 1 }}
+      {{ $cityName := .city | default .name }}
+      {{ if not (in $providerCities $cityName) }}
+        {{ $providerCities = $providerCities | append $cityName }}
+      {{ end }}
     {{ end }}
   {{ end }}
   {{ if gt $countInCountry 0 }}
@@ -25,7 +30,8 @@ Renders provider chips for providers with regions in a specific country.
       "name" $provider.name
       "providerType" $provider.providerType
       "vendorCountryId" $provider.vendorCountryId
-      "count_in_country" $countInCountry
+      "count" $countInCountry
+      "cityCount" (len $providerCities)
     ) }}
   {{ end }}
 {{ end }}
@@ -33,8 +39,8 @@ Renders provider chips for providers with regions in a specific country.
 {{/* Group providers by provider_type */}}
 {{ $groups := slice
   (dict "key" "hyperscaler" "title" "Hyperscalers")
-  (dict "key" "regional_cloud" "title" "Regional cloud providers")
-  (dict "key" "datacenter_operator" "title" "Datacenter operators")
+  (dict "key" "regional_cloud" "title" "Regional Cloud Providers")
+  (dict "key" "datacenter_operator" "title" "Datacenter Operators")
 }}
 
 {{ range $groups }}
@@ -42,10 +48,10 @@ Renders provider chips for providers with regions in a specific country.
   {{ $title := .title }}
   {{ $items := where $providersInCountry "providerType" $key }}
   {{ $items = sort $items "name" "asc" }}
-  {{ $items = sort $items "count_in_country" "desc" }}
+  {{ $items = sort $items "count" "desc" }}
   {{ if gt (len $items) 0 }}
-  <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
-  <div class="flex flex-wrap gap-2">
+  <h3 class="mt-6 mb-4 text-lg font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
+  <div class="not-prose" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
     {{ range $items }}
     {{ $vendor := index $regionsById .vendorCountryId }}
     {{ $flag := "" }}
@@ -64,14 +70,16 @@ Renders provider chips for providers with regions in a specific country.
     {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
     {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
-    <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-      href="/datacenters/{{ .identifier }}/"
-      title="Type: {{ .providerType }} • HQ: {{ $vendorName }} ({{ .vendorCountryId }}) • Risk: {{ $risk }} • Regions in country: {{ .count_in_country }}">
-      <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-      <span class="font-medium">{{ .name }}</span>
-      <span class="text-neutral-500 dark:text-neutral-400">
-        {{ if $flag }}{{ $flag }}{{ end }} {{ .count_in_country }}
-      </span>
+    <a href="/datacenters/{{ .identifier }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+        <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+        {{ if $flag }}<span class="text-sm">{{ $flag }}</span>{{ end }}
+      </div>
+      <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+        <div>Datacenters: {{ .count }}</div>
+        <div>Cities: {{ .cityCount }}</div>
+      </div>
     </a>
     {{ end }}
   </div>

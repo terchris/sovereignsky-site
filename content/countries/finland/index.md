@@ -1,4 +1,5 @@
 ---
+title: "Finland"
 countryId: "FI"
 name: "Finland"
 flag: "🇫🇮"

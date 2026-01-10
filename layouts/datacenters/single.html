@@ -19,7 +19,7 @@
   {{ end }}
 {{ end }}
 
-{{ $regions := site.Data.regions }}
+{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
 {{ $regionsById := dict }}
 {{ range $regions }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
@@ -46,7 +46,7 @@
 {{ end }}
 
 {{/* Risk label + emoji */}}
-{{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
+{{ $riskLevels := (site.Data.blocs.riskLevels | default site.Data.jurisdictions.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
   {{ if .label }}{{ $riskLabel = .label }}{{ end }}

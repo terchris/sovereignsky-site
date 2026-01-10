@@ -6,11 +6,11 @@
   Colors countries by risk_level field
 */}}
 
-{{ $regions := site.Data.regions }}
-{{ $jurisdictions := site.Data.jurisdictions }}
+{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $jurisdictions := site.Data.blocs }}
 
 {{/* Get risk level definitions */}}
-{{ $riskLevels := $jurisdictions.riskLevels }}
+{{ $riskLevels := $jurisdictions.riskLevels | default site.Data.blocs.riskLevels }}
 
 {{/* Build country data for the map */}}
 {{ $mapData := slice }}
@@ -30,7 +30,8 @@
 
 {{/* Bloc lookup for tooltip labels */}}
 {{ $blocsById := dict }}
-{{ range ($jurisdictions.blocs | default (slice)) }}
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
+{{ range $blocsData }}
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
@@ -106,6 +107,7 @@
 
 {{/* Stats - count jurisdictions by risk level */}}
 {{ $totalCountries := len $regions }}
+{{ $totalBlocs := len $blocsData }}
 {{ $lowRisk := 0 }}
 {{ $elevatedRisk := 0 }}
 {{ range $regions }}
@@ -121,6 +123,14 @@
     <div class="stat-title">Countries Tracked</div>
     <div class="stat-value text-primary">{{ $totalCountries }}</div>
     <div class="stat-desc">Jurisdictions monitored</div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-accent">
+      {{ partial "content-icon.html" (dict "name" "users" "color" "accent" "size" "8") }}
+    </div>
+    <div class="stat-title">Regional Blocs</div>
+    <div class="stat-value text-accent">{{ $totalBlocs }}</div>
+    <div class="stat-desc">Trade & legal frameworks</div>
   </div>
   <div class="stat">
     <div class="stat-figure text-success">
@@ -140,16 +150,6 @@
   </div>
 </div>
 
-{{/* Search Box */}}
-<div class="not-prose mb-6">
-  <label class="input input-bordered flex items-center gap-2 w-full">
-    <svg class="h-5 w-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-    </svg>
-    <input type="text" id="laws-map-search" class="grow" placeholder="Search jurisdictions by country, bloc, or law..." />
-  </label>
-  <div id="laws-map-suggestions" class="absolute z-10 mt-1 w-full max-h-64 overflow-auto rounded-lg border border-base-300 bg-base-100 shadow-lg" style="display:none;"></div>
-</div>
 
 {{/* Risk Level Filter */}}
 <div class="not-prose flex flex-wrap items-center gap-2 mb-4">
@@ -191,20 +191,6 @@
   <p class="text-neutral-500">Loading map...</p>
 </div>
 
-<div class="not-prose mt-6">
-  <details open class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
-    <summary class="cursor-pointer text-sm font-semibold text-neutral-800 dark:text-neutral-100">Countries</summary>
-    <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
-      <div class="text-xs text-neutral-500 dark:text-neutral-400">Filtered list (matches current search/filters)</div>
-      <div class="flex flex-wrap gap-2">
-        <button type="button" data-sort="datacenters" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: datacenters</button>
-        <button type="button" data-sort="risk" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: risk</button>
-        <button type="button" data-sort="az" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: A–Z</button>
-      </div>
-    </div>
-    <div id="laws-countries-list" class="mt-3 flex flex-wrap gap-2"></div>
-  </details>
-</div>
 
 <script>
 (function() {
@@ -213,7 +199,7 @@
 
   // Region data from Hugo
   var regionsData = {{ $mapData | jsonify | safeJS }};
-  var blocsData = {{ ($jurisdictions.blocs | default (slice)) | jsonify | safeJS }};
+  var blocsData = {{ $blocsData | jsonify | safeJS }};
   var riskLevels = {{ ($jurisdictions.riskLevels | default dict) | jsonify | safeJS }};
 
   // Risk level colors from jurisdictions.json
@@ -283,19 +269,7 @@
           }
         },
         visualMap: {
-          min: 0,
-          max: 4,
-          left: 'left',
-          bottom: 20,
-          text: ['High Risk', 'Low Risk'],
-          textStyle: {
-            color: isDark ? '#e5e5e5' : '#333'
-          },
-          inRange: {
-            color: [riskColors.low, riskColors.moderate, riskColors.elevated, riskColors.high, riskColors.sanctioned]
-          },
-          calculable: false,
-          show: true
+          show: false
         },
         series: [
           {
@@ -475,7 +449,7 @@
           if (d.slug) {
             var a = document.createElement('a');
             a.className = 'inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm';
-            a.href = '/jurisdictions/' + d.slug + '/';
+            a.href = '/countries/' + d.slug + '/';
             a.title = (d.originalName || d.name) + ' • ' + risk + (dc > 0 ? (' • Datacenters: ' + dc) : '');
             a.textContent = text;
             wrap.appendChild(a);
@@ -687,7 +661,7 @@
       // --- click to navigate ---
       myChart.on('click', function(params) {
         if (params && params.data && params.data.slug) {
-          window.location.href = '/jurisdictions/' + params.data.slug + '/';
+          window.location.href = '/countries/' + params.data.slug + '/';
         }
       });
 

@@ -1,4 +1,5 @@
 ---
+title: "Singapore"
 countryId: "SG"
 name: "Singapore"
 flag: "🇸🇬"

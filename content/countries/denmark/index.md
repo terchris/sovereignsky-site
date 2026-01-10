@@ -1,4 +1,5 @@
 ---
+title: "Denmark"
 countryId: "DK"
 name: "Denmark"
 flag: "🇩🇰"

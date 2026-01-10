@@ -1,4 +1,5 @@
 ---
+title: "Canada"
 countryId: "CA"
 name: "Canada"
 flag: "🇨🇦"

@@ -1,4 +1,5 @@
 ---
+title: "Bahrain"
 countryId: "BH"
 name: "Bahrain"
 flag: "🇧🇭"

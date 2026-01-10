@@ -1,4 +1,5 @@
 ---
+title: "Egypt"
 countryId: "EG"
 name: "Egypt"
 flag: "🇪🇬"

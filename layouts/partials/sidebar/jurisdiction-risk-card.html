@@ -16,7 +16,8 @@
 
 {{ $country := dict }}
 {{ if $countryId }}
-  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
+  {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $match := first 1 (where $countries "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}
   {{ end }}
@@ -38,7 +39,7 @@
 {{ if eq $risk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ $riskLabel = "Sanctioned" }}{{ end }}
 
 {{/* Get bloc names */}}
-{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
 {{ $blocNames := slice }}
 {{ range ($country.blocs | default (slice)) }}
   {{ $blocId := . }}
@@ -56,7 +57,7 @@
       Risk Assessment
     </h3>
     {{ if $slug }}
-    <a href="/jurisdictions/{{ $slug }}/" class="text-xs opacity-60 -mt-1 hover:underline no-underline">
+    <a href="/countries/{{ $slug }}/" class="text-xs opacity-60 -mt-1 hover:underline no-underline">
       {{ $countryFlag }} {{ $countryName }}
     </a>
     {{ else }}

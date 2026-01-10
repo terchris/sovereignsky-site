@@ -14,14 +14,16 @@
   {{ $laws = $laws | first $limit }}
 {{ end }}
 
-{{/* Build lookup maps for regions and blocs to get flags */}}
+{{/* Build lookup maps for countries and blocs to get flags */}}
 {{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
+{{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ range ($countries | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
 {{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
+{{ range $blocs }}
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 

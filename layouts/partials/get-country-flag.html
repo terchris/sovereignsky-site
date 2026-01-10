@@ -4,8 +4,8 @@
   Returns: 🇳🇴 (just the emoji, no wrapper)
 
   Looks up flag from:
-  1. regions.json by identifier (country codes like NO, US, GB)
-  2. jurisdictions.json blocs by identifier (eu, eea, EU_EEA, five-eyes, etc.)
+  1. countries.json by identifier (country codes like NO, US, GB)
+  2. blocs.json by identifier (eu, eea, five-eyes, etc.)
   3. Special alias: UK → GB
 
   Falls back to 🏳️ if not found.
@@ -13,15 +13,17 @@
 {{- $code := . -}}
 {{- $flag := "" -}}
 
-{{- /* 1. Try regions.json first */ -}}
-{{- $regionMatch := first 1 (where site.Data.regions "identifier" $code) -}}
+{{- /* 1. Try countries.json first */ -}}
+{{- $countries := site.Data.countries.countries.itemListElement | default site.Data.regions -}}
+{{- $regionMatch := first 1 (where $countries "identifier" $code) -}}
 {{- with index $regionMatch 0 -}}
   {{- $flag = .flag | default "" -}}
 {{- end -}}
 
-{{- /* 2. If not found, try jurisdictions.blocs */ -}}
+{{- /* 2. If not found, try blocs.json */ -}}
 {{- if not $flag -}}
-  {{- $blocMatch := first 1 (where site.Data.jurisdictions.blocs "identifier" $code) -}}
+  {{- $blocs := site.Data.blocs.blocs.itemListElement | default (slice) -}}
+  {{- $blocMatch := first 1 (where $blocs "identifier" $code) -}}
   {{- with index $blocMatch 0 -}}
     {{- $flag = .flag | default "" -}}
   {{- end -}}

@@ -1,41 +1,45 @@
 {{/* Display bloc cards for the countries section */}}
-{{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default site.Data.jurisdictions.blocs | default (slice) }}
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 not-prose mb-8">
-  {{ range $blocs }}
-  {{ $memberCount := len (.members | default (slice)) }}
+{{/* Build blocs lookup */}}
+{{ $blocsById := dict }}
+{{ range $blocs }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
+{{ end }}
+
+{{/* Build bloc data with counts */}}
+{{ $blocData := slice }}
+{{ range $blocs }}
+  {{ $bloc := . }}
+  {{ $directMembers := .memberOf | default .members | default (slice) }}
+  {{ $memberCount := len $directMembers }}
 
   {{/* Count inherited members */}}
-  {{ $blocsById := dict }}
-  {{ range site.Data.jurisdictions.blocs }}
-    {{ $blocsById = merge $blocsById (dict .identifier .) }}
-  {{ end }}
-
-  {{ $totalMembers := $memberCount }}
+  {{ $allMembers := $directMembers }}
   {{ range (.inheritsFrom | default (slice)) }}
     {{ $parent := index $blocsById . }}
     {{ if $parent }}
-      {{ $totalMembers = add $totalMembers (len ($parent.members | default (slice))) }}
+      {{ range ($parent.memberOf | default $parent.members | default (slice)) }}
+        {{ if not (in $allMembers .) }}
+          {{ $allMembers = $allMembers | append . }}
+        {{ end }}
+      {{ end }}
       {{ range ($parent.inheritsFrom | default (slice)) }}
         {{ $grandparent := index $blocsById . }}
         {{ if $grandparent }}
-          {{ $totalMembers = add $totalMembers (len ($grandparent.members | default (slice))) }}
+          {{ range ($grandparent.memberOf | default $grandparent.members | default (slice)) }}
+            {{ if not (in $allMembers .) }}
+              {{ $allMembers = $allMembers | append . }}
+            {{ end }}
+          {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
 
-  {{/* Count datacenters */}}
-  {{ $allMembers := .members | default (slice) }}
-  {{ range (.inheritsFrom | default (slice)) }}
-    {{ $parent := index $blocsById . }}
-    {{ if $parent }}
-      {{ range ($parent.members | default (slice)) }}
-        {{ $allMembers = $allMembers | append . }}
-      {{ end }}
-    {{ end }}
-  {{ end }}
+  {{ $totalMembers := len $allMembers }}
 
+  {{/* Count datacenters */}}
   {{ $dcCount := 0 }}
   {{ range (site.Data.datacenters.datacenters | default (slice)) }}
     {{ range (.regions | default (slice)) }}
@@ -45,21 +49,30 @@
     {{ end }}
   {{ end }}
 
-  <a href="/countries/{{ .slug }}/" class="block p-4 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-base-100">
-    <div class="flex items-center gap-3 mb-2">
-      <span class="text-3xl">{{ .flag }}</span>
-      <div>
-        <h3 class="font-semibold text-neutral-900 dark:text-neutral-100 text-lg">{{ .name }}</h3>
-      </div>
+  {{ $blocData = $blocData | append (dict
+    "identifier" $bloc.identifier
+    "name" $bloc.name
+    "flag" $bloc.flag
+    "slug" ($bloc.slug | default $bloc.identifier)
+    "riskLevel" $bloc.riskLevel
+    "memberCount" $totalMembers
+    "dcCount" $dcCount
+  ) }}
+{{ end }}
+
+{{/* Sort by name */}}
+{{ $blocData = sort $blocData "name" "asc" }}
+
+<div class="not-prose mb-8" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+  {{ range $blocData }}
+  <a href="/countries/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-xl">{{ .flag }}</span>
+      <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
     </div>
-    <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-3">{{ .abstract | default .description | truncate 100 }}</p>
-    <div class="flex flex-wrap gap-2">
-      {{ $riskColors := dict "low" "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" "moderate" "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200" "elevated" "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" "high" "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200" }}
-      <span class="inline-block px-2 py-0.5 text-xs rounded {{ index $riskColors .riskLevel | default "bg-neutral-100 text-neutral-800" }}">{{ .riskLevel | title }} Risk</span>
-      <span class="inline-block px-2 py-0.5 text-xs rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">{{ $totalMembers }} countries</span>
-      {{ if gt $dcCount 0 }}
-      <span class="inline-block px-2 py-0.5 text-xs rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">{{ $dcCount }} DCs</span>
-      {{ end }}
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+      <div>Members: {{ .memberCount }}</div>
+      <div>Datacenters: {{ .dcCount }}</div>
     </div>
   </a>
   {{ end }}

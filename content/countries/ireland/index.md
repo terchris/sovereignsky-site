@@ -1,4 +1,5 @@
 ---
+title: "Ireland"
 countryId: "IE"
 name: "Ireland"
 flag: "🇮🇪"

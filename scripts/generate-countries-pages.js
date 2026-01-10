@@ -73,6 +73,7 @@ function main() {
 
       // Layout auto-generates title, map, laws, and providers sections from countryId
       const md = `---
+title: "${meta.name}"
 countryId: "${cid}"
 name: "${meta.name}"
 flag: "${meta.flag || ''}"
