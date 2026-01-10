@@ -1,32 +1,22 @@
 {{/*
   Inline partial for risk assessment - used by provider.html layout
-  Same logic as the datacenter-risk-assessment shortcode but callable from layouts
+  Reads vendor data from page params (frontmatter).
+  Still needs regions.json for bloc memberships.
 
   Parameters:
-    provider: The provider object from datacenters.json
-    regionsById: Map of region ID to region object
+    Page: The page object to read params from
 */}}
 
-{{ $provider := .provider | default dict }}
-{{ $regionsById := .regionsById | default dict }}
+{{ $page := .Page }}
 
-{{ $hqId := $provider.vendorCountryId | default "" }}
-{{ $hq := dict }}
-{{ $hqRisk := "unknown" }}
-{{ $hqName := "" }}
-{{ $hqFlag := "" }}
-{{ $hqSlug := "" }}
+{{ $providerId := $page.Params.provider_id | default "" }}
+{{ $hqId := $page.Params.vendor_country_id | default "" }}
+{{ $hqName := $page.Params.vendor_country_name | default $hqId }}
+{{ $hqFlag := $page.Params.vendor_country_flag | default "" }}
+{{ $hqRisk := $page.Params.vendor_risk | default "unknown" }}
+{{ $hqSlug := $page.Params.vendor_country_slug | default "" }}
 
-{{ if $hqId }}
-  {{ $hq = index $regionsById $hqId }}
-  {{ if $hq }}
-    {{ $hqRisk = $hq.riskLevel }}
-    {{ $hqName = $hq.name }}
-    {{ $hqFlag = $hq.flag }}
-    {{ $hqSlug = $hq.slug }}
-  {{ end }}
-{{ end }}
-
+{{/* Get risk label from riskLevels */}}
 {{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
@@ -39,6 +29,13 @@
 {{ if eq $hqRisk "elevated" }}{{ $riskEmoji = "🔶" }}{{ end }}
 {{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
 {{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
+
+{{/* Get bloc memberships from regions.json */}}
+{{ $regionsById := dict }}
+{{ range (site.Data.regions | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ end }}
+{{ $hq := index $regionsById $hqId }}
 
 {{ $blocsById := dict }}
 {{ range (site.Data.jurisdictions.blocs | default (slice)) }}
@@ -54,7 +51,7 @@
   {{ end }}
 {{ end }}
 
-{{ if $provider }}
+{{ if $providerId }}
 <div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
   <div class="flex flex-wrap items-center gap-3">
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">

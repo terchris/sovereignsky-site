@@ -1,24 +1,19 @@
 ---
-title: "🇮🇱 Israel Datacenters"
-description: "Datacenter regions physically located in Israel."
+countryId: "IL"
+name: "Israel"
+flag: "🇮🇱"
+slug: "israel"
+abstract: "Adequacy country with advanced cybersecurity sector but surveillance technology concerns."
+summary: "Israel has partial EU adequacy and a world-leading cybersecurity industry. However, concerns about surveillance technology exports and regional political considerations affect sovereignty assessments."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: ["adequacy"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "IL"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Israel** across all providers.
-
-## Map
-
-{{< datacenter-map countries="IL" showFilters="false" >}}
-
-{{< datacenter-country-providers country="IL" >}}
-
-{{< datacenter-country-regions country="IL" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Israel](/jurisdictions/israel/)
-
-→ [Back to all datacenters](/datacenters/)

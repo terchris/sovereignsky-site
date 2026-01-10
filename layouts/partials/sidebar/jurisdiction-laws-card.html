@@ -1,5 +1,19 @@
-{{/* Jurisdiction Laws Summary Card - shows laws by type */}}
-{{ $countryId := .Params.country_id | default "" }}
+{{/* Jurisdiction Laws Summary Card - shows laws by type
+     Usage:
+       {{ partial "sidebar/jurisdiction-laws-card.html" . }}  - reads from .Params.countryId
+       {{ partial "sidebar/jurisdiction-laws-card.html" (dict "countryId" "IT") }}  - direct countryId
+*/}}
+
+{{ $countryId := "" }}
+{{ if reflect.IsMap . }}
+  {{ $countryId = .countryId | default "" }}
+{{ end }}
+{{ if not $countryId }}
+  {{ with .Params }}
+    {{ $countryId = .countryId | default .country_id | default "" }}
+  {{ end }}
+{{ end }}
+
 {{ $country := dict }}
 {{ if $countryId }}
   {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
@@ -27,10 +41,10 @@
     {{ end }}
   {{ end }}
 
-  {{/* Count laws by type */}}
-  {{ $.Scratch.Set "laws_total" 0 }}
-  {{ $.Scratch.Set "laws_byType" (dict) }}
-  {{ $.Scratch.Set "laws_seen" (slice) }}
+  {{/* Count laws by type using local variables */}}
+  {{ $lawsSeen := slice }}
+  {{ $lawsByType := dict }}
+  {{ $totalLaws := 0 }}
 
   {{ range site.Data.laws.laws.itemListElement }}
     {{ $law := . }}
@@ -39,24 +53,22 @@
       {{ $applyTo := . }}
       {{ range $applicableIds }}
         {{ if eq $applyTo . }}
-          {{ $seen := $.Scratch.Get "laws_seen" }}
           {{ $alreadyCounted := false }}
-          {{ range $seen }}
+          {{ range $lawsSeen }}
             {{ if eq . $lawId }}{{ $alreadyCounted = true }}{{ end }}
           {{ end }}
           {{ if not $alreadyCounted }}
-            {{ $.Scratch.Set "laws_total" (add ($.Scratch.Get "laws_total") 1) }}
+            {{ $totalLaws = add $totalLaws 1 }}
             {{ $lawType := $law.category | default "other" }}
-            {{ $currentCount := index ($.Scratch.Get "laws_byType") $lawType | default 0 }}
-            {{ $.Scratch.SetInMap "laws_byType" $lawType (add $currentCount 1) }}
-            {{ $.Scratch.Add "laws_seen" $lawId }}
+            {{ $currentCount := index $lawsByType $lawType | default 0 }}
+            {{ $lawsByType = merge $lawsByType (dict $lawType (add $currentCount 1)) }}
+            {{ $lawsSeen = $lawsSeen | append $lawId }}
           {{ end }}
         {{ end }}
       {{ end }}
     {{ end }}
   {{ end }}
 
-  {{ $totalLaws := $.Scratch.Get "laws_total" }}
   {{ if gt $totalLaws 0 }}
   <div class="card bg-base-100 shadow-sm border border-base-300">
     <div class="card-body p-4">
@@ -66,10 +78,9 @@
       </h3>
       <p class="text-xs opacity-60 -mt-1">{{ $totalLaws }} applicable laws</p>
       <div class="mt-2 space-y-3">
-        {{ $byType := $.Scratch.Get "laws_byType" }}
         {{ range site.Data.laws.law_types.itemListElement }}
           {{ $type := .identifier }}
-          {{ $count := index $byType $type }}
+          {{ $count := index $lawsByType $type }}
           {{ if $count }}
             <a href="#{{ $type }}-laws" class="block p-2 rounded-lg bg-base-200 hover:bg-base-300 transition-colors no-underline">
               <div class="flex justify-between items-center">

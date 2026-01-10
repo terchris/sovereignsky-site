@@ -1,214 +1,79 @@
 ---
 title: "Aruba Cloud Datacenters"
 description: "Datacenter locations for Aruba Cloud, colored by vendor jurisdiction"
+layout: "provider"
+type: "datacenters"
 echarts: true
-provider_id: "aruba"
 showTableOfContents: true
+provider_id: "aruba"
+provider_name: "Aruba Cloud"
+provider_type: "regional_cloud"
+provider_url: "https://www.arubacloud.com"
+date_modified: "2025-12-21"
+vendor_country_id: "IT"
+vendor_country_name: "Italy"
+vendor_country_flag: "🇮🇹"
+vendor_country_slug: "italy"
+vendor_risk: "low"
+total_regions: 7
+total_countries: 4
+regions:
+  -
+    identifier: "it1"
+    name: "Arezzo IT1"
+    countryId: "IT"
+    city: "Arezzo"
+    coordinates:
+      - 43.4633
+      - 11.8798
+  -
+    identifier: "it2"
+    name: "Arezzo IT2"
+    countryId: "IT"
+    city: "Arezzo"
+    coordinates:
+      - 43.4633
+      - 11.8798
+  -
+    identifier: "it3"
+    name: "Bergamo IT3"
+    countryId: "IT"
+    city: "Ponte San Pietro"
+    coordinates:
+      - 45.6986
+      - 9.5883
+  -
+    identifier: "it4"
+    name: "Rome IT4"
+    countryId: "IT"
+    city: "Rome"
+    coordinates:
+      - 41.9028
+      - 12.4964
+  -
+    identifier: "de1"
+    name: "Frankfurt DE1"
+    countryId: "DE"
+    city: "Frankfurt"
+    coordinates:
+      - 50.1109
+      - 8.6821
+  -
+    identifier: "uk1"
+    name: "Slough UK1"
+    countryId: "GB"
+    city: "Slough"
+    coordinates:
+      - 51.5105
+      - -0.595
+  -
+    identifier: "fr1"
+    name: "Paris FR1"
+    countryId: "FR"
+    city: "Saint-Denis"
+    coordinates:
+      - 48.9362
+      - 2.3574
 ---
 
-## Provider
-
-{{< datacenter-provider-summary >}}
-
-## Risk Assessment: 🇮🇹 Italy
-
-{{< datacenter-risk-assessment >}}
-
-## Map
-
-{{< datacenter-map providers="aruba" showFilters="false" >}}
-
-## Laws in provider jurisdiction
-
-<details class="not-prose mt-2">
-  <summary class="cursor-pointer font-semibold">Show laws (7)</summary>
-  <div class="prose dark:prose-invert mt-3">
-
-### Bloc laws
-
-### GDPR (2018)
-
-**General Data Protection Regulation**
-
-EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-
----
-
-### Data Act (2024)
-
-**Regulation on harmonised rules on fair access to and use of data**
-
-EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
-
----
-
-### AI Act (2024)
-
-**Regulation on Artificial Intelligence**
-
-World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
-
-- **Severity:** none
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-
----
-
-### EEA Agreement (1994)
-
-**Agreement on the European Economic Area**
-
-Treaty extending EU internal market rules, including data protection regulations, to Norway, Iceland, and Liechtenstein.
-
-- **Severity:** limited
-- **Applies via:** [European Economic Area](/laws/eea/)
-- **Source:** [Read the law](https://www.efta.int/eea/eea-agreement)
-
----
-
-### Inherited laws
-
-### GDPR (2018)
-
-**General Data Protection Regulation**
-
-EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-
----
-
-### Data Act (2024)
-
-**Regulation on harmonised rules on fair access to and use of data**
-
-EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
-
----
-
-### AI Act (2024)
-
-**Regulation on Artificial Intelligence**
-
-World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
-
-- **Severity:** none
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-
----
-
-
-  </div>
-</details>
-
-## Locations by country
-
-_Last updated: 2025-12-21_
-
-<div class="not-prose mt-3 mb-2">
-  <div class="flex flex-wrap gap-2 items-center">
-    <input class="ss-dc-loc-filter-input w-full sm:w-auto px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-           type="search"
-           placeholder="Filter locations (country, city, region id)…" />
-    <button type="button" class="ss-dc-loc-filter-clear px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-      Clear
-    </button>
-  </div>
-  <div class="mt-2 flex flex-wrap gap-2 items-center">
-    <span class="text-xs text-neutral-500 dark:text-neutral-400">Quick:</span>
-    <button type="button" data-ss-dc-set="euEea" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">EU/EEA</button>
-    <button type="button" data-ss-dc-set="nordics" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">Nordics</button>
-    <button type="button" data-ss-dc-set="us" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">US</button>
-    <button type="button" data-ss-dc-set="apac" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">APAC</button>
-  </div>
-</div>
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇮🇹 Italy (IT) — 4</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it arezzo it1 it1 arezzo">
-  <span class="font-medium">Arezzo IT1</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Arezzo <span class="text-neutral-400 dark:text-neutral-500">(it1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it arezzo it2 it2 arezzo">
-  <span class="font-medium">Arezzo IT2</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Arezzo <span class="text-neutral-400 dark:text-neutral-500">(it2)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it bergamo it3 it3 ponte san pietro">
-  <span class="font-medium">Bergamo IT3</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Ponte San Pietro <span class="text-neutral-400 dark:text-neutral-500">(it3)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it rome it4 it4 rome">
-  <span class="font-medium">Rome IT4</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Rome <span class="text-neutral-400 dark:text-neutral-500">(it4)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇫🇷 France (FR) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="FR"
-  data-search="france fr paris fr1 fr1 saint-denis">
-  <span class="font-medium">Paris FR1</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Saint-Denis <span class="text-neutral-400 dark:text-neutral-500">(fr1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇩🇪 Germany (DE) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="DE"
-  data-search="germany de frankfurt de1 de1 frankfurt">
-  <span class="font-medium">Frankfurt DE1</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Frankfurt <span class="text-neutral-400 dark:text-neutral-500">(de1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇬🇧 United Kingdom (GB) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="GB"
-  data-search="united kingdom gb slough uk1 uk1 slough">
-  <span class="font-medium">Slough UK1</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Slough <span class="text-neutral-400 dark:text-neutral-500">(uk1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-→ [Back to all providers](/datacenters/)
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

@@ -1,24 +1,19 @@
 ---
-title: "🇦🇹 Austria Datacenters"
-description: "Datacenter regions physically located in Austria."
+countryId: "AT"
+name: "Austria"
+flag: "🇦🇹"
+slug: "austria"
+abstract: "EU member with strong privacy activism heritage and rigorous data protection enforcement."
+summary: "Austria is known for privacy activism—the Schrems cases originated here. Austrian data protection enforcement is rigorous, making it a strong choice for privacy-focused European hosting."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "AT"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Austria** across all providers.
-
-## Map
-
-{{< datacenter-map countries="AT" showFilters="false" >}}
-
-{{< datacenter-country-providers country="AT" >}}
-
-{{< datacenter-country-regions country="AT" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Austria](/jurisdictions/austria/)
-
-→ [Back to all datacenters](/datacenters/)

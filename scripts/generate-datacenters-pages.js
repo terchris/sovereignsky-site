@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Generate /datacenters/{provider}/ pages from data/datacenters/providers.json
+ * Generate /datacenters/{provider}/ pages from data/datacenters/datacenters.json
  *
- * This script generates:
- * - content/datacenters/{provider_id}/index.md for each provider (e.g., /datacenters/aws/, /datacenters/azure/)
+ * This script generates minimal markdown files with all data in frontmatter.
+ * All content is rendered dynamically via shortcodes using page params.
  *
  * Usage: node scripts/generate-datacenters-pages.js
  */
@@ -23,182 +23,64 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
-function escapeHtml(input) {
-  return (input ?? '').toString()
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
+// Simple YAML serializer for frontmatter
+function toYaml(obj, indent = 0) {
+  const spaces = '  '.repeat(indent);
+  let result = '';
 
-function escapeAttr(input) {
-  // escapeHtml already escapes quotes; keep alias for readability at callsites
-  return escapeHtml(input);
-}
+  for (const [key, value] of Object.entries(obj)) {
+    if (value === null || value === undefined) continue;
 
-function titleForProvider(p) {
-  return `${p.name} Datacenters`;
-}
-
-function riskBadge(vendorRisk, riskLevels) {
-  const emoji = {
-    low: '✅',
-    moderate: '⚠️',
-    elevated: '🔶',
-    high: '🚨',
-    sanctioned: '⛔',
-    unknown: '❓'
-  }[vendorRisk] || '';
-  const def = riskLevels && riskLevels[vendorRisk];
-  const label = (def && def.label) ? def.label : (vendorRisk || 'unknown');
-  return `${emoji ? emoji + ' ' : ''}${label}`;
-}
-
-function getSeverityBadge(severity) {
-  const badges = {
-    protective: '🛡️ Protective',
-    neutral: '⚖️ Neutral',
-    medium: '⚠️ Medium Concern',
-    high: '🚨 High Concern'
-  };
-  return badges[severity] || severity || 'unknown';
-}
-
-function buildBlocsById(jurisdictions, lawsById) {
-  const blocsById = {};
-  (jurisdictions.blocs || []).forEach((bloc) => {
-    // Resolve law IDs to actual law objects
-    const resolvedLaws = (bloc.laws || []).map((lawId) => {
-      const law = lawsById[lawId];
-      if (law) {
-        return {
-          identifier: law.identifier,
-          name: law.name || lawId,
-          year: law.legislationDate || '',
-          full_name: law.alternateName || law.name || '',
-          summary: law.description || law.summary || '',
-          severity: law.governmentAccess || 'unknown',
-          url: law.url || ''
-        };
-      }
-      return null;
-    }).filter(Boolean);
-    blocsById[bloc.identifier] = { ...bloc, laws: resolvedLaws };
-  });
-  return blocsById;
-}
-
-function getInheritedLaws(bloc, blocsById, visited = new Set()) {
-  if (!bloc || visited.has(bloc.identifier)) return [];
-  visited.add(bloc.identifier);
-
-  let laws = [];
-  (bloc.inheritsFrom || []).forEach((parentId) => {
-    const parent = blocsById[parentId];
-    if (!parent) return;
-    if (parent.laws) {
-      laws = laws.concat(parent.laws.map((law) => ({
-        ...law,
-        source_bloc: parent.name,
-        source_bloc_id: parent.identifier
-      })));
-    }
-    laws = laws.concat(getInheritedLaws(parent, blocsById, visited));
-  });
-  return laws;
-}
-
-function getCountryLaws(region, blocsById, lawsById) {
-  // Resolve national law IDs to law objects
-  const nationalLaws = (region.nationalLaws || []).map((lawId) => {
-    const law = lawsById[lawId];
-    if (law) {
-      return {
-        identifier: law.identifier,
-        name: law.name || lawId,
-        year: law.legislationDate || '',
-        full_name: law.alternateName || law.name || '',
-        summary: law.description || law.summary || '',
-        severity: law.governmentAccess || 'unknown',
-        url: law.url || ''
-      };
-    }
-    return null;
-  }).filter(Boolean);
-
-  const result = {
-    national: nationalLaws,
-    bloc_laws: [],
-    inherited_laws: []
-  };
-  (region.blocs || []).forEach((blocId) => {
-    const bloc = blocsById[blocId];
-    if (!bloc) return;
-    if (bloc.laws) {
-      bloc.laws.forEach((law) => {
-        result.bloc_laws.push({
-          ...law,
-          source_bloc: bloc.name,
-          source_bloc_id: bloc.identifier
+    if (Array.isArray(value)) {
+      if (value.length === 0) {
+        result += `${spaces}${key}: []\n`;
+      } else if (typeof value[0] === 'object') {
+        result += `${spaces}${key}:\n`;
+        value.forEach((item) => {
+          result += `${spaces}  -\n`;
+          for (const [k, v] of Object.entries(item)) {
+            if (v === null || v === undefined) continue;
+            if (Array.isArray(v)) {
+              if (v.length === 0) {
+                result += `${spaces}    ${k}: []\n`;
+              } else {
+                result += `${spaces}    ${k}:\n`;
+                v.forEach((i) => {
+                  result += `${spaces}      - ${typeof i === 'string' ? `"${i}"` : i}\n`;
+                });
+              }
+            } else {
+              result += `${spaces}    ${k}: ${typeof v === 'string' ? `"${v}"` : v}\n`;
+            }
+          }
         });
-      });
+      } else {
+        result += `${spaces}${key}:\n`;
+        value.forEach((item) => {
+          result += `${spaces}  - ${typeof item === 'string' ? `"${item}"` : item}\n`;
+        });
+      }
+    } else if (typeof value === 'object') {
+      result += `${spaces}${key}:\n`;
+      result += toYaml(value, indent + 1);
+    } else if (typeof value === 'string') {
+      result += `${spaces}${key}: "${value.replace(/"/g, '\\"')}"\n`;
+    } else {
+      result += `${spaces}${key}: ${value}\n`;
     }
-    result.inherited_laws = result.inherited_laws.concat(getInheritedLaws(bloc, blocsById));
-  });
+  }
+
   return result;
-}
-
-function formatLawMd(law, showSourceBloc = false) {
-  const source = (law.url) ? `- **Source:** [Read the law](${law.url})\n` : '';
-  const via = (showSourceBloc && law.source_bloc && law.source_bloc_id)
-    ? `- **Applies via:** [${law.source_bloc}](/laws/${law.source_bloc_id}/)\n`
-    : '';
-  return [
-    `### ${law.name} (${law.year})`,
-    '',
-    `**${law.full_name}**`,
-    '',
-    `${law.summary}`,
-    '',
-    `- **Severity:** ${getSeverityBadge(law.severity)}`,
-    via + source,
-    '---',
-    ''
-  ].join('\n');
-}
-
-function groupRegionsByCountry(regions) {
-  const byCountry = new Map();
-  (regions || []).forEach((r) => {
-    const cid = r.countryId || '??';
-    if (!byCountry.has(cid)) byCountry.set(cid, []);
-    byCountry.get(cid).push(r);
-  });
-  return byCountry;
 }
 
 function main() {
   const providers = readJson(path.join(DATA_DIR, 'datacenters', 'datacenters.json'));
   const regionList = readJson(path.join(DATA_DIR, 'regions.json'));
-  const jurisdictions = readJson(path.join(DATA_DIR, 'jurisdictions.json'));
-  const lawsData = readJson(path.join(DATA_DIR, 'laws', 'laws.json'));
 
   const regionsById = {};
   regionList.forEach((r) => {
     regionsById[r.identifier] = r;
   });
-
-  // Build laws lookup from laws.json
-  const lawsById = {};
-  ((lawsData && lawsData.itemListElement) || []).forEach((law) => {
-    if (law.identifier) {
-      lawsById[law.identifier] = law;
-    }
-  });
-
-  const riskLevels = jurisdictions.riskLevels || {};
-  const blocsById = buildBlocsById(jurisdictions, lawsById);
 
   ensureDir(CONTENT_DIR);
 
@@ -210,153 +92,54 @@ function main() {
     const providerDir = path.join(CONTENT_DIR, providerId);
     ensureDir(providerDir);
 
-    const regions = p.regions || [];
-    const vendorCountry = p.vendorCountryId || 'Unknown';
-    const vendorRegion = regionsById[vendorCountry];
-    const vendorRisk = (vendorRegion && vendorRegion.riskLevel) ? vendorRegion.riskLevel : 'unknown';
-    const vendorCountryName = (vendorRegion && vendorRegion.name) ? vendorRegion.name : vendorCountry;
-    const vendorFlag = (vendorRegion && vendorRegion.flag) ? vendorRegion.flag : '';
-    const vendorLawSlug = (vendorRegion && vendorRegion.slug) ? vendorRegion.slug : null;
-    const vendorLawLink = vendorLawSlug ? `/laws/${vendorLawSlug}/` : null;
+    // Get vendor country info
+    const vendorCountryId = p.vendorCountryId || '';
+    const vendorRegion = regionsById[vendorCountryId] || {};
+    const vendorCountryName = vendorRegion.name || vendorCountryId;
+    const vendorFlag = vendorRegion.flag || '';
+    const vendorRisk = vendorRegion.riskLevel || 'unknown';
+    const vendorSlug = vendorRegion.slug || '';
 
-    const vendorBlocs = (vendorRegion && vendorRegion.blocs) ? vendorRegion.blocs : [];
-    const vendorBlocNames = vendorBlocs
-      .map((id) => blocsById[id] ? blocsById[id].name : id)
-      .filter(Boolean);
+    // Build frontmatter object
+    const frontmatter = {
+      title: `${p.name} Datacenters`,
+      description: `Datacenter locations for ${p.name}, colored by vendor jurisdiction`,
+      layout: 'provider',
+      type: 'datacenters',
+      echarts: true,
+      showTableOfContents: true,
+      // Provider data
+      provider_id: providerId,
+      provider_name: p.name,
+      provider_type: p.providerType || '',
+      provider_url: p.url || '',
+      date_modified: p.dateModified || '',
+      // Vendor jurisdiction
+      vendor_country_id: vendorCountryId,
+      vendor_country_name: vendorCountryName,
+      vendor_country_flag: vendorFlag,
+      vendor_country_slug: vendorSlug,
+      vendor_risk: vendorRisk,
+      // Region stats
+      total_regions: (p.regions || []).length,
+      total_countries: [...new Set((p.regions || []).map(r => r.countryId))].length,
+      // Regions data
+      regions: (p.regions || []).map(r => ({
+        identifier: r.identifier || '',
+        name: r.name || '',
+        countryId: r.countryId || '',
+        city: r.city || '',
+        coordinates: r.coordinates || []
+      }))
+    };
 
-    const laws = vendorRegion ? getCountryLaws(vendorRegion, blocsById, lawsById) : { national: [], bloc_laws: [], inherited_laws: [] };
-    const lawsMdParts = [];
-    if (laws.national && laws.national.length > 0) {
-      lawsMdParts.push('### National laws');
-      lawsMdParts.push('');
-      laws.national.forEach((law) => lawsMdParts.push(formatLawMd(law, false)));
-    }
-    if (laws.bloc_laws && laws.bloc_laws.length > 0) {
-      lawsMdParts.push('### Bloc laws');
-      lawsMdParts.push('');
-      laws.bloc_laws.forEach((law) => lawsMdParts.push(formatLawMd(law, true)));
-    }
-    if (laws.inherited_laws && laws.inherited_laws.length > 0) {
-      lawsMdParts.push('### Inherited laws');
-      lawsMdParts.push('');
-      laws.inherited_laws.forEach((law) => lawsMdParts.push(formatLawMd(law, true)));
-    }
-    const lawsMd = lawsMdParts.length > 0
-      ? lawsMdParts.join('\n')
-      : '_No laws are listed for this jurisdiction yet._\n';
+    // Generate YAML frontmatter
+    const yamlContent = toYaml(frontmatter);
 
-    // Build locations list grouped by physical country.
-    const byCountry = groupRegionsByCountry(regions);
-    const countryGroups = Array.from(byCountry.entries()).map(([countryId, items]) => {
-      const cr = regionsById[countryId];
-      return {
-        countryId,
-        countryName: (cr && cr.name) ? cr.name : countryId,
-        countryFlag: (cr && cr.flag) ? cr.flag : '',
-        count: items.length,
-        regions: items.slice().sort((a, b) => (a.name || '').localeCompare(b.name || ''))
-      };
-    }).sort((a, b) => {
-      if (b.count !== a.count) return b.count - a.count;
-      return a.countryName.localeCompare(b.countryName);
-    });
+    const md = `---
+${yamlContent}---
 
-    const locationsUpdated = p.dateModified || (p.meta && p.meta.updated) || '';
-    const locationsUpdatedMd = locationsUpdated
-      ? `\n_Last updated: ${locationsUpdated}_\n`
-      : '';
-
-    const lawCount =
-      (laws.national ? laws.national.length : 0) +
-      (laws.bloc_laws ? laws.bloc_laws.length : 0) +
-      (laws.inherited_laws ? laws.inherited_laws.length : 0);
-
-    const filterUiHtml = `
-<div class="not-prose mt-3 mb-2">
-  <div class="flex flex-wrap gap-2 items-center">
-    <input class="ss-dc-loc-filter-input w-full sm:w-auto px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-           type="search"
-           placeholder="Filter locations (country, city, region id)…" />
-    <button type="button" class="ss-dc-loc-filter-clear px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-      Clear
-    </button>
-  </div>
-  <div class="mt-2 flex flex-wrap gap-2 items-center">
-    <span class="text-xs text-neutral-500 dark:text-neutral-400">Quick:</span>
-    <button type="button" data-ss-dc-set="euEea" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">EU/EEA</button>
-    <button type="button" data-ss-dc-set="nordics" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">Nordics</button>
-    <button type="button" data-ss-dc-set="us" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">US</button>
-    <button type="button" data-ss-dc-set="apac" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">APAC</button>
-  </div>
-</div>
-`.trim();
-
-    const groupedLocationsMd = countryGroups.map((g) => {
-      const safeName = escapeHtml(g.countryName || g.countryId || '');
-      const summary = `${g.countryFlag ? g.countryFlag + ' ' : ''}${safeName} (${g.countryId}) — ${g.count}`;
-      const chips = g.regions.map((r) => {
-        const regionLabel = r.name || r.identifier || 'Region';
-        const cityText = r.city ? `— ${r.city}` : '';
-        const idText = r.identifier ? `(${r.identifier})` : '';
-        const search = `${g.countryName} ${g.countryId} ${regionLabel} ${r.identifier || ''} ${r.city || ''}`.toLowerCase();
-        return `<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="${g.countryId}"
-  data-search="${escapeAttr(search)}">
-  <span class="font-medium">${escapeHtml(regionLabel)}</span>
-  <span class="text-neutral-500 dark:text-neutral-400">${escapeHtml(cityText)}${idText ? ` <span class="text-neutral-400 dark:text-neutral-500">${escapeHtml(idText)}</span>` : ''}</span>
-</span>`;
-      }).join('\n');
-
-      return `
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">${summary}</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      ${chips || '<span class="text-sm text-neutral-500 dark:text-neutral-400">No locations.</span>'}
-    </div>
-  </details>
-</div>
-`.trim();
-    }).join('\n\n');
-
-    const md =
-`---
-title: "${titleForProvider(p)}"
-description: "Datacenter locations for ${p.name}, colored by vendor jurisdiction"
-echarts: true
-provider_id: "${providerId}"
-showTableOfContents: true
----
-
-## Provider
-
-{{< datacenter-provider-summary >}}
-
-## Risk Assessment: ${vendorFlag ? `${vendorFlag} ` : ''}${vendorCountryName}
-
-{{< datacenter-risk-assessment >}}
-
-## Map
-
-{{< datacenter-map providers="${providerId}" showFilters="false" >}}
-
-## Laws in provider jurisdiction
-
-<details class="not-prose mt-2">
-  <summary class="cursor-pointer font-semibold">Show laws (${lawCount || 0})</summary>
-  <div class="prose dark:prose-invert mt-3">
-
-${lawsMd}
-
-  </div>
-</details>
-
-## Locations by country
-${locationsUpdatedMd}
-${filterUiHtml}
-${groupedLocationsMd || '_No locations available._'}
-
-→ [Back to all providers](/datacenters/)
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*
 `;
 
     fs.writeFileSync(path.join(providerDir, 'index.md'), md);
@@ -367,5 +150,3 @@ ${groupedLocationsMd || '_No locations available._'}
 }
 
 main();
-
-

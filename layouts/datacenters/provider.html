@@ -1,76 +1,59 @@
 {{ define "main" }}
 {{ .Scratch.Set "scope" "single" }}
 
-{{/* Resolve provider from slug or provider_id */}}
-{{ $slug := "" }}
-{{ with .File }}
-  {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
-{{ end }}
+{{/* Read all data from page params (frontmatter) */}}
+{{ $providerId := .Params.provider_id | default "" }}
+{{ $providerName := .Params.provider_name | default $providerId }}
+{{ $providerUrl := .Params.provider_url | default "" }}
+{{ $providerType := .Params.provider_type | default "" }}
+{{ $dateModified := .Params.date_modified | default "" }}
+{{ $totalRegions := .Params.total_regions | default 0 }}
+{{ $totalCountries := .Params.total_countries | default 0 }}
+{{ $regions := .Params.regions | default (slice) }}
 
-{{ $providerId := .Params.identifier | default $slug }}
-{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
-{{ $provider := dict }}
-{{ range $providers }}
-  {{ if eq .identifier $providerId }}
-    {{ $provider = . }}
-  {{ end }}
-{{ end }}
+{{ $vendorCountryId := .Params.vendor_country_id | default "" }}
+{{ $vendorCountryName := .Params.vendor_country_name | default $vendorCountryId }}
+{{ $vendorCountryFlag := .Params.vendor_country_flag | default "" }}
+{{ $vendorCountrySlug := .Params.vendor_country_slug | default "" }}
+{{ $vendorRisk := .Params.vendor_risk | default "unknown" }}
 
-{{ $providerName := $provider.name | default $providerId }}
-{{ $vendorCountryId := $provider.vendorCountryId | default "" }}
-
-{{/* Build region lookup */}}
+{{/* Build region lookup for locations display */}}
 {{ $regionsById := dict }}
 {{ range (site.Data.regions | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 
-{{/* Get vendor country info */}}
-{{ $vendorCountry := dict }}
-{{ $vendorFlag := "" }}
-{{ $vendorCountryName := "" }}
-{{ $vendorCountrySlug := "" }}
+{{/* Build provider dict for partials that expect it */}}
+{{ $provider := dict
+    "identifier" $providerId
+    "name" $providerName
+    "url" $providerUrl
+    "providerType" $providerType
+    "dateModified" $dateModified
+    "vendorCountryId" $vendorCountryId
+    "regions" $regions
+}}
+
+{{/* Build vendor country dict for partials */}}
+{{ $vendorCountry := dict
+    "identifier" $vendorCountryId
+    "name" $vendorCountryName
+    "flag" $vendorCountryFlag
+    "slug" $vendorCountrySlug
+    "riskLevel" $vendorRisk
+}}
+
+{{/* Get full vendor country from regions for bloc info */}}
 {{ if $vendorCountryId }}
-  {{ $vendorCountry = index $regionsById $vendorCountryId }}
-  {{ if $vendorCountry }}
-    {{ $vendorFlag = $vendorCountry.flag | default "" }}
-    {{ $vendorCountryName = $vendorCountry.name | default $vendorCountryId }}
-    {{ $vendorCountrySlug = $vendorCountry.slug | default "" }}
+  {{ with index $regionsById $vendorCountryId }}
+    {{ $vendorCountry = . }}
   {{ end }}
 {{ end }}
 
 {{/* Auto-generate title */}}
-{{ $autoTitle := printf "%s Datacenters" $providerName }}
 {{ $displayTitle := .Title }}
 {{ if or (not .Title) (eq .Title "Index") (eq .Title "") }}
-  {{ $displayTitle = $autoTitle }}
-{{ end }}
-
-{{/* Count regions by country for sidebar */}}
-{{ $countryCounts := dict }}
-{{ $providerRegions := $provider.regions | default (slice) }}
-{{ range $providerRegions }}
-  {{ $countryId := .countryId }}
-  {{ $existing := index $countryCounts $countryId | default 0 }}
-  {{ $countryCounts = merge $countryCounts (dict $countryId (add $existing 1)) }}
-{{ end }}
-
-{{/* Calculate risk info for sidebar */}}
-{{ $hqRisk := "unknown" }}
-{{ $riskLabel := "" }}
-{{ $riskEmoji := "" }}
-{{ if $vendorCountry }}
-  {{ $hqRisk = $vendorCountry.riskLevel | default "unknown" }}
-  {{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
-  {{ $riskLabel = $hqRisk }}
-  {{ with index $riskLevels $hqRisk }}
-    {{ if .label }}{{ $riskLabel = .label }}{{ end }}
-  {{ end }}
-  {{ if eq $hqRisk "low" }}{{ $riskEmoji = "✅" }}{{ end }}
-  {{ if eq $hqRisk "moderate" }}{{ $riskEmoji = "⚠️" }}{{ end }}
-  {{ if eq $hqRisk "elevated" }}{{ $riskEmoji = "🔶" }}{{ end }}
-  {{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
-  {{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
+  {{ $displayTitle = printf "%s Datacenters" $providerName }}
 {{ end }}
 
 <article class="max-w-full">
@@ -93,7 +76,7 @@
       <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
 
         {{/* External link button */}}
-        {{ with $provider.url }}
+        {{ with $providerUrl }}
         <a class="btn btn-primary btn-outline w-full gap-2"
            href="{{ . }}"
            target="_blank"
@@ -104,156 +87,23 @@
         {{ end }}
 
         {{/* Provider Details Card */}}
-        {{ if $provider }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
-              Provider Details
-            </h3>
-            <dl class="mt-2 text-sm">
-              {{/* HQ */}}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Headquarters</dt>
-                <dd class="font-medium">{{ if $vendorFlag }}{{ $vendorFlag }} {{ end }}{{ $vendorCountryName }}</dd>
-              </div>
-              {{/* Total Regions */}}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Total Regions</dt>
-                <dd class="font-medium">{{ len $providerRegions }}</dd>
-              </div>
-              {{/* Countries */}}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Countries</dt>
-                <dd class="font-medium">{{ len $countryCounts }}</dd>
-              </div>
-              {{/* Provider Type */}}
-              {{ with $provider.providerType }}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
-                <dd class="font-medium">{{ . | title }}</dd>
-              </div>
-              {{ end }}
-              {{/* Data updated */}}
-              {{ with $provider.updated }}
-              <div class="pt-2 mt-2 border-t border-base-200">
-                <div class="text-xs text-neutral-500 dark:text-neutral-400">Data updated {{ . }}</div>
-              </div>
-              {{ end }}
-            </dl>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "sidebar/datacenter-provider-details-card.html" (dict "provider" $provider "vendorCountry" $vendorCountry) }}
 
-        {{/* Jurisdiction Card */}}
-        {{ if $vendorCountrySlug }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
-              Jurisdiction
-            </h3>
-            <div class="mt-2">
-              <a href="/jurisdictions/{{ $vendorCountrySlug }}/"
-                 class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
-                {{ if $vendorFlag }}{{ $vendorFlag }} {{ end }}{{ $vendorCountryName }} laws
-              </a>
-              {{ if $riskEmoji }}
-              <div class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-                {{ $riskEmoji }} {{ $riskLabel | title }} risk jurisdiction
-              </div>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{/* Risk Assessment Card */}}
+        {{ partial "sidebar/jurisdiction-risk-card.html" (dict "countryId" $vendorCountryId) }}
+
+        {{/* Jurisdiction Memberships Card */}}
+        {{ partial "sidebar/jurisdiction-memberships-card.html" (dict "countryId" $vendorCountryId) }}
+
+        {{/* Laws by Type Card */}}
+        {{ partial "sidebar/jurisdiction-laws-card.html" (dict "countryId" $vendorCountryId) }}
 
         {{/* Countries Card */}}
-        {{ if gt (len $countryCounts) 0 }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "globe" "color" "info" "size" "4") }}
-              Countries
-            </h3>
-            <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
-              {{ len $countryCounts }} countries, {{ len $providerRegions }} regions
-            </div>
-            <ul class="space-y-0.5 max-h-48 overflow-y-auto">
-              {{/* Sort countries by count descending */}}
-              {{ $countryItems := slice }}
-              {{ range $countryId, $count := $countryCounts }}
-                {{ $c := index $regionsById $countryId }}
-                {{ $name := $countryId }}
-                {{ $flag := "" }}
-                {{ $slug := "" }}
-                {{ if $c }}
-                  {{ $name = $c.name | default $countryId }}
-                  {{ $flag = $c.flag | default "" }}
-                  {{ $slug = $c.slug | default "" }}
-                {{ end }}
-                {{ $countryItems = $countryItems | append (dict "id" $countryId "name" $name "flag" $flag "slug" $slug "count" $count) }}
-              {{ end }}
-              {{ $countryItems = sort $countryItems "count" "desc" }}
-              {{ range $countryItems }}
-              <li>
-                {{ if .slug }}
-                <a href="/jurisdictions/{{ .slug }}/"
-                   title="{{ .name }}: {{ .count }} regions"
-                   class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
-                  <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
-                  <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
-                </a>
-                {{ else }}
-                <span class="text-sm block px-2 py-1 -mx-2 flex justify-between items-center">
-                  <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
-                  <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
-                </span>
-                {{ end }}
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "sidebar/datacenter-provider-countries-card.html" (dict "provider" $provider "regionsById" $regionsById) }}
 
-        {{/* Compare - other providers in same category */}}
-        {{ $providerType := $provider.providerType | default "" }}
-        {{ if $providerType }}
-          {{ $sameTypeProviders := slice }}
-          {{ range $providers }}
-            {{ if and (eq .providerType $providerType) (ne .identifier $providerId) }}
-              {{ $regionCount := len (.regions | default (slice)) }}
-              {{ $sameTypeProviders = $sameTypeProviders | append (dict "identifier" .identifier "name" .name "regionCount" $regionCount) }}
-            {{ end }}
-          {{ end }}
-          {{ if gt (len $sameTypeProviders) 0 }}
-            {{ $sameTypeProviders = sort $sameTypeProviders "regionCount" "desc" }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "compare" "color" "secondary" "size" "4") }}
-              Compare
-            </h3>
-            <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
-              Other {{ $providerType }} providers
-            </div>
-            <ul class="space-y-0.5">
-              {{ range first 8 $sameTypeProviders }}
-              <li>
-                <a href="/datacenters/{{ .identifier }}/"
-                   title="{{ .name }}: {{ .regionCount }} regions"
-                   class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
-                  <span>{{ .name }}</span>
-                  <span class="text-neutral-500 dark:text-neutral-400">{{ .regionCount }}</span>
-                </a>
-              </li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
-          {{ end }}
-        {{ end }}
+        {{/* Compare Card */}}
+        {{ $allProviders := site.Data.datacenters.datacenters | default (slice) }}
+        {{ partial "sidebar/datacenter-provider-compare-card.html" (dict "provider" $provider "allProviders" $allProviders) }}
 
         {{/* Related content */}}
         {{ partial "related-content-sidebar.html" . }}
@@ -272,24 +122,30 @@
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">
       <div class="article-content prose dark:prose-invert max-w-none mb-20">
-        {{/* Render any custom markdown content first (like laws template does) */}}
+
+        {{/* Map */}}
+        {{ $mapShortcode := printf "{{< datacenter-map providers=\"%s\" showFilters=\"false\" >}}" $providerId }}
+        {{ $mapShortcode | .Page.RenderString }}
+
+        {{/* Laws */}}
+        <h2 id="laws">Laws in provider jurisdiction</h2>
+        {{ partial "datacenter-provider-laws-inline.html" (dict "vendorCountryId" $vendorCountryId "vendorCountry" $vendorCountry) }}
+
+        {{/* Locations */}}
+        <h2 id="locations">Locations by Country</h2>
+        {{ partial "datacenter-provider-locations-inline.html" (dict "provider" $provider "regionsById" $regionsById) }}
+
+        {{/* Render any custom markdown content */}}
+        {{ if .Content }}
+        <hr class="mt-8">
         {{ .Content }}
-
-        {{/* Always auto-generate the standard sections after custom content */}}
-        {{ if $provider }}
-          <h2 id="map">Map</h2>
-          {{ $mapShortcode := printf "{{< datacenter-map providers=\"%s\" showFilters=\"false\" >}}" $providerId }}
-          {{ $mapShortcode | .Page.RenderString }}
-
-          <h2 id="locations">Locations by Country</h2>
-          {{ partial "datacenter-provider-locations-inline.html" (dict "provider" $provider "regionsById" $regionsById) }}
-
-          {{/* Back link */}}
-          <hr class="mt-8">
-          <p>
-            <a href="/datacenters/">← Back to all providers</a>
-          </p>
         {{ end }}
+
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="/datacenters/">← Back to all providers</a>
+        </p>
       </div>
     </div>
 

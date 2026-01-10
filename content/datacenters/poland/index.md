@@ -1,24 +1,19 @@
 ---
-title: "🇵🇱 Poland Datacenters"
-description: "Datacenter regions physically located in Poland."
+countryId: "PL"
+name: "Poland"
+flag: "🇵🇱"
+slug: "poland"
+abstract: "EU member with rapidly growing data center infrastructure in Central Europe."
+summary: "Poland is an EU member with expanding data center capacity serving Central and Eastern Europe. The country offers EU data protection standards with competitive operating costs."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "PL"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Poland** across all providers.
-
-## Map
-
-{{< datacenter-map countries="PL" showFilters="false" >}}
-
-{{< datacenter-country-providers country="PL" >}}
-
-{{< datacenter-country-regions country="PL" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Poland](/jurisdictions/poland/)
-
-→ [Back to all datacenters](/datacenters/)

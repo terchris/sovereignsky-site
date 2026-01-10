@@ -1,24 +1,19 @@
 ---
-title: "🇺🇸 USA Datacenters"
-description: "Datacenter regions physically located in USA."
+countryId: "US"
+name: "USA"
+flag: "🇺🇸"
+slug: "usa"
+abstract: "Major cloud provider jurisdiction with significant extraterritorial data access laws."
+summary: "The United States has broad surveillance laws including the CLOUD Act, FISA Section 702, and others that enable government access to data held by US companies globally. This creates significant sovereignty concerns for non-US organizations."
+body: ""
+image: ""
+riskLevel: "high"
+euMember: false
+eeaMember: false
+blocs: ["five-eyes"]
+lawConcern: true
+nationalLaws: ["cloud-act","fisa-702","patriot-act","ecpa"]
 echarts: true
 layout: "country"
-country_id: "US"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **USA** across all providers.
-
-## Map
-
-{{< datacenter-map countries="US" showFilters="false" >}}
-
-{{< datacenter-country-providers country="US" >}}
-
-{{< datacenter-country-regions country="US" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for USA](/jurisdictions/usa/)
-
-→ [Back to all datacenters](/datacenters/)

@@ -1,24 +1,19 @@
 ---
-title: "🇶🇦 Qatar Datacenters"
-description: "Datacenter regions physically located in Qatar."
+countryId: "QA"
+name: "Qatar"
+flag: "🇶🇦"
+slug: "qatar"
+abstract: "Gulf state with emerging data protection and regional hub ambitions."
+summary: "Qatar is developing data center infrastructure and data protection regulations. The country aims to serve as a regional hub with diversification beyond hydrocarbon industries."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "QA"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Qatar** across all providers.
-
-## Map
-
-{{< datacenter-map countries="QA" showFilters="false" >}}
-
-{{< datacenter-country-providers country="QA" >}}
-
-{{< datacenter-country-regions country="QA" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Qatar](/jurisdictions/qatar/)
-
-→ [Back to all datacenters](/datacenters/)

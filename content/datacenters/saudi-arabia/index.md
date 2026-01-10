@@ -1,24 +1,19 @@
 ---
-title: "🇸🇦 Saudi Arabia Datacenters"
-description: "Datacenter regions physically located in Saudi Arabia."
+countryId: "SA"
+name: "Saudi Arabia"
+flag: "🇸🇦"
+slug: "saudi-arabia"
+abstract: "Gulf region's largest economy with developing data protection and localization requirements."
+summary: "Saudi Arabia has data localization requirements and is developing comprehensive data protection regulations under Vision 2030 digitalization initiatives."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "SA"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Saudi Arabia** across all providers.
-
-## Map
-
-{{< datacenter-map countries="SA" showFilters="false" >}}
-
-{{< datacenter-country-providers country="SA" >}}
-
-{{< datacenter-country-regions country="SA" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Saudi Arabia](/jurisdictions/saudi-arabia/)
-
-→ [Back to all datacenters](/datacenters/)

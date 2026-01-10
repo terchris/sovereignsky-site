@@ -1,24 +1,19 @@
 ---
-title: "🇰🇷 South Korea Datacenters"
-description: "Datacenter regions physically located in South Korea."
+countryId: "KR"
+name: "South Korea"
+flag: "🇰🇷"
+slug: "south-korea"
+abstract: "Adequacy country with strong data protection enforcement and advanced infrastructure."
+summary: "South Korea received EU adequacy in 2022 and PIPA provides robust data protection with active enforcement. The country has world-class digital infrastructure and connectivity."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: false
+eeaMember: false
+blocs: ["adequacy"]
+lawConcern: false
+nationalLaws: ["pipa"]
 echarts: true
 layout: "country"
-country_id: "KR"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **South Korea** across all providers.
-
-## Map
-
-{{< datacenter-map countries="KR" showFilters="false" >}}
-
-{{< datacenter-country-providers country="KR" >}}
-
-{{< datacenter-country-regions country="KR" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for South Korea](/jurisdictions/south-korea/)
-
-→ [Back to all datacenters](/datacenters/)

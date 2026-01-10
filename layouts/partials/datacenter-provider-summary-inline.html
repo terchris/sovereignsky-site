@@ -1,31 +1,24 @@
 {{/*
   Inline partial for provider summary - used by provider.html layout
-  Same logic as the datacenter-provider-summary shortcode but callable from layouts
+  Reads all data from page params (frontmatter).
 
   Parameters:
-    provider: The provider object from datacenters.json
-    regionsById: Map of region ID to region object
+    Page: The page object to read params from
 */}}
 
-{{ $provider := .provider | default dict }}
-{{ $regionsById := .regionsById | default dict }}
+{{ $page := .Page }}
 
-{{ $hqId := $provider.vendorCountryId | default "" }}
-{{ $hq := dict }}
-{{ $hqName := "" }}
-{{ $hqFlag := "" }}
-{{ $hqRisk := "unknown" }}
-{{ $hqSlug := "" }}
+{{ $providerId := $page.Params.provider_id | default "" }}
+{{ $providerName := $page.Params.provider_name | default $providerId }}
+{{ $providerUrl := $page.Params.provider_url | default "" }}
+{{ $dateModified := $page.Params.date_modified | default "" }}
+{{ $totalRegions := $page.Params.total_regions | default 0 }}
 
-{{ if $hqId }}
-  {{ $hq = index $regionsById $hqId }}
-  {{ if $hq }}
-    {{ $hqName = $hq.name }}
-    {{ $hqFlag = $hq.flag }}
-    {{ $hqRisk = $hq.riskLevel }}
-    {{ $hqSlug = $hq.slug }}
-  {{ end }}
-{{ end }}
+{{ $hqId := $page.Params.vendor_country_id | default "" }}
+{{ $hqName := $page.Params.vendor_country_name | default $hqId }}
+{{ $hqFlag := $page.Params.vendor_country_flag | default "" }}
+{{ $hqRisk := $page.Params.vendor_risk | default "unknown" }}
+{{ $hqSlug := $page.Params.vendor_country_slug | default "" }}
 
 {{/* risk dot */}}
 {{ $dot := "bg-neutral-400" }}
@@ -35,7 +28,7 @@
 {{ if eq $hqRisk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
 {{ if eq $hqRisk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
-{{ if $provider }}
+{{ if $providerId }}
 <div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
   <div class="flex flex-wrap items-center gap-3">
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
@@ -48,19 +41,19 @@
 
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
       <span class="font-medium">Regions</span>
-      <span class="text-neutral-500 dark:text-neutral-400">{{ len ($provider.regions | default (slice)) }}</span>
+      <span class="text-neutral-500 dark:text-neutral-400">{{ $totalRegions }}</span>
     </span>
 
-    {{ if $provider.updated }}
+    {{ if $dateModified }}
       <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
         <span class="font-medium">Last updated</span>
-        <span class="text-neutral-500 dark:text-neutral-400">{{ $provider.updated }}</span>
+        <span class="text-neutral-500 dark:text-neutral-400">{{ $dateModified }}</span>
       </span>
     {{ end }}
 
-    {{ if $provider.url }}
+    {{ if $providerUrl }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="{{ $provider.url }}">
+         href="{{ $providerUrl }}">
         <span class="font-medium">Official site</span>
         <span class="text-neutral-500 dark:text-neutral-400">↗</span>
       </a>

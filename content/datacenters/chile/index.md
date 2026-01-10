@@ -1,24 +1,19 @@
 ---
-title: "🇨🇱 Chile Datacenters"
-description: "Datacenter regions physically located in Chile."
+countryId: "CL"
+name: "Chile"
+flag: "🇨🇱"
+slug: "chile"
+abstract: "Stable South American jurisdiction with developing data protection modernization."
+summary: "Chile offers political stability and growing data center infrastructure in South America. The country is modernizing its data protection framework to align with international standards."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "CL"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Chile** across all providers.
-
-## Map
-
-{{< datacenter-map countries="CL" showFilters="false" >}}
-
-{{< datacenter-country-providers country="CL" >}}
-
-{{< datacenter-country-regions country="CL" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Chile](/jurisdictions/chile/)
-
-→ [Back to all datacenters](/datacenters/)

@@ -1,24 +1,19 @@
 ---
-title: "🇮🇳 India Datacenters"
-description: "Datacenter regions physically located in India."
+countryId: "IN"
+name: "India"
+flag: "🇮🇳"
+slug: "india"
+abstract: "Major IT services hub with broad government surveillance powers and emerging data protection."
+summary: "India has broad surveillance powers under the IT Act. The new DPDP Act provides some protection but includes significant government exemptions. Major IT outsourcing destination."
+body: ""
+image: ""
+riskLevel: "elevated"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: true
+nationalLaws: ["it-act-2000","dpdp-act"]
 echarts: true
 layout: "country"
-country_id: "IN"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **India** across all providers.
-
-## Map
-
-{{< datacenter-map countries="IN" showFilters="false" >}}
-
-{{< datacenter-country-providers country="IN" >}}
-
-{{< datacenter-country-regions country="IN" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for India](/jurisdictions/india/)
-
-→ [Back to all datacenters](/datacenters/)

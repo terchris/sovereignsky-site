@@ -1,24 +1,19 @@
 ---
-title: "🇧🇭 Bahrain Datacenters"
-description: "Datacenter regions physically located in Bahrain."
+countryId: "BH"
+name: "Bahrain"
+flag: "🇧🇭"
+slug: "bahrain"
+abstract: "Gulf state with emerging data protection and regional financial services hub."
+summary: "Bahrain hosts regional data centers and financial services operations. The country has developing data protection regulations and serves as a Gulf connectivity hub."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "BH"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Bahrain** across all providers.
-
-## Map
-
-{{< datacenter-map countries="BH" showFilters="false" >}}
-
-{{< datacenter-country-providers country="BH" >}}
-
-{{< datacenter-country-regions country="BH" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Bahrain](/jurisdictions/bahrain/)
-
-→ [Back to all datacenters](/datacenters/)

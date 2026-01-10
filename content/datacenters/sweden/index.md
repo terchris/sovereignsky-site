@@ -1,24 +1,19 @@
 ---
-title: "🇸🇪 Sweden Datacenters"
-description: "Datacenter regions physically located in Sweden."
+countryId: "SE"
+name: "Sweden"
+flag: "🇸🇪"
+slug: "sweden"
+abstract: "EU member with advanced digital infrastructure and strong transparency traditions."
+summary: "Sweden is an EU member state with world-leading digital infrastructure and a long tradition of transparency in government. Home to major tech companies and data centers operating under comprehensive EU data protection."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "SE"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Sweden** across all providers.
-
-## Map
-
-{{< datacenter-map countries="SE" showFilters="false" >}}
-
-{{< datacenter-country-providers country="SE" >}}
-
-{{< datacenter-country-regions country="SE" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Sweden](/jurisdictions/sweden/)
-
-→ [Back to all datacenters](/datacenters/)

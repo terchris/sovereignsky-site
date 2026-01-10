@@ -84,6 +84,75 @@
 </div>
 {{ end }}
 
+{{/* Filter JavaScript */}}
+<script>
+(function() {
+  const filterInput = document.querySelector('.ss-dc-loc-filter-input');
+  const clearBtn = document.querySelector('.ss-dc-loc-filter-clear');
+  const quickBtns = document.querySelectorAll('[data-ss-dc-set]');
+  const countryGroups = document.querySelectorAll('.ss-dc-country-group');
+
+  const quickSets = {
+    euEea: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO'],
+    nordics: ['DK','FI','IS','NO','SE'],
+    us: ['US'],
+    apac: ['AU','CN','HK','IN','ID','JP','MY','NZ','PH','SG','KR','TW','TH','VN']
+  };
+
+  function applyFilter(filterText, countrySet) {
+    const query = (filterText || '').toLowerCase().trim();
+    countryGroups.forEach(group => {
+      const chips = group.querySelectorAll('.ss-dc-region-chip');
+      let groupVisible = false;
+      chips.forEach(chip => {
+        const countryId = chip.dataset.countryId || '';
+        const searchText = chip.dataset.search || '';
+        let visible = true;
+        if (countrySet && countrySet.length > 0) {
+          visible = countrySet.includes(countryId);
+        }
+        if (visible && query) {
+          visible = searchText.includes(query);
+        }
+        chip.style.display = visible ? '' : 'none';
+        if (visible) groupVisible = true;
+      });
+      group.style.display = groupVisible ? '' : 'none';
+      if (groupVisible) {
+        const details = group.querySelector('details');
+        if (details && (query || countrySet)) details.open = true;
+      }
+    });
+  }
+
+  if (filterInput) {
+    filterInput.addEventListener('input', function() {
+      applyFilter(this.value, null);
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      if (filterInput) filterInput.value = '';
+      applyFilter('', null);
+      countryGroups.forEach(g => {
+        const d = g.querySelector('details');
+        if (d) d.open = false;
+      });
+    });
+  }
+
+  quickBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const setName = this.dataset.ssDcSet;
+      const countrySet = quickSets[setName] || [];
+      if (filterInput) filterInput.value = '';
+      applyFilter('', countrySet);
+    });
+  });
+})();
+</script>
+
 {{ else }}
 <p class="text-neutral-500 dark:text-neutral-400 text-sm italic">No datacenter locations found for this provider.</p>
 {{ end }}

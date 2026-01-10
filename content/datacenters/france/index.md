@@ -1,24 +1,19 @@
 ---
-title: "🇫🇷 France Datacenters"
-description: "Datacenter regions physically located in France."
+countryId: "FR"
+name: "France"
+flag: "🇫🇷"
+slug: "france"
+abstract: "EU member championing European digital sovereignty with active data protection enforcement."
+summary: "France is a leading advocate for European digital sovereignty. The CNIL is one of Europe's most active data protection authorities, and France hosts significant cloud infrastructure initiatives."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "FR"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **France** across all providers.
-
-## Map
-
-{{< datacenter-map countries="FR" showFilters="false" >}}
-
-{{< datacenter-country-providers country="FR" >}}
-
-{{< datacenter-country-regions country="FR" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for France](/jurisdictions/france/)
-
-→ [Back to all datacenters](/datacenters/)

@@ -1,24 +1,19 @@
 ---
-title: "🇧🇪 Belgium Datacenters"
-description: "Datacenter regions physically located in Belgium."
+countryId: "BE"
+name: "Belgium"
+flag: "🇧🇪"
+slug: "belgium"
+abstract: "EU member hosting European institutions with comprehensive GDPR implementation."
+summary: "Belgium hosts major EU institutions in Brussels. Belgian data protection follows GDPR standards with strong institutional presence of European regulatory bodies."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "BE"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Belgium** across all providers.
-
-## Map
-
-{{< datacenter-map countries="BE" showFilters="false" >}}
-
-{{< datacenter-country-providers country="BE" >}}
-
-{{< datacenter-country-regions country="BE" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Belgium](/jurisdictions/belgium/)
-
-→ [Back to all datacenters](/datacenters/)

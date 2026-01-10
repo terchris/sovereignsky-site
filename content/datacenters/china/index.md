@@ -1,24 +1,19 @@
 ---
-title: "🇨🇳 China Datacenters"
-description: "Datacenter regions physically located in China."
+countryId: "CN"
+name: "China"
+flag: "🇨🇳"
+slug: "china"
+abstract: "Jurisdiction requiring cooperation with national intelligence and strict data localization."
+summary: "China's National Intelligence Law requires organizations to cooperate with state intelligence work. Combined with data localization requirements and cross-border transfer restrictions, this creates significant sovereignty challenges."
+body: ""
+image: ""
+riskLevel: "high"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: true
+nationalLaws: ["national-intelligence-law","cybersecurity-law","data-security-law","pipl"]
 echarts: true
 layout: "country"
-country_id: "CN"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **China** across all providers.
-
-## Map
-
-{{< datacenter-map countries="CN" showFilters="false" >}}
-
-{{< datacenter-country-providers country="CN" >}}
-
-{{< datacenter-country-regions country="CN" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for China](/jurisdictions/china/)
-
-→ [Back to all datacenters](/datacenters/)

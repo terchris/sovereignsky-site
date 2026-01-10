@@ -1,24 +1,19 @@
 ---
-title: "🇯🇵 Japan Datacenters"
-description: "Datacenter regions physically located in Japan."
+countryId: "JP"
+name: "Japan"
+flag: "🇯🇵"
+slug: "japan"
+abstract: "Adequacy country with comprehensive data protection aligned to international standards."
+summary: "Japan has an EU adequacy decision since 2019 and the APPI provides comprehensive data protection. Japanese data centers offer strong sovereignty for Asia-Pacific operations."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: false
+eeaMember: false
+blocs: ["adequacy"]
+lawConcern: false
+nationalLaws: ["appi"]
 echarts: true
 layout: "country"
-country_id: "JP"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Japan** across all providers.
-
-## Map
-
-{{< datacenter-map countries="JP" showFilters="false" >}}
-
-{{< datacenter-country-providers country="JP" >}}
-
-{{< datacenter-country-regions country="JP" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Japan](/jurisdictions/japan/)
-
-→ [Back to all datacenters](/datacenters/)

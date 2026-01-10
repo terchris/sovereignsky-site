@@ -1,24 +1,19 @@
 ---
-title: "🇵🇭 Philippines Datacenters"
-description: "Datacenter regions physically located in Philippines."
+countryId: "PH"
+name: "Philippines"
+flag: "🇵🇭"
+slug: "philippines"
+abstract: "Southeast Asian market with Data Privacy Act and growing BPO sector."
+summary: "The Philippines has the Data Privacy Act of 2012 enforced by the NPC. The country hosts significant business process outsourcing operations and growing data center infrastructure."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "PH"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Philippines** across all providers.
-
-## Map
-
-{{< datacenter-map countries="PH" showFilters="false" >}}
-
-{{< datacenter-country-providers country="PH" >}}
-
-{{< datacenter-country-regions country="PH" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Philippines](/jurisdictions/philippines/)
-
-→ [Back to all datacenters](/datacenters/)

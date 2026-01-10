@@ -1,24 +1,19 @@
 ---
-title: "🇨🇭 Switzerland Datacenters"
-description: "Datacenter regions physically located in Switzerland."
+countryId: "CH"
+name: "Switzerland"
+flag: "🇨🇭"
+slug: "switzerland"
+abstract: "Non-EU country with adequacy decision, banking privacy traditions, and strong data protection."
+summary: "Switzerland has an EU adequacy decision and the revised FADP provides strong data protection. The country combines neutrality with banking privacy traditions and strict data security standards."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: false
+eeaMember: false
+blocs: ["adequacy"]
+lawConcern: false
+nationalLaws: ["fadp"]
 echarts: true
 layout: "country"
-country_id: "CH"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Switzerland** across all providers.
-
-## Map
-
-{{< datacenter-map countries="CH" showFilters="false" >}}
-
-{{< datacenter-country-providers country="CH" >}}
-
-{{< datacenter-country-regions country="CH" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Switzerland](/jurisdictions/switzerland/)
-
-→ [Back to all datacenters](/datacenters/)

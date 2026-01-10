@@ -1,24 +1,19 @@
 ---
-title: "🇦🇺 Australia Datacenters"
-description: "Datacenter regions physically located in Australia."
+countryId: "AU"
+name: "Australia"
+flag: "🇦🇺"
+slug: "australia"
+abstract: "Five Eyes member with controversial encryption backdoor legislation."
+summary: "Australia's TOLA Act allows authorities to compel assistance in accessing encrypted data. As a Five Eyes member, Australia has extensive intelligence-sharing arrangements affecting data sovereignty."
+body: ""
+image: ""
+riskLevel: "elevated"
+euMember: false
+eeaMember: false
+blocs: ["five-eyes"]
+lawConcern: true
+nationalLaws: ["tola-act"]
 echarts: true
 layout: "country"
-country_id: "AU"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Australia** across all providers.
-
-## Map
-
-{{< datacenter-map countries="AU" showFilters="false" >}}
-
-{{< datacenter-country-providers country="AU" >}}
-
-{{< datacenter-country-regions country="AU" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Australia](/jurisdictions/australia/)
-
-→ [Back to all datacenters](/datacenters/)

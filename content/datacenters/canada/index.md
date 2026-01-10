@@ -1,24 +1,19 @@
 ---
-title: "🇨🇦 Canada Datacenters"
-description: "Datacenter regions physically located in Canada."
+countryId: "CA"
+name: "Canada"
+flag: "🇨🇦"
+slug: "canada"
+abstract: "Adequacy country with reasonable protection but Five Eyes intelligence sharing concerns."
+summary: "Canada has EU adequacy and PIPEDA provides reasonable data protection. However, Five Eyes membership means intelligence-sharing considerations for sensitive data sovereignty decisions."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: ["five-eyes","adequacy"]
+lawConcern: false
+nationalLaws: ["pipeda"]
 echarts: true
 layout: "country"
-country_id: "CA"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Canada** across all providers.
-
-## Map
-
-{{< datacenter-map countries="CA" showFilters="false" >}}
-
-{{< datacenter-country-providers country="CA" >}}
-
-{{< datacenter-country-regions country="CA" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Canada](/jurisdictions/canada/)
-
-→ [Back to all datacenters](/datacenters/)

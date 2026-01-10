@@ -1,24 +1,19 @@
 ---
-title: "🇧🇷 Brazil Datacenters"
-description: "Datacenter regions physically located in Brazil."
+countryId: "BR"
+name: "Brazil"
+flag: "🇧🇷"
+slug: "brazil"
+abstract: "Latin America's largest economy with LGPD data protection framework."
+summary: "Brazil enacted the LGPD (Lei Geral de Proteção de Dados) modeled on GDPR. As Latin America's largest market, Brazil hosts significant data center infrastructure with developing enforcement."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "BR"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Brazil** across all providers.
-
-## Map
-
-{{< datacenter-map countries="BR" showFilters="false" >}}
-
-{{< datacenter-country-providers country="BR" >}}
-
-{{< datacenter-country-regions country="BR" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Brazil](/jurisdictions/brazil/)
-
-→ [Back to all datacenters](/datacenters/)

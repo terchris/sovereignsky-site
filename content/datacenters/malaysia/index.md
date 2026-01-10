@@ -1,24 +1,19 @@
 ---
-title: "🇲🇾 Malaysia Datacenters"
-description: "Datacenter regions physically located in Malaysia."
+countryId: "MY"
+name: "Malaysia"
+flag: "🇲🇾"
+slug: "malaysia"
+abstract: "Southeast Asian hub with PDPA data protection and regional connectivity."
+summary: "Malaysia has the Personal Data Protection Act and hosts significant data center infrastructure. Kuala Lumpur and Johor serve as regional connectivity hubs for Southeast Asia."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "MY"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Malaysia** across all providers.
-
-## Map
-
-{{< datacenter-map countries="MY" showFilters="false" >}}
-
-{{< datacenter-country-providers country="MY" >}}
-
-{{< datacenter-country-regions country="MY" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Malaysia](/jurisdictions/malaysia/)
-
-→ [Back to all datacenters](/datacenters/)

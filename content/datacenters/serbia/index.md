@@ -1,24 +1,19 @@
 ---
-title: "🇷🇸 Serbia Datacenters"
-description: "Datacenter regions physically located in Serbia."
+countryId: "RS"
+name: "Serbia"
+flag: "🇷🇸"
+slug: "serbia"
+abstract: "EU candidate country aligning data protection with European standards."
+summary: "Serbia is an EU candidate country working to align its data protection framework with GDPR. Belgrade hosts regional data services as the country progresses toward EU membership."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "RS"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Serbia** across all providers.
-
-## Map
-
-{{< datacenter-map countries="RS" showFilters="false" >}}
-
-{{< datacenter-country-providers country="RS" >}}
-
-{{< datacenter-country-regions country="RS" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Serbia](/jurisdictions/serbia/)
-
-→ [Back to all datacenters](/datacenters/)

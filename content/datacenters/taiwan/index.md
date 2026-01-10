@@ -1,24 +1,19 @@
 ---
-title: "🇹🇼 Taiwan Datacenters"
-description: "Datacenter regions physically located in Taiwan."
+countryId: "TW"
+name: "Taiwan"
+flag: "🇹🇼"
+slug: "taiwan"
+abstract: "Advanced technology hub with data protection law and semiconductor industry concentration."
+summary: "Taiwan has comprehensive data protection under the Personal Data Protection Act. The island hosts critical semiconductor manufacturing and advanced technology infrastructure."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "TW"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Taiwan** across all providers.
-
-## Map
-
-{{< datacenter-map countries="TW" showFilters="false" >}}
-
-{{< datacenter-country-providers country="TW" >}}
-
-{{< datacenter-country-regions country="TW" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Taiwan](/jurisdictions/taiwan/)
-
-→ [Back to all datacenters](/datacenters/)

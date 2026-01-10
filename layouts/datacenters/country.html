@@ -7,7 +7,7 @@
   {{ $slug = strings.TrimSuffix "/" (strings.TrimPrefix "datacenters/" .Dir) }}
 {{ end }}
 
-{{ $countryId := .Params.countryId | default "" }}
+{{ $countryId := .Params.countryId | default .Params.country_id | default "" }}
 {{ $country := dict }}
 {{ if not $countryId }}
   {{ $match := first 1 (where site.Data.regions "slug" $slug) }}
@@ -31,15 +31,8 @@
   {{ $lawsSlug = $country.slug | default $slug }}
 {{ end }}
 
-{{/* Auto-generate title from regions.json if frontmatter title is not set */}}
-{{ $autoTitle := "" }}
-{{ if $countryName }}
-  {{ $autoTitle = printf "%s Datacenters" $countryName }}
-{{ end }}
-{{ $displayTitle := .Title }}
-{{ if and $autoTitle (or (not .Title) (eq .Title "Index") (eq .Title "")) }}
-  {{ $displayTitle = $autoTitle }}
-{{ end }}
+{{/* Auto-generate clean title without flag (partial will add flag) */}}
+{{ $displayTitle := printf "%s Datacenters" $countryName }}
 
 {{/* Build region lookup for use by partials */}}
 {{ $regionsById := dict }}
@@ -69,24 +62,6 @@
 {{ $providerItems = sort $providerItems "name" "asc" }}
 {{ $providerItems = sort $providerItems "count" "desc" }}
 
-{{/* Get risk info for country */}}
-{{ $hqRisk := "unknown" }}
-{{ $riskLabel := "" }}
-{{ $riskEmoji := "" }}
-{{ if $country }}
-  {{ $hqRisk = $country.riskLevel | default "unknown" }}
-  {{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
-  {{ $riskLabel = $hqRisk }}
-  {{ with index $riskLevels $hqRisk }}
-    {{ if .label }}{{ $riskLabel = .label }}{{ end }}
-  {{ end }}
-  {{ if eq $hqRisk "low" }}{{ $riskEmoji = "✅" }}{{ end }}
-  {{ if eq $hqRisk "moderate" }}{{ $riskEmoji = "⚠️" }}{{ end }}
-  {{ if eq $hqRisk "elevated" }}{{ $riskEmoji = "🔶" }}{{ end }}
-  {{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
-  {{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
-{{ end }}
-
 <article class="max-w-full">
   {{/* Detail Header with breadcrumbs */}}
   {{ partial "common-detail-header.html" (dict
@@ -107,62 +82,22 @@
       <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
 
         {{/* Country Details Card */}}
-        {{ if $country }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
-              Overview
-            </h3>
-            <dl class="mt-2 text-sm">
-              {{/* Providers */}}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Providers</dt>
-                <dd class="font-medium">{{ len $providerItems }}</dd>
-              </div>
-              {{/* Total Regions */}}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Total Regions</dt>
-                <dd class="font-medium">{{ $totalRegions }}</dd>
-              </div>
-              {{/* Risk level */}}
-              {{ if $riskEmoji }}
-              <div class="flex justify-between py-1">
-                <dt class="text-neutral-500 dark:text-neutral-400">Risk Level</dt>
-                <dd class="font-medium">{{ $riskEmoji }} {{ $riskLabel | title }}</dd>
-              </div>
-              {{ end }}
-            </dl>
-          </div>
-        </div>
-        {{ end }}
+        {{ partial "sidebar/datacenter-country-details-card.html" (dict "country" $country "providerCount" (len $providerItems) "regionCount" $totalRegions) }}
 
-        {{/* Jurisdiction Card */}}
-        {{ if $lawsSlug }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
-              Jurisdiction
-            </h3>
-            <div class="mt-2">
-              <a href="/jurisdictions/{{ $lawsSlug }}/"
-                 class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
-                {{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }} laws
-              </a>
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{/* Risk Assessment Card */}}
+        {{ partial "sidebar/jurisdiction-risk-card.html" (dict "countryId" $countryId) }}
+
+        {{/* Jurisdiction Memberships Card */}}
+        {{ partial "sidebar/jurisdiction-memberships-card.html" (dict "countryId" $countryId) }}
+
+        {{/* Laws by Type Card */}}
+        {{ partial "sidebar/jurisdiction-laws-card.html" (dict "countryId" $countryId) }}
 
         {{/* Providers sidebar section */}}
         {{ partial "datacenter-country-providers-sidebar.html" (dict "providerItems" $providerItems "countryName" $countryName "countryFlag" $countryFlag) }}
 
-        {{/* Cities sidebar section */}}
-        {{ partial "datacenter-country-cities-sidebar.html" (dict "countryId" $countryId "countryName" $countryName "countryFlag" $countryFlag "providers" $providers) }}
-
         {{/* Related content - laws, blog posts, publications based on country_id */}}
-        {{ partial "related-content-sidebar.html" . }}
+        {{ partial "related-content-sidebar.html" (dict "page" . "countryId" $countryId) }}
 
         {{/* Table of Contents */}}
         {{ $showToc := in .TableOfContents "<ul" }}
@@ -178,20 +113,36 @@
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">
       <div class="article-content prose dark:prose-invert max-w-none mb-20">
-        {{/* Render any custom markdown content first (like laws template does) */}}
-        {{ .Content }}
 
-        {{/* Always auto-generate the standard sections after custom content */}}
+        {{/* Summary - detailed overview from frontmatter */}}
+        {{ with .Params.summary }}
+        <p class="lead text-lg text-neutral-600 dark:text-neutral-400 mb-6">{{ . }}</p>
+        {{ end }}
+
+        {{/* Body content - jurisdiction description */}}
+        {{ with .Params.body }}
+        <p class="mb-8">{{ . }}</p>
+        {{ end }}
+
+        {{/* Always auto-generate the standard sections */}}
         {{ if $countryId }}
-          <h2 id="map">Map</h2>
+          {{/* Map */}}
           {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
           {{ $mapShortcode | .Page.RenderString }}
 
-          <h2 id="providers">Providers</h2>
+          {{/* Laws */}}
+          <h2 id="laws">Laws in this jurisdiction</h2>
+          {{ partial "jurisdiction-laws-inline.html" (dict "jurisdictionId" $countryId "country" $country) }}
+
+          {{/* Providers */}}
+          <h2 id="providers">Providers in {{ $countryName }}</h2>
           {{ partial "datacenter-country-providers-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
-          <h2 id="regions">Regions</h2>
-          {{ partial "datacenter-country-regions-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
+          {{/* Render any custom markdown content */}}
+          {{ if .Content }}
+          <hr class="mt-8">
+          {{ .Content }}
+          {{ end }}
         {{ end }}
 
         {{/* Back link */}}

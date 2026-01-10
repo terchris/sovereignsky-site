@@ -1,546 +1,343 @@
 ---
 title: "Google Cloud Platform Datacenters"
 description: "Datacenter locations for Google Cloud Platform, colored by vendor jurisdiction"
+layout: "provider"
+type: "datacenters"
 echarts: true
-provider_id: "gcp"
 showTableOfContents: true
+provider_id: "gcp"
+provider_name: "Google Cloud Platform"
+provider_type: "hyperscaler"
+provider_url: "https://cloud.google.com"
+date_modified: "2025-12-19"
+vendor_country_id: "US"
+vendor_country_name: "USA"
+vendor_country_flag: "🇺🇸"
+vendor_country_slug: "usa"
+vendor_risk: "high"
+total_regions: 40
+total_countries: 26
+regions:
+  -
+    identifier: "us-east1"
+    name: "South Carolina"
+    countryId: "US"
+    city: "Moncks Corner"
+    coordinates:
+      - 33.196
+      - -80.0131
+  -
+    identifier: "us-east4"
+    name: "Northern Virginia"
+    countryId: "US"
+    city: "Ashburn"
+    coordinates:
+      - 39.0438
+      - -77.4874
+  -
+    identifier: "us-east5"
+    name: "Columbus"
+    countryId: "US"
+    city: "Columbus"
+    coordinates:
+      - 39.9612
+      - -82.9988
+  -
+    identifier: "us-central1"
+    name: "Iowa"
+    countryId: "US"
+    city: "Council Bluffs"
+    coordinates:
+      - 41.2619
+      - -95.8608
+  -
+    identifier: "us-south1"
+    name: "Dallas"
+    countryId: "US"
+    city: "Dallas"
+    coordinates:
+      - 32.7767
+      - -96.797
+  -
+    identifier: "us-west1"
+    name: "Oregon"
+    countryId: "US"
+    city: "The Dalles"
+    coordinates:
+      - 45.5946
+      - -121.1787
+  -
+    identifier: "us-west2"
+    name: "Los Angeles"
+    countryId: "US"
+    city: "Los Angeles"
+    coordinates:
+      - 34.0522
+      - -118.2437
+  -
+    identifier: "us-west3"
+    name: "Salt Lake City"
+    countryId: "US"
+    city: "Salt Lake City"
+    coordinates:
+      - 40.7608
+      - -111.891
+  -
+    identifier: "us-west4"
+    name: "Las Vegas"
+    countryId: "US"
+    city: "Las Vegas"
+    coordinates:
+      - 36.1699
+      - -115.1398
+  -
+    identifier: "northamerica-northeast1"
+    name: "Montréal"
+    countryId: "CA"
+    city: "Montréal"
+    coordinates:
+      - 45.5017
+      - -73.5673
+  -
+    identifier: "northamerica-northeast2"
+    name: "Toronto"
+    countryId: "CA"
+    city: "Toronto"
+    coordinates:
+      - 43.6532
+      - -79.3832
+  -
+    identifier: "europe-west1"
+    name: "Belgium"
+    countryId: "BE"
+    city: "St. Ghislain"
+    coordinates:
+      - 50.4496
+      - 3.8186
+  -
+    identifier: "europe-west2"
+    name: "London"
+    countryId: "GB"
+    city: "London"
+    coordinates:
+      - 51.5074
+      - -0.1278
+  -
+    identifier: "europe-west3"
+    name: "Frankfurt"
+    countryId: "DE"
+    city: "Frankfurt"
+    coordinates:
+      - 50.1109
+      - 8.6821
+  -
+    identifier: "europe-west4"
+    name: "Netherlands"
+    countryId: "NL"
+    city: "Eemshaven"
+    coordinates:
+      - 53.4386
+      - 6.8342
+  -
+    identifier: "europe-west6"
+    name: "Zurich"
+    countryId: "CH"
+    city: "Zurich"
+    coordinates:
+      - 47.3769
+      - 8.5417
+  -
+    identifier: "europe-west8"
+    name: "Milan"
+    countryId: "IT"
+    city: "Milan"
+    coordinates:
+      - 45.4642
+      - 9.19
+  -
+    identifier: "europe-west9"
+    name: "Paris"
+    countryId: "FR"
+    city: "Paris"
+    coordinates:
+      - 48.8566
+      - 2.3522
+  -
+    identifier: "europe-west10"
+    name: "Berlin"
+    countryId: "DE"
+    city: "Berlin"
+    coordinates:
+      - 52.52
+      - 13.405
+  -
+    identifier: "europe-west12"
+    name: "Turin"
+    countryId: "IT"
+    city: "Turin"
+    coordinates:
+      - 45.0703
+      - 7.6869
+  -
+    identifier: "europe-southwest1"
+    name: "Madrid"
+    countryId: "ES"
+    city: "Madrid"
+    coordinates:
+      - 40.4168
+      - -3.7038
+  -
+    identifier: "europe-north1"
+    name: "Finland"
+    countryId: "FI"
+    city: "Hamina"
+    coordinates:
+      - 60.5693
+      - 27.1878
+  -
+    identifier: "europe-central2"
+    name: "Warsaw"
+    countryId: "PL"
+    city: "Warsaw"
+    coordinates:
+      - 52.2297
+      - 21.0122
+  -
+    identifier: "asia-east1"
+    name: "Taiwan"
+    countryId: "TW"
+    city: "Changhua County"
+    coordinates:
+      - 24.0518
+      - 120.5161
+  -
+    identifier: "asia-east2"
+    name: "Hong Kong"
+    countryId: "HK"
+    city: "Hong Kong"
+    coordinates:
+      - 22.3193
+      - 114.1694
+  -
+    identifier: "asia-northeast1"
+    name: "Tokyo"
+    countryId: "JP"
+    city: "Tokyo"
+    coordinates:
+      - 35.6762
+      - 139.6503
+  -
+    identifier: "asia-northeast2"
+    name: "Osaka"
+    countryId: "JP"
+    city: "Osaka"
+    coordinates:
+      - 34.6937
+      - 135.5023
+  -
+    identifier: "asia-northeast3"
+    name: "Seoul"
+    countryId: "KR"
+    city: "Seoul"
+    coordinates:
+      - 37.5665
+      - 126.978
+  -
+    identifier: "asia-south1"
+    name: "Mumbai"
+    countryId: "IN"
+    city: "Mumbai"
+    coordinates:
+      - 19.076
+      - 72.8777
+  -
+    identifier: "asia-south2"
+    name: "Delhi"
+    countryId: "IN"
+    city: "Delhi"
+    coordinates:
+      - 28.7041
+      - 77.1025
+  -
+    identifier: "asia-southeast1"
+    name: "Singapore"
+    countryId: "SG"
+    city: "Singapore"
+    coordinates:
+      - 1.3521
+      - 103.8198
+  -
+    identifier: "asia-southeast2"
+    name: "Jakarta"
+    countryId: "ID"
+    city: "Jakarta"
+    coordinates:
+      - -6.2088
+      - 106.8456
+  -
+    identifier: "australia-southeast1"
+    name: "Sydney"
+    countryId: "AU"
+    city: "Sydney"
+    coordinates:
+      - -33.8688
+      - 151.2093
+  -
+    identifier: "australia-southeast2"
+    name: "Melbourne"
+    countryId: "AU"
+    city: "Melbourne"
+    coordinates:
+      - -37.8136
+      - 144.9631
+  -
+    identifier: "southamerica-east1"
+    name: "São Paulo"
+    countryId: "BR"
+    city: "São Paulo"
+    coordinates:
+      - -23.5505
+      - -46.6333
+  -
+    identifier: "southamerica-west1"
+    name: "Santiago"
+    countryId: "CL"
+    city: "Santiago"
+    coordinates:
+      - -33.4489
+      - -70.6693
+  -
+    identifier: "me-west1"
+    name: "Tel Aviv"
+    countryId: "IL"
+    city: "Tel Aviv"
+    coordinates:
+      - 32.0853
+      - 34.7818
+  -
+    identifier: "me-central1"
+    name: "Doha"
+    countryId: "QA"
+    city: "Doha"
+    coordinates:
+      - 25.2854
+      - 51.531
+  -
+    identifier: "me-central2"
+    name: "Dammam"
+    countryId: "SA"
+    city: "Dammam"
+    coordinates:
+      - 26.4207
+      - 50.0888
+  -
+    identifier: "africa-south1"
+    name: "Johannesburg"
+    countryId: "ZA"
+    city: "Johannesburg"
+    coordinates:
+      - -26.2041
+      - 28.0473
 ---
 
-## Provider
-
-{{< datacenter-provider-summary >}}
-
-## Risk Assessment: 🇺🇸 USA
-
-{{< datacenter-risk-assessment >}}
-
-## Map
-
-{{< datacenter-map providers="gcp" showFilters="false" >}}
-
-## Laws in provider jurisdiction
-
-<details class="not-prose mt-2">
-  <summary class="cursor-pointer font-semibold">Show laws (4)</summary>
-  <div class="prose dark:prose-invert mt-3">
-
-### National laws
-
-### CLOUD Act (2018)
-
-**Clarifying Lawful Overseas Use of Data Act**
-
-US law enabling law enforcement to compel US technology companies to disclose data regardless of where it is physically stored.
-
-- **Severity:** broad
-- **Source:** [Read the law](https://www.congress.gov/bill/115th-congress/house-bill/4943)
-
----
-
-### FISA Section 702 (2008)
-
-**Foreign Intelligence Surveillance Act Section 702**
-
-US law authorizing warrantless surveillance of non-US persons located outside the United States for foreign intelligence purposes.
-
-- **Severity:** broad
-- **Source:** [Read the law](https://www.congress.gov/bill/110th-congress/house-bill/6304)
-
----
-
-### Patriot Act (2001)
-
-**Uniting and Strengthening America by Providing Appropriate Tools Required to Intercept and Obstruct Terrorism Act**
-
-Post-9/11 US law significantly expanding surveillance powers for terrorism investigations, including Section 215 business records collection.
-
-- **Severity:** broad
-- **Source:** [Read the law](https://www.congress.gov/bill/107th-congress/house-bill/3162)
-
----
-
-### ECPA (1986)
-
-**Electronic Communications Privacy Act**
-
-US law governing government access to electronic communications, with different standards for content, metadata, and stored communications.
-
-- **Severity:** targeted
-- **Source:** [Read the law](https://www.congress.gov/bill/99th-congress/house-bill/4952)
-
----
-
-
-  </div>
-</details>
-
-## Locations by country
-
-_Last updated: 2025-12-19_
-
-<div class="not-prose mt-3 mb-2">
-  <div class="flex flex-wrap gap-2 items-center">
-    <input class="ss-dc-loc-filter-input w-full sm:w-auto px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-           type="search"
-           placeholder="Filter locations (country, city, region id)…" />
-    <button type="button" class="ss-dc-loc-filter-clear px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-      Clear
-    </button>
-  </div>
-  <div class="mt-2 flex flex-wrap gap-2 items-center">
-    <span class="text-xs text-neutral-500 dark:text-neutral-400">Quick:</span>
-    <button type="button" data-ss-dc-set="euEea" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">EU/EEA</button>
-    <button type="button" data-ss-dc-set="nordics" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">Nordics</button>
-    <button type="button" data-ss-dc-set="us" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">US</button>
-    <button type="button" data-ss-dc-set="apac" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">APAC</button>
-  </div>
-</div>
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇺🇸 USA (US) — 9</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us columbus us-east5 columbus">
-  <span class="font-medium">Columbus</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Columbus <span class="text-neutral-400 dark:text-neutral-500">(us-east5)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us dallas us-south1 dallas">
-  <span class="font-medium">Dallas</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Dallas <span class="text-neutral-400 dark:text-neutral-500">(us-south1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us iowa us-central1 council bluffs">
-  <span class="font-medium">Iowa</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Council Bluffs <span class="text-neutral-400 dark:text-neutral-500">(us-central1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us las vegas us-west4 las vegas">
-  <span class="font-medium">Las Vegas</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Las Vegas <span class="text-neutral-400 dark:text-neutral-500">(us-west4)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us los angeles us-west2 los angeles">
-  <span class="font-medium">Los Angeles</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Los Angeles <span class="text-neutral-400 dark:text-neutral-500">(us-west2)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us northern virginia us-east4 ashburn">
-  <span class="font-medium">Northern Virginia</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Ashburn <span class="text-neutral-400 dark:text-neutral-500">(us-east4)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us oregon us-west1 the dalles">
-  <span class="font-medium">Oregon</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— The Dalles <span class="text-neutral-400 dark:text-neutral-500">(us-west1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us salt lake city us-west3 salt lake city">
-  <span class="font-medium">Salt Lake City</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Salt Lake City <span class="text-neutral-400 dark:text-neutral-500">(us-west3)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us south carolina us-east1 moncks corner">
-  <span class="font-medium">South Carolina</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Moncks Corner <span class="text-neutral-400 dark:text-neutral-500">(us-east1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇦🇺 Australia (AU) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="AU"
-  data-search="australia au melbourne australia-southeast2 melbourne">
-  <span class="font-medium">Melbourne</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Melbourne <span class="text-neutral-400 dark:text-neutral-500">(australia-southeast2)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="AU"
-  data-search="australia au sydney australia-southeast1 sydney">
-  <span class="font-medium">Sydney</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Sydney <span class="text-neutral-400 dark:text-neutral-500">(australia-southeast1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇨🇦 Canada (CA) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="CA"
-  data-search="canada ca montréal northamerica-northeast1 montréal">
-  <span class="font-medium">Montréal</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Montréal <span class="text-neutral-400 dark:text-neutral-500">(northamerica-northeast1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="CA"
-  data-search="canada ca toronto northamerica-northeast2 toronto">
-  <span class="font-medium">Toronto</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Toronto <span class="text-neutral-400 dark:text-neutral-500">(northamerica-northeast2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇩🇪 Germany (DE) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="DE"
-  data-search="germany de berlin europe-west10 berlin">
-  <span class="font-medium">Berlin</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Berlin <span class="text-neutral-400 dark:text-neutral-500">(europe-west10)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="DE"
-  data-search="germany de frankfurt europe-west3 frankfurt">
-  <span class="font-medium">Frankfurt</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Frankfurt <span class="text-neutral-400 dark:text-neutral-500">(europe-west3)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇮🇳 India (IN) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IN"
-  data-search="india in delhi asia-south2 delhi">
-  <span class="font-medium">Delhi</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Delhi <span class="text-neutral-400 dark:text-neutral-500">(asia-south2)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IN"
-  data-search="india in mumbai asia-south1 mumbai">
-  <span class="font-medium">Mumbai</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Mumbai <span class="text-neutral-400 dark:text-neutral-500">(asia-south1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇮🇹 Italy (IT) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it milan europe-west8 milan">
-  <span class="font-medium">Milan</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Milan <span class="text-neutral-400 dark:text-neutral-500">(europe-west8)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IT"
-  data-search="italy it turin europe-west12 turin">
-  <span class="font-medium">Turin</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Turin <span class="text-neutral-400 dark:text-neutral-500">(europe-west12)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇯🇵 Japan (JP) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="JP"
-  data-search="japan jp osaka asia-northeast2 osaka">
-  <span class="font-medium">Osaka</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Osaka <span class="text-neutral-400 dark:text-neutral-500">(asia-northeast2)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="JP"
-  data-search="japan jp tokyo asia-northeast1 tokyo">
-  <span class="font-medium">Tokyo</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Tokyo <span class="text-neutral-400 dark:text-neutral-500">(asia-northeast1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇧🇪 Belgium (BE) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="BE"
-  data-search="belgium be belgium europe-west1 st. ghislain">
-  <span class="font-medium">Belgium</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— St. Ghislain <span class="text-neutral-400 dark:text-neutral-500">(europe-west1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇧🇷 Brazil (BR) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="BR"
-  data-search="brazil br são paulo southamerica-east1 são paulo">
-  <span class="font-medium">São Paulo</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— São Paulo <span class="text-neutral-400 dark:text-neutral-500">(southamerica-east1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇨🇱 Chile (CL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="CL"
-  data-search="chile cl santiago southamerica-west1 santiago">
-  <span class="font-medium">Santiago</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Santiago <span class="text-neutral-400 dark:text-neutral-500">(southamerica-west1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇫🇮 Finland (FI) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="FI"
-  data-search="finland fi finland europe-north1 hamina">
-  <span class="font-medium">Finland</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Hamina <span class="text-neutral-400 dark:text-neutral-500">(europe-north1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇫🇷 France (FR) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="FR"
-  data-search="france fr paris europe-west9 paris">
-  <span class="font-medium">Paris</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Paris <span class="text-neutral-400 dark:text-neutral-500">(europe-west9)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇭🇰 Hong Kong (HK) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="HK"
-  data-search="hong kong hk hong kong asia-east2 hong kong">
-  <span class="font-medium">Hong Kong</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Hong Kong <span class="text-neutral-400 dark:text-neutral-500">(asia-east2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇮🇩 Indonesia (ID) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="ID"
-  data-search="indonesia id jakarta asia-southeast2 jakarta">
-  <span class="font-medium">Jakarta</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Jakarta <span class="text-neutral-400 dark:text-neutral-500">(asia-southeast2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇮🇱 Israel (IL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="IL"
-  data-search="israel il tel aviv me-west1 tel aviv">
-  <span class="font-medium">Tel Aviv</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Tel Aviv <span class="text-neutral-400 dark:text-neutral-500">(me-west1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇳🇱 Netherlands (NL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="NL"
-  data-search="netherlands nl netherlands europe-west4 eemshaven">
-  <span class="font-medium">Netherlands</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Eemshaven <span class="text-neutral-400 dark:text-neutral-500">(europe-west4)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇵🇱 Poland (PL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="PL"
-  data-search="poland pl warsaw europe-central2 warsaw">
-  <span class="font-medium">Warsaw</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Warsaw <span class="text-neutral-400 dark:text-neutral-500">(europe-central2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇶🇦 Qatar (QA) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="QA"
-  data-search="qatar qa doha me-central1 doha">
-  <span class="font-medium">Doha</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Doha <span class="text-neutral-400 dark:text-neutral-500">(me-central1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇸🇦 Saudi Arabia (SA) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="SA"
-  data-search="saudi arabia sa dammam me-central2 dammam">
-  <span class="font-medium">Dammam</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Dammam <span class="text-neutral-400 dark:text-neutral-500">(me-central2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇸🇬 Singapore (SG) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="SG"
-  data-search="singapore sg singapore asia-southeast1 singapore">
-  <span class="font-medium">Singapore</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Singapore <span class="text-neutral-400 dark:text-neutral-500">(asia-southeast1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇿🇦 South Africa (ZA) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="ZA"
-  data-search="south africa za johannesburg africa-south1 johannesburg">
-  <span class="font-medium">Johannesburg</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Johannesburg <span class="text-neutral-400 dark:text-neutral-500">(africa-south1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇰🇷 South Korea (KR) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="KR"
-  data-search="south korea kr seoul asia-northeast3 seoul">
-  <span class="font-medium">Seoul</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Seoul <span class="text-neutral-400 dark:text-neutral-500">(asia-northeast3)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇪🇸 Spain (ES) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="ES"
-  data-search="spain es madrid europe-southwest1 madrid">
-  <span class="font-medium">Madrid</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Madrid <span class="text-neutral-400 dark:text-neutral-500">(europe-southwest1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇨🇭 Switzerland (CH) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="CH"
-  data-search="switzerland ch zurich europe-west6 zurich">
-  <span class="font-medium">Zurich</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Zurich <span class="text-neutral-400 dark:text-neutral-500">(europe-west6)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇹🇼 Taiwan (TW) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="TW"
-  data-search="taiwan tw taiwan asia-east1 changhua county">
-  <span class="font-medium">Taiwan</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Changhua County <span class="text-neutral-400 dark:text-neutral-500">(asia-east1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇬🇧 United Kingdom (GB) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="GB"
-  data-search="united kingdom gb london europe-west2 london">
-  <span class="font-medium">London</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— London <span class="text-neutral-400 dark:text-neutral-500">(europe-west2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-→ [Back to all providers](/datacenters/)
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

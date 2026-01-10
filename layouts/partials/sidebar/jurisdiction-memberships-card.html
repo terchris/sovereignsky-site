@@ -1,5 +1,19 @@
-{{/* Jurisdiction Memberships Card - shows bloc memberships */}}
-{{ $countryId := .Params.country_id | default "" }}
+{{/* Jurisdiction Memberships Card - shows bloc memberships
+     Usage:
+       {{ partial "sidebar/jurisdiction-memberships-card.html" . }}  - reads from .Params.countryId
+       {{ partial "sidebar/jurisdiction-memberships-card.html" (dict "countryId" "IT") }}  - direct countryId
+*/}}
+
+{{ $countryId := "" }}
+{{ if reflect.IsMap . }}
+  {{ $countryId = .countryId | default "" }}
+{{ end }}
+{{ if not $countryId }}
+  {{ with .Params }}
+    {{ $countryId = .countryId | default .country_id | default "" }}
+  {{ end }}
+{{ end }}
+
 {{ $country := dict }}
 {{ if $countryId }}
   {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}

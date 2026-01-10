@@ -1,24 +1,19 @@
 ---
-title: "🇩🇪 Germany Datacenters"
-description: "Datacenter regions physically located in Germany."
+countryId: "DE"
+name: "Germany"
+flag: "🇩🇪"
+slug: "germany"
+abstract: "EU member with Europe's strictest data protection interpretation and enforcement."
+summary: "Germany has some of the strictest data protection standards in the EU, with strong state-level enforcement. German Datenschutz culture makes it a preferred location for privacy-conscious organizations."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: ["bdsg"]
 echarts: true
 layout: "country"
-country_id: "DE"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Germany** across all providers.
-
-## Map
-
-{{< datacenter-map countries="DE" showFilters="false" >}}
-
-{{< datacenter-country-providers country="DE" >}}
-
-{{< datacenter-country-regions country="DE" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Germany](/jurisdictions/germany/)
-
-→ [Back to all datacenters](/datacenters/)

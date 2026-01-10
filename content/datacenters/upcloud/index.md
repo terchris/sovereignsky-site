@@ -1,312 +1,135 @@
 ---
 title: "UpCloud Datacenters"
 description: "Datacenter locations for UpCloud, colored by vendor jurisdiction"
+layout: "provider"
+type: "datacenters"
 echarts: true
-provider_id: "upcloud"
 showTableOfContents: true
+provider_id: "upcloud"
+provider_name: "UpCloud"
+provider_type: "regional_cloud"
+provider_url: "https://upcloud.com"
+date_modified: "2025-12-20"
+vendor_country_id: "FI"
+vendor_country_name: "Finland"
+vendor_country_flag: "🇫🇮"
+vendor_country_slug: "finland"
+vendor_risk: "low"
+total_regions: 14
+total_countries: 11
+regions:
+  -
+    identifier: "fi-hel1"
+    name: "Helsinki 1"
+    countryId: "FI"
+    city: "Helsinki"
+    coordinates:
+      - 60.1699
+      - 24.9384
+  -
+    identifier: "fi-hel2"
+    name: "Helsinki 2"
+    countryId: "FI"
+    city: "Helsinki"
+    coordinates:
+      - 60.1799
+      - 24.9484
+  -
+    identifier: "se-sto1"
+    name: "Stockholm"
+    countryId: "SE"
+    city: "Stockholm"
+    coordinates:
+      - 59.3293
+      - 18.0686
+  -
+    identifier: "dk-cph1"
+    name: "Copenhagen"
+    countryId: "DK"
+    city: "Ballerup"
+    coordinates:
+      - 55.7317
+      - 12.3633
+  -
+    identifier: "nl-ams1"
+    name: "Amsterdam"
+    countryId: "NL"
+    city: "Amsterdam"
+    coordinates:
+      - 52.3676
+      - 4.9041
+  -
+    identifier: "de-fra1"
+    name: "Frankfurt"
+    countryId: "DE"
+    city: "Frankfurt"
+    coordinates:
+      - 50.1109
+      - 8.6821
+  -
+    identifier: "uk-lon1"
+    name: "London"
+    countryId: "GB"
+    city: "London"
+    coordinates:
+      - 51.5074
+      - -0.1278
+  -
+    identifier: "es-mad1"
+    name: "Madrid"
+    countryId: "ES"
+    city: "Madrid"
+    coordinates:
+      - 40.4168
+      - -3.7038
+  -
+    identifier: "pl-waw1"
+    name: "Warsaw"
+    countryId: "PL"
+    city: "Warsaw"
+    coordinates:
+      - 52.2297
+      - 21.0122
+  -
+    identifier: "us-chi1"
+    name: "Chicago"
+    countryId: "US"
+    city: "Chicago"
+    coordinates:
+      - 41.8781
+      - -87.6298
+  -
+    identifier: "us-nyc1"
+    name: "New York"
+    countryId: "US"
+    city: "New York"
+    coordinates:
+      - 40.7128
+      - -74.006
+  -
+    identifier: "us-sjo1"
+    name: "San Jose"
+    countryId: "US"
+    city: "San Jose"
+    coordinates:
+      - 37.3382
+      - -121.8863
+  -
+    identifier: "sg-sin1"
+    name: "Singapore"
+    countryId: "SG"
+    city: "Singapore"
+    coordinates:
+      - 1.3521
+      - 103.8198
+  -
+    identifier: "au-syd1"
+    name: "Sydney"
+    countryId: "AU"
+    city: "Sydney"
+    coordinates:
+      - -33.8688
+      - 151.2093
 ---
 
-## Provider
-
-{{< datacenter-provider-summary >}}
-
-## Risk Assessment: 🇫🇮 Finland
-
-{{< datacenter-risk-assessment >}}
-
-## Map
-
-{{< datacenter-map providers="upcloud" showFilters="false" >}}
-
-## Laws in provider jurisdiction
-
-<details class="not-prose mt-2">
-  <summary class="cursor-pointer font-semibold">Show laws (7)</summary>
-  <div class="prose dark:prose-invert mt-3">
-
-### Bloc laws
-
-### GDPR (2018)
-
-**General Data Protection Regulation**
-
-EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-
----
-
-### Data Act (2024)
-
-**Regulation on harmonised rules on fair access to and use of data**
-
-EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
-
----
-
-### AI Act (2024)
-
-**Regulation on Artificial Intelligence**
-
-World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
-
-- **Severity:** none
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-
----
-
-### EEA Agreement (1994)
-
-**Agreement on the European Economic Area**
-
-Treaty extending EU internal market rules, including data protection regulations, to Norway, Iceland, and Liechtenstein.
-
-- **Severity:** limited
-- **Applies via:** [European Economic Area](/laws/eea/)
-- **Source:** [Read the law](https://www.efta.int/eea/eea-agreement)
-
----
-
-### Inherited laws
-
-### GDPR (2018)
-
-**General Data Protection Regulation**
-
-EU regulation giving individuals control over their personal data with comprehensive rights and strong enforcement.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2016/679/oj)
-
----
-
-### Data Act (2024)
-
-**Regulation on harmonised rules on fair access to and use of data**
-
-EU regulation establishing rules for data sharing, public sector access to private data, and cloud switching rights.
-
-- **Severity:** limited
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2023/2854/oj)
-
----
-
-### AI Act (2024)
-
-**Regulation on Artificial Intelligence**
-
-World's first comprehensive AI law establishing a risk-based framework that prohibits certain AI practices and regulates high-risk systems.
-
-- **Severity:** none
-- **Applies via:** [European Union](/laws/eu/)
-- **Source:** [Read the law](https://eur-lex.europa.eu/eli/reg/2024/1689/oj)
-
----
-
-
-  </div>
-</details>
-
-## Locations by country
-
-_Last updated: 2025-12-20_
-
-<div class="not-prose mt-3 mb-2">
-  <div class="flex flex-wrap gap-2 items-center">
-    <input class="ss-dc-loc-filter-input w-full sm:w-auto px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-           type="search"
-           placeholder="Filter locations (country, city, region id)…" />
-    <button type="button" class="ss-dc-loc-filter-clear px-3 py-1 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
-      Clear
-    </button>
-  </div>
-  <div class="mt-2 flex flex-wrap gap-2 items-center">
-    <span class="text-xs text-neutral-500 dark:text-neutral-400">Quick:</span>
-    <button type="button" data-ss-dc-set="euEea" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">EU/EEA</button>
-    <button type="button" data-ss-dc-set="nordics" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">Nordics</button>
-    <button type="button" data-ss-dc-set="us" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">US</button>
-    <button type="button" data-ss-dc-set="apac" class="px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">APAC</button>
-  </div>
-</div>
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇺🇸 USA (US) — 3</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us chicago us-chi1 chicago">
-  <span class="font-medium">Chicago</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Chicago <span class="text-neutral-400 dark:text-neutral-500">(us-chi1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us new york us-nyc1 new york">
-  <span class="font-medium">New York</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— New York <span class="text-neutral-400 dark:text-neutral-500">(us-nyc1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="US"
-  data-search="usa us san jose us-sjo1 san jose">
-  <span class="font-medium">San Jose</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— San Jose <span class="text-neutral-400 dark:text-neutral-500">(us-sjo1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇫🇮 Finland (FI) — 2</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="FI"
-  data-search="finland fi helsinki 1 fi-hel1 helsinki">
-  <span class="font-medium">Helsinki 1</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Helsinki <span class="text-neutral-400 dark:text-neutral-500">(fi-hel1)</span></span>
-</span>
-<span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="FI"
-  data-search="finland fi helsinki 2 fi-hel2 helsinki">
-  <span class="font-medium">Helsinki 2</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Helsinki <span class="text-neutral-400 dark:text-neutral-500">(fi-hel2)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇦🇺 Australia (AU) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="AU"
-  data-search="australia au sydney au-syd1 sydney">
-  <span class="font-medium">Sydney</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Sydney <span class="text-neutral-400 dark:text-neutral-500">(au-syd1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇩🇰 Denmark (DK) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="DK"
-  data-search="denmark dk copenhagen dk-cph1 ballerup">
-  <span class="font-medium">Copenhagen</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Ballerup <span class="text-neutral-400 dark:text-neutral-500">(dk-cph1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇩🇪 Germany (DE) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="DE"
-  data-search="germany de frankfurt de-fra1 frankfurt">
-  <span class="font-medium">Frankfurt</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Frankfurt <span class="text-neutral-400 dark:text-neutral-500">(de-fra1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇳🇱 Netherlands (NL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="NL"
-  data-search="netherlands nl amsterdam nl-ams1 amsterdam">
-  <span class="font-medium">Amsterdam</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Amsterdam <span class="text-neutral-400 dark:text-neutral-500">(nl-ams1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇵🇱 Poland (PL) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="PL"
-  data-search="poland pl warsaw pl-waw1 warsaw">
-  <span class="font-medium">Warsaw</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Warsaw <span class="text-neutral-400 dark:text-neutral-500">(pl-waw1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇸🇬 Singapore (SG) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="SG"
-  data-search="singapore sg singapore sg-sin1 singapore">
-  <span class="font-medium">Singapore</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Singapore <span class="text-neutral-400 dark:text-neutral-500">(sg-sin1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇪🇸 Spain (ES) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="ES"
-  data-search="spain es madrid es-mad1 madrid">
-  <span class="font-medium">Madrid</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Madrid <span class="text-neutral-400 dark:text-neutral-500">(es-mad1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇸🇪 Sweden (SE) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="SE"
-  data-search="sweden se stockholm se-sto1 stockholm">
-  <span class="font-medium">Stockholm</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— Stockholm <span class="text-neutral-400 dark:text-neutral-500">(se-sto1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-<div class="ss-dc-country-group not-prose">
-  <details class="mt-3">
-    <summary class="cursor-pointer font-semibold text-neutral-800 dark:text-neutral-100">🇬🇧 United Kingdom (GB) — 1</summary>
-    <div class="mt-2 flex flex-wrap gap-2">
-      <span class="ss-dc-region-chip inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-  data-country-id="GB"
-  data-search="united kingdom gb london uk-lon1 london">
-  <span class="font-medium">London</span>
-  <span class="text-neutral-500 dark:text-neutral-400">— London <span class="text-neutral-400 dark:text-neutral-500">(uk-lon1)</span></span>
-</span>
-    </div>
-  </details>
-</div>
-
-→ [Back to all providers](/datacenters/)
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

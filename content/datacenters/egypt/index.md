@@ -1,24 +1,19 @@
 ---
-title: "🇪🇬 Egypt Datacenters"
-description: "Datacenter regions physically located in Egypt."
+countryId: "EG"
+name: "Egypt"
+flag: "🇪🇬"
+slug: "egypt"
+abstract: "North African hub with developing digital infrastructure and data localization tendencies."
+summary: "Egypt hosts data centers serving North Africa and the Middle East. The country has data localization requirements and is developing its digital infrastructure and protection framework."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "EG"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Egypt** across all providers.
-
-## Map
-
-{{< datacenter-map countries="EG" showFilters="false" >}}
-
-{{< datacenter-country-providers country="EG" >}}
-
-{{< datacenter-country-regions country="EG" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Egypt](/jurisdictions/egypt/)
-
-→ [Back to all datacenters](/datacenters/)

@@ -1,24 +1,19 @@
 ---
-title: "🇹🇷 Turkey Datacenters"
-description: "Datacenter regions physically located in Turkey."
+countryId: "TR"
+name: "Turkey"
+flag: "🇹🇷"
+slug: "turkey"
+abstract: "Eurasian bridge with data protection law but political and rule of law concerns."
+summary: "Turkey has data protection legislation and strategic location bridging Europe and Asia. However, political developments and rule of law concerns affect sovereignty assessments."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "TR"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Turkey** across all providers.
-
-## Map
-
-{{< datacenter-map countries="TR" showFilters="false" >}}
-
-{{< datacenter-country-providers country="TR" >}}
-
-{{< datacenter-country-regions country="TR" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Turkey](/jurisdictions/turkey/)
-
-→ [Back to all datacenters](/datacenters/)

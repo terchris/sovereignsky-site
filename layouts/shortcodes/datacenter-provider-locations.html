@@ -1,0 +1,106 @@
+{{/*
+  Shortcode to display datacenter locations for a provider
+  Usage: {{< datacenter-provider-locations >}}
+
+  Gets the provider regions from page params (frontmatter) and renders locations grouped by country.
+*/}}
+
+{{ $providerRegions := .Page.Params.regions | default (slice) }}
+{{ $dateModified := .Page.Params.date_modified | default "" }}
+{{ $regions := site.Data.regions | default (slice) }}
+
+{{/* Build regions lookup */}}
+{{ $regionsById := dict }}
+{{ range $regions }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ end }}
+
+{{/* Group regions by country */}}
+{{ $countryCounts := dict }}
+{{ $countryRegions := dict }}
+{{ range $providerRegions }}
+  {{ $countryId := .countryId | default "??" }}
+  {{ $existing := index $countryCounts $countryId | default 0 }}
+  {{ $countryCounts = merge $countryCounts (dict $countryId (add $existing 1)) }}
+  {{ $existingRegions := index $countryRegions $countryId | default (slice) }}
+  {{ $countryRegions = merge $countryRegions (dict $countryId ($existingRegions | append .)) }}
+{{ end }}
+
+{{/* Build sorted country list */}}
+{{ $countryItems := slice }}
+{{ range $countryId, $count := $countryCounts }}
+  {{ $c := index $regionsById $countryId }}
+  {{ $name := $countryId }}
+  {{ $flag := "" }}
+  {{ if $c }}
+    {{ $name = $c.name | default $countryId }}
+    {{ $flag = $c.flag | default "" }}
+  {{ end }}
+  {{ $countryItems = $countryItems | append (dict "id" $countryId "name" $name "flag" $flag "count" $count) }}
+{{ end }}
+{{ $countryItems = sort $countryItems "count" "desc" }}
+
+{{ if gt (len $providerRegions) 0 }}
+<div class="not-prose">
+  {{ if $dateModified }}
+  <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Last updated: {{ $dateModified }}</p>
+  {{ end }}
+
+  {{/* Filter UI */}}
+  <div class="mb-4">
+    <div class="flex flex-wrap gap-2 items-center">
+      <input class="ss-dc-loc-filter-input input input-bordered input-sm w-full sm:w-auto"
+             type="search"
+             placeholder="Filter locations (country, city, region id)…" />
+      <button type="button" class="ss-dc-loc-filter-clear btn btn-ghost btn-sm">
+        Clear
+      </button>
+    </div>
+    <div class="mt-2 flex flex-wrap gap-2 items-center">
+      <span class="text-xs opacity-60">Quick:</span>
+      <button type="button" data-ss-dc-set="euEea" class="btn btn-ghost btn-xs">EU/EEA</button>
+      <button type="button" data-ss-dc-set="nordics" class="btn btn-ghost btn-xs">Nordics</button>
+      <button type="button" data-ss-dc-set="us" class="btn btn-ghost btn-xs">US</button>
+      <button type="button" data-ss-dc-set="apac" class="btn btn-ghost btn-xs">APAC</button>
+    </div>
+  </div>
+
+  {{/* Country groups */}}
+  {{ range $countryItems }}
+    {{ $country := . }}
+    {{ $countryId := .id }}
+    {{ $countryName := .name }}
+    {{ $countryRegionList := index $countryRegions $countryId | default (slice) }}
+    <div class="ss-dc-country-group mb-2">
+      <details class="collapse collapse-arrow bg-base-200">
+        <summary class="collapse-title font-semibold py-2 min-h-0">
+          {{ if .flag }}{{ .flag }} {{ end }}{{ .name }} ({{ .id }}) — {{ .count }}
+        </summary>
+        <div class="collapse-content">
+          <div class="flex flex-wrap gap-2 pt-2">
+            {{ range $countryRegionList }}
+              {{ $regionLabel := .name | default .identifier | default "Region" }}
+              {{ $cityText := "" }}
+              {{ if .city }}{{ $cityText = printf "— %s" .city }}{{ end }}
+              {{ $idText := "" }}
+              {{ if .identifier }}{{ $idText = printf "(%s)" .identifier }}{{ end }}
+              {{ $search := printf "%s %s %s %s %s" $countryName $countryId $regionLabel (.identifier | default "") (.city | default "") | lower }}
+              <span class="ss-dc-region-chip badge badge-lg gap-2"
+                    data-country-id="{{ $countryId }}"
+                    data-search="{{ $search }}">
+                <span class="font-medium">{{ $regionLabel }}</span>
+                <span class="opacity-60">{{ $cityText }} {{ $idText }}</span>
+              </span>
+            {{ end }}
+          </div>
+        </div>
+      </details>
+    </div>
+  {{ end }}
+</div>
+{{ else }}
+<div class="alert">
+  {{ partial "content-icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
+  <span>No locations available for this provider.</span>
+</div>
+{{ end }}

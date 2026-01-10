@@ -1,0 +1,79 @@
+{{/* Jurisdiction Risk Assessment Card
+     Usage:
+       {{ partial "sidebar/jurisdiction-risk-card.html" . }}  - reads from .Params
+       {{ partial "sidebar/jurisdiction-risk-card.html" (dict "countryId" "IT") }}  - direct countryId
+*/}}
+
+{{ $countryId := "" }}
+{{ if reflect.IsMap . }}
+  {{ $countryId = .countryId | default "" }}
+{{ end }}
+{{ if not $countryId }}
+  {{ with .Params }}
+    {{ $countryId = .countryId | default .country_id | default "" }}
+  {{ end }}
+{{ end }}
+
+{{ $country := dict }}
+{{ if $countryId }}
+  {{ $match := first 1 (where site.Data.regions "identifier" $countryId) }}
+  {{ with index $match 0 }}
+    {{ $country = . }}
+  {{ end }}
+{{ end }}
+
+{{ if $country }}
+{{ $countryName := $country.name | default $countryId }}
+{{ $countryFlag := $country.flag | default "" }}
+{{ $risk := $country.riskLevel | default "unknown" }}
+{{ $slug := $country.slug | default "" }}
+
+{{/* Risk emoji and label */}}
+{{ $riskEmoji := "" }}
+{{ $riskLabel := $risk | title }}
+{{ if eq $risk "low" }}{{ $riskEmoji = "✅" }}{{ $riskLabel = "Low Risk" }}{{ end }}
+{{ if eq $risk "moderate" }}{{ $riskEmoji = "⚠️" }}{{ $riskLabel = "Moderate Risk" }}{{ end }}
+{{ if eq $risk "elevated" }}{{ $riskEmoji = "🔶" }}{{ $riskLabel = "Elevated Risk" }}{{ end }}
+{{ if eq $risk "high" }}{{ $riskEmoji = "🚨" }}{{ $riskLabel = "High Risk" }}{{ end }}
+{{ if eq $risk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ $riskLabel = "Sanctioned" }}{{ end }}
+
+{{/* Get bloc names */}}
+{{ $blocsData := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocNames := slice }}
+{{ range ($country.blocs | default (slice)) }}
+  {{ $blocId := . }}
+  {{ range $blocsData }}
+    {{ if eq .identifier $blocId }}
+      {{ $blocNames = $blocNames | append .name }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "shield" "color" "warning" "size" "4") }}
+      Risk Assessment
+    </h3>
+    {{ if $slug }}
+    <a href="/jurisdictions/{{ $slug }}/" class="text-xs opacity-60 -mt-1 hover:underline no-underline">
+      {{ $countryFlag }} {{ $countryName }}
+    </a>
+    {{ else }}
+    <p class="text-xs opacity-60 -mt-1">{{ $countryFlag }} {{ $countryName }}</p>
+    {{ end }}
+    <div class="mt-2 space-y-2">
+      <div class="flex items-center gap-2">
+        <span class="text-lg">{{ $riskEmoji }}</span>
+        <span class="font-medium">{{ $riskLabel }}</span>
+      </div>
+      {{ if gt (len $blocNames) 0 }}
+      <div class="text-sm">
+        <span class="text-neutral-500 dark:text-neutral-400">Blocs:</span>
+        <span class="font-medium">{{ delimit $blocNames ", " }}</span>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

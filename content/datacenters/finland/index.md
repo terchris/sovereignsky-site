@@ -1,24 +1,19 @@
 ---
-title: "🇫🇮 Finland Datacenters"
-description: "Datacenter regions physically located in Finland."
+countryId: "FI"
+name: "Finland"
+flag: "🇫🇮"
+slug: "finland"
+abstract: "EU member known for transparency, cold climate data centers, and renewable energy."
+summary: "Finland is an EU member renowned for government transparency and strong rule of law. The cold climate and abundant renewable energy make it ideal for energy-efficient data center operations."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "FI"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Finland** across all providers.
-
-## Map
-
-{{< datacenter-map countries="FI" showFilters="false" >}}
-
-{{< datacenter-country-providers country="FI" >}}
-
-{{< datacenter-country-regions country="FI" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Finland](/jurisdictions/finland/)
-
-→ [Back to all datacenters](/datacenters/)

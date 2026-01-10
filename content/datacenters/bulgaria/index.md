@@ -1,24 +1,19 @@
 ---
-title: "🇧🇬 Bulgaria Datacenters"
-description: "Datacenter regions physically located in Bulgaria."
+countryId: "BG"
+name: "Bulgaria"
+flag: "🇧🇬"
+slug: "bulgaria"
+abstract: "EU member offering cost-effective data center operations under GDPR."
+summary: "Bulgaria is an EU member providing GDPR-compliant infrastructure at competitive costs. The country serves as a gateway between Europe and the Balkans."
+body: ""
+image: ""
+riskLevel: "low"
+euMember: true
+eeaMember: true
+blocs: ["eu","eea"]
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "BG"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Bulgaria** across all providers.
-
-## Map
-
-{{< datacenter-map countries="BG" showFilters="false" >}}
-
-{{< datacenter-country-providers country="BG" >}}
-
-{{< datacenter-country-regions country="BG" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Bulgaria](/jurisdictions/bulgaria/)
-
-→ [Back to all datacenters](/datacenters/)

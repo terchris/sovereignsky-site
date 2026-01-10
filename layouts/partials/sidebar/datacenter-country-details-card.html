@@ -1,0 +1,59 @@
+{{/*
+  Datacenter Country Details Card
+  Usage: {{ partial "sidebar/datacenter-country-details-card.html" (dict "country" $country "providerCount" 3 "regionCount" 5) }}
+*/}}
+
+{{ $country := .country | default dict }}
+{{ $providerCount := .providerCount | default 0 }}
+{{ $regionCount := .regionCount | default 0 }}
+
+{{ if $country }}
+{{ $countryName := $country.name | default $country.identifier }}
+{{ $countryFlag := $country.flag | default "" }}
+
+{{/* Risk info */}}
+{{ $hqRisk := $country.riskLevel | default "unknown" }}
+{{ $riskBadge := "badge-neutral" }}
+{{ if eq $hqRisk "low" }}{{ $riskBadge = "badge-success" }}{{ end }}
+{{ if eq $hqRisk "moderate" }}{{ $riskBadge = "badge-warning" }}{{ end }}
+{{ if eq $hqRisk "elevated" }}{{ $riskBadge = "badge-warning" }}{{ end }}
+{{ if eq $hqRisk "high" }}{{ $riskBadge = "badge-error" }}{{ end }}
+{{ if eq $hqRisk "sanctioned" }}{{ $riskBadge = "badge-error" }}{{ end }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+      Country Details
+    </h3>
+    <dl class="mt-2 text-sm">
+      {{/* Country */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Country</dt>
+        <dd class="font-medium">{{ if $countryFlag }}{{ $countryFlag }} {{ end }}{{ $countryName }}</dd>
+      </div>
+      {{/* Risk */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Risk Assessment</dt>
+        <dd><span class="badge badge-sm {{ $riskBadge }}">{{ $hqRisk | title }}</span></dd>
+      </div>
+      {{/* Total Providers */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Providers</dt>
+        <dd class="font-medium">{{ $providerCount }}</dd>
+      </div>
+      {{/* Total Regions */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Total Regions</dt>
+        <dd class="font-medium">{{ $regionCount }}</dd>
+      </div>
+      {{/* Jurisdiction link */}}
+      {{ with $country.slug }}
+      <div class="pt-2 mt-2 border-t border-base-200">
+        <a href="/jurisdictions/{{ . }}/" class="text-xs text-primary hover:underline">View jurisdiction details</a>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>
+{{ end }}

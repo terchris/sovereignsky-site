@@ -1,24 +1,19 @@
 ---
-title: "🇸🇬 Singapore Datacenters"
-description: "Datacenter regions physically located in Singapore."
+countryId: "SG"
+name: "Singapore"
+flag: "🇸🇬"
+slug: "singapore"
+abstract: "Asia-Pacific hub with PDPA data protection and extensive subsea connectivity."
+summary: "Singapore has the Personal Data Protection Act and serves as a major Asia-Pacific data center hub. Excellent subsea cable connectivity makes it a preferred location for regional operations."
+body: ""
+image: ""
+riskLevel: "moderate"
+euMember: false
+eeaMember: false
+blocs: []
+lawConcern: false
+nationalLaws: []
 echarts: true
 layout: "country"
-country_id: "SG"
 showTableOfContents: true
 ---
-
-Datacenter regions physically located in **Singapore** across all providers.
-
-## Map
-
-{{< datacenter-map countries="SG" showFilters="false" >}}
-
-{{< datacenter-country-providers country="SG" >}}
-
-{{< datacenter-country-regions country="SG" >}}
-
-## Jurisdiction
-
-→ [Jurisdiction for Singapore](/jurisdictions/singapore/)
-
-→ [Back to all datacenters](/datacenters/)

@@ -12,7 +12,7 @@
 
      Usage:
      - {{ partial "related-content-sidebar.html" . }}
-     - {{ partial "related-content-sidebar.html" (dict "page" . "country_id" "NO") }}
+     - {{ partial "related-content-sidebar.html" (dict "page" . "countryId" "NO") }}
 */}}
 
 {{/* Support both direct page context and dict with page key */}}
@@ -21,11 +21,11 @@
 {{/* Check if this is a dict with "page" key by checking for Permalink (pages have it, dicts don't) */}}
 {{ if not .Permalink }}
   {{ $currentPage = .page }}
-  {{ $explicitCountryId = .country_id | default "" }}
+  {{ $explicitCountryId = .countryId | default "" }}
 {{ end }}
 
 {{ $pageTags := $currentPage.Params.tags | default (slice) }}
-{{ $countryId := $explicitCountryId | default ($currentPage.Params.country_id | default "") }}
+{{ $countryId := $explicitCountryId | default ($currentPage.Params.countryId | default $currentPage.Params.country_id | default "") }}
 {{ $appliesTo := $currentPage.Params.applies_to | default (slice) }}
 {{ $lawId := $currentPage.Params.law_id | default "" }}
 
