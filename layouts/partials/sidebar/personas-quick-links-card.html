@@ -13,6 +13,7 @@
 {{ end }}
 
 {{ $term := $persona.identifier | default $personaId }}
+{{ $personaName := $persona.name | default ($term | humanize | title) }}
 {{ $audienceVocab := slice }}
 {{ range $audiences }}
   {{ $audienceVocab = $audienceVocab | append .identifier }}
@@ -34,7 +35,7 @@
       {{ if $isAudience }}
       <a href="{{ $audienceURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
         {{ partial "content-icon.html" (dict "name" "list" "size" "4") }}
-        All Content
+        All {{ $personaName }} Content
       </a>
       {{ end }}
       <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
