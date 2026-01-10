@@ -15,7 +15,7 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     {{ $personas = . | default (slice) }}
     {{ end }}
 
-    {{/* Fallback mapping from blog "audiences" values to persona termCodes */}}
+    {{/* Fallback mapping from blog "audience" values to persona termCodes */}}
     {{ if eq (len $personas) 0 }}
     {{ $audToPersona := dict
     "developer" "developer"
@@ -31,7 +31,7 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     }}
 
     {{ $derived := slice }}
-    {{ range ($page.Params.audiences | default (slice)) }}
+    {{ range ($page.Params.audience | default (slice)) }}
     {{ $mapped := index $audToPersona . }}
     {{ if $mapped }}
     {{ if not (in $derived $mapped) }}

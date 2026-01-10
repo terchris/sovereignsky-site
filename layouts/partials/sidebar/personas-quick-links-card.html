@@ -22,6 +22,7 @@
 {{/* Build URLs */}}
 {{ $eventsURL := "/events/" }}
 {{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
+{{ $audienceURL := printf "/audience/%s/" $term }}
 
 <div class="card bg-base-100 shadow-sm border border-base-300">
   <div class="card-body p-4">
@@ -30,6 +31,12 @@
       Quick Links
     </h3>
     <div class="mt-2 space-y-2">
+      {{ if $isAudience }}
+      <a href="{{ $audienceURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
+        {{ partial "content-icon.html" (dict "name" "list" "size" "4") }}
+        All Content
+      </a>
+      {{ end }}
       <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
         {{ partial "content-icon.html" (dict "name" "calendar" "size" "4") }}
         Browse Events

@@ -39,8 +39,8 @@
 {{ range $blogPages }}
   {{ $post := . }}
   {{ $match := false }}
-  {{/* Direct audiences match (blog uses "audiences" plural) */}}
-  {{ range ($post.Params.audiences | default (slice)) }}
+  {{/* Direct audience match */}}
+  {{ range ($post.Params.audience | default (slice)) }}
     {{ if eq . $term }}{{ $match = true }}{{ end }}
   {{ end }}
   {{/* Topic match (check both topics and tags for backwards compatibility) */}}

@@ -3,7 +3,7 @@
 
   "contentTypes": {
     "_description": "Content type categories for Related sections and navigation. Icons match Heroicons.",
-    "values": ["law", "blog", "publications", "jurisdictions", "datacenters", "software", "events", "networks", "audiences"],
+    "values": ["law", "blog", "publications", "jurisdictions", "datacenters", "software", "events", "networks", "audience"],
     "labels": {
       "law": "Law",
       "blog": "Blog Post",
@@ -13,7 +13,7 @@
       "software": "Software",
       "events": "Event",
       "networks": "Network",
-      "audiences": "Audience"
+      "audience": "Audience"
     },
     "icons": {
       "law": "scale",
@@ -24,7 +24,7 @@
       "software": "computer",
       "events": "calendar",
       "networks": "globe",
-      "audiences": "user"
+      "audience": "user"
     },
     "colors": {
       "law": "warning",
@@ -35,7 +35,7 @@
       "software": "primary",
       "events": "error",
       "networks": "info",
-      "audiences": "secondary"
+      "audience": "secondary"
     }
   }
 }

@@ -22,7 +22,7 @@
 {{ $featured := .Params.featured | default false }}
 
 {{ $tags := .Params.tags | default (slice) }}
-{{ $audiences := .Params.audiences | default (slice) }}
+{{ $audiences := .Params.audience | default (slice) }}
 
 {{/* Build topic labels from topics.json */}}
 {{ $topicLabels := dict }}
@@ -162,7 +162,7 @@
         <div class="flex flex-wrap gap-2">
           {{ range $audiences }}
           {{ $label := index $audienceLabels . | default (. | humanize | title) }}
-          <a href="/audiences/{{ . }}/" class="badge badge-lg badge-primary">{{ $label }}</a>
+          <a href="/audience/{{ . }}/" class="badge badge-lg badge-primary">{{ $label }}</a>
           {{ end }}
         </div>
       </div>

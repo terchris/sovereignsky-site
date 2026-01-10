@@ -69,7 +69,7 @@
     {{ range .Pages.ByDate.Reverse }}
     {{ $featured := .Resources.GetMatch "featured*" }}
     {{ $topics := .Params.topics | default (slice) }}
-    {{ $audiences := .Params.audiences | default .Params.audience | default (slice) }}
+    {{ $audiences := .Params.audience | default (slice) }}
     {{ $tags := .Params.tags | default (slice) }}
 
     <article

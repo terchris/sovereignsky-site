@@ -1,6 +1,5 @@
 {{/* Relevant For Card - displays audience with icons from audience.json */}}
-{{/* Supports both .Params.audience (singular) and .Params.audiences (plural) */}}
-{{ $audienceParams := .Params.audience | default .Params.audiences | default (slice) }}
+{{ $audienceParams := .Params.audience | default (slice) }}
 {{ if gt (len $audienceParams) 0 }}
 {{ $audienceList := site.Data.audience.audience.itemListElement | default (slice) }}
 <div class="card bg-base-100 shadow-sm border border-base-300">

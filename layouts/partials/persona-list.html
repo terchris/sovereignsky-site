@@ -208,7 +208,7 @@
             {{ end }}
 
             {{ if not $match }}
-              {{ range ($post.Params.audiences | default (slice)) }}
+              {{ range ($post.Params.audience | default (slice)) }}
                 {{ $mapped := index $blogAudienceToPersona . }}
                 {{ if and $mapped (eq $mapped $term) }}
                   {{ $match = true }}
@@ -246,7 +246,7 @@
             {{ end }}
 
             {{ if not $match }}
-              {{ range ($pub.Params.audiences | default (slice)) }}
+              {{ range ($pub.Params.audience | default (slice)) }}
                 {{ $mapped := index $pubAudienceToPersona . }}
                 {{ if and $mapped (eq $mapped $term) }}
                   {{ $match = true }}
