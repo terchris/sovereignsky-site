@@ -659,10 +659,10 @@ Usage: {{< datacenter-map>}}
               btn.addEventListener('click', function () {
                 var preset = btn.getAttribute('data-dc-preset');
                 applyPreset(preset);
-                // Update join button active states
-                var joinGroup = btn.closest('.join');
-                if (joinGroup) {
-                  joinGroup.querySelectorAll('button').forEach(function(b) {
+                // Update button active states
+                var filterGroup = btn.closest('[data-filter-group="preset"]');
+                if (filterGroup) {
+                  filterGroup.querySelectorAll('button').forEach(function(b) {
                     b.classList.remove('btn-active');
                     b.classList.add('btn-ghost');
                   });

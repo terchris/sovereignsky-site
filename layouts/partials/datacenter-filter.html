@@ -20,20 +20,19 @@
   <div id="dc-search-results" class="hidden"></div>
 
   {{/* Quick Filter Presets */}}
-  <div class="flex flex-wrap items-center gap-2 mb-4">
-    <span class="text-sm font-semibold opacity-70">Quick filter:</span>
-    <div class="join" data-filter-group="preset">
-      <button class="join-item btn btn-sm btn-active" data-dc-preset="all">All</button>
-      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="us-hyperscalers">🇺🇸 US Hyperscalers</button>
-      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="eu-eea">🇪🇺 EU/EEA Providers</button>
-      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="non-us">🌍 Non-US Providers</button>
-      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="none">None</button>
+  <div class="mb-4">
+    <span class="text-sm font-semibold opacity-70 block mb-2">Quick filter:</span>
+    <div class="flex flex-wrap gap-2" data-filter-group="preset">
+      <button class="btn btn-sm btn-active" data-dc-preset="all">All</button>
+      <button class="btn btn-sm btn-ghost" data-dc-preset="us-hyperscalers">🇺🇸 US Hyperscalers</button>
+      <button class="btn btn-sm btn-ghost" data-dc-preset="eu-eea">🇪🇺 EU/EEA Providers</button>
+      <button class="btn btn-sm btn-ghost" data-dc-preset="non-us">🌍 Non-US Providers</button>
     </div>
   </div>
 
   {{/* Provider Type Filter */}}
-  <div class="flex flex-wrap items-center gap-2 mb-4">
-    <span class="text-sm font-semibold opacity-70">Provider type:</span>
+  <div class="mb-4">
+    <span class="text-sm font-semibold opacity-70 block mb-2">Provider type:</span>
     <div class="flex flex-wrap gap-2" data-filter-group="provider-type">
       <button class="btn btn-sm btn-active gap-1 dc-type-btn" data-provider-type="hyperscaler">
         🏢 Hyperscalers
@@ -48,13 +47,15 @@
   </div>
 
   {{/* Map Controls */}}
-  <div class="flex flex-wrap items-center gap-2 mb-6">
-    <span class="text-sm font-semibold opacity-70">Map:</span>
-    <button id="dc-search-reset-view" type="button" class="btn btn-sm btn-ghost">Reset view</button>
-    <label class="label cursor-pointer gap-2">
-      <input id="dc-search-autozoom" type="checkbox" class="checkbox checkbox-sm" checked>
-      <span class="label-text text-sm">Auto-zoom on search</span>
-    </label>
+  <div class="mb-6">
+    <span class="text-sm font-semibold opacity-70 block mb-2">Map:</span>
+    <div class="flex flex-wrap gap-2 items-center">
+      <button id="dc-search-reset-view" type="button" class="btn btn-sm btn-ghost">Reset view</button>
+      <label class="label cursor-pointer gap-2">
+        <input id="dc-search-autozoom" type="checkbox" class="checkbox checkbox-sm" checked>
+        <span class="label-text text-sm">Auto-zoom on search</span>
+      </label>
+    </div>
   </div>
 
   {{/* Results Count */}}
