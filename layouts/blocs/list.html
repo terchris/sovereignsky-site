@@ -1,0 +1,154 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "globe"
+  ) }}
+
+  {{/* Section Content */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert">
+    {{ .Content }}
+  </section>
+
+  {{/* Bloc List */}}
+  <section class="mt-8">
+    {{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
+
+    {{/* Build blocs lookup */}}
+    {{ $blocsById := dict }}
+    {{ range $blocs }}
+      {{ $blocsById = merge $blocsById (dict .identifier .) }}
+    {{ end }}
+
+    {{/* Build bloc data with counts */}}
+    {{ $blocData := slice }}
+    {{ range $blocs }}
+      {{ $bloc := . }}
+      {{ $directMembers := .memberOf | default .members | default (slice) }}
+
+      {{/* Count inherited members */}}
+      {{ $allMembers := $directMembers }}
+      {{ range (.inheritsFrom | default (slice)) }}
+        {{ $parent := index $blocsById . }}
+        {{ if $parent }}
+          {{ range ($parent.memberOf | default $parent.members | default (slice)) }}
+            {{ if not (in $allMembers .) }}
+              {{ $allMembers = $allMembers | append . }}
+            {{ end }}
+          {{ end }}
+          {{ range ($parent.inheritsFrom | default (slice)) }}
+            {{ $grandparent := index $blocsById . }}
+            {{ if $grandparent }}
+              {{ range ($grandparent.memberOf | default $grandparent.members | default (slice)) }}
+                {{ if not (in $allMembers .) }}
+                  {{ $allMembers = $allMembers | append . }}
+                {{ end }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ $totalMembers := len $allMembers }}
+
+      {{/* Count datacenters */}}
+      {{ $dcCount := 0 }}
+      {{ range (site.Data.datacenters.datacenters | default (slice)) }}
+        {{ range (.regions | default (slice)) }}
+          {{ if in $allMembers .countryId }}
+            {{ $dcCount = add $dcCount 1 }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Count laws */}}
+      {{ $lawCount := 0 }}
+      {{ $applicableBlocIds := slice $bloc.identifier }}
+      {{ range ($bloc.inheritsFrom | default (slice)) }}
+        {{ $applicableBlocIds = $applicableBlocIds | append . }}
+      {{ end }}
+      {{ $seenLaws := slice }}
+      {{ range site.Data.laws.laws.itemListElement }}
+        {{ $lawId := .identifier }}
+        {{ range .legislationJurisdiction }}
+          {{ $applyTo := . }}
+          {{ range $applicableBlocIds }}
+            {{ if eq $applyTo . }}
+              {{ if not (in $seenLaws $lawId) }}
+                {{ $lawCount = add $lawCount 1 }}
+                {{ $seenLaws = $seenLaws | append $lawId }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ $blocData = $blocData | append (dict
+        "identifier" $bloc.identifier
+        "name" $bloc.name
+        "alternateName" ($bloc.alternateName | default "")
+        "flag" $bloc.flag
+        "slug" ($bloc.slug | default $bloc.identifier)
+        "riskLevel" ($bloc.riskLevel | default "unknown")
+        "legalType" ($bloc.legalType | default "")
+        "description" ($bloc.description | default "")
+        "memberCount" $totalMembers
+        "dcCount" $dcCount
+        "lawCount" $lawCount
+      ) }}
+    {{ end }}
+
+    {{/* Sort by name */}}
+    {{ $blocData = sort $blocData "name" "asc" }}
+
+    <div class="not-prose" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem;">
+      {{ range $blocData }}
+      {{ $riskColor := "neutral" }}
+      {{ if eq .riskLevel "low" }}{{ $riskColor = "success" }}{{ end }}
+      {{ if eq .riskLevel "moderate" }}{{ $riskColor = "warning" }}{{ end }}
+      {{ if eq .riskLevel "elevated" }}{{ $riskColor = "warning" }}{{ end }}
+      {{ if eq .riskLevel "high" }}{{ $riskColor = "error" }}{{ end }}
+
+      <a href="/countries/{{ .slug }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all no-underline">
+        <div class="card-body">
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-3xl">{{ .flag }}</span>
+            <div>
+              <h3 class="card-title text-lg m-0">{{ .name }}</h3>
+              {{ with .alternateName }}<span class="text-sm opacity-70">{{ . }}</span>{{ end }}
+            </div>
+          </div>
+
+          {{ with .legalType }}
+          <div class="badge badge-outline badge-sm mb-2">{{ . }}</div>
+          {{ end }}
+
+          <p class="text-sm opacity-70 line-clamp-2 mb-3">{{ .description }}</p>
+
+          <div class="flex flex-wrap gap-4 text-sm">
+            <div>
+              <span class="font-semibold">{{ .memberCount }}</span>
+              <span class="opacity-70">members</span>
+            </div>
+            <div>
+              <span class="font-semibold">{{ .dcCount }}</span>
+              <span class="opacity-70">datacenters</span>
+            </div>
+            <div>
+              <span class="font-semibold">{{ .lawCount }}</span>
+              <span class="opacity-70">laws</span>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <span class="badge badge-{{ $riskColor }} badge-sm">{{ .riskLevel | title }} Risk</span>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+</article>
+{{ end }}

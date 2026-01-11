@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Generate /countries/{bloc}/ pages from data/blocs/blocs.json
+ * Generate bloc pages from data/blocs/blocs.json
  *
- * Creates one page per bloc (EU, EEA, Five Eyes, etc.)
+ * Creates:
+ * 1. /blocs/_index.md - Landing page for all blocs
+ * 2. /countries/{bloc}/index.md - Individual bloc pages (EU, EEA, Five Eyes, etc.)
+ *
  * Example: /countries/eu/ shows EU member countries with datacenter info
  *
  * Usage: node scripts/generate-blocs-pages.js
@@ -14,6 +17,7 @@ const path = require('path');
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const CONTENT_COUNTRIES_DIR = path.join(__dirname, '..', 'content', 'countries');
+const CONTENT_BLOCS_DIR = path.join(__dirname, '..', 'content', 'blocs');
 
 function readJson(p) {
   return JSON.parse(fs.readFileSync(p, 'utf8'));
@@ -25,6 +29,23 @@ function ensureDir(p) {
 
 function safeWrite(filePath, content) {
   fs.writeFileSync(filePath, content);
+}
+
+function generateBlocsLandingPage(blocs) {
+  ensureDir(CONTENT_BLOCS_DIR);
+
+  const indexPath = path.join(CONTENT_BLOCS_DIR, '_index.md');
+
+  const md = `---
+title: "Regional Blocs"
+description: "Geopolitical and economic blocs with common data governance frameworks affecting digital sovereignty"
+---
+
+Regional blocs share common legal frameworks and data protection standards across their member countries. Understanding these blocs is essential for navigating cross-border data flows and compliance requirements.
+`;
+
+  safeWrite(indexPath, md);
+  console.log(`Generated blocs landing page: content/blocs/_index.md`);
 }
 
 function main() {
@@ -41,6 +62,10 @@ function main() {
     blocs = jurisdictions.blocs || [];
   }
 
+  // Generate /blocs/ landing page
+  generateBlocsLandingPage(blocs);
+
+  // Generate individual bloc pages in /countries/
   ensureDir(CONTENT_COUNTRIES_DIR);
 
   let generated = 0;
