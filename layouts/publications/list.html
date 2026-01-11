@@ -27,12 +27,19 @@
       {{ $topicCounts = merge $topicCounts (dict . (add $count 1)) }}
     {{ end }}
   {{ end }}
-  {{/* Get all unique topics */}}
+  {{/* Get all unique topics and build items for filter-pills */}}
   {{ $uniqueTopics := slice }}
   {{ range $topic, $count := $topicCounts }}
     {{ $uniqueTopics = $uniqueTopics | append $topic }}
   {{ end }}
   {{ $uniqueTopics = sort $uniqueTopics }}
+
+  {{/* Build topic items for filter-pills partial */}}
+  {{ $topicItems := slice }}
+  {{ range $uniqueTopics }}
+    {{ $label := index $topicLabels . | default (. | humanize | title) }}
+    {{ $topicItems = $topicItems | append (dict "id" . "name" $label) }}
+  {{ end }}
 
   <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
     <div class="stat">
@@ -56,8 +63,13 @@
   {{/* Audience filter - reusable partial */}}
   {{ partial "audience-filter.html" . }}
 
-  {{/* Topic filter - reusable partial */}}
-  {{ partial "topic-filter.html" (dict "topics" $uniqueTopics) }}
+  {{/* Topic filter - responsive pills that wrap on mobile */}}
+  {{ partial "filter-pills.html" (dict
+      "label" "Topic"
+      "filterGroup" "topics"
+      "items" $topicItems
+      "allLabel" "All"
+  ) }}
 
   {{/* Publication cards */}}
   <div id="publications-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -197,13 +209,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const target = btn || fallback;
     if (!target) return;
 
-    // Update active state
+    // Update active state - supports both btn-active and btn-primary styles
     groupEl.querySelectorAll('button').forEach(b => {
-      b.classList.remove('btn-active');
+      b.classList.remove('btn-active', 'btn-primary');
       b.classList.add('btn-ghost');
+      if (!b.classList.contains('border')) {
+        b.classList.add('border', 'border-base-300');
+      }
     });
-    target.classList.add('btn-active');
-    target.classList.remove('btn-ghost');
+    target.classList.add('btn-primary');
+    target.classList.remove('btn-ghost', 'border', 'border-base-300');
 
     activeFilters[filterGroup] = target.dataset.filter;
   }
@@ -257,13 +272,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const filterGroup = groupEl.dataset.filterGroup;
       const filterValue = this.dataset.filter;
 
-      // Update active state
+      // Update active state - supports both btn-active and btn-primary styles
       groupEl.querySelectorAll('button').forEach(b => {
-        b.classList.remove('btn-active');
+        b.classList.remove('btn-active', 'btn-primary');
         b.classList.add('btn-ghost');
+        if (!b.classList.contains('border')) {
+          b.classList.add('border', 'border-base-300');
+        }
       });
-      this.classList.add('btn-active');
-      this.classList.remove('btn-ghost');
+      this.classList.add('btn-primary');
+      this.classList.remove('btn-ghost', 'border', 'border-base-300');
 
       activeFilters[filterGroup] = filterValue;
       applyFilters();

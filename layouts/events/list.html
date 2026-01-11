@@ -1,4 +1,10 @@
 {{ define "main" }}
+{{/* Build topic labels from topics.json */}}
+{{ $topicLabels := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
+{{ end }}
+
 <article class="max-w-full">
   {{/* Section Header */}}
   {{ partial "section-header.html" (dict
@@ -63,8 +69,20 @@
   {{- end -}}
   {{- $uniqueTopics = sort $uniqueTopics -}}
 
-  {{/* Topic filter - reusable partial */}}
-  {{ partial "topic-filter.html" (dict "topics" $uniqueTopics) }}
+  {{/* Build topic items for filter-pills partial */}}
+  {{ $topicItems := slice }}
+  {{ range $uniqueTopics }}
+    {{ $label := index $topicLabels . | default (. | humanize | title) }}
+    {{ $topicItems = $topicItems | append (dict "id" . "name" $label) }}
+  {{ end }}
+
+  {{/* Topic filter - responsive pills that wrap on mobile */}}
+  {{ partial "filter-pills.html" (dict
+      "label" "Topic"
+      "filterGroup" "topics"
+      "items" $topicItems
+      "allLabel" "All"
+  ) }}
 
   {{/* Event list */}}
   <div class="events-content mb-8">
@@ -100,13 +118,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const target = btn || fallback;
     if (!target) return;
 
-    // Update active state
+    // Update active state - supports both btn-active and btn-primary styles
     groupEl.querySelectorAll('button').forEach(b => {
-      b.classList.remove('btn-active');
+      b.classList.remove('btn-active', 'btn-primary');
       b.classList.add('btn-ghost');
+      if (!b.classList.contains('border')) {
+        b.classList.add('border', 'border-base-300');
+      }
     });
-    target.classList.add('btn-active');
-    target.classList.remove('btn-ghost');
+    target.classList.add('btn-primary');
+    target.classList.remove('btn-ghost', 'border', 'border-base-300');
 
     // Update state
     activeFilters[filterGroup] = target.dataset.filter;
@@ -167,13 +188,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const filterGroup = groupEl.dataset.filterGroup;
       const filterValue = this.dataset.filter;
 
-      // Update active state in this group
+      // Update active state - supports both btn-active and btn-primary styles
       groupEl.querySelectorAll('button').forEach(b => {
-        b.classList.remove('btn-active');
+        b.classList.remove('btn-active', 'btn-primary');
         b.classList.add('btn-ghost');
+        if (!b.classList.contains('border')) {
+          b.classList.add('border', 'border-base-300');
+        }
       });
-      this.classList.add('btn-active');
-      this.classList.remove('btn-ghost');
+      this.classList.add('btn-primary');
+      this.classList.remove('btn-ghost', 'border', 'border-base-300');
 
       // Update filter state
       activeFilters[filterGroup] = filterValue;
