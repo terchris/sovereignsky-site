@@ -1,0 +1,76 @@
+{{/*
+  card-compact.html
+  Compact card with small thumbnail and category label (Aftenposten-inspired)
+
+  Usage:
+    {{ partial "card-compact.html" (dict
+        "title" "Article Title"
+        "url" "/path/to/page/"
+        "category" "Report"
+        "subcategory" "FFI"
+        "thumbnail" $imageResource
+        "year" "2025"
+        "icon" "book"
+        "class" "additional-classes"
+        "dataAttrs" "data-topics=\"topic1,topic2\""
+    ) }}
+
+  Parameters:
+    - title: Card title (required)
+    - url: Link URL (required)
+    - category: Primary category label (e.g., "Report", "Paper")
+    - subcategory: Secondary label (e.g., publisher name)
+    - thumbnail: Hugo image resource for thumbnail
+    - year: Year to display
+    - icon: Icon name for placeholder (default: "document")
+    - class: Additional CSS classes for the card
+    - dataAttrs: Additional data attributes string
+*/}}
+
+{{- $title := .title | default "Untitled" -}}
+{{- $url := .url | default "#" -}}
+{{- $category := .category -}}
+{{- $subcategory := .subcategory -}}
+{{- $thumbnail := .thumbnail -}}
+{{- $year := .year -}}
+{{- $icon := .icon | default "document" -}}
+{{- $class := .class | default "" -}}
+{{- $dataAttrs := .dataAttrs | default "" -}}
+
+<article class="card-compact group {{ $class }}" {{ $dataAttrs | safeHTMLAttr }}>
+  <a href="{{ $url }}" class="flex gap-4 p-3 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+    {{/* Thumbnail */}}
+    <div class="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 rounded-md overflow-hidden bg-base-200">
+      {{- if $thumbnail }}
+      {{ $img := $thumbnail.Fill "96x96 webp" }}
+      <img src="{{ $img.RelPermalink }}" alt="{{ $title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+      {{- else }}
+      <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
+        {{ partial "content-icon.html" (dict "name" $icon "size" "8" "class" "text-primary/30") }}
+      </div>
+      {{- end }}
+    </div>
+
+    {{/* Content */}}
+    <div class="flex-1 min-w-0 flex flex-col justify-center">
+      {{/* Category label: "Type | Publisher" or "Type | Year" */}}
+      {{- if or $category $subcategory $year }}
+      <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
+        {{- if $category }}{{ $category }}{{- end -}}
+        {{- if and $category (or $subcategory $year) }} | {{ end -}}
+        {{- if $subcategory }}{{ $subcategory }}{{- else if $year }}{{ $year }}{{- end -}}
+      </div>
+      {{- end }}
+
+      {{/* Title */}}
+      <h3 class="font-medium text-sm sm:text-base leading-snug group-hover:text-primary transition-colors line-clamp-2">
+        {{ $title }}
+      </h3>
+
+      {{/* Year if not in category line */}}
+      {{- if and $year $subcategory }}
+      <div class="text-xs text-neutral-400 dark:text-neutral-500 mt-1">{{ $year }}</div>
+      {{- end }}
+    </div>
+  </a>
+</article>

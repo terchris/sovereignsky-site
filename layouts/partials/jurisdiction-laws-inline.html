@@ -111,125 +111,67 @@
     {{ $type := . }}
     {{ $lawsOfType := index $byType $type }}
     {{ if $lawsOfType }}
-    <div class="mb-10" id="{{ $type }}-laws">
-      {{/* Section header */}}
-      <div class="flex items-center gap-3 mb-4">
-        <span class="text-2xl">{{ index $typeEmojis $type }}</span>
-        <div>
-          <h3 class="text-xl font-bold text-base-content m-0">{{ index $typeLabels $type }}</h3>
-          <p class="text-sm opacity-70 m-0">{{ index $typeDescriptions $type }}</p>
-        </div>
+    <div class="mb-8" id="{{ $type }}-laws">
+      {{/* Section header - compact */}}
+      <div class="flex items-center gap-2 mb-3 pb-2 border-b border-base-200">
+        <span class="text-xl">{{ index $typeEmojis $type }}</span>
+        <h3 class="text-base font-semibold text-base-content m-0">{{ index $typeLabels $type }}</h3>
+        <span class="text-xs text-neutral-500">({{ len $lawsOfType }})</span>
       </div>
 
-      {{/* Law cards */}}
-      <div class="space-y-6">
+      {{/* Law cards - compact grid */}}
+      <div class="grid gap-2 sm:grid-cols-2">
         {{ range $lawsOfType }}
         {{/* Determine source of this law */}}
         {{ $lawSource := index $lawSources .identifier }}
         {{ $isNational := eq $lawSource $jurisdictionId }}
-        {{ $sourceLabel := "" }}
-        {{ $sourceBadgeClass := "badge-ghost" }}
+        {{ $sourceFlag := "" }}
         {{ if $isNational }}
-          {{ $countryFlag := "" }}
           {{ range $regions }}
             {{ if eq .identifier $jurisdictionId }}
-              {{ $countryFlag = .flag | default "" }}
-            {{ end }}
-          {{ end }}
-          {{ if $countryFlag }}
-            {{ $sourceLabel = printf "%s National" $countryFlag }}
-          {{ else }}
-            {{ $sourceLabel = "National" }}
-          {{ end }}
-          {{ $sourceBadgeClass = "badge-primary" }}
-        {{ else }}
-          {{ $sourceName := $lawSource }}
-          {{ $sourceFlag := "" }}
-          {{ range $blocs }}
-            {{ if eq .identifier $lawSource }}
-              {{ $sourceName = .name }}
               {{ $sourceFlag = .flag | default "" }}
             {{ end }}
           {{ end }}
-          {{ if $sourceFlag }}
-            {{ $sourceLabel = printf "via %s %s" $sourceFlag $sourceName }}
-          {{ else }}
-            {{ $sourceLabel = printf "via %s" $sourceName }}
+        {{ else }}
+          {{ range $blocs }}
+            {{ if eq .identifier $lawSource }}
+              {{ $sourceFlag = .flag | default "" }}
+            {{ end }}
           {{ end }}
         {{ end }}
 
-        {{/* Card */}}
-        <div class="card bg-base-100 shadow-md hover:shadow-lg transition-shadow border border-base-300">
-          <div class="card-body p-6">
-            {{/* Header row */}}
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 flex-wrap mb-1">
-                  <h4 class="card-title text-lg m-0">
-                    <a href="/laws/{{ .identifier }}/" class="link link-hover hover:text-primary">
-                      {{ .name }} ({{ .legislationDate }})
-                    </a>
-                  </h4>
-                  <div class="badge {{ $sourceBadgeClass }} badge-sm">{{ $sourceLabel }}</div>
-                </div>
-                <p class="text-sm opacity-60 m-0">{{ .alternateName }}</p>
-              </div>
-              <a href="/laws/{{ .identifier }}/" class="btn btn-ghost btn-sm">
-                Details
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </div>
-
-            {{/* Summary */}}
-            <p class="text-sm mt-2 mb-3">{{ .summary }}</p>
-
-            {{/* Attributes */}}
-            <div class="flex flex-wrap gap-2">
-              {{/* Government Access */}}
-              {{ $accessBadge := "badge-ghost" }}
-              {{ if eq .governmentAccess "broad" }}{{ $accessBadge = "badge-error" }}{{ end }}
-              {{ if eq .governmentAccess "targeted" }}{{ $accessBadge = "badge-warning" }}{{ end }}
-              {{ if eq .governmentAccess "limited" }}{{ $accessBadge = "badge-success" }}{{ end }}
-              <div class="badge {{ $accessBadge }} gap-1">
-                {{ partial "content-icon.html" (dict "name" "eye" "size" "3") }}
-                Gov: {{ .governmentAccess }}
-              </div>
-
-              {{/* Data Protection */}}
-              {{ if and .dataProtection (ne .dataProtection "none") }}
-              {{ $protBadge := "badge-ghost" }}
-              {{ if eq .dataProtection "strong" }}{{ $protBadge = "badge-success" }}{{ end }}
-              {{ if eq .dataProtection "moderate" }}{{ $protBadge = "badge-warning" }}{{ end }}
-              {{ if eq .dataProtection "weak" }}{{ $protBadge = "badge-error" }}{{ end }}
-              <div class="badge {{ $protBadge }} gap-1">
-                {{ partial "content-icon.html" (dict "name" "shield" "size" "3") }}
-                Protection: {{ .dataProtection }}
-              </div>
-              {{ end }}
-
-              {{/* Boolean flags */}}
-              {{ if .extraterritorial }}
-              <div class="badge badge-secondary gap-1">
-                🌍 Extraterritorial
-              </div>
-              {{ end }}
-
-              {{ if .requiresLocalization }}
-              <div class="badge badge-info gap-1">
-                📍 Localization Required
-              </div>
-              {{ end }}
-
-              {{ if .requiresBackdoor }}
-              <div class="badge badge-error gap-1">
-                🔑 Backdoor Required
-              </div>
-              {{ end }}
-            </div>
+        {{/* Compact card */}}
+        <a href="/laws/{{ .identifier }}/" class="group flex items-center gap-3 p-3 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+          {{/* Flag */}}
+          {{ if $sourceFlag }}
+          <span class="text-xl flex-shrink-0">{{ $sourceFlag }}</span>
+          {{ else }}
+          <div class="flex-shrink-0">
+            {{ partial "content-icon.html" (dict "name" "scale" "size" "5" "class" "text-base-content/40") }}
           </div>
-        </div>
+          {{ end }}
+
+          {{/* Content */}}
+          <div class="flex-1 min-w-0">
+            {{/* Title */}}
+            <div class="font-medium text-sm leading-snug group-hover:text-primary transition-colors line-clamp-1">
+              {{ .name }}
+            </div>
+
+            {{/* Alternate name */}}
+            {{ with .alternateName }}
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-1 mt-0.5">{{ . }}</div>
+            {{ end }}
+          </div>
+
+          {{/* Year + key badges */}}
+          <div class="flex items-center gap-1.5 flex-shrink-0">
+            {{- if .extraterritorial }}<span class="text-xs" title="Extraterritorial">🌍</span>{{ end -}}
+            {{- if .requiresLocalization }}<span class="text-xs" title="Localization Required">📍</span>{{ end -}}
+            {{- if .requiresBackdoor }}<span class="text-xs" title="Backdoor Required">🔑</span>{{ end -}}
+            <span class="text-xs text-neutral-400">{{ .legislationDate }}</span>
+          </div>
+        </a>
         {{ end }}
       </div>
     </div>

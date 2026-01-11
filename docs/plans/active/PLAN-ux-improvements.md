@@ -83,25 +83,25 @@
 
 ### Tasks
 
-- [ ] 2.1 Create `layouts/partials/card-compact.html`
-  - Props: title, url, category, subcategory, thumbnail (optional), meta (date/publisher)
-  - Layout: Thumbnail left (small), content right
-  - Mobile: Stack or keep horizontal but smaller
+- [x] 2.1 Create `layouts/partials/card-compact.html`
+  - Props: title, url, category, subcategory, thumbnail (optional), year, icon
+  - Layout: Thumbnail left (small 80-96px), content right
+  - Mobile: Horizontal with smaller thumbnail
   - No long descriptions - title does the work
   - Category label format: "Type | Publisher" (Aftenposten style)
 
-- [ ] 2.2 Update `layouts/publications/list.html`
+- [x] 2.2 Update `layouts/publications/list.html`
   - Use compact cards instead of current layout
   - Add category labels (e.g., "Report | FFI")
   - Remove long descriptions
-  - Increase whitespace between cards
+  - Uses card-compact.html partial
 
-- [ ] 2.3 Update `layouts/partials/related-laws-list.html`
-  - Use compact card style
-  - Smaller overall footprint
+- [x] 2.3 Update `layouts/partials/related-laws-list.html`
+  - Compact card style with flag, category emoji, jurisdiction, year
+  - Smaller overall footprint (gap-2 instead of gap-3)
   - Used on country pages and elsewhere
 
-- [ ] 2.4 Test on `/publications/` and `/countries/australia/`
+- [x] 2.4 Test on `/publications/` and `/personas/it-ops/`
 
 ### Validation
 ```bash

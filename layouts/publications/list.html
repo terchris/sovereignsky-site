@@ -71,114 +71,39 @@
       "allLabel" "All"
   ) }}
 
-  {{/* Publication cards */}}
-  <div id="publications-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {{/* Publication cards - compact layout */}}
+  <div id="publications-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {{ range .Pages }}
     {{/* Get featured image from page bundle */}}
     {{ $featured := .Resources.GetMatch "featured*" }}
     {{ $topics := .Params.topics | default (slice) }}
     {{ $audiences := .Params.audience | default (slice) }}
 
-    <article
-      class="publication-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200"
-      data-topics="{{ delimit $topics "," }}"
-      data-audience="{{ delimit $audiences "," }}"
-    >
-      <a href="{{ .RelPermalink }}" class="block no-underline">
-        {{/* Cover image */}}
-        {{ if $featured }}
-        {{ $img := $featured.Fill "600x300 webp" }}
-        <figure class="h-48 overflow-hidden bg-base-200">
-          <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-        </figure>
-        {{ else }}
-        {{/* Placeholder if no image */}}
-        <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
-          <div class="text-primary/30">
-            {{ partial "content-icon.html" (dict "name" "book" "size" "16" "class" "w-16 h-16") }}
-          </div>
-        </figure>
-        {{ end }}
+    {{/* Build category label: "Type | Publisher" */}}
+    {{ $typeLabel := "" }}
+    {{ with .Params.publication_type }}
+      {{ if eq . "book" }}{{ $typeLabel = "Book" }}
+      {{ else if eq . "report" }}{{ $typeLabel = "Report" }}
+      {{ else if eq . "paper" }}{{ $typeLabel = "Paper" }}
+      {{ else if eq . "guide" }}{{ $typeLabel = "Guide" }}
+      {{ else }}{{ $typeLabel = . | humanize | title }}{{ end }}
+    {{ end }}
 
-        <div class="card-body p-4">
-          {{/* Publication type and year row */}}
-          <div class="flex items-center justify-between gap-2 mb-2">
-            {{/* Publication type badge */}}
-            {{ with .Params.publication_type }}
-            {{ $typeLabel := . }}
-            {{ $typeClass := "badge-ghost" }}
-            {{ if eq . "book" }}
-              {{ $typeLabel = "Book" }}
-              {{ $typeClass = "badge-primary" }}
-            {{ else if eq . "report" }}
-              {{ $typeLabel = "Report" }}
-              {{ $typeClass = "badge-secondary" }}
-            {{ else if eq . "paper" }}
-              {{ $typeLabel = "Paper" }}
-              {{ $typeClass = "badge-accent" }}
-            {{ else if eq . "guide" }}
-              {{ $typeLabel = "Guide" }}
-              {{ $typeClass = "badge-info" }}
-            {{ end }}
-            <span class="badge badge-sm {{ $typeClass }}">{{ $typeLabel }}</span>
-            {{ end }}
+    {{ $publisher := "" }}
+    {{ with .Params.publisher }}{{ $publisher = . }}{{ else }}{{ with .Params.institutions }}{{ $publisher = index . 0 }}{{ end }}{{ end }}
 
-            {{/* Year */}}
-            {{ with .Params.year }}
-            <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">{{ . }}</span>
-            {{ end }}
-          </div>
-
-          {{/* Title */}}
-          <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
-
-          {{/* Description */}}
-          {{ with .Description }}
-          <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
-          {{ end }}
-
-          {{/* Topics - colored badges like events page */}}
-          {{ with $topics }}
-          <div class="flex flex-wrap gap-1 mt-2">
-            {{- $topicColors := dict "cybersecurity" "border-error text-error" "national-preparedness" "border-warning text-warning" "critical-infrastructure" "border-info text-info" "digital-sovereignty" "border-success text-success" "privacy" "border-secondary text-secondary" "digital-identity" "border-accent text-accent" -}}
-            {{- range . }}
-            {{- $label := index $topicLabels . | default (. | humanize | title) }}
-            {{- $color := index $topicColors . | default "border-base-300" }}
-            <span class="inline-flex items-center px-2 py-0.5 text-xs font-medium rounded-full border {{ $color }}">{{ $label }}</span>
-            {{- end }}
-          </div>
-          {{ end }}
-
-          {{/* Publisher/Institution */}}
-          <div class="mt-auto pt-3 border-t border-base-200">
-            <div class="flex items-center justify-between">
-              {{/* Publisher or first institution */}}
-              <span class="text-xs text-neutral-500 dark:text-neutral-500 truncate">
-                {{ with .Params.publisher }}{{ . }}{{ else }}{{ with .Params.institutions }}{{ index . 0 }}{{ end }}{{ end }}
-              </span>
-
-              {{/* Credibility icons */}}
-              <div class="flex items-center gap-1">
-                {{ if .Params.open_access }}
-                <span class="tooltip tooltip-left" data-tip="Open Access">
-                  <svg class="w-4 h-4 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                  </svg>
-                </span>
-                {{ end }}
-                {{ if .Params.peer_reviewed }}
-                <span class="tooltip tooltip-left" data-tip="Peer Reviewed">
-                  <svg class="w-4 h-4 text-info" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </span>
-                {{ end }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </article>
+    {{/* Use compact card partial */}}
+    <div class="publication-card" data-topics="{{ delimit $topics "," }}" data-audience="{{ delimit $audiences "," }}">
+      {{ partial "card-compact.html" (dict
+          "title" .Title
+          "url" .RelPermalink
+          "category" $typeLabel
+          "subcategory" $publisher
+          "thumbnail" $featured
+          "year" .Params.year
+          "icon" "book"
+      ) }}
+    </div>
     {{ end }}
   </div>
 
