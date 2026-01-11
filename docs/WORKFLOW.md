@@ -1,147 +1,215 @@
 # Issue to Implementation Workflow
 
-How issues become features on SovereignSky.
+How GitHub issues become implemented features.
+
+---
 
 ## The Flow
 
 ```
-GitHub Issue → Triage → Plan File → Claude Code → PR → Merge → Done
-     ↓           ↓          ↓            ↓         ↓
-  (anyone)    (you)    (backlog/)   (implement)  (review)
-```
-
-## Step 1: Triage New Issues
-
-When a new issue arrives:
-
-1. Review the issue content
-2. Add labels:
-   - `approved` - good to implement
-   - `needs-info` - ask clarifying questions
-   - `wontfix` - explain why and close
-   - `duplicate` - link to existing issue
-
-3. If approved, decide:
-   - **Quick fix**: Implement directly with Claude Code
-   - **Larger feature**: Create a plan file first
-
-## Step 2: Create Plan File (Optional)
-
-For larger features, create `docs/plans/backlog/PLAN-<name>.md`:
-
-```markdown
-# Feature Name
-
-## Status: Backlog
-
-**GitHub Issue**: #42
-**Goal**: One sentence description
-
----
-
-## Requirements
-
-From the issue:
-- Requirement 1
-- Requirement 2
-
-## Implementation Notes
-
-Technical details, file locations, etc.
-
-## Acceptance Criteria
-
-- [ ] Criterion 1
-- [ ] Criterion 2
-- [ ] Works on mobile
-
-## Files to Modify
-
-- layouts/partials/...
-- assets/css/...
-```
-
-## Step 3: Implement with Claude Code
-
-### Option A: From GitHub Issue
-
-```bash
-# In the project directory
-claude
-
-# Then tell Claude Code:
-"Implement GitHub issue #42. Read the issue first with gh issue view 42"
-```
-
-### Option B: From Plan File
-
-```bash
-claude
-
-# Then tell Claude Code:
-"Implement the plan in docs/plans/active/PLAN-feature-name.md"
-```
-
-### During Implementation
-
-Move the plan file:
-```bash
-mv docs/plans/backlog/PLAN-feature.md docs/plans/active/
-```
-
-Update the status in the file:
-```markdown
-## Status: Active → In Progress
-```
-
-## Step 4: Review and Merge
-
-1. Test the changes locally
-2. Check mobile if relevant
-3. Commit and push
-4. Close the GitHub issue with a comment
-
-## Step 5: Complete
-
-Move the plan to completed:
-```bash
-mv docs/plans/active/PLAN-feature.md docs/plans/completed/
-```
-
-Update the status:
-```markdown
-## Status: Completed
-**Completed**: 2026-01-11
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│  1. USER: "Claude, work on issue #42"                               │
+│                                                                     │
+│  2. CLAUDE:                                                         │
+│     - Reads the issue                                               │
+│     - Adds "approved" label                                         │
+│     - Creates PLAN-*.md or INVESTIGATE-*.md in backlog/             │
+│     - Asks user to review the plan                                  │
+│                                                                     │
+│  3. USER: Reviews and edits the plan, then confirms                 │
+│                                                                     │
+│  4. CLAUDE:                                                         │
+│     - Moves plan to active/                                         │
+│     - Implements phase by phase                                     │
+│     - Runs validation after each phase                              │
+│     - Updates plan with progress                                    │
+│                                                                     │
+│  5. USER: Reviews result                                            │
+│                                                                     │
+│  6. CLAUDE:                                                         │
+│     - Moves plan to completed/                                      │
+│     - Closes the GitHub issue                                       │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Quick Commands for Claude Code
+## Step 1: Pick an Issue
+
+Look at open issues:
 
 ```bash
-# View an issue
-"Read GitHub issue #42 using: gh issue view 42"
-
-# Implement from issue
-"Implement the feature requested in GitHub issue #42"
-
-# Implement from plan
-"Read and implement docs/plans/active/PLAN-xyz.md"
-
-# Check the result
-"Run the Hugo server and verify the changes work"
+gh issue list
 ```
 
-## Labels Reference
+Tell Claude which one to work on:
 
-| Label | When to Use |
-|-------|-------------|
-| `triage` | Auto-added to new issues |
+```
+"Work on issue #42"
+```
+
+or
+
+```
+"Look at the open issues and pick the highest priority one"
+```
+
+---
+
+## Step 2: Claude Creates a Plan
+
+Claude will:
+
+1. **Read the issue**: `gh issue view 42`
+2. **Add label**: `gh issue edit 42 --add-label "approved"`
+3. **Create plan file** in `docs/plans/backlog/`:
+   - `PLAN-*.md` if the solution is clear
+   - `INVESTIGATE-*.md` if research is needed first
+4. **Ask you to review** the plan
+
+### What Claude writes in the plan:
+
+- Problem summary from the issue
+- Phases with numbered tasks
+- Validation commands for each phase
+- Acceptance criteria
+- Files to modify
+
+---
+
+## Step 3: Review the Plan
+
+Open the plan file and review it:
+
+- Are the phases in the right order?
+- Are the tasks specific enough?
+- Is anything missing?
+- Are the validation steps correct?
+
+Edit the file if needed.
+
+When satisfied, tell Claude:
+
+```
+"Plan approved, start implementation"
+```
+
+---
+
+## Step 4: Claude Implements
+
+Claude will:
+
+1. **Move plan to active/**:
+   ```bash
+   mv docs/plans/backlog/PLAN-xyz.md docs/plans/active/
+   ```
+
+2. **Work phase by phase**:
+   - Complete tasks in order
+   - Run validation after each phase
+   - Update the plan file (mark tasks complete)
+   - Stop if validation fails
+
+3. **Ask for help** if blocked or unclear
+
+---
+
+## Step 5: Review Result
+
+Check the changes:
+
+- Does it work on desktop?
+- Does it work on mobile?
+- Any console errors?
+
+If changes needed, tell Claude what to fix.
+
+If good, tell Claude:
+
+```
+"Looks good, complete it"
+```
+
+---
+
+## Step 6: Claude Completes
+
+Claude will:
+
+1. **Move plan to completed/**:
+   ```bash
+   mv docs/plans/active/PLAN-xyz.md docs/plans/completed/
+   ```
+
+2. **Update plan status**: `## Status: Completed`
+
+3. **Commit changes**:
+   ```bash
+   git add .
+   git commit -m "Fix: [description] - closes #42"
+   git push
+   ```
+
+4. **Close the issue**:
+   ```bash
+   gh issue close 42 --comment "Fixed in commit [hash]"
+   ```
+
+---
+
+## Quick Reference
+
+### Commands to give Claude:
+
+| You say | Claude does |
+|---------|-------------|
+| "Work on issue #42" | Reads issue, creates plan, asks for review |
+| "Plan approved" | Moves to active/, starts implementing |
+| "Looks good, complete it" | Moves to completed/, closes issue |
+| "Stop" | Pauses and waits for instructions |
+
+### Issue labels:
+
+| Label | Meaning |
+|-------|---------|
+| `triage` | New, needs review |
 | `approved` | Ready to implement |
 | `in-progress` | Currently being worked on |
-| `blocked` | Waiting on something |
-| `needs-info` | Need more details from reporter |
+| `needs-info` | Waiting for clarification |
 
 ---
 
-*This workflow keeps you in control while letting anyone suggest improvements.*
+## Example Session
+
+```
+YOU: Work on issue #5
+
+CLAUDE: I've read issue #5 about mobile responsiveness. I've:
+        - Added the "approved" label
+        - Created docs/plans/backlog/PLAN-mobile-responsiveness.md
+        
+        Please review the plan and let me know if it looks good
+        or needs changes.
+
+YOU: [reviews file, makes edits]
+     Plan approved, start implementation
+
+CLAUDE: Moving to active/ and starting Phase 1...
+        [works through phases, updating plan]
+        
+        Phase 2 complete. Validation passed. 
+        Continuing to Phase 3...
+        
+        All phases complete. Please review the result at
+        http://localhost:1313
+
+YOU: Looks good, complete it
+
+CLAUDE: Done! I've:
+        - Moved plan to completed/
+        - Committed with message "Fix mobile responsiveness - closes #5"
+        - Closed issue #5
+```

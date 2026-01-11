@@ -1,5 +1,57 @@
 # Claude Code Instructions for SovereignSky Site
 
+## Issue & Plan Workflow
+
+When asked to **"work on issue #X"** or similar:
+
+### Step 1: Read and Plan
+
+1. Read the issue: `gh issue view <number>`
+2. Add "approved" label: `gh issue edit <number> --add-label "approved"`
+3. Create a plan file in `docs/plans/backlog/`:
+   - `PLAN-<name>.md` if solution is clear
+   - `INVESTIGATE-<name>.md` if research needed first
+4. **Stop and ask the user to review the plan**
+
+### Step 2: Wait for Approval
+
+Do NOT proceed until the user confirms the plan is approved.
+
+User will say something like:
+- "Plan approved"
+- "Looks good, start"
+- "Go ahead"
+
+### Step 3: Implement
+
+1. Move plan: `mv docs/plans/backlog/PLAN-*.md docs/plans/active/`
+2. Work through phases in order
+3. Run validation after each phase
+4. Update the plan file (mark tasks `[x]`)
+5. If validation fails, stop and ask for help
+
+### Step 4: Complete
+
+When user approves the result:
+
+1. Move plan: `mv docs/plans/active/PLAN-*.md docs/plans/completed/`
+2. Update status in plan: `## Status: Completed`
+3. Commit: `git add . && git commit -m "description - closes #X"`
+4. Push: `git push`
+5. Close issue: `gh issue close <number> --comment "Fixed in commit [hash]"`
+
+### Plan File Format
+
+See **[docs/PLANS.md](docs/PLANS.md)** for full details.
+
+Every plan needs:
+- Header with status, goal, issue link
+- Phases with numbered tasks
+- Validation commands after each phase
+- Acceptance criteria
+
+---
+
 ## CRITICAL: Devcontainer Environment
 
 **ALL commands that install packages or run code MUST be executed inside the devcontainer.**
@@ -29,105 +81,66 @@ docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scr
 - `node scripts/*.js`
 - `hugo` commands
 
+---
+
 ## Project Structure
+
+See **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** for development setup.
 
 ```
 sovereignsky-site/
 ├── config/                    # Hugo configuration
 ├── content/                   # Hugo content (markdown pages)
-│   ├── networks/              # Generated network pages
-│   ├── laws/                  # Generated law pages
-│   ├── publications/          # Generated publication pages
-│   └── ...
-├── data/                      # Data files
-│   ├── networks/              # Network data
-│   │   ├── networks.json
-│   │   ├── networks-actors.json
-│   │   ├── networks-places.json
-│   │   └── networks-trawler.json
-│   ├── publications/          # Publications data
-│   │   └── publications.json
-│   ├── laws/                  # Laws data
-│   │   └── laws.json
-│   └── schemas/               # JSON Schema definitions
-│       ├── networks.schema.json
-│       ├── networks-actors.schema.json
-│       └── networks-places.schema.json
+├── data/                      # Data files and schemas
+├── docs/                      # Documentation and plans
+│   └── plans/                 # Implementation plans
+│       ├── backlog/           # Plans waiting for approval
+│       ├── active/            # Currently implementing
+│       └── completed/         # Done
 ├── layouts/                   # Hugo templates
-│   └── shortcodes/            # Reusable shortcodes
 ├── scripts/                   # Node.js scripts
-│   ├── generate-network-pages.js
-│   ├── generate-laws-pages.js
-│   ├── generate-publications-pages.js
-│   └── validate.js
 └── static/                    # Static assets
 ```
 
+---
+
 ## Key Scripts
 
-### Generate Network Pages
+### Generate Pages from Data
 ```bash
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scripts/generate-network-pages.js"
-```
-- Generates content pages from `data/networks/networks.json`
-- Always updates frontmatter from JSON
-- Preserves custom body content if edited
-
-### Generate Laws Pages
-```bash
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scripts/generate-laws-pages.js"
-```
-
-### Generate Publications Pages
-```bash
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scripts/generate-publications-pages.js"
 ```
-- Generates content pages from `data/publications/publications.json`
-- Field mappings: `datePublished` → `date`, `name` → `title`, `url` → `external_url`, `about` → `topics`, `author` → `authors`
-- Preserves custom body content after Summary section
 
 ### Validate Data Files
 ```bash
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && npm run validate"
 ```
 
-## Data & Schema Pattern
+See **[docs/DATA-VALIDATION.md](docs/DATA-VALIDATION.md)** for schema details.
 
-Data files in `data/networks/` are validated against schemas in `data/schemas/`:
-
-| Data File | Schema |
-|-----------|--------|
-| networks.json | networks.schema.json |
-| networks-actors.json | networks-actors.schema.json |
-| networks-places.json | networks-places.schema.json |
-
-All data files are arrays at root level (no wrapper objects).
-
-## Publications Data Structure
-
-Publications in `data/publications/publications.json` use schema.org-aligned field names:
-
-| JSON Field | Hugo Frontmatter | Description |
-|------------|------------------|-------------|
-| id | (directory name) | URL slug |
-| name | title | Publication title |
-| description | description | Short description |
-| datePublished | date | Publication date |
-| url | external_url | Link to original |
-| author | authors | Array of author names |
-| publisher | publisher | Publisher name |
-| about | topics | Array of topic slugs |
-| audience | audience | Array of persona types |
-| tags | tags | Array of keyword tags |
-| abstract | (in body) | Short abstract text |
-| summary | (in body) | Longer summary text |
-| image | featured.png | Cover image (copied to content folder) |
+---
 
 ## Hugo Development
 
-The Hugo server runs inside the devcontainer and is accessible at `http://localhost:1313`.
+The Hugo server runs inside the devcontainer at `http://localhost:1313`.
 
-To restart Hugo (kills existing process and starts fresh):
+To restart Hugo:
 ```bash
 docker exec relaxed_napier bash -c "pkill hugo; cd /workspaces/sovereignsky-site && hugo server -D --bind 0.0.0.0 --disableFastRender"
 ```
+
+See **[docs/PAGE-LAYOUTS.md](docs/PAGE-LAYOUTS.md)** for template information.
+
+---
+
+## Styling
+
+The site uses:
+- **Hugo theme**: Blowfish
+- **Component library**: DaisyUI (loaded via CDN in `layouts/partials/extend-head.html`)
+- **CSS framework**: Tailwind (from Blowfish)
+- **Custom CSS**: `assets/css/custom.css`
+
+Prefer Tailwind/DaisyUI classes over custom CSS when possible.
