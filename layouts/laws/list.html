@@ -501,4 +501,11 @@
   }
 })();
 </script>
+
+{{/* Floating TOC for mobile */}}
+{{ $tocSections := slice
+    (dict "id" "laws-search" "title" "Search" "icon" "🔍")
+    (dict "id" "laws-grid" "title" "Laws" "icon" "⚖️")
+}}
+{{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 {{ end }}

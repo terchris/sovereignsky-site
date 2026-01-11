@@ -115,6 +115,7 @@
   {{ if or (eq .riskLevel "elevated") (eq .riskLevel "high") (eq .riskLevel "sanctioned") }}{{ $elevatedRisk = add $elevatedRisk 1 }}{{ end }}
 {{ end }}
 
+<div id="jurisdiction-map">
 <div class="not-prose stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
   <div class="stat">
     <div class="stat-figure text-primary">
@@ -748,3 +749,4 @@
     });
 })();
 </script>
+</div>{{/* Close jurisdiction-map wrapper */}}

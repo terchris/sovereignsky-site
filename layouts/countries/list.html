@@ -69,4 +69,12 @@
     </div>
   </section>
 </article>
+
+{{/* Floating TOC for mobile */}}
+{{ $tocSections := slice
+    (dict "id" "jurisdiction-map" "title" "Map" "icon" "🗺️")
+    (dict "id" "regional-blocs" "title" "Blocs" "icon" "🌐")
+    (dict "id" "browse-by-country" "title" "Countries" "icon" "🏳️")
+}}
+{{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 {{ end }}

@@ -12,4 +12,13 @@
     {{ .Content }}
   </section>
 </article>
+
+{{/* Floating TOC for mobile */}}
+{{ $tocSections := slice
+    (dict "id" "regions-by-country" "title" "Chart" "icon" "📊")
+    (dict "id" "datacenter-map-chart" "title" "Map" "icon" "🗺️")
+    (dict "id" "datacenter-providers" "title" "Providers" "icon" "🖥️")
+    (dict "id" "countries" "title" "Countries" "icon" "🌍")
+}}
+{{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 {{ end }}
