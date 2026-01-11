@@ -2,6 +2,18 @@
 
 ## Issue & Plan Workflow
 
+### IMPORTANT: Git Operations Require Confirmation
+
+**NEVER run these commands without user confirmation:**
+- `git add`
+- `git commit`
+- `git push`
+- `git checkout -b` (create branch)
+- `git merge`
+- `git branch -d` (delete branch)
+
+Always show the user what you're about to do and wait for approval.
+
 ### First: Check for Active Plans
 
 Before starting new work, check `docs/plans/active/` for existing plans:
@@ -34,26 +46,23 @@ User will say something like:
 
 ### Step 3: Implement
 
-1. Create a branch: `git checkout -b issue-<number>-<short-name>`
+1. **Ask to create branch**: Show `git checkout -b issue-<number>-<short-name>` and wait for confirmation
 2. Move plan: `mv docs/plans/backlog/PLAN-*.md docs/plans/active/`
 3. Work through phases in order
 4. Run validation after each phase
 5. Update the plan file (mark tasks `[x]`)
-6. Commit after each phase: `git add . && git commit -m "Phase N: description"`
+6. **Ask to commit after each phase**: Show the commit command and wait for confirmation
 7. If validation fails, stop and ask for help
 
 ### Step 4: Complete
 
-When user approves the result:
+When user approves the result, **ask for confirmation before each git operation**:
 
 1. Move plan: `mv docs/plans/active/PLAN-*.md docs/plans/completed/`
 2. Update status in plan: `## Status: Completed`
-3. Commit: `git add . && git commit -m "Complete: description"`
-4. Push branch: `git push -u origin issue-<number>-<short-name>`
-5. Merge to main: `git checkout main && git merge issue-<number>-<short-name>`
-6. Push main: `git push`
-7. Delete branch: `git branch -d issue-<number>-<short-name>`
-8. Close issue: `gh issue close <number> --comment "Fixed in commit [hash]"`
+3. **Ask to commit and push**: Show commands, wait for confirmation
+4. **Ask to merge to main**: Show commands, wait for confirmation
+5. **Ask to delete branch and close issue**: Show commands, wait for confirmation
 
 ### Plan File Format
 

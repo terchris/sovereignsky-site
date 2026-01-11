@@ -6,6 +6,8 @@ How GitHub issues become implemented features.
 
 ## The Flow
 
+**Note:** Claude always asks for confirmation before running git commands (add, commit, push, branch, merge).
+
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
@@ -105,9 +107,10 @@ When satisfied, tell Claude:
 
 Claude will:
 
-1. **Create a branch**:
-   ```bash
-   git checkout -b issue-42-feature-name
+1. **Ask to create a branch**:
+   ```
+   Ready to create branch: issue-42-feature-name
+   OK to proceed? (yes/no)
    ```
 
 2. **Move plan to active/**:
@@ -118,7 +121,7 @@ Claude will:
 3. **Work phase by phase**:
    - Complete tasks in order
    - Run validation after each phase
-   - Commit after each phase: `git commit -m "Phase N: description"`
+   - **Ask before each commit**: "Phase 1 complete. OK to commit?"
    - Update the plan file (mark tasks complete)
    - Stop if validation fails
 
@@ -146,7 +149,7 @@ If good, tell Claude:
 
 ## Step 6: Claude Completes
 
-Claude will:
+Claude will ask for confirmation at each step:
 
 1. **Move plan to completed/**:
    ```bash
@@ -155,27 +158,29 @@ Claude will:
 
 2. **Update plan status**: `## Status: Completed`
 
-3. **Final commit and push branch**:
-   ```bash
+3. **Ask to commit and push**:
+   ```
+   Ready to commit and push branch. OK to proceed?
+   
    git add .
    git commit -m "Complete: [description]"
    git push -u origin issue-42-feature-name
    ```
 
-4. **Merge to main**:
-   ```bash
+4. **Ask to merge**:
+   ```
+   Ready to merge to main. OK to proceed?
+   
    git checkout main
    git merge issue-42-feature-name
    git push
    ```
 
-5. **Clean up branch**:
-   ```bash
-   git branch -d issue-42-feature-name
+5. **Ask to clean up**:
    ```
-
-6. **Close the issue**:
-   ```bash
+   Ready to delete branch and close issue. OK to proceed?
+   
+   git branch -d issue-42-feature-name
    gh issue close 42 --comment "Fixed in commit [hash]"
    ```
 
