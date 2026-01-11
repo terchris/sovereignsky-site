@@ -28,34 +28,34 @@
   weight = 20
 
 [[main]]
-  name = "Software"
-  parent = "Databases"
-  pageRef = "software"
-  weight = 21
-
-[[main]]
   name = "Datacenters"
   parent = "Databases"
   pageRef = "datacenters"
-  weight = 22
+  weight = 21
 
 [[main]]
   name = "Countries"
   parent = "Databases"
   pageRef = "countries"
-  weight = 23
+  weight = 22
 
 [[main]]
   name = "Laws"
   parent = "Databases"
   pageRef = "laws"
-  weight = 25
+  weight = 23
 
 [[main]]
   name = "Networks"
   parent = "Databases"
   pageRef = "networks"
-  weight = 26
+  weight = 24
+
+[[main]]
+  name = "Software"
+  parent = "Databases"
+  pageRef = "software"
+  weight = 25
 
 [[main]]
   name = "Learn"

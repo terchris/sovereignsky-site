@@ -6,12 +6,12 @@ vendor_id: "nextcloud"
 vendor_name: "Nextcloud GmbH"
 vendor_country: "DE"
 vendor_country_name: "Germany"
-risk_level: "low"
+riskLevel: "low"
 risk_label: "Low Risk"
 has_us_exposure: false
 open_source: true
 data_portability: "full"
-date: 2026-01-08
+date: 2026-01-11
 layout: single
 type: software
 
@@ -24,7 +24,7 @@ jurisdiction_exposure:
   []
 
 # Taxonomies for Hugo filtering
-risk_levels:
+riskLevels:
   - "low"
 vendor_countries:
   - "DE"
@@ -38,4 +38,4 @@ use_area_names:
   - "Collaboration & Documentation"
 ---
 
-<!-- Content is rendered from data/products.json via layouts/software/single.html -->
+<!-- Content is rendered from data/software/software.json via layouts/software/single.html -->

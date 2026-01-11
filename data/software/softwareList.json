@@ -8,7 +8,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -38,7 +38,7 @@
     "vendor_name": "Pexip Holding ASA",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -64,7 +64,7 @@
     "vendor_name": "Salesforce, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "significant",
+    "riskLevel": "significant",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -91,7 +91,7 @@
     "vendor_name": "SuperOffice AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -117,7 +117,7 @@
     "vendor_name": "Tripletex AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -142,7 +142,7 @@
     "vendor_name": "Salesforce, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -171,7 +171,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -200,7 +200,7 @@
     "vendor_name": "GitLab Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "moderate",
+    "riskLevel": "moderate",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -228,7 +228,7 @@
     "vendor_name": "Whereby AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -253,7 +253,7 @@
     "vendor_name": "Atlassian Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -281,7 +281,7 @@
     "vendor_name": "Element (New Vector Ltd)",
     "vendor_country": "GB",
     "vendor_country_name": "United Kingdom",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -307,7 +307,7 @@
     "vendor_name": "Visma AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -335,7 +335,7 @@
     "vendor_name": "PowerOffice AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -360,7 +360,7 @@
     "vendor_name": "Simployer AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -389,7 +389,7 @@
     "vendor_name": "Zalaris ASA",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -415,7 +415,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -445,7 +445,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -475,7 +475,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -503,7 +503,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -533,7 +533,7 @@
     "vendor_name": "Google LLC (Alphabet Inc.)",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -564,7 +564,7 @@
     "vendor_name": "Google LLC (Alphabet Inc.)",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -591,7 +591,7 @@
     "vendor_name": "Amazon Web Services, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "significant",
+    "riskLevel": "significant",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -621,7 +621,7 @@
     "vendor_name": "Atlassian Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -648,7 +648,7 @@
     "vendor_name": "Zoom Video Communications, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -675,7 +675,7 @@
     "vendor_name": "SAP SE",
     "vendor_country": "DE",
     "vendor_country_name": "Germany",
-    "risk_level": "moderate",
+    "riskLevel": "moderate",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -700,7 +700,7 @@
     "vendor_name": "Workday, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -727,7 +727,7 @@
     "vendor_name": "Jotta AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -752,7 +752,7 @@
     "vendor_name": "Nextcloud GmbH",
     "vendor_country": "DE",
     "vendor_country_name": "Germany",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -780,7 +780,7 @@
     "vendor_name": "Collabora Productivity Ltd",
     "vendor_country": "GB",
     "vendor_country_name": "United Kingdom",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -806,7 +806,7 @@
     "vendor_name": "Dropbox, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -833,7 +833,7 @@
     "vendor_name": "Okta, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "significant",
+    "riskLevel": "significant",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -860,7 +860,7 @@
     "vendor_name": "ServiceNow, Inc.",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -887,7 +887,7 @@
     "vendor_name": "Signicat AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -913,7 +913,7 @@
     "vendor_name": "Unit4 N.V.",
     "vendor_country": "NL",
     "vendor_country_name": "Netherlands",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -938,7 +938,7 @@
     "vendor_name": "Cloud Software Group (Citrix)",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -966,7 +966,7 @@
     "vendor_name": "Microsoft Corporation",
     "vendor_country": "US",
     "vendor_country_name": "USA",
-    "risk_level": "elevated",
+    "riskLevel": "elevated",
     "jurisdiction_exposure": [
       "US"
     ],
@@ -994,7 +994,7 @@
     "vendor_name": "SIKRI AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -1019,7 +1019,7 @@
     "vendor_name": "Gecko Informasjonssystemer AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -1044,7 +1044,7 @@
     "vendor_name": "HISP Centre (University of Oslo)",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -1070,7 +1070,7 @@
     "vendor_name": "Vipps MobilePay AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [
@@ -1095,7 +1095,7 @@
     "vendor_name": "BankID BankAxept AS",
     "vendor_country": "NO",
     "vendor_country_name": "Norway",
-    "risk_level": "low",
+    "riskLevel": "low",
     "jurisdiction_exposure": [],
     "has_us_exposure": false,
     "data_residency": [

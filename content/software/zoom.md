@@ -6,12 +6,12 @@ vendor_id: "zoom"
 vendor_name: "Zoom Video Communications, Inc."
 vendor_country: "US"
 vendor_country_name: "USA"
-risk_level: "elevated"
+riskLevel: "elevated"
 risk_label: "Elevated Risk"
 has_us_exposure: true
 open_source: false
 data_portability: "partial"
-date: 2026-01-08
+date: 2026-01-11
 layout: single
 type: software
 
@@ -23,7 +23,7 @@ jurisdiction_exposure:
   - "US"
 
 # Taxonomies for Hugo filtering
-risk_levels:
+riskLevels:
   - "elevated"
 vendor_countries:
   - "US"
@@ -35,4 +35,4 @@ use_area_names:
   - "Communication"
 ---
 
-<!-- Content is rendered from data/products.json via layouts/software/single.html -->
+<!-- Content is rendered from data/software/software.json via layouts/software/single.html -->
