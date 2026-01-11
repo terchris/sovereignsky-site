@@ -121,8 +121,10 @@
       <div class="article-content prose dark:prose-invert max-w-none mb-20">
 
         {{/* Map */}}
+        <div id="map">
         {{ $mapShortcode := printf "{{< datacenter-map providers=\"%s\" showFilters=\"false\" >}}" $providerId }}
         {{ $mapShortcode | .Page.RenderString }}
+        </div>
 
         {{/* Locations */}}
         <h2 id="locations">Locations by Country</h2>
@@ -147,5 +149,14 @@
     </div>
 
   </section>
+
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice
+      (dict "id" "map" "title" "Map" "icon" "🗺️")
+      (dict "id" "locations" "title" "Locations" "icon" "📍")
+      (dict "id" "laws" "title" "Laws" "icon" "⚖️")
+      (dict "id" "sidebar" "title" "Details" "icon" "📋")
+  }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 </article>
 {{ end }}

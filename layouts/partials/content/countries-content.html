@@ -25,8 +25,10 @@
 {{/* Always auto-generate the standard sections */}}
 {{ if $countryId }}
   {{/* Map */}}
+  <div id="map">
   {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
   {{ $mapShortcode | $page.RenderString }}
+  </div>
 
   {{/* Laws */}}
   <h2 id="laws">Laws in this jurisdiction</h2>
@@ -41,4 +43,13 @@
   <hr class="mt-8">
   {{ $page.Content }}
   {{ end }}
+
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice
+      (dict "id" "map" "title" "Map" "icon" "🗺️")
+      (dict "id" "laws" "title" "Laws" "icon" "⚖️")
+      (dict "id" "providers" "title" "Providers" "icon" "🖥️")
+      (dict "id" "sidebar" "title" "Details" "icon" "📋")
+  }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 {{ end }}

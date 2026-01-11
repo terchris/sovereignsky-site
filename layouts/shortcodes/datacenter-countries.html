@@ -45,18 +45,18 @@ Links to /datacenters/{country}/ pages.
 {{/* Sort by name */}}
 {{ $items = sort $items "name" "asc" }}
 
-<div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+<div class="not-prose grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
   {{ range $items }}
     {{ $region := .region }}
     {{ $flag := $region.flag | default "" }}
     {{ $slug := $region.slug | default "" }}
 
-    <a href="/datacenters/{{ $slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="text-xl">{{ $flag }}</span>
-        <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+    <a href="/datacenters/{{ $slug }}/" class="block p-2.5 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+      <div class="flex items-center gap-2">
+        <span class="text-lg flex-shrink-0">{{ $flag }}</span>
+        <span class="text-sm font-medium text-base-content truncate">{{ .name }}</span>
       </div>
-      <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+      <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 space-y-0.5">
         <div>Datacenters: {{ .dcCount }}</div>
         <div>Providers: {{ .providerCount }}</div>
       </div>

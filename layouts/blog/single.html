@@ -111,6 +111,14 @@
       {{ end }}
     </section>
 
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice }}
+  {{ if in .TableOfContents "<ul" }}
+    {{ $tocSections = $tocSections | append (dict "id" "toc" "title" "Contents" "icon" "📑") }}
+  {{ end }}
+  {{ $tocSections = $tocSections | append (dict "id" "sidebar" "title" "Details" "icon" "📋") }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
+
     {{/* Footer */}}
     <footer class="pt-8 max-w-prose print:hidden">
       {{ partial "article-pagination.html" . }}
