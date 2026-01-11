@@ -8,11 +8,11 @@
 {{ $id := printf "dc-chart-%d" now.UnixNano }}
 
 {{- /* Count regions per country */ -}}
-{{- $providers := .Site.Data.datacenters.providers | default slice -}}
+{{- $providers := .Site.Data.datacenters.datacenters | default slice -}}
 {{- $countryData := dict -}}
 {{- range $providers -}}
   {{- range .regions -}}
-    {{- $country := .country_id -}}
+    {{- $country := .countryId -}}
     {{- if $country -}}
       {{- $current := index $countryData $country | default 0 -}}
       {{- $countryData = merge $countryData (dict $country (add $current 1)) -}}

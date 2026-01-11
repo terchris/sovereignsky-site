@@ -14,7 +14,7 @@
 
   {{/* Find laws whose ID matches a tag */}}
   {{ $relatedLaws := slice }}
-  {{ range (site.Data.laws.laws | default (slice)) }}
+  {{ range (site.Data.laws.laws.laws | default (slice)) }}
     {{ $law := . }}
     {{ if index $tagLookup .id }}
       {{ $relatedLaws = $relatedLaws | append $law }}

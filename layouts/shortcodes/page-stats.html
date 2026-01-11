@@ -15,10 +15,10 @@
 {{- $section := .Get "section" | default "" -}}
 
 {{- if eq $section "software" -}}
-  {{- $count := len (index .Site.Data "productsList") -}}
+  {{- $count := len (index (index .Site.Data "products") "productsList") -}}
   {{- $highRisk := 0 -}}
   {{- $lowRisk := 0 -}}
-  {{- range (index .Site.Data "productsList") -}}
+  {{- range (index (index .Site.Data "products") "productsList") -}}
     {{- if eq .riskLevel "High" -}}{{- $highRisk = add $highRisk 1 -}}{{- end -}}
     {{- if eq .riskLevel "Low" -}}{{- $lowRisk = add $lowRisk 1 -}}{{- end -}}
   {{- end -}}
@@ -53,7 +53,7 @@
 
 {{- else if eq $section "datacenters" -}}
   {{- /* Count from datacenter data */ -}}
-  {{- $providers := .Site.Data.datacenters.providers | default slice -}}
+  {{- $providers := index (index .Site.Data "datacenters") "datacenters" | default slice -}}
   {{- $providerCount := len $providers -}}
   {{- /* Count total regions and unique countries */ -}}
   {{- $regionCount := 0 -}}
@@ -61,7 +61,7 @@
   {{- range $providers -}}
     {{- $regionCount = add $regionCount (len .regions) -}}
     {{- range .regions -}}
-      {{- with .country_id -}}
+      {{- with .countryId -}}
         {{- if not (in $countries .) -}}
           {{- $countries = $countries | append . -}}
         {{- end -}}
@@ -318,7 +318,7 @@
   </div>
 
 {{- else if eq $section "personas" -}}
-  {{- $personas := .Site.Data.personas.hasDefinedTerm | default (slice) -}}
+  {{- $personas := .Site.Data.audience.audience.itemListElement | default (slice) -}}
   {{- $total := len $personas -}}
   {{- /* Count unique categories across all personas */ -}}
   {{- $allCategories := slice -}}

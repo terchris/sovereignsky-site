@@ -8,7 +8,7 @@
   ) }}
 
   {{/* Stats row */}}
-  {{- $events := site.Data.events.events -}}
+  {{- $events := site.Data.events.events.itemListElement -}}
   {{- $now := now.Format "2006-01-02" -}}
   {{- $upcomingCount := 0 -}}
   {{- $thisMonthCount := 0 -}}
@@ -49,37 +49,22 @@
     </div>
   </div>
 
-  {{/* Audience filter - from personas.json */}}
-  {{ $personas := site.Data.personas.personas.itemListElement }}
-  <div class="mb-6">
-    <div class="text-sm font-semibold opacity-70 mb-3">Filter by Audience:</div>
-    <div class="flex flex-wrap gap-2" data-filter-group="audience">
-      <button class="btn btn-sm btn-active gap-1" data-filter="all">
-        {{ partial "content-icon.html" (dict "name" "users" "size" "4") }}
-        All
-      </button>
-      {{- range $personas }}
-      {{- if ne .audienceType "all" }}
-      <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .audienceType }}">
-        {{ partial "content-icon.html" (dict "name" .icon "size" "4") }}
-        {{ .name }}
-      </button>
-      {{- end }}
-      {{- end }}
-    </div>
-  </div>
+  {{/* Audience filter - reusable partial */}}
+  {{ partial "audience-filter.html" . }}
 
-  {{/* Topic filter - generated from tag_vocabulary.json */}}
-  {{ $vocab := site.Data.tag_vocabulary }}
-  <div class="flex flex-wrap items-center gap-2 mb-6">
-    <span class="text-sm font-semibold opacity-70">Topic:</span>
-    <div class="join" data-filter-group="tags">
-      <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>
-      {{- range $vocab.topics.filterValues }}
-      <button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $vocab.topics.labels . | default (. | humanize | title) }}</button>
-      {{- end }}
-    </div>
-  </div>
+  {{/* Calculate unique topics from events */}}
+  {{- $uniqueTopics := slice -}}
+  {{- range $events -}}
+    {{- range .topics -}}
+      {{- if not (in $uniqueTopics .) -}}
+        {{- $uniqueTopics = $uniqueTopics | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $uniqueTopics = sort $uniqueTopics -}}
+
+  {{/* Topic filter - reusable partial */}}
+  {{ partial "topic-filter.html" (dict "topics" $uniqueTopics) }}
 
   {{/* Event list */}}
   <div class="events-content mb-8">
@@ -103,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const eventCards = document.querySelectorAll('.event-card');
 
   let activeFilters = {
-    tags: 'all',
+    topics: 'all',
     audience: 'all'
   };
 
@@ -129,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function updateURL() {
     const params = new URLSearchParams();
-    if (activeFilters.tags && activeFilters.tags !== 'all') params.set('tag', activeFilters.tags);
+    if (activeFilters.topics && activeFilters.topics !== 'all') params.set('topic', activeFilters.topics);
     if (activeFilters.audience && activeFilters.audience !== 'all') params.set('audience', activeFilters.audience);
     const qs = params.toString();
     const newURL = qs ? `?${qs}` : window.location.pathname;
@@ -138,13 +123,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function applyFilters() {
     eventCards.forEach(card => {
-      const cardTags = card.dataset.tags || '';
+      const cardTopics = card.dataset.topics || '';
       const cardAudience = card.dataset.audience || '';
 
-      const matchesTags = activeFilters.tags === 'all' || cardTags.includes(activeFilters.tags);
+      const matchesTopics = activeFilters.topics === 'all' || cardTopics.includes(activeFilters.topics);
       const matchesAudience = activeFilters.audience === 'all' || cardAudience.includes(activeFilters.audience);
 
-      if (matchesTags && matchesAudience) {
+      if (matchesTopics && matchesAudience) {
         card.style.display = '';
       } else {
         card.style.display = 'none';
@@ -171,9 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize from URL
   const params = new URLSearchParams(window.location.search);
   const urlAudience = params.get('audience') || 'all';
-  const urlTag = params.get('tag') || params.get('tags') || 'all';
+  const urlTopic = params.get('topic') || params.get('topics') || 'all';
   setActiveButton('audience', urlAudience);
-  setActiveButton('tags', urlTag);
+  setActiveButton('topics', urlTopic);
   applyFilters();
 
   filterButtons.forEach(btn => {

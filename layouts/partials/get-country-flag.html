@@ -1,0 +1,45 @@
+{{/*
+  Get Country Flag Partial
+  Usage: {{ partial "get-country-flag.html" "NO" }}
+  Returns: 🇳🇴 (just the emoji, no wrapper)
+
+  Looks up flag from:
+  1. countries.json by identifier (country codes like NO, US, GB)
+  2. blocs.json by identifier (eu, eea, five-eyes, etc.)
+  3. Special alias: UK → GB
+
+  Falls back to 🏳️ if not found.
+*/}}
+{{- $code := . -}}
+{{- $flag := "" -}}
+
+{{- /* 1. Try countries.json first */ -}}
+{{- $countries := site.Data.countries.countries.itemListElement -}}
+{{- $regionMatch := first 1 (where $countries "identifier" $code) -}}
+{{- with index $regionMatch 0 -}}
+  {{- $flag = .flag | default "" -}}
+{{- end -}}
+
+{{- /* 2. If not found, try blocs.json */ -}}
+{{- if not $flag -}}
+  {{- $blocs := site.Data.blocs.blocs.itemListElement | default (slice) -}}
+  {{- $blocMatch := first 1 (where $blocs "identifier" $code) -}}
+  {{- with index $blocMatch 0 -}}
+    {{- $flag = .flag | default "" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 3. Handle special mappings (aliases not in data) */ -}}
+{{- if not $flag -}}
+  {{- if eq $code "UK" -}}
+    {{- /* UK is an alias for GB */ -}}
+    {{- $flag = "🇬🇧" -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 4. Fallback */ -}}
+{{- if not $flag -}}
+  {{- $flag = "🏳️" -}}
+{{- end -}}
+
+{{- return $flag -}}

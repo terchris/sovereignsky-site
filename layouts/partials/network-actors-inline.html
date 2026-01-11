@@ -1,0 +1,86 @@
+{{/*
+  Network Actors Inline Partial
+
+  Displays actor cards for owners and operators of a network connection.
+
+  Usage: {{ partial "network-actors-inline.html" (dict "identifier" $identifier "connection" $connection "connections" $connections "actors" $actors) }}
+
+  Parameters:
+    - identifier: current connection identifier
+    - connection: current connection object
+    - connections: all connections (for cross-referencing actor involvement)
+    - actors: all actor objects from networks-actors.json
+*/}}
+
+{{ $identifier := .identifier }}
+{{ $connection := .connection }}
+{{ $connections := .connections | default (slice) }}
+{{ $actors := .actors | default (slice) }}
+
+{{/* Build actor lookup */}}
+{{ $actorById := dict }}
+{{ range $actors }}
+  {{ if .identifier }}
+    {{ $actorById = merge $actorById (dict .identifier .) }}
+  {{ end }}
+{{ end }}
+
+{{ if $connection }}
+  {{/* Get actor IDs from owners and operators */}}
+  {{ $ownerActorIds := $connection.ownerActorIds | default (slice) }}
+  {{ $operatorActorIds := $connection.operatorActorIds | default (slice) }}
+
+  {{/* Merge and dedupe all actor IDs */}}
+  {{ $allActorIds := slice }}
+  {{ range $ownerActorIds }}
+    {{ $allActorIds = $allActorIds | append . }}
+  {{ end }}
+  {{ range $operatorActorIds }}
+    {{ if not (in $allActorIds .) }}
+      {{ $allActorIds = $allActorIds | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{/* For each actor, find their connections */}}
+  {{ if gt (len $allActorIds) 0 }}
+  <div class="network-actors-grid not-prose my-6" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+    {{ range $allActorIds }}
+      {{ $actorId := . }}
+      {{ $actor := index $actorById $actorId }}
+      {{ if $actor }}
+        {{/* Find connections for this actor */}}
+        {{ $actorConnections := slice }}
+
+        {{ range $connections }}
+          {{ $c := . }}
+          {{ $isOwner := false }}
+          {{ $isOperator := false }}
+
+          {{/* Check as owner */}}
+          {{ range .ownerActorIds }}
+            {{ if eq . $actorId }}{{ $isOwner = true }}{{ end }}
+          {{ end }}
+
+          {{/* Check as operator */}}
+          {{ range .operatorActorIds }}
+            {{ if eq . $actorId }}{{ $isOperator = true }}{{ end }}
+          {{ end }}
+
+          {{ if or $isOwner $isOperator }}
+            {{ $roles := slice }}
+            {{ if $isOwner }}{{ $roles = $roles | append "owner" }}{{ end }}
+            {{ if $isOperator }}{{ $roles = $roles | append "operator" }}{{ end }}
+            {{ $actorConnections = $actorConnections | append (dict "identifier" $c.identifier "name" $c.name "roles" $roles) }}
+          {{ end }}
+        {{ end }}
+
+        {{ partial "actor-card.html" (dict "actor" $actor "connections" $actorConnections "currentConnectionId" $identifier) }}
+      {{ end }}
+    {{ end }}
+  </div>
+  {{ else }}
+  <p class="text-neutral-500 dark:text-neutral-400 italic">No actor information available.</p>
+  {{ end }}
+{{ else }}
+  <p class="text-red-500">Connection not found: {{ $identifier }}</p>
+{{ end }}

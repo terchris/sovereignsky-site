@@ -34,7 +34,77 @@ const validations = [
     schema: "data/schemas/networks-places.schema.json",
     data: "data/networks/networks-places.json",
   },
+  {
+    schema: "data/schemas/laws.schema.json",
+    data: "data/laws/laws.json",
+  },
+  {
+    schema: "data/schemas/law_types.schema.json",
+    data: "data/laws/law_types.json",
+  },
+  {
+    schema: "data/schemas/relationship_types.schema.json",
+    data: "data/laws/relationship_types.json",
+  },
+  {
+    schema: "data/schemas/blog.schema.json",
+    data: "data/blog/blog.json",
+  },
+  {
+    schema: "data/schemas/topics.schema.json",
+    data: "data/topics/topics.json",
+  },
+  {
+    schema: "data/schemas/audience.schema.json",
+    data: "data/audience/audience.json",
+  },
+  {
+    schema: "data/schemas/countries.schema.json",
+    data: "data/countries/countries.json",
+  },
+  {
+    schema: "data/schemas/events.schema.json",
+    data: "data/events/events.json",
+  },
 ];
+
+// Load valid audience identifiers from audience.json
+function loadValidAudiences() {
+  const audiencePath = path.join(ROOT, "data/audience/audience.json");
+  if (!fs.existsSync(audiencePath)) {
+    console.warn("Warning: audience.json not found, skipping audience validation");
+    return null;
+  }
+  try {
+    const data = JSON.parse(fs.readFileSync(audiencePath, "utf8"));
+    return (data.itemListElement || []).map(item => item.identifier);
+  } catch (e) {
+    console.warn(`Warning: Could not parse audience.json: ${e.message}`);
+    return null;
+  }
+}
+
+// Validate audience values in a data file against valid audiences
+function validateAudiences(dataFile, data, validAudiences) {
+  if (!validAudiences) return [];
+  const errors = [];
+
+  // Handle ItemList format (blog, laws, etc.)
+  const items = data.itemListElement || data || [];
+  const itemArray = Array.isArray(items) ? items : [];
+
+  itemArray.forEach((item, index) => {
+    if (item.audience && Array.isArray(item.audience)) {
+      item.audience.forEach(aud => {
+        if (!validAudiences.includes(aud)) {
+          errors.push(`  Item[${index}] "${item.identifier || item.name}": invalid audience "${aud}"`);
+        }
+      });
+    }
+  });
+
+  return errors;
+}
 
 // Load JSON file with error handling
 function loadJson(filePath) {
@@ -70,6 +140,15 @@ console.log("Validating data files against schemas...\n");
 
 let hasErrors = false;
 const results = [];
+const validAudiences = loadValidAudiences();
+
+// Files that should have audience validation
+const audienceValidatedFiles = [
+  "data/blog/blog.json",
+  "data/laws/laws.json",
+  "data/publications/publications.json",
+  "data/events/events.json",
+];
 
 for (const { schema, data } of validations) {
   const schemaResult = loadJson(schema);
@@ -91,7 +170,22 @@ for (const { schema, data } of validations) {
   const valid = validate(dataResult.data);
 
   if (valid) {
-    results.push({ file: data, status: "PASS" });
+    // Check audience values if this file should be validated
+    if (audienceValidatedFiles.includes(data) && validAudiences) {
+      const audienceErrors = validateAudiences(data, dataResult.data, validAudiences);
+      if (audienceErrors.length > 0) {
+        results.push({
+          file: data,
+          status: "FAIL",
+          errors: `Schema valid, but invalid audience values:\n${audienceErrors.join("\n")}`,
+        });
+        hasErrors = true;
+      } else {
+        results.push({ file: data, status: "PASS" });
+      }
+    } else {
+      results.push({ file: data, status: "PASS" });
+    }
   } else {
     results.push({
       file: data,

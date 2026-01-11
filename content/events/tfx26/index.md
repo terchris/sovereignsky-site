@@ -11,11 +11,11 @@ locationCountry: "NO"
 organizerName: "DSB and Norwegian Armed Forces"
 organizerUrl: "https://www.dsb.no"
 externalUrl: "https://www.dsb.no/totalforsvarsaret"
-tags:
-  - "preparedness"
+topics:
+  - "national-preparedness"
   - "critical-infrastructure"
   - "cybersecurity"
-audiences:
+audience:
   - "public-sector"
   - "security"
   - "enterprise"

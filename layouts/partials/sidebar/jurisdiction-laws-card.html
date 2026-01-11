@@ -1,0 +1,99 @@
+{{/* Jurisdiction Laws Summary Card - shows laws by type
+     Usage:
+       {{ partial "sidebar/jurisdiction-laws-card.html" . }}  - reads from .Params.countryId
+       {{ partial "sidebar/jurisdiction-laws-card.html" (dict "countryId" "IT") }}  - direct countryId
+*/}}
+
+{{ $countryId := "" }}
+{{ if reflect.IsMap . }}
+  {{ $countryId = .countryId | default "" }}
+{{ end }}
+{{ if not $countryId }}
+  {{ with .Params }}
+    {{ $countryId = .countryId | default .country_id | default "" }}
+  {{ end }}
+{{ end }}
+
+{{ $country := dict }}
+{{ if $countryId }}
+  {{ $countries := site.Data.countries.countries.itemListElement }}
+  {{ $match := first 1 (where $countries "identifier" $countryId) }}
+  {{ with index $match 0 }}
+    {{ $country = . }}
+  {{ end }}
+{{ end }}
+
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
+
+{{ if $countryId }}
+  {{/* Build applicable IDs list (country + blocs + inherited) */}}
+  {{ $applicableIds := slice $countryId }}
+  {{ $countryBlocs := $country.blocs | default (slice) }}
+
+  {{ range $countryBlocs }}
+    {{ $blocId := . }}
+    {{ $applicableIds = $applicableIds | append $blocId }}
+    {{ range $blocsData }}
+      {{ if eq .identifier $blocId }}
+        {{ range (.inheritsFrom | default (slice)) }}
+          {{ $applicableIds = $applicableIds | append . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Count laws by type using local variables */}}
+  {{ $lawsSeen := slice }}
+  {{ $lawsByType := dict }}
+  {{ $totalLaws := 0 }}
+
+  {{ range site.Data.laws.laws.itemListElement }}
+    {{ $law := . }}
+    {{ $lawId := .identifier }}
+    {{ range .legislationJurisdiction }}
+      {{ $applyTo := . }}
+      {{ range $applicableIds }}
+        {{ if eq $applyTo . }}
+          {{ $alreadyCounted := false }}
+          {{ range $lawsSeen }}
+            {{ if eq . $lawId }}{{ $alreadyCounted = true }}{{ end }}
+          {{ end }}
+          {{ if not $alreadyCounted }}
+            {{ $totalLaws = add $totalLaws 1 }}
+            {{ $lawType := $law.category | default "other" }}
+            {{ $currentCount := index $lawsByType $lawType | default 0 }}
+            {{ $lawsByType = merge $lawsByType (dict $lawType (add $currentCount 1)) }}
+            {{ $lawsSeen = $lawsSeen | append $lawId }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt $totalLaws 0 }}
+  <div class="card bg-base-100 shadow-sm border border-base-300">
+    <div class="card-body p-4">
+      <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+        {{ partial "content-icon.html" (dict "name" "scale" "color" "primary" "size" "4") }}
+        Laws by Type
+      </h3>
+      <p class="text-xs opacity-60 -mt-1">{{ $totalLaws }} applicable laws</p>
+      <div class="mt-2 space-y-3">
+        {{ range site.Data.laws.law_types.itemListElement }}
+          {{ $type := .identifier }}
+          {{ $count := index $lawsByType $type }}
+          {{ if $count }}
+            <a href="#{{ $type }}-laws" class="block p-2 rounded-lg bg-base-200 hover:bg-base-300 transition-colors no-underline">
+              <div class="flex justify-between items-center">
+                <span class="font-medium text-sm">{{ .emoji }} {{ .shortName }}</span>
+                <span class="badge badge-sm">{{ $count }}</span>
+              </div>
+              <p class="text-xs opacity-60 mt-1 leading-tight">{{ .description }}</p>
+            </a>
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

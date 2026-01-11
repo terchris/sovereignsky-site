@@ -1,0 +1,72 @@
+{{ define "main" }}
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "globe"
+  ) }}
+
+  {{/* Section Content - render markdown content which includes map shortcode */}}
+  <section class="max-w-full mt-6 prose dark:prose-invert prose-table:w-full prose-img:max-w-full [&>*]:max-w-none">
+    {{ .Content }}
+  </section>
+
+  {{/* Country List */}}
+  <section class="mt-8">
+    {{/* Build country data with datacenter and law counts */}}
+    {{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
+    {{ $countryData := slice }}
+
+    {{ range $countries }}
+      {{ $country := . }}
+      {{ $countryId := .identifier }}
+
+      {{/* Count datacenters for this country */}}
+      {{ $dcCount := 0 }}
+      {{ range (site.Data.datacenters.datacenters | default (slice)) }}
+        {{ range (.regions | default (slice)) }}
+          {{ if eq .countryId $countryId }}
+            {{ $dcCount = add $dcCount 1 }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{/* Count local laws for this country */}}
+      {{ $lawCount := 0 }}
+      {{ range (site.Data.laws.laws.itemListElement | default (slice)) }}
+        {{ if in .legislationJurisdiction $countryId }}
+          {{ $lawCount = add $lawCount 1 }}
+        {{ end }}
+      {{ end }}
+
+      {{ $countryData = $countryData | append (dict
+        "identifier" $countryId
+        "name" $country.name
+        "flag" $country.flag
+        "slug" $country.slug
+        "dcCount" $dcCount
+        "lawCount" $lawCount
+      ) }}
+    {{ end }}
+
+    {{/* Sort by country name */}}
+    {{ $countryData = sort $countryData "name" "asc" }}
+
+    <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+      {{ range $countryData }}
+      <a href="/countries/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-xl">{{ .flag }}</span>
+          <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+        </div>
+        <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+          <div>Datacenters: {{ .dcCount }}</div>
+          <div>Local laws: {{ .lawCount }}</div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+</article>
+{{ end }}

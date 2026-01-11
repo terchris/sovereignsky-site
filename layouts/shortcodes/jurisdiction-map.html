@@ -6,11 +6,11 @@
   Colors countries by risk_level field
 */}}
 
-{{ $regions := site.Data.regions }}
-{{ $jurisdictions := site.Data.jurisdictions }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
+{{ $jurisdictions := site.Data.blocs }}
 
 {{/* Get risk level definitions */}}
-{{ $riskLevels := $jurisdictions.risk_levels }}
+{{ $riskLevels := $jurisdictions.riskLevels | default site.Data.blocs.riskLevels }}
 
 {{/* Build country data for the map */}}
 {{ $mapData := slice }}
@@ -18,9 +18,9 @@
 {{/* Count datacenter regions by physical country (for tooltips + filters + list) */}}
 {{ $dc := site.Data.datacenters }}
 {{ $dcCounts := dict }}
-{{ range ($dc.providers | default (slice)) }}
+{{ range ($dc.datacenters | default (slice)) }}
   {{ range (.regions | default (slice)) }}
-    {{ $cid := .country_id | default "" }}
+    {{ $cid := .countryId | default "" }}
     {{ if $cid }}
       {{ $prev := index $dcCounts $cid | default 0 }}
       {{ $dcCounts = merge $dcCounts (dict $cid (add $prev 1)) }}
@@ -30,8 +30,9 @@
 
 {{/* Bloc lookup for tooltip labels */}}
 {{ $blocsById := dict }}
-{{ range ($jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ $blocsData := site.Data.blocs.blocs.itemListElement | default (slice) }}
+{{ range $blocsData }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
 {{ range $regions }}
@@ -40,43 +41,43 @@
   {{ $riskLabel := "Unknown" }}
   {{ $riskColor := "#9ca3af" }}
 
-  {{ if eq .risk_level "low" }}
+  {{ if eq .riskLevel "low" }}
     {{ $riskValue = 0 }}
     {{ $riskLabel = "Low Risk" }}
-    {{ $riskColor = index $riskLevels "low" "map_color" }}
-  {{ else if eq .risk_level "moderate" }}
+    {{ $riskColor = index $riskLevels "low" "mapColor" }}
+  {{ else if eq .riskLevel "moderate" }}
     {{ $riskValue = 1 }}
     {{ $riskLabel = "Moderate Risk" }}
-    {{ $riskColor = index $riskLevels "moderate" "map_color" }}
-  {{ else if eq .risk_level "elevated" }}
+    {{ $riskColor = index $riskLevels "moderate" "mapColor" }}
+  {{ else if eq .riskLevel "elevated" }}
     {{ $riskValue = 2 }}
     {{ $riskLabel = "Elevated Risk" }}
-    {{ $riskColor = index $riskLevels "elevated" "map_color" }}
-  {{ else if eq .risk_level "high" }}
+    {{ $riskColor = index $riskLevels "elevated" "mapColor" }}
+  {{ else if eq .riskLevel "high" }}
     {{ $riskValue = 3 }}
     {{ $riskLabel = "High Risk" }}
-    {{ $riskColor = index $riskLevels "high" "map_color" }}
-  {{ else if eq .risk_level "sanctioned" }}
+    {{ $riskColor = index $riskLevels "high" "mapColor" }}
+  {{ else if eq .riskLevel "sanctioned" }}
     {{ $riskValue = 4 }}
     {{ $riskLabel = "Sanctioned" }}
-    {{ $riskColor = index $riskLevels "sanctioned" "map_color" }}
+    {{ $riskColor = index $riskLevels "sanctioned" "mapColor" }}
   {{ end }}
 
   {{/* Map ISO 2-letter to ECharts GeoJSON country names */}}
   {{ $countryName := .name }}
-  {{ if eq .id "US" }}{{ $countryName = "United States" }}{{ end }}
-  {{ if eq .id "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
-  {{ if eq .id "KR" }}{{ $countryName = "Korea" }}{{ end }}
-  {{ if eq .id "RU" }}{{ $countryName = "Russia" }}{{ end }}
-  {{ if eq .id "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
+  {{ if eq .identifier "US" }}{{ $countryName = "United States" }}{{ end }}
+  {{ if eq .identifier "GB" }}{{ $countryName = "United Kingdom" }}{{ end }}
+  {{ if eq .identifier "KR" }}{{ $countryName = "Korea" }}{{ end }}
+  {{ if eq .identifier "RU" }}{{ $countryName = "Russia" }}{{ end }}
+  {{ if eq .identifier "NZ" }}{{ $countryName = "New Zealand" }}{{ end }}
 
   {{/* Build membership list */}}
   {{ $memberships := slice }}
-  {{ if .eu_member }}{{ $memberships = $memberships | append "EU" }}{{ end }}
-  {{ if .eea_member }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
-  {{ if .adequacy_decision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
+  {{ if .euMember }}{{ $memberships = $memberships | append "EU" }}{{ end }}
+  {{ if .eeaMember }}{{ $memberships = $memberships | append "EEA" }}{{ end }}
+  {{ if .adequacyDecision }}{{ $memberships = $memberships | append "Adequacy" }}{{ end }}
 
-  {{ $dcCount := index $dcCounts .id | default 0 }}
+  {{ $dcCount := index $dcCounts .identifier | default 0 }}
   {{ $blocNames := slice }}
   {{ range (.blocs | default (slice)) }}
     {{ $b := index $blocsById . }}
@@ -88,12 +89,12 @@
   {{ $item := dict
       "name" $countryName
       "value" $riskValue
-      "id" .id
+      "id" .identifier
       "slug" .slug
       "riskLabel" $riskLabel
       "riskColor" $riskColor
-      "riskLevel" .risk_level
-      "laws" .national_laws
+      "riskLevel" .riskLevel
+      "laws" .nationalLaws
       "flag" .flag
       "originalName" .name
       "blocs" .blocs
@@ -104,41 +105,84 @@
   {{ $mapData = $mapData | append $item }}
 {{ end }}
 
-<div class="not-prose mt-3 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
-  <div class="flex flex-col gap-3">
-    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-      <label for="laws-map-search" class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Search</label>
-      <div class="relative flex-1">
-        <input id="laws-map-search"
-               type="text"
-               class="w-full rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm"
-               placeholder="Country, bloc, or law (e.g. Norway, EU, CLOUD Act)…" />
-        <div id="laws-map-suggestions" class="absolute z-10 mt-1 w-full max-h-64 overflow-auto rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg" style="display:none;"></div>
-      </div>
-      <button id="laws-map-reset"
-              type="button"
-              class="inline-flex items-center justify-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-2 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">
-        Reset
-      </button>
-    </div>
+{{/* Stats - count jurisdictions by risk level */}}
+{{ $totalCountries := len $regions }}
+{{ $totalBlocs := len $blocsData }}
+{{ $lowRisk := 0 }}
+{{ $elevatedRisk := 0 }}
+{{ range $regions }}
+  {{ if eq .riskLevel "low" }}{{ $lowRisk = add $lowRisk 1 }}{{ end }}
+  {{ if or (eq .riskLevel "elevated") (eq .riskLevel "high") (eq .riskLevel "sanctioned") }}{{ $elevatedRisk = add $elevatedRisk 1 }}{{ end }}
+{{ end }}
 
-    <div class="flex flex-col gap-2">
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Risk</span>
-        <div id="laws-risk-chips" class="flex flex-wrap gap-2"></div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm font-medium text-neutral-700 dark:text-neutral-200">Blocs</span>
-        <div id="laws-bloc-chips" class="flex flex-wrap gap-2"></div>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <label class="inline-flex items-center gap-2 text-sm text-neutral-700 dark:text-neutral-200 cursor-pointer">
-          <input id="laws-has-dc" type="checkbox" class="rounded border-neutral-300 dark:border-neutral-700" />
-          Has datacenters
-        </label>
-      </div>
+<div class="not-prose stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
+  <div class="stat">
+    <div class="stat-figure text-primary">
+      {{ partial "content-icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
     </div>
+    <div class="stat-title">Countries Tracked</div>
+    <div class="stat-value text-primary">{{ $totalCountries }}</div>
+    <div class="stat-desc">Jurisdictions monitored</div>
   </div>
+  <div class="stat">
+    <div class="stat-figure text-accent">
+      {{ partial "content-icon.html" (dict "name" "users" "color" "accent" "size" "8") }}
+    </div>
+    <div class="stat-title">Regional Blocs</div>
+    <div class="stat-value text-accent">{{ $totalBlocs }}</div>
+    <div class="stat-desc">Trade & legal frameworks</div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-success">
+      {{ partial "content-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+    </div>
+    <div class="stat-title">Low Risk</div>
+    <div class="stat-value text-success">{{ $lowRisk }}</div>
+    <div class="stat-desc">Safe jurisdictions</div>
+  </div>
+  <div class="stat">
+    <div class="stat-figure text-error">
+      {{ partial "content-icon.html" (dict "name" "alert-triangle" "color" "error" "size" "8") }}
+    </div>
+    <div class="stat-title">Elevated+ Risk</div>
+    <div class="stat-value text-error">{{ $elevatedRisk }}</div>
+    <div class="stat-desc">Require caution</div>
+  </div>
+</div>
+
+
+{{/* Risk Level Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-4">
+  <span class="text-sm font-semibold opacity-70">Risk:</span>
+  <div class="join" id="laws-risk-chips" data-filter-group="risk">
+    <button class="join-item btn btn-sm btn-active" data-filter="risk" data-value="all">All</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="low">✅ Low</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="moderate">⚠️ Moderate</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="elevated">🔶 Elevated</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="high">🚨 High</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="risk" data-value="sanctioned">⛔ Sanctioned</button>
+  </div>
+</div>
+
+{{/* Bloc Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-4">
+  <span class="text-sm font-semibold opacity-70">Bloc:</span>
+  <div class="join" id="laws-bloc-chips" data-filter-group="bloc">
+    <button class="join-item btn btn-sm btn-active" data-filter="bloc" data-value="all">All</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="eu">🇪🇺 EU</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="eea">🇪🇺 EEA</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="five-eyes">👁️ Five Eyes</button>
+    <button class="join-item btn btn-sm btn-ghost" data-filter="bloc" data-value="adequacy">✓ Adequacy</button>
+  </div>
+</div>
+
+{{/* Features Filter */}}
+<div class="not-prose flex flex-wrap items-center gap-2 mb-6">
+  <span class="text-sm font-semibold opacity-70">Features:</span>
+  <div class="flex flex-wrap gap-2" data-filter-group="features">
+    <button class="btn btn-sm btn-ghost gap-1" id="laws-has-dc" data-filter="datacenters" data-value="true">🏢 Has Datacenters</button>
+  </div>
+  <button id="laws-map-reset" class="btn btn-sm btn-ghost ml-auto">Reset filters</button>
 </div>
 
 <div id="jurisdiction-map" class="not-prose mt-4" style="width: 100%; height: 520px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 12px;"></div>
@@ -147,20 +191,6 @@
   <p class="text-neutral-500">Loading map...</p>
 </div>
 
-<div class="not-prose mt-6">
-  <details open class="rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
-    <summary class="cursor-pointer text-sm font-semibold text-neutral-800 dark:text-neutral-100">Countries</summary>
-    <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
-      <div class="text-xs text-neutral-500 dark:text-neutral-400">Filtered list (matches current search/filters)</div>
-      <div class="flex flex-wrap gap-2">
-        <button type="button" data-sort="datacenters" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: datacenters</button>
-        <button type="button" data-sort="risk" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: risk</button>
-        <button type="button" data-sort="az" class="laws-country-sort inline-flex items-center rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1.5 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors">Sort: A–Z</button>
-      </div>
-    </div>
-    <div id="laws-countries-list" class="mt-3 flex flex-wrap gap-2"></div>
-  </details>
-</div>
 
 <script>
 (function() {
@@ -169,16 +199,16 @@
 
   // Region data from Hugo
   var regionsData = {{ $mapData | jsonify | safeJS }};
-  var blocsData = {{ ($jurisdictions.blocs | default (slice)) | jsonify | safeJS }};
-  var riskLevels = {{ ($jurisdictions.risk_levels | default dict) | jsonify | safeJS }};
+  var blocsData = {{ $blocsData | jsonify | safeJS }};
+  var riskLevels = {{ ($jurisdictions.riskLevels | default dict) | jsonify | safeJS }};
 
   // Risk level colors from jurisdictions.json
   var riskColors = {
-    low: '{{ index $riskLevels "low" "map_color" }}',
-    moderate: '{{ index $riskLevels "moderate" "map_color" }}',
-    elevated: '{{ index $riskLevels "elevated" "map_color" }}',
-    high: '{{ index $riskLevels "high" "map_color" }}',
-    sanctioned: '{{ index $riskLevels "sanctioned" "map_color" }}'
+    low: '{{ index $riskLevels "low" "mapColor" }}',
+    moderate: '{{ index $riskLevels "moderate" "mapColor" }}',
+    elevated: '{{ index $riskLevels "elevated" "mapColor" }}',
+    high: '{{ index $riskLevels "high" "mapColor" }}',
+    sanctioned: '{{ index $riskLevels "sanctioned" "mapColor" }}'
   };
 
   // Fetch world GeoJSON and initialize map (local copy to avoid CORS issues)
@@ -239,19 +269,7 @@
           }
         },
         visualMap: {
-          min: 0,
-          max: 4,
-          left: 'left',
-          bottom: 20,
-          text: ['High Risk', 'Low Risk'],
-          textStyle: {
-            color: isDark ? '#e5e5e5' : '#333'
-          },
-          inRange: {
-            color: [riskColors.low, riskColors.moderate, riskColors.elevated, riskColors.high, riskColors.sanctioned]
-          },
-          calculable: false,
-          show: true
+          show: false
         },
         series: [
           {
@@ -294,8 +312,8 @@
       myChart.setOption(option);
 
       // --- UI state ---
-      var selectedRisks = new Set(); // empty = all
-      var selectedBlocs = new Set(); // empty = all
+      var selectedRisk = 'all'; // single selection: 'all', 'low', 'moderate', etc.
+      var selectedBloc = 'all'; // single selection: 'all', 'eu', 'eea', etc.
       var hasDatacentersOnly = false;
       var focusedIds = null; // null = no focus; [] = focused set
       var currentSort = 'datacenters';
@@ -307,69 +325,78 @@
       }
       var blocsById = blocById();
 
-      function getRiskLabel(level) {
-        var rl = (riskLevels && riskLevels[level]) ? riskLevels[level].label : null;
-        return rl || (level ? (level.charAt(0).toUpperCase() + level.slice(1)) : 'Unknown');
+      function setActiveButton(groupEl, value) {
+        groupEl.querySelectorAll('button').forEach(function(b) {
+          b.classList.remove('btn-active');
+          b.classList.add('btn-ghost');
+        });
+        var target = groupEl.querySelector('button[data-value="' + value + '"]') || groupEl.querySelector('button[data-value="all"]');
+        if (target) {
+          target.classList.add('btn-active');
+          target.classList.remove('btn-ghost');
+        }
       }
 
-      function buildChips() {
-        var riskWrap = document.getElementById('laws-risk-chips');
-        var blocWrap = document.getElementById('laws-bloc-chips');
-        if (!riskWrap || !blocWrap) return;
-
-        var riskOrder = ['low','moderate','elevated','high','sanctioned','unknown'];
-        riskWrap.innerHTML = '';
-        riskOrder.forEach(function(r) {
-          var label = getRiskLabel(r);
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.dataset.risk = r;
-          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
-          btn.textContent = label;
+      function setupFilterListeners() {
+        // Risk filter buttons
+        document.querySelectorAll('#laws-risk-chips button').forEach(function(btn) {
           btn.addEventListener('click', function() {
-            if (selectedRisks.has(r)) selectedRisks.delete(r); else selectedRisks.add(r);
+            selectedRisk = btn.dataset.value;
+            focusedIds = null;
+            setActiveButton(document.getElementById('laws-risk-chips'), selectedRisk);
+            renderAll();
+          });
+        });
+
+        // Bloc filter buttons
+        document.querySelectorAll('#laws-bloc-chips button').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            selectedBloc = btn.dataset.value;
+            focusedIds = null;
+            setActiveButton(document.getElementById('laws-bloc-chips'), selectedBloc);
+            renderAll();
+          });
+        });
+
+        // Has Datacenters toggle
+        var dcBtn = document.getElementById('laws-has-dc');
+        if (dcBtn) {
+          dcBtn.addEventListener('click', function() {
+            hasDatacentersOnly = !hasDatacentersOnly;
+            if (hasDatacentersOnly) {
+              dcBtn.classList.add('btn-active');
+              dcBtn.classList.remove('btn-ghost');
+            } else {
+              dcBtn.classList.remove('btn-active');
+              dcBtn.classList.add('btn-ghost');
+            }
             focusedIds = null;
             renderAll();
           });
-          riskWrap.appendChild(btn);
-        });
-
-        blocWrap.innerHTML = '';
-        (blocsData || []).forEach(function(b) {
-          var btn = document.createElement('button');
-          btn.type = 'button';
-          btn.dataset.bloc = b.id;
-          btn.className = 'laws-chip inline-flex items-center rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 px-3 py-1 text-sm hover:border-primary-400 dark:hover:border-primary-500 transition-colors';
-          btn.textContent = (b.flag ? (b.flag + ' ') : '') + b.name;
-          btn.addEventListener('click', function() {
-            if (selectedBlocs.has(b.id)) selectedBlocs.delete(b.id); else selectedBlocs.add(b.id);
-            focusedIds = null;
-            renderAll();
-          });
-          blocWrap.appendChild(btn);
-        });
+        }
       }
 
-      function applyChipStyles() {
-        document.querySelectorAll('.laws-chip').forEach(function(el) {
-          var r = el.dataset.risk;
-          var b = el.dataset.bloc;
-          var active = false;
-          if (r) active = selectedRisks.has(r);
-          if (b) active = selectedBlocs.has(b);
-          el.style.borderColor = active ? (isDark ? '#3b82f6' : '#3b82f6') : '';
-          el.style.backgroundColor = active ? (isDark ? 'rgba(59,130,246,0.15)' : 'rgba(59,130,246,0.08)') : '';
-        });
+      function updateFilterButtons() {
+        setActiveButton(document.getElementById('laws-risk-chips'), selectedRisk);
+        setActiveButton(document.getElementById('laws-bloc-chips'), selectedBloc);
+        var dcBtn = document.getElementById('laws-has-dc');
+        if (dcBtn) {
+          if (hasDatacentersOnly) {
+            dcBtn.classList.add('btn-active');
+            dcBtn.classList.remove('btn-ghost');
+          } else {
+            dcBtn.classList.remove('btn-active');
+            dcBtn.classList.add('btn-ghost');
+          }
+        }
       }
 
       function matchCountry(d) {
         if (!d) return false;
-        if (selectedRisks.size > 0 && !selectedRisks.has(d.riskLevel || 'unknown')) return false;
-        if (selectedBlocs.size > 0) {
+        if (selectedRisk !== 'all' && (d.riskLevel || 'unknown') !== selectedRisk) return false;
+        if (selectedBloc !== 'all') {
           var blocs = d.blocs || [];
-          var ok = false;
-          selectedBlocs.forEach(function(id) { if (blocs.indexOf(id) !== -1) ok = true; });
-          if (!ok) return false;
+          if (blocs.indexOf(selectedBloc) === -1) return false;
         }
         if (hasDatacentersOnly && !(d.datacenterCount > 0)) return false;
         if (focusedIds && focusedIds.length > 0 && focusedIds.indexOf(d.id) === -1) return false;
@@ -422,7 +449,7 @@
           if (d.slug) {
             var a = document.createElement('a');
             a.className = 'inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm';
-            a.href = '/jurisdictions/' + d.slug + '/';
+            a.href = '/countries/' + d.slug + '/';
             a.title = (d.originalName || d.name) + ' • ' + risk + (dc > 0 ? (' • Datacenters: ' + dc) : '');
             a.textContent = text;
             wrap.appendChild(a);
@@ -436,21 +463,19 @@
       }
 
       function renderAll() {
-        applyChipStyles();
+        updateFilterButtons();
         updateMapStyles();
         renderCountriesList();
       }
 
       function resetAll() {
-        selectedRisks.clear();
-        selectedBlocs.clear();
+        selectedRisk = 'all';
+        selectedBloc = 'all';
         hasDatacentersOnly = false;
         focusedIds = null;
         currentSort = 'datacenters';
         var q = document.getElementById('laws-map-search');
         if (q) q.value = '';
-        var dc = document.getElementById('laws-has-dc');
-        if (dc) dc.checked = false;
         var sug = document.getElementById('laws-map-suggestions');
         if (sug) { sug.style.display = 'none'; sug.innerHTML = ''; }
         renderAll();
@@ -489,8 +514,8 @@
               if (l && l.full_name) names.push(l.full_name);
             });
           }
-          if (b && b.inherits_from) {
-            b.inherits_from.forEach(function(parentId) {
+          if (b && b.inheritsFrom) {
+            b.inheritsFrom.forEach(function(parentId) {
               names = names.concat(rec(parentId, stack));
             });
           }
@@ -636,12 +661,12 @@
       // --- click to navigate ---
       myChart.on('click', function(params) {
         if (params && params.data && params.data.slug) {
-          window.location.href = '/jurisdictions/' + params.data.slug + '/';
+          window.location.href = '/countries/' + params.data.slug + '/';
         }
       });
 
       // controls wiring
-      buildChips();
+      setupFilterListeners();
       renderAll();
 
       var searchInput = document.getElementById('laws-map-search');
@@ -676,15 +701,6 @@
           showSuggestions([]);
         }
       });
-
-      var hasDc = document.getElementById('laws-has-dc');
-      if (hasDc) {
-        hasDc.addEventListener('change', function() {
-          hasDatacentersOnly = !!hasDc.checked;
-          focusedIds = null;
-          renderAll();
-        });
-      }
 
       var resetBtn = document.getElementById('laws-map-reset');
       if (resetBtn) resetBtn.addEventListener('click', resetAll);

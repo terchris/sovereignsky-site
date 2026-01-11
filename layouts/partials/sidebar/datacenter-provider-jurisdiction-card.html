@@ -1,0 +1,43 @@
+{{/*
+  Datacenter Provider Jurisdiction Card - links to vendor's HQ jurisdiction
+  Usage: {{ partial "sidebar/datacenter-provider-jurisdiction-card.html" (dict "vendorCountry" $vendorCountry) }}
+*/}}
+
+{{ $vendorCountry := .vendorCountry | default dict }}
+
+{{ if $vendorCountry }}
+{{ $flag := $vendorCountry.flag | default "" }}
+{{ $name := $vendorCountry.name | default "" }}
+{{ $slug := $vendorCountry.slug | default "" }}
+{{ $risk := $vendorCountry.riskLevel | default "unknown" }}
+
+{{/* Risk emoji */}}
+{{ $riskEmoji := "" }}
+{{ if eq $risk "low" }}{{ $riskEmoji = "✅" }}{{ end }}
+{{ if eq $risk "moderate" }}{{ $riskEmoji = "⚠️" }}{{ end }}
+{{ if eq $risk "elevated" }}{{ $riskEmoji = "🔶" }}{{ end }}
+{{ if eq $risk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
+{{ if eq $risk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
+
+{{ if $slug }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
+      Jurisdiction
+    </h3>
+    <div class="mt-2">
+      <a href="/countries/{{ $slug }}/"
+         class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
+        {{ if $flag }}{{ $flag }} {{ end }}{{ $name }} laws
+      </a>
+      {{ if $riskEmoji }}
+      <div class="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+        {{ $riskEmoji }} {{ $risk | title }} jurisdiction
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}
+{{ end }}

@@ -1,57 +1,48 @@
 ---
 title: "DORA"
-law_id: "dora"
-full_name: "Digital Operational Resilience Act"
-year: 2025
-scope: "bloc"
-applies_to:
+identifier: "dora"
+alternateName: "Digital Operational Resilience Act"
+description: "EU regulation establishing ICT risk management and digital resilience requirements for the financial sector."
+abstract: "DORA creates a comprehensive framework for digital operational resilience in financial services. It requires financial entities to implement robust ICT risk management, report major ICT incidents, test their digital resilience regularly, and manage risks from third-party ICT service providers including cloud platforms."
+summary: "The Digital Operational Resilience Act harmonizes ICT risk management across the EU financial sector. It applies to banks, insurers, investment firms, payment providers, crypto-asset service providers, and critical ICT third-party providers. Financial entities must establish ICT risk management frameworks, maintain incident response capabilities, and conduct regular digital resilience testing including threat-led penetration testing. Third-party risk management is a core focus: entities must identify dependencies, assess concentration risk, and ensure contractual arrangements include audit rights and exit strategies. Critical ICT third-party providers (like major cloud platforms) face direct EU oversight through a Lead Overseer framework. DORA addresses concentration risk in the financial sector's reliance on a small number of technology providers."
+legislationDate: "2025"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
-law_type: "sector"
-law_type_description: "Regulates specific sector (AI, telecom, finance, etc.)"
-government_access: "none"
-government_access_description: "No government access provisions in this law"
-data_protection: "none"
-data_protection_description: "No individual data protection provisions"
+category: "sector"
+categoryDescription: "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+governmentAccess: "none"
+dataProtection: "none"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Digital resilience requirements for financial entities including banks, insurers, and crypto providers."
-  - "Mandates ICT risk management, incident reporting, and oversight of third-party ICT service providers."
-who_it_applies_to:
-  - "Financial entities (banks, insurers, investment firms, etc.)"
-  - "ICT service providers to financial sector"
-  - "Critical third‑party providers (as designated)"
-key_provisions:
-  - title: "Core scope"
-    description: "Digital resilience requirements for financial entities including banks, insurers, and crypto providers."
-  - title: "Key obligations"
-    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
-enforcement:
-  notes: "Supervised by financial regulators and competent authorities; sanctions and supervisory measures are sector‑specific."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "cybersecurity"
+  - "critical-infrastructure"
+  - "digital-resilience"
+tags:
+  - "financial-services"
+  - "ict-risk"
+  - "third-party-risk"
+  - "resilience-testing"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "security"
+isRelatedTo:
   complements:
-    - id: "nis2"
+    - identifier: "nis2"
       name: "NIS2 Directive"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "cra"
+    - identifier: "cra"
       name: "CRA"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Digital resilience requirements for financial entities including banks, insurers, and crypto providers. Mandates ICT risk management, incident reporting, and oversight of third-party ICT service providers.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

@@ -1,12 +1,24 @@
 ---
 title: "From Hyperscaler to Local: Why Norwegian Organizations Are Rethinking Cloud Strategy"
+identifier: "2025-12-08-hyperscaler-to-local-sovereignty"
 date: 2025-12-08
-showHero: true
 description: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
 summary: "The geopatriation trend - moving from US hyperscalers to local cloud providers for sovereignty, security, and control."
-tags: ["sovereignty", "data-residency", "vendor-lock-in", "norway"]
-audiences: ["enterprise", "public-sector", "it-ops"]
-categories: ["Technical"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+  - "platform-dependency"
+tags:
+  - "data-residency"
+  - "norway"
+audience:
+  - "enterprise"
+  - "public-sector"
+  - "it-ops"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 Who controls your data? Who can access it? And what happens if that access is cut off?

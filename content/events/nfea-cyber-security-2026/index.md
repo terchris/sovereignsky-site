@@ -11,10 +11,10 @@ locationCountry: "NO"
 organizerName: "NFEA (Norwegian Society for Automation)"
 organizerUrl: "https://nfea.no"
 externalUrl: "https://nfea.no/arrangementer/cyber-security-2026/"
-tags:
+topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "it-ops"
   - "enterprise"
 itRelevance: "high"

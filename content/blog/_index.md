@@ -1,6 +1,7 @@
 ---
 title: "Blog"
-description: "News and insights on cloud sovereignty, vendor independence, and secure infrastructure"
+description: "Articles on digital sovereignty, cloud independence, and data protection for Norwegian and European organizations."
+layout: "list"
 ---
 
-{{< page-stats section="blog" >}}
+Insights and analysis on digital sovereignty, cloud independence, and data protection.

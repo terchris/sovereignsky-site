@@ -1,0 +1,88 @@
+{{/*
+  Datacenter Filter Partial - DaisyUI styled filter controls for datacenter map
+  Usage: {{ partial "datacenter-filter.html" (dict "providers" $providerMeta) }}
+*/}}
+{{ $providers := .providers | default (slice) }}
+
+<div id="dc-provider-filter-panel" class="mt-4 space-y-4">
+
+  {{/* Search Box - first like on laws page */}}
+  <div class="mb-6">
+    <label class="input input-bordered flex items-center gap-2 w-full">
+      <svg class="h-5 w-5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input id="dc-search-input" type="search" class="grow" placeholder="Search provider, region, city, country..." autocomplete="off" />
+    </label>
+  </div>
+
+  {{/* Search Results */}}
+  <div id="dc-search-results" class="hidden"></div>
+
+  {{/* Quick Filter Presets */}}
+  <div class="flex flex-wrap items-center gap-2 mb-4">
+    <span class="text-sm font-semibold opacity-70">Quick filter:</span>
+    <div class="join" data-filter-group="preset">
+      <button class="join-item btn btn-sm btn-active" data-dc-preset="all">All</button>
+      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="us-hyperscalers">🇺🇸 US Hyperscalers</button>
+      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="eu-eea">🇪🇺 EU/EEA Providers</button>
+      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="non-us">🌍 Non-US Providers</button>
+      <button class="join-item btn btn-sm btn-ghost" data-dc-preset="none">None</button>
+    </div>
+  </div>
+
+  {{/* Provider Type Filter */}}
+  <div class="flex flex-wrap items-center gap-2 mb-4">
+    <span class="text-sm font-semibold opacity-70">Provider type:</span>
+    <div class="flex flex-wrap gap-2" data-filter-group="provider-type">
+      <button class="btn btn-sm btn-active gap-1 dc-type-btn" data-provider-type="hyperscaler">
+        🏢 Hyperscalers
+      </button>
+      <button class="btn btn-sm btn-active gap-1 dc-type-btn" data-provider-type="regional_cloud">
+        ☁️ Regional Cloud
+      </button>
+      <button class="btn btn-sm btn-active gap-1 dc-type-btn" data-provider-type="datacenter_operator">
+        🏭 Datacenter Operators
+      </button>
+    </div>
+  </div>
+
+  {{/* Map Controls */}}
+  <div class="flex flex-wrap items-center gap-2 mb-6">
+    <span class="text-sm font-semibold opacity-70">Map:</span>
+    <button id="dc-search-reset-view" type="button" class="btn btn-sm btn-ghost">Reset view</button>
+    <label class="label cursor-pointer gap-2">
+      <input id="dc-search-autozoom" type="checkbox" class="checkbox checkbox-sm" checked>
+      <span class="label-text text-sm">Auto-zoom on search</span>
+    </label>
+  </div>
+
+  {{/* Results Count */}}
+  <div class="flex justify-between items-center mb-4">
+    <div class="text-sm opacity-70">
+      Showing <span id="dc-showing-count" class="font-semibold">0</span> of <span id="dc-total-count" class="font-semibold">0</span> datacenter regions
+    </div>
+    <span class="text-sm opacity-60" id="dc-provider-filter-summary"></span>
+  </div>
+
+  {{/* Individual Provider Selection */}}
+  <details class="collapse collapse-arrow bg-base-200 rounded-lg">
+    <summary class="collapse-title text-sm font-medium py-2 min-h-0">
+      Select individual providers
+    </summary>
+    <div class="collapse-content">
+      <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm pt-2">
+        {{ range $providers }}
+        {{ $id := printf "dc-provider-%s" .identifier }}
+        <label for="{{ $id }}" class="inline-flex items-center gap-2 cursor-pointer select-none dc-provider-label hover:text-primary"
+          data-provider-type="{{ .providerType }}">
+          <input id="{{ $id }}" type="checkbox" class="checkbox checkbox-sm dc-provider-checkbox" data-provider-id="{{ .identifier }}" checked>
+          <span class="font-medium">{{ .name }}</span>
+          <span class="opacity-50">({{ .regionCount }})</span>
+        </label>
+        {{ end }}
+      </div>
+    </div>
+  </details>
+
+</div>

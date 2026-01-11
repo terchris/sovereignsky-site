@@ -11,10 +11,10 @@ locationCountry: "GB"
 organizerName: "UK National Cyber Security Centre (NCSC)"
 organizerUrl: "https://www.ncsc.gov.uk"
 externalUrl: "https://www.ncsc.gov.uk/section/cyberuk/cyberuk-2026"
-tags:
+topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "it-ops"
   - "enterprise"

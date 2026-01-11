@@ -1,0 +1,21 @@
+{{/*
+  Common Sidebar - consistent sidebar wrapper across the site
+
+  Usage in your template:
+    <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+      {{ partial "sidebar/common-sidebar.html" . }}
+        <!-- Your sidebar cards go here -->
+      {{ partial "sidebar/common-sidebar-end.html" }}
+
+      <!-- Main content -->
+      <div class="min-w-0 flex-1">
+        ...
+      </div>
+    </section>
+
+  This outputs the opening divs for the sidebar.
+  Use sidebar/common-sidebar-end.html to close the divs.
+*/}}
+{{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
+<div class="order-first px-0 lg:order-last lg:ps-8" style="width: 340px; flex-shrink: 0;">
+  <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">

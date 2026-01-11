@@ -7,10 +7,10 @@
 */}}
 
 {{ $jurisdictionId := .Get "jurisdiction" | default "" }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
-{{ $definitions := site.Data.laws.definitions | default (dict) }}
-{{ $regions := site.Data.regions | default (slice) }}
-{{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
+{{ $definitions := site.Data.laws.laws.definitions | default (dict) }}
+{{ $regions := site.Data.countries.countries.itemListElement | default (slice) }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{/* Build list of all applicable jurisdiction IDs (including inherited) */}}
 {{ $applicableIds := slice $jurisdictionId }}
@@ -19,7 +19,7 @@
 {{/* Check if this is a country - get its blocs */}}
 {{ $countryBlocs := slice }}
 {{ range $regions }}
-  {{ if eq .id $jurisdictionId }}
+  {{ if eq .identifier $jurisdictionId }}
     {{ $countryBlocs = .blocs | default (slice) }}
   {{ end }}
 {{ end }}
@@ -30,8 +30,8 @@
   {{ $applicableIds = $applicableIds | append $blocId }}
   {{/* Find this bloc and check for inherits_from */}}
   {{ range $blocs }}
-    {{ if eq .id $blocId }}
-      {{ $inheritedFrom := .inherits_from | default (slice) }}
+    {{ if eq .identifier $blocId }}
+      {{ $inheritedFrom := .inheritsFrom | default (slice) }}
       {{ range $inheritedFrom }}
         {{ $applicableIds = $applicableIds | append . }}
         {{ $inheritanceMap = merge $inheritanceMap (dict . $blocId) }}
@@ -42,8 +42,8 @@
 
 {{/* Also check if this jurisdiction is itself a bloc with inherits_from */}}
 {{ range $blocs }}
-  {{ if eq .id $jurisdictionId }}
-    {{ $inheritedFrom := .inherits_from | default (slice) }}
+  {{ if eq .identifier $jurisdictionId }}
+    {{ $inheritedFrom := .inheritsFrom | default (slice) }}
     {{ range $inheritedFrom }}
       {{ $applicableIds = $applicableIds | append . }}
       {{ $inheritanceMap = merge $inheritanceMap (dict . $jurisdictionId) }}
@@ -64,7 +64,7 @@
         {{/* Check if we already have this law */}}
         {{ $alreadyAdded := false }}
         {{ range $jurisdictionLaws }}
-          {{ if eq .id $lawId }}
+          {{ if eq .identifier $lawId }}
             {{ $alreadyAdded = true }}
           {{ end }}
         {{ end }}
@@ -135,7 +135,7 @@
           {{/* Get the country flag for national laws */}}
           {{ $countryFlag := "" }}
           {{ range $regions }}
-            {{ if eq .id $jurisdictionId }}
+            {{ if eq .identifier $jurisdictionId }}
               {{ $countryFlag = .flag | default "" }}
             {{ end }}
           {{ end }}

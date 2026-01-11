@@ -1,12 +1,22 @@
 ---
 title: "You, the Developer, Hold the Keys to National Sovereignty"
+identifier: "2025-12-10-developer-power-sovereignty"
 date: 2025-12-10
-showHero: true
 description: "Why your technical decisions matter for your country's independence - and what you can do about it"
 summary: "Why your technical decisions matter for your country's independence - and what you can do about it"
-tags: ["sovereignty", "developers", "vendor-lock-in", "open-standards"]
-audiences: ["developer"]
-categories: ["Opinion"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+  - "platform-dependency"
+tags:
+  - "developers"
+  - "open-standards"
+audience:
+  - "developer"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 Your mother needs a hospital appointment. The booking system runs on Azure. The authentication flows through Okta. The email reminder uses SendGrid. The SMS notification goes via a Norwegian provider, but you know that their service run i a US cloud.

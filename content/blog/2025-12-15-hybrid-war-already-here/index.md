@@ -1,12 +1,25 @@
 ---
 title: "The Hybrid War Is Already Here: Why Digital Sovereignty Can't Wait"
+identifier: "2025-12-15-hybrid-war-already-here"
 date: 2025-12-15
-showHero: true
 description: "GPS jamming 294 days a year. A Norwegian dam hacked by pro-Russian actors. 40 sabotage operations across Europe. The hybrid war isn't coming - it's happening now. And our digital infrastructure is dangerously exposed."
 summary: "GPS jamming 294 days a year. A Norwegian dam hacked by pro-Russian actors. 40 sabotage operations across Europe. The hybrid war isn't coming - it's happening now. And our digital infrastructure is dangerously exposed."
-tags: ["hybrid-warfare", "cybersecurity", "sovereignty", "norway", "gps-jamming", "critical-infrastructure"]
-audiences: ["public-sector", "security"]
-categories: ["Analysis"]
+showHero: true
+topics:
+  - "cybersecurity"
+  - "digital-sovereignty"
+  - "critical-infrastructure"
+tags:
+  - "hybrid-warfare"
+  - "norway"
+  - "gps-jamming"
+audience:
+  - "public-sector"
+  - "security"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 In September 2024, Norway's telecommunications authority Nkom made an extraordinary announcement: they would [stop tracking GPS jamming incidents in Finnmark](https://www.thebarentsobserver.com).

@@ -1,54 +1,42 @@
 ---
 title: "LED"
-law_id: "led"
-full_name: "Law Enforcement Directive"
-year: 2016
-scope: "bloc"
-applies_to:
+identifier: "led"
+alternateName: "Law Enforcement Directive"
+description: "EU directive setting data protection rules for police and criminal justice authorities."
+abstract: "The LED establishes data protection safeguards for law enforcement processing. It grants individuals rights when their data is processed by police, prosecutors, and courts, while providing appropriate flexibility for effective law enforcement. It complements the GDPR by covering the criminal justice domain."
+summary: "The Law Enforcement Directive regulates personal data processing by police, prosecutors, and courts for criminal law purposes. Unlike the GDPR which excludes law enforcement, the LED provides targeted protections balanced against public security needs. Individuals have rights to access their data, request correction, and lodge complaints, though these may be restricted during active investigations. Controllers must implement appropriate safeguards, distinguish between different categories of data subjects (suspects, victims, witnesses), and ensure data quality and purpose limitation. Transfers to third countries require adequacy decisions or appropriate safeguards. Member states supervise compliance through their data protection authorities, with some exceptions for judicial activities. The LED ensures that law enforcement cooperation across EU borders occurs within a consistent data protection framework."
+legislationDate: "2016"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/dir/2016/680/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/dir/2016/680/oj"
-law_type: "access"
-law_type_description: "Enables government or law enforcement data access"
-government_access: "targeted"
-government_access_description: "Access with warrants or court orders for specific investigations"
-data_protection: "moderate"
-data_protection_description: "Some protections but with significant exceptions or weaker enforcement"
+category: "access"
+categoryDescription: "Laws that enable government or law enforcement data access"
+governmentAccess: "targeted"
+dataProtection: "moderate"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Data protection rules for police and criminal justice authorities."
-  - "Provides rights for individuals whose data is processed for law enforcement purposes, with appropriate safeguards."
-  - "Enables targeted government access under warrants or court orders for specific investigations."
-who_it_applies_to:
-  - "Law enforcement authorities"
-  - "Criminal justice bodies"
-  - "Processors handling law-enforcement data on behalf of authorities"
-key_provisions:
-  - title: "Core scope"
-    description: "Data protection rules for police and criminal justice authorities."
-  - title: "Key obligations"
-    description: "Creates legal mechanisms for authorities to request or compel access to data held by providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Evaluate provider jurisdiction and government-access exposure; plan mitigations (encryption, split trust, sovereign hosting)."
-enforcement:
-  notes: "Enforcement is handled by national supervisory authorities and courts under member‑state law."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "government-access"
+  - "data-protection"
+tags:
+  - "law-enforcement"
+  - "criminal-justice"
+  - "police"
+  - "data-protection"
+audience:
+  - "public-sector"
+  - "security"
+isRelatedTo:
   complements:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Data protection rules for police and criminal justice authorities. Provides rights for individuals whose data is processed for law enforcement purposes, with appropriate safeguards.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

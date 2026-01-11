@@ -10,16 +10,16 @@
 {{ $lawType := .Get "type" | default "" }}
 {{ $govAccess := .Get "government_access" | default "" }}
 {{ $dataProt := .Get "data_protection" | default "" }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
+{{ $laws := site.Data.laws.laws.laws | default (slice) }}
 
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
+{{ $countriesById := dict }}
+{{ range (site.Data.countries.countries.itemListElement | default (slice)) }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{ range (site.Data.blocs.blocs.itemListElement | default (slice)) }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
 {{ $filtered := slice }}
@@ -48,7 +48,7 @@
     {{ $flag := "" }}
     {{ range first 1 .applies_to }}
       {{ $id := . }}
-      {{ $region := index $regionsById $id }}
+      {{ $region := index $countriesById $id }}
       {{ if $region }}
         {{ $flag = $region.flag }}
         {{ $firstApply = $region.name }}

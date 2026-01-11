@@ -37,6 +37,7 @@ sovereignsky-site/
 ├── content/                   # Hugo content (markdown pages)
 │   ├── networks/              # Generated network pages
 │   ├── laws/                  # Generated law pages
+│   ├── publications/          # Generated publication pages
 │   └── ...
 ├── data/                      # Data files
 │   ├── networks/              # Network data
@@ -44,6 +45,10 @@ sovereignsky-site/
 │   │   ├── networks-actors.json
 │   │   ├── networks-places.json
 │   │   └── networks-trawler.json
+│   ├── publications/          # Publications data
+│   │   └── publications.json
+│   ├── laws/                  # Laws data
+│   │   └── laws.json
 │   └── schemas/               # JSON Schema definitions
 │       ├── networks.schema.json
 │       ├── networks-actors.schema.json
@@ -53,6 +58,7 @@ sovereignsky-site/
 ├── scripts/                   # Node.js scripts
 │   ├── generate-network-pages.js
 │   ├── generate-laws-pages.js
+│   ├── generate-publications-pages.js
 │   └── validate.js
 └── static/                    # Static assets
 ```
@@ -72,6 +78,14 @@ docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scr
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scripts/generate-laws-pages.js"
 ```
 
+### Generate Publications Pages
+```bash
+docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && node scripts/generate-publications-pages.js"
+```
+- Generates content pages from `data/publications/publications.json`
+- Field mappings: `datePublished` → `date`, `name` → `title`, `url` → `external_url`, `about` → `topics`, `author` → `authors`
+- Preserves custom body content after Summary section
+
 ### Validate Data Files
 ```bash
 docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && npm run validate"
@@ -89,11 +103,31 @@ Data files in `data/networks/` are validated against schemas in `data/schemas/`:
 
 All data files are arrays at root level (no wrapper objects).
 
+## Publications Data Structure
+
+Publications in `data/publications/publications.json` use schema.org-aligned field names:
+
+| JSON Field | Hugo Frontmatter | Description |
+|------------|------------------|-------------|
+| id | (directory name) | URL slug |
+| name | title | Publication title |
+| description | description | Short description |
+| datePublished | date | Publication date |
+| url | external_url | Link to original |
+| author | authors | Array of author names |
+| publisher | publisher | Publisher name |
+| about | topics | Array of topic slugs |
+| audience | audience | Array of persona types |
+| tags | tags | Array of keyword tags |
+| abstract | (in body) | Short abstract text |
+| summary | (in body) | Longer summary text |
+| image | featured.png | Cover image (copied to content folder) |
+
 ## Hugo Development
 
 The Hugo server runs inside the devcontainer and is accessible at `http://localhost:1313`.
 
-To restart Hugo:
+To restart Hugo (kills existing process and starts fresh):
 ```bash
-docker exec relaxed_napier bash -c "cd /workspaces/sovereignsky-site && hugo server -D --bind 0.0.0.0 --disableFastRender"
+docker exec relaxed_napier bash -c "pkill hugo; cd /workspaces/sovereignsky-site && hugo server -D --bind 0.0.0.0 --disableFastRender"
 ```

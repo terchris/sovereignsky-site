@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/risk_levels.schema.json",
+  "title": "Risk Levels",
+  "description": "Schema for risk-levels.json - jurisdictional risk level definitions (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "dateModified": {
+      "type": "string",
+      "format": "date",
+      "description": "Last modification date (ISO 8601)"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of risk level definitions",
+      "items": {
+        "type": "object",
+        "required": ["@type", "identifier", "name", "termCode", "color", "description", "mapColor"],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "DefinedTerm",
+            "description": "schema.org type for controlled vocabulary terms"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the risk level",
+            "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the risk level"
+          },
+          "termCode": {
+            "type": "string",
+            "description": "Code used in data references",
+            "enum": ["low", "moderate", "elevated", "high", "sanctioned"]
+          },
+          "color": {
+            "type": "string",
+            "description": "Semantic color name",
+            "enum": ["green", "yellow", "orange", "red", "darkred"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Explanation of what this risk level means"
+          },
+          "mapColor": {
+            "type": "string",
+            "description": "Hex color code for map visualization",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 5,
+      "maxItems": 5
+    }
+  },
+  "additionalProperties": false
+}

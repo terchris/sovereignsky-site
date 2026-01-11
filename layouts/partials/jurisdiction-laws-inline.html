@@ -9,9 +9,9 @@
 
 {{ $jurisdictionId := .jurisdictionId | default "" }}
 {{ $country := .country | default dict }}
-{{ $laws := site.Data.laws.laws | default (slice) }}
-{{ $regions := site.Data.regions | default (slice) }}
-{{ $blocs := site.Data.jurisdictions.blocs | default (slice) }}
+{{ $laws := site.Data.laws.laws.itemListElement | default (slice) }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{/* Build list of all applicable jurisdiction IDs (including inherited) */}}
 {{ $applicableIds := slice $jurisdictionId }}
@@ -23,7 +23,7 @@
   {{ $countryBlocs = $country.blocs | default (slice) }}
 {{ else }}
   {{ range $regions }}
-    {{ if eq .id $jurisdictionId }}
+    {{ if eq .identifier $jurisdictionId }}
       {{ $countryBlocs = .blocs | default (slice) }}
     {{ end }}
   {{ end }}
@@ -35,8 +35,8 @@
   {{ $applicableIds = $applicableIds | append $blocId }}
   {{/* Find this bloc and check for inherits_from */}}
   {{ range $blocs }}
-    {{ if eq .id $blocId }}
-      {{ $inheritedFrom := .inherits_from | default (slice) }}
+    {{ if eq .identifier $blocId }}
+      {{ $inheritedFrom := .inheritsFrom | default (slice) }}
       {{ range $inheritedFrom }}
         {{ $applicableIds = $applicableIds | append . }}
         {{ $inheritanceMap = merge $inheritanceMap (dict . $blocId) }}
@@ -47,8 +47,8 @@
 
 {{/* Also check if this jurisdiction is itself a bloc with inherits_from */}}
 {{ range $blocs }}
-  {{ if eq .id $jurisdictionId }}
-    {{ $inheritedFrom := .inherits_from | default (slice) }}
+  {{ if eq .identifier $jurisdictionId }}
+    {{ $inheritedFrom := .inheritsFrom | default (slice) }}
     {{ range $inheritedFrom }}
       {{ $applicableIds = $applicableIds | append . }}
       {{ $inheritanceMap = merge $inheritanceMap (dict . $jurisdictionId) }}
@@ -61,15 +61,15 @@
 {{ $lawSources := dict }}
 {{ range $laws }}
   {{ $law := . }}
-  {{ $lawId := .id }}
-  {{ range .applies_to }}
+  {{ $lawId := .identifier }}
+  {{ range .legislationJurisdiction }}
     {{ $applyTo := . }}
     {{ range $applicableIds }}
       {{ if eq $applyTo . }}
         {{/* Check if we already have this law */}}
         {{ $alreadyAdded := false }}
         {{ range $jurisdictionLaws }}
-          {{ if eq .id $lawId }}
+          {{ if eq .identifier $lawId }}
             {{ $alreadyAdded = true }}
           {{ end }}
         {{ end }}
@@ -82,21 +82,28 @@
   {{ end }}
 {{ end }}
 
-{{/* Group by law type */}}
+{{/* Group by law type (category in Schema.org format) */}}
 {{ $byType := dict }}
 {{ range $jurisdictionLaws }}
-  {{ $type := .type | default "other" }}
+  {{ $type := .category | default "other" }}
   {{ $existing := index $byType $type | default (slice) }}
   {{ $byType = merge $byType (dict $type ($existing | append .)) }}
 {{ end }}
 
-{{/* Get law type vocabulary from centralized data */}}
-{{ $lawTypes := site.Data.tag_vocabulary.lawTypes | default (dict) }}
-{{ $typeOrder := $lawTypes.values | default (slice "privacy" "access" "surveillance" "localization" "security" "sector") }}
-{{ $typeLabels := $lawTypes.labels | default (dict "privacy" "Privacy Laws" "access" "Access Laws" "surveillance" "Surveillance Laws" "localization" "Localization Laws" "security" "Security Laws" "sector" "Sector-Specific Laws") }}
-{{ $typeEmojis := $lawTypes.emojis | default (dict "privacy" "🛡️" "access" "🔓" "surveillance" "👁️" "localization" "📍" "security" "🔒" "sector" "📋") }}
-{{ $typeDescriptions := $lawTypes.descriptions | default (dict "privacy" "Laws that protect individual data rights and privacy" "access" "Laws that enable government or law enforcement data access" "surveillance" "Laws that establish surveillance infrastructure or powers" "localization" "Laws that require data to be stored within jurisdiction" "security" "National security frameworks" "sector" "Laws regulating specific sectors") }}
-{{ $typeBadgeClasses := $lawTypes.badgeClasses | default (dict "privacy" "badge-success" "access" "badge-warning" "surveillance" "badge-error" "localization" "badge-info" "security" "badge-secondary" "sector" "badge-ghost") }}
+{{/* Get law type vocabulary from law_types.json */}}
+{{ $lawTypesData := site.Data.laws.law_types.itemListElement | default (slice) }}
+{{ $typeOrder := slice }}
+{{ $typeLabels := dict }}
+{{ $typeEmojis := dict }}
+{{ $typeDescriptions := dict }}
+{{ $typeBadgeClasses := dict }}
+{{ range $lawTypesData }}
+  {{ $typeOrder = $typeOrder | append .identifier }}
+  {{ $typeLabels = merge $typeLabels (dict .identifier .name) }}
+  {{ $typeEmojis = merge $typeEmojis (dict .identifier .emoji) }}
+  {{ $typeDescriptions = merge $typeDescriptions (dict .identifier .description) }}
+  {{ $typeBadgeClasses = merge $typeBadgeClasses (dict .identifier .badgeClass) }}
+{{ end }}
 
 {{ if gt (len $jurisdictionLaws) 0 }}
 <div class="not-prose">
@@ -118,14 +125,14 @@
       <div class="space-y-6">
         {{ range $lawsOfType }}
         {{/* Determine source of this law */}}
-        {{ $lawSource := index $lawSources .id }}
+        {{ $lawSource := index $lawSources .identifier }}
         {{ $isNational := eq $lawSource $jurisdictionId }}
         {{ $sourceLabel := "" }}
         {{ $sourceBadgeClass := "badge-ghost" }}
         {{ if $isNational }}
           {{ $countryFlag := "" }}
           {{ range $regions }}
-            {{ if eq .id $jurisdictionId }}
+            {{ if eq .identifier $jurisdictionId }}
               {{ $countryFlag = .flag | default "" }}
             {{ end }}
           {{ end }}
@@ -139,7 +146,7 @@
           {{ $sourceName := $lawSource }}
           {{ $sourceFlag := "" }}
           {{ range $blocs }}
-            {{ if eq .id $lawSource }}
+            {{ if eq .identifier $lawSource }}
               {{ $sourceName = .name }}
               {{ $sourceFlag = .flag | default "" }}
             {{ end }}
@@ -159,15 +166,15 @@
               <div class="flex-1">
                 <div class="flex items-center gap-2 flex-wrap mb-1">
                   <h4 class="card-title text-lg m-0">
-                    <a href="/laws/{{ .id }}/" class="link link-hover hover:text-primary">
-                      {{ .name }} ({{ .year }})
+                    <a href="/laws/{{ .identifier }}/" class="link link-hover hover:text-primary">
+                      {{ .name }} ({{ .legislationDate }})
                     </a>
                   </h4>
                   <div class="badge {{ $sourceBadgeClass }} badge-sm">{{ $sourceLabel }}</div>
                 </div>
-                <p class="text-sm opacity-60 m-0">{{ .full_name }}</p>
+                <p class="text-sm opacity-60 m-0">{{ .alternateName }}</p>
               </div>
-              <a href="/laws/{{ .id }}/" class="btn btn-ghost btn-sm">
+              <a href="/laws/{{ .identifier }}/" class="btn btn-ghost btn-sm">
                 Details
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -182,23 +189,23 @@
             <div class="flex flex-wrap gap-2">
               {{/* Government Access */}}
               {{ $accessBadge := "badge-ghost" }}
-              {{ if eq .government_access "broad" }}{{ $accessBadge = "badge-error" }}{{ end }}
-              {{ if eq .government_access "targeted" }}{{ $accessBadge = "badge-warning" }}{{ end }}
-              {{ if eq .government_access "limited" }}{{ $accessBadge = "badge-success" }}{{ end }}
+              {{ if eq .governmentAccess "broad" }}{{ $accessBadge = "badge-error" }}{{ end }}
+              {{ if eq .governmentAccess "targeted" }}{{ $accessBadge = "badge-warning" }}{{ end }}
+              {{ if eq .governmentAccess "limited" }}{{ $accessBadge = "badge-success" }}{{ end }}
               <div class="badge {{ $accessBadge }} gap-1">
                 {{ partial "content-icon.html" (dict "name" "eye" "size" "3") }}
-                Gov: {{ .government_access }}
+                Gov: {{ .governmentAccess }}
               </div>
 
               {{/* Data Protection */}}
-              {{ if and .data_protection (ne .data_protection "none") }}
+              {{ if and .dataProtection (ne .dataProtection "none") }}
               {{ $protBadge := "badge-ghost" }}
-              {{ if eq .data_protection "strong" }}{{ $protBadge = "badge-success" }}{{ end }}
-              {{ if eq .data_protection "moderate" }}{{ $protBadge = "badge-warning" }}{{ end }}
-              {{ if eq .data_protection "weak" }}{{ $protBadge = "badge-error" }}{{ end }}
+              {{ if eq .dataProtection "strong" }}{{ $protBadge = "badge-success" }}{{ end }}
+              {{ if eq .dataProtection "moderate" }}{{ $protBadge = "badge-warning" }}{{ end }}
+              {{ if eq .dataProtection "weak" }}{{ $protBadge = "badge-error" }}{{ end }}
               <div class="badge {{ $protBadge }} gap-1">
                 {{ partial "content-icon.html" (dict "name" "shield" "size" "3") }}
-                Protection: {{ .data_protection }}
+                Protection: {{ .dataProtection }}
               </div>
               {{ end }}
 
@@ -209,13 +216,13 @@
               </div>
               {{ end }}
 
-              {{ if .requires_localization }}
+              {{ if .requiresLocalization }}
               <div class="badge badge-info gap-1">
                 📍 Localization Required
               </div>
               {{ end }}
 
-              {{ if .requires_backdoor }}
+              {{ if .requiresBackdoor }}
               <div class="badge badge-error gap-1">
                 🔑 Backdoor Required
               </div>

@@ -1,12 +1,12 @@
 {{ define "main" }}
 {{ $softwareId := .Params.software_id }}
-{{ $data := index (where site.Data.products.products "id" $softwareId) 0 }}
+{{ $data := index (where site.Data.products.products.products "id" $softwareId) 0 }}
 
 {{/* Get vendor data */}}
-{{ $vendor := index (where site.Data.vendors.vendors "id" $data.vendor_id) 0 }}
+{{ $vendor := index (where site.Data.products.vendors.vendors "id" $data.vendor_id) 0 }}
 
-{{/* Get region data for jurisdiction exposure */}}
-{{ $regions := site.Data.regions }}
+{{/* Get country data for jurisdiction exposure */}}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 
 {{/* Risk level colors */}}
 {{ $riskColors := dict
@@ -18,8 +18,7 @@
 }}
 {{ $riskColor := index $riskColors $data.risk_level | default "neutral" }}
 
-{{/* Country flags */}}
-{{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU_EEA" "🇪🇺" }}
+{{/* Country flags - use partial "get-country-flag.html" for lookups */}}
 
 <article class="software-detail max-w-4xl mx-auto">
 
@@ -33,7 +32,7 @@
   <!-- Header -->
   <header class="mb-8">
     <div class="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400 mb-2">
-      {{ $vendorFlag := index $flags $vendor.country }}
+      {{ $vendorFlag := partial "get-country-flag.html" $vendor.country }}
       <span>{{ $vendorFlag }}</span>
       <span>{{ $vendor.name }}</span>
       {{ if gt (len $data.hosting.jurisdiction_exposure) 0 }}
@@ -70,7 +69,7 @@
         <span class="text-sm text-neutral-500 dark:text-neutral-400 block mb-1">Data Residency</span>
         <div class="flex flex-wrap gap-1">
           {{ range $data.hosting.data_residency }}
-          {{ $f := index $flags . }}
+          {{ $f := partial "get-country-flag.html" . }}
           <span class="inline-flex items-center gap-1 px-2 py-1 bg-white dark:bg-neutral-700 rounded text-sm">
             {{ $f }} {{ if eq . "EU_EEA" }}EU/EEA{{ else }}{{ . }}{{ end }}
           </span>
@@ -82,7 +81,7 @@
         {{ if gt (len $data.hosting.jurisdiction_exposure) 0 }}
         <div class="flex flex-wrap gap-1">
           {{ range $data.hosting.jurisdiction_exposure }}
-          {{ $f := index $flags . }}
+          {{ $f := partial "get-country-flag.html" . }}
           <span class="inline-flex items-center gap-1 px-2 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded text-sm">
             {{ $f }} {{ . }}
           </span>
@@ -113,7 +112,7 @@
       which may allow foreign authorities to compel data disclosure.
     </p>
     {{ range $data.hosting.jurisdiction_exposure }}
-      {{ $region := index (where $regions "id" .) 0 }}
+      {{ $region := index (where $countries "id" .) 0 }}
       {{ if $region }}
         {{ if $region.laws }}
         <div class="mt-2 text-sm">
@@ -222,12 +221,12 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {{ range $data.alternatives }}
-      {{ $alt := index (where site.Data.products.products "id" .) 0 }}
+      {{ $alt := index (where site.Data.products.products.products "id" .) 0 }}
       {{ if $alt }}
-      {{ $altVendor := index (where site.Data.vendors.vendors "id" $alt.vendor_id) 0 }}
+      {{ $altVendor := index (where site.Data.products.vendors.vendors "id" $alt.vendor_id) 0 }}
       <a href="/software/{{ $alt.slug }}/" class="block border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors">
         <div class="flex items-center gap-2 mb-2">
-          {{ $altFlag := index $flags $altVendor.country }}
+          {{ $altFlag := partial "get-country-flag.html" $altVendor.country }}
           <span>{{ $altFlag }}</span>
           <span class="font-semibold">{{ $alt.name }}</span>
         </div>

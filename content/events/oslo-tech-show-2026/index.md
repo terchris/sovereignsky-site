@@ -11,11 +11,11 @@ locationCountry: "NO"
 organizerName: "Oslo Tech Show"
 organizerUrl: "https://oslotechshow.com"
 externalUrl: "https://oslotechshow.com/"
-tags:
+topics:
   - "cybersecurity"
   - "critical-infrastructure"
-  - "sovereignty"
-audiences:
+  - "digital-sovereignty"
+audience:
   - "it-ops"
   - "developer"
   - "enterprise"

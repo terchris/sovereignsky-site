@@ -10,23 +10,27 @@ authors:
   - "Massimo Marelli"
 topics:
   - "cybersecurity"
-  - "digital threats"
-  - "international humanitarian law"
-  - "data breaches"
-  - "disinformation"
-personas:
+audience:
   - "humanitarian"
   - "public-sector"
   - "security"
   - "it-ops"
+tags:
+  - "cyberattacks"
+  - "data-breach"
+  - "disinformation"
+  - "digital-emblem"
+  - "law-of-war"
 type: publications
 ---
 
+## Abstract
+
+ICRC analysis establishing that International Humanitarian Law protections extend to cyberspace—digital attacks on humanitarian organisations violate international law and may constitute war crimes.
+
 ## Summary
 
-Three senior ICRC officials — a legal adviser, a techplomacy envoy, and the head of data protection — present the ICRC's position on how International Humanitarian Law (IHL) applies to cyber operations against humanitarian organisations. Published alongside the Red Cross Movement's formal resolution on *Safeguarding Humanitarian Data*, this analysis responds directly to the January 2022 ICRC data breach that exposed personal information of over 515,000 vulnerable people.
-
-The core argument: **the long-standing consensus that humanitarian organisations must not be targeted applies equally in cyberspace**. IHL's protections for humanitarian operations extend to digital infrastructure, data, and personnel. Attacking them — whether through hacking, disinformation, or denial-of-service operations — violates international law and may constitute war crimes.
+Written in response to the 2022 ICRC data breach affecting 515,000 people, three senior officials document how cyber operations, data breaches, and disinformation cause real-world harm. The report proposes protective measures including a digital Red Cross emblem and sovereign humanitarian cloud infrastructure separate from commercial providers.
 
 ---
 

@@ -11,7 +11,7 @@ risk_label: "Moderate Risk"
 has_us_exposure: true
 open_source: true
 data_portability: "full"
-date: 2025-12-19
+date: 2026-01-08
 layout: single
 type: software
 

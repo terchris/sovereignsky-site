@@ -1,5 +1,5 @@
 # SovereignSky Website Configuration
-baseURL = "https://totalforsvarsaret.no/"
+baseURL = "https://sovereignsky.no/"
 defaultContentLanguage = "en"
 theme = "blowfish"
 
@@ -18,7 +18,9 @@ summaryLength = 30
   tag = "tags"
   category = "categories"
   # Audience filtering taxonomy
-  audience = "audiences"
+  audience = "audience"
+  # Topics taxonomy
+  topic = "topics"
   # Software filtering taxonomies
   risk_level = "risk_levels"
   vendor_country = "vendor_countries"

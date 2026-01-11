@@ -12,7 +12,7 @@
 
      Usage:
      - {{ partial "related-content-sidebar.html" . }}
-     - {{ partial "related-content-sidebar.html" (dict "page" . "country_id" "NO") }}
+     - {{ partial "related-content-sidebar.html" (dict "page" . "countryId" "NO") }}
 */}}
 
 {{/* Support both direct page context and dict with page key */}}
@@ -21,11 +21,11 @@
 {{/* Check if this is a dict with "page" key by checking for Permalink (pages have it, dicts don't) */}}
 {{ if not .Permalink }}
   {{ $currentPage = .page }}
-  {{ $explicitCountryId = .country_id | default "" }}
+  {{ $explicitCountryId = .countryId | default "" }}
 {{ end }}
 
 {{ $pageTags := $currentPage.Params.tags | default (slice) }}
-{{ $countryId := $explicitCountryId | default ($currentPage.Params.country_id | default "") }}
+{{ $countryId := $explicitCountryId | default ($currentPage.Params.countryId | default $currentPage.Params.country_id | default "") }}
 {{ $appliesTo := $currentPage.Params.applies_to | default (slice) }}
 {{ $lawId := $currentPage.Params.law_id | default "" }}
 
@@ -45,11 +45,11 @@
 {{/* Find laws whose ID matches a tag OR applies to this country_id */}}
 {{/* Exclude the current law page (if this is a law page) */}}
 {{ $relatedLaws := slice }}
-{{ range (site.Data.laws.laws | default (slice)) }}
+{{ range (site.Data.laws.laws.laws | default (slice)) }}
   {{ $law := . }}
   {{ $matched := false }}
   {{/* Skip if this is the current law page */}}
-  {{ if and $lawId (eq .id $lawId) }}
+  {{ if and $lawId (eq .identifier $lawId) }}
     {{ $matched = false }}
   {{ else }}
     {{/* Match by tag */}}
@@ -108,7 +108,7 @@
 {{ $hasContent := or (gt (len $relatedLaws) 0) (gt (len $relatedPages) 0) }}
 {{ if $hasContent }}
   {{/* Get content types from vocabulary */}}
-  {{ $contentTypes := site.Data.tag_vocabulary.contentTypes | default (dict) }}
+  {{ $contentTypes := site.Data.hugo.ui_vocabulary.contentTypes | default (dict) }}
   {{ $icons := $contentTypes.icons | default (dict) }}
   {{ $colors := $contentTypes.colors | default (dict) }}
 

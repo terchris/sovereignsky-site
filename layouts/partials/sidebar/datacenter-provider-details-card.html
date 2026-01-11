@@ -1,0 +1,73 @@
+{{/*
+  Datacenter Provider Details Card
+  Usage: {{ partial "sidebar/datacenter-provider-details-card.html" (dict "provider" $provider "vendorCountry" $vendorCountry) }}
+*/}}
+
+{{ $provider := .provider | default dict }}
+{{ $vendorCountry := .vendorCountry | default dict }}
+
+{{ if $provider }}
+{{ $vendorFlag := $vendorCountry.flag | default "" }}
+{{ $vendorCountryName := $vendorCountry.name | default $provider.vendorCountryId }}
+{{ $providerRegions := $provider.regions | default (slice) }}
+
+{{/* Count unique countries */}}
+{{ $countryCounts := dict }}
+{{ range $providerRegions }}
+  {{ $countryId := .countryId }}
+  {{ $existing := index $countryCounts $countryId | default 0 }}
+  {{ $countryCounts = merge $countryCounts (dict $countryId (add $existing 1)) }}
+{{ end }}
+
+{{/* Risk info */}}
+{{ $hqRisk := $vendorCountry.riskLevel | default "unknown" }}
+{{ $riskBadge := "badge-neutral" }}
+{{ if eq $hqRisk "low" }}{{ $riskBadge = "badge-success" }}{{ end }}
+{{ if eq $hqRisk "moderate" }}{{ $riskBadge = "badge-warning" }}{{ end }}
+{{ if eq $hqRisk "elevated" }}{{ $riskBadge = "badge-warning" }}{{ end }}
+{{ if eq $hqRisk "high" }}{{ $riskBadge = "badge-error" }}{{ end }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+      Provider Details
+    </h3>
+    <dl class="mt-2 text-sm">
+      {{/* HQ */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Headquarters</dt>
+        <dd class="font-medium">{{ if $vendorFlag }}{{ $vendorFlag }} {{ end }}{{ $vendorCountryName }}</dd>
+      </div>
+      {{/* Risk */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Risk Assessment</dt>
+        <dd><span class="badge badge-sm {{ $riskBadge }}">{{ $hqRisk | title }}</span></dd>
+      </div>
+      {{/* Total Regions */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Total Regions</dt>
+        <dd class="font-medium">{{ len $providerRegions }}</dd>
+      </div>
+      {{/* Countries */}}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Countries</dt>
+        <dd class="font-medium">{{ len $countryCounts }}</dd>
+      </div>
+      {{/* Provider Type */}}
+      {{ with $provider.providerType }}
+      <div class="flex justify-between py-1">
+        <dt class="text-neutral-500 dark:text-neutral-400">Type</dt>
+        <dd class="font-medium">{{ . | humanize | title }}</dd>
+      </div>
+      {{ end }}
+      {{/* Data updated */}}
+      {{ with $provider.dateModified }}
+      <div class="pt-2 mt-2 border-t border-base-200">
+        <div class="text-xs text-neutral-500 dark:text-neutral-400">Data updated {{ . }}</div>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>
+{{ end }}

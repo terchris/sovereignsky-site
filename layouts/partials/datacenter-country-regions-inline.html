@@ -2,25 +2,29 @@
 Datacenter Country Regions list (inline partial)
 Usage: {{ partial "datacenter-country-regions-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
-Renders region chips grouped by city for a specific country.
+Renders all datacenter regions in a country, grouped by city.
+Includes search functionality.
 */}}
 
 {{ $countryId := .countryId }}
 {{ $regionsById := .regionsById }}
-{{ $allProviders := site.Data.datacenters.providers | default (slice) }}
+{{ $allProviders := site.Data.datacenters.datacenters | default (slice) }}
 
 {{/* Build regions grouped by city */}}
 {{ $regionsByCity := dict }}
 {{ $cityOrder := slice }}
+{{ $totalRegions := 0 }}
 {{ range $allProviders }}
   {{ $provider := . }}
   {{ range (.regions | default (slice)) }}
-    {{ if eq .country_id $countryId }}
-      {{ $city := .city | default "Unknown" }}
+    {{ if eq .countryId $countryId }}
+      {{ $totalRegions = add $totalRegions 1 }}
+      {{ $city := .city | default .regionName | default "Unknown" }}
       {{ $existing := index $regionsByCity $city | default (slice) }}
       {{ $regionsByCity = merge $regionsByCity (dict $city ($existing | append (dict
         "provider" $provider
         "region" .
+        "regionName" (.regionName | default $city)
       ))) }}
       {{ if not (in $cityOrder $city) }}
         {{ $cityOrder = $cityOrder | append $city }}
@@ -30,40 +34,104 @@ Renders region chips grouped by city for a specific country.
 {{ end }}
 {{ $cityOrder = sort $cityOrder }}
 
+{{ if gt $totalRegions 0 }}
+{{/* Search input */}}
+<div class="mb-4 not-prose">
+  <input type="text"
+         id="dc-region-search"
+         placeholder="Search regions, providers, cities..."
+         class="w-full max-w-md px-4 py-2 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+</div>
+
+<div id="dc-regions-container">
 {{ range $cityOrder }}
   {{ $city := . }}
-  {{ $providers := index $regionsByCity $city }}
-  {{ if $providers }}
-  <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $city }}</h3>
-  <div class="flex flex-wrap gap-2">
-    {{ range $providers }}
-    {{ $p := .provider }}
-    {{ $r := .region }}
-    {{ $vendor := index $regionsById $p.vendor_country_id }}
-    {{ $flag := "" }}
-    {{ $vendorName := $p.vendor_country_id }}
-    {{ $risk := "unknown" }}
-    {{ if $vendor }}
-      {{ $flag = $vendor.flag }}
-      {{ $vendorName = $vendor.name }}
-      {{ $risk = $vendor.risk_level }}
-    {{ end }}
+  {{ $items := index $regionsByCity $city }}
+  {{ if $items }}
+  <div class="dc-city-group" data-city="{{ $city | lower }}">
+    <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $city }} <span class="font-normal text-neutral-400">({{ len $items }})</span></h3>
+    <div class="flex flex-wrap gap-2">
+      {{ range $items }}
+      {{ $p := .provider }}
+      {{ $r := .region }}
+      {{ $vendor := index $regionsById $p.vendorCountryId }}
+      {{ $flag := "" }}
+      {{ $vendorName := $p.vendorCountryId }}
+      {{ $risk := "unknown" }}
+      {{ if $vendor }}
+        {{ $flag = $vendor.flag }}
+        {{ $vendorName = $vendor.name }}
+        {{ $risk = $vendor.riskLevel }}
+      {{ end }}
 
-    {{ $dot := "bg-neutral-400" }}
-    {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
-    {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
-    {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
-    {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
-    {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+      {{ $dot := "bg-neutral-400" }}
+      {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+      {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+      {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+      {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+      {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
-    <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-      href="/datacenters/{{ $p.provider_id }}/"
-      title="{{ $p.provider_name }} • {{ $city }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
-      <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-      <span class="font-medium">{{ $p.provider_name }}</span>
-      {{ if $flag }}<span class="text-neutral-500 dark:text-neutral-400">{{ $flag }}</span>{{ end }}
-    </a>
-    {{ end }}
+      <a class="dc-region-chip inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
+        href="/datacenters/{{ $p.identifier }}/"
+        data-provider="{{ $p.name | lower }}"
+        data-region="{{ .regionName | lower }}"
+        title="{{ $p.name }} • {{ .regionName }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
+        <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
+        <span class="font-medium">{{ $p.name }}</span>
+        {{ if $flag }}<span class="text-neutral-500 dark:text-neutral-400">{{ $flag }}</span>{{ end }}
+        <span class="text-xs text-neutral-400 dark:text-neutral-500">{{ .regionName }}</span>
+      </a>
+      {{ end }}
+    </div>
   </div>
   {{ end }}
+{{ end }}
+</div>
+
+<p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400" id="dc-region-count">
+  Showing <span id="dc-visible-count">{{ $totalRegions }}</span> of {{ $totalRegions }} datacenter regions in {{ len $cityOrder }} cities
+</p>
+
+<script>
+(function() {
+  const searchInput = document.getElementById('dc-region-search');
+  const container = document.getElementById('dc-regions-container');
+  const countSpan = document.getElementById('dc-visible-count');
+  const totalCount = {{ $totalRegions }};
+
+  if (!searchInput || !container) return;
+
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    container.querySelectorAll('.dc-city-group').forEach(function(group) {
+      const city = group.dataset.city;
+      const chips = group.querySelectorAll('.dc-region-chip');
+      let groupVisible = false;
+
+      chips.forEach(function(chip) {
+        const provider = chip.dataset.provider;
+        const region = chip.dataset.region;
+        const matches = !query ||
+                       city.includes(query) ||
+                       provider.includes(query) ||
+                       region.includes(query);
+
+        chip.style.display = matches ? '' : 'none';
+        if (matches) {
+          groupVisible = true;
+          visibleCount++;
+        }
+      });
+
+      group.style.display = groupVisible ? '' : 'none';
+    });
+
+    if (countSpan) {
+      countSpan.textContent = visibleCount;
+    }
+  });
+})();
+</script>
 {{ end }}

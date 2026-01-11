@@ -11,10 +11,10 @@ locationCountry: "NL"
 organizerName: "National Cyber Security Centre (NCSC-NL)"
 organizerUrl: "https://www.ncsc.nl"
 externalUrl: "https://one-conference.nl/"
-tags:
+topics:
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "it-ops"
   - "enterprise"

@@ -10,10 +10,10 @@ locationName: "TBA"
 locationCity: "Trondheim"
 locationCountry: "NO"
 organizerName: "TBA"
-tags:
+topics:
   - "cybersecurity"
-  - "preparedness"
-audiences:
+  - "national-preparedness"
+audience:
   - "security"
   - "public-sector"
   - "enterprise"

@@ -1,11 +1,26 @@
 ---
 title: "From ARPANET to Amazon: How We Broke the Internet's Original Promise"
+identifier: "2025-12-25-arpanet-broken-promise"
 date: 2025-12-25
-showHero: true
 description: "The internet was built to survive nuclear war. We've since made it vulnerable to fishing trawlers and policy changes in Washington. The same architecture designed for resilience has been recentralized - and Russia is already testing our cables."
 summary: "The internet was built to survive nuclear war. We've since made it vulnerable to fishing trawlers and policy changes in Washington. The same architecture designed for resilience has been recentralized - and Russia is already testing our cables."
-tags: ["arpanet", "sovereignty", "infrastructure", "russia", "hybrid-warfare", "submarine-cables", "cloud-dependency"]
-categories: ["Analysis"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+  - "critical-infrastructure"
+  - "platform-dependency"
+tags:
+  - "arpanet"
+  - "russia"
+  - "hybrid-warfare"
+  - "submarine-cables"
+audience:
+  - "it-ops"
+  - "security"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 In 1969, ARPANET introduced packet switching – a radical idea where data could route around damage. No single point of failure. The US military wanted communications that could survive a Soviet first strike.

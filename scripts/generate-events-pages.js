@@ -78,15 +78,15 @@ function buildFrontmatter(event) {
         lines.push(`externalUrl: "${event.url}"`);
     }
 
-    // Tags taxonomy
-    if (event.tags && event.tags.length > 0) {
-        lines.push(`tags:`);
-        event.tags.forEach(tag => lines.push(`  - "${tag}"`));
+    // Topics taxonomy
+    if (event.topics && event.topics.length > 0) {
+        lines.push(`topics:`);
+        event.topics.forEach(topic => lines.push(`  - "${topic}"`));
     }
 
-    // Audiences taxonomy (was "audience" in JSON)
+    // Audience taxonomy
     if (event.audience && event.audience.length > 0) {
-        lines.push(`audiences:`);
+        lines.push(`audience:`);
         event.audience.forEach(aud => lines.push(`  - "${aud}"`));
     }
 
@@ -128,7 +128,7 @@ let created = 0;
 let updated = 0;
 
 events.forEach(event => {
-    const eventDir = path.join(EVENTS_CONTENT_DIR, event.id);
+    const eventDir = path.join(EVENTS_CONTENT_DIR, event.identifier);
     const indexPath = path.join(eventDir, 'index.md');
 
     ensureDir(eventDir);
@@ -160,6 +160,37 @@ ${body}
     fs.writeFileSync(indexPath, content);
 });
 
-console.log(`Created: ${created} new event pages`);
+// Generate _index.md for the list page
+const listIndexPath = path.join(EVENTS_CONTENT_DIR, '_index.md');
+const listIndexContent = `---
+title: "Events"
+description: "Conferences, exercises, and gatherings focused on digital sovereignty, cybersecurity, and national preparedness."
+date: ${new Date().toISOString().split('T')[0]}
+showHero: false
+showDate: false
+showAuthor: false
+showReadingTime: false
+showTableOfContents: false
+showPagination: false
+
+cascade:
+  showDate: false
+  showAuthor: false
+---
+
+{{< events >}}
+`;
+
+const listIndexIsNew = !fs.existsSync(listIndexPath);
+fs.writeFileSync(listIndexPath, listIndexContent);
+if (listIndexIsNew) {
+    console.log(`CREATE: _index.md`);
+    created++;
+} else {
+    console.log(`UPDATE: _index.md`);
+    updated++;
+}
+
+console.log(`\nCreated: ${created} new event pages`);
 console.log(`Updated: ${updated} existing event pages`);
 console.log(`Total: ${events.length} events in /events/{id}/index.md`);

@@ -1,0 +1,29 @@
+{{/*
+  topic-filter.html
+  Reusable topic filter component for list pages
+
+  Usage:
+    {{ partial "topic-filter.html" (dict "topics" $uniqueTopics) }}
+
+  Parameters:
+    - topics: slice of topic identifiers to display (required)
+    - filterGroup: data-filter-group name (default: "topics")
+*/}}
+
+{{- $topics := .topics | default slice -}}
+{{- $filterGroup := .filterGroup | default "topics" -}}
+
+{{/* Build topic labels from topics.json */}}
+{{- $topicLabels := dict -}}
+{{- range site.Data.topics.topics.itemListElement -}}
+  {{- $topicLabels = merge $topicLabels (dict .identifier .name) -}}
+{{- end -}}
+
+{{- if $topics -}}
+<div class="flex flex-wrap items-center gap-2 mb-6">
+  <span class="text-sm font-semibold opacity-70">Topic:</span>
+  <div class="join" data-filter-group="{{ $filterGroup }}">
+    <button class="join-item btn btn-sm btn-active" data-filter="all">All</button>{{- range $topics }}<button class="join-item btn btn-sm" data-filter="{{ . }}">{{ index $topicLabels . | default (. | humanize | title) }}</button>{{- end }}
+  </div>
+</div>
+{{- end -}}

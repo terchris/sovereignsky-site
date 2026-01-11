@@ -3,7 +3,7 @@
 
 [[main]]
   name = "Tools"
-  weight = 10
+  weight = 57
 
 [[main]]
   name = "NDSI"
@@ -40,22 +40,22 @@
   weight = 22
 
 [[main]]
-  name = "Jurisdictions"
+  name = "Countries"
   parent = "Databases"
-  pageRef = "jurisdictions"
+  pageRef = "countries"
   weight = 23
 
 [[main]]
   name = "Laws"
   parent = "Databases"
   pageRef = "laws"
-  weight = 24
+  weight = 25
 
 [[main]]
   name = "Networks"
   parent = "Databases"
   pageRef = "networks"
-  weight = 25
+  weight = 26
 
 [[main]]
   name = "Learn"
@@ -121,9 +121,9 @@
   weight = 30
 
 [[footer]]
-  name = "Jurisdictions"
-  pageRef = "jurisdictions"
-  weight = 40
+  name = "Countries"
+  pageRef = "countries"
+  weight = 35
 
 [[footer]]
   name = "Laws"

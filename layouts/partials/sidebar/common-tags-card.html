@@ -1,0 +1,20 @@
+{{/* Tags Card - displays tags as clickable links */}}
+{{ with .Params.tags }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "hash" "color" "neutral" "size" "4") }}
+      Tags
+    </h3>
+    <ul class="mt-2 space-y-0.5">
+      {{ range . }}
+      <li>
+        <a href="{{ "tags/" | absURL }}{{ . | urlize }}/" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
+          {{ . }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

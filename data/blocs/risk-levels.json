@@ -1,0 +1,55 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "SovereignSky Risk Levels",
+  "description": "Jurisdictional risk level definitions for data sovereignty assessments",
+  "version": "1.0",
+  "dateModified": "2025-12-19",
+  "itemListElement": [
+    {
+      "@type": "DefinedTerm",
+      "identifier": "low",
+      "name": "Low Risk",
+      "termCode": "low",
+      "color": "green",
+      "description": "Strong data protection laws aligned with GDPR. No extraterritorial data access concerns.",
+      "mapColor": "#22c55e"
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "moderate",
+      "name": "Moderate Risk",
+      "termCode": "moderate",
+      "color": "yellow",
+      "description": "Generally adequate protection with some surveillance capabilities or legal uncertainties.",
+      "mapColor": "#eab308"
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "elevated",
+      "name": "Elevated Risk",
+      "termCode": "elevated",
+      "color": "orange",
+      "description": "Significant surveillance laws or extraterritorial data access capabilities. Consider mitigations.",
+      "mapColor": "#f97316"
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "high",
+      "name": "High Risk",
+      "termCode": "high",
+      "color": "red",
+      "description": "Broad government access to data, weak privacy protections, or extraterritorial reach. Avoid for sensitive data.",
+      "mapColor": "#ef4444"
+    },
+    {
+      "@type": "DefinedTerm",
+      "identifier": "sanctioned",
+      "name": "Sanctioned",
+      "termCode": "sanctioned",
+      "color": "darkred",
+      "description": "Subject to international sanctions. Business relationships may be legally restricted.",
+      "mapColor": "#991b1b"
+    }
+  ]
+}

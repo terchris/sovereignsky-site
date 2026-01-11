@@ -1,0 +1,64 @@
+{{/*
+  Datacenter Provider Countries Card
+  Usage: {{ partial "sidebar/datacenter-provider-countries-card.html" (dict "provider" $provider "regionsById" $regionsById) }}
+*/}}
+
+{{ $provider := .provider | default dict }}
+{{ $regionsById := .regionsById | default dict }}
+{{ $providerRegions := $provider.regions | default (slice) }}
+
+{{/* Count regions by country */}}
+{{ $countryCounts := dict }}
+{{ range $providerRegions }}
+  {{ $countryId := .countryId }}
+  {{ $existing := index $countryCounts $countryId | default 0 }}
+  {{ $countryCounts = merge $countryCounts (dict $countryId (add $existing 1)) }}
+{{ end }}
+
+{{ if gt (len $countryCounts) 0 }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "globe" "color" "info" "size" "4") }}
+      Countries
+    </h3>
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+      {{ len $countryCounts }} countries, {{ len $providerRegions }} regions
+    </div>
+    <ul class="space-y-0.5 max-h-48 overflow-y-auto">
+      {{/* Build and sort country items by count descending */}}
+      {{ $countryItems := slice }}
+      {{ range $countryId, $count := $countryCounts }}
+        {{ $c := index $regionsById $countryId }}
+        {{ $name := $countryId }}
+        {{ $flag := "" }}
+        {{ $slug := "" }}
+        {{ if $c }}
+          {{ $name = $c.name | default $countryId }}
+          {{ $flag = $c.flag | default "" }}
+          {{ $slug = $c.slug | default "" }}
+        {{ end }}
+        {{ $countryItems = $countryItems | append (dict "id" $countryId "name" $name "flag" $flag "slug" $slug "count" $count) }}
+      {{ end }}
+      {{ $countryItems = sort $countryItems "count" "desc" }}
+      {{ range $countryItems }}
+      <li>
+        {{ if .slug }}
+        <a href="/countries/{{ .slug }}/"
+           title="{{ .name }}: {{ .count }} regions"
+           class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
+          <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
+          <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
+        </a>
+        {{ else }}
+        <span class="text-sm block px-2 py-1 -mx-2 flex justify-between items-center">
+          <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>
+          <span class="text-neutral-500 dark:text-neutral-400">{{ .count }}</span>
+        </span>
+        {{ end }}
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

@@ -5,28 +5,29 @@ date: 2020-11-01
 external_url: "https://www.icrc.org/en/document/digital-trails-could-endanger-people-receiving-humanitarian-aid-icrc-and-privacy"
 publisher: "ICRC / Privacy International"
 topics:
-  - "metadata"
-  - "surveillance"
-  - "telecommunications"
-  - "messaging apps"
-  - "mobile money"
-  - "data protection"
   - "privacy"
-personas:
+  - "cybersecurity"
+audience:
   - "humanitarian"
   - "public-sector"
   - "it-ops"
   - "consumer"
+tags:
+  - "metadata"
+  - "cell-tower"
+  - "messaging-apps"
+  - "mobile-money"
+  - "encryption"
 type: publications
 ---
 
+## Abstract
+
+Technical analysis of how metadata from telecommunications, messaging, and payments can identify, locate, and profile individuals in crisis situations—risks that persist even when content is encrypted.
+
 ## Summary
 
-A technical deep-dive into the risks of metadata — data *about* data — generated when humanitarian organisations use telecommunications, messaging apps, cash transfers, and social media. Published jointly by the ICRC and Privacy International, the report builds on Privacy International's landmark 2013 *Aiding Surveillance* study.
-
-The core finding: **even when message content is encrypted, metadata reveals enough to identify, locate, track, and profile individuals**. For people in crisis situations — refugees, displaced persons, conflict survivors — this exposure can be life-threatening.
-
-The report uses a practical analogy: if content data is what's *inside* a parcel, metadata is what's written *on the outside* and what can be inferred from the parcel's appearance. Metadata often receives weaker legal protection than content — yet can be equally revealing.
+This ICRC/Privacy International report documents how even "off" phones can be tracked via cell tower pings, how messaging apps reveal relationships and behaviour patterns through metadata, and how mobile money creates financial profiles. The finding applies beyond humanitarian work: any organisation handling sensitive data faces the same metadata exposure risks.
 
 ---
 

@@ -1,0 +1,222 @@
+{{/* Related Laws Card - shows semantic relationships and same jurisdiction laws */}}
+{{ $lawId := .Params.identifier | default "" }}
+{{ $appliesTo := .Params.legislationJurisdiction | default (slice) }}
+{{ $relatedLawsData := .Params.isRelatedTo | default dict }}
+
+{{/* Build a lookup map for law full names */}}
+{{ $lawsById := dict }}
+{{ range (site.Data.laws.laws.itemListElement | default (slice)) }}
+  {{ $lawsById = merge $lawsById (dict .identifier .) }}
+{{ end }}
+
+{{/* Check if we have any semantic relationships */}}
+{{ $hasSemanticRelations := gt (len $relatedLawsData) 0 }}
+
+{{/* Build same jurisdiction laws list */}}
+{{ $sameJurisdictionLaws := slice }}
+{{ if gt (len $appliesTo) 0 }}
+  {{ range (site.Data.laws.laws.itemListElement | default (slice)) }}
+    {{ $otherLaw := . }}
+    {{ if ne $otherLaw.identifier $lawId }}
+      {{ $found := false }}
+      {{ range $otherLaw.legislationJurisdiction }}
+        {{ $otherId := . }}
+        {{ range $appliesTo }}
+          {{ if eq . $otherId }}
+            {{ $found = true }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if $found }}
+        {{ $sameJurisdictionLaws = $sameJurisdictionLaws | append $otherLaw }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $hasSameJurisdiction := gt (len $sameJurisdictionLaws) 0 }}
+
+{{/* Only show card if we have any related laws */}}
+{{ if or $hasSemanticRelations $hasSameJurisdiction }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
+      Related Laws
+    </h3>
+
+    <div class="mt-2">
+      {{/* Semantic Relationships */}}
+      {{ if $hasSemanticRelations }}
+        {{/* Conflicts with */}}
+        {{ with index $relatedLawsData "conflicts_with" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-error mb-1">Conflicts with</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Implements */}}
+        {{ with index $relatedLawsData "implements" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Implements</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Implemented by */}}
+        {{ with index $relatedLawsData "implemented_by" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Implemented by</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Interprets */}}
+        {{ with index $relatedLawsData "interprets" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Interprets</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Interpreted by */}}
+        {{ with index $relatedLawsData "interpreted_by" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Interpreted by</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Succeeds */}}
+        {{ with index $relatedLawsData "succeeds" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Succeeds</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Succeeded by */}}
+        {{ with index $relatedLawsData "succeeded_by" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Succeeded by</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Extends */}}
+        {{ with index $relatedLawsData "extends" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Extends</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Extended by */}}
+        {{ with index $relatedLawsData "extended_by" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Extended by</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Amends */}}
+        {{ with index $relatedLawsData "amends" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Amends</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Amended by */}}
+        {{ with index $relatedLawsData "amended_by" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Amended by</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{/* Complements */}}
+        {{ with index $relatedLawsData "complements" }}
+        <div class="mt-4 first:mt-0">
+          <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Works with</h4>
+          <ul class="space-y-0.5">
+            {{ range . }}
+            {{ $lawData := index $lawsById .identifier }}
+            {{ $tooltip := $lawData.alternateName | default .name }}
+            <li><a href="/laws/{{ .identifier }}/" title="{{ $tooltip }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }}</a></li>
+            {{ end }}
+          </ul>
+        </div>
+        {{ end }}
+      {{ end }}
+
+      {{/* Same Jurisdiction section */}}
+      {{ if $hasSameJurisdiction }}
+      <div class="mt-4 pt-4 border-t border-base-200 first:mt-0 first:pt-0 first:border-0">
+        <h4 class="text-xs font-semibold uppercase tracking-wide text-neutral-600 dark:text-neutral-400 mb-1">Same Jurisdiction</h4>
+        <ul class="space-y-0.5">
+          {{ range first 6 $sameJurisdictionLaws }}
+          <li><a href="/laws/{{ .identifier }}/" title="{{ .alternateName | default .name }}" class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">{{ .name }} <span class="opacity-60">({{ .legislationDate }})</span></a></li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

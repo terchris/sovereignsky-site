@@ -1,0 +1,4141 @@
+[
+  {
+    "identifier": "aws",
+    "name": "Amazon Web Services",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "US",
+    "url": "https://aws.amazon.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "us-east-1",
+        "name": "US East (N. Virginia)",
+        "countryId": "US",
+        "city": "Northern Virginia",
+        "coordinates": [
+          38.9519,
+          -77.448
+        ]
+      },
+      {
+        "identifier": "us-east-2",
+        "name": "US East (Ohio)",
+        "countryId": "US",
+        "city": "Ohio",
+        "coordinates": [
+          39.9612,
+          -82.9988
+        ]
+      },
+      {
+        "identifier": "us-west-1",
+        "name": "US West (N. California)",
+        "countryId": "US",
+        "city": "Northern California",
+        "coordinates": [
+          37.3541,
+          -121.9552
+        ]
+      },
+      {
+        "identifier": "us-west-2",
+        "name": "US West (Oregon)",
+        "countryId": "US",
+        "city": "Oregon",
+        "coordinates": [
+          45.8237,
+          -119.702
+        ]
+      },
+      {
+        "identifier": "ca-central-1",
+        "name": "Canada (Central)",
+        "countryId": "CA",
+        "city": "Montreal",
+        "coordinates": [
+          45.5017,
+          -73.5673
+        ]
+      },
+      {
+        "identifier": "ca-west-1",
+        "name": "Canada West (Calgary)",
+        "countryId": "CA",
+        "city": "Calgary",
+        "coordinates": [
+          51.0447,
+          -114.0719
+        ]
+      },
+      {
+        "identifier": "eu-west-1",
+        "name": "Europe (Ireland)",
+        "countryId": "IE",
+        "city": "Dublin",
+        "coordinates": [
+          53.3498,
+          -6.2603
+        ]
+      },
+      {
+        "identifier": "eu-west-2",
+        "name": "Europe (London)",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "eu-west-3",
+        "name": "Europe (Paris)",
+        "countryId": "FR",
+        "city": "Paris",
+        "coordinates": [
+          48.8566,
+          2.3522
+        ]
+      },
+      {
+        "identifier": "eu-central-1",
+        "name": "Europe (Frankfurt)",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "eu-central-2",
+        "name": "Europe (Zurich)",
+        "countryId": "CH",
+        "city": "Zurich",
+        "coordinates": [
+          47.3769,
+          8.5417
+        ]
+      },
+      {
+        "identifier": "eu-north-1",
+        "name": "Europe (Stockholm)",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "eu-south-1",
+        "name": "Europe (Milan)",
+        "countryId": "IT",
+        "city": "Milan",
+        "coordinates": [
+          45.4642,
+          9.19
+        ]
+      },
+      {
+        "identifier": "eu-south-2",
+        "name": "Europe (Spain)",
+        "countryId": "ES",
+        "city": "Aragon",
+        "coordinates": [
+          41.6488,
+          -0.8891
+        ]
+      },
+      {
+        "identifier": "ap-south-1",
+        "name": "Asia Pacific (Mumbai)",
+        "countryId": "IN",
+        "city": "Mumbai",
+        "coordinates": [
+          19.076,
+          72.8777
+        ]
+      },
+      {
+        "identifier": "ap-south-2",
+        "name": "Asia Pacific (Hyderabad)",
+        "countryId": "IN",
+        "city": "Hyderabad",
+        "coordinates": [
+          17.385,
+          78.4867
+        ]
+      },
+      {
+        "identifier": "ap-northeast-1",
+        "name": "Asia Pacific (Tokyo)",
+        "countryId": "JP",
+        "city": "Tokyo",
+        "coordinates": [
+          35.6762,
+          139.6503
+        ]
+      },
+      {
+        "identifier": "ap-northeast-2",
+        "name": "Asia Pacific (Seoul)",
+        "countryId": "KR",
+        "city": "Seoul",
+        "coordinates": [
+          37.5665,
+          126.978
+        ]
+      },
+      {
+        "identifier": "ap-northeast-3",
+        "name": "Asia Pacific (Osaka)",
+        "countryId": "JP",
+        "city": "Osaka",
+        "coordinates": [
+          34.6937,
+          135.5023
+        ]
+      },
+      {
+        "identifier": "ap-southeast-1",
+        "name": "Asia Pacific (Singapore)",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "ap-southeast-2",
+        "name": "Asia Pacific (Sydney)",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      },
+      {
+        "identifier": "ap-southeast-3",
+        "name": "Asia Pacific (Jakarta)",
+        "countryId": "ID",
+        "city": "Jakarta",
+        "coordinates": [
+          -6.2088,
+          106.8456
+        ]
+      },
+      {
+        "identifier": "ap-southeast-4",
+        "name": "Asia Pacific (Melbourne)",
+        "countryId": "AU",
+        "city": "Melbourne",
+        "coordinates": [
+          -37.8136,
+          144.9631
+        ]
+      },
+      {
+        "identifier": "ap-east-1",
+        "name": "Asia Pacific (Hong Kong)",
+        "countryId": "HK",
+        "city": "Hong Kong",
+        "coordinates": [
+          22.3193,
+          114.1694
+        ]
+      },
+      {
+        "identifier": "sa-east-1",
+        "name": "South America (São Paulo)",
+        "countryId": "BR",
+        "city": "São Paulo",
+        "coordinates": [
+          -23.5505,
+          -46.6333
+        ]
+      },
+      {
+        "identifier": "af-south-1",
+        "name": "Africa (Cape Town)",
+        "countryId": "ZA",
+        "city": "Cape Town",
+        "coordinates": [
+          -33.9249,
+          18.4241
+        ]
+      },
+      {
+        "identifier": "me-south-1",
+        "name": "Middle East (Bahrain)",
+        "countryId": "BH",
+        "city": "Bahrain",
+        "coordinates": [
+          26.0667,
+          50.5577
+        ]
+      },
+      {
+        "identifier": "me-central-1",
+        "name": "Middle East (UAE)",
+        "countryId": "AE",
+        "city": "Dubai",
+        "coordinates": [
+          25.2048,
+          55.2708
+        ]
+      },
+      {
+        "identifier": "il-central-1",
+        "name": "Israel (Tel Aviv)",
+        "countryId": "IL",
+        "city": "Tel Aviv",
+        "coordinates": [
+          32.0853,
+          34.7818
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://aws.amazon.com/about-aws/global-infrastructure/regions_az/"
+    }
+  },
+  {
+    "identifier": "digital-realty",
+    "name": "Digital Realty (Interxion)",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "US",
+    "url": "https://www.digitalrealty.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "cph1",
+        "name": "Copenhagen CPH1",
+        "countryId": "DK",
+        "city": "Ballerup",
+        "coordinates": [
+          55.7317,
+          12.3633
+        ]
+      },
+      {
+        "identifier": "cph2",
+        "name": "Copenhagen CPH2",
+        "countryId": "DK",
+        "city": "Ballerup",
+        "coordinates": [
+          55.7327,
+          12.3643
+        ]
+      },
+      {
+        "identifier": "cph3",
+        "name": "Copenhagen CPH3",
+        "countryId": "DK",
+        "city": "Ballerup",
+        "coordinates": [
+          55.7337,
+          12.3653
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.digitalrealty.com/data-centers/emea/copenhagen"
+    }
+  },
+  {
+    "identifier": "equinix",
+    "name": "Equinix",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "US",
+    "url": "https://www.equinix.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "he5",
+        "name": "Helsinki HE5",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.228,
+          24.8764
+        ]
+      },
+      {
+        "identifier": "he6",
+        "name": "Espoo HE6",
+        "countryId": "FI",
+        "city": "Espoo",
+        "coordinates": [
+          60.1756,
+          24.8047
+        ]
+      },
+      {
+        "identifier": "he7",
+        "name": "Espoo HE7",
+        "countryId": "FI",
+        "city": "Espoo",
+        "coordinates": [
+          60.1766,
+          24.8057
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.equinix.com/data-centers/europe-colocation/finland-colocation/helsinki-data-centers"
+    }
+  },
+  {
+    "identifier": "gcp",
+    "name": "Google Cloud Platform",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "US",
+    "url": "https://cloud.google.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "us-east1",
+        "name": "South Carolina",
+        "countryId": "US",
+        "city": "Moncks Corner",
+        "coordinates": [
+          33.196,
+          -80.0131
+        ]
+      },
+      {
+        "identifier": "us-east4",
+        "name": "Northern Virginia",
+        "countryId": "US",
+        "city": "Ashburn",
+        "coordinates": [
+          39.0438,
+          -77.4874
+        ]
+      },
+      {
+        "identifier": "us-east5",
+        "name": "Columbus",
+        "countryId": "US",
+        "city": "Columbus",
+        "coordinates": [
+          39.9612,
+          -82.9988
+        ]
+      },
+      {
+        "identifier": "us-central1",
+        "name": "Iowa",
+        "countryId": "US",
+        "city": "Council Bluffs",
+        "coordinates": [
+          41.2619,
+          -95.8608
+        ]
+      },
+      {
+        "identifier": "us-south1",
+        "name": "Dallas",
+        "countryId": "US",
+        "city": "Dallas",
+        "coordinates": [
+          32.7767,
+          -96.797
+        ]
+      },
+      {
+        "identifier": "us-west1",
+        "name": "Oregon",
+        "countryId": "US",
+        "city": "The Dalles",
+        "coordinates": [
+          45.5946,
+          -121.1787
+        ]
+      },
+      {
+        "identifier": "us-west2",
+        "name": "Los Angeles",
+        "countryId": "US",
+        "city": "Los Angeles",
+        "coordinates": [
+          34.0522,
+          -118.2437
+        ]
+      },
+      {
+        "identifier": "us-west3",
+        "name": "Salt Lake City",
+        "countryId": "US",
+        "city": "Salt Lake City",
+        "coordinates": [
+          40.7608,
+          -111.891
+        ]
+      },
+      {
+        "identifier": "us-west4",
+        "name": "Las Vegas",
+        "countryId": "US",
+        "city": "Las Vegas",
+        "coordinates": [
+          36.1699,
+          -115.1398
+        ]
+      },
+      {
+        "identifier": "northamerica-northeast1",
+        "name": "Montréal",
+        "countryId": "CA",
+        "city": "Montréal",
+        "coordinates": [
+          45.5017,
+          -73.5673
+        ]
+      },
+      {
+        "identifier": "northamerica-northeast2",
+        "name": "Toronto",
+        "countryId": "CA",
+        "city": "Toronto",
+        "coordinates": [
+          43.6532,
+          -79.3832
+        ]
+      },
+      {
+        "identifier": "europe-west1",
+        "name": "Belgium",
+        "countryId": "BE",
+        "city": "St. Ghislain",
+        "coordinates": [
+          50.4496,
+          3.8186
+        ]
+      },
+      {
+        "identifier": "europe-west2",
+        "name": "London",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "europe-west3",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "europe-west4",
+        "name": "Netherlands",
+        "countryId": "NL",
+        "city": "Eemshaven",
+        "coordinates": [
+          53.4386,
+          6.8342
+        ]
+      },
+      {
+        "identifier": "europe-west6",
+        "name": "Zurich",
+        "countryId": "CH",
+        "city": "Zurich",
+        "coordinates": [
+          47.3769,
+          8.5417
+        ]
+      },
+      {
+        "identifier": "europe-west8",
+        "name": "Milan",
+        "countryId": "IT",
+        "city": "Milan",
+        "coordinates": [
+          45.4642,
+          9.19
+        ]
+      },
+      {
+        "identifier": "europe-west9",
+        "name": "Paris",
+        "countryId": "FR",
+        "city": "Paris",
+        "coordinates": [
+          48.8566,
+          2.3522
+        ]
+      },
+      {
+        "identifier": "europe-west10",
+        "name": "Berlin",
+        "countryId": "DE",
+        "city": "Berlin",
+        "coordinates": [
+          52.52,
+          13.405
+        ]
+      },
+      {
+        "identifier": "europe-west12",
+        "name": "Turin",
+        "countryId": "IT",
+        "city": "Turin",
+        "coordinates": [
+          45.0703,
+          7.6869
+        ]
+      },
+      {
+        "identifier": "europe-southwest1",
+        "name": "Madrid",
+        "countryId": "ES",
+        "city": "Madrid",
+        "coordinates": [
+          40.4168,
+          -3.7038
+        ]
+      },
+      {
+        "identifier": "europe-north1",
+        "name": "Finland",
+        "countryId": "FI",
+        "city": "Hamina",
+        "coordinates": [
+          60.5693,
+          27.1878
+        ]
+      },
+      {
+        "identifier": "europe-central2",
+        "name": "Warsaw",
+        "countryId": "PL",
+        "city": "Warsaw",
+        "coordinates": [
+          52.2297,
+          21.0122
+        ]
+      },
+      {
+        "identifier": "asia-east1",
+        "name": "Taiwan",
+        "countryId": "TW",
+        "city": "Changhua County",
+        "coordinates": [
+          24.0518,
+          120.5161
+        ]
+      },
+      {
+        "identifier": "asia-east2",
+        "name": "Hong Kong",
+        "countryId": "HK",
+        "city": "Hong Kong",
+        "coordinates": [
+          22.3193,
+          114.1694
+        ]
+      },
+      {
+        "identifier": "asia-northeast1",
+        "name": "Tokyo",
+        "countryId": "JP",
+        "city": "Tokyo",
+        "coordinates": [
+          35.6762,
+          139.6503
+        ]
+      },
+      {
+        "identifier": "asia-northeast2",
+        "name": "Osaka",
+        "countryId": "JP",
+        "city": "Osaka",
+        "coordinates": [
+          34.6937,
+          135.5023
+        ]
+      },
+      {
+        "identifier": "asia-northeast3",
+        "name": "Seoul",
+        "countryId": "KR",
+        "city": "Seoul",
+        "coordinates": [
+          37.5665,
+          126.978
+        ]
+      },
+      {
+        "identifier": "asia-south1",
+        "name": "Mumbai",
+        "countryId": "IN",
+        "city": "Mumbai",
+        "coordinates": [
+          19.076,
+          72.8777
+        ]
+      },
+      {
+        "identifier": "asia-south2",
+        "name": "Delhi",
+        "countryId": "IN",
+        "city": "Delhi",
+        "coordinates": [
+          28.7041,
+          77.1025
+        ]
+      },
+      {
+        "identifier": "asia-southeast1",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "asia-southeast2",
+        "name": "Jakarta",
+        "countryId": "ID",
+        "city": "Jakarta",
+        "coordinates": [
+          -6.2088,
+          106.8456
+        ]
+      },
+      {
+        "identifier": "australia-southeast1",
+        "name": "Sydney",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      },
+      {
+        "identifier": "australia-southeast2",
+        "name": "Melbourne",
+        "countryId": "AU",
+        "city": "Melbourne",
+        "coordinates": [
+          -37.8136,
+          144.9631
+        ]
+      },
+      {
+        "identifier": "southamerica-east1",
+        "name": "São Paulo",
+        "countryId": "BR",
+        "city": "São Paulo",
+        "coordinates": [
+          -23.5505,
+          -46.6333
+        ]
+      },
+      {
+        "identifier": "southamerica-west1",
+        "name": "Santiago",
+        "countryId": "CL",
+        "city": "Santiago",
+        "coordinates": [
+          -33.4489,
+          -70.6693
+        ]
+      },
+      {
+        "identifier": "me-west1",
+        "name": "Tel Aviv",
+        "countryId": "IL",
+        "city": "Tel Aviv",
+        "coordinates": [
+          32.0853,
+          34.7818
+        ]
+      },
+      {
+        "identifier": "me-central1",
+        "name": "Doha",
+        "countryId": "QA",
+        "city": "Doha",
+        "coordinates": [
+          25.2854,
+          51.531
+        ]
+      },
+      {
+        "identifier": "me-central2",
+        "name": "Dammam",
+        "countryId": "SA",
+        "city": "Dammam",
+        "coordinates": [
+          26.4207,
+          50.0888
+        ]
+      },
+      {
+        "identifier": "africa-south1",
+        "name": "Johannesburg",
+        "countryId": "ZA",
+        "city": "Johannesburg",
+        "coordinates": [
+          -26.2041,
+          28.0473
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://cloud.google.com/about/locations"
+    }
+  },
+  {
+    "identifier": "azure",
+    "name": "Microsoft Azure",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "US",
+    "url": "https://azure.microsoft.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "eastus",
+        "name": "East US",
+        "countryId": "US",
+        "city": "Virginia",
+        "coordinates": [
+          37.3719,
+          -79.8164
+        ]
+      },
+      {
+        "identifier": "eastus2",
+        "name": "East US 2",
+        "countryId": "US",
+        "city": "Virginia",
+        "coordinates": [
+          36.6681,
+          -78.3889
+        ]
+      },
+      {
+        "identifier": "centralus",
+        "name": "Central US",
+        "countryId": "US",
+        "city": "Iowa",
+        "coordinates": [
+          41.5908,
+          -93.6208
+        ]
+      },
+      {
+        "identifier": "northcentralus",
+        "name": "North Central US",
+        "countryId": "US",
+        "city": "Illinois",
+        "coordinates": [
+          41.8819,
+          -87.6278
+        ]
+      },
+      {
+        "identifier": "southcentralus",
+        "name": "South Central US",
+        "countryId": "US",
+        "city": "Texas",
+        "coordinates": [
+          29.4167,
+          -98.5
+        ]
+      },
+      {
+        "identifier": "westus",
+        "name": "West US",
+        "countryId": "US",
+        "city": "California",
+        "coordinates": [
+          37.783,
+          -122.417
+        ]
+      },
+      {
+        "identifier": "westus2",
+        "name": "West US 2",
+        "countryId": "US",
+        "city": "Washington",
+        "coordinates": [
+          47.233,
+          -119.852
+        ]
+      },
+      {
+        "identifier": "westus3",
+        "name": "West US 3",
+        "countryId": "US",
+        "city": "Arizona",
+        "coordinates": [
+          33.4484,
+          -112.074
+        ]
+      },
+      {
+        "identifier": "canadacentral",
+        "name": "Canada Central",
+        "countryId": "CA",
+        "city": "Toronto",
+        "coordinates": [
+          43.6532,
+          -79.3832
+        ]
+      },
+      {
+        "identifier": "canadaeast",
+        "name": "Canada East",
+        "countryId": "CA",
+        "city": "Quebec City",
+        "coordinates": [
+          46.8139,
+          -71.2082
+        ]
+      },
+      {
+        "identifier": "northeurope",
+        "name": "North Europe",
+        "countryId": "IE",
+        "city": "Dublin",
+        "coordinates": [
+          53.3498,
+          -6.2603
+        ]
+      },
+      {
+        "identifier": "westeurope",
+        "name": "West Europe",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      },
+      {
+        "identifier": "uksouth",
+        "name": "UK South",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "ukwest",
+        "name": "UK West",
+        "countryId": "GB",
+        "city": "Cardiff",
+        "coordinates": [
+          51.4816,
+          -3.1791
+        ]
+      },
+      {
+        "identifier": "francecentral",
+        "name": "France Central",
+        "countryId": "FR",
+        "city": "Paris",
+        "coordinates": [
+          48.8566,
+          2.3522
+        ]
+      },
+      {
+        "identifier": "francesouth",
+        "name": "France South",
+        "countryId": "FR",
+        "city": "Marseille",
+        "coordinates": [
+          43.2965,
+          5.3698
+        ]
+      },
+      {
+        "identifier": "germanywestcentral",
+        "name": "Germany West Central",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "germanynorth",
+        "name": "Germany North",
+        "countryId": "DE",
+        "city": "Berlin",
+        "coordinates": [
+          52.52,
+          13.405
+        ]
+      },
+      {
+        "identifier": "switzerlandnorth",
+        "name": "Switzerland North",
+        "countryId": "CH",
+        "city": "Zurich",
+        "coordinates": [
+          47.3769,
+          8.5417
+        ]
+      },
+      {
+        "identifier": "switzerlandwest",
+        "name": "Switzerland West",
+        "countryId": "CH",
+        "city": "Geneva",
+        "coordinates": [
+          46.2044,
+          6.1432
+        ]
+      },
+      {
+        "identifier": "norwayeast",
+        "name": "Norway East",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      },
+      {
+        "identifier": "norwaywest",
+        "name": "Norway West",
+        "countryId": "NO",
+        "city": "Stavanger",
+        "coordinates": [
+          58.97,
+          5.7331
+        ]
+      },
+      {
+        "identifier": "swedencentral",
+        "name": "Sweden Central",
+        "countryId": "SE",
+        "city": "Gävle",
+        "coordinates": [
+          60.6749,
+          17.1413
+        ]
+      },
+      {
+        "identifier": "swedensouth",
+        "name": "Sweden South",
+        "countryId": "SE",
+        "city": "Staffanstorp",
+        "coordinates": [
+          55.6333,
+          13.2
+        ]
+      },
+      {
+        "identifier": "polandcentral",
+        "name": "Poland Central",
+        "countryId": "PL",
+        "city": "Warsaw",
+        "coordinates": [
+          52.2297,
+          21.0122
+        ]
+      },
+      {
+        "identifier": "italynorth",
+        "name": "Italy North",
+        "countryId": "IT",
+        "city": "Milan",
+        "coordinates": [
+          45.4642,
+          9.19
+        ]
+      },
+      {
+        "identifier": "spaincentral",
+        "name": "Spain Central",
+        "countryId": "ES",
+        "city": "Madrid",
+        "coordinates": [
+          40.4168,
+          -3.7038
+        ]
+      },
+      {
+        "identifier": "eastasia",
+        "name": "East Asia",
+        "countryId": "HK",
+        "city": "Hong Kong",
+        "coordinates": [
+          22.3193,
+          114.1694
+        ]
+      },
+      {
+        "identifier": "southeastasia",
+        "name": "Southeast Asia",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "japaneast",
+        "name": "Japan East",
+        "countryId": "JP",
+        "city": "Tokyo",
+        "coordinates": [
+          35.6762,
+          139.6503
+        ]
+      },
+      {
+        "identifier": "japanwest",
+        "name": "Japan West",
+        "countryId": "JP",
+        "city": "Osaka",
+        "coordinates": [
+          34.6937,
+          135.5023
+        ]
+      },
+      {
+        "identifier": "koreacentral",
+        "name": "Korea Central",
+        "countryId": "KR",
+        "city": "Seoul",
+        "coordinates": [
+          37.5665,
+          126.978
+        ]
+      },
+      {
+        "identifier": "koreasouth",
+        "name": "Korea South",
+        "countryId": "KR",
+        "city": "Busan",
+        "coordinates": [
+          35.1796,
+          129.0756
+        ]
+      },
+      {
+        "identifier": "centralindia",
+        "name": "Central India",
+        "countryId": "IN",
+        "city": "Pune",
+        "coordinates": [
+          18.5204,
+          73.8567
+        ]
+      },
+      {
+        "identifier": "southindia",
+        "name": "South India",
+        "countryId": "IN",
+        "city": "Chennai",
+        "coordinates": [
+          13.0827,
+          80.2707
+        ]
+      },
+      {
+        "identifier": "westindia",
+        "name": "West India",
+        "countryId": "IN",
+        "city": "Mumbai",
+        "coordinates": [
+          19.076,
+          72.8777
+        ]
+      },
+      {
+        "identifier": "australiaeast",
+        "name": "Australia East",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      },
+      {
+        "identifier": "australiasoutheast",
+        "name": "Australia Southeast",
+        "countryId": "AU",
+        "city": "Melbourne",
+        "coordinates": [
+          -37.8136,
+          144.9631
+        ]
+      },
+      {
+        "identifier": "australiacentral",
+        "name": "Australia Central",
+        "countryId": "AU",
+        "city": "Canberra",
+        "coordinates": [
+          -35.2809,
+          149.13
+        ]
+      },
+      {
+        "identifier": "brazilsouth",
+        "name": "Brazil South",
+        "countryId": "BR",
+        "city": "São Paulo",
+        "coordinates": [
+          -23.5505,
+          -46.6333
+        ]
+      },
+      {
+        "identifier": "southafricanorth",
+        "name": "South Africa North",
+        "countryId": "ZA",
+        "city": "Johannesburg",
+        "coordinates": [
+          -26.2041,
+          28.0473
+        ]
+      },
+      {
+        "identifier": "southafricawest",
+        "name": "South Africa West",
+        "countryId": "ZA",
+        "city": "Cape Town",
+        "coordinates": [
+          -33.9249,
+          18.4241
+        ]
+      },
+      {
+        "identifier": "uaenorth",
+        "name": "UAE North",
+        "countryId": "AE",
+        "city": "Dubai",
+        "coordinates": [
+          25.2048,
+          55.2708
+        ]
+      },
+      {
+        "identifier": "uaecentral",
+        "name": "UAE Central",
+        "countryId": "AE",
+        "city": "Abu Dhabi",
+        "coordinates": [
+          24.4539,
+          54.3773
+        ]
+      },
+      {
+        "identifier": "qatarcentral",
+        "name": "Qatar Central",
+        "countryId": "QA",
+        "city": "Doha",
+        "coordinates": [
+          25.2854,
+          51.531
+        ]
+      },
+      {
+        "identifier": "israelcentral",
+        "name": "Israel Central",
+        "countryId": "IL",
+        "city": "Tel Aviv",
+        "coordinates": [
+          32.0853,
+          34.7818
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://azure.microsoft.com/explore/global-infrastructure/geographies/"
+    }
+  },
+  {
+    "identifier": "oci",
+    "name": "Oracle Cloud Infrastructure",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "US",
+    "url": "https://www.oracle.com/cloud/",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "us-ashburn-1",
+        "name": "US East (Ashburn)",
+        "countryId": "US",
+        "city": "Ashburn",
+        "coordinates": [
+          39.0438,
+          -77.4874
+        ]
+      },
+      {
+        "identifier": "us-chicago-1",
+        "name": "US Midwest (Chicago)",
+        "countryId": "US",
+        "city": "Chicago",
+        "coordinates": [
+          41.8781,
+          -87.6298
+        ]
+      },
+      {
+        "identifier": "us-phoenix-1",
+        "name": "US West (Phoenix)",
+        "countryId": "US",
+        "city": "Phoenix",
+        "coordinates": [
+          33.4484,
+          -112.074
+        ]
+      },
+      {
+        "identifier": "us-sanjose-1",
+        "name": "US West (San Jose)",
+        "countryId": "US",
+        "city": "San Jose",
+        "coordinates": [
+          37.3382,
+          -121.8863
+        ]
+      },
+      {
+        "identifier": "ca-montreal-1",
+        "name": "Canada Southeast (Montreal)",
+        "countryId": "CA",
+        "city": "Montreal",
+        "coordinates": [
+          45.5017,
+          -73.5673
+        ]
+      },
+      {
+        "identifier": "ca-toronto-1",
+        "name": "Canada Southeast (Toronto)",
+        "countryId": "CA",
+        "city": "Toronto",
+        "coordinates": [
+          43.6532,
+          -79.3832
+        ]
+      },
+      {
+        "identifier": "mx-queretaro-1",
+        "name": "Mexico Central (Queretaro)",
+        "countryId": "MX",
+        "city": "Queretaro",
+        "coordinates": [
+          20.5888,
+          -100.3899
+        ]
+      },
+      {
+        "identifier": "mx-monterrey-1",
+        "name": "Mexico Northeast (Monterrey)",
+        "countryId": "MX",
+        "city": "Monterrey",
+        "coordinates": [
+          25.6866,
+          -100.3161
+        ]
+      },
+      {
+        "identifier": "eu-paris-1",
+        "name": "France Central (Paris)",
+        "countryId": "FR",
+        "city": "Paris",
+        "coordinates": [
+          48.8566,
+          2.3522
+        ]
+      },
+      {
+        "identifier": "eu-marseille-1",
+        "name": "France South (Marseille)",
+        "countryId": "FR",
+        "city": "Marseille",
+        "coordinates": [
+          43.2965,
+          5.3698
+        ]
+      },
+      {
+        "identifier": "eu-frankfurt-1",
+        "name": "Germany Central (Frankfurt)",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "eu-milan-1",
+        "name": "Italy Northwest (Milan)",
+        "countryId": "IT",
+        "city": "Milan",
+        "coordinates": [
+          45.4642,
+          9.19
+        ]
+      },
+      {
+        "identifier": "eu-turin-1",
+        "name": "Italy North (Turin)",
+        "countryId": "IT",
+        "city": "Turin",
+        "coordinates": [
+          45.0703,
+          7.6869
+        ]
+      },
+      {
+        "identifier": "eu-amsterdam-1",
+        "name": "Netherlands Northwest (Amsterdam)",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      },
+      {
+        "identifier": "eu-madrid-1",
+        "name": "Spain Central (Madrid)",
+        "countryId": "ES",
+        "city": "Madrid",
+        "coordinates": [
+          40.4168,
+          -3.7038
+        ]
+      },
+      {
+        "identifier": "eu-madrid-3",
+        "name": "Spain Central (Madrid 3)",
+        "countryId": "ES",
+        "city": "Madrid",
+        "coordinates": [
+          40.4268,
+          -3.6938
+        ]
+      },
+      {
+        "identifier": "eu-stockholm-1",
+        "name": "Sweden Central (Stockholm)",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "eu-zurich-1",
+        "name": "Switzerland North (Zurich)",
+        "countryId": "CH",
+        "city": "Zurich",
+        "coordinates": [
+          47.3769,
+          8.5417
+        ]
+      },
+      {
+        "identifier": "uk-london-1",
+        "name": "UK South (London)",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "uk-cardiff-1",
+        "name": "UK West (Newport)",
+        "countryId": "GB",
+        "city": "Newport",
+        "coordinates": [
+          51.5842,
+          -2.9977
+        ]
+      },
+      {
+        "identifier": "eu-jovanovac-1",
+        "name": "Serbia Central (Jovanovac)",
+        "countryId": "RS",
+        "city": "Jovanovac",
+        "coordinates": [
+          43.932,
+          20.918
+        ]
+      },
+      {
+        "identifier": "ap-sydney-1",
+        "name": "Australia East (Sydney)",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      },
+      {
+        "identifier": "ap-melbourne-1",
+        "name": "Australia Southeast (Melbourne)",
+        "countryId": "AU",
+        "city": "Melbourne",
+        "coordinates": [
+          -37.8136,
+          144.9631
+        ]
+      },
+      {
+        "identifier": "ap-hyderabad-1",
+        "name": "India South (Hyderabad)",
+        "countryId": "IN",
+        "city": "Hyderabad",
+        "coordinates": [
+          17.385,
+          78.4867
+        ]
+      },
+      {
+        "identifier": "ap-mumbai-1",
+        "name": "India West (Mumbai)",
+        "countryId": "IN",
+        "city": "Mumbai",
+        "coordinates": [
+          19.076,
+          72.8777
+        ]
+      },
+      {
+        "identifier": "ap-batam-1",
+        "name": "Indonesia North (Batam)",
+        "countryId": "ID",
+        "city": "Batam",
+        "coordinates": [
+          1.0456,
+          104.0305
+        ]
+      },
+      {
+        "identifier": "ap-osaka-1",
+        "name": "Japan Central (Osaka)",
+        "countryId": "JP",
+        "city": "Osaka",
+        "coordinates": [
+          34.6937,
+          135.5023
+        ]
+      },
+      {
+        "identifier": "ap-tokyo-1",
+        "name": "Japan East (Tokyo)",
+        "countryId": "JP",
+        "city": "Tokyo",
+        "coordinates": [
+          35.6762,
+          139.6503
+        ]
+      },
+      {
+        "identifier": "ap-singapore-1",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "ap-singapore-2",
+        "name": "Singapore West",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3421,
+          103.8098
+        ]
+      },
+      {
+        "identifier": "ap-seoul-1",
+        "name": "South Korea Central (Seoul)",
+        "countryId": "KR",
+        "city": "Seoul",
+        "coordinates": [
+          37.5665,
+          126.978
+        ]
+      },
+      {
+        "identifier": "ap-chuncheon-1",
+        "name": "South Korea North (Chuncheon)",
+        "countryId": "KR",
+        "city": "Chuncheon",
+        "coordinates": [
+          37.8747,
+          127.7342
+        ]
+      },
+      {
+        "identifier": "me-riyadh-1",
+        "name": "Saudi Arabia Central (Riyadh)",
+        "countryId": "SA",
+        "city": "Riyadh",
+        "coordinates": [
+          24.7136,
+          46.6753
+        ]
+      },
+      {
+        "identifier": "me-jeddah-1",
+        "name": "Saudi Arabia West (Jeddah)",
+        "countryId": "SA",
+        "city": "Jeddah",
+        "coordinates": [
+          21.4858,
+          39.1925
+        ]
+      },
+      {
+        "identifier": "me-abudhabi-1",
+        "name": "UAE Central (Abu Dhabi)",
+        "countryId": "AE",
+        "city": "Abu Dhabi",
+        "coordinates": [
+          24.4539,
+          54.3773
+        ]
+      },
+      {
+        "identifier": "me-dubai-1",
+        "name": "UAE East (Dubai)",
+        "countryId": "AE",
+        "city": "Dubai",
+        "coordinates": [
+          25.2048,
+          55.2708
+        ]
+      },
+      {
+        "identifier": "il-jerusalem-1",
+        "name": "Israel Central (Jerusalem)",
+        "countryId": "IL",
+        "city": "Jerusalem",
+        "coordinates": [
+          31.7683,
+          35.2137
+        ]
+      },
+      {
+        "identifier": "af-johannesburg-1",
+        "name": "South Africa Central (Johannesburg)",
+        "countryId": "ZA",
+        "city": "Johannesburg",
+        "coordinates": [
+          -26.2041,
+          28.0473
+        ]
+      },
+      {
+        "identifier": "sa-saopaulo-1",
+        "name": "Brazil East (Sao Paulo)",
+        "countryId": "BR",
+        "city": "Sao Paulo",
+        "coordinates": [
+          -23.5505,
+          -46.6333
+        ]
+      },
+      {
+        "identifier": "sa-vinhedo-1",
+        "name": "Brazil Southeast (Vinhedo)",
+        "countryId": "BR",
+        "city": "Vinhedo",
+        "coordinates": [
+          -23.0297,
+          -46.9756
+        ]
+      },
+      {
+        "identifier": "sa-santiago-1",
+        "name": "Chile Central (Santiago)",
+        "countryId": "CL",
+        "city": "Santiago",
+        "coordinates": [
+          -33.4489,
+          -70.6693
+        ]
+      },
+      {
+        "identifier": "sa-valparaiso-1",
+        "name": "Chile West (Valparaiso)",
+        "countryId": "CL",
+        "city": "Valparaiso",
+        "coordinates": [
+          -33.0472,
+          -71.6127
+        ]
+      },
+      {
+        "identifier": "sa-bogota-1",
+        "name": "Colombia Central (Bogota)",
+        "countryId": "CO",
+        "city": "Bogota",
+        "coordinates": [
+          4.711,
+          -74.0721
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm"
+    }
+  },
+  {
+    "identifier": "stack-infrastructure",
+    "name": "STACK Infrastructure",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "US",
+    "url": "https://www.stackinfra.com/",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "OSL01",
+        "name": "OSL01 (Økern / Ulven)",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.929,
+          10.805
+        ]
+      },
+      {
+        "identifier": "OSL02",
+        "name": "OSL02 (Rosenholm)",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.78,
+          10.8
+        ]
+      },
+      {
+        "identifier": "OSL03",
+        "name": "OSL03 (Fetsund)",
+        "countryId": "NO",
+        "city": "Fetsund",
+        "coordinates": [
+          59.924,
+          11.164
+        ]
+      },
+      {
+        "identifier": "OSL04",
+        "name": "OSL04 (Holtskogen)",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.93,
+          10.9
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.stackinfra.com/locations/emea/oslo/"
+    }
+  },
+  {
+    "identifier": "cloudscale",
+    "name": "cloudscale.ch",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "CH",
+    "url": "https://www.cloudscale.ch",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "lpg1",
+        "name": "Lupfig",
+        "countryId": "CH",
+        "city": "Lupfig",
+        "coordinates": [
+          47.4467,
+          8.2056
+        ]
+      },
+      {
+        "identifier": "rma1",
+        "name": "Rümlang",
+        "countryId": "CH",
+        "city": "Rümlang",
+        "coordinates": [
+          47.4508,
+          8.5289
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.cloudscale.ch/en/datacenter"
+    }
+  },
+  {
+    "identifier": "contabo",
+    "name": "Contabo",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://contabo.com",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "de-muc",
+        "name": "Munich",
+        "countryId": "DE",
+        "city": "Munich",
+        "coordinates": [
+          48.1351,
+          11.582
+        ]
+      },
+      {
+        "identifier": "de-nue",
+        "name": "Nuremberg",
+        "countryId": "DE",
+        "city": "Nuremberg",
+        "coordinates": [
+          49.4521,
+          11.0767
+        ]
+      },
+      {
+        "identifier": "gb-por",
+        "name": "Portsmouth",
+        "countryId": "GB",
+        "city": "Portsmouth",
+        "coordinates": [
+          50.8198,
+          -1.088
+        ]
+      },
+      {
+        "identifier": "sg-sin",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "us-nyc",
+        "name": "New York",
+        "countryId": "US",
+        "city": "New York",
+        "coordinates": [
+          40.7128,
+          -74.006
+        ]
+      },
+      {
+        "identifier": "us-sea",
+        "name": "Seattle",
+        "countryId": "US",
+        "city": "Seattle",
+        "coordinates": [
+          47.6062,
+          -122.3321
+        ]
+      },
+      {
+        "identifier": "us-stl",
+        "name": "St. Louis",
+        "countryId": "US",
+        "city": "St. Louis",
+        "coordinates": [
+          38.627,
+          -90.1994
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://contabo.com/en-us/locations/"
+    }
+  },
+  {
+    "identifier": "exoscale",
+    "name": "Exoscale",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "CH",
+    "url": "https://www.exoscale.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "ch-gva-2",
+        "name": "Geneva",
+        "countryId": "CH",
+        "city": "Geneva",
+        "coordinates": [
+          46.2044,
+          6.1432
+        ]
+      },
+      {
+        "identifier": "ch-dk-2",
+        "name": "Zurich",
+        "countryId": "CH",
+        "city": "Zurich",
+        "coordinates": [
+          47.3769,
+          8.5417
+        ]
+      },
+      {
+        "identifier": "de-fra-1",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "de-muc-1",
+        "name": "Munich",
+        "countryId": "DE",
+        "city": "Munich",
+        "coordinates": [
+          48.1351,
+          11.582
+        ]
+      },
+      {
+        "identifier": "at-vie-1",
+        "name": "Vienna",
+        "countryId": "AT",
+        "city": "Vienna",
+        "coordinates": [
+          48.2082,
+          16.3738
+        ]
+      },
+      {
+        "identifier": "at-vie-2",
+        "name": "Vienna 2",
+        "countryId": "AT",
+        "city": "Vienna",
+        "coordinates": [
+          48.2082,
+          16.3738
+        ]
+      },
+      {
+        "identifier": "bg-sof-1",
+        "name": "Sofia",
+        "countryId": "BG",
+        "city": "Sofia",
+        "coordinates": [
+          42.6977,
+          23.3219
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.exoscale.com/datacenters/"
+    }
+  },
+  {
+    "identifier": "gridscale",
+    "name": "gridscale",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://gridscale.io",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "de-fra1",
+        "name": "Frankfurt 1",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "de-fra2",
+        "name": "Frankfurt 2",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "de-fra3",
+        "name": "Frankfurt 3",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "de-ehz1",
+        "name": "Eichenzell",
+        "countryId": "DE",
+        "city": "Eichenzell",
+        "coordinates": [
+          50.4833,
+          9.7
+        ]
+      },
+      {
+        "identifier": "de-han1",
+        "name": "Hannover",
+        "countryId": "DE",
+        "city": "Hannover",
+        "coordinates": [
+          52.3759,
+          9.732
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://gridscale.io/en/about-us/data-centers/"
+    }
+  },
+  {
+    "identifier": "hetzner",
+    "name": "Hetzner",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://www.hetzner.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "fsn1",
+        "name": "Falkenstein",
+        "countryId": "DE",
+        "city": "Falkenstein",
+        "coordinates": [
+          50.4747,
+          12.3653
+        ]
+      },
+      {
+        "identifier": "nbg1",
+        "name": "Nuremberg",
+        "countryId": "DE",
+        "city": "Nuremberg",
+        "coordinates": [
+          49.4521,
+          11.0767
+        ]
+      },
+      {
+        "identifier": "hel1",
+        "name": "Helsinki",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.1699,
+          24.9384
+        ]
+      },
+      {
+        "identifier": "ash",
+        "name": "Ashburn",
+        "countryId": "US",
+        "city": "Ashburn",
+        "coordinates": [
+          39.0438,
+          -77.4874
+        ]
+      },
+      {
+        "identifier": "hil",
+        "name": "Hillsboro",
+        "countryId": "US",
+        "city": "Hillsboro",
+        "coordinates": [
+          45.5229,
+          -122.9898
+        ]
+      },
+      {
+        "identifier": "sin",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.hetzner.com/unternehmen/rechenzentrum"
+    }
+  },
+  {
+    "identifier": "infomaniak",
+    "name": "Infomaniak",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "CH",
+    "url": "https://www.infomaniak.com",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "gva-d2",
+        "name": "Geneva D2",
+        "countryId": "CH",
+        "city": "Geneva",
+        "coordinates": [
+          46.2044,
+          6.1432
+        ]
+      },
+      {
+        "identifier": "gva-d3",
+        "name": "Geneva D3",
+        "countryId": "CH",
+        "city": "Geneva",
+        "coordinates": [
+          46.1884,
+          6.127
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.datacentermap.com/c/infomaniak/"
+    }
+  },
+  {
+    "identifier": "ionos",
+    "name": "IONOS",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://www.ionos.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "de-fra-1",
+        "name": "Frankfurt 1",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "de-fra-2",
+        "name": "Frankfurt 2",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1209,
+          8.6921
+        ]
+      },
+      {
+        "identifier": "de-txl",
+        "name": "Berlin",
+        "countryId": "DE",
+        "city": "Berlin",
+        "coordinates": [
+          52.52,
+          13.405
+        ]
+      },
+      {
+        "identifier": "de-bdn",
+        "name": "Baden (South Germany)",
+        "countryId": "DE",
+        "city": "Karlsruhe",
+        "coordinates": [
+          49.0069,
+          8.4037
+        ]
+      },
+      {
+        "identifier": "es-vit",
+        "name": "Spain (Vitoria)",
+        "countryId": "ES",
+        "city": "Vitoria",
+        "coordinates": [
+          42.8467,
+          -2.6726
+        ]
+      },
+      {
+        "identifier": "gb-lhr",
+        "name": "UK (London)",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "us-ewr",
+        "name": "US East (Newark)",
+        "countryId": "US",
+        "city": "Newark",
+        "coordinates": [
+          40.7357,
+          -74.1724
+        ]
+      },
+      {
+        "identifier": "us-las",
+        "name": "US West (Las Vegas)",
+        "countryId": "US",
+        "city": "Las Vegas",
+        "coordinates": [
+          36.1699,
+          -115.1398
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://cloud.ionos.com/data-centers"
+    }
+  },
+  {
+    "identifier": "open-telekom-cloud",
+    "name": "Open Telekom Cloud",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://open-telekom-cloud.com/",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "eu-de",
+        "name": "Europe (Germany)",
+        "countryId": "DE",
+        "city": "Biere (Magdeburg)",
+        "coordinates": [
+          52.045,
+          11.65
+        ]
+      },
+      {
+        "identifier": "eu-nl",
+        "name": "Europe (Netherlands)",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://docs.otc.t-systems.com/regions-and-endpoints/index.html"
+    }
+  },
+  {
+    "identifier": "ovh",
+    "name": "OVHcloud",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "FR",
+    "url": "https://www.ovhcloud.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "gra",
+        "name": "Gravelines",
+        "countryId": "FR",
+        "city": "Gravelines",
+        "coordinates": [
+          50.9871,
+          2.1255
+        ]
+      },
+      {
+        "identifier": "sbg",
+        "name": "Strasbourg",
+        "countryId": "FR",
+        "city": "Strasbourg",
+        "coordinates": [
+          48.5734,
+          7.7521
+        ]
+      },
+      {
+        "identifier": "rbx",
+        "name": "Roubaix",
+        "countryId": "FR",
+        "city": "Roubaix",
+        "coordinates": [
+          50.6942,
+          3.1746
+        ]
+      },
+      {
+        "identifier": "lim",
+        "name": "Limburg",
+        "countryId": "DE",
+        "city": "Limburg",
+        "coordinates": [
+          50.3871,
+          8.065
+        ]
+      },
+      {
+        "identifier": "fra",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "lon",
+        "name": "London",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "waw",
+        "name": "Warsaw",
+        "countryId": "PL",
+        "city": "Warsaw",
+        "coordinates": [
+          52.2297,
+          21.0122
+        ]
+      },
+      {
+        "identifier": "bhs",
+        "name": "Beauharnois",
+        "countryId": "CA",
+        "city": "Beauharnois",
+        "coordinates": [
+          45.3151,
+          -73.8728
+        ]
+      },
+      {
+        "identifier": "sgp",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "syd",
+        "name": "Sydney",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.ovhcloud.com/en/about-us/global-infrastructure/"
+    }
+  },
+  {
+    "identifier": "plusserver",
+    "name": "plusserver",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://www.plusserver.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "cgn3",
+        "name": "Cologne",
+        "countryId": "DE",
+        "city": "Cologne",
+        "coordinates": [
+          50.9375,
+          6.9603
+        ]
+      },
+      {
+        "identifier": "dus6",
+        "name": "Düsseldorf",
+        "countryId": "DE",
+        "city": "Düsseldorf",
+        "coordinates": [
+          51.2277,
+          6.7735
+        ]
+      },
+      {
+        "identifier": "ham1",
+        "name": "Hamburg 1",
+        "countryId": "DE",
+        "city": "Hamburg",
+        "coordinates": [
+          53.5511,
+          9.9937
+        ]
+      },
+      {
+        "identifier": "ham2",
+        "name": "Hamburg 2",
+        "countryId": "DE",
+        "city": "Hamburg",
+        "coordinates": [
+          53.5611,
+          10.0037
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.plusserver.com/en/company/data-centers/"
+    }
+  },
+  {
+    "identifier": "scaleway",
+    "name": "Scaleway",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "FR",
+    "url": "https://www.scaleway.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "fr-par",
+        "name": "Paris",
+        "countryId": "FR",
+        "city": "Paris",
+        "coordinates": [
+          48.8566,
+          2.3522
+        ]
+      },
+      {
+        "identifier": "nl-ams",
+        "name": "Amsterdam",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      },
+      {
+        "identifier": "pl-waw",
+        "name": "Warsaw",
+        "countryId": "PL",
+        "city": "Warsaw",
+        "coordinates": [
+          52.2297,
+          21.0122
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.scaleway.com/en/about-us/"
+    }
+  },
+  {
+    "identifier": "stackit",
+    "name": "STACKIT",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://www.stackit.de",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "dc01",
+        "name": "Neckarsulm (DC01)",
+        "countryId": "DE",
+        "city": "Neckarsulm",
+        "coordinates": [
+          49.1896,
+          9.2253
+        ]
+      },
+      {
+        "identifier": "dc08",
+        "name": "Ellhofen (DC08)",
+        "countryId": "DE",
+        "city": "Ellhofen",
+        "coordinates": [
+          49.1485,
+          9.3187
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.stackit.de/en/colocation/"
+    }
+  },
+  {
+    "identifier": "syseleven",
+    "name": "SysEleven",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DE",
+    "url": "https://www.syseleven.de",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "ber1",
+        "name": "Berlin (Boxhagener Str.)",
+        "countryId": "DE",
+        "city": "Berlin",
+        "coordinates": [
+          52.5096,
+          13.463
+        ]
+      },
+      {
+        "identifier": "ber2",
+        "name": "Berlin (Ohlauer Str.)",
+        "countryId": "DE",
+        "city": "Berlin",
+        "coordinates": [
+          52.494,
+          13.427
+        ]
+      },
+      {
+        "identifier": "fra1",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.syseleven.de/en/about-us/our-data-centers/"
+    }
+  },
+  {
+    "identifier": "asp-datacenter",
+    "name": "ASP Data Center",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://www.aspdatacenter.no/",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "m12-rogaland",
+        "name": "M12 (Rogaland)",
+        "countryId": "NO",
+        "city": "Rogaland",
+        "coordinates": [
+          58.969,
+          5.7331
+        ]
+      },
+      {
+        "identifier": "k11-rogaland",
+        "name": "K11 (Rogaland)",
+        "countryId": "NO",
+        "city": "Rogaland",
+        "coordinates": [
+          58.969,
+          5.7331
+        ]
+      },
+      {
+        "identifier": "f16-ostlandet",
+        "name": "F16 (Østlandet)",
+        "countryId": "NO",
+        "city": "Østlandet",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      },
+      {
+        "identifier": "b7-ostlandet",
+        "name": "B7 (Østlandet)",
+        "countryId": "NO",
+        "city": "Østlandet",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      },
+      {
+        "identifier": "s7-ostlandet",
+        "name": "S7 (Østlandet)",
+        "countryId": "NO",
+        "city": "Østlandet",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.aspdatacenter.no/"
+    }
+  },
+  {
+    "identifier": "bahnhof",
+    "name": "Bahnhof",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "SE",
+    "url": "https://bahnhof.se",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "pionen",
+        "name": "Pionen (Stockholm)",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3145,
+          18.085
+        ]
+      },
+      {
+        "identifier": "thule",
+        "name": "Thule (Stockholm)",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.334,
+          18.062
+        ]
+      },
+      {
+        "identifier": "steriks",
+        "name": "S:t Eriks (Stockholm)",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.34,
+          18.03
+        ]
+      },
+      {
+        "identifier": "sparven",
+        "name": "Sparven (Malmö)",
+        "countryId": "SE",
+        "city": "Malmö",
+        "coordinates": [
+          55.605,
+          13.0038
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://bahnhof.se/foretag/colocation-en/our-data-centers/"
+    }
+  },
+  {
+    "identifier": "basefarm",
+    "name": "Basefarm (Orange Business)",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "NO",
+    "url": "https://digital.orange-business.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "osl1",
+        "name": "Oslo",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      },
+      {
+        "identifier": "sto1",
+        "name": "Stockholm",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "ams1",
+        "name": "Amsterdam",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://digital.orange-business.com"
+    }
+  },
+  {
+    "identifier": "binero",
+    "name": "Binero",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "SE",
+    "url": "https://binero.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "sto1",
+        "name": "Stockholm (Vallentuna)",
+        "countryId": "SE",
+        "city": "Vallentuna",
+        "coordinates": [
+          59.534,
+          18.078
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://binero.com/en/datacenter/"
+    }
+  },
+  {
+    "identifier": "bulk-infrastructure",
+    "name": "Bulk Infrastructure",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://bulkinfrastructure.com/",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "OS-IX",
+        "name": "Oslo Internet Exchange (OS-IX)",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      },
+      {
+        "identifier": "N01",
+        "name": "N01 Data Center Campus",
+        "countryId": "NO",
+        "city": "Kristiansand",
+        "coordinates": [
+          58.1467,
+          7.9956
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://bulkinfrastructure.com/data-centers/locations/os-ix"
+    }
+  },
+  {
+    "identifier": "cleura",
+    "name": "Cleura",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "SE",
+    "url": "https://cleura.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "sto1",
+        "name": "Stockholm",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "kna1",
+        "name": "Karlskrona",
+        "countryId": "SE",
+        "city": "Karlskrona",
+        "coordinates": [
+          56.1612,
+          15.5869
+        ]
+      },
+      {
+        "identifier": "fra1",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://cleura.com/resources/getting-started-with-cleura-cloud/regions-services-sub-processors/"
+    }
+  },
+  {
+    "identifier": "elastx",
+    "name": "Elastx",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "SE",
+    "url": "https://elastx.se",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "sto1",
+        "name": "Stockholm South",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.28,
+          18.05
+        ]
+      },
+      {
+        "identifier": "sto2",
+        "name": "Stockholm West",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          17.95
+        ]
+      },
+      {
+        "identifier": "sto3",
+        "name": "Stockholm North",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.38,
+          18.0686
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://docs.elastx.cloud/docs/openstack-iaas/overview/"
+    }
+  },
+  {
+    "identifier": "greenmountain",
+    "name": "Green Mountain",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://greenmountain.no",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "svg-rennesoy",
+        "name": "SVG-Rennesøy",
+        "countryId": "NO",
+        "city": "Stavanger",
+        "coordinates": [
+          59.1177,
+          5.759
+        ]
+      },
+      {
+        "identifier": "tel-rjukan",
+        "name": "TEL-Rjukan",
+        "countryId": "NO",
+        "city": "Rjukan",
+        "coordinates": [
+          59.8783,
+          8.5922
+        ]
+      },
+      {
+        "identifier": "osl-enebakk",
+        "name": "OSL-Enebakk",
+        "countryId": "NO",
+        "city": "Enebakk",
+        "coordinates": [
+          59.7667,
+          11.15
+        ]
+      },
+      {
+        "identifier": "osl-hamar",
+        "name": "OSL-Hamar",
+        "countryId": "NO",
+        "city": "Hamar",
+        "coordinates": [
+          60.7945,
+          11.068
+        ]
+      },
+      {
+        "identifier": "lon-east",
+        "name": "LON-East",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "fra-mainz",
+        "name": "FRA-Mainz",
+        "countryId": "DE",
+        "city": "Mainz",
+        "coordinates": [
+          50,
+          8.2711
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://greenmountain.no/data-centers/"
+    }
+  },
+  {
+    "identifier": "lefdal-mine",
+    "name": "Lefdal Mine Datacenter",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://www.lefdalmine.com/",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "LMD01",
+        "name": "Lefdal Mine Datacenter (Måløy)",
+        "countryId": "NO",
+        "city": "Måløy",
+        "coordinates": [
+          61.935,
+          5.113
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.lefdalmine.com/"
+    }
+  },
+  {
+    "identifier": "safespring",
+    "name": "Safespring",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "SE",
+    "url": "https://www.safespring.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "sto1",
+        "name": "Stockholm North",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "sto2",
+        "name": "Stockholm South",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.28,
+          18.05
+        ]
+      },
+      {
+        "identifier": "osl1",
+        "name": "Oslo",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.safespring.com/om-safespring/datacenter/"
+    }
+  },
+  {
+    "identifier": "skygard",
+    "name": "Skygard",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://www.skygard.no/",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "no-oslo-hovinbyen",
+        "name": "Oslo (Hovinbyen)",
+        "countryId": "NO",
+        "city": "Oslo",
+        "coordinates": [
+          59.9139,
+          10.7522
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.telenor.com/media/newsroom/announcement/telenor-hafslund-and-hitecvision-announces-2-4-billion-nok-investment-in-oslo-data-center/"
+    }
+  },
+  {
+    "identifier": "storespeed",
+    "name": "Storespeed",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NO",
+    "url": "https://www.storespeed.no/",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "DC01",
+        "name": "DC01 (Gamle Fredrikstad)",
+        "countryId": "NO",
+        "city": "Gamle Fredrikstad",
+        "coordinates": [
+          59.215,
+          10.95
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.storespeed.no/"
+    }
+  },
+  {
+    "identifier": "telia",
+    "name": "Telia",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "SE",
+    "url": "https://www.telia.fi",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "hel-pitajanmaki",
+        "name": "Helsinki (Pitäjänmäki)",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.2242,
+          24.8584
+        ]
+      },
+      {
+        "identifier": "hel-lauttasaari",
+        "name": "Helsinki (Lauttasaari)",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.1577,
+          24.8778
+        ]
+      },
+      {
+        "identifier": "lahti",
+        "name": "Lahti",
+        "countryId": "FI",
+        "city": "Lahti",
+        "coordinates": [
+          60.9827,
+          25.6612
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.telia.fi/business/data-center-services/data-centers"
+    }
+  },
+  {
+    "identifier": "alibaba",
+    "name": "Alibaba Cloud",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "CN",
+    "url": "https://www.alibabacloud.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "ap-southeast-1",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "ap-southeast-7",
+        "name": "Thailand (Bangkok)",
+        "countryId": "TH",
+        "city": "Bangkok",
+        "coordinates": [
+          13.7563,
+          100.5018
+        ]
+      },
+      {
+        "identifier": "ap-southeast-3",
+        "name": "Malaysia (Kuala Lumpur)",
+        "countryId": "MY",
+        "city": "Kuala Lumpur",
+        "coordinates": [
+          3.139,
+          101.6869
+        ]
+      },
+      {
+        "identifier": "ap-southeast-5",
+        "name": "Indonesia (Jakarta)",
+        "countryId": "ID",
+        "city": "Jakarta",
+        "coordinates": [
+          -6.2088,
+          106.8456
+        ]
+      },
+      {
+        "identifier": "ap-southeast-6",
+        "name": "Philippines (Manila)",
+        "countryId": "PH",
+        "city": "Manila",
+        "coordinates": [
+          14.5995,
+          120.9842
+        ]
+      },
+      {
+        "identifier": "ap-northeast-1",
+        "name": "Japan (Tokyo)",
+        "countryId": "JP",
+        "city": "Tokyo",
+        "coordinates": [
+          35.6762,
+          139.6503
+        ]
+      },
+      {
+        "identifier": "ap-northeast-2",
+        "name": "South Korea (Seoul)",
+        "countryId": "KR",
+        "city": "Seoul",
+        "coordinates": [
+          37.5665,
+          126.978
+        ]
+      },
+      {
+        "identifier": "us-east-1",
+        "name": "US East (Virginia)",
+        "countryId": "US",
+        "city": "Virginia",
+        "coordinates": [
+          38.9072,
+          -77.0369
+        ]
+      },
+      {
+        "identifier": "us-west-1",
+        "name": "US West (Silicon Valley)",
+        "countryId": "US",
+        "city": "San Jose",
+        "coordinates": [
+          37.3382,
+          -121.8863
+        ]
+      },
+      {
+        "identifier": "na-mex-1",
+        "name": "Mexico (Queretaro)",
+        "countryId": "MX",
+        "city": "Queretaro",
+        "coordinates": [
+          20.5888,
+          -100.3899
+        ]
+      },
+      {
+        "identifier": "eu-central-1",
+        "name": "Germany (Frankfurt)",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "eu-west-1",
+        "name": "UK (London)",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "me-east-1",
+        "name": "UAE (Dubai)",
+        "countryId": "AE",
+        "city": "Dubai",
+        "coordinates": [
+          25.2048,
+          55.2708
+        ]
+      },
+      {
+        "identifier": "me-central-1",
+        "name": "Saudi Arabia (Riyadh)",
+        "countryId": "SA",
+        "city": "Riyadh",
+        "coordinates": [
+          24.7136,
+          46.6753
+        ]
+      },
+      {
+        "identifier": "cn-hongkong",
+        "name": "Hong Kong",
+        "countryId": "HK",
+        "city": "Hong Kong",
+        "coordinates": [
+          22.3193,
+          114.1694
+        ]
+      },
+      {
+        "identifier": "cn-qingdao",
+        "name": "China (Qingdao)",
+        "countryId": "CN",
+        "city": "Qingdao",
+        "coordinates": [
+          36.0671,
+          120.3826
+        ]
+      },
+      {
+        "identifier": "cn-beijing",
+        "name": "China (Beijing)",
+        "countryId": "CN",
+        "city": "Beijing",
+        "coordinates": [
+          39.9042,
+          116.4074
+        ]
+      },
+      {
+        "identifier": "cn-zhangjiakou",
+        "name": "China (Zhangjiakou)",
+        "countryId": "CN",
+        "city": "Zhangjiakou",
+        "coordinates": [
+          40.7675,
+          114.8861
+        ]
+      },
+      {
+        "identifier": "cn-hohhot",
+        "name": "China (Hohhot)",
+        "countryId": "CN",
+        "city": "Hohhot",
+        "coordinates": [
+          40.8422,
+          111.75
+        ]
+      },
+      {
+        "identifier": "cn-wulanchabu",
+        "name": "China (Ulanqab)",
+        "countryId": "CN",
+        "city": "Ulanqab",
+        "coordinates": [
+          41.0341,
+          113.1337
+        ]
+      },
+      {
+        "identifier": "cn-hangzhou",
+        "name": "China (Hangzhou)",
+        "countryId": "CN",
+        "city": "Hangzhou",
+        "coordinates": [
+          30.2741,
+          120.1551
+        ]
+      },
+      {
+        "identifier": "cn-shanghai",
+        "name": "China (Shanghai)",
+        "countryId": "CN",
+        "city": "Shanghai",
+        "coordinates": [
+          31.2304,
+          121.4737
+        ]
+      },
+      {
+        "identifier": "cn-shenzhen",
+        "name": "China (Shenzhen)",
+        "countryId": "CN",
+        "city": "Shenzhen",
+        "coordinates": [
+          22.5431,
+          114.0579
+        ]
+      },
+      {
+        "identifier": "cn-heyuan",
+        "name": "China (Heyuan)",
+        "countryId": "CN",
+        "city": "Heyuan",
+        "coordinates": [
+          23.7436,
+          114.6976
+        ]
+      },
+      {
+        "identifier": "cn-guangzhou",
+        "name": "China (Guangzhou)",
+        "countryId": "CN",
+        "city": "Guangzhou",
+        "coordinates": [
+          23.1291,
+          113.2644
+        ]
+      },
+      {
+        "identifier": "cn-chengdu",
+        "name": "China (Chengdu)",
+        "countryId": "CN",
+        "city": "Chengdu",
+        "coordinates": [
+          30.5728,
+          104.0668
+        ]
+      },
+      {
+        "identifier": "cn-nanjing",
+        "name": "China (Nanjing)",
+        "countryId": "CN",
+        "city": "Nanjing",
+        "coordinates": [
+          32.0603,
+          118.7969
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.alibabacloud.com/en/global-locations"
+    }
+  },
+  {
+    "identifier": "aruba",
+    "name": "Aruba Cloud",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "IT",
+    "url": "https://www.arubacloud.com",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "it1",
+        "name": "Arezzo IT1",
+        "countryId": "IT",
+        "city": "Arezzo",
+        "coordinates": [
+          43.4633,
+          11.8798
+        ]
+      },
+      {
+        "identifier": "it2",
+        "name": "Arezzo IT2",
+        "countryId": "IT",
+        "city": "Arezzo",
+        "coordinates": [
+          43.4633,
+          11.8798
+        ]
+      },
+      {
+        "identifier": "it3",
+        "name": "Bergamo IT3",
+        "countryId": "IT",
+        "city": "Ponte San Pietro",
+        "coordinates": [
+          45.6986,
+          9.5883
+        ]
+      },
+      {
+        "identifier": "it4",
+        "name": "Rome IT4",
+        "countryId": "IT",
+        "city": "Rome",
+        "coordinates": [
+          41.9028,
+          12.4964
+        ]
+      },
+      {
+        "identifier": "de1",
+        "name": "Frankfurt DE1",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "uk1",
+        "name": "Slough UK1",
+        "countryId": "GB",
+        "city": "Slough",
+        "coordinates": [
+          51.5105,
+          -0.595
+        ]
+      },
+      {
+        "identifier": "fr1",
+        "name": "Paris FR1",
+        "countryId": "FR",
+        "city": "Saint-Denis",
+        "coordinates": [
+          48.9362,
+          2.3574
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.arubacloud.com/why-choose-aruba/datacenter"
+    }
+  },
+  {
+    "identifier": "globalconnect",
+    "name": "GlobalConnect",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "DK",
+    "url": "https://www.globalconnect.dk",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "cph-taastrup",
+        "name": "Copenhagen Taastrup",
+        "countryId": "DK",
+        "city": "Taastrup",
+        "coordinates": [
+          55.652,
+          12.293
+        ]
+      },
+      {
+        "identifier": "cph-glostrup",
+        "name": "Copenhagen Glostrup",
+        "countryId": "DK",
+        "city": "Glostrup",
+        "coordinates": [
+          55.6625,
+          12.4
+        ]
+      },
+      {
+        "identifier": "cph-albertslund",
+        "name": "Copenhagen Albertslund",
+        "countryId": "DK",
+        "city": "Albertslund",
+        "coordinates": [
+          55.6578,
+          12.3564
+        ]
+      },
+      {
+        "identifier": "cph-vesterbrogade",
+        "name": "Copenhagen City",
+        "countryId": "DK",
+        "city": "Copenhagen",
+        "coordinates": [
+          55.6712,
+          12.554
+        ]
+      },
+      {
+        "identifier": "kolding",
+        "name": "Kolding",
+        "countryId": "DK",
+        "city": "Kolding",
+        "coordinates": [
+          55.4904,
+          9.4722
+        ]
+      },
+      {
+        "identifier": "horsens",
+        "name": "Horsens",
+        "countryId": "DK",
+        "city": "Hørning",
+        "coordinates": [
+          56.0903,
+          9.9267
+        ]
+      },
+      {
+        "identifier": "skanderborg",
+        "name": "Skanderborg",
+        "countryId": "DK",
+        "city": "Skanderborg",
+        "coordinates": [
+          56.0407,
+          9.9272
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.datacenters.com/providers/globalconnect/data-center-locations"
+    }
+  },
+  {
+    "identifier": "huawei",
+    "name": "Huawei Cloud",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "CN",
+    "url": "https://www.huaweicloud.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "cn-north-4",
+        "name": "CN North (Beijing4)",
+        "countryId": "CN",
+        "city": "Beijing",
+        "coordinates": [
+          39.9042,
+          116.4074
+        ]
+      },
+      {
+        "identifier": "cn-east-3",
+        "name": "CN East (Shanghai1)",
+        "countryId": "CN",
+        "city": "Shanghai",
+        "coordinates": [
+          31.2304,
+          121.4737
+        ]
+      },
+      {
+        "identifier": "cn-east-2",
+        "name": "CN East2",
+        "countryId": "CN",
+        "city": "Shanghai",
+        "coordinates": [
+          31.2404,
+          121.4837
+        ]
+      },
+      {
+        "identifier": "cn-north-9",
+        "name": "CN East (Qingdao)",
+        "countryId": "CN",
+        "city": "Qingdao",
+        "coordinates": [
+          36.0671,
+          120.3826
+        ]
+      },
+      {
+        "identifier": "cn-south-1",
+        "name": "CN South (Guangzhou)",
+        "countryId": "CN",
+        "city": "Guangzhou",
+        "coordinates": [
+          23.1291,
+          113.2644
+        ]
+      },
+      {
+        "identifier": "cn-southwest-2",
+        "name": "CN Southwest (Guiyang1)",
+        "countryId": "CN",
+        "city": "Guiyang",
+        "coordinates": [
+          26.647,
+          106.6302
+        ]
+      },
+      {
+        "identifier": "ap-southeast-1",
+        "name": "Hong Kong",
+        "countryId": "HK",
+        "city": "Hong Kong",
+        "coordinates": [
+          22.3193,
+          114.1694
+        ]
+      },
+      {
+        "identifier": "ap-southeast-2",
+        "name": "Thailand (Bangkok)",
+        "countryId": "TH",
+        "city": "Bangkok",
+        "coordinates": [
+          13.7563,
+          100.5018
+        ]
+      },
+      {
+        "identifier": "ap-southeast-3",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "ap-southeast-4",
+        "name": "Indonesia (Jakarta)",
+        "countryId": "ID",
+        "city": "Jakarta",
+        "coordinates": [
+          -6.2088,
+          106.8456
+        ]
+      },
+      {
+        "identifier": "ap-southeast-6",
+        "name": "Philippines (Manila)",
+        "countryId": "PH",
+        "city": "Manila",
+        "coordinates": [
+          14.5995,
+          120.9842
+        ]
+      },
+      {
+        "identifier": "af-south-1",
+        "name": "South Africa (Johannesburg)",
+        "countryId": "ZA",
+        "city": "Johannesburg",
+        "coordinates": [
+          -26.2041,
+          28.0473
+        ]
+      },
+      {
+        "identifier": "af-north-1",
+        "name": "Egypt (Cairo)",
+        "countryId": "EG",
+        "city": "Cairo",
+        "coordinates": [
+          30.0444,
+          31.2357
+        ]
+      },
+      {
+        "identifier": "la-north-2",
+        "name": "Mexico (Mexico City)",
+        "countryId": "MX",
+        "city": "Mexico City",
+        "coordinates": [
+          19.4326,
+          -99.1332
+        ]
+      },
+      {
+        "identifier": "la-south-2",
+        "name": "Brazil (São Paulo)",
+        "countryId": "BR",
+        "city": "São Paulo",
+        "coordinates": [
+          -23.5505,
+          -46.6333
+        ]
+      },
+      {
+        "identifier": "la-south-1",
+        "name": "Chile (Santiago)",
+        "countryId": "CL",
+        "city": "Santiago",
+        "coordinates": [
+          -33.4489,
+          -70.6693
+        ]
+      },
+      {
+        "identifier": "tr-west-1",
+        "name": "Turkey (Istanbul)",
+        "countryId": "TR",
+        "city": "Istanbul",
+        "coordinates": [
+          41.0082,
+          28.9784
+        ]
+      },
+      {
+        "identifier": "me-east-1",
+        "name": "Saudi Arabia (Riyadh)",
+        "countryId": "SA",
+        "city": "Riyadh",
+        "coordinates": [
+          24.7136,
+          46.6753
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.huaweicloud.com/intl/en-us/securecenter/data_protection/region_query.html"
+    }
+  },
+  {
+    "identifier": "leaseweb",
+    "name": "Leaseweb",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "NL",
+    "url": "https://www.leaseweb.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "fra-01",
+        "name": "Frankfurt FRA-01",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1709,
+          8.6921
+        ]
+      },
+      {
+        "identifier": "fra-10",
+        "name": "Frankfurt FRA-10",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6521
+        ]
+      },
+      {
+        "identifier": "fra-14",
+        "name": "Frankfurt FRA-14",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1009,
+          8.6221
+        ]
+      },
+      {
+        "identifier": "ams-01",
+        "name": "Amsterdam AMS-01",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.leaseweb.com/en/why-leaseweb/platform/data-centers/fra-01"
+    }
+  },
+  {
+    "identifier": "netic",
+    "name": "Netic",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "DK",
+    "url": "https://www.netic.dk",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "dc5",
+        "name": "Aalborg (DC5)",
+        "countryId": "DK",
+        "city": "Aalborg",
+        "coordinates": [
+          57.0488,
+          9.9217
+        ]
+      },
+      {
+        "identifier": "dc-aalborg",
+        "name": "Aalborg (NOVI)",
+        "countryId": "DK",
+        "city": "Aalborg",
+        "coordinates": [
+          57.0268,
+          9.9494
+        ]
+      },
+      {
+        "identifier": "dc-aarhus",
+        "name": "Aarhus",
+        "countryId": "DK",
+        "city": "Aarhus",
+        "coordinates": [
+          56.1629,
+          10.2039
+        ]
+      },
+      {
+        "identifier": "dc-copenhagen",
+        "name": "Copenhagen",
+        "countryId": "DK",
+        "city": "Copenhagen",
+        "coordinates": [
+          55.6761,
+          12.5683
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.netic.dk/en/hosting-eng/"
+    }
+  },
+  {
+    "identifier": "tencent",
+    "name": "Tencent Cloud",
+    "providerType": "hyperscaler",
+    "vendorCountryId": "CN",
+    "url": "https://www.tencentcloud.com",
+    "dateModified": "2025-12-19",
+    "regions": [
+      {
+        "identifier": "ap-guangzhou",
+        "name": "South China (Guangzhou)",
+        "countryId": "CN",
+        "city": "Guangzhou",
+        "coordinates": [
+          23.1291,
+          113.2644
+        ]
+      },
+      {
+        "identifier": "ap-shanghai",
+        "name": "East China (Shanghai)",
+        "countryId": "CN",
+        "city": "Shanghai",
+        "coordinates": [
+          31.2304,
+          121.4737
+        ]
+      },
+      {
+        "identifier": "ap-nanjing",
+        "name": "East China (Nanjing)",
+        "countryId": "CN",
+        "city": "Nanjing",
+        "coordinates": [
+          32.0603,
+          118.7969
+        ]
+      },
+      {
+        "identifier": "ap-beijing",
+        "name": "North China (Beijing)",
+        "countryId": "CN",
+        "city": "Beijing",
+        "coordinates": [
+          39.9042,
+          116.4074
+        ]
+      },
+      {
+        "identifier": "ap-chengdu",
+        "name": "Southwest China (Chengdu)",
+        "countryId": "CN",
+        "city": "Chengdu",
+        "coordinates": [
+          30.5728,
+          104.0668
+        ]
+      },
+      {
+        "identifier": "ap-chongqing",
+        "name": "Southwest China (Chongqing)",
+        "countryId": "CN",
+        "city": "Chongqing",
+        "coordinates": [
+          29.563,
+          106.5516
+        ]
+      },
+      {
+        "identifier": "ap-zhongwei",
+        "name": "Northwest China (Zhongwei)",
+        "countryId": "CN",
+        "city": "Zhongwei",
+        "coordinates": [
+          37.513,
+          105.19
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.tencentcloud.com/document/product/213/6091"
+    }
+  },
+  {
+    "identifier": "tilaa",
+    "name": "Tilaa",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "NL",
+    "url": "https://www.tilaa.com",
+    "dateModified": "2025-12-21",
+    "regions": [
+      {
+        "identifier": "nl-ams",
+        "name": "Amsterdam",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      },
+      {
+        "identifier": "nl-hrl",
+        "name": "Haarlem",
+        "countryId": "NL",
+        "city": "Haarlem",
+        "coordinates": [
+          52.3874,
+          4.6462
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.tilaa.com/en/netherlands-vps"
+    }
+  },
+  {
+    "identifier": "upcloud",
+    "name": "UpCloud",
+    "providerType": "regional_cloud",
+    "vendorCountryId": "FI",
+    "url": "https://upcloud.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "fi-hel1",
+        "name": "Helsinki 1",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.1699,
+          24.9384
+        ]
+      },
+      {
+        "identifier": "fi-hel2",
+        "name": "Helsinki 2",
+        "countryId": "FI",
+        "city": "Helsinki",
+        "coordinates": [
+          60.1799,
+          24.9484
+        ]
+      },
+      {
+        "identifier": "se-sto1",
+        "name": "Stockholm",
+        "countryId": "SE",
+        "city": "Stockholm",
+        "coordinates": [
+          59.3293,
+          18.0686
+        ]
+      },
+      {
+        "identifier": "dk-cph1",
+        "name": "Copenhagen",
+        "countryId": "DK",
+        "city": "Ballerup",
+        "coordinates": [
+          55.7317,
+          12.3633
+        ]
+      },
+      {
+        "identifier": "nl-ams1",
+        "name": "Amsterdam",
+        "countryId": "NL",
+        "city": "Amsterdam",
+        "coordinates": [
+          52.3676,
+          4.9041
+        ]
+      },
+      {
+        "identifier": "de-fra1",
+        "name": "Frankfurt",
+        "countryId": "DE",
+        "city": "Frankfurt",
+        "coordinates": [
+          50.1109,
+          8.6821
+        ]
+      },
+      {
+        "identifier": "uk-lon1",
+        "name": "London",
+        "countryId": "GB",
+        "city": "London",
+        "coordinates": [
+          51.5074,
+          -0.1278
+        ]
+      },
+      {
+        "identifier": "es-mad1",
+        "name": "Madrid",
+        "countryId": "ES",
+        "city": "Madrid",
+        "coordinates": [
+          40.4168,
+          -3.7038
+        ]
+      },
+      {
+        "identifier": "pl-waw1",
+        "name": "Warsaw",
+        "countryId": "PL",
+        "city": "Warsaw",
+        "coordinates": [
+          52.2297,
+          21.0122
+        ]
+      },
+      {
+        "identifier": "us-chi1",
+        "name": "Chicago",
+        "countryId": "US",
+        "city": "Chicago",
+        "coordinates": [
+          41.8781,
+          -87.6298
+        ]
+      },
+      {
+        "identifier": "us-nyc1",
+        "name": "New York",
+        "countryId": "US",
+        "city": "New York",
+        "coordinates": [
+          40.7128,
+          -74.006
+        ]
+      },
+      {
+        "identifier": "us-sjo1",
+        "name": "San Jose",
+        "countryId": "US",
+        "city": "San Jose",
+        "coordinates": [
+          37.3382,
+          -121.8863
+        ]
+      },
+      {
+        "identifier": "sg-sin1",
+        "name": "Singapore",
+        "countryId": "SG",
+        "city": "Singapore",
+        "coordinates": [
+          1.3521,
+          103.8198
+        ]
+      },
+      {
+        "identifier": "au-syd1",
+        "name": "Sydney",
+        "countryId": "AU",
+        "city": "Sydney",
+        "coordinates": [
+          -33.8688,
+          151.2093
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://upcloud.com/data-centers/"
+    }
+  },
+  {
+    "identifier": "verne",
+    "name": "Verne Global (Ficolo)",
+    "providerType": "datacenter_operator",
+    "vendorCountryId": "FI",
+    "url": "https://www.verneglobal.com",
+    "dateModified": "2025-12-20",
+    "regions": [
+      {
+        "identifier": "hel-air",
+        "name": "Helsinki (The Air)",
+        "countryId": "FI",
+        "city": "Vantaa",
+        "coordinates": [
+          60.2934,
+          24.9631
+        ]
+      },
+      {
+        "identifier": "pori-rock",
+        "name": "Pori (The Rock)",
+        "countryId": "FI",
+        "city": "Pori",
+        "coordinates": [
+          61.4851,
+          21.7974
+        ]
+      },
+      {
+        "identifier": "tre-deck",
+        "name": "Tampere (The Deck)",
+        "countryId": "FI",
+        "city": "Tampere",
+        "coordinates": [
+          61.4978,
+          23.761
+        ]
+      }
+    ],
+    "meta": {
+      "source": "https://www.verneglobal.com/finland"
+    }
+  }
+]

@@ -1,53 +1,42 @@
 ---
 title: "DPDP Act"
-law_id: "dpdp-act"
-full_name: "Digital Personal Data Protection Act 2023"
-year: 2023
-scope: "national"
-applies_to:
+identifier: "dpdp-act"
+alternateName: "Digital Personal Data Protection Act 2023"
+description: "India's first comprehensive data protection law providing individual rights while maintaining broad government exemptions."
+abstract: "The DPDP Act grants data principals (individuals) rights including access, correction, erasure, and grievance redress. Data fiduciaries (controllers) must process data based on consent or legitimate purposes. However, the government has broad exemption powers for sovereignty, security, and public order."
+summary: "India's Digital Personal Data Protection Act 2023 creates the country's first comprehensive data protection framework. It establishes rights for 'data principals' including informed consent, access to information, correction and erasure, and grievance redress. 'Data fiduciaries' (similar to controllers) must process personal data lawfully, implement security safeguards, and fulfill data principal requests. The Act creates a Data Protection Board to adjudicate complaints and impose penalties up to ₹250 crore (~$30M). However, Section 17 gives the central government sweeping exemption powers for state security, sovereignty, public order, and other specified purposes. This means the strong protections can be bypassed for government activities. Cross-border transfer is permitted to countries not blacklisted by the government. The interaction between DPDP and the IT Act's surveillance powers creates a regime where individual protections coexist with extensive government access."
+legislationDate: "2023"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.meity.gov.in/data-protection-framework"
+legislationJurisdiction:
   - "IN"
-source_url: "https://www.meity.gov.in/data-protection-framework"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "targeted"
-government_access_description: "Access with warrants or court orders for specific investigations"
-data_protection: "moderate"
-data_protection_description: "Some protections but with significant exceptions or weaker enforcement"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "targeted"
+dataProtection: "moderate"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Personal data protection with broad government exemptions for national security."
-  - "Enables targeted government access under warrants or court orders for specific investigations."
-who_it_applies_to:
-  - "Data fiduciaries (controllers) in India"
-  - "Data processors acting on behalf of fiduciaries"
-  - "Organizations processing digital personal data in India"
-key_provisions:
-  - title: "Core scope"
-    description: "Personal data protection with broad government exemptions for national security."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  notes: "Enforced by India’s Data Protection Board (and related processes) with penalties defined in the Act and rules."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "consent"
+  - "data-principal-rights"
+  - "government-exemptions"
+audience:
+  - "enterprise"
+  - "it-ops"
+  - "public-sector"
+isRelatedTo:
   complements:
-    - id: "it-act-2000"
+    - identifier: "it-act-2000"
       name: "IT Act"
-      year: 2000
-      flag: "🇮🇳"
+      legislationDate: "2000"
 layout: "single"
 type: "laws"
 ---
 
-Personal data protection with broad government exemptions for national security.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

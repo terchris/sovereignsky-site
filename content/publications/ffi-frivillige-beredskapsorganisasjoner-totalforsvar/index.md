@@ -5,22 +5,27 @@ date: 2023-01-01
 external_url: "https://www.ffi.no/"
 publisher: "Norwegian Defence Research Establishment (FFI)"
 topics:
-  - "voluntary organizations"
-  - "total defence"
-  - "civil preparedness"
-  - "crisis response"
-personas:
+  - "national-preparedness"
+audience:
   - "public-sector"
   - "humanitarian"
   - "security"
+tags:
+  - "red-cross"
+  - "voluntary-sector"
+  - "coordination"
+  - "legal-frameworks"
+  - "norway"
 type: publications
 ---
 
+## Abstract
+
+Norwegian Defence Research analysis of how voluntary organisations like Red Cross and People's Aid can strengthen total defence, finding significant but underutilised resources requiring better coordination frameworks.
+
 ## Summary
 
-This FFI report examines the role of voluntary emergency organisations in Norway's future total defence concept. Commissioned by Norske Kvinners Sanitetsforening (Norwegian Women's Sanitary Association), the research maps the resources and capabilities of major voluntary organisations and their potential contribution to protecting civilian populations across the entire crisis spectrum.
-
-The study focuses on three major voluntary organisations: Norske Kvinners Sanitetsforening, Norsk Folkehjelp (Norwegian People's Aid), and Norges Røde Kors (Norwegian Red Cross). Each organisation can mobilise thousands of volunteers with basic or specialised competencies for emergency-related activities at the national level.
+Commissioned by Norske Kvinners Sanitetsforening, this FFI report maps the capabilities of Norway's major voluntary emergency organisations and recommends their formal inclusion in coordination arenas at central, regional, and local levels. The research anticipates increased voluntary participation during security crises and identifies the need for legal frameworks governing their role within international humanitarian law.
 
 ---
 

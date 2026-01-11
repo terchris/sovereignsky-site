@@ -4,14 +4,14 @@
  * Generate Hugo content and data files for software products
  *
  * Reads:
- *   - data/products.json (full product data)
- *   - data/vendors.json (vendor data)
- *   - data/useAreas.json (use area definitions)
+ *   - data/products/products.json (full product data)
+ *   - data/products/vendors.json (vendor data)
+ *   - data/products/useAreas.json (use area definitions)
  *   - data/frameworks/ndsi.json (framework definition)
  *
  * Creates:
  *   - content/software/{slug}.md for each product (Hugo pages)
- *   - data/productsList.json (slim JSON for client-side filtering)
+ *   - data/products/productsList.json (slim JSON for client-side filtering)
  *
  * Calculates:
  *   - risk_level from assessment scores
@@ -27,9 +27,9 @@ const contentDir = path.join(__dirname, '..', 'content', 'software');
 
 // Read data files
 console.log('Reading data files...');
-const products = JSON.parse(fs.readFileSync(path.join(dataDir, 'products.json'), 'utf8'));
-const vendors = JSON.parse(fs.readFileSync(path.join(dataDir, 'vendors.json'), 'utf8'));
-const useAreas = JSON.parse(fs.readFileSync(path.join(dataDir, 'useAreas.json'), 'utf8'));
+const products = JSON.parse(fs.readFileSync(path.join(dataDir, 'products', 'products.json'), 'utf8'));
+const vendors = JSON.parse(fs.readFileSync(path.join(dataDir, 'products', 'vendors.json'), 'utf8'));
+const useAreas = JSON.parse(fs.readFileSync(path.join(dataDir, 'products', 'useAreas.json'), 'utf8'));
 const ndsiFramework = JSON.parse(fs.readFileSync(path.join(dataDir, 'frameworks', 'ndsi.json'), 'utf8'));
 
 // Build vendor lookup map
@@ -111,7 +111,7 @@ function generateSlimProduct(product, vendor) {
     vendor_name: vendor.name,
     vendor_country: vendor.country,
     vendor_country_name: vendor.country_name,
-    risk_level: product.risk_level,
+    riskLevel: product.riskLevel,
     jurisdiction_exposure: jurisdictionExposure,
     has_us_exposure: hasUSExposure,
     data_residency: product.hosting?.data_residency || [],
@@ -153,8 +153,8 @@ vendor_id: "${vendor.id}"
 vendor_name: "${vendor.name}"
 vendor_country: "${vendor.country}"
 vendor_country_name: "${vendor.country_name}"
-risk_level: "${product.risk_level}"
-risk_label: "${riskLabels[product.risk_level] || product.risk_level}"
+riskLevel: "${product.riskLevel}"
+risk_label: "${riskLabels[product.riskLevel] || product.riskLevel}"
 has_us_exposure: ${hasUSExposure}
 open_source: ${product.open_source || false}
 data_portability: "${product.data_portability || 'unknown'}"
@@ -170,8 +170,8 @@ jurisdiction_exposure:
 ${jurisdictionExposure.map(j => `  - "${j}"`).join('\n') || '  []'}
 
 # Taxonomies for Hugo filtering
-risk_levels:
-  - "${product.risk_level}"
+riskLevels:
+  - "${product.riskLevel}"
 vendor_countries:
   - "${vendor.country}"
 use_areas:
@@ -233,18 +233,18 @@ products.products.forEach(product => {
 
   if (existed) {
     updated++;
-    console.log(`  Updated: ${filename} (${product.risk_level})`);
+    console.log(`  Updated: ${filename} (${product.riskLevel})`);
   } else {
     created++;
-    console.log(`  Created: ${filename} (${product.risk_level})`);
+    console.log(`  Created: ${filename} (${product.riskLevel})`);
   }
 });
 
 // Write slim products list for client-side filtering
-// Note: Hugo data files use camelCase (productsList.json -> site.Data.productsList)
-const slimProductsPath = path.join(dataDir, 'productsList.json');
+// Note: Hugo data files use camelCase (productsList.json -> site.Data.products.productsList)
+const slimProductsPath = path.join(dataDir, 'products', 'productsList.json');
 fs.writeFileSync(slimProductsPath, JSON.stringify(slimProducts, null, 2));
-console.log(`\nGenerated: data/productsList.json (${slimProducts.length} products)`);
+console.log(`\nGenerated: data/products/productsList.json (${slimProducts.length} products)`);
 
 // Summary
 console.log(`\nDone!`);

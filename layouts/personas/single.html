@@ -3,115 +3,55 @@
 
 {{/* Get persona data from JSON based on page's persona_id param or slug */}}
 {{ $personaId := .Params.persona_id | default (path.Base .File.Dir) }}
-{{ $personas := site.Data.personas.personas.itemListElement | default (slice) }}
+{{ $audienceData := site.Data.audience.audience }}
+{{ $audiences := $audienceData.itemListElement | default (slice) }}
 {{ $persona := dict }}
-{{ range $personas }}
-  {{ if eq .audienceType $personaId }}
+{{ range $audiences }}
+  {{ if eq .identifier $personaId }}
     {{ $persona = . }}
   {{ end }}
 {{ end }}
 
-{{ $term := $persona.audienceType | default $personaId }}
+{{ $term := $persona.identifier | default $personaId }}
 {{ $personaName := $persona.name | default ($term | humanize | title) }}
-{{ $personaShortDesc := .Params.summary | default $persona.disambiguatingDescription | default "" }}
-{{ $personaDesc := .Params.description | default $persona.description | default "" }}
+{{ $personaShortDesc := .Params.summary | default $persona.description | default "" }}
+{{ $personaDesc := .Params.abstract | default $persona.abstract | default "" }}
 {{ $personaIcon := $persona.icon | default "user" }}
+{{ $personaTopics := $persona.topics | default (slice) }}
+{{ $personaLawTypes := $persona.lawTypes | default (slice) }}
 
-{{/* Get vocabulary data */}}
-{{ $vocab := site.Data.tag_vocabulary | default (dict) }}
-{{ $audienceVocab := $vocab.audience.values | default (slice) }}
-{{ $audienceLabels := $vocab.audience.labels | default (dict) }}
+{{/* Build audience vocab for checking if this persona is used in events */}}
+{{ $audienceVocab := slice }}
+{{ range $audiences }}
+  {{ $audienceVocab = $audienceVocab | append .identifier }}
+{{ end }}
 {{ $isAudience := in $audienceVocab $term }}
 
-{{/* Law and region lookups */}}
-{{ $laws := site.Data.laws.laws | default (slice) }}
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
-{{ end }}
-{{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
-  {{ $blocsById = merge $blocsById (dict .id .) }}
+{{/* Build topic labels from topics.json */}}
+{{ $topicLabels := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
 {{ end }}
 
-{{/* Law type mappings */}}
-{{ $lawAnchors := dict
-  "access" "access-laws"
-  "surveillance" "surveillance-laws"
-  "privacy" "privacy-laws"
-  "localization" "localization-laws"
-  "security" "security-laws"
-  "sector" "sector-specific-laws"
-}}
-
-{{ $lawTypesByPersona := dict
-  "developer" (slice "security")
-  "technical" (slice "security")
-  "enterprise" (slice "privacy" "security" "sector")
-  "business" (slice "privacy" "sector")
-  "end-user" (slice "privacy")
-  "privacy-conscious" (slice "privacy")
-  "self-hoster" (slice "security")
-  "sovereignty" (slice "privacy" "sector" "localization")
-  "government" (slice "access" "security" "sector")
-  "humanitarian" (slice "privacy" "access")
-  "defence" (slice "security" "access" "surveillance")
-  "cost-conscious" (slice "privacy")
-}}
-
-{{/* Blog/publication audience mapping - maps legacy values to audienceType */}}
-{{ $blogAudienceToPersona := dict
-  "developer" "developer"
-  "it-ops" "it-ops"
-  "enterprise" "enterprise"
-  "public-sector" "public-sector"
-  "humanitarian" "humanitarian"
-  "security" "security"
-  "consumer" "consumer"
-}}
-
-{{/* Build filter criteria */}}
-{{ $fc := $persona.filterCriteria | default (dict) }}
-{{ $requireTags := $fc.requireTags | default (slice) }}
-{{ $preferTags := $fc.preferTags | default (slice) }}
-{{ $requireFields := $fc.requireFields | default (dict) }}
-{{ $exampleQueries := $persona.exampleQueries | default (slice) }}
-
-{{/* Build software URL */}}
-{{ $wantOpen := or (and (isset $requireFields "isOpenSource") (eq (index $requireFields "isOpenSource") true)) (in $preferTags "open-source") }}
-{{ $wantSelf := or (and (isset $requireFields "selfHostable") (eq (index $requireFields "selfHostable") true)) (in $requireTags "self-hosted") (in $preferTags "self-hosted") }}
-{{ $softwareQs := slice }}
-{{ if $wantOpen }}{{ $softwareQs = $softwareQs | append "opensource=true" }}{{ end }}
-{{ if $wantSelf }}{{ $softwareQs = $softwareQs | append "selfhosted=true" }}{{ end }}
-{{ $softwareURL := "/software/" }}
-{{ if gt (len $softwareQs) 0 }}{{ $softwareURL = printf "%s?%s" $softwareURL (delimit $softwareQs "&") }}{{ end }}
-
-{{/* Build events URL */}}
-{{ $eventsURL := "/events/" }}
-{{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
-
-{{/* Get suggested laws */}}
-{{ $lawTypes := index $lawTypesByPersona $term | default (slice "privacy" "security") }}
-{{ $suggestedLaws := slice }}
-{{ if gt (len $laws) 0 }}
-  {{ $suggestedLaws = where $laws "type" "in" $lawTypes | first 8 }}
-{{ end }}
-
-{{/* Get related blog posts */}}
+{{/* Get related blog posts - by audiences match OR by topic/tag match */}}
 {{ $blogPages := where site.RegularPages "Section" "blog" }}
 {{ $relatedPosts := slice }}
 {{ range $blogPages }}
   {{ $post := . }}
   {{ $match := false }}
-  {{ with $post.Params.personas }}
-    {{ if in . $term }}{{ $match = true }}{{ end }}
+  {{/* Direct audience match */}}
+  {{ range ($post.Params.audience | default (slice)) }}
+    {{ if eq . $term }}{{ $match = true }}{{ end }}
   {{ end }}
+  {{/* Topic match (check both topics and tags for backwards compatibility) */}}
   {{ if not $match }}
-    {{ range ($post.Params.audiences | default (slice)) }}
-      {{ $mapped := index $blogAudienceToPersona . }}
-      {{ if and $mapped (eq $mapped $term) }}
-        {{ $match = true }}
-      {{ end }}
+    {{ $postTopics := $post.Params.topics | default (slice) }}
+    {{ $postTags := $post.Params.tags | default (slice) }}
+    {{ range $postTopics }}
+      {{ if in $personaTopics . }}{{ $match = true }}{{ end }}
+    {{ end }}
+    {{ range $postTags }}
+      {{ if in $personaTopics . }}{{ $match = true }}{{ end }}
     {{ end }}
   {{ end }}
   {{ if $match }}
@@ -120,21 +60,21 @@
 {{ end }}
 {{ $relatedPosts = sort $relatedPosts "Date" "desc" | first 6 }}
 
-{{/* Get related publications */}}
-{{ $publicationPages := where site.RegularPages "Section" "publications" }}
+{{/* Get related publications - by audience match OR by topic match */}}
 {{ $relatedPubs := slice }}
-{{ range $publicationPages }}
+{{ $pubsSection := where site.RegularPages "Section" "publications" }}
+{{ range $pubsSection }}
   {{ $pub := . }}
   {{ $match := false }}
-  {{ with $pub.Params.personas }}
-    {{ if in . $term }}{{ $match = true }}{{ end }}
+  {{/* Direct audience match */}}
+  {{ range ($pub.Params.audience | default (slice)) }}
+    {{ if eq . $term }}{{ $match = true }}{{ end }}
   {{ end }}
+  {{/* Topic match */}}
   {{ if not $match }}
-    {{ range ($pub.Params.audiences | default (slice)) }}
-      {{ $mapped := index $blogAudienceToPersona . }}
-      {{ if and $mapped (eq $mapped $term) }}
-        {{ $match = true }}
-      {{ end }}
+    {{ $pubTopics := $pub.Params.topics | default (slice) }}
+    {{ range $pubTopics }}
+      {{ if in $personaTopics . }}{{ $match = true }}{{ end }}
     {{ end }}
   {{ end }}
   {{ if $match }}
@@ -143,12 +83,29 @@
 {{ end }}
 {{ $relatedPubs = sort $relatedPubs "Date" "desc" | first 6 }}
 
+{{/* Get related laws - by audience (persona) match */}}
+{{ $lawsSection := where site.RegularPages "Section" "laws" }}
+{{ $relatedLaws := slice }}
+{{ range $lawsSection }}
+  {{ $law := . }}
+  {{ range ($law.Params.audience | default (slice)) }}
+    {{ if eq . $term }}
+      {{ $relatedLaws = $relatedLaws | append $law }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ $relatedLaws = $relatedLaws | first 8 }}
+
+{{/* Build events URL */}}
+{{ $eventsURL := "/events/" }}
+{{ if $isAudience }}{{ $eventsURL = printf "/events/?audience=%s" $term }}{{ end }}
+
 {{/* Get featured image */}}
 {{ $featured := .Resources.GetMatch "featured*" }}
 
 <article class="max-w-full">
   {{/* Detail Header with breadcrumbs */}}
-  {{ partial "detail-header.html" (dict
+  {{ partial "common-detail-header.html" (dict
       "title" $personaName
       "description" $personaShortDesc
       "icon" $personaIcon
@@ -159,112 +116,29 @@
 
   {{/* Two-column layout */}}
   <section class="flex flex-col max-w-full mt-0 lg:flex-row">
-    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
     {{/* Right Sidebar */}}
-    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
-      <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
+    {{ partial "sidebar/common-sidebar.html" . }}
 
         {{/* Quick Links Card */}}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "link" "color" "primary" "size" "4") }}
-              Quick Links
-            </h3>
-            <div class="mt-2 space-y-2">
-              <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
-                {{ partial "content-icon.html" (dict "name" "calendar" "size" "4") }}
-                Browse Events
-                {{ if $isAudience }}<span class="badge badge-xs badge-primary">filtered</span>{{ end }}
-              </a>
-              <a href="{{ $softwareURL }}" class="btn btn-sm btn-outline w-full justify-start gap-2">
-                {{ partial "content-icon.html" (dict "name" "computer" "size" "4") }}
-                Browse Software
-                {{ if gt (len $softwareQs) 0 }}<span class="badge badge-xs badge-primary">filtered</span>{{ end }}
-              </a>
-              <a href="/laws/" class="btn btn-sm btn-outline w-full justify-start gap-2">
-                {{ partial "content-icon.html" (dict "name" "scale" "size" "4") }}
-                Browse Laws
-              </a>
-            </div>
+        {{ partial "sidebar/personas-quick-links-card.html" . }}
+
+        {{/* Curation explanation */}}
+        <div class="card bg-base-200/50 border border-base-300 mb-4">
+          <div class="card-body p-3">
+            <p class="text-xs text-neutral-600 dark:text-neutral-400">
+              Content on this page is curated based on the categories below.
+            </p>
           </div>
         </div>
 
-        {{/* Law Categories Card */}}
-        {{ if $lawTypes }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
-              Relevant Law Types
-            </h3>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {{ range $lawTypes }}
-                {{ $t := . }}
-                {{ $anchor := index $lawAnchors $t | default "" }}
-                {{ if $anchor }}
-                <a href="/laws/#{{ $anchor }}" class="badge badge-outline hover:badge-primary">
-                  {{ $t | humanize | title }}
-                </a>
-                {{ end }}
-              {{ end }}
-            </div>
-          </div>
-        </div>
-        {{ end }}
+        {{/* Topics Card */}}
+        {{ partial "sidebar/common-topics-card.html" . }}
 
-        {{/* Filter Preferences Card */}}
-        {{ if or (gt (len $requireTags) 0) (gt (len $preferTags) 0) }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "filter" "color" "info" "size" "4") }}
-              Filter Preferences
-            </h3>
-            {{ if gt (len $requireTags) 0 }}
-            <div class="mt-2">
-              <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Required</div>
-              <div class="flex flex-wrap gap-1">
-                {{ range $requireTags }}
-                <span class="badge badge-sm badge-primary">{{ . }}</span>
-                {{ end }}
-              </div>
-            </div>
-            {{ end }}
-            {{ if gt (len $preferTags) 0 }}
-            <div class="mt-2">
-              <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-1">Preferred</div>
-              <div class="flex flex-wrap gap-1">
-                {{ range first 8 $preferTags }}
-                <span class="badge badge-sm badge-ghost">{{ . }}</span>
-                {{ end }}
-              </div>
-            </div>
-            {{ end }}
-          </div>
-        </div>
-        {{ end }}
+        {{/* Law Types Card */}}
+        {{ partial "sidebar/common-law-types-card.html" . }}
 
-        {{/* Example Queries Card */}}
-        {{ if gt (len $exampleQueries) 0 }}
-        <div class="card bg-base-100 shadow-sm border border-base-300">
-          <div class="card-body p-4">
-            <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-              {{ partial "content-icon.html" (dict "name" "search" "color" "accent" "size" "4") }}
-              Example Searches
-            </h3>
-            <ul class="mt-2 space-y-1 text-sm">
-              {{ range $exampleQueries }}
-              <li class="text-neutral-600 dark:text-neutral-400">"{{ . }}"</li>
-              {{ end }}
-            </ul>
-          </div>
-        </div>
-        {{ end }}
-
-      </div>
-    </div>
+    {{ partial "sidebar/common-sidebar-end.html" . }}
 
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">
@@ -294,7 +168,7 @@
 
         {{/* Related Blog Posts */}}
         {{ if gt (len $relatedPosts) 0 }}
-        <h2 id="blog">{{ $personaName }} Related Articles</h2>
+        <h2 id="blog">Related Articles</h2>
         <div class="not-prose">
           <div class="grid gap-4 sm:grid-cols-2">
             {{ range $relatedPosts }}
@@ -307,7 +181,7 @@
                 {{ end }}
                 <div class="card-body">
                   <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
-                  <p class="text-xs text-neutral-500">{{ .Date.Format "Jan 2, 2006" }} &middot; {{ .ReadingTime }} min read</p>
+                  <p class="text-xs text-neutral-500">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</p>
                 </div>
               </a>
             {{ end }}
@@ -318,35 +192,11 @@
         </div>
         {{ end }}
 
-        {{/* Suggested Laws */}}
-        {{ if gt (len $suggestedLaws) 0 }}
-        <h2 id="laws">{{ $personaName }} Relevant Laws</h2>
+        {{/* Related Laws */}}
+        {{ if gt (len $relatedLaws) 0 }}
+        <h2 id="laws">Related Laws</h2>
         <div class="not-prose">
-          <div class="grid gap-3 sm:grid-cols-2">
-            {{ range $suggestedLaws }}
-              {{ $law := . }}
-              {{ $flag := "" }}
-              {{ range first 1 ($law.applies_to | default (slice)) }}
-                {{ $id := . }}
-                {{ $region := index $regionsById $id }}
-                {{ if $region }}
-                  {{ $flag = $region.flag }}
-                {{ else }}
-                  {{ $bloc := index $blocsById $id }}
-                  {{ if $bloc }}
-                    {{ $flag = $bloc.flag }}
-                  {{ end }}
-                {{ end }}
-              {{ end }}
-              <a href="/laws/{{ $law.id }}/" class="flex items-center gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
-                {{ if $flag }}<span class="text-xl">{{ $flag }}</span>{{ end }}
-                <div class="flex-1 min-w-0">
-                  <div class="font-medium text-sm truncate">{{ $law.name }}</div>
-                  <div class="text-xs text-neutral-500">{{ $law.year }} &middot; {{ $law.type | humanize | title }}</div>
-                </div>
-              </a>
-            {{ end }}
-          </div>
+          {{ partial "related-laws-list.html" (dict "laws" $relatedLaws "limit" 8) }}
           <div class="mt-4">
             <a href="/laws/" class="btn btn-sm btn-outline">Browse all laws</a>
           </div>
@@ -355,7 +205,7 @@
 
         {{/* Related Publications */}}
         {{ if gt (len $relatedPubs) 0 }}
-        <h2 id="publications">{{ $personaName }} Related Publications</h2>
+        <h2 id="publications">Related Publications</h2>
         <div class="not-prose">
           <div class="grid gap-3">
             {{ range $relatedPubs }}
@@ -383,11 +233,11 @@
 
         {{/* Upcoming Events */}}
         {{ if $isAudience }}
-        <h2 id="events">{{ $personaName }} Upcoming Events</h2>
+        <h2 id="events">Upcoming Events</h2>
         <div class="not-prose">
           {{ partial "event-list.html" (dict "audience" $term "limit" 6 "compact" false) }}
           <div class="mt-4">
-            <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events for {{ $personaName }}</a>
+            <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events</a>
           </div>
         </div>
         {{ end }}
@@ -395,7 +245,7 @@
         {{/* Back link */}}
         <hr class="mt-8">
         <p>
-          <a href="/personas/">&larr; Back to all personas</a>
+          <a href="/personas/">← Back to all personas</a>
         </p>
 
       </div>

@@ -2,7 +2,7 @@
   icon.html - Reusable icon partial
 
   Renders SVG icons from a centralized icon library (Heroicons outline style).
-  Icons and colors are defined in data/tag-vocabulary.json under contentTypes.
+  Icons and colors are defined in data/hugo/ui_vocabulary.json under contentTypes.
 
   Usage:
     {{ partial "icon.html" (dict "name" "scale" "color" "warning") }}
@@ -109,6 +109,18 @@
   {{ else if eq $name "code" }}
   {{/* Code - Developer */}}
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+  {{ else if eq $name "cloud" }}
+  {{/* Cloud - Cloud services */}}
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+  {{ else if eq $name "key" }}
+  {{/* Key - Encryption */}}
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+  {{ else if eq $name "plug" }}
+  {{/* Plug - API/Connections */}}
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+  {{ else if eq $name "alert-triangle" }}
+  {{/* Alert triangle - Warning/Risk */}}
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
   {{ else if eq $name "briefcase" }}
   {{/* Briefcase - Business */}}
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>

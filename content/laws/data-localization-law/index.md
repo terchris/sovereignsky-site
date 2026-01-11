@@ -1,57 +1,43 @@
 ---
 title: "Data Localization Law"
-law_id: "data-localization-law"
-full_name: "Federal Law No. 242-FZ on Personal Data Localization"
-year: 2015
-scope: "national"
-applies_to:
+identifier: "data-localization-law"
+alternateName: "Federal Law No. 242-FZ on Personal Data Localization"
+description: "Russian law requiring personal data of Russian citizens to be stored on servers physically located within Russia."
+abstract: "Federal Law 242-FZ mandates that databases containing Russian citizens' personal data must be physically located in Russia. Companies collecting such data must record, systematize, accumulate, and store it on Russian servers. Cross-border transfer is permitted only after initial localization."
+summary: "Russia's data localization law, effective September 2015, requires personal data of Russian citizens to be stored within Russia. The primary database must be on Russian territory; copies may exist abroad, but the original recording and storage must occur domestically. This has forced international companies to establish Russian infrastructure or exit the market. LinkedIn was blocked in 2016 for non-compliance. The law serves multiple purposes: enabling domestic surveillance (data is accessible to SORM), reducing dependence on foreign services, and building domestic cloud industry. Combined with SORM backdoor requirements and Yarovaya retention mandates, data localization ensures Russian authorities have access to personal data of Russian citizens regardless of what foreign service they use—if the service operates in Russia, the data must be stored there."
+legislationDate: "2015"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.loc.gov/item/global-legal-monitor/2014-12-15/russia-new-law-requires-local-storage-of-personal-data/"
+legislationJurisdiction:
   - "RU"
-source_url: "https://www.loc.gov/item/global-legal-monitor/2014-12-15/russia-new-law-requires-local-storage-of-personal-data/"
-law_type: "localization"
-law_type_description: "Requires data to be stored within jurisdiction"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "weak"
-data_protection_description: "Limited rights or broad government/national security exemptions"
+category: "localization"
+categoryDescription: "Laws that require data to be stored within jurisdiction"
+governmentAccess: "limited"
+dataProtection: "weak"
 extraterritorial: false
-requires_localization: true
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Personal data of Russian citizens must be stored on servers physically located in Russia."
-  - "May require certain categories of data to be stored or processed within the jurisdiction."
-who_it_applies_to:
-  - "Organizations collecting Russian citizens’ personal data"
-  - "Online services targeting Russian users"
-  - "Service providers storing/processing Russian personal data"
-key_provisions:
-  - title: "Core scope"
-    description: "Personal data of Russian citizens must be stored on servers physically located in Russia."
-  - title: "Key obligations"
-    description: "Creates residency/local storage requirements for certain data categories and may restrict cross‑border transfers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Implement data residency controls and verify vendor/subprocessor locations."
-enforcement:
-  notes: "Enforced by Russian regulators; noncompliance can lead to blocking or administrative measures."
-related_laws:
+requiresLocalization: true
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "digital-sovereignty"
+tags:
+  - "data-localization"
+  - "data-residency"
+  - "russian-servers"
+  - "cross-border"
+audience:
+  - "enterprise"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "yarovaya-law"
+    - identifier: "yarovaya-law"
       name: "Yarovaya Law"
-      year: 2016
-      flag: "🇷🇺"
-    - id: "sorm"
+      legislationDate: "2016"
+    - identifier: "sorm"
       name: "SORM"
-      year: 1995
-      flag: "🇷🇺"
+      legislationDate: "1995"
 layout: "single"
 type: "laws"
 ---
 
-Personal data of Russian citizens must be stored on servers physically located in Russia.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

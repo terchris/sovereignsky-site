@@ -1,41 +1,20 @@
 {{/*
   Provider summary box for datacenter provider pages.
   Usage: {{< datacenter-provider-summary >}}
-  Requires page param: provider_id
+  Reads all data from page params (frontmatter).
 */}}
 
 {{ $providerId := .Page.Params.provider_id | default "" }}
-{{ $providers := site.Data.datacenters.providers | default (slice) }}
-{{ $provider := dict }}
-{{ range $providers }}
-  {{ if eq .provider_id $providerId }}
-    {{ $provider = . }}
-  {{ end }}
-{{ end }}
+{{ $providerName := .Page.Params.provider_name | default $providerId }}
+{{ $providerUrl := .Page.Params.provider_url | default "" }}
+{{ $dateModified := .Page.Params.date_modified | default "" }}
+{{ $totalRegions := .Page.Params.total_regions | default 0 }}
 
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .id .) }}
-{{ end }}
-
-{{ $hqId := "" }}
-{{ $hq := dict }}
-{{ $hqName := "" }}
-{{ $hqFlag := "" }}
-{{ $hqRisk := "unknown" }}
-{{ $hqSlug := "" }}
-{{ if $provider }}
-  {{ $hqId = $provider.vendor_country_id | default "" }}
-{{ end }}
-{{ if $hqId }}
-  {{ $hq = index $regionsById $hqId }}
-  {{ if $hq }}
-    {{ $hqName = $hq.name }}
-    {{ $hqFlag = $hq.flag }}
-    {{ $hqRisk = $hq.risk_level }}
-    {{ $hqSlug = $hq.slug }}
-  {{ end }}
-{{ end }}
+{{ $hqId := .Page.Params.vendor_country_id | default "" }}
+{{ $hqName := .Page.Params.vendor_country_name | default $hqId }}
+{{ $hqFlag := .Page.Params.vendor_country_flag | default "" }}
+{{ $hqRisk := .Page.Params.vendor_risk | default "unknown" }}
+{{ $hqSlug := .Page.Params.vendor_country_slug | default "" }}
 
 {{/* risk dot */}}
 {{ $dot := "bg-neutral-400" }}
@@ -45,7 +24,7 @@
 {{ if eq $hqRisk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
 {{ if eq $hqRisk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
-{{ if $provider }}
+{{ if $providerId }}
 <div class="not-prose mt-3 max-w-prose rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 p-4">
   <div class="flex flex-wrap items-center gap-3">
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
@@ -58,19 +37,19 @@
 
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
       <span class="font-medium">Regions</span>
-      <span class="text-neutral-500 dark:text-neutral-400">{{ len ($provider.regions | default (slice)) }}</span>
+      <span class="text-neutral-500 dark:text-neutral-400">{{ $totalRegions }}</span>
     </span>
 
-    {{ if $provider.updated }}
+    {{ if $dateModified }}
       <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm">
         <span class="font-medium">Last updated</span>
-        <span class="text-neutral-500 dark:text-neutral-400">{{ $provider.updated }}</span>
+        <span class="text-neutral-500 dark:text-neutral-400">{{ $dateModified }}</span>
       </span>
     {{ end }}
 
-    {{ if $provider.vendor_website }}
+    {{ if $providerUrl }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="{{ $provider.vendor_website }}">
+         href="{{ $providerUrl }}">
         <span class="font-medium">Official site</span>
         <span class="text-neutral-500 dark:text-neutral-400">↗</span>
       </a>
@@ -78,7 +57,7 @@
 
     {{ if and $hqSlug (ne $hqSlug "") }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="/jurisdictions/{{ $hqSlug }}/">
+         href="/countries/{{ $hqSlug }}/">
         <span class="font-medium">Jurisdiction</span>
         <span class="text-neutral-500 dark:text-neutral-400">{{ if $hqFlag }}{{ $hqFlag }}{{ end }} {{ $hqName | default $hqId }}</span>
       </a>
@@ -86,39 +65,3 @@
   </div>
 </div>
 {{ end }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

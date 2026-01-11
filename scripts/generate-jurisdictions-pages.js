@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate /jurisdictions/ pages from data/regions.json, data/jurisdictions.json, and data/laws.json
+ * Generate /jurisdictions/ pages from data/regions.json, data/jurisdictions.json, and data/laws/laws.json
  *
  * This script generates:
  * - /jurisdictions/{country-slug}/ for each country (e.g., /jurisdictions/norway/, /jurisdictions/usa/)
@@ -20,17 +20,17 @@ const CONTENT_DIR = path.join(__dirname, '..', 'content', 'jurisdictions');
 // Load data files
 const regions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'regions.json'), 'utf8'));
 const jurisdictions = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'jurisdictions.json'), 'utf8'));
-const lawsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'laws.json'), 'utf8'));
+const lawsData = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'laws', 'laws.json'), 'utf8'));
 
 // Create lookups
 const blocsById = {};
 jurisdictions.blocs.forEach(bloc => {
-  blocsById[bloc.id] = bloc;
+  blocsById[bloc.identifier] = bloc;
 });
 
 const lawsById = {};
-(lawsData.laws || []).forEach(law => {
-  lawsById[law.id] = law;
+(lawsData.itemListElement || []).forEach(law => {
+  lawsById[law.identifier] = law;
 });
 
 // Helper: Resolve law IDs to full law objects
@@ -44,12 +44,12 @@ function resolveLaws(lawIds) {
 // Helper: Get inherited laws for a bloc (recursive)
 // excludeBlocIds: if a parent bloc is directly applicable elsewhere, skip inheriting from it
 function getInheritedLaws(bloc, visited = new Set(), excludeBlocIds = new Set()) {
-  if (visited.has(bloc.id)) return [];
-  visited.add(bloc.id);
+  if (visited.has(bloc.identifier)) return [];
+  visited.add(bloc.identifier);
 
   let laws = [];
-  if (bloc.inherits_from) {
-    bloc.inherits_from.forEach(parentId => {
+  if (bloc.inheritsFrom) {
+    bloc.inheritsFrom.forEach(parentId => {
       if (excludeBlocIds && excludeBlocIds.has(parentId)) {
         return;
       }
@@ -60,7 +60,7 @@ function getInheritedLaws(bloc, visited = new Set(), excludeBlocIds = new Set())
         laws = laws.concat(parentLaws.map(law => ({
           ...law,
           source_bloc: parent.name,
-          source_bloc_id: parent.id
+          source_bloc_id: parent.identifier
         })));
         // Recursively get grandparent laws
         laws = laws.concat(getInheritedLaws(parent, visited, excludeBlocIds));
@@ -72,13 +72,13 @@ function getInheritedLaws(bloc, visited = new Set(), excludeBlocIds = new Set())
 
 // Helper: Get effective members for a bloc (direct + inherited member lists)
 function getEffectiveBlocMembers(bloc, visited = new Set()) {
-  if (!bloc || !bloc.id) return [];
-  if (visited.has(bloc.id)) return [];
-  visited.add(bloc.id);
+  if (!bloc || !bloc.identifier) return [];
+  if (visited.has(bloc.identifier)) return [];
+  visited.add(bloc.identifier);
 
   let members = Array.isArray(bloc.members) ? bloc.members.slice() : [];
-  if (bloc.inherits_from) {
-    bloc.inherits_from.forEach((parentId) => {
+  if (bloc.inheritsFrom) {
+    bloc.inheritsFrom.forEach((parentId) => {
       const parent = blocsById[parentId];
       if (parent) {
         members = members.concat(getEffectiveBlocMembers(parent, visited));
@@ -92,7 +92,7 @@ function getEffectiveBlocMembers(bloc, visited = new Set()) {
 // Helper: Get all applicable laws for a country
 function getCountryLaws(region) {
   const result = {
-    national: resolveLaws(region.national_laws),
+    national: resolveLaws(region.nationalLaws),
     bloc_laws: [],
     inherited_laws: []
   };
@@ -108,7 +108,7 @@ function getCountryLaws(region) {
           result.bloc_laws.push({
             ...law,
             source_bloc: bloc.name,
-            source_bloc_id: bloc.id
+            source_bloc_id: bloc.identifier
           });
         });
         // Inherited laws from parent blocs
@@ -146,177 +146,49 @@ function getRiskBadge(riskLevel) {
 
 // Helper: Format law as markdown with link to law page
 function formatLaw(law, showSource = false) {
-  let md = `### [${law.name}](/laws/${law.id}/) (${law.year})\n\n`;
-  md += `**${law.full_name}**\n\n`;
-  md += `${law.summary}\n\n`;
-  md += `- **Severity:** ${getSeverityBadge(law.severity)}\n`;
+  let md = `### [${law.name}](/laws/${law.identifier}/) (${law.legislationDate})\n\n`;
+  md += `**${law.alternateName || law.name}**\n\n`;
+  md += `${law.description}\n\n`;
+  md += `- **Category:** ${law.category}\n`;
   if (showSource && law.source_bloc) {
     md += `- **Applies via:** [${law.source_bloc}](/jurisdictions/${law.source_bloc_id}/)\n`;
   }
-  md += `- **Details:** [Read more →](/laws/${law.id}/)\n`;
+  md += `- **Details:** [Read more →](/laws/${law.identifier}/)\n`;
   md += '\n---\n\n';
   return md;
 }
 
-// Generate country page
+// Generate country page - minimal frontmatter only, template renders from JSON
 function generateCountryPage(region) {
-  const laws = getCountryLaws(region);
-  const riskInfo = jurisdictions.risk_levels[region.risk_level] || {};
-
-  // Build frontmatter
-  let md = `---
+  return `---
 title: "${region.flag} ${region.name}"
 description: "Data sovereignty laws and regulations in ${region.name}"
 layout: "country"
-showTableOfContents: true
+country_id: "${region.identifier}"
 ---
-
-${region.description}
-
-## Risk Assessment
-
-**Overall Risk Level:** ${getRiskBadge(region.risk_level)}
-
-${riskInfo.description || ''}
-
 `;
-
-  // National laws
-  if (laws.national.length > 0) {
-    md += `## National Laws\n\n`;
-    md += `These laws are specific to ${region.name}.\n\n`;
-    laws.national.forEach(law => {
-      md += formatLaw(law, false);
-    });
-  }
-
-  // Bloc laws (direct membership)
-  if (laws.bloc_laws.length > 0) {
-    md += `## Applicable Bloc Laws\n\n`;
-    md += `These laws apply through ${region.name}'s membership in regional agreements.\n\n`;
-    laws.bloc_laws.forEach(law => {
-      md += formatLaw(law, true);
-    });
-  }
-
-  // Inherited laws
-  if (laws.inherited_laws.length > 0) {
-    md += `## Inherited Laws\n\n`;
-    md += `These laws apply through inherited agreements.\n\n`;
-    laws.inherited_laws.forEach(law => {
-      md += formatLaw(law, true);
-    });
-  }
-
-  // No laws message
-  if (laws.national.length === 0 && laws.bloc_laws.length === 0 && laws.inherited_laws.length === 0) {
-    md += `## Laws\n\nNo specific laws of concern have been identified for ${region.name}.\n\n`;
-  }
-
-  // Navigation
-  md += `---\n\n`;
-  md += `→ [View all jurisdictions](/jurisdictions/)\n`;
-  md += `→ [Browse software by jurisdiction](/software/)\n`;
-
-  return md;
 }
 
-// Generate bloc page
+// Generate bloc page - minimal frontmatter only, template renders from JSON
 function generateBlocPage(bloc) {
-  const riskInfo = jurisdictions.risk_levels[bloc.risk_level] || {};
-  const inheritedLaws = getInheritedLaws(bloc);
-
-  // Get member countries (direct + inherited, e.g. EEA includes EU members)
-  const effectiveMembers = getEffectiveBlocMembers(bloc);
-  const memberCountries = regions.filter(r => effectiveMembers.includes(r.id));
-
-  // Resolve bloc's direct laws
-  const directLaws = resolveLaws(bloc.laws);
-
-  let md = `---
+  return `---
 title: "${bloc.flag} ${bloc.name}"
 description: "${bloc.description}"
-showTableOfContents: true
+layout: "bloc"
+bloc_id: "${bloc.identifier}"
 ---
-
-${bloc.description}
-
-## Risk Assessment
-
-**Overall Risk Level:** ${getRiskBadge(bloc.risk_level)}
-
-${riskInfo.description || ''}
-
 `;
-
-  // Notes
-  if (bloc.notes) {
-    md += `> **Note:** ${bloc.notes}\n\n`;
-  }
-
-  // Inherits from
-  if (bloc.inherits_from && bloc.inherits_from.length > 0) {
-    md += `### Inherits From\n\n`;
-    bloc.inherits_from.forEach(parentId => {
-      const parent = blocsById[parentId];
-      if (parent) {
-        md += `- [${parent.flag} ${parent.name}](/jurisdictions/${parent.slug}/)\n`;
-      }
-    });
-    md += '\n';
-  }
-
-  // Direct laws
-  if (directLaws.length > 0) {
-    md += `## Laws\n\n`;
-    md += `These laws apply to all member states of the ${bloc.name}.\n\n`;
-    directLaws.forEach(law => {
-      md += formatLaw(law, false);
-    });
-  }
-
-  // Inherited laws
-  if (inheritedLaws.length > 0) {
-    md += `## Inherited Laws\n\n`;
-    md += `These laws are inherited from parent frameworks.\n\n`;
-    inheritedLaws.forEach(law => {
-      md += formatLaw(law, true);
-    });
-  }
-
-  // Member countries
-  if (memberCountries.length > 0) {
-    md += `## Member Countries\n\n`;
-    md += `| Country | Risk Level |\n`;
-    md += `|---------|------------|\n`;
-    memberCountries.sort((a, b) => a.name.localeCompare(b.name)).forEach(country => {
-      md += `| [${country.flag} ${country.name}](/jurisdictions/${country.slug}/) | ${getRiskBadge(country.risk_level)} |\n`;
-    });
-    md += '\n';
-  }
-
-  // Navigation
-  md += `---\n\n`;
-  md += `→ [View all jurisdictions](/jurisdictions/)\n`;
-  md += `→ [Browse software by jurisdiction](/software/)\n`;
-
-  return md;
 }
 
-// Generate main index page
+// Generate main index page with map shortcode
 function generateIndexPage() {
   return `---
 title: "Jurisdiction & Laws"
 description: "Understanding data sovereignty laws and their impact on your software choices"
 echarts: true
-layout: "simple"
 ---
 
 When you use cloud software, your data may be subject to laws in the vendor's home country—regardless of where the data is physically stored. This is called **jurisdiction exposure**.
-
-## Map
-
-Search, filter, and click a country to open its full jurisdiction page.
 
 {{< jurisdiction-map >}}
 
@@ -345,14 +217,6 @@ If you use software from a US company (Microsoft 365, Google Workspace, Salesfor
 - ✅ You store data in your home country
 - ✅ You use EU Data Boundary settings
 - ✅ You encrypt your data (unless you control the keys)
-
-**Mitigation strategies:**
-1. Choose vendors from safe jurisdictions (EU/EEA companies)
-2. Self-host where possible
-3. Use customer-managed encryption keys
-4. Understand what data you're storing and its sensitivity
-
-→ [Browse software by jurisdiction](/software/)
 `;
 }
 

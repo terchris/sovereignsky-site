@@ -1,57 +1,46 @@
 ---
 title: "DGA"
-law_id: "dga"
-full_name: "Data Governance Act"
-year: 2022
-scope: "bloc"
-applies_to:
+identifier: "dga"
+alternateName: "Data Governance Act"
+description: "EU regulation creating a framework for data intermediaries and data altruism organizations to facilitate trusted data sharing."
+abstract: "The DGA establishes rules for data intermediation services and data altruism organizations. It creates conditions for re-using protected public sector data, sets registration requirements for data intermediaries acting as neutral brokers, and enables individuals and companies to donate data for the common good."
+summary: "The Data Governance Act builds infrastructure for Europe's data economy by enabling trusted data sharing. It covers three areas: First, it allows re-use of protected public sector data (commercially confidential, statistically confidential, or personal data) under secure processing conditions. Second, it creates a notification regime for data intermediation services - neutral brokers that help parties share data without themselves using it. These services must maintain strict separation between data intermediation and other commercial activities. Third, it establishes 'data altruism organizations' - registered entities that collect data donated for objectives of general interest like scientific research or public services. The Act complements the Data Act, which focuses on data access rights, while the DGA focuses on building trust frameworks and institutions for data sharing."
+legislationDate: "2022"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/reg/2022/868/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/reg/2022/868/oj"
-law_type: "sector"
-law_type_description: "Regulates specific sector (AI, telecom, finance, etc.)"
-government_access: "none"
-government_access_description: "No government access provisions in this law"
-data_protection: "moderate"
-data_protection_description: "Some protections but with significant exceptions or weaker enforcement"
+category: "sector"
+categoryDescription: "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+governmentAccess: "none"
+dataProtection: "moderate"
 extraterritorial: false
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Framework for data intermediaries and data altruism organizations."
-  - "Facilitates data sharing while maintaining trust through registration and oversight requirements."
-who_it_applies_to:
-  - "Data intermediaries"
-  - "Public-sector bodies sharing protected data"
-  - "Data altruism organizations"
-key_provisions:
-  - title: "Core scope"
-    description: "Framework for data intermediaries and data altruism organizations."
-  - title: "Key obligations"
-    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
-enforcement:
-  notes: "Supervised by member‑state authorities (varies by role: intermediaries, altruism, public‑sector data sharing)."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "digital-sovereignty"
+tags:
+  - "data-sharing"
+  - "data-intermediary"
+  - "data-altruism"
+  - "public-sector-data"
+audience:
+  - "enterprise"
+  - "public-sector"
+  - "developer"
+isRelatedTo:
   complements:
-    - id: "data-act"
+    - identifier: "data-act"
       name: "Data Act"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Framework for data intermediaries and data altruism organizations. Facilitates data sharing while maintaining trust through registration and oversight requirements.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

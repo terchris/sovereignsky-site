@@ -1,0 +1,26 @@
+{{/*
+  Shortcode to display laws for a datacenter provider's jurisdiction
+  Usage: {{< datacenter-provider-laws >}}
+
+  Gets the vendor country from page params (frontmatter) and displays applicable laws.
+*/}}
+
+{{ $vendorCountryId := .Page.Params.vendor_country_id | default "" }}
+
+{{/* Find vendor country from countries.json for full details */}}
+{{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
+{{ $vendorCountry := dict }}
+{{ range $countries }}
+  {{ if eq .identifier $vendorCountryId }}
+    {{ $vendorCountry = . }}
+  {{ end }}
+{{ end }}
+
+{{ if $vendorCountryId }}
+  {{ partial "datacenter-provider-laws-inline.html" (dict "vendorCountryId" $vendorCountryId "vendorCountry" $vendorCountry) }}
+{{ else }}
+  <div class="alert">
+    {{ partial "content-icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
+    <span>No vendor jurisdiction specified for this provider.</span>
+  </div>
+{{ end }}

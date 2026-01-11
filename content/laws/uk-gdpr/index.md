@@ -1,59 +1,46 @@
 ---
 title: "UK GDPR"
-law_id: "uk-gdpr"
-full_name: "UK General Data Protection Regulation"
-year: 2021
-scope: "national"
-applies_to:
+identifier: "uk-gdpr"
+alternateName: "UK General Data Protection Regulation"
+description: "Post-Brexit retained version of EU GDPR forming the core of UK data protection law alongside the Data Protection Act 2018."
+abstract: "UK GDPR incorporates EU GDPR into UK law following Brexit. It provides substantially similar protections including rights of access, erasure, and data portability. The ICO (Information Commissioner's Office) supervises compliance. The UK benefits from EU adequacy, enabling free data flows between UK and EU."
+summary: "Following Brexit, the UK retained GDPR through the European Union (Withdrawal) Act, creating 'UK GDPR'. Combined with the Data Protection Act 2018, this forms UK data protection law. UK GDPR mirrors EU GDPR with modifications: references to EU institutions replaced with UK equivalents, the ICO as supervisory authority, and national security exemptions reflecting UK law. The EU granted the UK adequacy status in 2021, allowing data to flow freely between EU/EEA and UK without additional safeguards. However, this adequacy is reviewed periodically and could be revoked if UK law diverges significantly from EU standards. The tension between UK GDPR's protections and the broad surveillance powers under the Investigatory Powers Act remains a concern for EU adequacy assessments."
+legislationDate: "2021"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.legislation.gov.uk/eur/2016/679/contents"
+legislationJurisdiction:
   - "GB"
-source_url: "https://www.legislation.gov.uk/eur/2016/679/contents"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "strong"
-data_protection_description: "Comprehensive rights (access, erasure, portability), strong enforcement, independent DPA"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "limited"
+dataProtection: "strong"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Controllers and processors subject to UK data protection law"
-  - "Organizations offering goods/services to UK residents (in some cases)"
-  - "Public/private sector organizations handling UK personal data"
-key_provisions:
-  - title: "Core scope"
-    description: "Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-enforcement:
-  authority: "UK Information Commissioner’s Office (ICO)"
-  notes: "UK GDPR is enforced by the ICO; interpretations can differ from EU post‑Brexit."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "data-protection"
+  - "privacy"
+  - "brexit"
+  - "adequacy"
+audience:
+  - "enterprise"
+  - "public-sector"
+isRelatedTo:
   conflicts_with:
-    - id: "investigatory-powers-act"
+    - identifier: "investigatory-powers-act"
       name: "Investigatory Powers Act"
-      year: 2016
-      flag: "🇬🇧"
+      legislationDate: "2016"
   implements:
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Post-Brexit version of GDPR retained in UK law, providing similar protections to EU GDPR.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

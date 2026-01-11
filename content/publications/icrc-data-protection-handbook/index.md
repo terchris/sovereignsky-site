@@ -7,28 +7,29 @@ publisher: "Cambridge University Press"
 authors:
   - "Massimo Marelli"
 topics:
-  - "data protection"
-  - "cloud sovereignty"
-  - "government access"
-  - "CLOUD Act"
-  - "biometrics"
-  - "digital identity"
-personas:
+  - "privacy"
+  - "digital-sovereignty"
+  - "digital-identity"
+audience:
   - "humanitarian"
   - "public-sector"
   - "it-ops"
+tags:
+  - "cloud-act"
+  - "fisa-702"
+  - "patriot-act"
+  - "swiss-jurisdiction"
+  - "vendor-jurisdiction"
 type: publications
 ---
 
+## Abstract
+
+The authoritative 382-page reference establishing that vendor jurisdiction—not data location—determines cloud security risk, with detailed analysis of how US laws enable government access to humanitarian data.
+
 ## Summary
 
-The definitive 382-page guide to data protection in humanitarian contexts — but with analysis that applies far beyond the humanitarian sector to any organisation handling sensitive personal data.
-
-This third edition (2024) addresses how organisations should navigate cloud computing, biometrics, digital identity, and the growing tension between operational needs and government surveillance laws. The handbook's core message is stark: **when choosing cloud services, what matters is the vendor's jurisdiction, not where data is physically stored**.
-
-Chapter 11 (*Cloud and Government Access*) provides the most thorough publicly available analysis of how laws like the US CLOUD Act, FISA 702, and PATRIOT Act enable governments to compel disclosure of cloud-hosted data. The chapter explicitly notes that these laws contain **no "humanitarian exemption clauses"** — and that humanitarian data is often of particular interest to governments for counterterrorism purposes.
-
-While written for humanitarian organisations with unique legal positions (some enjoy international privileges and immunities), the risk analysis and mitigation frameworks apply to any organisation — NGO, healthcare, education, or government — using US-headquartered cloud providers for sensitive data.
+This third edition (2024) provides the most thorough publicly available analysis of CLOUD Act, FISA 702, and PATRIOT Act implications for cloud-hosted sensitive data. The handbook documents that there are no humanitarian exemption clauses in these laws, and that organisations may never know their data was accessed due to non-disclosure obligations on providers. Mitigation strategies include encryption, Swiss-jurisdiction providers, and contractual notification requirements.
 
 ---
 

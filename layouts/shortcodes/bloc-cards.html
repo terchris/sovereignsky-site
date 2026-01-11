@@ -1,0 +1,79 @@
+{{/* Display bloc cards for the countries section */}}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
+
+{{/* Build blocs lookup */}}
+{{ $blocsById := dict }}
+{{ range $blocs }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
+{{ end }}
+
+{{/* Build bloc data with counts */}}
+{{ $blocData := slice }}
+{{ range $blocs }}
+  {{ $bloc := . }}
+  {{ $directMembers := .memberOf | default .members | default (slice) }}
+  {{ $memberCount := len $directMembers }}
+
+  {{/* Count inherited members */}}
+  {{ $allMembers := $directMembers }}
+  {{ range (.inheritsFrom | default (slice)) }}
+    {{ $parent := index $blocsById . }}
+    {{ if $parent }}
+      {{ range ($parent.memberOf | default $parent.members | default (slice)) }}
+        {{ if not (in $allMembers .) }}
+          {{ $allMembers = $allMembers | append . }}
+        {{ end }}
+      {{ end }}
+      {{ range ($parent.inheritsFrom | default (slice)) }}
+        {{ $grandparent := index $blocsById . }}
+        {{ if $grandparent }}
+          {{ range ($grandparent.memberOf | default $grandparent.members | default (slice)) }}
+            {{ if not (in $allMembers .) }}
+              {{ $allMembers = $allMembers | append . }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $totalMembers := len $allMembers }}
+
+  {{/* Count datacenters */}}
+  {{ $dcCount := 0 }}
+  {{ range (site.Data.datacenters.datacenters | default (slice)) }}
+    {{ range (.regions | default (slice)) }}
+      {{ if in $allMembers .countryId }}
+        {{ $dcCount = add $dcCount 1 }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $blocData = $blocData | append (dict
+    "identifier" $bloc.identifier
+    "name" $bloc.name
+    "flag" $bloc.flag
+    "slug" ($bloc.slug | default $bloc.identifier)
+    "riskLevel" $bloc.riskLevel
+    "memberCount" $totalMembers
+    "dcCount" $dcCount
+  ) }}
+{{ end }}
+
+{{/* Sort by name */}}
+{{ $blocData = sort $blocData "name" "asc" }}
+
+<div class="not-prose mb-8" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+  {{ range $blocData }}
+  <a href="/countries/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-xl">{{ .flag }}</span>
+      <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+    </div>
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+      <div>Members: {{ .memberCount }}</div>
+      <div>Datacenters: {{ .dcCount }}</div>
+    </div>
+  </a>
+  {{ end }}
+</div>

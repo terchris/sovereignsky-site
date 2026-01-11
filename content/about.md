@@ -34,7 +34,7 @@ SovereignSky is a **practical resource** for understanding and addressing digita
 |----------|---------|
 | **[Laws Database](/laws/)** | 41 data sovereignty laws — understand your legal exposure |
 | **[Datacenter Map](/datacenters/)** | 87 cloud locations — see where your data actually lives |
-| **[Jurisdiction Profiles](/jurisdictions/)** | 66 legal frameworks — know the rules that apply |
+| **[Jurisdiction Profiles](/countries/)** | 66 legal frameworks — know the rules that apply |
 | **[Software Database](/software/)** | Sovereignty risk assessments for common tools |
 | **[NDSI Framework](/ndsi/)** | Self-assessment tool for organizations |
 | **[Blog](/blog/)** | Analysis and news on digital sovereignty |

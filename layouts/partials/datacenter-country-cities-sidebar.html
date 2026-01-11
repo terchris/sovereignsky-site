@@ -16,7 +16,7 @@ Renders a card with a list of cities with region counts for a specific country.
   {{ $cityOrder := slice }}
   {{ range $providers }}
     {{ range (.regions | default (slice)) }}
-      {{ if eq .country_id $countryId }}
+      {{ if eq .countryId $countryId }}
         {{ $city := .city | default "Unknown" }}
         {{ $existing := index $cityRegionCounts $city | default 0 }}
         {{ $cityRegionCounts = merge $cityRegionCounts (dict $city (add $existing 1)) }}

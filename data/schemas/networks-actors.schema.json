@@ -10,17 +10,25 @@
   "$defs": {
     "actor": {
       "type": "object",
-      "required": ["actor_id", "actor_name"],
+      "required": ["identifier", "name"],
       "properties": {
-        "actor_id": {
+        "@type": {
+          "type": "string",
+          "const": "Organization"
+        },
+        "identifier": {
           "type": "string",
           "description": "Stable identifier"
         },
-        "actor_name": {
+        "name": {
           "type": "string",
           "description": "Display name"
         },
-        "actor_type": {
+        "description": {
+          "type": "string",
+          "description": "Brief description of the organization"
+        },
+        "type": {
           "type": "string",
           "enum": [
             "infrastructure_operator",
@@ -37,11 +45,11 @@
             "installation_contractor"
           ]
         },
-        "country_id": {
+        "countryId": {
           "type": "string",
-          "description": "ISO 3166-1 alpha-2 code. References data/regions.json"
+          "description": "ISO 3166-1 alpha-2 code. References data/countries/countries.json"
         },
-        "website": {
+        "url": {
           "type": "string",
           "format": "uri"
         },

@@ -1,12 +1,12 @@
 {{ define "main" }}
 {{/* Build lookup maps */}}
 {{ $vendorMap := dict }}
-{{ range site.Data.vendors.vendors }}
+{{ range site.Data.products.vendors.vendors }}
   {{ $vendorMap = merge $vendorMap (dict .id .) }}
 {{ end }}
 
 {{ $useAreaMap := dict }}
-{{ range site.Data.useAreas }}
+{{ range site.Data.products.useAreas }}
   {{ $useAreaMap = merge $useAreaMap (dict .id .name) }}
 {{ end }}
 
@@ -19,8 +19,7 @@
   "high" "bg-red-500"
 }}
 
-{{/* Country flags */}}
-{{ $flags := dict "NO" "🇳🇴" "US" "🇺🇸" "GB" "🇬🇧" "UK" "🇬🇧" "DE" "🇩🇪" "FR" "🇫🇷" "SE" "🇸🇪" "DK" "🇩🇰" "FI" "🇫🇮" "NL" "🇳🇱" "EU" "🇪🇺" "EU_EEA" "🇪🇺" }}
+{{/* Country flags - use partial "get-country-flag.html" for lookups */}}
 
 <div class="max-w-full" id="software-app">
 
@@ -106,7 +105,7 @@
         <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300 w-32">Use Area:</span>
         <div class="flex flex-wrap gap-2">
           <button class="filter-btn area-filter active" data-filter="area" data-value="all">All</button>
-          {{ range site.Data.useAreas }}
+          {{ range site.Data.products.useAreas }}
           <button class="filter-btn area-filter" data-filter="area" data-value="{{ .id }}">{{ .name }}</button>
           {{ end }}
         </div>
@@ -136,7 +135,7 @@
     {{ range $index, $page := .Pages }}
       {{ $riskLevel := .Params.risk_level | default "moderate" }}
       {{ $riskColor := index $riskColors $riskLevel | default "bg-yellow-500" }}
-      {{ $flag := index $flags .Params.vendor_country | default "🏳️" }}
+      {{ $flag := partial "get-country-flag.html" .Params.vendor_country }}
       {{ $openSource := .Params.open_source | default false }}
       {{ $selfHosted := .Params.self_hosted | default false }}
 
@@ -188,12 +187,8 @@
             {{ if $dataResidency }}
               {{ $residencyFlags := slice }}
               {{ range $dataResidency }}
-                {{ $f := index $flags . }}
-                {{ if $f }}
-                  {{ $residencyFlags = $residencyFlags | append $f }}
-                {{ else }}
-                  {{ $residencyFlags = $residencyFlags | append . }}
-                {{ end }}
+                {{ $f := partial "get-country-flag.html" . }}
+                {{ $residencyFlags = $residencyFlags | append $f }}
               {{ end }}
               {{ delimit $residencyFlags " " }}
             {{ else }}

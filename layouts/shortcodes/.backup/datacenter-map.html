@@ -1,0 +1,1141 @@
+{{/*
+Datacenter Map - Shows datacenter locations using ECharts scatter on map
+Usage: {{< datacenter-map>}}
+
+  Reads from data/datacenters.json and data/regions.json
+  Colors points by vendor jurisdiction (US=red, EU=green, etc.)
+  */}}
+
+  {{ $datacenters := site.Data.datacenters }}
+  {{ $regions := site.Data.regions }}
+  {{ $jurisdictions := site.Data.jurisdictions }}
+  {{ $providersParam := .Get "providers" | default "" }}
+  {{ $countriesParam := .Get "countries" | default "" }}
+  {{ $countryOnlyParam := .Get "countryOnly" | default "" }}
+  {{ $showFilters := .Get "showFilters" | default "true" }}
+  {{ $showFiltersBool := ne $showFilters "false" }}
+
+  {{/* Build regions lookup by country_id */}}
+  {{ $regionsById := dict }}
+  {{ range $regions }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+  {{ end }}
+
+  {{/* Build datacenter points for the map */}}
+  {{ $mapPoints := slice }}
+  {{ $providerMeta := slice }}
+
+  {{ range $datacenters.providers }}
+  {{ $provider := . }}
+  {{ $vendorCountry := index $regionsById .vendor_country_id }}
+  {{ $vendorRisk := "unknown" }}
+  {{ if $vendorCountry }}
+  {{ $vendorRisk = $vendorCountry.riskLevel }}
+  {{ end }}
+
+  {{ $providerMeta = $providerMeta | append (dict
+  "provider_id" $provider.provider_id
+  "provider_name" $provider.provider_name
+  "provider_type" ($provider.provider_type | default "regional_cloud")
+  "vendor_country_id" $provider.vendor_country_id
+  "vendor_risk" $vendorRisk
+  "region_count" (len $provider.regions)
+  ) }}
+
+  {{ range .regions }}
+  {{ $dcCountry := index $regionsById .country_id }}
+  {{ $dcRisk := "unknown" }}
+  {{ $dcCountryName := .country_id }}
+  {{ if $dcCountry }}
+  {{ $dcRisk = $dcCountry.riskLevel }}
+  {{ if $dcCountry.name }}{{ $dcCountryName = $dcCountry.name }}{{ end }}
+  {{ end }}
+
+  {{ $point := dict
+  "provider_id" $provider.provider_id
+  "provider_name" $provider.provider_name
+  "vendor_country_id" $provider.vendor_country_id
+  "vendor_risk" $vendorRisk
+  "region_id" .region_id
+  "region_name" .region_name
+  "country_id" .country_id
+  "country_name" $dcCountryName
+  "city" .city
+  "coordinates" .coordinates
+  "dc_risk" $dcRisk
+  }}
+  {{ $mapPoints = $mapPoints | append $point }}
+  {{ end }}
+  {{ end }}
+
+  {{/* NOTE: avoid ID collisions with automatic heading anchors (e.g. "## Datacenter Map" => id="datacenter-map") */}}
+  {{ if $showFiltersBool }}
+  <div id="dc-provider-filter-panel" class="mt-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="font-semibold mr-2">Filter providers:</span>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="all">All</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="none">None</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="us-hyperscalers">US hyperscalers</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="eu-eea">EU/EEA providers</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="non-us">Non-US providers</button>
+      <span class="ml-auto text-sm text-neutral-500" id="dc-provider-filter-summary"></span>
+    </div>
+    <div class="mt-3 flex flex-wrap items-center gap-2">
+      <input id="dc-search-input" type="search"
+        class="w-full md:w-96 px-3 py-2 rounded border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-900 text-sm"
+        placeholder="Search provider, region, city, country…" autocomplete="off">
+      <button id="dc-search-clear" type="button"
+        class="px-3 py-2 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600">
+        Clear
+      </button>
+      <button id="dc-search-reset-view" type="button"
+        class="px-3 py-2 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600">
+        Reset view
+      </button>
+      <label
+        class="ml-auto inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300 cursor-pointer select-none">
+        <input id="dc-search-autozoom" type="checkbox" checked>
+        Auto-zoom
+      </label>
+    </div>
+    <div id="dc-search-results" class="mt-2 hidden"></div>
+    <div class="mt-3 flex flex-wrap items-center gap-2">
+      <span class="text-sm text-neutral-600 dark:text-neutral-300">Selection:</span>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="all">Select all</button>
+      <button type="button"
+        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+        data-dc-preset="none">Clear all</button>
+    </div>
+    <div class="mt-3 flex flex-wrap items-center gap-4 text-sm">
+      <span class="text-neutral-600 dark:text-neutral-300">Types:</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="dc-type-checkbox" data-provider-type="hyperscaler" checked>
+        <span>Hyperscalers</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="dc-type-checkbox" data-provider-type="regional_cloud" checked>
+        <span>Regional cloud</span>
+      </label>
+      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
+        <input type="checkbox" class="dc-type-checkbox" data-provider-type="datacenter_operator" checked>
+        <span>Datacenter operators</span>
+      </label>
+    </div>
+    <div class="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+      {{ range $providerMeta }}
+      {{ $id := printf "dc-provider-%s" .provider_id }}
+      <label for="{{ $id }}" class="inline-flex items-center gap-2 cursor-pointer select-none dc-provider-label"
+        data-provider-type="{{ .provider_type }}">
+        <input id="{{ $id }}" type="checkbox" class="dc-provider-checkbox" data-provider-id="{{ .provider_id }}"
+          checked>
+        <span class="font-medium">{{ .provider_name }}</span>
+        <span class="text-neutral-500">({{ .region_count }})</span>
+      </label>
+      {{ end }}
+    </div>
+  </div>
+  {{ end }}
+
+  <div id="datacenter-map-chart"
+    style="width: 100%; height: 600px; background: var(--tw-prose-pre-bg, #f5f5f5); border-radius: 8px;"></div>
+
+  <div id="dc-map-loading" class="text-center py-8">
+    <p class="text-neutral-500">Loading map...</p>
+  </div>
+
+  <div id="dc-details" class="mt-6" style="display: none;">
+    <div class="card bg-base-100 shadow-lg border border-base-300">
+      <div class="card-body">
+        <h3 id="dc-name" class="card-title text-xl"></h3>
+        <div id="dc-info"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="dc-map-data">{{ $mapPoints | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-providers">{{ $providerMeta | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-initial-providers">{{ $providersParam | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-initial-countries">{{ $countriesParam | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-show-filters">{{ $showFiltersBool | jsonify | safeHTML }}</script>
+  <script type="application/json" id="dc-map-country-only">{{ $countryOnlyParam | jsonify | safeHTML }}</script>
+
+  <script>
+    (function () {
+      var chartDom = document.getElementById('datacenter-map-chart');
+      var loadingDiv = document.getElementById('dc-map-loading');
+
+      function readJsonScript(id, fallback) {
+        var el = document.getElementById(id);
+        if (!el) return fallback;
+        try {
+          var v = JSON.parse(el.textContent || 'null');
+          // Some Hugo/template contexts can end up double-encoding JSON as a string.
+          if (typeof v === 'string') {
+            try { return JSON.parse(v); } catch (e2) { return v; }
+          }
+          return v;
+        } catch (e) {
+          return fallback;
+        }
+      }
+
+      // Datacenter data from Hugo
+      var dcData = readJsonScript('dc-map-data', []);
+      var providers = readJsonScript('dc-map-providers', []);
+      var initialProvidersParam = readJsonScript('dc-map-initial-providers', '');
+      var initialCountriesParam = readJsonScript('dc-map-initial-countries', '');
+      var showFilters = readJsonScript('dc-map-show-filters', true);
+      var countryOnlyParam = readJsonScript('dc-map-country-only', null);
+
+      // Vendor-jurisdiction categories (explicit 4-way split so legend matches UX)
+      var vendorCategoryOrder = ['us', 'eu', 'swiss', 'china'];
+      var vendorLabels = {
+        us: 'US vendor (CLOUD Act applies)',
+        eu: 'EU/EEA vendor (sovereignty-friendly)',
+        swiss: 'Swiss vendor (adequate)',
+        china: 'China vendor (PRC jurisdiction)'
+      };
+      var vendorColors = {
+        us: '#ef4444',     // red
+        eu: '#22c55e',     // green
+        swiss: '#3b82f6',  // blue
+        china: '#000000'   // black
+      };
+
+      function fetchJson(url) {
+        return fetch(url).then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        });
+      }
+
+      function parseCsvSet(v) {
+        if (typeof v !== 'string') return null;
+        var s = v.trim();
+        if (!s) return null;
+        var parts = s.split(',').map(function (x) { return (x || '').trim(); }).filter(Boolean);
+        if (parts.length === 0) return null;
+        return new Set(parts);
+      }
+
+      // If shortcode provides `countries="NO,SE"`, we can optionally load a country-only GeoJSON.
+      var countryFilterSetBootstrap = parseCsvSet(initialCountriesParam);
+      var mapKey = 'world';
+      var mapUrl = '/data/world.json';
+      if (countryFilterSetBootstrap && countryFilterSetBootstrap.size === 1 && !showFilters) {
+        var onlyCode = Array.from(countryFilterSetBootstrap)[0];
+        // Country outlines live in static/data/countries/{ISO}.json
+        mapKey = onlyCode;
+        mapUrl = '/data/countries/' + onlyCode + '.json';
+      }
+
+      // For country maps, some GeoJSONs include remote small territories that make the outline hard to recognize.
+      // We keep the "whole" recognizable country by trimming only very small polygons (e.g. tiny islands),
+      // then we always start at zoom=1 (fit-to-country).
+
+      // Fetch GeoJSON (country if available, else world) and initialize map
+      fetchJson(mapUrl)
+        .catch(function () {
+          // Fallback for missing/small countries (e.g. MT, BH, HK, LI per README)
+          mapKey = 'world';
+          mapUrl = '/data/world.json';
+          return fetchJson(mapUrl);
+        })
+        .then(function (geoJson) {
+          // Country map cleanup: drop very small polygons (remote islands/territories) so the main country is visible.
+          // This keeps the outline recognizable while still showing the whole country landmass.
+          function bboxAreaForCoords(coords) {
+            var minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+            function visit(c) {
+              if (!c) return;
+              if (Array.isArray(c) && c.length === 2 && typeof c[0] === 'number' && typeof c[1] === 'number') {
+                var lng = c[0], lat = c[1];
+                if (lat < minLat) minLat = lat;
+                if (lat > maxLat) maxLat = lat;
+                if (lng < minLng) minLng = lng;
+                if (lng > maxLng) maxLng = lng;
+                return;
+              }
+              if (Array.isArray(c)) for (var i = 0; i < c.length; i++) visit(c[i]);
+            }
+            visit(coords);
+            if (!(minLat <= maxLat) || !(minLng <= maxLng)) return 0;
+            return Math.max(0, (maxLat - minLat) * (maxLng - minLng));
+          }
+
+          function trimSmallPolygonsInGeometry(geom, keepRatio) {
+            if (!geom || !geom.type || !geom.coordinates) return geom;
+            if (geom.type === 'Polygon') return geom;
+            if (geom.type !== 'MultiPolygon') return geom;
+            var polys = geom.coordinates || [];
+            if (polys.length <= 1) return geom;
+            var areas = polys.map(function (p) { return bboxAreaForCoords(p); });
+            var maxA = 0;
+            for (var i = 0; i < areas.length; i++) if (areas[i] > maxA) maxA = areas[i];
+            if (!maxA) return geom;
+            var ratio = (typeof keepRatio === 'number') ? keepRatio : 0.05;
+            var kept = [];
+            for (var j = 0; j < polys.length; j++) {
+              if (areas[j] >= maxA * ratio) kept.push(polys[j]);
+            }
+            if (kept.length === 0) return geom;
+            return { type: 'MultiPolygon', coordinates: kept };
+          }
+
+          if (mapKey !== 'world' && geoJson && Array.isArray(geoJson.features)) {
+            geoJson = Object.assign({}, geoJson, {
+              features: geoJson.features.map(function (f) {
+                if (!f || !f.geometry) return f;
+                return Object.assign({}, f, { geometry: trimSmallPolygonsInGeometry(f.geometry, 0.12) });
+              })
+            });
+          }
+
+          echarts.registerMap(mapKey, geoJson);
+          loadingDiv.style.display = 'none';
+
+          var myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+          var selectedProviderIds = new Set((providers || []).map(function (p) { return p.provider_id; }));
+          var selectedProviderTypes = new Set(['hyperscaler', 'regional_cloud', 'datacenter_operator']);
+          var providerTypeById = {};
+          (providers || []).forEach(function (p) {
+            providerTypeById[p.provider_id] = p.provider_type || 'regional_cloud';
+          });
+          if (typeof initialProvidersParam === 'string' && initialProvidersParam.trim().length > 0) {
+            var wanted = initialProvidersParam.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+            if (wanted.length > 0) selectedProviderIds = new Set(wanted);
+          }
+
+          function getVendorCategory(dc) {
+            var cc = dc && dc.vendor_country_id;
+            if (cc === 'US') return 'us';
+            if (cc === 'CN') return 'china';
+            if (cc === 'CH') return 'swiss';
+            // EU/EEA vendors in our dataset are marked as low risk in regions.json
+            if ((dc && dc.vendor_risk) === 'low') return 'eu';
+            // Fallback: treat as EU/EEA for now so points don't disappear.
+            return 'eu';
+          }
+
+          // Default map view + search state (search highlights/zoom should not auto-open details)
+          // For country maps, start with the default "fit country" view (zoom=1, center unset).
+          var defaultGeo = (mapKey !== 'world') ? { center: undefined, zoom: 1 } : { center: [10, 45], zoom: 1.5 };
+          var searchGeo = null;
+          var searchMatchKeys = new Set();
+          var countryFilterSet = null;
+          var hasRendered = false;
+          // Country maps always start in fit-to-country mode (zoom=1, center unset).
+          // parseCsvSet defined above (before map fetch)
+
+          function computeGeoForPoints(points) {
+            var pts = (points || []).filter(function (m) { return m && m.coordinates && m.coordinates.length === 2; });
+            if (pts.length === 0) return null;
+            var minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+            pts.forEach(function (m) {
+              var lat = m.coordinates[0], lng = m.coordinates[1];
+              if (typeof lat !== 'number' || typeof lng !== 'number') return;
+              if (lat < minLat) minLat = lat;
+              if (lat > maxLat) maxLat = lat;
+              if (lng < minLng) minLng = lng;
+              if (lng > maxLng) maxLng = lng;
+            });
+            var centerLat = (minLat + maxLat) / 2;
+            var centerLng = (minLng + maxLng) / 2;
+
+            var span = Math.max(Math.abs(maxLat - minLat), Math.abs(maxLng - minLng));
+            var zoom = 2;
+            if (span < 0.5) zoom = 7;
+            else if (span < 1) zoom = 6;
+            else if (span < 2) zoom = 5;
+            else if (span < 5) zoom = 4;
+            else if (span < 10) zoom = 4;
+            else if (span < 20) zoom = 3;
+            else zoom = 2;
+
+            return { center: [centerLng, centerLat], zoom: zoom };
+          }
+
+          // If shortcode provides `countries="NO,SE"`, restrict map to those physical locations and zoom in.
+          countryFilterSet = parseCsvSet(initialCountriesParam);
+          if (countryFilterSet && countryFilterSet.size > 0) {
+            var baseCountryPoints = (dcData || []).filter(function (d) {
+              return d && d.country_id && countryFilterSet.has(d.country_id);
+            });
+            // Only auto-zoom-to-points on the world map. On a country map we want to show the whole country.
+            if (mapKey === 'world') {
+              var cg = computeGeoForPoints(baseCountryPoints);
+              if (cg) defaultGeo = cg;
+            }
+          }
+
+          function computeMarkerOffsets(data) {
+            // If multiple datacenters are very close, apply small pixel offsets so markers don't overlap.
+            // This keeps the underlying coordinates intact while improving readability.
+            var offsetsByPointKey = {};
+            var groups = {};
+
+            (data || []).forEach(function (dc) {
+              if (!dc.coordinates || dc.coordinates.length !== 2) return;
+              var lat = dc.coordinates[0];
+              var lng = dc.coordinates[1];
+              if (typeof lat !== 'number' || typeof lng !== 'number') return;
+
+              var city = (dc.city || '').trim();
+              var country = (dc.country_id || '').trim();
+              if (!city || !country) return;
+
+              var key = country + '|' + city.toLowerCase();
+              var pointKey = (dc.provider_id || '') + '|' + (dc.region_id || '');
+
+              if (!groups[key]) groups[key] = [];
+              groups[key].push({ pointKey: pointKey, lat: lat, lng: lng });
+            });
+
+            // Degree threshold: if any two points in a city are closer than this, we "fan" them out.
+            // ~0.25° latitude ~= 28km, enough to catch "same metro area" duplicates without affecting most cities.
+            var epsilon = 0.25;
+            var baseRadiusPx = 10;
+
+            Object.keys(groups).forEach(function (gk) {
+              var g = groups[gk];
+              if (g.length < 2) return;
+
+              // Check if any pair is close enough to justify offsets.
+              var shouldOffset = false;
+              for (var i = 0; i < g.length && !shouldOffset; i++) {
+                for (var j = i + 1; j < g.length; j++) {
+                  var dLat = g[i].lat - g[j].lat;
+                  var dLng = g[i].lng - g[j].lng;
+                  var dist = Math.sqrt(dLat * dLat + dLng * dLng);
+                  if (dist < epsilon) {
+                    shouldOffset = true;
+                    break;
+                  }
+                }
+              }
+              if (!shouldOffset) return;
+
+              // Deterministic ordering so offsets don't "jump" between reloads.
+              g.sort(function (a, b) {
+                if (a.pointKey < b.pointKey) return -1;
+                if (a.pointKey > b.pointKey) return 1;
+                return 0;
+              });
+
+              var n = g.length;
+              var radius = baseRadiusPx + Math.max(0, n - 2) * 2;
+              for (var k = 0; k < n; k++) {
+                var angle = (2 * Math.PI * k) / n;
+                offsetsByPointKey[g[k].pointKey] = [
+                  Math.round(Math.cos(angle) * radius),
+                  Math.round(Math.sin(angle) * radius)
+                ];
+              }
+            });
+
+            return offsetsByPointKey;
+          }
+
+          function buildSeries(filteredDcData, offsetsByPointKey) {
+            var seriesByCat = {};
+            var hasSearch = (searchMatchKeys && searchMatchKeys.size > 0);
+
+            (filteredDcData || []).forEach(function (dc) {
+              var cat = getVendorCategory(dc);
+              if (!seriesByCat[cat]) seriesByCat[cat] = [];
+              if (dc.coordinates && dc.coordinates.length === 2) {
+                var pointKey = (dc.provider_id || '') + '|' + (dc.region_id || '');
+                var isMatch = hasSearch ? searchMatchKeys.has(pointKey) : false;
+                var dimOthers = hasSearch && !isMatch;
+                seriesByCat[cat].push({
+                  name: dc.provider_name + ' - ' + dc.region_name,
+                  value: [dc.coordinates[1], dc.coordinates[0], 1], // [lng, lat, value]
+                  symbolOffset: offsetsByPointKey[pointKey] || [0, 0],
+                  __isMatch: isMatch,
+                  itemStyle: {
+                    opacity: dimOthers ? 0.15 : 1
+                  },
+                  provider_id: dc.provider_id,
+                  provider_name: dc.provider_name,
+                  vendor_country_id: dc.vendor_country_id,
+                  vendor_risk: dc.vendor_risk,
+                  region_id: dc.region_id,
+                  region_name: dc.region_name,
+                  country_id: dc.country_id,
+                  country_name: dc.country_name,
+                  city: dc.city,
+                  dc_risk: dc.dc_risk
+                });
+              }
+            });
+
+            var series = [];
+            vendorCategoryOrder.forEach(function (cat) {
+              // Always include all 4 categories so the legend never "loses" an entry.
+              series.push({
+                name: vendorLabels[cat],
+                type: 'scatter',
+                coordinateSystem: 'geo',
+                data: seriesByCat[cat] || [],
+                symbolSize: function (val, params) {
+                  return (params && params.data && params.data.__isMatch) ? 12 : 8;
+                },
+                itemStyle: {
+                  color: vendorColors[cat],
+                  borderColor: '#fff',
+                  borderWidth: 1
+                },
+                emphasis: {
+                  itemStyle: {
+                    borderColor: '#000',
+                    borderWidth: 2
+                  },
+                  scale: 1.5
+                }
+              });
+            });
+            return series;
+          }
+
+          function render() {
+            var isDark = document.documentElement.classList.contains('dark');
+
+            var filteredDcData = (dcData || []).filter(function (dc) {
+              if (countryFilterSet && countryFilterSet.size > 0) {
+                if (!dc.country_id || !countryFilterSet.has(dc.country_id)) return false;
+              }
+              if (!selectedProviderIds.has(dc.provider_id)) return false;
+              var t = providerTypeById[dc.provider_id] || 'regional_cloud';
+              return selectedProviderTypes.has(t);
+            });
+
+            var offsetsByPointKey = computeMarkerOffsets(filteredDcData);
+            var scatterSeries = buildSeries(filteredDcData, offsetsByPointKey);
+
+            // Preserve current map position when changing filters/search unless search explicitly sets it.
+            var currentOpt = (hasRendered && myChart.getOption) ? myChart.getOption() : null;
+            var currentGeo = (hasRendered && currentOpt && currentOpt.geo && currentOpt.geo[0]) ? currentOpt.geo[0] : null;
+            var geoCenter = currentGeo && currentGeo.center ? currentGeo.center : defaultGeo.center;
+            var geoZoom = currentGeo && currentGeo.zoom ? currentGeo.zoom : defaultGeo.zoom;
+
+            if (searchGeo) {
+              geoCenter = searchGeo.center;
+              geoZoom = searchGeo.zoom;
+            }
+
+            // For country GeoJSON maps, defaultGeo is either "fit country" (zoom=1, center unset)
+            // or (when needed) a datacenter-focused view.
+            if (mapKey !== 'world' && !searchGeo) {
+              geoCenter = defaultGeo.center;
+              geoZoom = defaultGeo.zoom;
+            }
+
+            var option = {
+              title: {
+                text: 'Cloud Datacenter Locations',
+                subtext: 'Colored by vendor jurisdiction • Click a point for details',
+                left: 'center',
+                top: 10,
+                textStyle: {
+                  color: isDark ? '#e5e5e5' : '#333',
+                  fontSize: 18
+                },
+                subtextStyle: {
+                  color: isDark ? '#a3a3a3' : '#666',
+                  fontSize: 12
+                }
+              },
+              tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                  if (params.data && params.data.provider_name) {
+                    var d = params.data;
+                    var jurisdictionWarning = '';
+                    if (d.vendor_country_id === 'US' && d.dc_risk === 'low') {
+                      jurisdictionWarning = '<br/><span style="color:#ef4444">⚠️ US jurisdiction applies!</span>';
+                    }
+                    return '<strong>' + d.provider_name + '</strong><br/>' +
+                      d.region_name + '<br/>' +
+                      '📍 ' + d.city + ', ' + d.country_id +
+                      jurisdictionWarning;
+                  }
+                  return '';
+                }
+              },
+              legend: {
+                show: true,
+                bottom: 20,
+                left: 'center',
+                textStyle: {
+                  color: isDark ? '#e5e5e5' : '#333'
+                }
+              },
+              geo: {
+                map: mapKey,
+                roam: true,
+                zoom: geoZoom,
+                center: geoCenter,
+                scaleLimit: { min: 0.5, max: 20 },
+                // For country maps, explicitly fit/center the country inside the container.
+                // (Some country GeoJSONs behave oddly with center/zoom alone.)
+                layoutCenter: mapKey !== 'world' ? ['50%', '54%'] : undefined,
+                layoutSize: mapKey !== 'world' ? '95%' : undefined,
+                itemStyle: {
+                  areaColor: isDark ? '#404040' : '#e5e5e5',
+                  borderColor: isDark ? '#525252' : '#d4d4d4',
+                  borderWidth: 0.5
+                },
+                emphasis: {
+                  itemStyle: {
+                    areaColor: isDark ? '#525252' : '#d4d4d4'
+                  }
+                }
+              },
+              series: scatterSeries
+            };
+
+            myChart.setOption(option, { notMerge: true });
+            hasRendered = true;
+
+            var summaryEl = document.getElementById('dc-provider-filter-summary');
+            if (summaryEl) {
+              var totalProviders = (providers || []).length;
+              var selectedCount = selectedProviderIds.size;
+              summaryEl.textContent = selectedCount + ' / ' + totalProviders + ' selected • ' + selectedProviderTypes.size + ' / 3 types';
+            }
+
+            // Show/hide provider checkboxes based on type filters to make it easy to manage selections.
+            if (showFilters) {
+              var labels = document.querySelectorAll('.dc-provider-label');
+              labels.forEach(function (lab) {
+                var pt = lab.getAttribute('data-provider-type') || 'regional_cloud';
+                lab.style.display = selectedProviderTypes.has(pt) ? '' : 'none';
+              });
+            }
+          }
+
+          function setAllCheckboxes(checked) {
+            var boxes = document.querySelectorAll('.dc-provider-checkbox');
+            boxes.forEach(function (cb) { cb.checked = !!checked; });
+          }
+
+          function applyPreset(preset) {
+            if (preset === 'all') {
+              selectedProviderIds = new Set((providers || []).map(function (p) { return p.provider_id; }));
+              setAllCheckboxes(true);
+              return;
+            }
+            if (preset === 'none') {
+              selectedProviderIds = new Set();
+              setAllCheckboxes(false);
+              return;
+            }
+
+            var ids = [];
+            if (preset === 'us-hyperscalers') {
+              ids = ['aws', 'azure', 'gcp'];
+            } else if (preset === 'eu-eea') {
+              ids = (providers || []).filter(function (p) { return p.vendor_risk === 'low'; }).map(function (p) { return p.provider_id; });
+            } else if (preset === 'non-us') {
+              // "Non-US" should include China and any other non-US jurisdictions.
+              ids = (providers || []).filter(function (p) { return p.vendor_country_id !== 'US'; }).map(function (p) { return p.provider_id; });
+            }
+
+            selectedProviderIds = new Set(ids);
+            var boxes = document.querySelectorAll('.dc-provider-checkbox');
+            boxes.forEach(function (cb) {
+              cb.checked = selectedProviderIds.has(cb.getAttribute('data-provider-id'));
+            });
+          }
+
+          function wireProviderFilters() {
+            if (!showFilters) return;
+            var boxes = document.querySelectorAll('.dc-provider-checkbox');
+            boxes.forEach(function (cb) {
+              cb.addEventListener('change', function () {
+                var providerId = cb.getAttribute('data-provider-id');
+                if (cb.checked) selectedProviderIds.add(providerId);
+                else selectedProviderIds.delete(providerId);
+                render();
+              });
+            });
+
+            var typeBoxes = document.querySelectorAll('.dc-type-checkbox');
+            typeBoxes.forEach(function (cb) {
+              cb.addEventListener('change', function () {
+                var t = cb.getAttribute('data-provider-type');
+                if (!t) return;
+                if (cb.checked) selectedProviderTypes.add(t);
+                else selectedProviderTypes.delete(t);
+                render();
+              });
+            });
+
+            var presetButtons = document.querySelectorAll('[data-dc-preset]');
+            presetButtons.forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                applyPreset(btn.getAttribute('data-dc-preset'));
+                render();
+              });
+            });
+          }
+
+          wireProviderFilters();
+          render();
+
+          function normalize(s) {
+            return String(s || '').toLowerCase().trim();
+          }
+
+          function providerById(id) {
+            for (var i = 0; i < (providers || []).length; i++) {
+              if (providers[i].provider_id === id) return providers[i];
+            }
+            return null;
+          }
+
+          function showDetails(d) {
+            var detailsDiv = document.getElementById('dc-details');
+            var dcName = document.getElementById('dc-name');
+            var dcInfo = document.getElementById('dc-info');
+            if (!detailsDiv || !dcName || !dcInfo) return;
+
+            dcName.innerHTML = d.provider_name + ' <span class="font-normal opacity-70">-</span> ' + d.region_name;
+
+            var vendorBadgeClass = (d.vendor_country_id === 'US')
+              ? 'badge-error'
+              : (d.vendor_country_id === 'CN')
+                ? 'badge-neutral'
+                : d.vendor_risk === 'low'
+                  ? 'badge-success'
+                  : 'badge-info';
+
+            var vendorBadgeText = (d.vendor_country_id === 'US')
+              ? '⚠️ US Jurisdiction'
+              : (d.vendor_country_id === 'CN')
+                ? '⚫ China Jurisdiction'
+                : d.vendor_risk === 'low'
+                  ? '✅ EU/EEA'
+                  : (d.vendor_country_id === 'CH' ? '🔷 Swiss' : '🔷 Other');
+
+            var html = '<div class="space-y-4">';
+
+            // Info grid with icons
+            html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+
+            // Location
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Location</p>';
+            html += '<p class="font-semibold">' + d.city + ', ' + d.country_name + '</p></div>';
+            html += '</div>';
+
+            // Region ID
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Region ID</p>';
+            html += '<p class="font-mono text-sm">' + d.region_id + '</p></div>';
+            html += '</div>';
+
+            // Vendor HQ
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Vendor HQ</p>';
+            html += '<p class="font-semibold">' + d.vendor_country_id + ' <span class="badge ' + vendorBadgeClass + ' badge-sm ml-1">' + vendorBadgeText + '</span></p></div>';
+            html += '</div>';
+
+            // Provider
+            html += '<div class="flex items-center gap-3">';
+            html += '<div class="p-2 bg-base-200 rounded-lg"><svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg></div>';
+            html += '<div><p class="text-xs uppercase tracking-wide opacity-60">Provider</p>';
+            html += '<p class="font-semibold">' + d.provider_name + '</p></div>';
+            html += '</div>';
+
+            html += '</div>'; // End grid
+
+            // Jurisdiction warning/info alerts
+            if (d.vendor_country_id === 'US' && d.dc_risk === 'low') {
+              html += '<div role="alert" class="alert alert-error">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">Jurisdiction Exposure</h4>';
+              html += '<p class="text-sm">This datacenter is physically in the EU/EEA, but ' + d.provider_name + ' is a US company. US laws like the <strong>CLOUD Act</strong> can compel data handover regardless of location.</p>';
+              html += '</div>';
+              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
+              html += '</div>';
+            } else if (d.vendor_country_id === 'US') {
+              html += '<div role="alert" class="alert alert-warning">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">US Jurisdiction</h4>';
+              html += '<p class="text-sm">' + d.provider_name + ' is subject to US laws including the CLOUD Act.</p>';
+              html += '</div>';
+              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
+              html += '</div>';
+            } else if (d.vendor_risk === 'low') {
+              html += '<div role="alert" class="alert alert-success">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">Sovereignty-Friendly</h4>';
+              html += '<p class="text-sm">This vendor is based in the EU/EEA. No extraterritorial data access laws apply.</p>';
+              html += '</div>';
+              html += '</div>';
+            } else if (d.vendor_country_id === 'CN') {
+              html += '<div role="alert" class="alert">';
+              html += '<svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+              html += '<div>';
+              html += '<h4 class="font-bold">PRC Jurisdiction</h4>';
+              html += '<p class="text-sm">This vendor is subject to Chinese data laws and government access requirements.</p>';
+              html += '</div>';
+              html += '</div>';
+            }
+
+            html += '</div>';
+            dcInfo.innerHTML = html;
+            detailsDiv.style.display = 'block';
+            detailsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+
+          function hideDetails() {
+            var detailsDiv = document.getElementById('dc-details');
+            if (detailsDiv) detailsDiv.style.display = 'none';
+          }
+
+          function wireSearch() {
+            if (!showFilters) return;
+            var input = document.getElementById('dc-search-input');
+            var clearBtn = document.getElementById('dc-search-clear');
+            var resetViewBtn = document.getElementById('dc-search-reset-view');
+            var autoZoomEl = document.getElementById('dc-search-autozoom');
+            var results = document.getElementById('dc-search-results');
+            if (!input || !results) return;
+
+            function setResultsVisible(visible) {
+              if (visible) results.classList.remove('hidden');
+              else results.classList.add('hidden');
+            }
+
+            function renderResults(items, totalCount) {
+              if (!items || items.length === 0) {
+                results.innerHTML = '<div class="text-sm text-neutral-500">No matches.</div>';
+                setResultsVisible(true);
+                return;
+              }
+
+              var html = '<div class="border border-neutral-200 dark:border-neutral-700 rounded bg-white dark:bg-neutral-900 overflow-hidden">';
+              var countLabel = (typeof totalCount === 'number')
+                ? (totalCount + ' match' + (totalCount === 1 ? '' : 'es'))
+                : 'Matches';
+              html += '<div class="text-xs px-3 py-2 text-neutral-500 dark:text-neutral-400 border-b border-neutral-200 dark:border-neutral-700">' + countLabel + ' • Click a result for details</div>';
+              html += '<div>';
+              items.forEach(function (it) {
+                html += '<button type="button" class="w-full text-left px-3 py-2 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-sm dc-search-item" data-provider-id="' + it.provider_id + '" data-region-id="' + it.region_id + '">';
+                html += '<div class="font-medium">' + it.provider_name + '</div>';
+                html += '<div class="text-xs text-neutral-500 dark:text-neutral-400">' + it.region_name + ' • ' + it.city + ', ' + it.country_id + '</div>';
+                html += '</button>';
+              });
+              html += '</div></div>';
+              results.innerHTML = html;
+              setResultsVisible(true);
+
+              var btns = results.querySelectorAll('.dc-search-item');
+              btns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                  var providerId = btn.getAttribute('data-provider-id');
+                  var regionId = btn.getAttribute('data-region-id');
+                  var match = (dcData || []).find(function (d) { return d.provider_id === providerId && d.region_id === regionId; });
+                  if (!match) return;
+
+                  // Ensure provider is selected so the point is visible.
+                  if (!selectedProviderIds.has(providerId)) {
+                    selectedProviderIds.add(providerId);
+                    var cb = document.getElementById('dc-provider-' + providerId);
+                    if (cb) cb.checked = true;
+                    render();
+                  }
+
+                  // Auto-zoom (optional)
+                  if (autoZoomEl && autoZoomEl.checked && match.coordinates && match.coordinates.length === 2) {
+                    var lat = match.coordinates[0];
+                    var lng = match.coordinates[1];
+                    var currentOpt = myChart.getOption ? myChart.getOption() : null;
+                    var currentGeo = currentOpt && currentOpt.geo && currentOpt.geo[0] ? currentOpt.geo[0] : null;
+                    var currentZoom = currentGeo && currentGeo.zoom ? currentGeo.zoom : 1.5;
+                    var targetZoom = Math.max(currentZoom, 4);
+                    myChart.setOption({ geo: { center: [lng, lat], zoom: targetZoom } });
+                  }
+
+                  showDetails(match);
+                  updateUrlParam(match);
+                });
+              });
+            }
+
+            function buildHaystack(d) {
+              return [
+                d.provider_name, d.provider_id,
+                d.region_name, d.region_id,
+                d.city,
+                d.country_id,
+                d.country_name
+              ].map(normalize).join(' ');
+            }
+
+            function computeMatchesRaw(query) {
+              var q = normalize(query);
+              if (q.length < 2) return [];
+              var tokens = q.split(/\s+/).filter(Boolean);
+
+              // If some providers are selected, search within those; if none selected, search all.
+              var pool = (selectedProviderIds.size > 0)
+                ? (dcData || []).filter(function (d) { return selectedProviderIds.has(d.provider_id); })
+                : (dcData || []);
+              // Also respect provider type filters
+              pool = pool.filter(function (d) {
+                var t = providerTypeById[d.provider_id] || 'regional_cloud';
+                return selectedProviderTypes.has(t);
+              });
+
+              var matches = [];
+              for (var i = 0; i < pool.length; i++) {
+                var d = pool[i];
+                var hay = buildHaystack(d);
+                var ok = true;
+                for (var t = 0; t < tokens.length; t++) {
+                  if (hay.indexOf(tokens[t]) === -1) { ok = false; break; }
+                }
+                if (ok) matches.push(d);
+              }
+
+              // Prefer exact region_id match / provider_id match if present
+              matches.sort(function (a, b) {
+                var qa = buildHaystack(a);
+                var qb = buildHaystack(b);
+                var scoreA = 0;
+                var scoreB = 0;
+                tokens.forEach(function (tok) {
+                  if (normalize(a.region_id) === tok || normalize(a.provider_id) === tok) scoreA += 10;
+                  if (normalize(b.region_id) === tok || normalize(b.provider_id) === tok) scoreB += 10;
+                  if (qa.indexOf(tok) === 0) scoreA += 2;
+                  if (qb.indexOf(tok) === 0) scoreB += 2;
+                });
+                if (scoreB !== scoreA) return scoreB - scoreA;
+                if (a.provider_name !== b.provider_name) return a.provider_name.localeCompare(b.provider_name);
+                return (a.region_name || '').localeCompare(b.region_name || '');
+              });
+
+              return matches.slice(0, 200);
+            }
+
+            function computeMatches(query) {
+              return computeMatchesRaw(query).slice(0, 10);
+            }
+
+            function computeGeoForMatches(matches) {
+              var pts = (matches || []).filter(function (m) { return m && m.coordinates && m.coordinates.length === 2; });
+              if (pts.length === 0) return null;
+              var minLat = 90, maxLat = -90, minLng = 180, maxLng = -180;
+              pts.forEach(function (m) {
+                var lat = m.coordinates[0], lng = m.coordinates[1];
+                if (typeof lat !== 'number' || typeof lng !== 'number') return;
+                if (lat < minLat) minLat = lat;
+                if (lat > maxLat) maxLat = lat;
+                if (lng < minLng) minLng = lng;
+                if (lng > maxLng) maxLng = lng;
+              });
+              var centerLat = (minLat + maxLat) / 2;
+              var centerLng = (minLng + maxLng) / 2;
+
+              var span = Math.max(Math.abs(maxLat - minLat), Math.abs(maxLng - minLng));
+              var zoom = 2;
+              if (span < 0.5) zoom = 7;
+              else if (span < 1) zoom = 6;
+              else if (span < 2) zoom = 5;
+              else if (span < 5) zoom = 4;
+              else if (span < 10) zoom = 4; // "Norway" / country-scale should still feel like a zoom-in
+              else if (span < 20) zoom = 3;
+              else zoom = 2;
+
+              return { center: [centerLng, centerLat], zoom: zoom };
+            }
+
+            function updateSearchState(query, rawMatches) {
+              var q = normalize(query);
+              if (q.length < 2) {
+                searchMatchKeys = new Set();
+                searchGeo = null;
+                render();
+                setResultsVisible(false);
+                results.innerHTML = '';
+                hideDetails();
+                return;
+              }
+
+              // Populate match keys for highlighting
+              searchMatchKeys = new Set((rawMatches || []).map(function (m) { return (m.provider_id || '') + '|' + (m.region_id || ''); }));
+              searchGeo = (autoZoomEl && autoZoomEl.checked) ? computeGeoForMatches(rawMatches) : null;
+              render();
+            }
+
+            var searchTimer = null;
+            function onInputDebounced() {
+              clearTimeout(searchTimer);
+              searchTimer = setTimeout(function () {
+                var q = input.value || '';
+                var raw = computeMatchesRaw(q);
+                updateSearchState(q, raw);
+                if (normalize(q).length >= 2) {
+                  renderResults(raw.slice(0, 10), raw.length);
+                }
+              }, 250);
+            }
+
+            function onInputImmediate() {
+              var q = input.value || '';
+              var raw = computeMatchesRaw(q);
+              updateSearchState(q, raw);
+              if (normalize(q).length >= 2) {
+                renderResults(raw.slice(0, 10), raw.length);
+              }
+            }
+
+            input.addEventListener('input', onInputDebounced);
+            input.addEventListener('keydown', function (e) {
+              if (e.key === 'Escape') {
+                input.value = '';
+                onInputImmediate();
+              }
+            });
+            if (clearBtn) {
+              clearBtn.addEventListener('click', function () {
+                input.value = '';
+                onInputImmediate();
+                input.focus();
+              });
+            }
+            if (resetViewBtn) {
+              resetViewBtn.addEventListener('click', function () {
+                searchGeo = null;
+                myChart.setOption({ geo: { center: defaultGeo.center, zoom: defaultGeo.zoom } });
+                hideDetails();
+              });
+            }
+          }
+
+          wireSearch();
+
+          // URL parameter handling: ?dc=provider_id:region_id
+          // Example: ?dc=aws:eu-central-1
+          function handleUrlParams() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var dcParam = urlParams.get('dc');
+            if (!dcParam) return;
+
+            var parts = dcParam.split(':');
+            if (parts.length !== 2) return;
+
+            var providerId = parts[0];
+            var regionId = parts[1];
+
+            // Find matching datacenter
+            var match = null;
+            for (var i = 0; i < dcData.length; i++) {
+              if (dcData[i].provider_id === providerId && dcData[i].region_id === regionId) {
+                match = dcData[i];
+                break;
+              }
+            }
+
+            if (!match) return;
+
+            // Ensure provider is selected
+            if (!selectedProviderIds.has(providerId)) {
+              selectedProviderIds.add(providerId);
+              var cb = document.getElementById('dc-provider-' + providerId);
+              if (cb) cb.checked = true;
+              render();
+            }
+
+            // Wait for chart to be fully ready, then zoom and show details
+            setTimeout(function () {
+              // Zoom to location
+              if (match.coordinates && match.coordinates.length === 2) {
+                var lat = match.coordinates[0];
+                var lng = match.coordinates[1];
+                myChart.setOption({ geo: { center: [lng, lat], zoom: 5 } });
+              }
+
+              // Show details after zoom completes
+              setTimeout(function () {
+                showDetails(match);
+              }, 100);
+            }, 300);
+          }
+
+          handleUrlParams();
+
+          // Update URL with datacenter parameter for sharing
+          function updateUrlParam(d) {
+            if (d && d.provider_id && d.region_id) {
+              var url = new URL(window.location);
+              url.searchParams.set('dc', d.provider_id + ':' + d.region_id);
+              history.replaceState(null, '', url);
+            }
+          }
+
+          // Click handler
+          myChart.on('click', function (params) {
+            if (params.data && params.data.provider_name) {
+              showDetails(params.data);
+              updateUrlParam(params.data);
+            }
+          });
+
+          // Responsive
+          window.addEventListener('resize', function () {
+            myChart.resize();
+          });
+
+          // Dark mode toggle
+          var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+              if (mutation.attributeName === 'class') {
+                var isDark = document.documentElement.classList.contains('dark');
+                myChart.setOption({
+                  title: {
+                    textStyle: { color: isDark ? '#e5e5e5' : '#333' },
+                    subtextStyle: { color: isDark ? '#a3a3a3' : '#666' }
+                  },
+                  legend: {
+                    textStyle: { color: isDark ? '#e5e5e5' : '#333' }
+                  },
+                  geo: {
+                    itemStyle: {
+                      areaColor: isDark ? '#404040' : '#e5e5e5',
+                      borderColor: isDark ? '#525252' : '#d4d4d4'
+                    }
+                  }
+                });
+              }
+            });
+          });
+          observer.observe(document.documentElement, { attributes: true });
+        })
+        .catch(function (error) {
+          console.error('Failed to load world map:', error);
+          loadingDiv.innerHTML = '<p class="text-red-500">Failed to load map. Please refresh the page.</p>';
+        });
+    })();
+  </script>

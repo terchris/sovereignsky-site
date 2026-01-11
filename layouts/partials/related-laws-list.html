@@ -1,0 +1,70 @@
+{{/*
+  related-laws-list.html
+  Displays a list of related laws with flag, title, and alternate name
+
+  Parameters:
+    - laws: slice of law pages
+    - limit: optional max number to display (default: all)
+*/}}
+
+{{ $laws := .laws | default (slice) }}
+{{ $limit := .limit | default 0 }}
+
+{{ if $limit }}
+  {{ $laws = $laws | first $limit }}
+{{ end }}
+
+{{/* Build lookup maps for countries and blocs to get flags */}}
+{{ $regionsById := dict }}
+{{ $countries := site.Data.countries.countries.itemListElement }}
+{{ range ($countries | default (slice)) }}
+  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ end }}
+
+{{ $blocsById := dict }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
+{{ range $blocs }}
+  {{ $blocsById = merge $blocsById (dict .identifier .) }}
+{{ end }}
+
+{{ if gt (len $laws) 0 }}
+<div class="grid gap-3 sm:grid-cols-2">
+  {{ range $laws }}
+    {{ $law := . }}
+    {{ $jurisdictions := $law.Params.legislationJurisdiction | default (slice) }}
+
+    {{/* Get flag from first jurisdiction */}}
+    {{ $flag := "" }}
+    {{ range first 1 $jurisdictions }}
+      {{ $id := . }}
+      {{ $region := index $regionsById $id }}
+      {{ if $region }}
+        {{ $flag = $region.flag | default "" }}
+      {{ else }}
+        {{ $bloc := index $blocsById $id }}
+        {{ if $bloc }}
+          {{ $flag = $bloc.flag | default "" }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+
+    <a href="{{ $law.RelPermalink }}" class="flex items-start gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
+      {{ if $flag }}
+      <span class="text-2xl flex-shrink-0 mt-0.5">{{ $flag }}</span>
+      {{ else }}
+      <div class="flex-shrink-0 mt-0.5">
+        {{ partial "content-icon.html" (dict "name" "scale" "size" "6" "class" "text-base-content/50") }}
+      </div>
+      {{ end }}
+      <div class="flex-1 min-w-0">
+        <div class="font-medium text-sm">{{ $law.Title }}</div>
+        {{ with $law.Params.alternateName }}
+        <div class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2">{{ . }}</div>
+        {{ end }}
+      </div>
+    </a>
+  {{ end }}
+</div>
+{{ else }}
+<p class="text-sm text-neutral-500 dark:text-neutral-400">No related laws found.</p>
+{{ end }}

@@ -1,0 +1,47 @@
+{{/*
+  Datacenter Provider Compare Card - shows other providers of same type
+  Usage: {{ partial "sidebar/datacenter-provider-compare-card.html" (dict "provider" $provider "allProviders" $allProviders) }}
+*/}}
+
+{{ $provider := .provider | default dict }}
+{{ $allProviders := .allProviders | default (slice) }}
+{{ $providerId := $provider.identifier | default "" }}
+{{ $providerType := $provider.providerType | default "" }}
+
+{{ if $providerType }}
+  {{/* Build list of same-type providers */}}
+  {{ $sameTypeProviders := slice }}
+  {{ range $allProviders }}
+    {{ if and (eq .providerType $providerType) (ne .identifier $providerId) }}
+      {{ $regionCount := len (.regions | default (slice)) }}
+      {{ $sameTypeProviders = $sameTypeProviders | append (dict "identifier" .identifier "name" .name "regionCount" $regionCount) }}
+    {{ end }}
+  {{ end }}
+
+  {{ if gt (len $sameTypeProviders) 0 }}
+    {{ $sameTypeProviders = sort $sameTypeProviders "regionCount" "desc" }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "compare" "color" "secondary" "size" "4") }}
+      Compare
+    </h3>
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 mb-2">
+      Other {{ $providerType | humanize }} providers
+    </div>
+    <ul class="space-y-0.5">
+      {{ range first 8 $sameTypeProviders }}
+      <li>
+        <a href="/datacenters/{{ .identifier }}/"
+           title="{{ .name }}: {{ .regionCount }} regions"
+           class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
+          <span>{{ .name }}</span>
+          <span class="text-neutral-500 dark:text-neutral-400">{{ .regionCount }}</span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+  {{ end }}
+{{ end }}

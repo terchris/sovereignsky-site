@@ -12,11 +12,11 @@ locationCountry: "NO"
 organizerName: "Norwegian Directorate for Civil Protection (DSB)"
 organizerUrl: "https://www.dsb.no"
 externalUrl: "https://www.dsb.no/kurs-og-konferanser/samfunnssikkerhets-konferansen-2026/"
-tags:
-  - "preparedness"
+topics:
+  - "national-preparedness"
   - "cybersecurity"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "security"
   - "enterprise"

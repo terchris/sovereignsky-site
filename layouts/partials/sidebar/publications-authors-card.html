@@ -1,0 +1,31 @@
+{{/* Publications Authors Card - shows authors and institutions */}}
+
+{{ if or .Params.authors .Params.institutions }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "users" "color" "accent" "size" "4") }}
+      Authors
+    </h3>
+    <div class="mt-2 text-sm">
+      {{ with .Params.authors }}
+      <ul class="space-y-1">
+        {{ range . }}
+        <li>{{ . }}</li>
+        {{ end }}
+      </ul>
+      {{ end }}
+      {{ with .Params.institutions }}
+      <div class="mt-3 pt-3 border-t border-base-200">
+        <div class="text-xs font-semibold uppercase tracking-wide text-neutral-500 dark:text-neutral-400 mb-2">Institutions</div>
+        <ul class="space-y-1 text-neutral-600 dark:text-neutral-400">
+          {{ range . }}
+          <li>{{ . }}</li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</div>
+{{ end }}

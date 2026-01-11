@@ -11,10 +11,10 @@ locationCountry: "NO"
 organizerName: "Statsforvalteren Innlandet, Innlandet politidistrikt, NHO Innlandet, HV05"
 organizerUrl: "https://www.befkon.no"
 externalUrl: "https://www.befkon.no/"
-tags:
-  - "preparedness"
+topics:
+  - "national-preparedness"
   - "critical-infrastructure"
-audiences:
+audience:
   - "public-sector"
   - "security"
   - "enterprise"

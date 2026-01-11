@@ -5,26 +5,25 @@
   "description": "Schema for datacenter provider files in data/datacenters/",
   "type": "object",
   "required": [
-    "provider_id",
-    "provider_name",
-    "provider_type",
-    "updated",
-    "vendor_country_id",
-    "regions",
-    "meta"
+    "identifier",
+    "name",
+    "providerType",
+    "dateModified",
+    "vendorCountryId",
+    "regions"
   ],
   "additionalProperties": false,
   "properties": {
-    "provider_id": {
+    "identifier": {
       "type": "string",
       "description": "Unique identifier for the provider (lowercase, used in filenames)",
       "pattern": "^[a-z0-9-]+$"
     },
-    "provider_name": {
+    "name": {
       "type": "string",
       "description": "Display name of the provider"
     },
-    "provider_type": {
+    "providerType": {
       "type": "string",
       "description": "Classification of the provider (public cloud vs regional cloud vs datacenter operator).",
       "enum": [
@@ -33,17 +32,17 @@
         "datacenter_operator"
       ]
     },
-    "updated": {
+    "dateModified": {
       "type": "string",
       "description": "Date this file was last verified/updated",
       "format": "date"
     },
-    "vendor_country_id": {
+    "vendorCountryId": {
       "type": "string",
       "description": "ISO 3166-1 alpha-2 code of the vendor's legal jurisdiction (HQ country)",
       "pattern": "^[A-Z]{2}$"
     },
-    "vendor_website": {
+    "url": {
       "type": "string",
       "description": "Provider's main website URL",
       "format": "uri"
@@ -75,21 +74,21 @@
     "region": {
       "type": "object",
       "required": [
-        "region_id",
-        "region_name",
-        "country_id"
+        "identifier",
+        "name",
+        "countryId"
       ],
       "additionalProperties": false,
       "properties": {
-        "region_id": {
+        "identifier": {
           "type": "string",
           "description": "Provider's official region identifier"
         },
-        "region_name": {
+        "name": {
           "type": "string",
           "description": "Human-readable region name"
         },
-        "country_id": {
+        "countryId": {
           "type": "string",
           "description": "ISO 3166-1 alpha-2 code where datacenter is physically located",
           "pattern": "^[A-Z]{2}$"

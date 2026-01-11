@@ -25,18 +25,18 @@ Renders a card with a list of providers with region counts for a specific countr
         {{ $count := .count }}
         {{/* Look up provider's vendor country for flag */}}
         {{ $providerFlag := "" }}
-        {{ $vendorCountryId := $p.vendor_country_id | default "" }}
+        {{ $vendorCountryId := $p.vendorCountryId | default "" }}
         {{ if $vendorCountryId }}
-          {{ $vendorMatch := first 1 (where site.Data.regions "id" $vendorCountryId) }}
+          {{ $vendorMatch := first 1 (where site.Data.countries.countries.itemListElement "identifier" $vendorCountryId) }}
           {{ with index $vendorMatch 0 }}
             {{ $providerFlag = .flag | default "" }}
           {{ end }}
         {{ end }}
       <li>
-        <a href="/datacenters/{{ $p.provider_id }}/"
-           title="{{ $p.provider_name }}: {{ $count }} regions"
+        <a href="/datacenters/{{ $p.identifier }}/"
+           title="{{ $p.name }}: {{ $count }} regions"
            class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
-          <span>{{ if $providerFlag }}{{ $providerFlag }} {{ end }}{{ $p.provider_name }}</span>
+          <span>{{ if $providerFlag }}{{ $providerFlag }} {{ end }}{{ $p.name }}</span>
           <span class="text-neutral-500 dark:text-neutral-400">{{ $count }}</span>
         </a>
       </li>

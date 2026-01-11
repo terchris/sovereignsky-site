@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/law_types.schema.json",
+  "title": "Law Types",
+  "description": "Schema for law_types.json - categories of laws (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of law type entries",
+      "items": {
+        "type": "object",
+        "required": ["identifier", "name", "description", "emoji"],
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the law type",
+            "enum": ["privacy", "access", "surveillance", "localization", "security", "sector"]
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name"
+          },
+          "shortName": {
+            "type": "string",
+            "description": "Short display name for compact UI"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of what this law type covers"
+          },
+          "emoji": {
+            "type": "string",
+            "description": "Emoji icon for display"
+          },
+          "badgeClass": {
+            "type": "string",
+            "description": "CSS class for badge styling"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

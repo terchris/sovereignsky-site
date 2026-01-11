@@ -1,140 +1,157 @@
 [
   {
     "@type": "Organization",
-    "actor_id": "bulk-infrastructure",
-    "actor_name": "Bulk Infrastructure",
-    "actor_type": "infrastructure_operator",
-    "country_id": "NO",
-    "website": "https://bulkinfrastructure.com"
+    "identifier": "bulk-infrastructure",
+    "name": "Bulk Infrastructure",
+    "description": "Norwegian infrastructure operator specializing in data centers and subsea fiber connectivity.",
+    "type": "infrastructure_operator",
+    "countryId": "NO",
+    "url": "https://bulkinfrastructure.com"
   },
   {
     "@type": "Organization",
-    "actor_id": "space-norway",
-    "actor_name": "Space Norway",
-    "actor_type": "state_owned_enterprise",
-    "country_id": "NO",
-    "website": "https://spacenorway.com"
+    "identifier": "space-norway",
+    "name": "Space Norway",
+    "description": "Norwegian state-owned enterprise providing satellite and Arctic connectivity infrastructure.",
+    "type": "state_owned_enterprise",
+    "countryId": "NO",
+    "url": "https://spacenorway.com"
   },
   {
     "@type": "Organization",
-    "actor_id": "tampnet",
-    "actor_name": "Tampnet",
-    "actor_type": "network_operator",
-    "country_id": "NO",
-    "website": "https://www.tampnet.com"
+    "identifier": "tampnet",
+    "name": "Tampnet",
+    "description": "Norwegian network operator providing offshore oil and gas communications.",
+    "type": "network_operator",
+    "countryId": "NO",
+    "url": "https://www.tampnet.com"
   },
   {
     "@type": "Organization",
-    "actor_id": "altibox-carrier",
-    "actor_name": "Altibox Carrier",
-    "actor_type": "telecom_operator",
-    "country_id": "NO",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk"
+    "identifier": "altibox-carrier",
+    "name": "Altibox Carrier",
+    "description": "Norwegian telecom operator providing wholesale carrier services.",
+    "type": "telecom_operator",
+    "countryId": "NO",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk"
   },
   {
     "@type": "Organization",
-    "actor_id": "lyse-altibox",
-    "actor_name": "Lyse/Altibox",
-    "actor_type": "telecom_operator",
-    "country_id": "NO",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west"
+    "identifier": "lyse-altibox",
+    "name": "Lyse/Altibox",
+    "description": "Norwegian telecom operator and fiber infrastructure provider.",
+    "type": "telecom_operator",
+    "countryId": "NO",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/skagen-fiber-west"
   },
   {
     "@type": "Organization",
-    "actor_id": "greenmountain",
-    "actor_name": "Green Mountain",
-    "actor_type": "datacenter_operator",
-    "country_id": "NO",
-    "website": "https://greenmountain.no"
+    "identifier": "greenmountain",
+    "name": "Green Mountain",
+    "description": "Norwegian data center operator focused on sustainable, secure facilities.",
+    "type": "datacenter_operator",
+    "countryId": "NO",
+    "url": "https://greenmountain.no"
   },
   {
     "@type": "Organization",
-    "actor_id": "n0r5ke-fibre",
-    "actor_name": "N0r5ke Fibre",
-    "actor_type": "infrastructure_operator",
-    "country_id": "NO",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking"
+    "identifier": "n0r5ke-fibre",
+    "name": "N0r5ke Fibre",
+    "description": "Infrastructure operator for the N0r5ke Viking submarine cable system.",
+    "type": "infrastructure_operator",
+    "countryId": "NO",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/n0r5ke-viking"
   },
   {
     "@type": "Organization",
-    "actor_id": "ioema-fibre",
-    "actor_name": "IOEMA Fibre Ltd",
-    "actor_type": "project_company",
-    "country_id": "GB",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/ioema"
+    "identifier": "ioema-fibre",
+    "name": "IOEMA Fibre Ltd",
+    "description": "Project company for the IOEMA subsea cable system connecting Norway to UK and Europe.",
+    "type": "project_company",
+    "countryId": "GB",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/ioema"
   },
   {
     "@type": "Organization",
-    "actor_id": "celtic-norse",
-    "actor_name": "Celtic Norse AS",
-    "actor_type": "project_company",
-    "country_id": "NO",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/celtic-norse"
+    "identifier": "celtic-norse",
+    "name": "Celtic Norse AS",
+    "description": "Project company for the Celtic Norse subsea cable connecting Norway and Ireland.",
+    "type": "project_company",
+    "countryId": "NO",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/celtic-norse"
   },
   {
     "@type": "Organization",
-    "actor_id": "aqua-comms",
-    "actor_name": "Aqua Comms",
-    "actor_type": "subsea_operator",
-    "country_id": "IE",
-    "website": "https://www.aquacomms.com"
+    "identifier": "aqua-comms",
+    "name": "Aqua Comms",
+    "description": "Irish subsea cable operator with transatlantic and European connectivity.",
+    "type": "subsea_operator",
+    "countryId": "IE",
+    "url": "https://www.aquacomms.com"
   },
   {
     "@type": "Organization",
-    "actor_id": "meta",
-    "actor_name": "Meta",
-    "actor_type": "tech_company",
-    "country_id": "US",
+    "identifier": "meta",
+    "name": "Meta",
+    "description": "US technology company investing in global subsea cable infrastructure.",
+    "type": "tech_company",
+    "countryId": "US",
     "notes": "US company; generally subject to US law."
   },
   {
     "@type": "Organization",
-    "actor_id": "google",
-    "actor_name": "Google",
-    "actor_type": "tech_company",
-    "country_id": "US",
+    "identifier": "google",
+    "name": "Google",
+    "description": "US technology company with significant global subsea cable investments.",
+    "type": "tech_company",
+    "countryId": "US",
     "notes": "US company; generally subject to US law."
   },
   {
     "@type": "Organization",
-    "actor_id": "vodafone-iceland",
-    "actor_name": "Vodafone Iceland",
-    "actor_type": "telecom_operator",
-    "country_id": "IS"
+    "identifier": "vodafone-iceland",
+    "name": "Vodafone Iceland",
+    "description": "Icelandic telecom operator.",
+    "type": "telecom_operator",
+    "countryId": "IS"
   },
   {
     "@type": "Organization",
-    "actor_id": "no-uk-com",
-    "actor_name": "NO-UK Com (consortium)",
-    "actor_type": "consortium",
-    "country_id": "NO",
-    "website": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk"
+    "identifier": "no-uk-com",
+    "name": "NO-UK Com (consortium)",
+    "description": "Consortium operating the NO-UK submarine cable system.",
+    "type": "consortium",
+    "countryId": "NO",
+    "url": "https://www.submarinenetworks.com/en/systems/intra-europe/no-uk"
   },
   {
     "@type": "Organization",
-    "actor_id": "subcom",
-    "actor_name": "SubCom",
-    "actor_type": "system_supplier",
-    "country_id": "US",
-    "website": "https://www.subcom.com",
+    "identifier": "subcom",
+    "name": "SubCom",
+    "description": "US-based submarine cable system supplier and installer.",
+    "type": "system_supplier",
+    "countryId": "US",
+    "url": "https://www.subcom.com",
     "notes": "System supplier referenced for Arctic Way."
   },
   {
     "@type": "Organization",
-    "actor_id": "nexans",
-    "actor_name": "Nexans",
-    "actor_type": "cable_manufacturer",
-    "country_id": "FR",
-    "website": "https://www.nexans.com",
+    "identifier": "nexans",
+    "name": "Nexans",
+    "description": "French cable manufacturer for power and telecommunications cables.",
+    "type": "cable_manufacturer",
+    "countryId": "FR",
+    "url": "https://www.nexans.com",
     "notes": "Cable manufacturer referenced for NORFEST."
   },
   {
     "@type": "Organization",
-    "actor_id": "cecon-contracting",
-    "actor_name": "Cecon Contracting AS",
-    "actor_type": "installation_contractor",
-    "country_id": "NO",
-    "website": "https://www.cecon.no",
+    "identifier": "cecon-contracting",
+    "name": "Cecon Contracting AS",
+    "description": "Norwegian installation contractor for subsea cable projects.",
+    "type": "installation_contractor",
+    "countryId": "NO",
+    "url": "https://www.cecon.no",
     "notes": "Installation contractor referenced for NORFEST."
   }
 ]

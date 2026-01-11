@@ -1,0 +1,253 @@
+{{ define "main" }}
+{{ .Scratch.Set "scope" "single" }}
+
+{{/* Get identifier from front matter */}}
+{{ $identifier := .Params.identifier | default "" }}
+
+{{/* Look up connection data from networks.json */}}
+{{ $networksRoot := site.Data.networks | default dict }}
+{{ $connections := (index $networksRoot "networks") | default (slice) }}
+{{ $actors := (index $networksRoot "networks-actors") | default (slice) }}
+{{ $places := (index $networksRoot "networks-places") | default (slice) }}
+
+{{ $connection := dict }}
+{{ range $connections }}
+  {{ if eq .identifier $identifier }}
+    {{ $connection = . }}
+  {{ end }}
+{{ end }}
+
+{{/* Build actor lookup */}}
+{{ $actorById := dict }}
+{{ range $actors }}
+  {{ $actorById = merge $actorById (dict .identifier .) }}
+{{ end }}
+
+{{/* Build place lookup */}}
+{{ $placeById := dict }}
+{{ range $places }}
+  {{ $placeById = merge $placeById (dict .identifier .) }}
+{{ end }}
+
+{{/* Build countries lookup for flags */}}
+{{ $countries := site.Data.countries.countries.itemListElement }}
+{{ $countriesById := dict }}
+{{ range $countries }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
+{{ end }}
+
+{{/* Get display title */}}
+{{ $displayTitle := .Title }}
+{{ if and $connection $connection.name }}
+  {{ $displayTitle = $connection.name }}
+{{ end }}
+
+{{/* External URL from sources or url field */}}
+{{ $externalUrl := "" }}
+{{ if $connection }}
+  {{ with $connection.url }}
+    {{ $externalUrl = . }}
+  {{ else }}
+    {{ with $connection.sources }}
+      {{ $first := index . 0 }}
+      {{ if $first }}
+        {{ $externalUrl = $first.url | default "" }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Build endpoints display */}}
+{{ $endpointNames := slice }}
+{{ if $connection }}
+  {{ range $connection.endpointPlaceIds }}
+    {{ $place := index $placeById . }}
+    {{ $flag := "" }}
+    {{ if $place }}
+      {{ $countryId := "" }}
+      {{ with $place.address }}{{ $countryId = .addressCountry }}{{ end }}
+      {{ if $countryId }}
+        {{ $region := index $countriesById $countryId }}
+        {{ if $region }}{{ $flag = $region.flag }}{{ end }}
+      {{ end }}
+      {{ $endpointNames = $endpointNames | append (printf "%s %s" $flag ($place.name | default .)) }}
+    {{ else }}
+      {{ $endpointNames = $endpointNames | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+<article class="max-w-full">
+  {{/* Detail Header with breadcrumbs */}}
+  {{ partial "common-detail-header.html" (dict
+      "title" $displayTitle
+      "description" .Description
+      "icon" "network"
+      "breadcrumbs" (slice
+          (dict "title" "Networks" "url" "/networks/")
+      )
+  ) }}
+
+  {{/* Two-column layout */}}
+  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+
+    {{/* Right Sidebar */}}
+    {{ partial "sidebar/common-sidebar.html" . }}
+
+      {{/* External link button */}}
+      {{ if $externalUrl }}
+      <a class="btn btn-primary btn-outline w-full gap-2"
+         href="{{ $externalUrl }}"
+         target="_blank"
+         rel="noopener noreferrer">
+        {{ partial "content-icon.html" (dict "name" "external" "size" "4") }}
+        View on SubmarineCableMap
+      </a>
+      {{ end }}
+
+      {{/* Network Details Card */}}
+      {{ partial "sidebar/networks-details-card.html" . }}
+
+      {{/* Topics Card */}}
+      {{ partial "sidebar/common-topics-card.html" . }}
+
+      {{/* Tags Card */}}
+      {{ partial "sidebar/common-tags-card.html" . }}
+
+      {{/* Endpoints Card */}}
+      {{ if $connection }}
+      {{ with $connection.endpointPlaceIds }}
+      <div class="card bg-base-100 shadow-sm border border-base-300">
+        <div class="card-body p-4">
+          <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+            {{ partial "content-icon.html" (dict "name" "marker" "color" "info" "size" "4") }}
+            Endpoints
+          </h3>
+          <ul class="mt-2 space-y-1">
+            {{ range . }}
+              {{ $place := index $placeById . }}
+              {{ $flag := "" }}
+              {{ if $place }}
+                {{ $countryId := "" }}
+                {{ with $place.address }}{{ $countryId = .addressCountry }}{{ end }}
+                {{ if $countryId }}
+                  {{ $region := index $countriesById $countryId }}
+                  {{ if $region }}{{ $flag = $region.flag }}{{ end }}
+                {{ end }}
+              {{ end }}
+              <li class="text-sm flex items-center gap-2">
+                {{ if $flag }}<span>{{ $flag }}</span>{{ end }}
+                <span>{{ if $place }}{{ $place.name }}{{ else }}{{ . }}{{ end }}</span>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+
+      {{/* Owners Card */}}
+      {{ if $connection }}
+      {{ with $connection.ownerActorIds }}
+      <div class="card bg-base-100 shadow-sm border border-base-300">
+        <div class="card-body p-4">
+          <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+            {{ partial "content-icon.html" (dict "name" "building" "color" "secondary" "size" "4") }}
+            Owners
+          </h3>
+          <ul class="mt-2 space-y-1">
+            {{ range . }}
+              {{ $actor := index $actorById . }}
+              {{ $flag := "" }}
+              {{ if $actor }}
+                {{ $countryId := $actor.countryId | default "" }}
+                {{ if $countryId }}
+                  {{ $region := index $countriesById $countryId }}
+                  {{ if $region }}{{ $flag = $region.flag }}{{ end }}
+                {{ end }}
+              {{ end }}
+              <li class="text-sm flex items-center gap-2">
+                {{ if $flag }}<span>{{ $flag }}</span>{{ end }}
+                <span>{{ if $actor }}{{ $actor.name }}{{ else }}{{ . }}{{ end }}</span>
+              </li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+
+      {{/* Links Card */}}
+      {{ if $connection }}
+      {{ with $connection.sources }}
+      <div class="card bg-base-100 shadow-sm border border-base-300">
+        <div class="card-body p-4">
+          <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+            {{ partial "content-icon.html" (dict "name" "link" "color" "neutral" "size" "4") }}
+            External Links
+          </h3>
+          <ul class="mt-2 space-y-0.5">
+            {{ range . }}
+            <li>
+              <a href="{{ .url }}"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex items-center gap-1">
+                {{ partial "content-icon.html" (dict "name" "external" "size" "3") }}
+                {{ .title }}
+              </a>
+            </li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+
+    {{ partial "sidebar/common-sidebar-end.html" . }}
+
+    {{/* Main Content */}}
+    <div class="min-w-0 flex-1">
+      <div class="article-content prose dark:prose-invert max-w-none mb-20">
+
+        {{/* Abstract */}}
+        {{ with $connection.abstract }}
+        <p class="lead text-lg text-neutral-600 dark:text-neutral-300">{{ . }}</p>
+        {{ end }}
+
+        {{/* Summary */}}
+        {{ with $connection.summary }}
+        <p>{{ . }}</p>
+        {{ end }}
+
+        {{/* Route Section */}}
+        {{ if $connection }}
+        <h2>Route</h2>
+        <p><strong>Endpoints:</strong> {{ delimit $endpointNames " → " }}</p>
+
+        {{ partial "network-connection-map-inline.html" (dict "identifier" $identifier "connection" $connection "places" $places) }}
+
+        {{ if $connection.route }}
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 italic">Schematic polyline is available for map rendering.</p>
+        {{ else }}
+        <p class="text-sm text-neutral-500 dark:text-neutral-400 italic">Route is auto-generated for visualization from endpoints (schematic).</p>
+        {{ end }}
+        {{ end }}
+
+        {{/* Owners & Operators Section */}}
+        {{ if $connection }}
+        <h2>Owners & Operators</h2>
+        {{ partial "network-actors-inline.html" (dict "identifier" $identifier "connection" $connection "connections" $connections "actors" $actors) }}
+        {{ end }}
+
+        {{/* Back link */}}
+        <hr class="mt-8">
+        <p>
+          <a href="/networks/">← Back to all networks</a>
+        </p>
+      </div>
+    </div>
+
+  </section>
+</article>
+{{ end }}

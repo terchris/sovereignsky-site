@@ -24,64 +24,54 @@ Usage: {{< network-map>}}
   {{/* connections[] is already normalized in data/networks/networks.json */}}
 
   {{ if $showFiltersBool }}
-  <div id="network-filter-panel" class="mt-4 p-4 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-    <div class="flex flex-wrap items-center gap-2 mb-3">
-      <span class="font-semibold mr-2">Filter cables:</span>
-      <button type="button"
-        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-        data-network-preset="all">All</button>
-      <button type="button"
-        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-        data-network-preset="outside">Outside Norway</button>
-      <button type="button"
-        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-        data-network-preset="domestic">Domestic</button>
-      <button type="button"
-        class="px-3 py-1 rounded bg-neutral-200 dark:bg-neutral-700 text-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
-        data-network-preset="active">Active Only</button>
+  <div id="network-filter-panel" class="mb-6 space-y-4">
+    {{/* Preset filter buttons - stack vertically on mobile */}}
+    <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+      <span class="text-sm font-semibold opacity-70">Filter:</span>
+      <div class="join join-vertical sm:join-horizontal w-full sm:w-auto">
+        <button type="button" class="join-item btn btn-sm btn-active" data-network-preset="all">All Cables</button><button type="button" class="join-item btn btn-sm btn-ghost" data-network-preset="outside">Outside Norway</button><button type="button" class="join-item btn btn-sm btn-ghost" data-network-preset="domestic">Domestic</button><button type="button" class="join-item btn btn-sm btn-ghost" data-network-preset="active">Active Only</button>
+      </div>
     </div>
-    <div class="flex flex-wrap items-center gap-4 text-sm">
-      <span class="text-neutral-600 dark:text-neutral-300">Filter:</span>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-category-checkbox" data-category="international-subsea" checked>
-        <span class="inline-block w-3 h-3 rounded" style="background-color: #06b6d4;"></span>
-        <span>Outside Norway • Subsea</span>
+
+    {{/* Category checkboxes - horizontal with colors matching map */}}
+    <div class="flex flex-wrap items-center gap-4">
+      <span class="text-sm font-semibold opacity-70">Type:</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-category-checkbox" style="--chkbg: #06b6d4; --chkfg: white; border-color: #06b6d4;" data-category="international-subsea" checked>
+        <span class="text-sm">Outside • Subsea</span>
       </label>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-category-checkbox" data-category="international-terrestrial" checked>
-        <span class="inline-block w-3 h-3 rounded" style="background-color: #a855f7;"></span>
-        <span>Outside Norway • Terrestrial</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-category-checkbox" style="--chkbg: #a855f7; --chkfg: white; border-color: #a855f7;" data-category="international-terrestrial" checked>
+        <span class="text-sm">Outside • Terrestrial</span>
       </label>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-category-checkbox" data-category="domestic-subsea" checked>
-        <span class="inline-block w-3 h-3 rounded" style="background-color: #22c55e;"></span>
-        <span>Inside Norway • Subsea</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-category-checkbox" style="--chkbg: #22c55e; --chkfg: white; border-color: #22c55e;" data-category="domestic-subsea" checked>
+        <span class="text-sm">Inside • Subsea</span>
       </label>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-category-checkbox" data-category="domestic-terrestrial" checked>
-        <span class="inline-block w-3 h-3 rounded" style="background-color: #22c55e;"></span>
-        <span>Inside Norway • Terrestrial</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-category-checkbox" style="--chkbg: #22c55e; --chkfg: white; border-color: #22c55e;" data-category="domestic-terrestrial" checked>
+        <span class="text-sm">Inside • Terrestrial</span>
       </label>
     </div>
-    <div class="flex flex-wrap items-center gap-4 text-sm mt-3">
-      <span class="text-neutral-600 dark:text-neutral-300">Status:</span>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-status-checkbox" data-status="active" checked>
-        <span>Active</span>
+
+    {{/* Status checkboxes - inline on all sizes */}}
+    <div class="flex flex-wrap items-center gap-4">
+      <span class="text-sm font-semibold opacity-70">Status:</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-status-checkbox" data-status="active" checked>
+        <span class="text-sm">Active</span>
       </label>
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" class="network-status-checkbox" data-status="planned" checked>
-        <span>Planned</span>
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox network-status-checkbox" data-status="planned" checked>
+        <span class="text-sm">Planned</span>
       </label>
+      {{ if $showSimulationBool }}
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <input type="checkbox" class="checkbox" id="network-sim-toggle" checked>
+        <span class="text-sm">Show trawler</span>
+      </label>
+      {{ end }}
     </div>
-    {{ if $showSimulationBool }}
-    <div class="flex flex-wrap items-center gap-4 text-sm mt-3">
-      <label class="inline-flex items-center gap-2 cursor-pointer select-none">
-        <input type="checkbox" id="network-sim-toggle" checked>
-        <span>Show trawler</span>
-      </label>
-    </div>
-    {{ end }}
   </div>
   {{ end }}
 
@@ -130,15 +120,15 @@ Usage: {{< network-map>}}
       var showSimulation = readJsonScript('network-map-show-simulation', false);
       var trawlerRoutes = readJsonScript('network-map-trawler-routes', []);
 
-      // Compute connection_ids per place based on endpoint_place_ids
+      // Compute connection identifiers per place based on endpointPlaceIds
       var connectionIdsByPlaceId = {};
       (cables || []).forEach(function (c) {
-        var endpoints = c.endpoint_place_ids || c.endpoint_station_ids || [];
+        var endpoints = c.endpointPlaceIds || c.endpoint_place_ids || [];
         if (!Array.isArray(endpoints)) return;
         endpoints.forEach(function (pid) {
           if (!pid) return;
           if (!connectionIdsByPlaceId[pid]) connectionIdsByPlaceId[pid] = [];
-          connectionIdsByPlaceId[pid].push(c.connection_id || c.cable_id || pid);
+          connectionIdsByPlaceId[pid].push(c.identifier || c.connection_id || pid);
         });
       });
 
@@ -169,8 +159,8 @@ Usage: {{< network-map>}}
       // Actor lookup for owner display (jurisdiction-aware)
       var actorById = {};
       (actors || []).forEach(function (a) {
-        if (!a || !a.actor_id) return;
-        actorById[a.actor_id] = a;
+        if (!a || !a.identifier) return;
+        actorById[a.identifier] = a;
       });
 
       function ownerDisplay(ownerActorIds) {
@@ -178,7 +168,7 @@ Usage: {{< network-map>}}
         return ownerActorIds.map(function (id) {
           var a = actorById[id];
           if (!a) return id;
-          return a.actor_name + (a.country_id ? ' (' + a.country_id + ')' : '');
+          return a.name + (a.countryId ? ' (' + a.countryId + ')' : '');
         });
       }
 
@@ -295,7 +285,7 @@ Usage: {{< network-map>}}
               if (Array.isArray(cable.route) && cable.route.length >= 2) {
                 routeLngLat = cable.route.map(function (p) { return [p[1], p[0]]; }); // [lng, lat]
               } else {
-                var endpoints = cable.endpoint_place_ids || [];
+                var endpoints = cable.endpointPlaceIds || cable.endpoint_place_ids || [];
                 if (Array.isArray(endpoints) && endpoints.length >= 2) {
                   // Draw multi-endpoint systems (A→B→C) as multiple curved segments so islands like Jan Mayen still show.
                   routeLngLat = [];
@@ -306,7 +296,7 @@ Usage: {{< network-map>}}
                     var seg = generatePrettyRouteLngLat(
                       a,
                       b,
-                      (cable.connection_id || cable.connection_name || '') + ':' + endpoints[ei] + '>' + endpoints[ei + 1],
+                      (cable.identifier || cable.name || '') + ':' + endpoints[ei] + '>' + endpoints[ei + 1],
                       medium
                     );
                     if (seg && seg.length >= 2) {
@@ -319,12 +309,12 @@ Usage: {{< network-map>}}
               }
               if (!routeLngLat || routeLngLat.length < 2) return;
 
-              var endpointIds = cable.endpoint_place_ids || [];
+              var endpointIds = cable.endpointPlaceIds || cable.endpoint_place_ids || [];
               var endpointNames = Array.isArray(endpointIds)
                 ? endpointIds.map(function (pid) {
                     var p = geoByPlaceId[pid];
                     if (!p) return pid;
-                    var flag = iso2FlagEmoji(p.country_id);
+                    var flag = iso2FlagEmoji(p.countryId);
                     return (flag ? (flag + ' ') : '') + p.name;
                   })
                 : [];
@@ -337,17 +327,17 @@ Usage: {{< network-map>}}
                     routeLngLat[i],
                     routeLngLat[i + 1]
                   ],
-                  cable_id: cable.connection_id,
-                  cable_name: cable.connection_name,
+                  cable_id: cable.identifier,
+                  cable_name: cable.name,
                   cable_status: cable.status,
                   cable_bucket: bucketKey,
                   cable_type: cable.type,
                   cable_scope: cable.scope,
                   cable_medium: cable.medium,
                   cable_description: cable.description,
-                  cable_owners: ownerDisplay(cable.owner_actor_ids),
-                  cable_rfs: cable.rfs,
-                  cable_length_km: cable.length_km,
+                  cable_owners: ownerDisplay(cable.ownerActorIds || cable.owner_actor_ids),
+                  cable_operationalDate: cable.operationalDate || cable.rfs,
+                  cable_length_km: cable.lengthKm || cable.length_km,
                   cable_url: cable.url || null,
                   cable_endpoints: endpointsLabel,
                   lineStyle: {
@@ -368,16 +358,16 @@ Usage: {{< network-map>}}
               var geo = station.geo || null;
               if (!geo || typeof geo.latitude !== 'number' || typeof geo.longitude !== 'number') return;
               // Only show the main place types on the map (avoid clutter)
-              var pt = station.place_type || station.station_type || '';
+              var pt = station.type || station.place_type || '';
               if (pt && ['landing_station', 'backbone_endpoint', 'international_hub', 'border_crossing_area'].indexOf(pt) === -1) return;
               points.push({
-                name: station.name || station.place_name || station.identifier,
+                name: station.name || station.identifier,
                 value: [geo.longitude, geo.latitude, 10], // [lng, lat, value]
-                station_id: station.identifier || station.place_id,
+                station_id: station.identifier,
                 station_city: (station.address && station.address.addressLocality) || '',
-                station_region: (station.address && (station.address.addressRegion || station.address.addressCountry)) || station.country_id || '',
-                station_cables: connectionIdsByPlaceId[(station.identifier || station.place_id)] || [],
-                                station_description: station.description
+                station_region: (station.address && (station.address.addressRegion || station.address.addressCountry)) || station.countryId || '',
+                station_cables: connectionIdsByPlaceId[station.identifier] || [],
+                station_description: station.description
               });
             });
             return points;
@@ -704,6 +694,13 @@ Usage: {{< network-map>}}
               } else if (preset === 'active') {
                 selectedStatuses = new Set(['active']);
               }
+              // Update preset button styles
+              presetButtons.forEach(function (b) {
+                b.classList.remove('btn-active');
+                b.classList.add('btn-ghost');
+              });
+              btn.classList.add('btn-active');
+              btn.classList.remove('btn-ghost');
               // Update checkboxes
               categoryCheckboxes.forEach(function (cb) {
                 cb.checked = selectedBuckets.has(cb.getAttribute('data-category'));

@@ -1,0 +1,61 @@
+{{/*
+  Law Types Card - displays relevant law categories with icons
+
+  Supports two modes:
+  1. Page context: reads from .Params.lawTypes (frontmatter)
+  2. Persona context: reads from audience.json via persona_id
+*/}}
+
+{{/* Determine lawTypes source */}}
+{{ $lawTypes := slice }}
+
+{{/* First try page params */}}
+{{ with .Params.lawTypes }}
+  {{ $lawTypes = . }}
+{{ end }}
+
+{{/* If no lawTypes in params, try persona data */}}
+{{ if eq (len $lawTypes) 0 }}
+  {{ $personaId := .Params.persona_id | default (path.Base .File.Dir) }}
+  {{ $audienceData := site.Data.audience.audience }}
+  {{ range $audienceData.itemListElement }}
+    {{ if eq .identifier $personaId }}
+      {{ $lawTypes = .lawTypes | default (slice) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Build law type lookup from law_types.json */}}
+{{ $lawTypesList := site.Data.laws.law_types.itemListElement | default (slice) }}
+
+{{ if gt (len $lawTypes) 0 }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "scale" "color" "warning" "size" "4") }}
+      Law Categories
+    </h3>
+    <ul class="mt-2 space-y-1">
+      {{ range $lawTypes }}
+      {{ $typeId := . }}
+      {{ $lawType := dict }}
+      {{ range $lawTypesList }}
+        {{ if eq .identifier $typeId }}
+          {{ $lawType = . }}
+        {{ end }}
+      {{ end }}
+      {{ $name := $lawType.name | default ($typeId | humanize | title) }}
+      {{ $shortName := $lawType.shortName | default $name }}
+      {{ $emoji := $lawType.emoji | default "📄" }}
+      {{ $description := $lawType.description | default "" }}
+      <li class="flex items-start gap-2 text-sm">
+        <a href="/laws/?category={{ $typeId }}" class="flex items-start gap-2 hover:text-primary" title="{{ $description }}">
+          <span class="flex-shrink-0">{{ $emoji }}</span>
+          <span>{{ $shortName }}</span>
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}

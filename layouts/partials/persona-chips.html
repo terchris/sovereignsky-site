@@ -15,7 +15,7 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     {{ $personas = . | default (slice) }}
     {{ end }}
 
-    {{/* Fallback mapping from blog "audiences" values to persona termCodes */}}
+    {{/* Fallback mapping from blog "audience" values to persona termCodes */}}
     {{ if eq (len $personas) 0 }}
     {{ $audToPersona := dict
     "developer" "developer"
@@ -31,7 +31,7 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     }}
 
     {{ $derived := slice }}
-    {{ range ($page.Params.audiences | default (slice)) }}
+    {{ range ($page.Params.audience | default (slice)) }}
     {{ $mapped := index $audToPersona . }}
     {{ if $mapped }}
     {{ if not (in $derived $mapped) }}
@@ -43,17 +43,10 @@ Shows persona chips for a page, linking to /personas/#<termCode>.
     {{ end }}
 
     {{ if gt (len $personas) 0 }}
-    {{ $vocab := site.Data.tag_vocabulary | default (dict) }}
-    {{ $labels := $vocab.audience.labels | default (dict) }}
-    {{ if eq (len $labels) 0 }}
-    {{ $labels = dict
-    "developer" "Developers"
-    "technical" "IT & Operations"
-    "enterprise" "Enterprise"
-    "government" "Public Sector"
-    "humanitarian" "Humanitarian Organizations"
-    "defence" "Defence & Civil Protection"
-    }}
+    {{/* Build labels from audience.json */}}
+    {{ $labels := dict }}
+    {{ range site.Data.audience.audience.itemListElement }}
+      {{ $labels = merge $labels (dict .identifier .name) }}
     {{ end }}
 
     <div class="mt-6">

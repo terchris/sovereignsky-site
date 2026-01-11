@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sovereignsky.io/schemas/countries.schema.json",
+  "title": "Countries",
+  "description": "Schema for countries.json - countries with datacenter infrastructure and data sovereignty characteristics (schema.org ItemList)",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org",
+      "description": "schema.org context"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList",
+      "description": "schema.org type"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of country entries",
+      "items": {
+        "type": "object",
+        "required": ["@type", "identifier", "slug", "name", "flag", "riskLevel"],
+        "properties": {
+          "@type": {
+            "type": "string",
+            "const": "Country",
+            "description": "schema.org type for country entries"
+          },
+          "identifier": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$",
+            "description": "ISO 3166-1 alpha-2 country code (uppercase)"
+          },
+          "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "URL-friendly slug"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full display name"
+          },
+          "flag": {
+            "type": "string",
+            "description": "Emoji flag for the country"
+          },
+          "description": {
+            "type": "string",
+            "description": "Brief description of the country's data sovereignty context"
+          },
+          "abstract": {
+            "type": "string",
+            "description": "One-line summary for cards/lists"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Medium-length summary paragraph"
+          },
+          "body": {
+            "type": "string",
+            "description": "Full article body content"
+          },
+          "image": {
+            "type": "string",
+            "description": "URL or path to representative image"
+          },
+          "riskLevel": {
+            "type": "string",
+            "enum": ["low", "moderate", "elevated", "high", "sanctioned", "unknown"],
+            "description": "Data sovereignty risk assessment level"
+          },
+          "riskLevelOverride": {
+            "type": ["string", "null"],
+            "enum": ["low", "moderate", "elevated", "high", "sanctioned", null],
+            "description": "Optional override for calculated risk level"
+          },
+          "blocs": {
+            "type": "array",
+            "description": "Bloc identifiers this country belongs to",
+            "items": {
+              "type": "string"
+            }
+          },
+          "nationalLaws": {
+            "type": "array",
+            "description": "Identifiers of national laws",
+            "items": {
+              "type": "string"
+            }
+          },
+          "lawConcern": {
+            "type": ["boolean", "string"],
+            "description": "Level of law concern (false, true, or descriptive string)"
+          },
+          "adequacyDecision": {
+            "type": ["boolean", "string"],
+            "description": "Whether this country has an adequacy decision from the EU"
+          },
+          "politicalConcern": {
+            "type": ["boolean", "string"],
+            "description": "Level of political concern"
+          },
+          "sanctions": {
+            "type": ["boolean", "string"],
+            "description": "Whether sanctions apply to this country"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

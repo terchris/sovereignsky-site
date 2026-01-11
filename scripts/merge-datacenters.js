@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * Merge datacenter provider files into a single datacenters.json
+ * Merge datacenter provider files into a single providers.json
  *
- * Reads all JSON files from data/datacenters/ and creates:
- * - data/datacenters.json (merged file for Hugo templates)
+ * Reads all JSON files from data/datacenters/ (source files) and creates:
+ * - data/datacenters/providers.json (merged file for Hugo templates)
+ *
+ * Hugo accesses this as: site.Data.datacenters.providers
  *
  * Usage: node scripts/merge-datacenters.js
  */
@@ -13,13 +15,14 @@ const fs = require('fs');
 const path = require('path');
 
 const DATACENTERS_DIR = path.join(__dirname, '..', 'data', 'datacenters');
-const OUTPUT_FILE = path.join(__dirname, '..', 'data', 'datacenters.json');
+const OUTPUT_FILE = path.join(DATACENTERS_DIR, 'providers.json');
 
 function main() {
   console.log('Merging datacenter provider files...\n');
 
-  // Read all JSON files from datacenters directory
-  const files = fs.readdirSync(DATACENTERS_DIR).filter(f => f.endsWith('.json'));
+  // Read all JSON files from datacenters directory (skip the merged output file)
+  const files = fs.readdirSync(DATACENTERS_DIR)
+    .filter(f => f.endsWith('.json') && f !== 'providers.json');
 
   const providers = [];
   let totalRegions = 0;
@@ -72,21 +75,10 @@ function main() {
     return a.provider_name.localeCompare(b.provider_name);
   });
 
-  // Build merged output
-  const output = {
-    providers: providers,
-    meta: {
-      total_providers: providers.length,
-      total_regions: totalRegions,
-      generated: new Date().toISOString().split('T')[0],
-      description: "Merged datacenter data from data/datacenters/*.json"
-    }
-  };
+  // Write merged file (array directly for Hugo access as site.Data.datacenters.providers)
+  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(providers, null, 2));
 
-  // Write merged file
-  fs.writeFileSync(OUTPUT_FILE, JSON.stringify(output, null, 2));
-
-  console.log(`\nGenerated: data/datacenters.json`);
+  console.log(`\nGenerated: data/datacenters/providers.json`);
   console.log(`  Providers: ${providers.length}`);
   console.log(`  Total regions: ${totalRegions}`);
 }

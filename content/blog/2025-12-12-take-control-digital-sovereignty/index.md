@@ -1,11 +1,24 @@
 ---
 title: "Take Control: How You Can Protect Your Digital Life and Help Norway Stay Sovereign"
+identifier: "2025-12-12-take-control-digital-sovereignty"
 date: 2025-12-12
-showHero: true
 description: "You have the power to protect yourself from being locked out of your own computer. Small steps toward open standards create personal insurance and national sovereignty."
 summary: "You have the power to protect yourself from being locked out of your own computer. Small steps toward open standards create personal insurance and national sovereignty."
-tags: ["open-standards", "sovereignty", "vendor-lock-in", "self-hosting"]
-categories: ["Opinion"]
+showHero: true
+topics:
+  - "digital-sovereignty"
+  - "platform-dependency"
+tags:
+  - "open-standards"
+  - "self-hosting"
+audience:
+  - "public-sector"
+  - "developer"
+  - "it-ops"
+authors:
+  - "SovereignSky"
+layout: "single"
+type: "blog"
 ---
 
 You have insurance on your house. Insurance on your car. Travel insurance. Health insurance.

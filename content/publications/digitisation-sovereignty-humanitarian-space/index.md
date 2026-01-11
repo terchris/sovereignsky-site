@@ -16,27 +16,29 @@ authors:
   - "Stephan Scheel"
   - "Huub Dijstelbloem"
 topics:
-  - "digital sovereignty"
-  - "cloud sovereignty"
-  - "humanitarian technology"
-  - "blockchain"
-  - "biometrics"
-  - "data protection"
-  - "platform dependency"
-personas:
+  - "digital-sovereignty"
+  - "digital-identity"
+  - "privacy"
+audience:
   - "humanitarian"
   - "public-sector"
   - "enterprise"
+tags:
+  - "digital-platforms"
+  - "power-relations"
+  - "platform-dependency"
+  - "biometric-data"
+  - "blockchain-payments"
 type: publications
 ---
 
+## Abstract
+
+Peer-reviewed analysis of how humanitarian organisations' dependence on US tech platforms creates fundamental tensions with their mandate for independence and neutrality.
+
 ## Summary
 
-A rare collaboration between critical academics and humanitarian practitioners, this peer-reviewed forum article examines how digitalisation reshapes power and sovereignty in humanitarian operations. Published in *Geopolitics*, it brings together researchers from six leading institutions with an ICRC practitioner to analyse real controversies where digital technology and sovereignty collide.
-
-The article opens with three cases that set the stakes: the World Food Programme's partnership with Palantir (US intelligence contractor), Facebook's failed Libra cryptocurrency (framed as "financial inclusion"), and WFP's suspension of food aid in Yemen when Houthi authorities refused biometric registration on sovereignty grounds.
-
-The core finding: **humanitarian organisations face a fundamental tension between operational efficiency through digital platforms and the independence required by their mandates**. Their growing dependence on US-headquartered technology firms creates vulnerabilities that mirror — and may exceed — physical security risks.
+Through cases including WFP's Palantir partnership, biometric registration standoffs in Yemen, and blockchain payment systems, researchers from six institutions with an ICRC practitioner examine how digital technology disrupts humanitarian space. The core finding: platform dependencies create vulnerabilities that may exceed physical security risks, while "decentralised" systems still operate within existing power structures.
 
 ---
 

@@ -1,64 +1,47 @@
 ---
 title: "PIPL"
-law_id: "pipl"
-full_name: "Personal Information Protection Law"
-year: 2021
-scope: "national"
-applies_to:
+identifier: "pipl"
+alternateName: "Personal Information Protection Law"
+description: "China's comprehensive personal data protection law providing GDPR-like rights while operating alongside state access requirements."
+abstract: "PIPL grants individuals rights over their personal information including consent requirements, access, deletion, and portability. Cross-border transfers require consent plus a government assessment or standard contracts. However, PIPL coexists with laws requiring cooperation with state intelligence and security activities."
+summary: "China's Personal Information Protection Law of 2021 is often compared to GDPR but operates in a fundamentally different legal context. PIPL provides individual rights: informed consent for processing, access to personal information, correction of errors, deletion rights, and data portability. Processing requires a lawful basis (consent, contract, legal obligation, public interest, etc.). Cross-border transfers need individual consent plus one of: government security assessment, standard contractual clauses, or certification. However, PIPL explicitly exempts state security and emergency response activities. The coexistence of PIPL's individual protections with the National Intelligence Law's access requirements creates an unusual framework: organizations must protect personal data while simultaneously being prepared to disclose it to state security when requested. For international data transfers involving China, this dual nature complicates compliance."
+legislationDate: "2021"
+legislationLegalForce: "InForce"
+sourceUrl: "https://www.chinalawtranslate.com/en/pipl/"
+legislationJurisdiction:
   - "CN"
-source_url: "https://www.chinalawtranslate.com/en/pipl/"
-law_type: "privacy"
-law_type_description: "Protects individual data rights and privacy"
-government_access: "targeted"
-government_access_description: "Access with warrants or court orders for specific investigations"
-data_protection: "moderate"
-data_protection_description: "Some protections but with significant exceptions or weaker enforcement"
+category: "privacy"
+categoryDescription: "Laws that protect individual data rights and privacy"
+governmentAccess: "targeted"
+dataProtection: "moderate"
 extraterritorial: true
-requires_localization: true
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "China's comprehensive personal data protection law with strict cross-border transfer requirements."
-  - "May require certain categories of data to be stored or processed within the jurisdiction."
-  - "Enables targeted government access under warrants or court orders for specific investigations."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Personal information handlers in China"
-  - "Organizations offering products/services to people in China (in some cases)"
-  - "Processors handling personal information on behalf of handlers"
-key_provisions:
-  - title: "Core scope"
-    description: "China's comprehensive personal data protection law with strict cross-border transfer requirements."
-  - title: "Key obligations"
-    description: "Defines obligations for handling personal data and sets safeguards around processing, sharing, and accountability."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Update privacy notices, lawful basis, contracts/DPAs, and rights-handling processes."
-  - "Implement data residency controls and verify vendor/subprocessor locations."
-enforcement:
-  notes: "Enforced by Chinese regulators; cross‑border transfers and localization rules can be strict depending on data type."
-related_laws:
+requiresLocalization: true
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "privacy"
+  - "data-protection"
+tags:
+  - "personal-data"
+  - "consent"
+  - "cross-border-transfer"
+  - "individual-rights"
+audience:
+  - "enterprise"
+  - "it-ops"
+isRelatedTo:
   complements:
-    - id: "national-intelligence-law"
+    - identifier: "national-intelligence-law"
       name: "National Intelligence Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "cybersecurity-law"
+      legislationDate: "2017"
+    - identifier: "cybersecurity-law"
       name: "Cybersecurity Law"
-      year: 2017
-      flag: "🇨🇳"
-    - id: "data-security-law"
+      legislationDate: "2017"
+    - identifier: "data-security-law"
       name: "Data Security Law"
-      year: 2021
-      flag: "🇨🇳"
+      legislationDate: "2021"
 layout: "single"
 type: "laws"
 ---
 
-China's comprehensive personal data protection law with strict cross-border transfer requirements.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

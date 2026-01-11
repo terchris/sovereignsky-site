@@ -11,10 +11,10 @@ locationCountry: "EE"
 organizerName: "NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE)"
 organizerUrl: "https://ccdcoe.org"
 externalUrl: "https://cycon.org/"
-tags:
+topics:
   - "cybersecurity"
-  - "preparedness"
-audiences:
+  - "national-preparedness"
+audience:
   - "security"
   - "public-sector"
   - "it-ops"

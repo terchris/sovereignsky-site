@@ -1,62 +1,51 @@
 ---
 title: "DSA"
-law_id: "dsa"
-full_name: "Digital Services Act"
-year: 2022
-scope: "bloc"
-applies_to:
+identifier: "dsa"
+alternateName: "Digital Services Act"
+description: "EU regulation establishing platform liability rules and transparency requirements for online intermediaries and marketplaces."
+abstract: "The DSA creates a tiered liability framework for online intermediaries based on their size and role. It requires notice-and-takedown mechanisms, transparency reporting, algorithmic accountability for very large platforms (VLOPs), and risk assessments for systemic risks to democracy, public health, and fundamental rights."
+summary: "The Digital Services Act modernizes the EU's e-Commerce Directive for the platform age. All online intermediaries must establish notice-and-action mechanisms for illegal content and publish transparency reports. Online platforms face additional obligations around traceability of traders, advertising transparency, and recommender system parameters. Very Large Online Platforms and Search Engines (over 45 million EU users) must conduct annual systemic risk assessments, submit to independent audits, provide data access to researchers, and implement crisis response protocols. The Act also bans dark patterns, targeted advertising to minors, and profiling based on sensitive data. The European Commission directly supervises VLOPs while member states oversee smaller platforms through Digital Services Coordinators."
+legislationDate: "2022"
+legislationLegalForce: "InForce"
+sourceUrl: "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"
+legislationJurisdiction:
   - "eu"
-source_url: "https://eur-lex.europa.eu/eli/reg/2022/2065/oj"
-law_type: "sector"
-law_type_description: "Regulates specific sector (AI, telecom, finance, etc.)"
-government_access: "limited"
-government_access_description: "Strong procedural safeguards, narrow scope, independent oversight"
-data_protection: "moderate"
-data_protection_description: "Some protections but with significant exceptions or weaker enforcement"
+category: "sector"
+categoryDescription: "Laws regulating specific sectors (AI, telecom, finance, etc.)"
+governmentAccess: "limited"
+dataProtection: "moderate"
 extraterritorial: true
-requires_localization: false
-requires_backdoor: false
-review_status: "ai-generated"
-what_it_does:
-  - "Platform liability and transparency rules."
-  - "Requires notice-and-takedown procedures, algorithmic transparency for very large platforms, and risk assessments for systemic risks."
-  - "Can apply beyond borders in certain situations (e.g., based on the provider’s location or the affected users)."
-who_it_applies_to:
-  - "Online platforms and intermediaries"
-  - "Very large platforms/search engines (VLOPs/VLOSEs)"
-  - "Traders using online platforms"
-key_provisions:
-  - title: "Core scope"
-    description: "Platform liability and transparency rules."
-  - title: "Key obligations"
-    description: "Sets sector‑specific obligations and oversight requirements relevant to regulated services and providers."
-compliance_actions:
-  - "Assess whether you are in scope (by jurisdiction, entity type, and data flows)."
-  - "Map relevant data and processing activities (where data is stored, who can access it, and under what contracts)."
-  - "Identify sector-specific obligations and document controls, audits, and reporting duties."
-enforcement:
-  notes: "Enforced by national Digital Services Coordinators; the European Commission has direct powers for VLOPs/VLOSEs."
-related_laws:
+requiresLocalization: false
+requiresBackdoor: false
+reviewStatus: "ai-generated"
+topics:
+  - "digital-sovereignty"
+  - "platform-dependency"
+tags:
+  - "platform-regulation"
+  - "content-moderation"
+  - "transparency"
+  - "online-safety"
+audience:
+  - "enterprise"
+  - "developer"
+  - "public-sector"
+isRelatedTo:
   complements:
-    - id: "ai-act"
+    - identifier: "ai-act"
       name: "AI Act"
-      year: 2024
+      legislationDate: "2024"
       flag: "🇪🇺"
-    - id: "dma"
+    - identifier: "dma"
       name: "DMA"
-      year: 2022
+      legislationDate: "2022"
       flag: "🇪🇺"
-    - id: "gdpr"
+    - identifier: "gdpr"
       name: "GDPR"
-      year: 2018
+      legislationDate: "2018"
       flag: "🇪🇺"
 layout: "single"
 type: "laws"
 ---
 
-Platform liability and transparency rules. Requires notice-and-takedown procedures, algorithmic transparency for very large platforms, and risk assessments for systemic risks.
-
----
-
-*No additional commentary yet. [Contribute on GitHub](https://github.com/helpers-no).*
-
+*No additional commentary yet. [Contribute on GitHub](https://github.com/terchris/sovereignsky-site).*

@@ -1,101 +1,65 @@
 {{/*
 Datacenter Countries list
-Usage: {{< datacenter-countries>}}
+Usage: {{< datacenter-countries >}}
 
-    Renders country chips (flag + number of datacenter regions physically located there).
-    Links to /datacenters/{country}/ pages.
-    */}}
+Renders country cards (flag + datacenter and provider counts).
+Links to /datacenters/{country}/ pages.
+*/}}
 
-    {{ $datacenters := site.Data.datacenters }}
-    {{ $regions := site.Data.regions }}
+{{ $providers := site.Data.datacenters.datacenters | default (slice) }}
 
-    {{/* Build regions lookup by id (ISO country code) */}}
-    {{ $regionsById := dict }}
-    {{ range $regions }}
-    {{ $regionsById = merge $regionsById (dict .id .) }}
-    {{ end }}
-
-    {{/* Count datacenter regions by physical country */}}
-    {{ $counts := dict }}
-    {{ range ($datacenters.providers | default (slice)) }}
-    {{ range (.regions | default (slice)) }}
-    {{ $cid := .country_id | default "" }}
+{{/* Count datacenter regions and providers by physical country */}}
+{{ $dcCounts := dict }}
+{{ $providersByCountry := dict }}
+{{ range $providers }}
+  {{ $providerName := .name }}
+  {{ range (.regions | default (slice)) }}
+    {{ $cid := .countryId | default "" }}
     {{ if $cid }}
-    {{ $prev := index $counts $cid | default 0 }}
-    {{ $counts = merge $counts (dict $cid (add $prev 1)) }}
+      {{ $prev := index $dcCounts $cid | default 0 }}
+      {{ $dcCounts = merge $dcCounts (dict $cid (add $prev 1)) }}
+      {{/* Track unique providers per country */}}
+      {{ $existingProviders := index $providersByCountry $cid | default (slice) }}
+      {{ if not (in $existingProviders $providerName) }}
+        {{ $providersByCountry = merge $providersByCountry (dict $cid ($existingProviders | append $providerName)) }}
+      {{ end }}
     {{ end }}
-    {{ end }}
-    {{ end }}
+  {{ end }}
+{{ end }}
 
-    {{/* Convert dict -> slice for sorting */}}
-    {{ $items := slice }}
-    {{ range $cid, $count := $counts }}
-    {{ $meta := index $regionsById $cid }}
-    {{ $name := $cid }}
-    {{ if $meta }}{{ $name = $meta.name | default $cid }}{{ end }}
-    {{ $items = $items | append (dict
+{{/* Convert dict -> slice for sorting */}}
+{{ $items := slice }}
+{{ range $cid, $count := $dcCounts }}
+  {{ $region := partial "get-region-by-id.html" $cid }}
+  {{ $name := $region.name | default $cid }}
+  {{ $providerCount := len (index $providersByCountry $cid | default (slice)) }}
+  {{ $items = $items | append (dict
     "id" $cid
-    "count" $count
-    "meta" $meta
+    "dcCount" $count
+    "providerCount" $providerCount
+    "region" $region
     "name" $name
-    )
-    }}
-    {{ end }}
+  ) }}
+{{ end }}
 
-    {{/* Sorted: name asc (primary), then id asc */}}
-    {{ $items = sort $items "id" "asc" }}
-    {{ $items = sort $items "name" "asc" }}
+{{/* Sort by name */}}
+{{ $items = sort $items "name" "asc" }}
 
-    <div class="flex flex-wrap gap-2">
-        {{ range $items }}
-        {{ $cid := .id }}
-        {{ $count := .count }}
-        {{ $meta := .meta }}
+<div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+  {{ range $items }}
+    {{ $region := .region }}
+    {{ $flag := $region.flag | default "" }}
+    {{ $slug := $region.slug | default "" }}
 
-        {{ $flag := "" }}
-        {{ $name := $cid }}
-        {{ $slug := "" }}
-        {{ $risk := "unknown" }}
-        {{ if $meta }}
-        {{ $flag = $meta.flag }}
-        {{ $name = $meta.name }}
-        {{ $slug = $meta.slug }}
-        {{ $risk = $meta.risk_level }}
-        {{ end }}
-
-        {{/* small colored dot by risk */}}
-        {{ $dot := "bg-neutral-400" }}
-        {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
-        {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
-        {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
-        {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
-        {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
-
-        {{ $href := "" }}
-        {{ if $slug }}
-        {{ $href = (printf "/datacenters/%s/" $slug) }}
-        {{ end }}
-
-        {{ if $href }}
-        <a class="inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-            href="{{ $href }}"
-            title="Datacenters located in {{ $name }} ({{ $cid }}) • Count: {{ $count }} • Country risk: {{ $risk }}">
-            <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-            <span class="font-medium">{{ $name }}</span>
-            <span class="text-neutral-500 dark:text-neutral-400">
-                {{ if $flag }}{{ $flag }}{{ end }} {{ $count }}
-            </span>
-        </a>
-        {{ else }}
-        <span
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-sm"
-            title="Datacenters located in {{ $name }} ({{ $cid }}) • Count: {{ $count }} • Country risk: {{ $risk }}">
-            <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-            <span class="font-medium">{{ $name }}</span>
-            <span class="text-neutral-500 dark:text-neutral-400">
-                {{ if $flag }}{{ $flag }}{{ end }} {{ $count }}
-            </span>
-        </span>
-        {{ end }}
-        {{ end }}
-    </div>
+    <a href="/datacenters/{{ $slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xl">{{ $flag }}</span>
+        <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+      </div>
+      <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+        <div>Datacenters: {{ .dcCount }}</div>
+        <div>Providers: {{ .providerCount }}</div>
+      </div>
+    </a>
+  {{ end }}
+</div>

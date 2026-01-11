@@ -1,34 +1,10 @@
-{{- $country := . -}}
-{{- $flags := dict
-  "NO" "🇳🇴"
-  "SE" "🇸🇪"
-  "DK" "🇩🇰"
-  "FI" "🇫🇮"
-  "DE" "🇩🇪"
-  "FR" "🇫🇷"
-  "NL" "🇳🇱"
-  "BE" "🇧🇪"
-  "AT" "🇦🇹"
-  "CH" "🇨🇭"
-  "ES" "🇪🇸"
-  "IT" "🇮🇹"
-  "PT" "🇵🇹"
-  "IE" "🇮🇪"
-  "PL" "🇵🇱"
-  "CZ" "🇨🇿"
-  "EE" "🇪🇪"
-  "LV" "🇱🇻"
-  "LT" "🇱🇹"
-  "US" "🇺🇸"
-  "GB" "🇬🇧"
-  "CA" "🇨🇦"
-  "AU" "🇦🇺"
-  "JP" "🇯🇵"
-  "KR" "🇰🇷"
-  "CN" "🇨🇳"
-  "IN" "🇮🇳"
-  "IL" "🇮🇱"
-  "EU" "🇪🇺"
--}}
-{{- $flag := index $flags $country | default "🏳️" -}}
-<span class="country-flag" title="{{ $country }}">{{ $flag }}</span>
+{{/*
+  Country Flag Partial
+  Usage: {{ partial "country-flag.html" "NO" }}
+  Returns: <span class="country-flag" title="NO">🇳🇴</span>
+
+  Uses get-country-flag.html for the actual flag lookup.
+*/}}
+{{- $code := . -}}
+{{- $flag := partial "get-country-flag.html" $code -}}
+<span class="country-flag" title="{{ $code }}">{{ $flag }}</span>

@@ -1,0 +1,9 @@
+{{/* Related Content Card - shows related laws, blog posts, publications based on matching tags
+
+     This is a wrapper around the full related-content-sidebar partial for sidebar consistency.
+
+     Usage:
+     - {{ partial "sidebar/common-related-card.html" . }}
+     - {{ partial "sidebar/common-related-card.html" (dict "page" . "country_id" "NO") }}
+*/}}
+{{ partial "related-content-sidebar.html" . }}

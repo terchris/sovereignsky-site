@@ -15,7 +15,7 @@
       "addressRegion": "Agder",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -33,7 +33,7 @@
       "addressRegion": "Rogaland",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -51,7 +51,7 @@
       "addressRegion": "Rogaland",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -69,7 +69,7 @@
       "addressRegion": "Agder",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -87,7 +87,7 @@
       "addressRegion": "Vestfold",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -105,7 +105,7 @@
       "addressRegion": "Østfold",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -123,7 +123,7 @@
       "addressRegion": "Akershus",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -141,7 +141,7 @@
       "addressRegion": "Oslo",
       "addressCountry": "NO"
     },
-    "place_type": "backbone_endpoint"
+    "type": "backbone_endpoint"
   },
   {
     "@type": "Place",
@@ -159,7 +159,7 @@
       "addressRegion": "Vestland",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -177,7 +177,7 @@
       "addressRegion": "Trøndelag",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -195,7 +195,7 @@
       "addressRegion": "Møre og Romsdal",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -213,7 +213,7 @@
       "addressRegion": "Møre og Romsdal",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -231,7 +231,7 @@
       "addressRegion": "Nordland",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -249,7 +249,7 @@
       "addressCountry": "NO"
     },
     "territory_id": "SJ",
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -267,7 +267,7 @@
       "addressRegion": "Troms",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -285,7 +285,7 @@
       "addressRegion": "Troms",
       "addressCountry": "NO"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -303,7 +303,7 @@
       "addressCountry": "NO"
     },
     "territory_id": "SJ",
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -321,7 +321,7 @@
       "addressCountry": "NO"
     },
     "territory_id": "SJ",
-    "place_type": "backbone_endpoint"
+    "type": "backbone_endpoint"
   },
   {
     "@type": "Place",
@@ -338,7 +338,7 @@
       "addressLocality": "Esbjerg",
       "addressCountry": "DK"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -355,7 +355,7 @@
       "addressLocality": "Hirtshals",
       "addressCountry": "DK"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -372,7 +372,7 @@
       "addressLocality": "Blaabjerg",
       "addressCountry": "DK"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -389,7 +389,7 @@
       "addressLocality": "Ramsgate",
       "addressCountry": "GB"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -406,7 +406,7 @@
       "addressLocality": "Seaton Sluice",
       "addressCountry": "GB"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -423,7 +423,7 @@
       "addressLocality": "Eemshaven",
       "addressCountry": "NL"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -440,7 +440,7 @@
       "addressLocality": "Wilhelmshaven",
       "addressCountry": "DE"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -457,7 +457,7 @@
       "addressLocality": "Killala",
       "addressCountry": "IE"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -474,7 +474,7 @@
       "addressLocality": "Wall Township",
       "addressCountry": "US"
     },
-    "place_type": "landing_station"
+    "type": "landing_station"
   },
   {
     "@type": "Place",
@@ -491,7 +491,7 @@
       "addressLocality": "Stockholm",
       "addressCountry": "SE"
     },
-    "place_type": "international_hub"
+    "type": "international_hub"
   },
   {
     "@type": "Place",
@@ -508,7 +508,7 @@
       "addressLocality": "Gothenburg",
       "addressCountry": "SE"
     },
-    "place_type": "international_hub"
+    "type": "international_hub"
   },
   {
     "@type": "Place",
@@ -525,7 +525,7 @@
       "addressLocality": "Luleå",
       "addressCountry": "SE"
     },
-    "place_type": "international_hub"
+    "type": "international_hub"
   },
   {
     "@type": "Place",
@@ -542,6 +542,6 @@
       "addressLocality": "Oulu",
       "addressCountry": "FI"
     },
-    "place_type": "international_hub"
+    "type": "international_hub"
   }
 ]

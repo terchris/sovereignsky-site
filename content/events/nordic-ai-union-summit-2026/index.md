@@ -10,9 +10,9 @@ locationCountry: "NO"
 organizerName: "NITO, Negotia and Finansforbundet"
 organizerUrl: "https://nordicaisummit.org"
 externalUrl: "https://nordicaisummit.org/"
-tags:
-  - "sovereignty"
-audiences:
+topics:
+  - "digital-sovereignty"
+audience:
   - "enterprise"
   - "public-sector"
 itRelevance: "medium"
