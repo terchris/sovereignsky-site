@@ -6,12 +6,12 @@ vendor_id: "simployer"
 vendor_name: "Simployer AS"
 vendor_country: "NO"
 vendor_country_name: "Norway"
-risk_level: "low"
+riskLevel: "low"
 risk_label: "Low Risk"
 has_us_exposure: false
 open_source: false
 data_portability: "partial"
-date: 2026-01-08
+date: 2026-01-11
 layout: single
 type: software
 
@@ -27,7 +27,7 @@ jurisdiction_exposure:
   []
 
 # Taxonomies for Hugo filtering
-risk_levels:
+riskLevels:
   - "low"
 vendor_countries:
   - "NO"
@@ -39,4 +39,4 @@ use_area_names:
   - "HR & People"
 ---
 
-<!-- Content is rendered from data/products.json via layouts/software/single.html -->
+<!-- Content is rendered from data/software/software.json via layouts/software/single.html -->

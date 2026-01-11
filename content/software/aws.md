@@ -6,12 +6,12 @@ vendor_id: "amazon"
 vendor_name: "Amazon Web Services, Inc."
 vendor_country: "US"
 vendor_country_name: "USA"
-risk_level: "significant"
+riskLevel: "significant"
 risk_label: "Significant Risk"
 has_us_exposure: true
 open_source: false
 data_portability: "partial"
-date: 2026-01-08
+date: 2026-01-11
 layout: single
 type: software
 
@@ -24,7 +24,7 @@ jurisdiction_exposure:
   - "US"
 
 # Taxonomies for Hugo filtering
-risk_levels:
+riskLevels:
   - "significant"
 vendor_countries:
   - "US"
@@ -38,4 +38,4 @@ use_area_names:
   - "Development & IT"
 ---
 
-<!-- Content is rendered from data/products.json via layouts/software/single.html -->
+<!-- Content is rendered from data/software/software.json via layouts/software/single.html -->

@@ -23,34 +23,8 @@
   </div>
 </div>
 
-{{/* ========== SECTION 2: PERSONAS ========== */}}
-<section id="personas" class="py-16 bg-base-200 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
-  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4">What does digital sovereignty mean for you?</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">Choose your role to find relevant content, laws, and recommendations.</p>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
-      {{ range .Site.Data.audience.audience.itemListElement }}
-        <a href="/personas/{{ .identifier }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 240px;">
-          <div class="card-body" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem;">
-            <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-              <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="{{ .iconPath }}"></path>
-              </svg>
-            </div>
-            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0.5rem;">{{ .name }}</h3>
-            <p style="font-size: 0.875rem; opacity: 0.7; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ .description }}</p>
-          </div>
-        </a>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
-{{/* ========== SECTION 3: DATABASES ========== */}}
-<section id="databases" class="py-16 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+{{/* ========== SECTION 2: DATABASES ========== */}}
+<section id="databases" class="py-16 bg-base-200 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">The data behind digital sovereignty</h2>
@@ -58,7 +32,7 @@
     </div>
 
     {{/* Calculate counts */}}
-    {{ $software := len (index .Site.Data.products "products") | default 41 }}
+    {{ $software := len (index .Site.Data.software "softwareList") | default 41 }}
     {{ $datacenters := 0 }}
     {{ range .Site.Data.datacenters.datacenters }}
       {{ $datacenters = add $datacenters (len .regions) }}
@@ -72,38 +46,6 @@
 
     {{/* Combined Database Cards with Stats */}}
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
-      {{/* Software */}}
-      <a href="/products/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
-        <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
-          <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-            </svg>
-          </div>
-          <div style="flex: 1;">
-            <div style="font-size: 1.75rem; font-weight: bold; color: #3b82f6; line-height: 1;">{{ $software }}</div>
-            <div style="font-weight: 600; margin-bottom: 2px;">Software</div>
-            <div style="font-size: 0.75rem; opacity: 0.7;">Products mapped with alternatives</div>
-          </div>
-        </div>
-      </a>
-
-      {{/* Datacenters */}}
-      <a href="/datacenters/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
-        <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
-          <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(244, 114, 182, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-            <svg style="width: 28px; height: 28px; color: #f472b6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
-            </svg>
-          </div>
-          <div style="flex: 1;">
-            <div style="font-size: 1.75rem; font-weight: bold; color: #f472b6; line-height: 1;">{{ $datacenters }}</div>
-            <div style="font-weight: 600; margin-bottom: 2px;">Datacenters</div>
-            <div style="font-size: 0.75rem; opacity: 0.7;">Cloud regions worldwide</div>
-          </div>
-        </div>
-      </a>
-
       {{/* Countries */}}
       <a href="/countries/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
@@ -199,6 +141,64 @@
           </div>
         </div>
       </a>
+
+      {{/* Software */}}
+      <a href="/software/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+        <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
+          <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 1.75rem; font-weight: bold; color: #3b82f6; line-height: 1;">{{ $software }}</div>
+            <div style="font-weight: 600; margin-bottom: 2px;">Software</div>
+            <div style="font-size: 0.75rem; opacity: 0.7;">MVP products · 4,000+ being prepared</div>
+          </div>
+        </div>
+      </a>
+
+      {{/* Datacenters */}}
+      <a href="/datacenters/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+        <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
+          <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(244, 114, 182, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <svg style="width: 28px; height: 28px; color: #f472b6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
+            </svg>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 1.75rem; font-weight: bold; color: #f472b6; line-height: 1;">{{ $datacenters }}</div>
+            <div style="font-weight: 600; margin-bottom: 2px;">Datacenters</div>
+            <div style="font-size: 0.75rem; opacity: 0.7;">Cloud regions worldwide</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+{{/* ========== SECTION 3: PERSONAS ========== */}}
+<section id="personas" class="py-16 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">What does digital sovereignty mean for you?</h2>
+      <p class="text-lg opacity-70 max-w-2xl mx-auto">There's a lot to digest. We've curated the content for your role so you can get started quickly.</p>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+      {{ range .Site.Data.audience.audience.itemListElement }}
+        <a href="/personas/{{ .identifier }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 240px;">
+          <div class="card-body" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem;">
+            <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+              <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="{{ .iconPath }}"></path>
+              </svg>
+            </div>
+            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 0.5rem;">{{ .name }}</h3>
+            <p style="font-size: 0.875rem; opacity: 0.7; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ .description }}</p>
+          </div>
+        </a>
+      {{ end }}
     </div>
   </div>
 </section>
@@ -212,8 +212,9 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {{ $posts := where .Site.RegularPages "Section" "blog" }}
-      {{ range first 3 $posts }}
+      {{ $featuredSlugs := slice "2025-12-10-developer-power-sovereignty" "2025-12-01-norway-exit-strategy" "2025-12-11-digital-sovereignty-moral-independence" }}
+      {{ range $featuredSlugs }}
+      {{ with site.GetPage (printf "/blog/%s" .) }}
       <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-all duration-300">
         {{ with .Resources.GetMatch "feature*" }}
         <figure class="h-32 overflow-hidden">
@@ -230,6 +231,7 @@
         </div>
       </a>
       {{ end }}
+      {{ end }}
     </div>
 
     <div class="text-center mt-6">
@@ -238,8 +240,45 @@
   </div>
 </section>
 
-{{/* ========== SECTION 5: EVENTS ========== */}}
-<section id="events" class="py-16 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+{{/* ========== SECTION 5: PUBLICATIONS ========== */}}
+<section id="publications" class="py-16 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Essential reading</h2>
+      <p class="text-lg opacity-70 max-w-2xl mx-auto">Key reports and frameworks shaping digital sovereignty policy.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {{ $featuredPubs := slice "totalberedskapsmeldingen-2025" "ffi-frivillige-beredskapsorganisasjoner-totalforsvar" "icrc-data-protection-handbook" }}
+      {{ range $featuredPubs }}
+      {{ with site.GetPage (printf "/publications/%s" .) }}
+      <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-all duration-300">
+        {{ with .Resources.GetMatch "feature*" }}
+        <figure class="h-32 overflow-hidden">
+          <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" class="w-full h-full object-cover" />
+        </figure>
+        {{ end }}
+        <div class="card-body">
+          <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
+          <p class="text-xs opacity-70 line-clamp-2">{{ .Description | default .Summary | plainify | truncate 80 }}</p>
+          <div class="card-actions justify-between items-center">
+            <span class="text-xs opacity-50">{{ .Params.publisher | default "Publication" }}</span>
+            <span class="text-primary-600 text-xs font-medium">Read →</span>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+      {{ end }}
+    </div>
+
+    <div class="text-center mt-6">
+      <a href="/publications/" class="btn btn-sm btn-outline btn-primary">View all publications</a>
+    </div>
+  </div>
+</section>
+
+{{/* ========== SECTION 6: EVENTS ========== */}}
+<section id="events" class="py-16 bg-base-200 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">Key Events in 2026</h2>
@@ -284,7 +323,7 @@
   </div>
 </section>
 
-{{/* ========== SECTION 6: JOIN US ========== */}}
+{{/* ========== SECTION 7: JOIN US ========== */}}
 <section id="join" class="py-16 text-white -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32" style="background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);">
   <div class="max-w-4xl mx-auto text-center px-6">
     <h2 class="text-3xl sm:text-4xl font-bold mb-6">Help make Norway digitally sovereign</h2>
@@ -323,7 +362,7 @@
   </div>
 </section>
 
-{{/* ========== SECTION 7: COMING SOON ========== */}}
+{{/* ========== SECTION 8: COMING SOON ========== */}}
 <section id="coming-soon" class="py-16 bg-base-200 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">

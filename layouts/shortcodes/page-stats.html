@@ -15,10 +15,10 @@
 {{- $section := .Get "section" | default "" -}}
 
 {{- if eq $section "software" -}}
-  {{- $count := len (index (index .Site.Data "products") "productsList") -}}
+  {{- $count := len (index (index .Site.Data "software") "softwareList") -}}
   {{- $highRisk := 0 -}}
   {{- $lowRisk := 0 -}}
-  {{- range (index (index .Site.Data "products") "productsList") -}}
+  {{- range (index (index .Site.Data "software") "softwareList") -}}
     {{- if eq .riskLevel "High" -}}{{- $highRisk = add $highRisk 1 -}}{{- end -}}
     {{- if eq .riskLevel "Low" -}}{{- $lowRisk = add $lowRisk 1 -}}{{- end -}}
   {{- end -}}

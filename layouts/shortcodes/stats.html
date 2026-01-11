@@ -10,7 +10,7 @@
 {{- $style := .Get "style" | default "default" -}}
 
 {{- /* Count software products */ -}}
-{{- $softwareCount := len (index (index .Site.Data "products") "productsList") -}}
+{{- $softwareCount := len (index (index .Site.Data "software") "softwareList") -}}
 
 {{- /* Count datacenter regions from JSON data */ -}}
 {{- $providers := index (index .Site.Data "datacenters") "datacenters" -}}

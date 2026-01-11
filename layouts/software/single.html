@@ -1,9 +1,9 @@
 {{ define "main" }}
 {{ $softwareId := .Params.software_id }}
-{{ $data := index (where site.Data.products.products.products "id" $softwareId) 0 }}
+{{ $data := index (where site.Data.software.software.products "id" $softwareId) 0 }}
 
 {{/* Get vendor data */}}
-{{ $vendor := index (where site.Data.products.vendors.vendors "id" $data.vendor_id) 0 }}
+{{ $vendor := index (where site.Data.software.vendors.vendors "id" $data.vendor_id) 0 }}
 
 {{/* Get country data for jurisdiction exposure */}}
 {{ $countries := site.Data.countries.countries.itemListElement }}
@@ -221,9 +221,9 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {{ range $data.alternatives }}
-      {{ $alt := index (where site.Data.products.products.products "id" .) 0 }}
+      {{ $alt := index (where site.Data.software.software.products "id" .) 0 }}
       {{ if $alt }}
-      {{ $altVendor := index (where site.Data.products.vendors.vendors "id" $alt.vendor_id) 0 }}
+      {{ $altVendor := index (where site.Data.software.vendors.vendors "id" $alt.vendor_id) 0 }}
       <a href="/software/{{ $alt.slug }}/" class="block border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-500 transition-colors">
         <div class="flex items-center gap-2 mb-2">
           {{ $altFlag := partial "get-country-flag.html" $altVendor.country }}
