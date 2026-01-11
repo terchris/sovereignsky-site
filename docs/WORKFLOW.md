@@ -20,15 +20,18 @@ How GitHub issues become implemented features.
 │  3. USER: Reviews and edits the plan, then confirms                 │
 │                                                                     │
 │  4. CLAUDE:                                                         │
+│     - Creates branch: issue-<number>-<short-name>                   │
 │     - Moves plan to active/                                         │
 │     - Implements phase by phase                                     │
 │     - Runs validation after each phase                              │
+│     - Commits after each phase                                      │
 │     - Updates plan with progress                                    │
 │                                                                     │
 │  5. USER: Reviews result                                            │
 │                                                                     │
 │  6. CLAUDE:                                                         │
 │     - Moves plan to completed/                                      │
+│     - Merges branch to main                                         │
 │     - Closes the GitHub issue                                       │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
@@ -102,18 +105,24 @@ When satisfied, tell Claude:
 
 Claude will:
 
-1. **Move plan to active/**:
+1. **Create a branch**:
+   ```bash
+   git checkout -b issue-42-feature-name
+   ```
+
+2. **Move plan to active/**:
    ```bash
    mv docs/plans/backlog/PLAN-xyz.md docs/plans/active/
    ```
 
-2. **Work phase by phase**:
+3. **Work phase by phase**:
    - Complete tasks in order
    - Run validation after each phase
+   - Commit after each phase: `git commit -m "Phase N: description"`
    - Update the plan file (mark tasks complete)
    - Stop if validation fails
 
-3. **Ask for help** if blocked or unclear
+4. **Ask for help** if blocked or unclear
 
 ---
 
@@ -146,14 +155,26 @@ Claude will:
 
 2. **Update plan status**: `## Status: Completed`
 
-3. **Commit changes**:
+3. **Final commit and push branch**:
    ```bash
    git add .
-   git commit -m "Fix: [description] - closes #42"
+   git commit -m "Complete: [description]"
+   git push -u origin issue-42-feature-name
+   ```
+
+4. **Merge to main**:
+   ```bash
+   git checkout main
+   git merge issue-42-feature-name
    git push
    ```
 
-4. **Close the issue**:
+5. **Clean up branch**:
+   ```bash
+   git branch -d issue-42-feature-name
+   ```
+
+6. **Close the issue**:
    ```bash
    gh issue close 42 --comment "Fixed in commit [hash]"
    ```
@@ -197,8 +218,11 @@ CLAUDE: I've read issue #5 about mobile responsiveness. I've:
 YOU: [reviews file, makes edits]
      Plan approved, start implementation
 
-CLAUDE: Moving to active/ and starting Phase 1...
-        [works through phases, updating plan]
+CLAUDE: Creating branch issue-5-mobile-responsiveness...
+        Moving plan to active/...
+        Starting Phase 1...
+        
+        [works through phases, committing after each]
         
         Phase 2 complete. Validation passed. 
         Continuing to Phase 3...
@@ -210,6 +234,8 @@ YOU: Looks good, complete it
 
 CLAUDE: Done! I've:
         - Moved plan to completed/
-        - Committed with message "Fix mobile responsiveness - closes #5"
+        - Merged branch issue-5-mobile-responsiveness to main
+        - Pushed to origin
+        - Deleted the branch
         - Closed issue #5
 ```

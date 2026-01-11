@@ -2,7 +2,17 @@
 
 ## Issue & Plan Workflow
 
-When asked to **"work on issue #X"** or similar:
+### First: Check for Active Plans
+
+Before starting new work, check `docs/plans/active/` for existing plans:
+
+```bash
+ls docs/plans/active/
+```
+
+If there are active plans, ask the user which one to work on, or if they want to start something new.
+
+### When asked to **"work on issue #X"** or similar:
 
 ### Step 1: Read and Plan
 
@@ -24,11 +34,13 @@ User will say something like:
 
 ### Step 3: Implement
 
-1. Move plan: `mv docs/plans/backlog/PLAN-*.md docs/plans/active/`
-2. Work through phases in order
-3. Run validation after each phase
-4. Update the plan file (mark tasks `[x]`)
-5. If validation fails, stop and ask for help
+1. Create a branch: `git checkout -b issue-<number>-<short-name>`
+2. Move plan: `mv docs/plans/backlog/PLAN-*.md docs/plans/active/`
+3. Work through phases in order
+4. Run validation after each phase
+5. Update the plan file (mark tasks `[x]`)
+6. Commit after each phase: `git add . && git commit -m "Phase N: description"`
+7. If validation fails, stop and ask for help
 
 ### Step 4: Complete
 
@@ -36,9 +48,12 @@ When user approves the result:
 
 1. Move plan: `mv docs/plans/active/PLAN-*.md docs/plans/completed/`
 2. Update status in plan: `## Status: Completed`
-3. Commit: `git add . && git commit -m "description - closes #X"`
-4. Push: `git push`
-5. Close issue: `gh issue close <number> --comment "Fixed in commit [hash]"`
+3. Commit: `git add . && git commit -m "Complete: description"`
+4. Push branch: `git push -u origin issue-<number>-<short-name>`
+5. Merge to main: `git checkout main && git merge issue-<number>-<short-name>`
+6. Push main: `git push`
+7. Delete branch: `git branch -d issue-<number>-<short-name>`
+8. Close issue: `gh issue close <number> --comment "Fixed in commit [hash]"`
 
 ### Plan File Format
 
