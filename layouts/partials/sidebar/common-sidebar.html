@@ -18,4 +18,4 @@
 */}}
 {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 <div class="order-last px-0 lg:ps-8 w-full lg:w-[340px] lg:flex-shrink-0">
-  <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
+  <div class="not-prose print:hidden lg:sticky {{ $topClass }} space-y-4">

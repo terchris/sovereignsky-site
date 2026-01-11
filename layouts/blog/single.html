@@ -32,11 +32,9 @@
 
     {{/* Body with sidebar */}}
     <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-      {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
-      {{/* Right Sidebar - appears first in DOM but ordered last on desktop */}}
-      <div class="order-last lg:ml-auto px-0 lg:ps-8 lg:max-w-xs">
-        <div class="not-prose space-y-4 print:hidden lg:sticky {{ $topClass }}">
+      {{/* Right Sidebar */}}
+      {{ partial "sidebar/common-sidebar.html" . }}
 
           {{/* External URL Button */}}
           {{ with .Params.externalUrl }}
@@ -64,23 +62,15 @@
           {{/* Related content - laws, posts, publications based on matching tags */}}
           {{ partial "related-content-sidebar.html" . }}
 
-          {{/* Table of Contents */}}
-          {{ $enableToc := site.Params.article.showTableOfContents | default false }}
-          {{ $enableToc = .Params.showTableOfContents | default $enableToc }}
-          {{ $showToc := and $enableToc (in .TableOfContents "<ul") }}
-          {{ if $showToc }}
-          <div class="mt-4">
-            {{ partial "toc.html" . }}
-          </div>
-          {{ end }}
-
-        </div>
-      </div>
+      {{ partial "sidebar/common-sidebar-end.html" . }}
 
       {{/* Main Content */}}
       <div class="min-w-0 min-h-0 max-w-fit">
         {{ partial "series/series.html" . }}
         <div class="article-content max-w-prose mb-20">
+          {{/* Inline Table of Contents (collapsed by default) */}}
+          {{ partial "inline-toc.html" . }}
+
           {{ .Content }}
           {{ $defaultReplyByEmail := site.Params.replyByEmail }}
           {{ $replyByEmail := default $defaultReplyByEmail .Params.replyByEmail }}
