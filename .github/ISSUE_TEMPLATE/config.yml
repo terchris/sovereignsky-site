@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 General Discussion
+    url: https://github.com/terchris/sovereignsky-site/discussions
+    about: Ask questions or discuss ideas before creating an issue
+  - name: 📧 Contact Helpers.no
+    url: https://helpers.no
+    about: For partnership or collaboration inquiries
