@@ -10,13 +10,13 @@
   "$defs": {
     "connection": {
       "type": "object",
-      "required": ["connection_id", "connection_name", "scope", "medium"],
+      "required": ["identifier", "name", "scope", "medium"],
       "properties": {
-        "connection_id": {
+        "identifier": {
           "type": "string",
           "description": "Stable identifier for the connection"
         },
-        "connection_name": {
+        "name": {
           "type": "string",
           "description": "Display name"
         },
@@ -41,24 +41,24 @@
           "enum": ["active", "planned"],
           "default": "active"
         },
-        "rfs": {
-          "type": "string",
+        "operationalDate": {
+          "type": ["string", "null"],
           "description": "Operational date (Ready for Service), e.g. '2020-11' or 'Q2 2028'"
         },
-        "length_km": {
-          "type": "number"
+        "lengthKm": {
+          "type": ["number", "null"]
         },
-        "owner_actor_ids": {
+        "ownerActorIds": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "References to networks-actors.json actors[].actor_id"
+          "description": "References to networks-actors.json actors[].identifier"
         },
-        "operator_actor_ids": {
+        "operatorActorIds": {
           "type": "array",
           "items": { "type": "string" },
-          "description": "References to networks-actors.json actors[].actor_id"
+          "description": "References to networks-actors.json actors[].identifier"
         },
-        "endpoint_place_ids": {
+        "endpointPlaceIds": {
           "type": "array",
           "items": { "type": "string" },
           "description": "References to networks-places.json places[].identifier"
