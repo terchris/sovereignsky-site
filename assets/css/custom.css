@@ -5,6 +5,45 @@
 .h-16 { height: 4rem; }
 .max-h-24 { max-height: 6rem; }
 
+/* Long word handling for titles */
+.break-words {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.hyphens-auto {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+/* Flexbox order utilities */
+.order-first { order: -9999; }
+.order-last { order: 9999; }
+.order-none { order: 0; }
+
+@media (min-width: 1024px) {
+  .lg\:order-first { order: -9999; }
+  .lg\:order-last { order: 9999; }
+}
+
+/* Homepage events section - responsive table/cards */
+#events .events-table { display: none; }
+#events .events-mobile { display: block; }
+
+@media (min-width: 768px) {
+  #events .events-table { display: block; }
+  #events .events-mobile { display: none; }
+
+  /* Grid utilities for homepage */
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg\:w-\[340px\] { width: 340px; }
+  .lg\:flex-shrink-0 { flex-shrink: 0; }
+}
+
 /* Footer separation - using more specific selectors */
 footer,
 .footer,
@@ -19,6 +58,49 @@ footer.pt-8 {
 .dark .footer,
 .dark footer.pt-8 {
   border-top-color: #404040 !important;
+}
+
+/* ==========================================================================
+   Inline Table of Contents
+   ========================================================================== */
+
+/* Rotate chevron when details is open */
+details[open] .details-marker {
+  transform: rotate(180deg);
+}
+
+/* TOC link styling */
+.toc-inline ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-inline ul ul {
+  padding-left: 1rem;
+  margin-top: 0.25rem;
+}
+
+.toc-inline li {
+  margin: 0.25rem 0;
+}
+
+.toc-inline a {
+  color: rgba(var(--color-neutral-600), 1);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.toc-inline a:hover {
+  color: rgba(var(--color-primary-600), 1);
+}
+
+.dark .toc-inline a {
+  color: rgba(var(--color-neutral-400), 1);
+}
+
+.dark .toc-inline a:hover {
+  color: rgba(var(--color-primary-400), 1);
 }
 
 /* ==========================================================================

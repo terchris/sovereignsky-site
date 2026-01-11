@@ -79,7 +79,7 @@
     {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
     {{/* Right Sidebar */}}
-    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
+    <div class="order-last px-0 lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
       <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
 
         {{/* Country Details Card */}}

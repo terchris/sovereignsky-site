@@ -1,6 +1,6 @@
 # Mobile Responsiveness Fixes
 
-## Status: Backlog
+## Status: In Progress
 
 **Goal**: Fix mobile display issues on the homepage and throughout the site.
 

@@ -169,7 +169,7 @@
 
         {{/* Related Blog Posts */}}
         {{ if gt (len $relatedPosts) 0 }}
-        <h2 id="blog">Related Articles</h2>
+        <h2 id="blog">Articles for {{ $personaName }}</h2>
         <div class="not-prose">
           <div class="grid gap-4 sm:grid-cols-2">
             {{ range $relatedPosts }}
@@ -196,7 +196,7 @@
 
         {{/* Related Laws */}}
         {{ if gt (len $relatedLaws) 0 }}
-        <h2 id="laws">Related Laws</h2>
+        <h2 id="laws">Laws for {{ $personaName }}</h2>
         <div class="not-prose">
           {{ partial "related-laws-list.html" (dict "laws" $relatedLaws "limit" 8) }}
           <div class="mt-4">
@@ -207,7 +207,7 @@
 
         {{/* Related Publications */}}
         {{ if gt (len $relatedPubs) 0 }}
-        <h2 id="publications">Related Publications</h2>
+        <h2 id="publications">Publications for {{ $personaName }}</h2>
         <div class="not-prose">
           <div class="grid gap-3">
             {{ range $relatedPubs }}
@@ -236,7 +236,7 @@
 
         {{/* Upcoming Events */}}
         {{ if $isAudience }}
-        <h2 id="events">Upcoming Events</h2>
+        <h2 id="events">Events for {{ $personaName }}</h2>
         <div class="not-prose">
           {{ partial "event-list.html" (dict "audience" $term "limit" 6 "compact" false) }}
           <div class="mt-4">

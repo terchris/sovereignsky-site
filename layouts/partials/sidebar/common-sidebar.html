@@ -17,5 +17,5 @@
   Use sidebar/common-sidebar-end.html to close the divs.
 */}}
 {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
-<div class="order-first px-0 lg:order-last lg:ps-8" style="width: 340px; flex-shrink: 0;">
+<div class="order-last px-0 lg:ps-8 w-full lg:w-[340px] lg:flex-shrink-0">
   <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">

@@ -35,7 +35,7 @@
       {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
       {{/* Right Sidebar - appears first in DOM but ordered last on desktop */}}
-      <div class="order-first lg:ml-auto px-0 lg:order-last lg:ps-8 lg:max-w-xs">
+      <div class="order-last lg:ml-auto px-0 lg:ps-8 lg:max-w-xs">
         <div class="not-prose space-y-4 print:hidden lg:sticky {{ $topClass }}">
 
           {{/* External URL Button */}}
