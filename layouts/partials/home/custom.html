@@ -217,8 +217,9 @@
       {{ with site.GetPage (printf "/blog/%s" .) }}
       <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-all duration-300">
         {{ with .Resources.GetMatch "feature*" }}
+        {{ $img := .Fill "400x200 webp" }}
         <figure class="h-32 overflow-hidden">
-          <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" class="w-full h-full object-cover" />
+          <img src="{{ $img.RelPermalink }}" alt="{{ $.Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover" loading="lazy" />
         </figure>
         {{ end }}
         <div class="card-body">
@@ -254,8 +255,9 @@
       {{ with site.GetPage (printf "/publications/%s" .) }}
       <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 shadow-md hover:shadow-xl transition-all duration-300">
         {{ with .Resources.GetMatch "feature*" }}
+        {{ $img := .Fill "400x200 webp" }}
         <figure class="h-32 overflow-hidden">
-          <img src="{{ .RelPermalink }}" alt="{{ $.Title }}" class="w-full h-full object-cover" />
+          <img src="{{ $img.RelPermalink }}" alt="{{ $.Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover" loading="lazy" />
         </figure>
         {{ end }}
         <div class="card-body">

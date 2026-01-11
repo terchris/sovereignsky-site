@@ -80,8 +80,9 @@
       <a href="{{ .RelPermalink }}" class="block no-underline">
         {{/* Cover image */}}
         {{ if $featured }}
+        {{ $img := $featured.Fill "600x300 webp" }}
         <figure class="h-48 overflow-hidden bg-base-200">
-          <img src="{{ $featured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
         </figure>
         {{ else }}
         {{/* Placeholder if no image */}}

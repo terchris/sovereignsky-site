@@ -66,8 +66,9 @@
       {{/* Icon/Image */}}
       <div class="flex-shrink-0">
         {{ if $featured }}
+        {{ $img := $featured.Fill "80x80 webp" }}
         <div class="w-20 h-20 rounded-xl overflow-hidden shadow-lg">
-          <img src="{{ $featured.RelPermalink }}" alt="{{ $name }}" class="w-full h-full object-cover" />
+          <img src="{{ $img.RelPermalink }}" alt="{{ $name }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover" loading="lazy" />
         </div>
         {{ else }}
         <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-lg">
@@ -134,8 +135,9 @@
         <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 border border-base-300 hover:border-primary hover:shadow-md transition-all group">
           {{/* Card Image or Placeholder */}}
           {{ if $pageFeatured }}
+          {{ $img := $pageFeatured.Fill "400x180 webp" }}
           <figure class="h-36 overflow-hidden relative">
-            <img src="{{ $pageFeatured.RelPermalink }}" alt="{{ .Title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
             {{/* Type badge overlay */}}
             <div class="absolute top-2 left-2">
               <span class="badge badge-{{ $config.color }} gap-1 shadow">

@@ -57,8 +57,9 @@
   {{/* Featured Image (if exists) */}}
   {{ $featured := $page.Resources.GetMatch "featured*" }}
   {{ with $featured }}
+  {{ $img := .Fit "800x400 webp" }}
   <figure class="mb-8">
-    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" class="w-full max-w-3xl rounded-lg shadow-md">
+    <img src="{{ $img.RelPermalink }}" alt="{{ $page.Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full max-w-3xl rounded-lg shadow-md" loading="lazy">
   </figure>
   {{ end }}
 
