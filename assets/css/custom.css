@@ -26,14 +26,7 @@
   .lg\:order-last { order: 9999; }
 }
 
-/* Homepage events section - responsive table/cards */
-#events .events-table { display: none; }
-#events .events-mobile { display: block; }
-
 @media (min-width: 768px) {
-  #events .events-table { display: block; }
-  #events .events-mobile { display: none; }
-
   /* Grid utilities for homepage */
   .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }

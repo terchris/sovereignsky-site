@@ -1,0 +1,97 @@
+{{/*
+  event-cards-grid.html
+  Renders events in a compact card grid layout
+
+  Usage:
+    {{ partial "event-cards-grid.html" (dict "limit" 6) }}
+    {{ partial "event-cards-grid.html" (dict "audience" "enterprise" "limit" 6) }}
+    {{ partial "event-cards-grid.html" (dict "filter" "cybersecurity" "limit" 3) }}
+
+  Parameters:
+    - limit: Max number of events to show (default: 6)
+    - audience: Filter by audience type (developer, enterprise, government, etc.)
+    - filter: Filter by topic
+    - showPast: Include past events (default: false)
+    - cols: Grid columns - "2" or "3" (default: "3" = 1-2-3 responsive)
+*/}}
+
+{{- $events := site.Data.events.events.itemListElement -}}
+{{- $filter := .filter | default "" -}}
+{{- $audience := .audience | default "" -}}
+{{- $limit := .limit | default 6 -}}
+{{- $showPast := .showPast | default false -}}
+{{- $cols := .cols | default "3" -}}
+{{- $now := now -}}
+
+{{/* Filter events */}}
+{{- $filtered := slice -}}
+{{- range $events -}}
+  {{- $include := true -}}
+
+  {{/* Filter by topic */}}
+  {{- if $filter -}}
+    {{- $include = false -}}
+    {{- range .topics -}}
+      {{- if eq . $filter -}}
+        {{- $include = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{/* Filter by audience */}}
+  {{- if and $include $audience -}}
+    {{- $include = false -}}
+    {{- range .audience -}}
+      {{- if eq . $audience -}}
+        {{- $include = true -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{/* Filter past events */}}
+  {{- $startDate := time .startDate -}}
+  {{- if and (not $showPast) (lt $startDate $now) -}}
+    {{- $include = false -}}
+  {{- end -}}
+
+  {{- if $include -}}
+    {{- $filtered = $filtered | append . -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Apply limit */}}
+{{- if gt (len $filtered) $limit -}}
+  {{- $filtered = first $limit $filtered -}}
+{{- end -}}
+
+{{/* Determine grid classes */}}
+{{- $gridClass := "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" -}}
+{{- if eq $cols "2" -}}
+  {{- $gridClass = "grid grid-cols-1 sm:grid-cols-2 gap-4" -}}
+{{- end -}}
+
+{{- if $filtered -}}
+<div class="{{ $gridClass }}">
+  {{- range $filtered }}
+  <a href="/events/{{ .identifier }}/" class="card card-compact bg-base-100 shadow-sm hover:shadow-md transition-shadow block border border-base-300">
+    <div class="card-body">
+      <div class="flex items-start gap-3">
+        <div class="bg-primary text-primary-content rounded-lg px-3 py-2 text-center min-w-[60px]">
+          <div class="text-lg font-bold leading-tight">{{ (time .startDate).Format "2" }}</div>
+          <div class="text-xs uppercase">{{ (time .startDate).Format "Jan" }}</div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h3 class="font-semibold text-sm line-clamp-2">{{ .name }}</h3>
+          <p class="text-xs opacity-70 line-clamp-2 mt-1">{{ .description | truncate 80 }}</p>
+        </div>
+      </div>
+    </div>
+  </a>
+  {{- end }}
+</div>
+{{- else -}}
+<div class="alert alert-info">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+  <span>No upcoming events{{ with $filter }} tagged "{{ . }}"{{ end }}{{ with $audience }} for {{ . }}{{ end }}.</span>
+</div>
+{{- end -}}

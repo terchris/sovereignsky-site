@@ -1,6 +1,37 @@
 # Plan: Layout Consolidation
 
-## Status: Backlog
+## Status: Completed
+
+## Summary of Changes
+
+**Migrated to common-single-page.html:**
+- countries/single.html (175 → 100 lines)
+- personas/single.html (260 → 130 lines)
+- networks/single.html (254 → 118 lines)
+
+**New partials created:**
+- content/countries-content.html (44 lines)
+- content/personas-content.html (121 lines)
+- content/networks-content.html (45 lines)
+- sidebar/countries-datacenters-link-card.html (29 lines)
+- sidebar/personas-curation-card.html (10 lines)
+- sidebar/networks-endpoints-card.html (43 lines)
+- sidebar/networks-owners-card.html (42 lines)
+- sidebar/networks-links-card.html (34 lines)
+
+**Extended common-single-page.html with:**
+- `beforeContent` / `afterContent` partial hooks
+- `contentPartial` for complete content replacement
+- `showAbstract` / `showSummary` / `showFeaturedImage` / `showQuote` toggles
+- `backLinkUrl` / `backLinkText` customization
+- `pageData` dict for passing data to content partials
+- Support for sidebar cards with custom params (dict format)
+
+**Kept as-is (justified):**
+- blog/single.html: Too many unique features (hero, author, series, comments)
+- datacenters/*.html: Already use common-sidebar.html, specific requirements
+- events/single.html: Completely different design
+- software/single.html: Completely different design
 
 ## Goal
 Consolidate single-page layouts to reduce code duplication by extending `common-single-page.html` to handle more use cases, then migrating layouts that currently duplicate the two-column structure.

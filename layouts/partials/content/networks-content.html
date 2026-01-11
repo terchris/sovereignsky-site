@@ -1,0 +1,45 @@
+{{/*
+  networks-content.html - Main content area for networks single page
+
+  Expects context with:
+    - page: The page context
+    - data: Dict containing identifier, connection, connections, places, actors, endpointNames
+*/}}
+
+{{ $page := .page }}
+{{ $identifier := .data.identifier }}
+{{ $connection := .data.connection }}
+{{ $connections := .data.connections }}
+{{ $places := .data.places }}
+{{ $actors := .data.actors }}
+{{ $endpointNames := .data.endpointNames }}
+
+{{/* Abstract */}}
+{{ with $connection.abstract }}
+<p class="lead text-lg text-neutral-600 dark:text-neutral-300">{{ . }}</p>
+{{ end }}
+
+{{/* Summary */}}
+{{ with $connection.summary }}
+<p>{{ . }}</p>
+{{ end }}
+
+{{/* Route Section */}}
+{{ if $connection }}
+<h2>Route</h2>
+<p><strong>Endpoints:</strong> {{ delimit $endpointNames " → " }}</p>
+
+{{ partial "network-connection-map-inline.html" (dict "identifier" $identifier "connection" $connection "places" $places) }}
+
+{{ if $connection.route }}
+<p class="text-sm text-neutral-500 dark:text-neutral-400 italic">Schematic polyline is available for map rendering.</p>
+{{ else }}
+<p class="text-sm text-neutral-500 dark:text-neutral-400 italic">Route is auto-generated for visualization from endpoints (schematic).</p>
+{{ end }}
+{{ end }}
+
+{{/* Owners & Operators Section */}}
+{{ if $connection }}
+<h2>Owners & Operators</h2>
+{{ partial "network-actors-inline.html" (dict "identifier" $identifier "connection" $connection "connections" $connections "actors" $actors) }}
+{{ end }}

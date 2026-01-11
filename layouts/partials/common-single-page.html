@@ -27,8 +27,21 @@
     headerDescription: Description shown in header (optional)
     externalUrl: External link URL (optional)
     externalLabel: External link button text (default: "Read original")
-    sidebarCards: Slice of partial paths to include in sidebar (required)
+    sidebarCards: Slice of sidebar cards. Each item can be:
+                  - A string (partial path): rendered with page context
+                  - A dict with "partial" key and optional "params": rendered with custom params
     showToc: Whether to show table of contents (default: true)
+    showAbstract: Whether to show abstract section (default: true)
+    showSummary: Whether to show summary section (default: true)
+    showFeaturedImage: Whether to show featured image (default: true)
+    showQuote: Whether to show quote block (default: true)
+    showBackLink: Whether to show back link (default: true)
+    backLinkUrl: Custom back link URL (default: sectionUrl)
+    backLinkText: Custom back link text (default: "Back to all {section}")
+    beforeContent: Partial path to render before abstract (e.g., for maps)
+    afterContent: Partial path to render after main content
+    contentPartial: Partial path to replace entire content area (overrides default)
+    pageData: Dict of custom data to pass to content partials
 */}}
 
 {{ $page := .page }}
@@ -41,6 +54,20 @@
 {{ $externalLabel := .externalLabel | default "Read original" }}
 {{ $sidebarCards := .sidebarCards | default (slice) }}
 {{ $showToc := .showToc | default true }}
+{{ $showAbstract := .showAbstract | default true }}
+{{ $showSummary := .showSummary | default true }}
+{{ $showFeaturedImage := .showFeaturedImage | default true }}
+{{ $showQuote := .showQuote | default true }}
+{{ $showBackLink := .showBackLink | default true }}
+{{ $backLinkUrl := .backLinkUrl | default $sectionUrl }}
+{{ $backLinkText := .backLinkText | default (printf "← Back to all %s" ($section | lower)) }}
+{{ $beforeContent := .beforeContent | default "" }}
+{{ $afterContent := .afterContent | default "" }}
+{{ $contentPartial := .contentPartial | default "" }}
+{{ $pageData := .pageData | default (dict) }}
+
+{{/* Build context for content partials */}}
+{{ $contentContext := dict "page" $page "data" $pageData }}
 
 <article class="max-w-full">
   {{/* Detail Header with breadcrumbs */}}
@@ -54,13 +81,15 @@
       )
   ) }}
 
-  {{/* Featured Image (if exists) */}}
+  {{/* Featured Image (if exists and enabled) */}}
+  {{ if $showFeaturedImage }}
   {{ $featured := $page.Resources.GetMatch "featured*" }}
   {{ with $featured }}
   {{ $img := .Fit "800x400 webp" }}
   <figure class="mb-8">
     <img src="{{ $img.RelPermalink }}" alt="{{ $page.Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full max-w-3xl rounded-lg shadow-md" loading="lazy">
   </figure>
+  {{ end }}
   {{ end }}
 
   {{/* Two-column layout */}}
@@ -81,8 +110,17 @@
         {{ end }}
 
         {{/* Section-specific sidebar cards */}}
+        {{/* Each card can be either:
+             - A string (partial path): rendered with $page
+             - A dict with "partial" and optional "params": rendered with params or $page
+        */}}
         {{ range $sidebarCards }}
-          {{ partial . $page }}
+          {{ if reflect.IsMap . }}
+            {{ $params := .params | default $page }}
+            {{ partial .partial $params }}
+          {{ else }}
+            {{ partial . $page }}
+          {{ end }}
         {{ end }}
 
     {{ partial "sidebar/common-sidebar-end.html" $page }}
@@ -90,35 +128,61 @@
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">
       <div class="article-content prose dark:prose-invert max-w-none mb-20">
-        {{/* Abstract */}}
-        {{ partial "common-content-section.html" (dict "title" "Abstract" "content" $page.Params.abstract) }}
 
-        {{/* Summary */}}
-        {{ partial "common-content-section.html" (dict "title" "Summary" "content" $page.Params.summary "border" true) }}
+        {{/* Use custom content partial if provided, otherwise default layout */}}
+        {{ if $contentPartial }}
+          {{ partial $contentPartial $contentContext }}
+        {{ else }}
 
-        {{/* Inline Table of Contents (collapsed by default) */}}
-        {{ if $showToc }}
-          {{ partial "inline-toc.html" $page }}
-        {{ end }}
-
-        {{/* Main article content */}}
-        {{ $page.Content }}
-
-        {{/* Quote from original if provided */}}
-        {{ with $page.Params.quote }}
-        <blockquote class="border-l-4 border-primary-500 pl-4 my-8 italic text-neutral-600 dark:text-neutral-400">
-          {{ . | markdownify }}
-          {{ with $page.Params.quote_attribution }}
-          <footer class="mt-2 text-sm not-italic">— {{ . }}</footer>
+          {{/* Before content partial (e.g., maps) */}}
+          {{ if $beforeContent }}
+            {{ partial $beforeContent $contentContext }}
           {{ end }}
-        </blockquote>
+
+          {{/* Abstract */}}
+          {{ if $showAbstract }}
+            {{ partial "common-content-section.html" (dict "title" "Abstract" "content" $page.Params.abstract) }}
+          {{ end }}
+
+          {{/* Summary */}}
+          {{ if $showSummary }}
+            {{ partial "common-content-section.html" (dict "title" "Summary" "content" $page.Params.summary "border" true) }}
+          {{ end }}
+
+          {{/* Inline Table of Contents (collapsed by default) */}}
+          {{ if $showToc }}
+            {{ partial "inline-toc.html" $page }}
+          {{ end }}
+
+          {{/* Main article content */}}
+          {{ $page.Content }}
+
+          {{/* After content partial (e.g., related sections, inline lists) */}}
+          {{ if $afterContent }}
+            {{ partial $afterContent $contentContext }}
+          {{ end }}
+
+          {{/* Quote from original if provided */}}
+          {{ if $showQuote }}
+          {{ with $page.Params.quote }}
+          <blockquote class="border-l-4 border-primary-500 pl-4 my-8 italic text-neutral-600 dark:text-neutral-400">
+            {{ . | markdownify }}
+            {{ with $page.Params.quote_attribution }}
+            <footer class="mt-2 text-sm not-italic">— {{ . }}</footer>
+            {{ end }}
+          </blockquote>
+          {{ end }}
+          {{ end }}
+
         {{ end }}
 
         {{/* Back link */}}
+        {{ if $showBackLink }}
         <hr class="mt-8">
         <p>
-          <a href="{{ $sectionUrl }}">← Back to all {{ $section | lower }}</a>
+          <a href="{{ $backLinkUrl }}">{{ $backLinkText }}</a>
         </p>
+        {{ end }}
       </div>
     </div>
 

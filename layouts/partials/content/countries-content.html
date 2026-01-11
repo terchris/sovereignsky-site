@@ -1,0 +1,44 @@
+{{/*
+  countries-content.html - Main content area for countries single page
+
+  Expects context with:
+    - page: The page context
+    - data: Dict containing countryId, country, countryName, regionsById
+*/}}
+
+{{ $page := .page }}
+{{ $countryId := .data.countryId }}
+{{ $country := .data.country }}
+{{ $countryName := .data.countryName }}
+{{ $regionsById := .data.regionsById }}
+
+{{/* Summary - detailed overview from frontmatter */}}
+{{ with $page.Params.summary }}
+<p class="lead text-lg text-neutral-600 dark:text-neutral-400 mb-6">{{ . }}</p>
+{{ end }}
+
+{{/* Body content - jurisdiction description */}}
+{{ with $page.Params.body }}
+<p class="mb-8">{{ . }}</p>
+{{ end }}
+
+{{/* Always auto-generate the standard sections */}}
+{{ if $countryId }}
+  {{/* Map */}}
+  {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
+  {{ $mapShortcode | $page.RenderString }}
+
+  {{/* Laws */}}
+  <h2 id="laws">Laws in this jurisdiction</h2>
+  {{ partial "jurisdiction-laws-inline.html" (dict "jurisdictionId" $countryId "country" $country) }}
+
+  {{/* Providers */}}
+  <h2 id="providers">Providers in {{ $countryName }}</h2>
+  {{ partial "datacenter-country-providers-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
+
+  {{/* Render any custom markdown content */}}
+  {{ if $page.Content }}
+  <hr class="mt-8">
+  {{ $page.Content }}
+  {{ end }}
+{{ end }}

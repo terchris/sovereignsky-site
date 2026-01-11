@@ -1,0 +1,121 @@
+{{/*
+  personas-content.html - Main content area for personas single page
+
+  Expects context with:
+    - page: The page context
+    - data: Dict containing personaName, personaDesc, personaIcon, featured,
+            relatedPosts, relatedLaws, relatedPubs, isAudience, term, eventsURL
+*/}}
+
+{{ $page := .page }}
+{{ $personaName := .data.personaName }}
+{{ $personaDesc := .data.personaDesc }}
+{{ $personaIcon := .data.personaIcon }}
+{{ $featured := .data.featured }}
+{{ $relatedPosts := .data.relatedPosts }}
+{{ $relatedLaws := .data.relatedLaws }}
+{{ $relatedPubs := .data.relatedPubs }}
+{{ $isAudience := .data.isAudience }}
+{{ $term := .data.term }}
+{{ $eventsURL := .data.eventsURL }}
+
+{{/* Featured Image */}}
+{{ if $featured }}
+{{ $img := $featured.Fill "800x320 webp" }}
+<figure class="not-prose mb-8 rounded-lg overflow-hidden">
+  <img src="{{ $img.RelPermalink }}" alt="{{ $personaName }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-64 object-cover" loading="lazy" />
+</figure>
+{{ else }}
+{{/* Placeholder gradient */}}
+<div class="not-prose mb-8 rounded-lg overflow-hidden h-48 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 flex items-center justify-center">
+  <div class="text-primary/40">
+    {{ partial "content-icon.html" (dict "name" $personaIcon "size" "24" "class" "w-24 h-24") }}
+  </div>
+</div>
+{{ end }}
+
+{{/* Persona description */}}
+{{ if $personaDesc }}
+<p class="text-lg text-neutral-700 dark:text-neutral-300 mb-8">{{ $personaDesc }}</p>
+{{ end }}
+
+{{/* Custom content from markdown */}}
+{{ $page.Content }}
+
+{{/* Related Blog Posts */}}
+{{ if gt (len $relatedPosts) 0 }}
+<h2 id="blog">Articles for {{ $personaName }}</h2>
+<div class="not-prose">
+  <div class="grid gap-4 sm:grid-cols-2">
+    {{ range $relatedPosts }}
+      {{ $postFeatured := .Resources.GetMatch "featured*" }}
+      <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 border border-base-300 hover:border-primary hover:shadow-md transition-all">
+        {{ if $postFeatured }}
+        {{ $img := $postFeatured.Fill "400x160 webp" }}
+        <figure class="h-32 overflow-hidden">
+          <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover" loading="lazy" />
+        </figure>
+        {{ end }}
+        <div class="card-body">
+          <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
+          <p class="text-xs text-neutral-500">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</p>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+  <div class="mt-4">
+    <a href="/blog/" class="btn btn-sm btn-outline">View all articles</a>
+  </div>
+</div>
+{{ end }}
+
+{{/* Related Laws */}}
+{{ if gt (len $relatedLaws) 0 }}
+<h2 id="laws">Laws for {{ $personaName }}</h2>
+<div class="not-prose">
+  {{ partial "related-laws-list.html" (dict "laws" $relatedLaws "limit" 8) }}
+  <div class="mt-4">
+    <a href="/laws/" class="btn btn-sm btn-outline">Browse all laws</a>
+  </div>
+</div>
+{{ end }}
+
+{{/* Related Publications */}}
+{{ if gt (len $relatedPubs) 0 }}
+<h2 id="publications">Publications for {{ $personaName }}</h2>
+<div class="not-prose">
+  <div class="grid gap-3">
+    {{ range $relatedPubs }}
+      {{ $pubFeatured := .Resources.GetMatch "featured*" }}
+      <a href="{{ .RelPermalink }}" class="flex items-center gap-4 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
+        {{ if $pubFeatured }}
+        {{ $img := $pubFeatured.Fit "96x96 webp" }}
+        <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-24 h-auto max-h-24 object-contain rounded" loading="lazy" />
+        {{ else }}
+        <div class="w-16 h-16 bg-base-200 rounded flex items-center justify-center">
+          {{ partial "content-icon.html" (dict "name" "book" "size" "6" "class" "text-base-content/30") }}
+        </div>
+        {{ end }}
+        <div class="flex-1 min-w-0">
+          <div class="font-medium text-sm line-clamp-1">{{ .Title }}</div>
+          <div class="text-xs text-neutral-500 line-clamp-1">{{ .Description }}</div>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+  <div class="mt-4">
+    <a href="/publications/" class="btn btn-sm btn-outline">View all publications</a>
+  </div>
+</div>
+{{ end }}
+
+{{/* Upcoming Events */}}
+{{ if $isAudience }}
+<h2 id="events">Events for {{ $personaName }}</h2>
+<div class="not-prose">
+  {{ partial "event-cards-grid.html" (dict "audience" $term "limit" 6 "cols" "2") }}
+  <div class="mt-4">
+    <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events</a>
+  </div>
+</div>
+{{ end }}
