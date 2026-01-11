@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SovereignSky Events",
+  "description": "Schema for events data with schema.org ItemList wrapper",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "const": "https://schema.org"
+    },
+    "@type": {
+      "const": "ItemList"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the events collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the events collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "description": "Array of Event items",
+      "items": {
+        "type": "object",
+        "required": ["@type", "identifier", "name", "startDate"],
+        "properties": {
+          "@type": {
+            "const": "Event"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Unique identifier for the event"
+          },
+          "name": {
+            "type": "string",
+            "description": "Event name in English"
+          },
+          "nameOriginal": {
+            "type": "string",
+            "description": "Event name in original language"
+          },
+          "description": {
+            "type": "string",
+            "description": "Event description"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["scheduled", "cancelled", "postponed", "completed"],
+            "description": "Event status"
+          },
+          "attendanceMode": {
+            "type": "string",
+            "enum": ["offline", "online", "hybrid"],
+            "description": "How attendees participate"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Event start date (YYYY-MM-DD)"
+          },
+          "endDate": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "Event end date (YYYY-MM-DD) or null for single-day events"
+          },
+          "location": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Venue name"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name"
+              },
+              "country": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$",
+                "description": "ISO 3166-1 alpha-2 country code"
+              }
+            }
+          },
+          "organizer": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Organizer name"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Organizer website"
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Event website URL"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Topic tags for the event"
+          },
+          "audience": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Target audience tags"
+          },
+          "itRelevance": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "Relevance to IT professionals"
+          }
+        }
+      }
+    }
+  }
+}

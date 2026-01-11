@@ -12,7 +12,7 @@
   Audience values (from personas.json): developer, technical, enterprise, government, humanitarian, defence
 */ -}}
 
-{{- $events := site.Data.events.events -}}
+{{- $events := site.Data.events.events.itemListElement -}}
 {{- /* Build topic labels from topics.json */ -}}
 {{- $topicLabels := dict -}}
 {{- range site.Data.topics.topics.itemListElement -}}

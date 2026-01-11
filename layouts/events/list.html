@@ -8,7 +8,7 @@
   ) }}
 
   {{/* Stats row */}}
-  {{- $events := site.Data.events.events -}}
+  {{- $events := site.Data.events.events.itemListElement -}}
   {{- $now := now.Format "2006-01-02" -}}
   {{- $upcomingCount := 0 -}}
   {{- $thisMonthCount := 0 -}}

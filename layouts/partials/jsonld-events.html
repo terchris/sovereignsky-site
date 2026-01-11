@@ -4,7 +4,7 @@
   Usage: {{ partial "jsonld-events.html" . }}
 */ -}}
 
-{{- $events := site.Data.events.events -}}
+{{- $events := site.Data.events.events.itemListElement -}}
 {{- if $events -}}
 <script type="application/ld+json">
 {
