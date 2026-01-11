@@ -7,7 +7,7 @@ Usage: {{< datacenter-map>}}
   */}}
 
   {{ $datacenters := site.Data.datacenters }}
-  {{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $regions := site.Data.countries.countries.itemListElement }}
   {{ $jurisdictions := site.Data.blocs }}
   {{ $providersParam := .Get "providers" | default "" }}
   {{ $countriesParam := .Get "countries" | default "" }}
@@ -755,7 +755,7 @@ Usage: {{< datacenter-map>}}
               html += '<h4 class="font-bold">Jurisdiction Exposure</h4>';
               html += '<p class="text-sm">This datacenter is physically in the EU/EEA, but ' + d.name + ' is a US company. US laws like the <strong>CLOUD Act</strong> can compel data handover regardless of location.</p>';
               html += '</div>';
-              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
+              html += '<a href="/countries/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
               html += '</div>';
             } else if (d.vendorCountryId === 'US') {
               html += '<div role="alert" class="alert alert-warning">';
@@ -764,7 +764,7 @@ Usage: {{< datacenter-map>}}
               html += '<h4 class="font-bold">US Jurisdiction</h4>';
               html += '<p class="text-sm">' + d.name + ' is subject to US laws including the CLOUD Act.</p>';
               html += '</div>';
-              html += '<a href="/jurisdictions/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
+              html += '<a href="/countries/usa/" class="btn btn-sm btn-ghost">Learn more →</a>';
               html += '</div>';
             } else if (d.vendorRisk === 'low') {
               html += '<div role="alert" class="alert alert-success">';

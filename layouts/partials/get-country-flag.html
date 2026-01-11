@@ -14,7 +14,7 @@
 {{- $flag := "" -}}
 
 {{- /* 1. Try countries.json first */ -}}
-{{- $countries := site.Data.countries.countries.itemListElement | default site.Data.regions -}}
+{{- $countries := site.Data.countries.countries.itemListElement -}}
 {{- $regionMatch := first 1 (where $countries "identifier" $code) -}}
 {{- with index $regionMatch 0 -}}
   {{- $flag = .flag | default "" -}}

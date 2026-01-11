@@ -1,5 +1,5 @@
 {{/* Display bloc cards for the countries section */}}
-{{ $blocs := site.Data.blocs.blocs.itemListElement | default site.Data.jurisdictions.blocs | default (slice) }}
+{{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{/* Build blocs lookup */}}
 {{ $blocsById := dict }}

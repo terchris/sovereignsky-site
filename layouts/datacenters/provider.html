@@ -18,9 +18,9 @@
 {{ $vendorRisk := .Params.vendor_risk | default "unknown" }}
 
 {{/* Build region lookup for locations display */}}
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ $countriesById := dict }}
+{{ range (site.Data.countries.countries.itemListElement | default (slice)) }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{/* Build provider dict for partials that expect it */}}
@@ -45,7 +45,7 @@
 
 {{/* Get full vendor country from regions for bloc info */}}
 {{ if $vendorCountryId }}
-  {{ with index $regionsById $vendorCountryId }}
+  {{ with index $countriesById $vendorCountryId }}
     {{ $vendorCountry = . }}
   {{ end }}
 {{ end }}
@@ -99,7 +99,7 @@
         {{ partial "sidebar/jurisdiction-laws-card.html" (dict "countryId" $vendorCountryId) }}
 
         {{/* Countries Card */}}
-        {{ partial "sidebar/datacenter-provider-countries-card.html" (dict "provider" $provider "regionsById" $regionsById) }}
+        {{ partial "sidebar/datacenter-provider-countries-card.html" (dict "provider" $provider "regionsById" $countriesById) }}
 
         {{/* Compare Card */}}
         {{ $allProviders := site.Data.datacenters.datacenters | default (slice) }}
@@ -127,13 +127,13 @@
         {{ $mapShortcode := printf "{{< datacenter-map providers=\"%s\" showFilters=\"false\" >}}" $providerId }}
         {{ $mapShortcode | .Page.RenderString }}
 
+        {{/* Locations */}}
+        <h2 id="locations">Locations by Country</h2>
+        {{ partial "datacenter-provider-locations-inline.html" (dict "provider" $provider "regionsById" $countriesById) }}
+
         {{/* Laws */}}
         <h2 id="laws">Laws in provider jurisdiction</h2>
         {{ partial "datacenter-provider-laws-inline.html" (dict "vendorCountryId" $vendorCountryId "vendorCountry" $vendorCountry) }}
-
-        {{/* Locations */}}
-        <h2 id="locations">Locations by Country</h2>
-        {{ partial "datacenter-provider-locations-inline.html" (dict "provider" $provider "regionsById" $regionsById) }}
 
         {{/* Render any custom markdown content */}}
         {{ if .Content }}

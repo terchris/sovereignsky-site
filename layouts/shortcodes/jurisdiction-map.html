@@ -6,7 +6,7 @@
   Colors countries by risk_level field
 */}}
 
-{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
 {{ $jurisdictions := site.Data.blocs }}
 
 {{/* Get risk level definitions */}}

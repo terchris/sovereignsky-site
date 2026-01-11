@@ -10,7 +10,7 @@
 {{ $jurisdictionId := .jurisdictionId | default "" }}
 {{ $country := .country | default dict }}
 {{ $laws := site.Data.laws.laws.itemListElement | default (slice) }}
-{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
 {{ $blocs := site.Data.blocs.blocs.itemListElement | default (slice) }}
 
 {{/* Build list of all applicable jurisdiction IDs (including inherited) */}}

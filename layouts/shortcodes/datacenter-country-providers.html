@@ -8,12 +8,12 @@ Shows the count of regions in THAT country (not total regions).
 
 {{ $countryId := .Get "country" }}
 {{ $datacenters := site.Data.datacenters }}
-{{ $regions := site.Data.regions }}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 
-{{/* Build regions lookup by id */}}
-{{ $regionsById := dict }}
-{{ range $regions }}
-{{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{/* Build countries lookup by id */}}
+{{ $countriesById := dict }}
+{{ range $countries }}
+{{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{ $allProviders := $datacenters.datacenters | default (slice) }}
@@ -62,7 +62,7 @@ Shows the count of regions in THAT country (not total regions).
   <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
   <div class="flex flex-wrap gap-2">
     {{ range $items }}
-    {{ $vendor := index $regionsById .vendorCountryId }}
+    {{ $vendor := index $countriesById .vendorCountryId }}
     {{ $flag := "" }}
     {{ $vendorName := .vendorCountryId }}
     {{ $risk := "unknown" }}

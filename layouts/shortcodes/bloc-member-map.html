@@ -8,7 +8,7 @@
 {{ $membersParam := .Get "members" | default "" }}
 {{ $members := split $membersParam "," }}
 
-{{ $regions := site.Data.regions }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
 
 {{/* Build country data for the map */}}
 {{ $mapData := slice }}

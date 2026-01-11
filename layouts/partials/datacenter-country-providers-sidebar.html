@@ -27,7 +27,7 @@ Renders a card with a list of providers with region counts for a specific countr
         {{ $providerFlag := "" }}
         {{ $vendorCountryId := $p.vendorCountryId | default "" }}
         {{ if $vendorCountryId }}
-          {{ $vendorMatch := first 1 (where site.Data.regions "identifier" $vendorCountryId) }}
+          {{ $vendorMatch := first 1 (where site.Data.countries.countries.itemListElement "identifier" $vendorCountryId) }}
           {{ with index $vendorMatch 0 }}
             {{ $providerFlag = .flag | default "" }}
           {{ end }}

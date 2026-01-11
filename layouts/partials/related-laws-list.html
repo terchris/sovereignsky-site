@@ -16,7 +16,7 @@
 
 {{/* Build lookup maps for countries and blocs to get flags */}}
 {{ $regionsById := dict }}
-{{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 {{ range ($countries | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}

@@ -44,7 +44,7 @@
       {{ range $countryItems }}
       <li>
         {{ if .slug }}
-        <a href="/jurisdictions/{{ .slug }}/"
+        <a href="/countries/{{ .slug }}/"
            title="{{ .name }}: {{ .count }} regions"
            class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
           <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>

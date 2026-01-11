@@ -19,7 +19,7 @@
   {{ end }}
 {{ end }}
 
-{{ $regions := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $regions := site.Data.countries.countries.itemListElement }}
 {{ $regionsById := dict }}
 {{ range $regions }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
@@ -46,7 +46,7 @@
 {{ end }}
 
 {{/* Risk label + emoji */}}
-{{ $riskLevels := (site.Data.blocs.riskLevels | default site.Data.jurisdictions.riskLevels | default dict) }}
+{{ $riskLevels := (site.Data.blocs.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
   {{ if .label }}{{ $riskLabel = .label }}{{ end }}
@@ -197,7 +197,7 @@
               Jurisdiction
             </h3>
             <div class="mt-2">
-              <a href="/jurisdictions/{{ $hqSlug }}/"
+              <a href="/countries/{{ $hqSlug }}/"
                  class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline">
                 {{ if $hqFlag }}{{ $hqFlag }} {{ end }}{{ $hqName }} laws
               </a>
@@ -226,7 +226,7 @@
               {{ range $countryItems }}
               <li>
                 {{ if .slug }}
-                <a href="/jurisdictions/{{ .slug }}/"
+                <a href="/countries/{{ .slug }}/"
                    title="{{ .name }}: {{ .count }} regions"
                    class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex justify-between items-center">
                   <span>{{ if .flag }}{{ .flag }} {{ end }}{{ .name }}</span>

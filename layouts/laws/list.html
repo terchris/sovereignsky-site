@@ -7,13 +7,13 @@
 
 {{/* Build region lookup from countries data */}}
 {{ $regionLookup := dict }}
-{{ range (site.Data.countries.countries.itemListElement | default site.Data.regions) }}
+{{ range (site.Data.countries.countries.itemListElement) }}
   {{ $regionLookup = merge $regionLookup (dict .identifier .) }}
 {{ end }}
 
 {{/* Build bloc lookup from blocs data */}}
 {{ $blocLookup := dict }}
-{{ range (site.Data.blocs.blocs.itemListElement | default site.Data.jurisdictions.blocs) }}
+{{ range (site.Data.blocs.blocs.itemListElement) }}
   {{ $blocLookup = merge $blocLookup (dict .identifier .) }}
 {{ end }}
 

@@ -4,7 +4,7 @@
 {{ if gt (len $appliesTo) 0 }}
 {{/* Build lookup maps for countries and blocs */}}
 {{ $regionsById := dict }}
-{{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 {{ range ($countries | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}

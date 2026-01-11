@@ -7,10 +7,10 @@
 
 {{ $vendorCountryId := .Page.Params.vendor_country_id | default "" }}
 
-{{/* Find vendor country from regions.json for full details */}}
-{{ $regions := site.Data.regions | default (slice) }}
+{{/* Find vendor country from countries.json for full details */}}
+{{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
 {{ $vendorCountry := dict }}
-{{ range $regions }}
+{{ range $countries }}
   {{ if eq .identifier $vendorCountryId }}
     {{ $vendorCountry = . }}
   {{ end }}

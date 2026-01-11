@@ -17,7 +17,7 @@
 {{ $hqSlug := $page.Params.vendor_country_slug | default "" }}
 
 {{/* Get risk label from riskLevels */}}
-{{ $riskLevels := (site.Data.jurisdictions.riskLevels | default dict) }}
+{{ $riskLevels := (site.Data.blocs.riskLevels | default dict) }}
 {{ $riskLabel := $hqRisk }}
 {{ with index $riskLevels $hqRisk }}
   {{ if .label }}{{ $riskLabel = .label }}{{ end }}
@@ -30,15 +30,15 @@
 {{ if eq $hqRisk "high" }}{{ $riskEmoji = "🚨" }}{{ end }}
 {{ if eq $hqRisk "sanctioned" }}{{ $riskEmoji = "⛔" }}{{ end }}
 
-{{/* Get bloc memberships from regions.json */}}
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{/* Get bloc memberships from countries.json */}}
+{{ $countriesById := dict }}
+{{ range (site.Data.countries.countries.itemListElement | default (slice)) }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
-{{ $hq := index $regionsById $hqId }}
+{{ $hq := index $countriesById $hqId }}
 
 {{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+{{ range (site.Data.blocs.blocs.itemListElement | default (slice)) }}
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 {{ $blocNames := slice }}
@@ -66,7 +66,7 @@
     </span>
     {{ if and $hqSlug (ne $hqSlug "") }}
       <a class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm no-underline"
-         href="/jurisdictions/{{ $hqSlug }}/">
+         href="/countries/{{ $hqSlug }}/">
         <span class="font-medium">Jurisdiction</span>
         <span class="text-neutral-500 dark:text-neutral-400">{{ if $hqFlag }}{{ $hqFlag }}{{ end }} {{ $hqName | default $hqId }}</span>
         <span class="text-neutral-500 dark:text-neutral-400">↗</span>

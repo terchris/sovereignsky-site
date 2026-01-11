@@ -7,12 +7,12 @@
 
 {{ $providerRegions := .Page.Params.regions | default (slice) }}
 {{ $dateModified := .Page.Params.date_modified | default "" }}
-{{ $regions := site.Data.regions | default (slice) }}
+{{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
 
-{{/* Build regions lookup */}}
-{{ $regionsById := dict }}
-{{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{/* Build countries lookup */}}
+{{ $countriesById := dict }}
+{{ range $countries }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{/* Group regions by country */}}
@@ -29,7 +29,7 @@
 {{/* Build sorted country list */}}
 {{ $countryItems := slice }}
 {{ range $countryId, $count := $countryCounts }}
-  {{ $c := index $regionsById $countryId }}
+  {{ $c := index $countriesById $countryId }}
   {{ $name := $countryId }}
   {{ $flag := "" }}
   {{ if $c }}

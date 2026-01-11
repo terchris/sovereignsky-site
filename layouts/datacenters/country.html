@@ -9,7 +9,7 @@
 
 {{ $countryId := .Params.countryId | default .Params.country_id | default "" }}
 {{ $country := dict }}
-{{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 {{ if not $countryId }}
   {{ $match := first 1 (where $countries "slug" $slug) }}
   {{ with index $match 0 }}

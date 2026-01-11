@@ -12,13 +12,13 @@
 {{ $dataProt := .Get "data_protection" | default "" }}
 {{ $laws := site.Data.laws.laws.laws | default (slice) }}
 
-{{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
-  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{ $countriesById := dict }}
+{{ range (site.Data.countries.countries.itemListElement | default (slice)) }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+{{ range (site.Data.blocs.blocs.itemListElement | default (slice)) }}
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
@@ -48,7 +48,7 @@
     {{ $flag := "" }}
     {{ range first 1 .applies_to }}
       {{ $id := . }}
-      {{ $region := index $regionsById $id }}
+      {{ $region := index $countriesById $id }}
       {{ if $region }}
         {{ $flag = $region.flag }}
         {{ $firstApply = $region.name }}

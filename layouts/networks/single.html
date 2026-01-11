@@ -29,11 +29,11 @@
   {{ $placeById = merge $placeById (dict .identifier .) }}
 {{ end }}
 
-{{/* Build regions lookup for flags */}}
-{{ $regions := site.Data.regions }}
-{{ $regionsById := dict }}
-{{ range $regions }}
-  {{ $regionsById = merge $regionsById (dict .identifier .) }}
+{{/* Build countries lookup for flags */}}
+{{ $countries := site.Data.countries.countries.itemListElement }}
+{{ $countriesById := dict }}
+{{ range $countries }}
+  {{ $countriesById = merge $countriesById (dict .identifier .) }}
 {{ end }}
 
 {{/* Get display title */}}
@@ -67,7 +67,7 @@
       {{ $countryId := "" }}
       {{ with $place.address }}{{ $countryId = .addressCountry }}{{ end }}
       {{ if $countryId }}
-        {{ $region := index $regionsById $countryId }}
+        {{ $region := index $countriesById $countryId }}
         {{ if $region }}{{ $flag = $region.flag }}{{ end }}
       {{ end }}
       {{ $endpointNames = $endpointNames | append (printf "%s %s" $flag ($place.name | default .)) }}
@@ -131,7 +131,7 @@
                 {{ $countryId := "" }}
                 {{ with $place.address }}{{ $countryId = .addressCountry }}{{ end }}
                 {{ if $countryId }}
-                  {{ $region := index $regionsById $countryId }}
+                  {{ $region := index $countriesById $countryId }}
                   {{ if $region }}{{ $flag = $region.flag }}{{ end }}
                 {{ end }}
               {{ end }}
@@ -162,7 +162,7 @@
               {{ if $actor }}
                 {{ $countryId := $actor.countryId | default "" }}
                 {{ if $countryId }}
-                  {{ $region := index $regionsById $countryId }}
+                  {{ $region := index $countriesById $countryId }}
                   {{ if $region }}{{ $flag = $region.flag }}{{ end }}
                 {{ end }}
               {{ end }}

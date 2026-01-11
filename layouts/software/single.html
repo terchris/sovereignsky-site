@@ -5,8 +5,8 @@
 {{/* Get vendor data */}}
 {{ $vendor := index (where site.Data.products.vendors.vendors "id" $data.vendor_id) 0 }}
 
-{{/* Get region data for jurisdiction exposure */}}
-{{ $regions := site.Data.regions }}
+{{/* Get country data for jurisdiction exposure */}}
+{{ $countries := site.Data.countries.countries.itemListElement }}
 
 {{/* Risk level colors */}}
 {{ $riskColors := dict
@@ -112,7 +112,7 @@
       which may allow foreign authorities to compel data disclosure.
     </p>
     {{ range $data.hosting.jurisdiction_exposure }}
-      {{ $region := index (where $regions "id" .) 0 }}
+      {{ $region := index (where $countries "id" .) 0 }}
       {{ if $region }}
         {{ if $region.laws }}
         <div class="mt-2 text-sm">

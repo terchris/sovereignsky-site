@@ -16,7 +16,7 @@
 
 {{ $country := dict }}
 {{ if $countryId }}
-  {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+  {{ $countries := site.Data.countries.countries.itemListElement }}
   {{ $match := first 1 (where $countries "identifier" $countryId) }}
   {{ with index $match 0 }}
     {{ $country = . }}

@@ -7,7 +7,7 @@
 */}}
 {{- $id := . -}}
 {{- $region := dict -}}
-{{- $countries := site.Data.countries.countries.itemListElement | default site.Data.regions -}}
+{{- $countries := site.Data.countries.countries.itemListElement -}}
 {{- $match := first 1 (where $countries "identifier" $id) -}}
 {{- with index $match 0 -}}
   {{- $region = . -}}

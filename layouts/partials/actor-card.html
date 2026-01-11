@@ -41,12 +41,12 @@
 {{ $typeLabel := index $typeLabels ($actor.type | default "") | default $actor.type }}
 
 {{/* Get jurisdiction page if exists */}}
-{{ $jurisdictionPage := site.GetPage (printf "/jurisdictions/%s" (lower $countryId)) }}
+{{ $jurisdictionPage := site.GetPage (printf "/countries/%s" (lower $countryId)) }}
 
 {{/* Get region name */}}
-{{ $regions := site.Data.regions | default (slice) }}
+{{ $countries := site.Data.countries.countries.itemListElement | default (slice) }}
 {{ $countryName := $countryId }}
-{{ range $regions }}
+{{ range $countries }}
   {{ if eq .identifier $countryId }}
     {{ $countryName = .name }}
   {{ end }}

@@ -17,11 +17,11 @@
 
 {{/* For law flags (same logic as the /laws page chips) */}}
 {{ $regionsById := dict }}
-{{ range (site.Data.regions | default (slice)) }}
+{{ range (site.Data.countries.countries.itemListElement | default (slice)) }}
   {{ $regionsById = merge $regionsById (dict .identifier .) }}
 {{ end }}
 {{ $blocsById := dict }}
-{{ range (site.Data.jurisdictions.blocs | default (slice)) }}
+{{ range (site.Data.blocs.blocs.itemListElement | default (slice)) }}
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 

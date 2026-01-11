@@ -288,7 +288,7 @@
       </p>
 
       {{/* Build sorted list of member country data */}}
-      {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+      {{ $countries := site.Data.countries.countries.itemListElement }}
       {{ $memberCountryData := slice }}
       {{ range $allMembers }}
         {{ $memberId := . }}
@@ -355,7 +355,7 @@
 
       {{/* Build provider list with counts in bloc */}}
       {{ $providersInBloc := slice }}
-      {{ $countries := site.Data.countries.countries.itemListElement | default site.Data.regions }}
+      {{ $countries := site.Data.countries.countries.itemListElement }}
       {{ $regionsById := dict }}
       {{ range $countries }}
         {{ $regionsById = merge $regionsById (dict .identifier .) }}
