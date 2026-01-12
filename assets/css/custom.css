@@ -61,11 +61,28 @@
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
-/* Background colors */
+/* Background colors with proper text colors for dark mode */
 .bg-base-100 { background-color: #fff; }
 .bg-base-200 { background-color: #f2f2f2; }
+.bg-base-300 { background-color: #e5e5e5; }
 .dark .bg-base-100 { background-color: #1d232a; }
 .dark .bg-base-200 { background-color: #191e24; }
+.dark .bg-base-300 { background-color: #15191e; }
+
+/* DaisyUI text-base-content for proper text colors */
+.text-base-content { color: #1f2937; }
+.dark .text-base-content { color: #e5e7eb; }
+.text-base-content\/70 { color: rgba(31, 41, 55, 0.7); }
+.dark .text-base-content\/70 { color: rgba(229, 231, 235, 0.7); }
+
+/* Border colors */
+.border-base-200 { border-color: #f2f2f2; }
+.dark .border-base-200 { border-color: #191e24; }
+
+/* Ensure card text is readable in dark mode */
+.dark .card { color: #d1d5db; }
+.dark .card-body { color: #d1d5db; }
+.dark .card h3, .dark .card h4, .dark .card .font-semibold { color: #f3f4f6; }
 
 /* Transform utilities */
 .hover\:-translate-y-1:hover { transform: translateY(-0.25rem); }
@@ -190,6 +207,11 @@
 
 /* Hidden utilities */
 .hidden { display: none; }
+
+/* Dark mode visibility utilities for theme icon switcher */
+.dark .dark\:hidden { display: none !important; }
+.dark .dark\:flex { display: flex !important; }
+
 @media (min-width: 640px) { .sm\:table-cell { display: table-cell; } }
 @media (min-width: 768px) { .md\:table-cell { display: table-cell; } }
 
