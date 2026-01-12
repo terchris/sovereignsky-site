@@ -119,7 +119,7 @@
 <div class="not-prose stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
   <div class="stat">
     <div class="stat-figure text-primary">
-      {{ partial "content-icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
+      {{ partial "icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
     </div>
     <div class="stat-title">Countries Tracked</div>
     <div class="stat-value text-primary">{{ $totalCountries }}</div>
@@ -127,7 +127,7 @@
   </div>
   <div class="stat">
     <div class="stat-figure text-accent">
-      {{ partial "content-icon.html" (dict "name" "users" "color" "accent" "size" "8") }}
+      {{ partial "icon.html" (dict "name" "users" "color" "accent" "size" "8") }}
     </div>
     <div class="stat-title">Regional Blocs</div>
     <div class="stat-value text-accent">{{ $totalBlocs }}</div>
@@ -135,7 +135,7 @@
   </div>
   <div class="stat">
     <div class="stat-figure text-success">
-      {{ partial "content-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+      {{ partial "icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
     </div>
     <div class="stat-title">Low Risk</div>
     <div class="stat-value text-success">{{ $lowRisk }}</div>
@@ -143,7 +143,7 @@
   </div>
   <div class="stat">
     <div class="stat-figure text-error">
-      {{ partial "content-icon.html" (dict "name" "alert-triangle" "color" "error" "size" "8") }}
+      {{ partial "icon.html" (dict "name" "alert-triangle" "color" "error" "size" "8") }}
     </div>
     <div class="stat-title">Elevated+ Risk</div>
     <div class="stat-value text-error">{{ $elevatedRisk }}</div>

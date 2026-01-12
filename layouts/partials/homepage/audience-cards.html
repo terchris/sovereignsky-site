@@ -1,0 +1,83 @@
+{{/*
+  audience-cards.html - Audience persona cards
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    source: Content source configuration
+    cardStyle: "icon-centered" | "horizontal" | "minimal"
+    columns: Number of columns (1-6)
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "personas" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $cardStyle := $config.cardStyle | default "icon-centered" }}
+{{ $columns := $config.columns | default 5 }}
+
+{{/* Resolve items from source */}}
+{{ $items := partial "homepage/resolve-source.html" $config.source }}
+
+{{/* Build grid columns class */}}
+{{ $gridCols := "lg:grid-cols-5" }}
+{{ if eq $columns 3 }}{{ $gridCols = "lg:grid-cols-3" }}{{ end }}
+{{ if eq $columns 4 }}{{ $gridCols = "lg:grid-cols-4" }}{{ end }}
+{{ if eq $columns 6 }}{{ $gridCols = "lg:grid-cols-6" }}{{ end }}
+
+{{/* Section wrapper */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Personas grid */}}
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 {{ $gridCols }} gap-4 sm:gap-6">
+      {{ range $items }}
+        {{ $icon := .icon | default "user" }}
+        {{ $name := .name }}
+        {{ $description := .description }}
+        {{ $identifier := .identifier }}
+
+        {{/* Get content type info for color */}}
+        {{ $color := "#8b5cf6" }}
+        {{ range site.Data.content_types.content_types.itemListElement }}
+          {{ if eq .identifier "personas" }}
+            {{ $color = .color }}
+          {{ end }}
+        {{ end }}
+
+        <a href="/personas/{{ $identifier }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 text-center">
+          <div class="card-body items-center py-6 px-4">
+            {{/* Icon */}}
+            <div class="w-16 h-16 rounded-full flex items-center justify-center mb-3" style="background: rgba(139, 92, 246, 0.15);">
+              {{ partial "icon.html" (dict "name" $icon "size" "8" "class" "text-violet-500") }}
+            </div>
+
+            {{/* Name */}}
+            <h3 class="font-bold text-lg">{{ $name }}</h3>
+
+            {{/* Short description */}}
+            {{ with $description }}
+            <p class="text-sm opacity-70 line-clamp-2">{{ . }}</p>
+            {{ end }}
+          </div>
+        </a>
+      {{ end }}
+    </div>
+
+  </div>
+</section>

@@ -115,7 +115,7 @@
   <div class="card bg-base-100 shadow-sm border border-base-300">
     <div class="card-body p-4">
       <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-        {{ partial "content-icon.html" (dict "name" "link" "color" "info" "size" "4") }}
+        {{ partial "icon.html" (dict "name" "link" "color" "info" "size" "4") }}
         Related
       </h3>
       <div class="space-y-1 mt-3">
@@ -125,7 +125,7 @@
         {{ range $relatedLaws }}
         <a href="/laws/{{ .id }}/" class="flex items-center gap-3 p-2 rounded-lg hover:bg-base-200 transition-colors group">
           <div class="w-8 h-8 rounded-full bg-{{ $lawColor }}/10 flex items-center justify-center flex-shrink-0">
-            {{ partial "content-icon.html" (dict "name" $lawIcon "color" $lawColor "size" "4") }}
+            {{ partial "icon.html" (dict "name" $lawIcon "color" $lawColor "size" "4") }}
           </div>
           <span class="text-sm group-hover:text-primary truncate">{{ .name }}{{ if .year }} <span class="opacity-60">({{ .year }})</span>{{ end }}</span>
         </a>
@@ -137,7 +137,7 @@
         {{ range first 3 $blogPosts }}
         <a href="{{ .RelPermalink }}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-base-200 transition-colors group">
           <div class="w-8 h-8 rounded-full bg-{{ $blogColor }}/10 flex items-center justify-center flex-shrink-0">
-            {{ partial "content-icon.html" (dict "name" $blogIcon "color" $blogColor "size" "4") }}
+            {{ partial "icon.html" (dict "name" $blogIcon "color" $blogColor "size" "4") }}
           </div>
           <span class="text-sm group-hover:text-primary line-clamp-2">{{ .Title }}</span>
         </a>
@@ -149,7 +149,7 @@
         {{ range first 2 $publications }}
         <a href="{{ .RelPermalink }}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-base-200 transition-colors group">
           <div class="w-8 h-8 rounded-full bg-{{ $pubColor }}/10 flex items-center justify-center flex-shrink-0">
-            {{ partial "content-icon.html" (dict "name" $pubIcon "color" $pubColor "size" "4") }}
+            {{ partial "icon.html" (dict "name" $pubIcon "color" $pubColor "size" "4") }}
           </div>
           <span class="text-sm group-hover:text-primary line-clamp-2">{{ .Title }}</span>
         </a>
@@ -162,7 +162,7 @@
         {{ $otherColor := index $colors $pageType | default "secondary" }}
         <a href="{{ .RelPermalink }}" class="flex items-center gap-3 p-2 rounded-lg hover:bg-base-200 transition-colors group">
           <div class="w-8 h-8 rounded-full bg-{{ $otherColor }}/10 flex items-center justify-center flex-shrink-0">
-            {{ partial "content-icon.html" (dict "name" $otherIcon "color" $otherColor "size" "4") }}
+            {{ partial "icon.html" (dict "name" $otherIcon "color" $otherColor "size" "4") }}
           </div>
           <span class="text-sm group-hover:text-primary line-clamp-2">{{ .Title }}</span>
         </a>

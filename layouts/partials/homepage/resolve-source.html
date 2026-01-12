@@ -1,0 +1,123 @@
+{{/*
+  resolve-source.html - Resolves content source configuration to items
+
+  Usage:
+    {{ $items := partial "homepage/resolve-source.html" .source }}
+
+  Input: source config object with:
+    type: "section" | "data" | "query"
+    path: path to content section or data file
+    select: "query" | "explicit" | "mixed" (optional)
+    identifiers: array of item identifiers (for explicit/mixed)
+    limit: max items (optional)
+    sort: "weight" | "date" | "title" (optional)
+    filter: filter criteria object (optional)
+
+  Returns: slice of items (pages or data items)
+*/}}
+{{- $source := . -}}
+{{- $items := slice -}}
+
+{{- if $source -}}
+  {{- $type := $source.type | default "section" -}}
+  {{- $path := $source.path | default "" -}}
+  {{- $select := $source.select | default "query" -}}
+  {{- $limit := $source.limit | default 100 -}}
+  {{- $sortField := $source.sort | default "weight" -}}
+  {{- $identifiers := $source.identifiers | default slice -}}
+
+  {{- if eq $type "section" -}}
+    {{/* Hugo content section */}}
+    {{- $pages := where site.RegularPages "Section" $path -}}
+
+    {{- if eq $select "explicit" -}}
+      {{/* Select specific pages by identifier (filename/slug) */}}
+      {{- $selectedPages := slice -}}
+      {{- range $id := $identifiers -}}
+        {{- range $pages -}}
+          {{/* Match by directory name (for bundles), filename, or slug */}}
+          {{- $dirname := .File.ContentBaseName -}}
+          {{- $filename := .File.BaseFileName -}}
+          {{- if or (eq $dirname $id) (eq $filename $id) (strings.HasSuffix $dirname $id) -}}
+            {{- $selectedPages = $selectedPages | append . -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $items = $selectedPages -}}
+
+    {{- else -}}
+      {{/* Query mode - sort and limit */}}
+      {{- if eq $sortField "date" -}}
+        {{- $pages = $pages.ByDate.Reverse -}}
+      {{- else if eq $sortField "weight" -}}
+        {{- $pages = $pages.ByWeight -}}
+      {{- else if eq $sortField "title" -}}
+        {{- $pages = $pages.ByTitle -}}
+      {{- end -}}
+
+      {{- $items = first $limit $pages -}}
+    {{- end -}}
+
+  {{- else if eq $type "data" -}}
+    {{/* Data file path like "audience.audience.itemListElement" */}}
+    {{- $parts := split $path "." -}}
+
+    {{- if ge (len $parts) 2 -}}
+      {{- $file := index $parts 0 -}}
+      {{- $key := index $parts 1 -}}
+
+      {{- $data := index site.Data $file -}}
+      {{- if $data -}}
+        {{- $nested := index $data $key -}}
+        {{- if $nested -}}
+          {{- if ge (len $parts) 3 -}}
+            {{- $subkey := index $parts 2 -}}
+            {{- $sub := index $nested $subkey -}}
+            {{- if $sub -}}
+              {{- if eq $select "explicit" -}}
+                {{/* Select specific items by identifier */}}
+                {{- range $id := $identifiers -}}
+                  {{- range $sub -}}
+                    {{- if eq .identifier $id -}}
+                      {{- $items = $items | append . -}}
+                    {{- end -}}
+                  {{- end -}}
+                {{- end -}}
+              {{- else -}}
+                {{- $items = first $limit $sub -}}
+              {{- end -}}
+            {{- end -}}
+          {{- else -}}
+            {{/* Two-part path */}}
+            {{- if reflect.IsSlice $nested -}}
+              {{- $items = first $limit $nested -}}
+            {{- else if isset $nested "itemListElement" -}}
+              {{- $items = first $limit $nested.itemListElement -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+
+  {{- else if eq $type "query" -}}
+    {{/* Special query type - for events, etc. */}}
+    {{- $events := site.Data.events.events.itemListElement -}}
+    {{- if $events -}}
+      {{/* Sort events by date (startDate) */}}
+      {{- $now := now -}}
+      {{- $futureEvents := slice -}}
+      {{- range $events -}}
+        {{- $startDate := .startDate | default "" -}}
+        {{- if $startDate -}}
+          {{- $eventDate := time $startDate -}}
+          {{- if ge $eventDate $now -}}
+            {{- $futureEvents = $futureEvents | append . -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+      {{- $items = first $limit $futureEvents -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return $items -}}

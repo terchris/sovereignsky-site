@@ -1,0 +1,84 @@
+{{/*
+  stats-grid.html - Grid of stats cards with icons and counts
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    columns: Number of columns (1-6)
+    items: Array of stat items with:
+      - id: Unique identifier
+      - label: Display label
+      - sublabel: Secondary label
+      - url: Link URL
+      - icon: Icon name
+      - color: Hex color code
+      - countSource: Data path to count items from
+      - value: Static value (alternative to countSource)
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "stats" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $columns := $config.columns | default 4 }}
+{{ $items := $config.items | default slice }}
+
+{{/* Build grid columns class */}}
+{{ $gridCols := "lg:grid-cols-4" }}
+{{ if eq $columns 3 }}{{ $gridCols = "lg:grid-cols-3" }}{{ end }}
+{{ if eq $columns 5 }}{{ $gridCols = "lg:grid-cols-5" }}{{ end }}
+{{ if eq $columns 6 }}{{ $gridCols = "lg:grid-cols-6" }}{{ end }}
+
+{{/* Section wrapper with background */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Stats grid */}}
+    <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 {{ $gridCols }} gap-4 sm:gap-6">
+      {{ range $items }}
+        {{ $count := 0 }}
+        {{ if .countSource }}
+          {{ $count = partial "homepage/resolve-count.html" .countSource }}
+        {{ else if .value }}
+          {{ $count = .value }}
+        {{ end }}
+
+        {{ $color := .color | default "#6366f1" }}
+
+        <a href="{{ .url }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div class="card-body flex flex-row items-center gap-4 p-5">
+            {{/* Icon container with colored background using CSS color-mix for transparency */}}
+            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background: color-mix(in srgb, {{ $color }} 15%, transparent);">
+              {{ partial "icon.html" (dict "name" .icon "size" "7" "class" (printf "text-[%s]" $color)) }}
+            </div>
+
+            {{/* Content */}}
+            <div class="flex-1 min-w-0">
+              <div class="text-3xl font-bold leading-none" style="color: {{ $color }};">{{ $count }}</div>
+              <div class="font-semibold mb-0.5 truncate">{{ .label }}</div>
+              {{ with .sublabel }}
+              <div class="text-xs opacity-70 truncate">{{ . }}</div>
+              {{ end }}
+            </div>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+
+  </div>
+</section>

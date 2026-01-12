@@ -1,0 +1,315 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "SovereignSky Homepage",
+  "description": "Digital sovereignty resources for Norwegian organizations",
+  "abstract": "Homepage sections defining the content and layout of the SovereignSky homepage",
+  "summary": "A JSON-driven homepage where content sections are defined in data and rendered by Hugo templates",
+  "listConfig": {
+    "sorting": {
+      "field": "weight",
+      "direction": "asc"
+    },
+    "display": {
+      "renderMode": "sections"
+    }
+  },
+  "itemListElement": [
+    {
+      "@type": "WebPageElement",
+      "identifier": "hero",
+      "name": "Hero Section",
+      "sectionType": "hero",
+      "weight": 10,
+      "enabled": true,
+      "config": {
+        "style": "gradient",
+        "gradient": "linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #10b981 100%)",
+        "image": null,
+        "imagePosition": "right",
+        "badge": {
+          "text": "Totalforsvarsåret 2026",
+          "subtext": "Digital preparedness"
+        },
+        "title": "Digital sovereignty resources for Norwegian organizations",
+        "description": "Understand your digital dependencies and take action. We map the infrastructure, software, laws, publications, and risks that affect your organization."
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "databases",
+      "name": "Databases Stats Grid",
+      "sectionType": "stats-grid",
+      "weight": 20,
+      "enabled": true,
+      "config": {
+        "title": "The data behind digital sovereignty",
+        "description": "We've mapped infrastructure, software, laws, and publications across multiple dimensions.",
+        "background": "base-200",
+        "columns": 4,
+        "items": [
+          {
+            "id": "countries",
+            "label": "Countries",
+            "sublabel": "Jurisdictions analyzed",
+            "url": "/countries/",
+            "icon": "globe",
+            "color": "#34d399",
+            "countSource": "data.countries.countries.itemListElement"
+          },
+          {
+            "id": "blocs",
+            "label": "Regional Blocs",
+            "sublabel": "Data governance frameworks",
+            "url": "/blocs/",
+            "icon": "building",
+            "color": "#14b8a6",
+            "countSource": "data.blocs.blocs.itemListElement"
+          },
+          {
+            "id": "laws",
+            "label": "Laws",
+            "sublabel": "Legal frameworks documented",
+            "url": "/laws/",
+            "icon": "scale",
+            "color": "#38bdf8",
+            "countSource": "data.laws.laws.itemListElement"
+          },
+          {
+            "id": "networks",
+            "label": "Networks",
+            "sublabel": "Submarine cables mapped",
+            "url": "/networks/",
+            "icon": "link",
+            "color": "#f87171",
+            "countSource": "data.networks.networks"
+          },
+          {
+            "id": "publications",
+            "label": "Publications",
+            "sublabel": "Research papers indexed",
+            "url": "/publications/",
+            "icon": "book",
+            "color": "#fbbf24",
+            "countSource": "data.publications.publications"
+          },
+          {
+            "id": "blog",
+            "label": "Blog",
+            "sublabel": "Articles and insights",
+            "url": "/blog/",
+            "icon": "newspaper",
+            "color": "#a855f7",
+            "countSource": "pages.blog"
+          },
+          {
+            "id": "software",
+            "label": "Software",
+            "sublabel": "MVP products · 4,000+ being prepared",
+            "url": "/software/",
+            "icon": "code",
+            "color": "#3b82f6",
+            "countSource": "data.software.softwareList"
+          },
+          {
+            "id": "datacenters",
+            "label": "Datacenters",
+            "sublabel": "Cloud regions worldwide",
+            "url": "/datacenters/",
+            "icon": "server",
+            "color": "#f472b6",
+            "countSource": "data.datacenters.datacenters.regions"
+          },
+          {
+            "id": "projects",
+            "label": "Projects",
+            "sublabel": "Open-source tools",
+            "url": "/sovereignsky/",
+            "icon": "rocket",
+            "color": "#22c55e",
+            "countSource": "data.sovereignsky.projects.itemListElement"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "personas",
+      "name": "Audience Personas",
+      "sectionType": "audience-cards",
+      "weight": 30,
+      "enabled": true,
+      "config": {
+        "title": "What does digital sovereignty mean for you?",
+        "description": "There's a lot to digest. We've curated the content for your role so you can get started quickly.",
+        "source": {
+          "type": "data",
+          "path": "audience.audience.itemListElement"
+        },
+        "cardStyle": "icon-centered",
+        "columns": 5
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "blog",
+      "name": "Latest Blog Posts",
+      "sectionType": "content-cards",
+      "weight": 40,
+      "enabled": true,
+      "config": {
+        "title": "Latest insights",
+        "description": "Analysis, commentary, and news on digital sovereignty.",
+        "background": "base-200",
+        "source": {
+          "type": "section",
+          "path": "blog",
+          "select": "query",
+          "sort": "date",
+          "limit": 3
+        },
+        "cardStyle": "compact",
+        "columns": 3,
+        "showMoreLink": "/blog/",
+        "showMoreText": "View all articles"
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "publications",
+      "name": "Essential Publications",
+      "sectionType": "content-cards",
+      "weight": 50,
+      "enabled": true,
+      "config": {
+        "title": "Essential reading",
+        "description": "Key reports and frameworks shaping digital sovereignty policy.",
+        "source": {
+          "type": "section",
+          "path": "publications",
+          "select": "query",
+          "sort": "date",
+          "limit": 3
+        },
+        "cardStyle": "compact",
+        "columns": 3,
+        "showMoreLink": "/publications/",
+        "showMoreText": "View all publications"
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "events",
+      "name": "Key Events",
+      "sectionType": "events-list",
+      "weight": 60,
+      "enabled": true,
+      "config": {
+        "title": "Key Events in 2026",
+        "description": "Conferences, exercises, and gatherings focused on digital sovereignty and preparedness.",
+        "background": "base-200",
+        "source": {
+          "type": "query",
+          "limit": 6,
+          "sort": "date"
+        },
+        "showMoreLink": "/events/",
+        "showMoreText": "Full calendar"
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "cta",
+      "name": "Call to Action",
+      "sectionType": "cta",
+      "weight": 70,
+      "enabled": true,
+      "config": {
+        "style": "gradient",
+        "gradient": "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)",
+        "title": "Help make Norway digitally sovereign",
+        "description": "SovereignSky is an open initiative by helpers.no. We believe digital sovereignty is a shared responsibility. Join us in mapping, documenting, and building alternatives.",
+        "features": [
+          { "icon": "chart", "text": "Contribute research" },
+          { "icon": "lightbulb", "text": "Suggest improvements" },
+          { "icon": "megaphone", "text": "Share with your network" },
+          { "icon": "chat", "text": "Join the conversation" }
+        ],
+        "buttons": [
+          {
+            "text": "View on GitHub",
+            "url": "https://github.com/terchris/sovereignsky-site",
+            "style": "primary",
+            "icon": "github",
+            "external": true
+          },
+          {
+            "text": "About this initiative",
+            "url": "/about/",
+            "style": "outline"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "projects",
+      "name": "Projects Roadmap",
+      "sectionType": "projects-roadmap",
+      "weight": 80,
+      "enabled": true,
+      "config": {
+        "title": "What we're building",
+        "description": "Projects in development to help organizations achieve digital sovereignty.",
+        "background": "base-200",
+        "items": [
+          {
+            "title": "Software Database v2",
+            "description": "4,000+ software products categorized, validated, and mapped with sovereign alternatives. Find replacements for foreign-controlled tools.",
+            "badge": "Coming Soon",
+            "badgeStyle": "primary",
+            "progress": 25,
+            "progressLabel": "MVP Complete"
+          },
+          {
+            "title": "NDSI Survey",
+            "description": "Take the survey, get a personalized report on your digital sovereignty. Based on EU Cloud Sovereignty Framework with actionable recommendations.",
+            "badge": "In Development",
+            "badgeStyle": "secondary",
+            "progress": 15,
+            "progressLabel": "Design Phase"
+          },
+          {
+            "title": "SovereignSky Software Suite",
+            "description": "Open-source tools for building sovereign infrastructure.",
+            "badge": "Roadmap",
+            "badgeStyle": "accent",
+            "fullWidth": true,
+            "subItems": [
+              {
+                "title": "urbalurba-infrastructure",
+                "description": "Azure service equivalents on Kubernetes. Self-hosted alternatives for common cloud services."
+              },
+              {
+                "title": "devcontainer-toolbox",
+                "description": "All development tools in a secure devcontainer. Reproducible, sovereign development environment."
+              },
+              {
+                "title": "secure-net",
+                "description": "Encrypted overlay network. Secure access between developers and production clusters."
+              }
+            ]
+          }
+        ],
+        "footer": {
+          "text": "Want to help build these tools?",
+          "button": {
+            "text": "Contribute on GitHub",
+            "url": "https://github.com/terchris/sovereignsky-site",
+            "external": true
+          }
+        }
+      }
+    }
+  ]
+}

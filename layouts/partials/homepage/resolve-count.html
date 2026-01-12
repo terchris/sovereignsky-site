@@ -1,0 +1,77 @@
+{{/*
+  resolve-count.html - Resolves countSource paths to numeric values
+
+  Usage:
+    {{ $count := partial "homepage/resolve-count.html" "data.countries.countries.itemListElement" }}
+
+  Supported patterns:
+    data.X.Y.itemListElement  → len site.Data.X.Y.itemListElement
+    data.X.Y                  → len site.Data.X.Y (for plain arrays)
+    data.X.Y.Z.regions        → sum of len .regions for each datacenter
+    pages.X                   → len (where site.RegularPages "Section" "X")
+
+  Returns: integer count or 0 if path not found
+*/}}
+{{- $path := . -}}
+{{- $count := 0 -}}
+
+{{- if hasPrefix $path "data." -}}
+  {{/* Data file path */}}
+  {{- $parts := split (strings.TrimPrefix "data." $path) "." -}}
+
+  {{- if ge (len $parts) 2 -}}
+    {{- $file := index $parts 0 -}}
+    {{- $key := index $parts 1 -}}
+
+    {{- $data := index site.Data $file -}}
+    {{- if $data -}}
+      {{- $nested := index $data $key -}}
+      {{- if $nested -}}
+        {{- if ge (len $parts) 3 -}}
+          {{- $subkey := index $parts 2 -}}
+
+          {{- if eq $subkey "itemListElement" -}}
+            {{/* Standard ItemList format */}}
+            {{- $items := index $nested "itemListElement" -}}
+            {{- if $items -}}
+              {{- $count = len $items -}}
+            {{- end -}}
+
+          {{- else if eq $subkey "regions" -}}
+            {{/* Special case: count regions across all datacenters */}}
+            {{- range $nested -}}
+              {{- with .regions -}}
+                {{- $count = add $count (len .) -}}
+              {{- end -}}
+            {{- end -}}
+
+          {{- else -}}
+            {{/* Try to access subkey directly */}}
+            {{- $sub := index $nested $subkey -}}
+            {{- if $sub -}}
+              {{- if reflect.IsSlice $sub -}}
+                {{- $count = len $sub -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+
+        {{- else -}}
+          {{/* Two-part path: data.X.Y - treat as plain array */}}
+          {{- if reflect.IsSlice $nested -}}
+            {{- $count = len $nested -}}
+          {{- else if isset $nested "itemListElement" -}}
+            {{- $count = len $nested.itemListElement -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+
+{{- else if hasPrefix $path "pages." -}}
+  {{/* Hugo pages path */}}
+  {{- $section := strings.TrimPrefix "pages." $path -}}
+  {{- $pages := where site.RegularPages "Section" $section -}}
+  {{- $count = len $pages -}}
+{{- end -}}
+
+{{- return $count -}}

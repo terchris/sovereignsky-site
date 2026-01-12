@@ -28,6 +28,7 @@ const REFERENCE_EXTRACTORS = {
   'data/blocs/risk-levels.json': (data) => (data.itemListElement || []).map(item => item.identifier),
   'data/blocs/blocs.json': (data) => (data.itemListElement || []).map(item => item.identifier),
   'data/sources/sources.json': (data) => (data.itemListElement || []).map(item => item.identifier),
+  'data/icons/icons.json': (data) => (data.itemListElement || []).map(item => item.identifier),
 
   // Plain array format
   'data/networks/networks-actors.json': (data) => (Array.isArray(data) ? data : []).map(item => item.identifier),

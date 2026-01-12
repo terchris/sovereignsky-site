@@ -1,0 +1,114 @@
+{{/*
+  content-cards.html - Grid of content cards from Hugo pages
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    source: Content source configuration
+    cardStyle: "compact" | "featured" | "minimal" | "detailed"
+    columns: Number of columns (1-4)
+    showMoreLink: Link to full list page
+    showMoreText: Text for show more link
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "content" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $cardStyle := $config.cardStyle | default "compact" }}
+{{ $columns := $config.columns | default 3 }}
+{{ $showMoreLink := $config.showMoreLink }}
+{{ $showMoreText := $config.showMoreText | default "View all" }}
+
+{{/* Resolve items from source */}}
+{{ $items := partial "homepage/resolve-source.html" $config.source }}
+
+{{/* Build grid columns class */}}
+{{ $gridCols := "lg:grid-cols-3" }}
+{{ if eq $columns 2 }}{{ $gridCols = "lg:grid-cols-2" }}{{ end }}
+{{ if eq $columns 4 }}{{ $gridCols = "lg:grid-cols-4" }}{{ end }}
+
+{{/* Section wrapper */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Content grid */}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 {{ $gridCols }} gap-6">
+      {{ range $items }}
+        {{ $pageTitle := .Title }}
+        {{ $pageDate := .Date }}
+        {{ $pageSummary := .Summary | truncate 120 }}
+        {{ $pageLink := .RelPermalink }}
+        {{ $section := .Section }}
+
+        {{/* Get content type info */}}
+        {{ $icon := "document" }}
+        {{ $color := "#6366f1" }}
+        {{ range site.Data.content_types.content_types.itemListElement }}
+          {{ if eq .identifier $section }}
+            {{ $icon = .icon }}
+            {{ $color = .color }}
+          {{ end }}
+        {{ end }}
+
+        {{/* Use page params for icon if available */}}
+        {{ with .Params.icon }}{{ $icon = . }}{{ end }}
+
+        <a href="{{ $pageLink }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          {{/* Card with thumbnail if available */}}
+          {{ $image := .Resources.GetMatch "{feature*,thumbnail*,cover*}" }}
+          {{ with $image }}
+          <figure class="h-40 overflow-hidden">
+            {{ $resized := .Fill "600x320" }}
+            <img src="{{ $resized.RelPermalink }}" alt="{{ $pageTitle }}" class="w-full h-full object-cover" loading="lazy">
+          </figure>
+          {{ end }}
+
+          <div class="card-body p-5">
+            {{/* Icon and date row */}}
+            <div class="flex items-center gap-2 text-sm opacity-70 mb-2">
+              {{ partial "icon.html" (dict "name" $icon "size" "4" "class" (printf "text-[%s]" $color)) }}
+              <time datetime="{{ $pageDate.Format "2006-01-02" }}">
+                {{ $pageDate.Format "Jan 2, 2006" }}
+              </time>
+            </div>
+
+            {{/* Title */}}
+            <h3 class="card-title text-lg line-clamp-2 mb-2">{{ $pageTitle }}</h3>
+
+            {{/* Summary */}}
+            {{ if ne $cardStyle "minimal" }}
+            <p class="text-sm opacity-70 line-clamp-2">{{ $pageSummary }}</p>
+            {{ end }}
+          </div>
+        </a>
+      {{ end }}
+    </div>
+
+    {{/* Show more link */}}
+    {{ with $showMoreLink }}
+    <div class="text-center mt-8">
+      <a href="{{ . }}" class="btn btn-outline btn-primary">
+        {{ $showMoreText }}
+        {{ partial "icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+      </a>
+    </div>
+    {{ end }}
+
+  </div>
+</section>

@@ -1,0 +1,108 @@
+{{/*
+  cta.html - Call-to-action banner section
+
+  Config options:
+    style: "gradient" | "solid" | "outline" | "banner"
+    gradient: CSS gradient value (when style is "gradient")
+    title: Headline
+    description: Supporting text
+    features: Array of { icon, text } items
+    buttons: Array of button configs
+    button: Single button config (alternative to buttons)
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "cta" }}
+
+{{ $style := $config.style | default "gradient" }}
+{{ $gradient := $config.gradient | default "linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)" }}
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $features := $config.features | default slice }}
+{{ $buttons := $config.buttons | default slice }}
+
+{{/* Support single button config */}}
+{{ with $config.button }}
+  {{ $buttons = slice . }}
+{{ end }}
+
+{{/* Build background style */}}
+{{ $bgStyle := "" }}
+{{ $textClass := "text-white" }}
+{{ if eq $style "gradient" }}
+  {{ $bgStyle = printf "background: %s;" $gradient }}
+{{ else if eq $style "solid" }}
+  {{ $bgStyle = "background: var(--fallback-p,oklch(var(--p)));" }}
+{{ else }}
+  {{ $textClass = "" }}
+{{ end }}
+
+{{/* CTA section */}}
+<section id="{{ $id }}" class="py-16 -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32 {{ $textClass }}" style="{{ $bgStyle | safeCSS }}">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+    <div class="text-center">
+
+      {{/* Title */}}
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+
+      {{/* Description */}}
+      {{ with $description }}
+      <p class="text-lg opacity-90 max-w-2xl mx-auto mb-8">{{ . }}</p>
+      {{ end }}
+
+      {{/* Features list */}}
+      {{ if $features }}
+      <div class="flex flex-wrap justify-center gap-6 mb-8">
+        {{ range $features }}
+        <div class="flex items-center gap-2 opacity-90">
+          {{ with .icon }}
+          {{ partial "icon.html" (dict "name" . "size" "5") }}
+          {{ end }}
+          <span>{{ .text }}</span>
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{/* Buttons */}}
+      {{ if $buttons }}
+      <div class="flex flex-wrap justify-center gap-4">
+        {{ range $buttons }}
+          {{ $btnStyle := .style | default "primary" }}
+          {{ $btnClass := "btn" }}
+
+          {{ if eq $btnStyle "primary" }}
+            {{ if eq $style "gradient" }}
+              {{ $btnClass = "btn btn-white" }}
+            {{ else }}
+              {{ $btnClass = "btn btn-primary" }}
+            {{ end }}
+          {{ else if eq $btnStyle "secondary" }}
+            {{ $btnClass = "btn btn-secondary" }}
+          {{ else if eq $btnStyle "outline" }}
+            {{ if eq $style "gradient" }}
+              {{ $btnClass = "btn btn-outline border-white text-white hover:bg-white hover:text-primary" }}
+            {{ else }}
+              {{ $btnClass = "btn btn-outline btn-primary" }}
+            {{ end }}
+          {{ else if eq $btnStyle "ghost" }}
+            {{ $btnClass = "btn btn-ghost" }}
+          {{ end }}
+
+          <a href="{{ .url }}"
+             class="{{ $btnClass }} btn-lg"
+             {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+            {{ with .icon }}
+            {{ partial "icon.html" (dict "name" . "size" "5" "class" "mr-2") }}
+            {{ end }}
+            {{ .text }}
+          </a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+    </div>
+  </div>
+</section>

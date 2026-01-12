@@ -20,7 +20,7 @@
   {{ partial "datacenter-provider-laws-inline.html" (dict "vendorCountryId" $vendorCountryId "vendorCountry" $vendorCountry) }}
 {{ else }}
   <div class="alert">
-    {{ partial "content-icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
+    {{ partial "icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
     <span>No vendor jurisdiction specified for this provider.</span>
   </div>
 {{ end }}

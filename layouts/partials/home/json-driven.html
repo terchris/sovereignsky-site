@@ -1,0 +1,66 @@
+{{/*
+  json-driven.html - JSON-driven homepage renderer
+
+  Reads section definitions from data/homepage/sections.json and renders
+  each section using the appropriate partial based on sectionType.
+
+  Usage:
+    Set homepage.layout = "json-driven" in config/_default/params.toml
+
+  Section types supported:
+    - hero
+    - stats-grid
+    - audience-cards
+    - content-cards
+    - events-list
+    - cta
+    - projects-roadmap
+    - custom
+*/}}
+
+{{ $sections := site.Data.homepage.sections.itemListElement }}
+
+{{/* Sort sections by weight */}}
+{{ $sortedSections := sort $sections "weight" }}
+
+{{/* Render each enabled section */}}
+{{ range $sortedSections }}
+  {{ if .enabled }}
+    {{ $sectionType := .sectionType }}
+    {{ $config := .config }}
+    {{ $identifier := .identifier }}
+
+    {{/* Dispatch to appropriate section partial */}}
+    {{ if eq $sectionType "hero" }}
+      {{ partial "homepage/hero.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "stats-grid" }}
+      {{ partial "homepage/stats-grid.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "audience-cards" }}
+      {{ partial "homepage/audience-cards.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "content-cards" }}
+      {{ partial "homepage/content-cards.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "events-list" }}
+      {{ partial "homepage/events-list.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "cta" }}
+      {{ partial "homepage/cta.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "projects-roadmap" }}
+      {{ partial "homepage/projects-roadmap.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "custom" }}
+      {{/* Custom partial - pass through to specified partial */}}
+      {{ with $config.partial }}
+        {{ partial . $config.data }}
+      {{ end }}
+
+    {{ else }}
+      {{/* Unknown section type - log warning */}}
+      {{ warnf "Unknown homepage section type: %s (identifier: %s)" $sectionType $identifier }}
+    {{ end }}
+  {{ end }}
+{{ end }}

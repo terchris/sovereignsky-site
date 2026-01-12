@@ -147,7 +147,7 @@
           <span class="text-xl flex-shrink-0">{{ $sourceFlag }}</span>
           {{ else }}
           <div class="flex-shrink-0">
-            {{ partial "content-icon.html" (dict "name" "scale" "size" "5" "class" "text-base-content/40") }}
+            {{ partial "icon.html" (dict "name" "scale" "size" "5" "class" "text-base-content/40") }}
           </div>
           {{ end }}
 
@@ -180,7 +180,7 @@
 </div>
 {{ else }}
 <div class="alert">
-  {{ partial "content-icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
+  {{ partial "icon.html" (dict "name" "info" "color" "info" "size" "6" "class" "shrink-0") }}
   <span>No laws found for this jurisdiction.</span>
 </div>
 {{ end }}

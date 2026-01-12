@@ -1,0 +1,81 @@
+{{/*
+  hero.html - Hero section with gradient/image background
+
+  Config options:
+    style: "gradient" | "image" | "split" | "minimal"
+    gradient: CSS gradient value (when style is "gradient")
+    image: Background image path (when style is "image")
+    imagePosition: "left" | "right" | "center" | "background"
+    badge: { text, subtext }
+    title: Main headline
+    subtitle: Secondary headline
+    description: Supporting text
+    cta: { text, url, style }
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "hero" }}
+
+{{ $style := $config.style | default "gradient" }}
+{{ $gradient := $config.gradient | default "linear-gradient(135deg, #3b82f6 0%, #06b6d4 50%, #10b981 100%)" }}
+{{ $image := $config.image }}
+{{ $badge := $config.badge }}
+{{ $title := $config.title | default "Welcome" }}
+{{ $subtitle := $config.subtitle }}
+{{ $description := $config.description }}
+{{ $cta := $config.cta }}
+
+{{/* Build background style */}}
+{{ $bgStyle := "" }}
+{{ if eq $style "gradient" }}
+  {{ $bgStyle = printf "background: %s;" $gradient }}
+{{ else if eq $style "image" }}
+  {{ with $image }}
+    {{ $bgStyle = printf "background: url('%s') center/cover no-repeat;" . }}
+  {{ end }}
+{{ end }}
+
+{{/* Hero section - break out of body padding */}}
+<div id="{{ $id }}" class="relative overflow-hidden -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32" style="{{ $bgStyle | safeCSS }}">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32 py-20 sm:py-28 text-center text-white">
+    {{/* Badge */}}
+    {{ with $badge }}
+    <div class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold mb-6">
+      <span>{{ .text }}</span>
+      {{ with .subtext }}
+      <span class="opacity-60">·</span>
+      <span class="opacity-80">{{ . }}</span>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Title */}}
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+      {{ $title }}
+    </h1>
+
+    {{/* Subtitle */}}
+    {{ with $subtitle }}
+    <h2 class="text-2xl sm:text-3xl font-semibold opacity-90 mb-4">
+      {{ . }}
+    </h2>
+    {{ end }}
+
+    {{/* Description */}}
+    {{ with $description }}
+    <p class="text-lg sm:text-xl opacity-90 max-w-2xl mx-auto">
+      {{ . }}
+    </p>
+    {{ end }}
+
+    {{/* CTA Button */}}
+    {{ with $cta }}
+    <div class="mt-8">
+      <a href="{{ .url }}" class="btn {{ if eq .style "primary" }}btn-primary{{ else if eq .style "secondary" }}btn-secondary{{ else }}btn-outline btn-white{{ end }} btn-lg">
+        {{ with .icon }}{{ partial "icon.html" (dict "name" . "size" "5" "class" "mr-2") }}{{ end }}
+        {{ .text }}
+      </a>
+    </div>
+    {{ end }}
+  </div>
+</div>

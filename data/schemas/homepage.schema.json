@@ -1,0 +1,588 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "homepage.schema.json",
+  "title": "SovereignSky Homepage Sections",
+  "description": "Homepage section definitions with schema.org ItemList wrapper for JSON-driven homepage rendering",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the homepage configuration"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description for documentation"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Medium description"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Longer detailed description"
+    },
+    "listConfig": {
+      "$ref": "#/$defs/listConfig",
+      "description": "Configuration for section ordering"
+    },
+    "itemListElement": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sectionItem"
+      }
+    }
+  },
+  "$defs": {
+    "sectionItem": {
+      "type": "object",
+      "required": ["@type", "identifier", "name", "sectionType", "weight", "enabled", "config"],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "const": "WebPageElement",
+          "description": "schema.org type for page sections"
+        },
+        "identifier": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique identifier for the section"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name for the section"
+        },
+        "sectionType": {
+          "type": "string",
+          "enum": ["hero", "stats-grid", "content-cards", "content-block", "audience-cards", "events-list", "cta", "projects-roadmap", "custom"],
+          "description": "Type of section determining which partial to render"
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sort order weight (lower = first)"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the section should be rendered"
+        },
+        "config": {
+          "type": "object",
+          "description": "Section-specific configuration (varies by sectionType)"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "hero" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/heroConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "stats-grid" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/statsGridConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "content-cards" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/contentCardsConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "audience-cards" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/audienceCardsConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "events-list" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/eventsListConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "cta" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/ctaConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "projects-roadmap" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/projectsRoadmapConfig" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "heroConfig": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["gradient", "image", "split", "minimal"],
+          "description": "Visual style of the hero"
+        },
+        "gradient": {
+          "type": "string",
+          "description": "CSS gradient value (when style is 'gradient')"
+        },
+        "image": {
+          "type": ["string", "null"],
+          "description": "Background image path (when style is 'image')"
+        },
+        "imagePosition": {
+          "type": "string",
+          "enum": ["left", "right", "center", "background"],
+          "description": "Image position for split layouts"
+        },
+        "badge": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "subtext": { "type": "string" }
+          }
+        },
+        "title": {
+          "type": "string",
+          "description": "Main headline"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Secondary headline"
+        },
+        "description": {
+          "type": "string",
+          "description": "Supporting text"
+        },
+        "cta": {
+          "$ref": "#/$defs/button",
+          "description": "Call-to-action button"
+        }
+      },
+      "additionalProperties": false
+    },
+    "statsGridConfig": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Section description"
+        },
+        "background": {
+          "type": "string",
+          "description": "Background style (e.g., 'base-200')"
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6,
+          "description": "Number of columns in grid"
+        },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/statsItem" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "statsItem": {
+      "type": "object",
+      "required": ["id", "label", "url"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier"
+        },
+        "label": {
+          "type": "string",
+          "description": "Display label"
+        },
+        "sublabel": {
+          "type": "string",
+          "description": "Secondary label"
+        },
+        "url": {
+          "type": "string",
+          "description": "Link URL"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name"
+        },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9a-fA-F]{6}$",
+          "description": "Hex color code"
+        },
+        "countSource": {
+          "type": "string",
+          "description": "Data path to count items from (e.g., 'data.countries.countries.itemListElement')"
+        },
+        "value": {
+          "type": ["string", "number"],
+          "description": "Static value (alternative to countSource)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentCardsConfig": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Section description"
+        },
+        "background": {
+          "type": "string",
+          "description": "Background style"
+        },
+        "source": {
+          "$ref": "#/$defs/contentSource",
+          "description": "Content source configuration"
+        },
+        "cardStyle": {
+          "type": "string",
+          "enum": ["compact", "featured", "minimal", "detailed"],
+          "description": "Card display style"
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "description": "Number of columns"
+        },
+        "showMoreLink": {
+          "type": "string",
+          "description": "Link to full list page"
+        },
+        "showMoreText": {
+          "type": "string",
+          "description": "Text for show more link"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audienceCardsConfig": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "background": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/contentSource"
+        },
+        "cardStyle": {
+          "type": "string",
+          "enum": ["icon-centered", "horizontal", "minimal"]
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        }
+      },
+      "additionalProperties": false
+    },
+    "eventsListConfig": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "background": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/contentSource"
+        },
+        "showMoreLink": {
+          "type": "string"
+        },
+        "showMoreText": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ctaConfig": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "style": {
+          "type": "string",
+          "enum": ["gradient", "solid", "outline", "banner"]
+        },
+        "gradient": {
+          "type": "string",
+          "description": "CSS gradient value"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "icon": { "type": "string" },
+              "text": { "type": "string" }
+            },
+            "required": ["text"]
+          }
+        },
+        "buttons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/button" }
+        },
+        "button": {
+          "$ref": "#/$defs/button",
+          "description": "Single button (alternative to buttons array)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "projectsRoadmapConfig": {
+      "type": "object",
+      "required": ["items"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "background": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/roadmapItem" }
+        },
+        "footer": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "button": { "$ref": "#/$defs/button" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "roadmapItem": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "badge": {
+          "type": "string"
+        },
+        "badgeStyle": {
+          "type": "string",
+          "enum": ["primary", "secondary", "accent", "neutral"]
+        },
+        "progress": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "progressLabel": {
+          "type": "string"
+        },
+        "fullWidth": {
+          "type": "boolean"
+        },
+        "subItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" }
+            },
+            "required": ["title"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentSource": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["section", "data", "query"],
+          "description": "Source type"
+        },
+        "path": {
+          "type": "string",
+          "description": "Path to content section or data file"
+        },
+        "select": {
+          "type": "string",
+          "enum": ["query", "explicit", "mixed"],
+          "description": "Selection mode"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Explicit list of item identifiers to select"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Maximum number of items"
+        },
+        "sort": {
+          "type": "string",
+          "enum": ["weight", "date", "title"],
+          "description": "Sort field"
+        },
+        "filter": {
+          "type": "object",
+          "description": "Filter criteria"
+        },
+        "fillWith": {
+          "type": "object",
+          "description": "For mixed mode: how to fill remaining slots",
+          "properties": {
+            "sort": { "type": "string" },
+            "limit": { "type": "integer" }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "button": {
+      "type": "object",
+      "required": ["text", "url"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Button label"
+        },
+        "url": {
+          "type": "string",
+          "description": "Button link"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["primary", "secondary", "outline", "ghost"],
+          "description": "Button style"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon name"
+        },
+        "external": {
+          "type": "boolean",
+          "description": "Opens in new tab"
+        }
+      },
+      "additionalProperties": false
+    },
+    "listConfig": {
+      "type": "object",
+      "description": "Configuration for section ordering",
+      "properties": {
+        "sorting": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "enum": ["weight"],
+              "description": "Sort field for sections"
+            },
+            "direction": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "description": "Sort direction"
+            }
+          },
+          "additionalProperties": false
+        },
+        "display": {
+          "type": "object",
+          "properties": {
+            "renderMode": {
+              "type": "string",
+              "enum": ["sections"],
+              "description": "Rendering mode"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
