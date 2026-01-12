@@ -87,8 +87,8 @@
         },
         "url": {
           "type": "string",
-          "format": "uri",
-          "description": "Primary project URL (website or landing page)"
+          "format": "uri-reference",
+          "description": "Primary project URL (website, landing page, or relative path)"
         },
         "topics": {
           "type": "array",
