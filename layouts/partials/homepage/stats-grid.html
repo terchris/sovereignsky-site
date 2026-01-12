@@ -61,20 +61,20 @@
         {{ $color := .color | default "#6366f1" }}
 
         <a href="{{ .url }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          <div class="card-body flex flex-row items-center gap-4 p-5">
-            {{/* Icon container with colored background using CSS color-mix for transparency */}}
-            <div class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style="background: color-mix(in srgb, {{ $color }} 15%, transparent);">
-              {{ partial "data-icon.html" (dict "name" .icon "size" "7" "class" (printf "text-[%s]" $color)) }}
+          <div class="card-body p-5 text-center">
+            {{/* Icon */}}
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-2" style="background: color-mix(in srgb, {{ $color }} 15%, transparent);">
+              {{ partial "data-icon.html" (dict "name" .icon "size" "6" "class" (printf "text-[%s]" $color)) }}
             </div>
 
-            {{/* Content */}}
-            <div class="flex-1 min-w-0">
-              <div class="text-3xl font-bold leading-none" style="color: {{ $color }};">{{ $count }}</div>
-              <div class="font-semibold mb-0.5 text-sm leading-tight">{{ .label }}</div>
-              {{ with .sublabel }}
-              <div class="text-xs opacity-70 leading-tight">{{ . }}</div>
-              {{ end }}
-            </div>
+            {{/* Number */}}
+            <div class="text-4xl font-bold leading-none mb-2" style="color: {{ $color }};">{{ $count }}</div>
+
+            {{/* Title and sublabel */}}
+            <div class="font-semibold text-base leading-tight">{{ .label }}</div>
+            {{ with .sublabel }}
+            <div class="text-sm opacity-70 leading-snug mt-1">{{ . }}</div>
+            {{ end }}
           </div>
         </a>
       {{ end }}
