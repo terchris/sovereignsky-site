@@ -292,12 +292,20 @@ Tasks:
 - [x] `cta.html` - call-to-action with features and buttons
 - [x] `projects-roadmap.html` - project cards with progress bars
 
-### Phase 5: Testing & Polish ✅
+### Phase 5: Testing & Polish (In Progress)
 - [x] Test all section types render correctly
 - [x] Test enabled/disabled toggle works
 - [x] Test weight-based ordering works
 - [ ] Verify responsive behavior (mobile, tablet, desktop)
-- [ ] Verify dark mode support
+- [x] Verify dark mode support - **Issues found and partially fixed** (see `docs/plans/backlog/PLAN-darkmode.md`)
+  - [x] Fixed HTML root background (was white in dark mode)
+  - [x] Fixed dark mode toggle icon (sun/moon)
+  - [x] Fixed footer text visibility
+  - [x] Fixed TOC readability
+  - [x] Fixed article body text color
+  - [x] Fixed article headings (h2-h6) and strong text
+  - [ ] About page text still needs more contrast
+  - [ ] Other pages may need testing
 - [x] Add error handling for missing data/invalid configs
 
 ### Phase 6: Cleanup

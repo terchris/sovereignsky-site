@@ -90,6 +90,29 @@
 .dark article { background-color: transparent; }
 .dark .not-prose { color: #e5e7eb; }
 
+/* Fix article content text color in dark mode */
+.dark .article-content,
+.dark .article-content p,
+.dark .article-content li,
+.dark .article-content td,
+.dark .article-content th {
+  color: #e5e7eb;
+}
+
+/* Fix headings and strong text in dark mode */
+.dark .article-content h2,
+.dark .article-content h3,
+.dark .article-content h4,
+.dark .article-content h5,
+.dark .article-content h6 {
+  color: #f3f4f6;
+}
+
+.dark .article-content strong,
+.dark .article-content b {
+  color: #f9fafb;
+}
+
 /* Fix HTML root element background in dark mode - theme sets oklch(1 0 0) which is white */
 html.dark {
   background-color: rgb(30, 41, 59) !important;
