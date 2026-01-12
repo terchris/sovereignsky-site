@@ -78,6 +78,22 @@
 /* Border colors */
 .border-base-200 { border-color: #f2f2f2; }
 .dark .border-base-200 { border-color: #191e24; }
+.border-base-300 { border-color: #e5e5e5; }
+.dark .border-base-300 { border-color: #374151; }
+
+/* Dark mode background utilities for TOC and other components */
+.dark .dark\:bg-neutral-800\/50 { background-color: rgba(38, 38, 38, 0.5); }
+.dark .dark\:hover\:bg-neutral-700\/50:hover { background-color: rgba(64, 64, 64, 0.5); }
+
+/* Fix prose/article body background in dark mode */
+.dark .prose { background-color: transparent; }
+.dark article { background-color: transparent; }
+.dark .not-prose { color: #e5e7eb; }
+
+/* Fix HTML root element background in dark mode - theme sets oklch(1 0 0) which is white */
+html.dark {
+  background-color: rgb(30, 41, 59) !important;
+}
 
 /* Ensure card text is readable in dark mode */
 .dark .card { color: #d1d5db; }
