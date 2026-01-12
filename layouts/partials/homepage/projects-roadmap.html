@@ -6,14 +6,20 @@
     description: Section description
     background: DaisyUI background color name
     items: Array of project items with:
-      - title: Project name
-      - description: Project description
+      - projectRef: Reference to project identifier in data/sovereignsky/projects.json (optional)
+        When projectRef is set, pulls title, description, url from the referenced project.
+        Any fields you specify override the project data.
+      - title: Project name (or override project name)
+      - url: Link to project page (optional - makes title clickable)
+      - description: Project description (or override)
       - badge: Status badge text
       - badgeStyle: "primary" | "secondary" | "accent" | "neutral"
       - progress: Progress percentage (0-100)
       - progressLabel: Label for progress bar
       - fullWidth: Whether to span full width
-      - subItems: Array of { title, description } sub-projects
+      - subItems: Array of sub-projects, each can have:
+        - projectRef: Reference to project identifier (optional)
+        - title, description, url (or overrides if projectRef is set)
     footer: { text, button }
 */}}
 
@@ -45,53 +51,105 @@
     {{/* Projects grid */}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {{ range $items }}
-        {{ $fullWidth := .fullWidth | default false }}
-        {{ $badgeStyle := .badgeStyle | default "primary" }}
+        {{/* Resolve project reference if present */}}
+        {{ $item := . }}
+        {{ with .projectRef }}
+          {{ $project := partial "homepage/resolve-project.html" . }}
+          {{ if $project }}
+            {{/* Map project fields to roadmap fields, with overrides from item */}}
+            {{ $title := $item.title | default $project.name }}
+            {{ $description := $item.description | default $project.abstract }}
+            {{ $url := $item.url | default $project.url }}
+            {{/* Convert external URLs to internal paths if they're on sovereignsky.no */}}
+            {{ if hasPrefix $url "https://sovereignsky.no" }}
+              {{ $url = strings.TrimPrefix "https://sovereignsky.no" $url }}
+            {{ end }}
+            {{/* Merge all fields */}}
+            {{ $item = merge $item (dict "title" $title "description" $description "url" $url) }}
+          {{ end }}
+        {{ end }}
 
+        {{ $fullWidth := $item.fullWidth | default false }}
+        {{ $badgeStyle := $item.badgeStyle | default "primary" }}
+        {{ $hasSubItems := $item.subItems }}
+        {{ $isClickable := and $item.url (not $hasSubItems) }}
+
+        {{/* Card wrapper - clickable if URL and no subItems */}}
+        {{ if $isClickable }}
+        <a href="{{ $item.url }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 {{ if $fullWidth }}lg:col-span-2{{ end }}">
+        {{ else }}
         <div class="card bg-base-100 shadow-md {{ if $fullWidth }}lg:col-span-2{{ end }}">
+        {{ end }}
           <div class="card-body">
 
             {{/* Header with badge */}}
             <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
-              <h3 class="card-title text-xl">{{ .title }}</h3>
-              {{ with .badge }}
+              <h3 class="card-title text-xl">{{ $item.title }}</h3>
+              {{ with $item.badge }}
               <span class="badge badge-{{ $badgeStyle }}">{{ . }}</span>
               {{ end }}
             </div>
 
             {{/* Description */}}
-            {{ with .description }}
+            {{ with $item.description }}
             <p class="opacity-80 mb-4">{{ . }}</p>
             {{ end }}
 
             {{/* Progress bar */}}
-            {{ with .progress }}
+            {{ with $item.progress }}
             <div class="mb-4">
               <div class="flex justify-between text-sm mb-1">
                 <span class="opacity-70">Progress</span>
                 <span class="font-medium">{{ . }}%</span>
               </div>
               <progress class="progress progress-primary w-full" value="{{ . }}" max="100"></progress>
-              {{ with $.progressLabel }}
+              {{ with $item.progressLabel }}
               <div class="text-xs opacity-60 mt-1">{{ . }}</div>
               {{ end }}
             </div>
             {{ end }}
 
             {{/* Sub-items */}}
-            {{ with .subItems }}
+            {{ with $item.subItems }}
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
               {{ range . }}
+                {{/* Resolve project reference for subItem if present */}}
+                {{ $subItem := . }}
+                {{ with .projectRef }}
+                  {{ $project := partial "homepage/resolve-project.html" . }}
+                  {{ if $project }}
+                    {{/* Map project fields to subItem fields, with overrides */}}
+                    {{ $title := $subItem.title | default $project.name }}
+                    {{ $description := $subItem.description | default $project.abstract }}
+                    {{ $url := $subItem.url | default $project.url }}
+                    {{/* Convert external URLs to internal paths if they're on sovereignsky.no */}}
+                    {{ if hasPrefix $url "https://sovereignsky.no" }}
+                      {{ $url = strings.TrimPrefix "https://sovereignsky.no" $url }}
+                    {{ end }}
+                    {{/* Merge all fields */}}
+                    {{ $subItem = merge $subItem (dict "title" $title "description" $description "url" $url) }}
+                  {{ end }}
+                {{ end }}
+
+              {{/* SubItem card - clickable if URL */}}
+              {{ if $subItem.url }}
+              <a href="{{ $subItem.url }}" class="bg-base-200 rounded-lg p-4 block hover:bg-base-300 transition-colors">
+                <h4 class="font-semibold mb-1">{{ $subItem.title }}</h4>
+                <p class="text-sm opacity-70">{{ $subItem.description }}</p>
+              </a>
+              {{ else }}
               <div class="bg-base-200 rounded-lg p-4">
-                <h4 class="font-semibold mb-1">{{ .title }}</h4>
-                <p class="text-sm opacity-70">{{ .description }}</p>
+                <h4 class="font-semibold mb-1">{{ $subItem.title }}</h4>
+                <p class="text-sm opacity-70">{{ $subItem.description }}</p>
               </div>
+              {{ end }}
               {{ end }}
             </div>
             {{ end }}
 
           </div>
-        </div>
+        {{/* Close card wrapper - </a> or </div> */}}
+        {{ if $isClickable }}</a>{{ else }}</div>{{ end }}
       {{ end }}
     </div>
 

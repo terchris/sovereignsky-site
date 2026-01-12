@@ -6,15 +6,15 @@
 {{ end }}
 
 {{/* Build region lookup from countries data */}}
-{{ $regionLookup := dict }}
+{{ $regions := dict }}
 {{ range (site.Data.countries.countries.itemListElement) }}
-  {{ $regionLookup = merge $regionLookup (dict .identifier .) }}
+  {{ $regions = merge $regions (dict .identifier .) }}
 {{ end }}
 
 {{/* Build bloc lookup from blocs data */}}
-{{ $blocLookup := dict }}
+{{ $blocs := dict }}
 {{ range (site.Data.blocs.blocs.itemListElement) }}
-  {{ $blocLookup = merge $blocLookup (dict .identifier .) }}
+  {{ $blocs = merge $blocs (dict .identifier .) }}
 {{ end }}
 
 {{/* Collect unique jurisdictions from all laws */}}
@@ -32,8 +32,8 @@
 {{ $countryFilters := slice }}
 {{ range $jurisdictionSet }}
   {{ $id := . }}
-  {{ $bloc := index $blocLookup $id }}
-  {{ $country := index $regionLookup $id }}
+  {{ $bloc := index $blocs $id }}
+  {{ $country := index $regions $id }}
   {{ if $bloc }}
     {{ $blocFilters = $blocFilters | append (dict "id" $id "name" $bloc.name "flag" $bloc.flag "isBloc" true) }}
   {{ else if $country }}
@@ -43,15 +43,6 @@
 {{ $blocFilters = sort $blocFilters "name" "asc" }}
 {{ $countryFilters = sort $countryFilters "name" "asc" }}
 
-{{/* Category badge colors using DaisyUI */}}
-{{ $categoryBadge := dict
-  "privacy" "badge-success"
-  "access" "badge-warning"
-  "surveillance" "badge-error"
-  "localization" "badge-info"
-  "security" "badge-secondary"
-  "sector" "badge-ghost"
-}}
 
 {{/* Count laws per category */}}
 {{ $lawsPerCategory := dict }}
@@ -239,71 +230,7 @@
   {{/* Laws Grid */}}
   <div id="laws-grid" class="grid sm:grid-cols-2" style="gap: 1.5rem;">
     {{ range .Pages }}
-      {{ $category := .Params.category | default "privacy" }}
-      {{ $categoryInfo := index $lawTypes $category }}
-      {{ $badgeClass := index $categoryBadge $category | default "badge-ghost" }}
-      {{ $jurisdictions := .Params.legislationJurisdiction | default (slice) }}
-
-      <article
-        class="law-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200 h-full"
-        data-identifier="{{ .Params.identifier }}"
-        data-category="{{ $category }}"
-        data-jurisdictions="{{ delimit $jurisdictions "," }}"
-        data-extraterritorial="{{ .Params.extraterritorial | default false }}"
-        data-localization="{{ .Params.requiresLocalization | default false }}"
-        data-backdoor="{{ .Params.requiresBackdoor | default false }}"
-        data-name="{{ .Title }}"
-        data-alternatename="{{ .Params.alternateName | default "" }}"
-        data-description="{{ .Params.description | default "" }}"
-        data-year="{{ .Params.legislationDate | default "" }}"
-      >
-        <a href="{{ .RelPermalink }}" class="block no-underline">
-          <div class="card-body p-4">
-            {{/* Title row with flag, name, icons, and year */}}
-            <div class="flex items-start gap-2">
-              {{/* Flag */}}
-              <div class="flex items-center gap-1 shrink-0 pt-0.5">
-                {{- range $jurisdictions -}}
-                  {{- $region := index $regionLookup . -}}
-                  {{- $bloc := index $blocLookup . -}}
-                  {{- if $region -}}
-                    <span class="tooltip" data-tip="{{ $region.name }}"><span class="text-lg">{{ $region.flag }}</span></span>
-                  {{- else if $bloc -}}
-                    <span class="tooltip" data-tip="{{ $bloc.name }}"><span class="text-lg">{{ $bloc.flag }}</span></span>
-                  {{- end -}}
-                {{- end -}}
-              </div>
-              {{/* Title */}}
-              <div class="min-w-0 flex-1">
-                <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
-              </div>
-              {{/* Icons and year */}}
-              <div class="flex items-center gap-1 shrink-0 text-sm">
-                {{ with $categoryInfo }}<span class="tooltip" data-tip="{{ .name }}">{{ .emoji }}</span>{{ end }}
-                {{- if .Params.extraterritorial }}<span class="tooltip" data-tip="Extraterritorial reach">🌍</span>{{ end -}}
-                {{- if .Params.requiresLocalization }}<span class="tooltip" data-tip="Requires data localization">📍</span>{{ end -}}
-                {{- if .Params.requiresBackdoor }}<span class="tooltip" data-tip="Requires backdoor access">🔑</span>{{ end -}}
-                {{- if and .Params.governmentAccess (ne .Params.governmentAccess "none") }}<span class="tooltip" data-tip="Government data access">👁️</span>{{ end -}}
-                {{ with .Params.legislationDate }}<span class="opacity-60 ml-1">{{ . }}</span>{{ end }}
-              </div>
-            </div>
-
-            {{/* Alternate name */}}
-            {{ with .Params.alternateName }}
-            <p class="text-xs opacity-60 line-clamp-1 mt-1">{{ . }}</p>
-            {{ end }}
-
-            {{/* Abstract/Description */}}
-            {{ with .Params.abstract }}
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 mt-2">{{ . }}</p>
-            {{ else }}
-            {{ with .Description }}
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 mt-2">{{ . }}</p>
-            {{ end }}
-            {{ end }}
-          </div>
-        </a>
-      </article>
+      {{ partial "law-card.html" (dict "law" . "regions" $regions "blocs" $blocs "lawTypes" $lawTypes "includeDataAttrs" true) }}
     {{ end }}
   </div>
 

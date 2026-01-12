@@ -69,9 +69,9 @@
 
 [[main]]
   name = "Topics"
-  parent = "Engage"
+  parent = "Learn"
   pageRef = "topics"
-  weight = 42
+  weight = 34
 
 [[main]]
   name = "Totalforsvarsåret"

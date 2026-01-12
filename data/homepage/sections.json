@@ -173,8 +173,12 @@
         },
         "cardStyle": "vertical",
         "columns": 3,
-        "showMoreLink": "/blog/",
-        "showMoreText": "View all articles"
+        "footer": {
+          "button": {
+            "text": "View all articles",
+            "url": "/blog/"
+          }
+        }
       }
     },
     {
@@ -200,8 +204,39 @@
         },
         "cardStyle": "compact",
         "columns": 2,
-        "showMoreLink": "/publications/",
-        "showMoreText": "View all publications"
+        "footer": {
+          "button": {
+            "text": "View all publications",
+            "url": "/publications/"
+          }
+        }
+      }
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "laws",
+      "name": "Key Legal Frameworks",
+      "sectionType": "laws-list",
+      "weight": 55,
+      "enabled": true,
+      "config": {
+        "title": "Laws that affect your cloud data",
+        "description": "If your organization uses cloud services, these laws determine who can access your data - and when.",
+        "identifiers": [
+          "gdpr",
+          "cloud-act",
+          "nis2",
+          "dora"
+        ],
+        "groupByType": false,
+        "columns": 2,
+        "footer": {
+          "text": "Want to understand how these laws affect you?",
+          "button": {
+            "text": "View all laws",
+            "url": "/laws/"
+          }
+        }
       }
     },
     {
@@ -220,8 +255,12 @@
           "limit": 6,
           "sort": "date"
         },
-        "showMoreLink": "/events/",
-        "showMoreText": "Full calendar"
+        "footer": {
+          "button": {
+            "text": "Full calendar",
+            "url": "/events/"
+          }
+        }
       }
     },
     {
@@ -283,16 +322,14 @@
         "background": "base-200",
         "items": [
           {
-            "title": "Software Database v2",
-            "description": "4,000+ software products categorized, validated, and mapped with sovereign alternatives. Find replacements for foreign-controlled tools.",
+            "projectRef": "software-database",
             "badge": "Coming Soon",
             "badgeStyle": "primary",
-            "progress": 25,
+            "progress": 35,
             "progressLabel": "MVP Complete"
           },
           {
-            "title": "NDSI Survey",
-            "description": "Take the survey, get a personalized report on your digital sovereignty. Based on EU Cloud Sovereignty Framework with actionable recommendations.",
+            "projectRef": "ndsi",
             "badge": "In Development",
             "badgeStyle": "secondary",
             "progress": 15,
@@ -300,22 +337,37 @@
           },
           {
             "title": "SovereignSky Software Suite",
-            "description": "Open-source tools for building sovereign infrastructure.",
+            "description": "Open-source tools for development and infrastructure management.",
             "badge": "Roadmap",
             "badgeStyle": "accent",
             "fullWidth": true,
             "subItems": [
               {
-                "title": "urbalurba-infrastructure",
-                "description": "Azure service equivalents on Kubernetes. Self-hosted alternatives for common cloud services."
+                "projectRef": "urbalurba-infrastructure"
               },
               {
-                "title": "devcontainer-toolbox",
-                "description": "All development tools in a secure devcontainer. Reproducible, sovereign development environment."
+                "projectRef": "devcontainer-toolbox"
               },
               {
-                "title": "secure-net",
-                "description": "Encrypted overlay network. Secure access between developers and production clusters."
+                "projectRef": "securenet"
+              }
+            ]
+          },
+          {
+            "title": "Tools for managing your infrastructure",
+            "description": "Open-source tools for managing your infrastructure.",
+            "badge": "Roadmap",
+            "badgeStyle": "accent",
+            "fullWidth": true,
+            "subItems": [
+              {
+                "projectRef": "sovdev-logger"
+              },
+              {
+                "projectRef": "docuwrite"
+              },
+              {
+                "projectRef": "bifrost"
               }
             ]
           }
@@ -323,9 +375,8 @@
         "footer": {
           "text": "Want to help build these tools?",
           "button": {
-            "text": "Contribute on GitHub",
-            "url": "https://github.com/terchris/sovereignsky-site",
-            "external": true
+            "text": "See all projects",
+            "url": "/sovereignsky/"
           }
         }
       }

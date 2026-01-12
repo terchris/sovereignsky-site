@@ -16,8 +16,7 @@
 {{ $title := $config.title }}
 {{ $description := $config.description }}
 {{ $background := $config.background | default "" }}
-{{ $showMoreLink := $config.showMoreLink }}
-{{ $showMoreText := $config.showMoreText | default "View all events" }}
+{{ $footer := $config.footer }}
 
 {{/* Resolve items from source */}}
 {{ $items := partial "homepage/resolve-source.html" $config.source }}
@@ -128,13 +127,18 @@
     </div>
     {{ end }}
 
-    {{/* Show more link */}}
-    {{ with $showMoreLink }}
+    {{/* Footer */}}
+    {{ with $footer }}
     <div class="text-center mt-8">
-      <a href="{{ . }}" class="btn btn-outline btn-secondary">
-        {{ $showMoreText }}
+      {{ with .text }}
+      <p class="text-base-content/70 mb-4">{{ . }}</p>
+      {{ end }}
+      {{ with .button }}
+      <a href="{{ .url }}" class="btn btn-outline btn-secondary">
+        {{ .text }}
         {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
       </a>
+      {{ end }}
     </div>
     {{ end }}
 

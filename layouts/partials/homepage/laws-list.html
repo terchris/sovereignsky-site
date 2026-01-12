@@ -1,0 +1,152 @@
+{{/*
+  laws-list.html - Display selected laws with jurisdiction-style cards
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    identifiers: Array of law identifiers to display
+    groupByType: Whether to group by law type (default: true)
+    columns: Number of columns (default: 2)
+    showMoreLink: Link to full laws page
+    showMoreText: Text for show more link
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "laws" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $identifiers := $config.identifiers | default slice }}
+{{ $groupByType := $config.groupByType | default true }}
+{{ $columns := $config.columns | default 2 | int }}
+{{ $footer := $config.footer }}
+
+{{/* Get all laws data */}}
+{{ $allLaws := site.Data.laws.laws.itemListElement | default slice }}
+
+{{/* Filter to selected laws, maintaining order */}}
+{{ $selectedLaws := slice }}
+{{ range $identifiers }}
+  {{ $targetId := . }}
+  {{ range $allLaws }}
+    {{ if eq .identifier $targetId }}
+      {{ $selectedLaws = $selectedLaws | append . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Get law type vocabulary */}}
+{{ $lawTypesData := site.Data.laws.law_types.itemListElement | default slice }}
+{{ $lawTypes := dict }}
+{{ $typeOrder := slice }}
+{{ $typeLabels := dict }}
+{{ $typeEmojis := dict }}
+{{ range $lawTypesData }}
+  {{ $lawTypes = merge $lawTypes (dict .identifier .) }}
+  {{ $typeOrder = $typeOrder | append .identifier }}
+  {{ $typeLabels = merge $typeLabels (dict .identifier .name) }}
+  {{ $typeEmojis = merge $typeEmojis (dict .identifier .emoji) }}
+{{ end }}
+
+{{/* Group by type if requested */}}
+{{ $byType := dict }}
+{{ if $groupByType }}
+  {{ range $selectedLaws }}
+    {{ $type := .category | default "other" }}
+    {{ $existing := index $byType $type | default slice }}
+    {{ $byType = merge $byType (dict $type ($existing | append .)) }}
+  {{ end }}
+{{ end }}
+
+{{/* Build region and bloc lookup maps */}}
+{{ $regions := dict }}
+{{ range site.Data.countries.countries.itemListElement }}
+  {{ $regions = merge $regions (dict .identifier .) }}
+{{ end }}
+{{ $blocs := dict }}
+{{ range site.Data.blocs.blocs.itemListElement }}
+  {{ $blocs = merge $blocs (dict .identifier .) }}
+{{ end }}
+
+{{/* Build grid class */}}
+{{ $gridCols := "sm:grid-cols-2" }}
+{{ if eq $columns 3 }}{{ $gridCols = "sm:grid-cols-2 lg:grid-cols-3" }}{{ end }}
+{{ if eq $columns 4 }}{{ $gridCols = "sm:grid-cols-2 lg:grid-cols-4" }}{{ end }}
+
+{{/* Section wrapper */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Laws display */}}
+    {{ if gt (len $selectedLaws) 0 }}
+    <div class="not-prose">
+      {{ if $groupByType }}
+        {{/* Grouped by type */}}
+        {{ range $typeOrder }}
+          {{ $type := . }}
+          {{ $lawsOfType := index $byType $type }}
+          {{ if $lawsOfType }}
+          <div class="mb-8" id="{{ $type }}-laws">
+            {{/* Section header - compact */}}
+            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-base-200">
+              <span class="text-xl">{{ index $typeEmojis $type }}</span>
+              <h3 class="text-base font-semibold text-base-content m-0">{{ index $typeLabels $type }}</h3>
+              <span class="text-xs text-neutral-500">({{ len $lawsOfType }})</span>
+            </div>
+
+            {{/* Law cards */}}
+            <div class="grid gap-4 {{ $gridCols }}">
+              {{ range $lawsOfType }}
+                {{ partial "law-card.html" (dict "law" . "regions" $regions "blocs" $blocs "lawTypes" $lawTypes) }}
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+        {{ end }}
+      {{ else }}
+        {{/* Flat list */}}
+        <div class="grid gap-4 {{ $gridCols }}">
+          {{ range $selectedLaws }}
+            {{ partial "law-card.html" (dict "law" . "regions" $regions "blocs" $blocs "lawTypes" $lawTypes) }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+    {{ else }}
+    <div class="alert">
+      {{ partial "data-icon.html" (dict "name" "info" "size" "6" "class" "shrink-0") }}
+      <span>No laws selected.</span>
+    </div>
+    {{ end }}
+
+    {{/* Footer */}}
+    {{ with $footer }}
+    <div class="text-center mt-8">
+      {{ with .text }}
+      <p class="text-base-content/70 mb-4">{{ . }}</p>
+      {{ end }}
+      {{ with .button }}
+      <a href="{{ .url }}" class="btn btn-outline btn-primary">
+        {{ .text }}
+        {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+  </div>
+</section>

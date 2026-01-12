@@ -70,9 +70,9 @@
             {{/* Content */}}
             <div class="flex-1 min-w-0">
               <div class="text-3xl font-bold leading-none" style="color: {{ $color }};">{{ $count }}</div>
-              <div class="font-semibold mb-0.5 truncate">{{ .label }}</div>
+              <div class="font-semibold mb-0.5 text-sm leading-tight">{{ .label }}</div>
               {{ with .sublabel }}
-              <div class="text-xs opacity-70 truncate">{{ . }}</div>
+              <div class="text-xs opacity-70 leading-tight">{{ . }}</div>
               {{ end }}
             </div>
           </div>

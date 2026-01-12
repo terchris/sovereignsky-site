@@ -20,8 +20,7 @@
 {{ $background := $config.background | default "" }}
 {{ $cardStyle := $config.cardStyle | default "compact" }}
 {{ $columns := $config.columns | default 3 | int }}
-{{ $showMoreLink := $config.showMoreLink }}
-{{ $showMoreText := $config.showMoreText | default "View all" }}
+{{ $footer := $config.footer }}
 
 {{/* Resolve items from source */}}
 {{ $items := partial "homepage/resolve-source.html" $config.source }}
@@ -113,13 +112,18 @@
       {{ end }}
     </div>
 
-    {{/* Show more link */}}
-    {{ with $showMoreLink }}
+    {{/* Footer */}}
+    {{ with $footer }}
     <div class="text-center mt-8">
-      <a href="{{ . }}" class="btn btn-outline btn-primary">
-        {{ $showMoreText }}
+      {{ with .text }}
+      <p class="text-base-content/70 mb-4">{{ . }}</p>
+      {{ end }}
+      {{ with .button }}
+      <a href="{{ .url }}" class="btn btn-outline btn-primary">
+        {{ .text }}
         {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
       </a>
+      {{ end }}
     </div>
     {{ end }}
 

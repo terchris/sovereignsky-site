@@ -12,6 +12,7 @@
     - stats-grid
     - audience-cards
     - content-cards
+    - laws-list
     - events-list
     - cta
     - projects-roadmap
@@ -42,6 +43,9 @@
 
     {{ else if eq $sectionType "content-cards" }}
       {{ partial "homepage/content-cards.html" (dict "config" $config "identifier" $identifier) }}
+
+    {{ else if eq $sectionType "laws-list" }}
+      {{ partial "homepage/laws-list.html" (dict "config" $config "identifier" $identifier) }}
 
     {{ else if eq $sectionType "events-list" }}
       {{ partial "homepage/events-list.html" (dict "config" $config "identifier" $identifier) }}

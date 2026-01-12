@@ -62,7 +62,7 @@
         },
         "sectionType": {
           "type": "string",
-          "enum": ["hero", "stats-grid", "content-cards", "content-block", "audience-cards", "events-list", "cta", "projects-roadmap", "custom"],
+          "enum": ["hero", "stats-grid", "content-cards", "content-block", "audience-cards", "laws-list", "events-list", "cta", "projects-roadmap", "custom"],
           "description": "Type of section determining which partial to render"
         },
         "weight": {
@@ -127,6 +127,16 @@
           "then": {
             "properties": {
               "config": { "$ref": "#/$defs/eventsListConfig" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "sectionType": { "const": "laws-list" } }
+          },
+          "then": {
+            "properties": {
+              "config": { "$ref": "#/$defs/lawsListConfig" }
             }
           }
         },
@@ -302,13 +312,9 @@
           "maximum": 4,
           "description": "Number of columns"
         },
-        "showMoreLink": {
-          "type": "string",
-          "description": "Link to full list page"
-        },
-        "showMoreText": {
-          "type": "string",
-          "description": "Text for show more link"
+        "footer": {
+          "$ref": "#/$defs/sectionFooter",
+          "description": "Footer with optional text and button"
         }
       },
       "additionalProperties": false
@@ -357,11 +363,49 @@
         "source": {
           "$ref": "#/$defs/contentSource"
         },
-        "showMoreLink": {
-          "type": "string"
+        "footer": {
+          "$ref": "#/$defs/sectionFooter",
+          "description": "Footer with optional text and button"
+        }
+      },
+      "additionalProperties": false
+    },
+    "lawsListConfig": {
+      "type": "object",
+      "required": ["identifiers"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Section title"
         },
-        "showMoreText": {
-          "type": "string"
+        "description": {
+          "type": "string",
+          "description": "Section description"
+        },
+        "background": {
+          "type": "string",
+          "description": "DaisyUI background color name"
+        },
+        "identifiers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of law identifiers to display"
+        },
+        "groupByType": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to group laws by their category/type"
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 2,
+          "description": "Number of columns in grid"
+        },
+        "footer": {
+          "$ref": "#/$defs/sectionFooter",
+          "description": "Footer with optional text and button"
         }
       },
       "additionalProperties": false
@@ -424,52 +468,87 @@
           "items": { "$ref": "#/$defs/roadmapItem" }
         },
         "footer": {
-          "type": "object",
-          "properties": {
-            "text": { "type": "string" },
-            "button": { "$ref": "#/$defs/button" }
-          }
+          "$ref": "#/$defs/sectionFooter",
+          "description": "Footer with optional text and button"
         }
       },
       "additionalProperties": false
     },
     "roadmapItem": {
       "type": "object",
-      "required": ["title"],
+      "description": "A project item. Use projectRef to pull data from projects.json, or define title/description directly. Any fields you specify override projectRef data.",
+      "anyOf": [
+        { "required": ["projectRef"] },
+        { "required": ["title"] }
+      ],
       "properties": {
+        "projectRef": {
+          "type": "string",
+          "description": "Reference to project identifier in data/sovereignsky/projects.json. When set, pulls title, description, url from the referenced project."
+        },
         "title": {
-          "type": "string"
+          "type": "string",
+          "description": "Project name (or override if projectRef is set)"
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to project page (optional - makes title clickable)"
         },
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "Project description (or override if projectRef is set)"
         },
         "badge": {
-          "type": "string"
+          "type": "string",
+          "description": "Status badge text (e.g., 'Coming Soon', 'In Development')"
         },
         "badgeStyle": {
           "type": "string",
-          "enum": ["primary", "secondary", "accent", "neutral"]
+          "enum": ["primary", "secondary", "accent", "neutral"],
+          "description": "DaisyUI badge color style"
         },
         "progress": {
           "type": "integer",
           "minimum": 0,
-          "maximum": 100
+          "maximum": 100,
+          "description": "Progress percentage for progress bar"
         },
         "progressLabel": {
-          "type": "string"
+          "type": "string",
+          "description": "Label shown below progress bar"
         },
         "fullWidth": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether to span full width (2 columns)"
         },
         "subItems": {
           "type": "array",
+          "description": "Sub-projects displayed as cards within this item",
           "items": {
             "type": "object",
+            "description": "A sub-project. Use projectRef to pull data from projects.json, or define title/description directly.",
+            "anyOf": [
+              { "required": ["projectRef"] },
+              { "required": ["title"] }
+            ],
             "properties": {
-              "title": { "type": "string" },
-              "description": { "type": "string" }
-            },
-            "required": ["title"]
+              "projectRef": {
+                "type": "string",
+                "description": "Reference to project identifier in data/sovereignsky/projects.json"
+              },
+              "title": {
+                "type": "string",
+                "description": "Sub-project title (or override if projectRef is set)"
+              },
+              "description": {
+                "type": "string",
+                "description": "Sub-project description (or override if projectRef is set)"
+              },
+              "url": {
+                "type": "string",
+                "description": "Link URL (optional - makes title clickable)"
+              }
+            }
           }
         }
       },
@@ -547,6 +626,21 @@
         "external": {
           "type": "boolean",
           "description": "Opens in new tab"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sectionFooter": {
+      "type": "object",
+      "description": "Footer for homepage sections with optional text and button",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Optional text displayed above the button"
+        },
+        "button": {
+          "$ref": "#/$defs/button",
+          "description": "Call-to-action button"
         }
       },
       "additionalProperties": false
