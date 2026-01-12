@@ -1,0 +1,43 @@
+{{/*
+  networks-endpoints-card.html - Shows network connection endpoints
+
+  Expects context with:
+    - connection: The network connection data
+    - placeById: Lookup dict for places
+    - countriesById: Lookup dict for countries (for flags)
+*/}}
+
+{{ $connection := .connection }}
+{{ $placeById := .placeById }}
+{{ $countriesById := .countriesById }}
+
+{{ if $connection }}
+{{ with $connection.endpointPlaceIds }}
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "marker" "color" "info" "size" "4") }}
+      Endpoints
+    </h3>
+    <ul class="mt-2 space-y-1">
+      {{ range . }}
+        {{ $place := index $placeById . }}
+        {{ $flag := "" }}
+        {{ if $place }}
+          {{ $countryId := "" }}
+          {{ with $place.address }}{{ $countryId = .addressCountry }}{{ end }}
+          {{ if $countryId }}
+            {{ $region := index $countriesById $countryId }}
+            {{ if $region }}{{ $flag = $region.flag }}{{ end }}
+          {{ end }}
+        {{ end }}
+        <li class="text-sm flex items-center gap-2">
+          {{ if $flag }}<span>{{ $flag }}</span>{{ end }}
+          <span>{{ if $place }}{{ $place.name }}{{ else }}{{ . }}{{ end }}</span>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+{{ end }}
+{{ end }}

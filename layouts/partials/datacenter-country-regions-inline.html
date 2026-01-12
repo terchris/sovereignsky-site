@@ -3,7 +3,7 @@ Datacenter Country Regions list (inline partial)
 Usage: {{ partial "datacenter-country-regions-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
 Renders all datacenter regions in a country, grouped by city.
-Includes search functionality.
+Similar card layout to provider locations page.
 */}}
 
 {{ $countryId := .countryId }}
@@ -19,12 +19,20 @@ Includes search functionality.
   {{ range (.regions | default (slice)) }}
     {{ if eq .countryId $countryId }}
       {{ $totalRegions = add $totalRegions 1 }}
-      {{ $city := .city | default .regionName | default "Unknown" }}
+      {{ $city := .city | default "Unknown" }}
       {{ $existing := index $regionsByCity $city | default (slice) }}
+      {{ $vendor := index $regionsById $provider.vendorCountryId }}
+      {{ $flag := "" }}
+      {{ $risk := "unknown" }}
+      {{ if $vendor }}
+        {{ $flag = $vendor.flag | default "" }}
+        {{ $risk = $vendor.riskLevel | default "unknown" }}
+      {{ end }}
       {{ $regionsByCity = merge $regionsByCity (dict $city ($existing | append (dict
+        "name" (.name | default .regionName | default "Unknown")
         "provider" $provider
-        "region" .
-        "regionName" (.regionName | default $city)
+        "flag" $flag
+        "risk" $risk
       ))) }}
       {{ if not (in $cityOrder $city) }}
         {{ $cityOrder = $cityOrder | append $city }}
@@ -39,57 +47,47 @@ Includes search functionality.
 <div class="mb-4 not-prose">
   <input type="text"
          id="dc-region-search"
-         placeholder="Search regions, providers, cities..."
-         class="w-full max-w-md px-4 py-2 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+         placeholder="Search providers, datacenters, cities..."
+         class="w-full max-w-md px-4 py-2 text-sm border border-base-300 rounded-lg bg-base-100 text-base-content focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
 </div>
 
-<div id="dc-regions-container">
+<div id="dc-regions-container" class="not-prose">
 {{ range $cityOrder }}
   {{ $city := . }}
-  {{ $items := index $regionsByCity $city }}
-  {{ if $items }}
-  <div class="dc-city-group" data-city="{{ $city | lower }}">
-    <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $city }} <span class="font-normal text-neutral-400">({{ len $items }})</span></h3>
-    <div class="flex flex-wrap gap-2">
-      {{ range $items }}
-      {{ $p := .provider }}
-      {{ $r := .region }}
-      {{ $vendor := index $regionsById $p.vendorCountryId }}
-      {{ $flag := "" }}
-      {{ $vendorName := $p.vendorCountryId }}
-      {{ $risk := "unknown" }}
-      {{ if $vendor }}
-        {{ $flag = $vendor.flag }}
-        {{ $vendorName = $vendor.name }}
-        {{ $risk = $vendor.riskLevel }}
-      {{ end }}
+  {{ $regions := index $regionsByCity $city }}
 
+  <div class="dc-city-group mb-6" data-city="{{ $city | lower }}">
+    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-base-200">
+      <h3 class="text-base font-semibold text-base-content m-0">{{ $city }}</h3>
+      <span class="text-xs text-neutral-500">({{ len $regions }} {{ if eq (len $regions) 1 }}datacenter{{ else }}datacenters{{ end }})</span>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+      {{ range $regions }}
       {{ $dot := "bg-neutral-400" }}
-      {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
-      {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
-      {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
-      {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
-      {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
-
-      <a class="dc-region-chip inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-        href="/datacenters/{{ $p.identifier }}/"
-        data-provider="{{ $p.name | lower }}"
-        data-region="{{ .regionName | lower }}"
-        title="{{ $p.name }} • {{ .regionName }} • HQ: {{ $vendorName }} • Risk: {{ $risk }}">
-        <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-        <span class="font-medium">{{ $p.name }}</span>
-        {{ if $flag }}<span class="text-neutral-500 dark:text-neutral-400">{{ $flag }}</span>{{ end }}
-        <span class="text-xs text-neutral-400 dark:text-neutral-500">{{ .regionName }}</span>
+      {{ if eq .risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+      {{ if eq .risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+      {{ if eq .risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+      {{ if eq .risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+      {{ if eq .risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+      <a href="/datacenters/{{ .provider.identifier }}/"
+         class="dc-region-card p-2.5 rounded-lg border border-base-200 bg-base-100 hover:border-primary/50 no-underline block"
+         data-name="{{ .name | lower }}"
+         data-provider="{{ .provider.name | lower }}">
+        <div class="flex items-center gap-1.5">
+          {{ with .flag }}<span class="text-sm">{{ . }}</span>{{ end }}
+          <span class="inline-block w-2 h-2 rounded-full {{ $dot }}" title="Vendor risk: {{ .risk }}"></span>
+          <span class="text-sm font-medium text-base-content truncate">{{ .provider.name }}</span>
+        </div>
+        <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">{{ .name }}</div>
       </a>
       {{ end }}
     </div>
   </div>
-  {{ end }}
 {{ end }}
 </div>
 
 <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400" id="dc-region-count">
-  Showing <span id="dc-visible-count">{{ $totalRegions }}</span> of {{ $totalRegions }} datacenter regions in {{ len $cityOrder }} cities
+  Showing <span id="dc-visible-count">{{ $totalRegions }}</span> of {{ $totalRegions }} datacenters in {{ len $cityOrder }} cities
 </p>
 
 <script>
@@ -107,18 +105,18 @@ Includes search functionality.
 
     container.querySelectorAll('.dc-city-group').forEach(function(group) {
       const city = group.dataset.city;
-      const chips = group.querySelectorAll('.dc-region-chip');
+      const cards = group.querySelectorAll('.dc-region-card');
       let groupVisible = false;
 
-      chips.forEach(function(chip) {
-        const provider = chip.dataset.provider;
-        const region = chip.dataset.region;
+      cards.forEach(function(card) {
+        const name = card.dataset.name;
+        const provider = card.dataset.provider;
         const matches = !query ||
                        city.includes(query) ||
-                       provider.includes(query) ||
-                       region.includes(query);
+                       name.includes(query) ||
+                       provider.includes(query);
 
-        chip.style.display = matches ? '' : 'none';
+        card.style.display = matches ? '' : 'none';
         if (matches) {
           groupVisible = true;
           visibleCount++;

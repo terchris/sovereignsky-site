@@ -28,7 +28,7 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">The data behind digital sovereignty</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">We've mapped infrastructure, software, laws, and publications across multiple dimensions.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">We've mapped infrastructure, software, laws, and publications across multiple dimensions.</p>
     </div>
 
     {{/* Calculate counts */}}
@@ -45,9 +45,9 @@
     {{ $blocs := len .Site.Data.blocs.blocs.itemListElement | default 6 }}
 
     {{/* Combined Database Cards with Stats */}}
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
       {{/* Countries */}}
-      <a href="/countries/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/countries/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(52, 211, 153, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #34d399;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
       </a>
 
       {{/* Blocs */}}
-      <a href="/blocs/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/blocs/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(20, 184, 166, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #14b8a6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@
       </a>
 
       {{/* Laws */}}
-      <a href="/laws/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/laws/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(56, 189, 248, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #38bdf8;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@
       </a>
 
       {{/* Networks */}}
-      <a href="/networks/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/networks/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(248, 113, 113, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #f87171;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -111,7 +111,7 @@
       </a>
 
       {{/* Publications */}}
-      <a href="/publications/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/publications/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(251, 191, 36, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #fbbf24;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -127,7 +127,7 @@
       </a>
 
       {{/* Blog */}}
-      <a href="/blog/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/blog/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(168, 85, 247, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #a855f7;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -143,7 +143,7 @@
       </a>
 
       {{/* Software */}}
-      <a href="/software/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/software/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -159,7 +159,7 @@
       </a>
 
       {{/* Datacenters */}}
-      <a href="/datacenters/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 280px;">
+      <a href="/datacenters/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
         <div class="card-body" style="display: flex; flex-direction: row; align-items: center; gap: 1rem; padding: 1.25rem;">
           <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(244, 114, 182, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg style="width: 28px; height: 28px; color: #f472b6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -182,12 +182,12 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">What does digital sovereignty mean for you?</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">There's a lot to digest. We've curated the content for your role so you can get started quickly.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">There's a lot to digest. We've curated the content for your role so you can get started quickly.</p>
     </div>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
       {{ range .Site.Data.audience.audience.itemListElement }}
-        <a href="/personas/{{ .identifier }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1" style="width: 240px;">
+        <a href="/personas/{{ .identifier }}/" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
           <div class="card-body" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 1.5rem;">
             <div style="width: 56px; height: 56px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
               <svg style="width: 28px; height: 28px; color: #3b82f6;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -208,7 +208,7 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-10">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">Latest insights</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">Analysis, commentary, and news on digital sovereignty.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">Analysis, commentary, and news on digital sovereignty.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -226,7 +226,7 @@
           <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
           <p class="text-xs opacity-70 line-clamp-2">{{ .Description | default .Summary | plainify | truncate 80 }}</p>
           <div class="card-actions justify-between items-center">
-            <span class="text-xs opacity-50">{{ .Date.Format "Jan 2, 2006" }}</span>
+            <span class="text-xs opacity-60">{{ .Date.Format "Jan 2, 2006" }}</span>
             <span class="text-primary-600 text-xs font-medium">Read →</span>
           </div>
         </div>
@@ -246,7 +246,7 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-10">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">Essential reading</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">Key reports and frameworks shaping digital sovereignty policy.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">Key reports and frameworks shaping digital sovereignty policy.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -264,7 +264,7 @@
           <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
           <p class="text-xs opacity-70 line-clamp-2">{{ .Description | default .Summary | plainify | truncate 80 }}</p>
           <div class="card-actions justify-between items-center">
-            <span class="text-xs opacity-50">{{ .Params.publisher | default "Publication" }}</span>
+            <span class="text-xs opacity-60">{{ .Params.publisher | default "Publication" }}</span>
             <span class="text-primary-600 text-xs font-medium">Read →</span>
           </div>
         </div>
@@ -284,40 +284,11 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">Key Events in 2026</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">Conferences, exercises, and gatherings focused on digital sovereignty and preparedness.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">Conferences, exercises, and gatherings focused on digital sovereignty and preparedness.</p>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="table table-zebra w-full">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Event</th>
-            <th>Focus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{ $events := .Site.Data.events.events.itemListElement }}
-          {{ $now := now }}
-          {{ $upcoming := slice }}
-          {{ range $events }}
-            {{ $startDate := time .startDate }}
-            {{ if gt $startDate $now }}
-              {{ $upcoming = $upcoming | append . }}
-            {{ end }}
-          {{ end }}
-          {{ range first 6 $upcoming }}
-          <tr>
-            <td class="font-medium">{{ (time .startDate).Format "Jan 2" }}</td>
-            <td>
-              <a href="/events/{{ .identifier }}/" class="link link-hover font-semibold">{{ .name }}</a>
-            </td>
-            <td class="opacity-70">{{ .description | truncate 60 }}</td>
-          </tr>
-          {{ end }}
-        </tbody>
-      </table>
-    </div>
+    {{/* Events cards - responsive grid */}}
+    {{ partial "event-cards-grid.html" (dict "limit" 6) }}
 
     <div class="text-center mt-8">
       <a href="/events/" class="btn btn-outline btn-primary">Full calendar →</a>
@@ -333,22 +304,22 @@
       SovereignSky is an open initiative by helpers.no. We believe digital sovereignty is a shared responsibility. Join us in mapping, documenting, and building alternatives.
     </p>
 
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-bottom: 2.5rem;">
-      <div style="background: rgba(255,255,255,0.1); border-radius: 0.5rem; padding: 1rem; text-align: center; width: 140px;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📊</div>
-        <div style="font-size: 0.875rem;">Contribute research</div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-10">
+      <div class="bg-white/20 rounded-lg p-4 text-center min-h-[88px] flex flex-col items-center justify-center">
+        <div class="text-2xl mb-2">📊</div>
+        <div class="text-sm font-medium">Contribute research</div>
       </div>
-      <div style="background: rgba(255,255,255,0.1); border-radius: 0.5rem; padding: 1rem; text-align: center; width: 140px;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💡</div>
-        <div style="font-size: 0.875rem;">Suggest improvements</div>
+      <div class="bg-white/20 rounded-lg p-4 text-center min-h-[88px] flex flex-col items-center justify-center">
+        <div class="text-2xl mb-2">💡</div>
+        <div class="text-sm font-medium">Suggest improvements</div>
       </div>
-      <div style="background: rgba(255,255,255,0.1); border-radius: 0.5rem; padding: 1rem; text-align: center; width: 140px;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📢</div>
-        <div style="font-size: 0.875rem;">Share with your network</div>
+      <div class="bg-white/20 rounded-lg p-4 text-center min-h-[88px] flex flex-col items-center justify-center">
+        <div class="text-2xl mb-2">📢</div>
+        <div class="text-sm font-medium">Share with your network</div>
       </div>
-      <div style="background: rgba(255,255,255,0.1); border-radius: 0.5rem; padding: 1rem; text-align: center; width: 140px;">
-        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
-        <div style="font-size: 0.875rem;">Join the conversation</div>
+      <div class="bg-white/20 rounded-lg p-4 text-center min-h-[88px] flex flex-col items-center justify-center">
+        <div class="text-2xl mb-2">💬</div>
+        <div class="text-sm font-medium">Join the conversation</div>
       </div>
     </div>
 
@@ -369,7 +340,7 @@
   <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
     <div class="text-center mb-12">
       <h2 class="text-3xl sm:text-4xl font-bold mb-4">What we're building</h2>
-      <p class="text-lg opacity-70 max-w-2xl mx-auto">Projects in development to help organizations achieve digital sovereignty.</p>
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">Projects in development to help organizations achieve digital sovereignty.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

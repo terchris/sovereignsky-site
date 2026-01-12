@@ -1,0 +1,81 @@
+{{/*
+  Floating Table of Contents - compact bottom sheet for mobile
+
+  Usage:
+    {{ partial "floating-toc.html" (dict "sections" $sections) }}
+
+  Parameters:
+    sections: slice of dicts with "id", "title", "icon" (optional emoji)
+*/}}
+
+{{ $sections := .sections | default (slice) }}
+
+{{ if gt (len $sections) 0 }}
+{{/* Toggle button - bottom right, mobile only */}}
+<button id="toc-toggle"
+        class="fixed bottom-4 right-4 z-50 btn btn-sm btn-primary shadow-lg gap-1 lg:hidden"
+        aria-label="Jump to section">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+  </svg>
+  <span class="text-xs">Sections</span>
+</button>
+
+{{/* Backdrop */}}
+<div id="toc-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"></div>
+
+{{/* Bottom sheet */}}
+<div id="toc-drawer" class="fixed bottom-0 left-0 right-0 bg-base-100 rounded-t-xl shadow-xl z-50 translate-y-full transition-transform duration-200 lg:hidden">
+  <div class="flex justify-center pt-2">
+    <div class="w-8 h-1 bg-base-300 rounded-full"></div>
+  </div>
+  <div class="px-4 py-3">
+    <div class="text-xs font-medium text-neutral-500 uppercase tracking-wide mb-2">Jump to</div>
+    <div class="flex flex-wrap gap-2">
+      {{ range $sections }}
+      <a href="#{{ .id }}" class="toc-link btn btn-sm btn-ghost gap-1">
+        {{ with .icon }}<span>{{ . }}</span>{{ end }}
+        {{ .title }}
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const toggle = document.getElementById('toc-toggle');
+  const drawer = document.getElementById('toc-drawer');
+  const backdrop = document.getElementById('toc-backdrop');
+  const links = drawer.querySelectorAll('.toc-link');
+
+  function open() {
+    backdrop.classList.remove('hidden');
+    drawer.classList.remove('translate-y-full');
+    toggle.classList.add('hidden');
+  }
+
+  function close() {
+    drawer.classList.add('translate-y-full');
+    backdrop.classList.add('hidden');
+    toggle.classList.remove('hidden');
+  }
+
+  toggle.addEventListener('click', open);
+  backdrop.addEventListener('click', close);
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      close();
+      if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 150);
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+})();
+</script>
+{{ end }}

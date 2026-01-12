@@ -129,11 +129,9 @@
 
   {{/* Two-column layout */}}
   <section class="flex flex-col max-w-full mt-0 lg:flex-row">
-    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
     {{/* Right Sidebar */}}
-    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
-      <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
+    {{ partial "sidebar/common-sidebar.html" . }}
 
         {{/* External link button */}}
         {{ with $provider.url }}
@@ -283,8 +281,7 @@
         </div>
         {{ end }}
 
-      </div>
-    </div>
+    {{ partial "sidebar/common-sidebar-end.html" . }}
 
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">

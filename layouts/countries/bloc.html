@@ -231,51 +231,14 @@
     </div>
     {{ end }}
 
-    {{/* Applicable Laws */}}
+    {{/* Applicable Laws - use shared partial */}}
     {{ if gt $lawCount 0 }}
     <div class="mb-8">
       <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-100 mb-2" id="laws">Applicable Laws</h2>
       <p class="text-neutral-600 dark:text-neutral-400 mb-6">
         {{ $lawCount }} laws and regulations apply to {{ $blocName }}.
       </p>
-
-      {{/* Build law data from seenLaws */}}
-      {{ $lawData := slice }}
-      {{ range $seenLaws }}
-        {{ $lawId := . }}
-        {{ $lawMatch := first 1 (where site.Data.laws.laws.itemListElement "identifier" $lawId) }}
-        {{ with index $lawMatch 0 }}
-          {{ $law := . }}
-          {{ $lawData = $lawData | append (dict
-            "identifier" $law.identifier
-            "name" $law.name
-            "alternateName" ($law.alternateName | default "")
-            "slug" ($law.slug | default $law.identifier)
-            "dateEnacted" ($law.dateEnacted | default $law.legislationDate | default "")
-            "category" ($law.category | default "")
-            "legislationJurisdiction" ($law.legislationJurisdiction | default (slice))
-          ) }}
-        {{ end }}
-      {{ end }}
-
-      {{/* Sort by name */}}
-      {{ $lawData = sort $lawData "name" "asc" }}
-
-      <div class="not-prose" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
-        {{ range $lawData }}
-        <a href="/laws/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl">⚖️</span>
-            <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
-          </div>
-          <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
-            {{ with .alternateName }}<div>{{ . }}</div>{{ end }}
-            {{ with .category }}<div class="capitalize">{{ . | humanize }}</div>{{ end }}
-            {{ with .dateEnacted }}<div>Enacted: {{ . }}</div>{{ end }}
-          </div>
-        </a>
-        {{ end }}
-      </div>
+      {{ partial "jurisdiction-laws-inline.html" (dict "jurisdictionId" $blocId) }}
     </div>
     {{ end }}
 
@@ -328,14 +291,14 @@
       {{/* Sort by country name */}}
       {{ $memberCountryData = sort $memberCountryData "name" "asc" }}
 
-      <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+      <div class="not-prose grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
         {{ range $memberCountryData }}
-        <a href="/countries/{{ .slug }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xl">{{ .flag }}</span>
-            <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
+        <a href="/countries/{{ .slug }}/" class="block p-2.5 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+          <div class="flex items-center gap-2">
+            <span class="text-lg flex-shrink-0">{{ .flag }}</span>
+            <span class="text-sm font-medium text-base-content truncate">{{ .name }}</span>
           </div>
-          <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+          <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 space-y-0.5">
             <div>Datacenters: {{ .dcCount }}</div>
             <div>Local laws: {{ .lawCount }}</div>
           </div>
@@ -408,7 +371,7 @@
         {{ $items := where $providersInBloc "providerType" $key }}
         {{ if gt (len $items) 0 }}
         <h3 class="mt-6 mb-4 text-lg font-semibold text-neutral-700 dark:text-neutral-200">{{ $title }}</h3>
-        <div class="not-prose" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.75rem;">
+        <div class="not-prose grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {{ range $items }}
           {{ $vendor := index $regionsById .vendorCountryId }}
           {{ $flag := "" }}
@@ -427,13 +390,13 @@
           {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
           {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
 
-          <a href="/datacenters/{{ .identifier }}/" class="block p-3 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors bg-white dark:bg-neutral-900 no-underline">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-              <span class="text-sm font-medium text-neutral-900 dark:text-neutral-100 truncate">{{ .name }}</span>
-              {{ if $flag }}<span class="text-sm">{{ $flag }}</span>{{ end }}
+          <a href="/datacenters/{{ .identifier }}/" class="block p-2.5 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full {{ $dot }} flex-shrink-0"></span>
+              <span class="text-sm font-medium text-base-content truncate">{{ .name }}</span>
+              {{ if $flag }}<span class="text-sm flex-shrink-0">{{ $flag }}</span>{{ end }}
             </div>
-            <div class="text-xs text-neutral-500 dark:text-neutral-400 space-y-0.5">
+            <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 space-y-0.5">
               <div>Datacenters: {{ .count }}</div>
               <div>Countries: {{ .countryCount }}</div>
               <div>Cities: {{ .cityCount }}</div>
@@ -453,4 +416,21 @@
       <a href="/datacenters/" class="btn btn-outline btn-sm">Browse Datacenters</a>
     </div>
   </article>
+
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice }}
+  {{ if gt (len $directMembers) 0 }}
+    {{ $tocSections = $tocSections | append (dict "id" "map" "title" "Map" "icon" "🗺️") }}
+  {{ end }}
+  {{ if gt $lawCount 0 }}
+    {{ $tocSections = $tocSections | append (dict "id" "laws" "title" "Applicable Laws" "icon" "⚖️") }}
+  {{ end }}
+  {{ if gt $memberCount 0 }}
+    {{ $tocSections = $tocSections | append (dict "id" "members" "title" "Member Countries" "icon" "🌍") }}
+  {{ end }}
+  {{ if gt $datacenterCount 0 }}
+    {{ $tocSections = $tocSections | append (dict "id" "providers" "title" "Providers" "icon" "🖥️") }}
+  {{ end }}
+  {{ $tocSections = $tocSections | append (dict "id" "sidebar" "title" "Details" "icon" "📋") }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 {{ end }}

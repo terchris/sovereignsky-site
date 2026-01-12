@@ -43,7 +43,7 @@
   "BE" "Belgium"
 -}}
 
-<div id="{{ $id }}" style="width: 100%; height: {{ $height }};"></div>
+<div id="{{ $id }}" style="width: 100%; height: min({{ $height }}, 50vh);"></div>
 <script>
 (function() {
   var chartDom = document.getElementById('{{ $id }}');

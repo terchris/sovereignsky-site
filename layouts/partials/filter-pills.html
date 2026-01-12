@@ -1,0 +1,58 @@
+{{/*
+  filter-pills.html
+  Responsive filter pills that wrap on mobile
+
+  Usage:
+    {{ partial "filter-pills.html" (dict
+        "label" "Topic"
+        "filterGroup" "topics"
+        "items" $items
+        "allLabel" "All"
+        "showIcons" false
+    ) }}
+
+  Parameters:
+    - label: Label text shown before pills (e.g., "Topic", "Audience")
+    - filterGroup: data-filter-group name for JS filtering
+    - items: slice of dicts with "id", "name", and optional "icon"
+    - allLabel: Label for the "All" button (default: "All")
+    - showIcons: Whether to show icons (default: false)
+    - activeId: Which filter is active (default: "all")
+*/}}
+
+{{- $label := .label | default "Filter" -}}
+{{- $filterGroup := .filterGroup | default "filter" -}}
+{{- $items := .items | default slice -}}
+{{- $allLabel := .allLabel | default "All" -}}
+{{- $showIcons := .showIcons | default false -}}
+{{- $activeId := .activeId | default "all" -}}
+
+{{- if $items -}}
+<div class="mb-4">
+  <div class="flex flex-wrap items-center gap-2" data-filter-group="{{ $filterGroup }}">
+    {{/* Label */}}
+    <span class="text-sm font-medium text-neutral-600 dark:text-neutral-400 mr-1">{{ $label }}:</span>
+
+    {{/* All button */}}
+    <button
+      class="btn btn-sm {{ if eq $activeId "all" }}btn-primary{{ else }}btn-ghost border border-base-300{{ end }}"
+      data-filter="all"
+    >
+      {{ $allLabel }}
+    </button>
+
+    {{/* Filter buttons */}}
+    {{- range $items }}
+    <button
+      class="btn btn-sm {{ if eq .id $activeId }}btn-primary{{ else }}btn-ghost border border-base-300{{ end }}"
+      data-filter="{{ .id }}"
+    >
+      {{- if and $showIcons .icon }}
+      {{ partial "content-icon.html" (dict "name" .icon "size" "4") }}
+      {{- end }}
+      {{ .name }}
+    </button>
+    {{- end }}
+  </div>
+</div>
+{{- end -}}

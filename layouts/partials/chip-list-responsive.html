@@ -1,0 +1,48 @@
+{{/*
+  chip-list-responsive.html
+  Responsive chip/card list that wraps on mobile
+
+  Usage:
+    {{ partial "chip-list-responsive.html" (dict
+        "items" $items
+        "baseUrl" "/countries/"
+        "showCounts" true
+        "countLabel1" "Members"
+        "countLabel2" "Datacenters"
+    ) }}
+
+  Parameters:
+    - items: slice of dicts with: name, flag, slug, count1 (optional), count2 (optional)
+    - baseUrl: URL prefix for links (default: "/")
+    - showCounts: whether to show count stats (default: false)
+    - countLabel1: label for first count (default: "Count")
+    - countLabel2: label for second count (default: "")
+    - columns: grid columns on desktop (default: responsive 2-3-4-6)
+*/}}
+
+{{- $items := .items | default slice -}}
+{{- $baseUrl := .baseUrl | default "/" -}}
+{{- $showCounts := .showCounts | default false -}}
+{{- $countLabel1 := .countLabel1 | default "Count" -}}
+{{- $countLabel2 := .countLabel2 | default "" -}}
+
+{{- if $items -}}
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+  {{- range $items }}
+  <a href="{{ $baseUrl }}{{ .slug }}/" class="block p-2.5 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+    <div class="flex items-center gap-2">
+      {{- with .flag }}
+      <span class="text-lg flex-shrink-0">{{ . }}</span>
+      {{- end }}
+      <span class="text-sm font-medium text-base-content truncate">{{ .name }}</span>
+    </div>
+    {{- if $showCounts }}
+    <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-1.5 space-y-0.5">
+      {{- with .count1 }}<div>{{ $countLabel1 }}: {{ . }}</div>{{ end -}}
+      {{- if and $countLabel2 .count2 }}<div>{{ $countLabel2 }}: {{ .count2 }}</div>{{ end -}}
+    </div>
+    {{- end }}
+  </a>
+  {{- end }}
+</div>
+{{- end -}}

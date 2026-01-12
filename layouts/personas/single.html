@@ -18,7 +18,6 @@
 {{ $personaDesc := .Params.abstract | default $persona.abstract | default "" }}
 {{ $personaIcon := $persona.icon | default "user" }}
 {{ $personaTopics := $persona.topics | default (slice) }}
-{{ $personaLawTypes := $persona.lawTypes | default (slice) }}
 
 {{/* Build audience vocab for checking if this persona is used in events */}}
 {{ $audienceVocab := slice }}
@@ -27,23 +26,15 @@
 {{ end }}
 {{ $isAudience := in $audienceVocab $term }}
 
-{{/* Build topic labels from topics.json */}}
-{{ $topicLabels := dict }}
-{{ range site.Data.topics.topics.itemListElement }}
-  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
-{{ end }}
-
 {{/* Get related blog posts - by audiences match OR by topic/tag match */}}
 {{ $blogPages := where site.RegularPages "Section" "blog" }}
 {{ $relatedPosts := slice }}
 {{ range $blogPages }}
   {{ $post := . }}
   {{ $match := false }}
-  {{/* Direct audience match */}}
   {{ range ($post.Params.audience | default (slice)) }}
     {{ if eq . $term }}{{ $match = true }}{{ end }}
   {{ end }}
-  {{/* Topic match (check both topics and tags for backwards compatibility) */}}
   {{ if not $match }}
     {{ $postTopics := $post.Params.topics | default (slice) }}
     {{ $postTags := $post.Params.tags | default (slice) }}
@@ -66,11 +57,9 @@
 {{ range $pubsSection }}
   {{ $pub := . }}
   {{ $match := false }}
-  {{/* Direct audience match */}}
   {{ range ($pub.Params.audience | default (slice)) }}
     {{ if eq . $term }}{{ $match = true }}{{ end }}
   {{ end }}
-  {{/* Topic match */}}
   {{ if not $match }}
     {{ $pubTopics := $pub.Params.topics | default (slice) }}
     {{ range $pubTopics }}
@@ -103,157 +92,39 @@
 {{/* Get featured image */}}
 {{ $featured := .Resources.GetMatch "featured*" }}
 
-<article class="max-w-full">
-  {{/* Detail Header with breadcrumbs */}}
-  {{ partial "common-detail-header.html" (dict
-      "title" $personaName
-      "description" $personaShortDesc
-      "icon" $personaIcon
-      "breadcrumbs" (slice
-          (dict "title" "Personas" "url" "/personas/")
-      )
-  ) }}
+{{/* Build pageData for content partial */}}
+{{ $pageData := dict
+    "personaName" $personaName
+    "personaDesc" $personaDesc
+    "personaIcon" $personaIcon
+    "featured" $featured
+    "relatedPosts" $relatedPosts
+    "relatedLaws" $relatedLaws
+    "relatedPubs" $relatedPubs
+    "isAudience" $isAudience
+    "term" $term
+    "eventsURL" $eventsURL
+}}
 
-  {{/* Two-column layout */}}
-  <section class="flex flex-col max-w-full mt-0 lg:flex-row">
+{{ partial "common-single-page.html" (dict
+    "page" .
+    "icon" $personaIcon
+    "section" "Personas"
+    "sectionUrl" "/personas/"
+    "headerDescription" $personaShortDesc
+    "showAbstract" false
+    "showSummary" false
+    "showFeaturedImage" false
+    "showQuote" false
+    "showToc" false
+    "contentPartial" "content/personas-content.html"
+    "pageData" $pageData
+    "sidebarCards" (slice
+        "sidebar/personas-quick-links-card.html"
+        "sidebar/personas-curation-card.html"
+        "sidebar/common-topics-card.html"
+        "sidebar/common-law-types-card.html"
+    )
+) }}
 
-    {{/* Right Sidebar */}}
-    {{ partial "sidebar/common-sidebar.html" . }}
-
-        {{/* Quick Links Card */}}
-        {{ partial "sidebar/personas-quick-links-card.html" . }}
-
-        {{/* Curation explanation */}}
-        <div class="card bg-base-200/50 border border-base-300 mb-4">
-          <div class="card-body p-3">
-            <p class="text-xs text-neutral-600 dark:text-neutral-400">
-              Content on this page is curated based on the categories below.
-            </p>
-          </div>
-        </div>
-
-        {{/* Topics Card */}}
-        {{ partial "sidebar/common-topics-card.html" . }}
-
-        {{/* Law Types Card */}}
-        {{ partial "sidebar/common-law-types-card.html" . }}
-
-    {{ partial "sidebar/common-sidebar-end.html" . }}
-
-    {{/* Main Content */}}
-    <div class="min-w-0 flex-1">
-      <div class="article-content prose dark:prose-invert max-w-none mb-20">
-
-        {{/* Featured Image */}}
-        {{ if $featured }}
-        {{ $img := $featured.Fill "800x320 webp" }}
-        <figure class="not-prose mb-8 rounded-lg overflow-hidden">
-          <img src="{{ $img.RelPermalink }}" alt="{{ $personaName }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-64 object-cover" loading="lazy" />
-        </figure>
-        {{ else }}
-        {{/* Placeholder gradient */}}
-        <div class="not-prose mb-8 rounded-lg overflow-hidden h-48 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 flex items-center justify-center">
-          <div class="text-primary/40">
-            {{ partial "content-icon.html" (dict "name" $personaIcon "size" "24" "class" "w-24 h-24") }}
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Persona description */}}
-        {{ if $personaDesc }}
-        <p class="text-lg text-neutral-700 dark:text-neutral-300 mb-8">{{ $personaDesc }}</p>
-        {{ end }}
-
-        {{/* Custom content from markdown */}}
-        {{ .Content }}
-
-        {{/* Related Blog Posts */}}
-        {{ if gt (len $relatedPosts) 0 }}
-        <h2 id="blog">Related Articles</h2>
-        <div class="not-prose">
-          <div class="grid gap-4 sm:grid-cols-2">
-            {{ range $relatedPosts }}
-              {{ $postFeatured := .Resources.GetMatch "featured*" }}
-              <a href="{{ .RelPermalink }}" class="card card-compact bg-base-100 border border-base-300 hover:border-primary hover:shadow-md transition-all">
-                {{ if $postFeatured }}
-                {{ $img := $postFeatured.Fill "400x160 webp" }}
-                <figure class="h-32 overflow-hidden">
-                  <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover" loading="lazy" />
-                </figure>
-                {{ end }}
-                <div class="card-body">
-                  <h3 class="card-title text-sm line-clamp-2">{{ .Title }}</h3>
-                  <p class="text-xs text-neutral-500">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</p>
-                </div>
-              </a>
-            {{ end }}
-          </div>
-          <div class="mt-4">
-            <a href="/blog/" class="btn btn-sm btn-outline">View all articles</a>
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Related Laws */}}
-        {{ if gt (len $relatedLaws) 0 }}
-        <h2 id="laws">Related Laws</h2>
-        <div class="not-prose">
-          {{ partial "related-laws-list.html" (dict "laws" $relatedLaws "limit" 8) }}
-          <div class="mt-4">
-            <a href="/laws/" class="btn btn-sm btn-outline">Browse all laws</a>
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Related Publications */}}
-        {{ if gt (len $relatedPubs) 0 }}
-        <h2 id="publications">Related Publications</h2>
-        <div class="not-prose">
-          <div class="grid gap-3">
-            {{ range $relatedPubs }}
-              {{ $pubFeatured := .Resources.GetMatch "featured*" }}
-              <a href="{{ .RelPermalink }}" class="flex items-center gap-4 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
-                {{ if $pubFeatured }}
-                {{ $img := $pubFeatured.Fit "96x96 webp" }}
-                <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-24 h-auto max-h-24 object-contain rounded" loading="lazy" />
-                {{ else }}
-                <div class="w-16 h-16 bg-base-200 rounded flex items-center justify-center">
-                  {{ partial "content-icon.html" (dict "name" "book" "size" "6" "class" "text-base-content/30") }}
-                </div>
-                {{ end }}
-                <div class="flex-1 min-w-0">
-                  <div class="font-medium text-sm line-clamp-1">{{ .Title }}</div>
-                  <div class="text-xs text-neutral-500 line-clamp-1">{{ .Description }}</div>
-                </div>
-              </a>
-            {{ end }}
-          </div>
-          <div class="mt-4">
-            <a href="/publications/" class="btn btn-sm btn-outline">View all publications</a>
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Upcoming Events */}}
-        {{ if $isAudience }}
-        <h2 id="events">Upcoming Events</h2>
-        <div class="not-prose">
-          {{ partial "event-list.html" (dict "audience" $term "limit" 6 "compact" false) }}
-          <div class="mt-4">
-            <a href="{{ $eventsURL }}" class="btn btn-sm btn-outline">View all events</a>
-          </div>
-        </div>
-        {{ end }}
-
-        {{/* Back link */}}
-        <hr class="mt-8">
-        <p>
-          <a href="/personas/">← Back to all personas</a>
-        </p>
-
-      </div>
-    </div>
-
-  </section>
-</article>
 {{ end }}

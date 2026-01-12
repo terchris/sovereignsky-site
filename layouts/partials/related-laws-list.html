@@ -1,6 +1,6 @@
 {{/*
   related-laws-list.html
-  Displays a list of related laws with flag, title, and alternate name
+  Displays a compact list of related laws with flag, title, and category label
 
   Parameters:
     - laws: slice of law pages
@@ -14,7 +14,7 @@
   {{ $laws = $laws | first $limit }}
 {{ end }}
 
-{{/* Build lookup maps for countries and blocs to get flags */}}
+{{/* Build lookup maps for countries and blocs to get flags and names */}}
 {{ $regionsById := dict }}
 {{ $countries := site.Data.countries.countries.itemListElement }}
 {{ range ($countries | default (slice)) }}
@@ -27,41 +27,69 @@
   {{ $blocsById = merge $blocsById (dict .identifier .) }}
 {{ end }}
 
+{{/* Law category lookup */}}
+{{ $lawTypes := dict }}
+{{ range site.Data.laws.law_types.itemListElement }}
+  {{ $lawTypes = merge $lawTypes (dict .identifier .) }}
+{{ end }}
+
 {{ if gt (len $laws) 0 }}
-<div class="grid gap-3 sm:grid-cols-2">
+<div class="grid gap-2 sm:grid-cols-2">
   {{ range $laws }}
     {{ $law := . }}
     {{ $jurisdictions := $law.Params.legislationJurisdiction | default (slice) }}
 
-    {{/* Get flag from first jurisdiction */}}
+    {{/* Get flag and jurisdiction name from first jurisdiction */}}
     {{ $flag := "" }}
+    {{ $jurisdictionName := "" }}
     {{ range first 1 $jurisdictions }}
       {{ $id := . }}
       {{ $region := index $regionsById $id }}
       {{ if $region }}
         {{ $flag = $region.flag | default "" }}
+        {{ $jurisdictionName = $region.name | default "" }}
       {{ else }}
         {{ $bloc := index $blocsById $id }}
         {{ if $bloc }}
           {{ $flag = $bloc.flag | default "" }}
+          {{ $jurisdictionName = $bloc.name | default "" }}
         {{ end }}
       {{ end }}
     {{ end }}
 
-    <a href="{{ $law.RelPermalink }}" class="flex items-start gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-200/50 transition-colors">
+    {{/* Get category info */}}
+    {{ $categoryInfo := index $lawTypes ($law.Params.category | default "") }}
+    {{ $categoryEmoji := "" }}
+    {{ with $categoryInfo }}{{ $categoryEmoji = .emoji }}{{ end }}
+
+    <a href="{{ $law.RelPermalink }}" class="group flex items-center gap-3 p-2.5 rounded-lg border border-base-200 hover:border-primary/50 hover:bg-base-100 transition-all no-underline">
+      {{/* Flag */}}
       {{ if $flag }}
-      <span class="text-2xl flex-shrink-0 mt-0.5">{{ $flag }}</span>
+      <span class="text-xl flex-shrink-0">{{ $flag }}</span>
       {{ else }}
-      <div class="flex-shrink-0 mt-0.5">
-        {{ partial "content-icon.html" (dict "name" "scale" "size" "6" "class" "text-base-content/50") }}
+      <div class="flex-shrink-0">
+        {{ partial "content-icon.html" (dict "name" "scale" "size" "5" "class" "text-base-content/40") }}
       </div>
       {{ end }}
+
+      {{/* Content */}}
       <div class="flex-1 min-w-0">
-        <div class="font-medium text-sm">{{ $law.Title }}</div>
+        {{/* Title with category emoji */}}
+        <div class="font-medium text-sm leading-snug group-hover:text-primary transition-colors line-clamp-1">
+          {{- if $categoryEmoji }}<span class="mr-1">{{ $categoryEmoji }}</span>{{ end -}}
+          {{ $law.Title }}
+        </div>
+
+        {{/* Alternate name (truncated) */}}
         {{ with $law.Params.alternateName }}
-        <div class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2">{{ . }}</div>
+        <div class="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-1 mt-0.5">{{ . }}</div>
         {{ end }}
       </div>
+
+      {{/* Year */}}
+      {{ with $law.Params.legislationDate }}
+      <span class="text-xs text-neutral-400 dark:text-neutral-500 flex-shrink-0">{{ . }}</span>
+      {{ end }}
     </a>
   {{ end }}
 </div>

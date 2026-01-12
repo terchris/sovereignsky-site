@@ -2,79 +2,92 @@
 Datacenter Provider Locations list (inline partial)
 Usage: {{ partial "datacenter-provider-locations-inline.html" (dict "provider" $provider "regionsById" $regionsById) }}
 
-Renders all datacenter locations for a provider, grouped by city.
-Includes search functionality.
+Renders all datacenter locations for a provider, grouped by country.
+Shows datacenter name and city in card grid format.
 */}}
 
 {{ $provider := .provider | default dict }}
 {{ $regionsById := .regionsById | default dict }}
 {{ $providerRegions := $provider.regions | default (slice) }}
 
-{{/* Build regions grouped by city */}}
-{{ $regionsByCity := dict }}
-{{ $cityOrder := slice }}
+{{/* Build regions grouped by country */}}
+{{ $regionsByCountry := dict }}
+{{ $countryOrder := slice }}
 {{ $totalRegions := 0 }}
 {{ range $providerRegions }}
   {{ $totalRegions = add $totalRegions 1 }}
-  {{ $city := .city | default .regionName | default "Unknown" }}
-  {{ $existing := index $regionsByCity $city | default (slice) }}
-  {{ $regionsByCity = merge $regionsByCity (dict $city ($existing | append (dict
-    "region" .
-    "regionName" (.regionName | default .name | default $city)
-    "countryId" .countryId
+  {{ $countryId := .countryId | default "unknown" }}
+  {{ $existing := index $regionsByCountry $countryId | default (slice) }}
+  {{ $regionsByCountry = merge $regionsByCountry (dict $countryId ($existing | append (dict
+    "name" (.name | default .regionName | default "Unknown")
+    "city" (.city | default "")
+    "countryId" $countryId
   ))) }}
-  {{ if not (in $cityOrder $city) }}
-    {{ $cityOrder = $cityOrder | append $city }}
+  {{ if not (in $countryOrder $countryId) }}
+    {{ $countryOrder = $countryOrder | append $countryId }}
   {{ end }}
 {{ end }}
-{{ $cityOrder = sort $cityOrder }}
+
+{{/* Sort countries by name */}}
+{{ $sortedCountries := slice }}
+{{ range $countryOrder }}
+  {{ $countryId := . }}
+  {{ $country := index $regionsById $countryId }}
+  {{ $countryName := $countryId }}
+  {{ if $country }}
+    {{ $countryName = $country.name | default $countryId }}
+  {{ end }}
+  {{ $sortedCountries = $sortedCountries | append (dict "id" $countryId "name" $countryName) }}
+{{ end }}
+{{ $sortedCountries = sort $sortedCountries "name" "asc" }}
 
 {{ if gt $totalRegions 0 }}
 {{/* Search input */}}
 <div class="mb-4 not-prose">
   <input type="text"
          id="dc-provider-region-search"
-         placeholder="Search regions, cities, countries..."
-         class="w-full max-w-md px-4 py-2 text-sm border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+         placeholder="Search datacenters, cities, countries..."
+         class="w-full max-w-md px-4 py-2 text-sm border border-base-300 rounded-lg bg-base-100 text-base-content focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
 </div>
 
-<div id="dc-provider-regions-container">
-{{ range $cityOrder }}
-  {{ $city := . }}
-  {{ $items := index $regionsByCity $city }}
+<div id="dc-provider-regions-container" class="not-prose">
+{{ range $sortedCountries }}
+  {{ $countryId := .id }}
+  {{ $items := index $regionsByCountry $countryId }}
+  {{ $country := index $regionsById $countryId }}
+  {{ $countryName := .name }}
+  {{ $flag := "" }}
+  {{ $risk := "unknown" }}
+  {{ if $country }}
+    {{ $flag = $country.flag | default "" }}
+    {{ $risk = $country.riskLevel | default "unknown" }}
+  {{ end }}
+
+  {{ $dot := "bg-neutral-400" }}
+  {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
+  {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
+  {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
+  {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
+  {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
+
   {{ if $items }}
-  <div class="dc-provider-city-group" data-city="{{ $city | lower }}">
-    <h3 class="mt-6 mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-200">{{ $city }} <span class="font-normal text-neutral-400">({{ len $items }})</span></h3>
-    <div class="flex flex-wrap gap-2">
+  <div class="dc-provider-country-group mb-6" data-country="{{ $countryName | lower }}">
+    <div class="flex items-center gap-2 mb-3 pb-2 border-b border-base-200">
+      {{ if $flag }}<span class="text-xl">{{ $flag }}</span>{{ end }}
+      <h3 class="text-base font-semibold text-base-content m-0">{{ $countryName }}</h3>
+      <span class="inline-block w-2 h-2 rounded-full {{ $dot }}" title="Risk: {{ $risk }}"></span>
+      <span class="text-xs text-neutral-500">({{ len $items }} {{ if eq (len $items) 1 }}datacenter{{ else }}datacenters{{ end }})</span>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
       {{ range $items }}
-      {{ $r := .region }}
-      {{ $country := index $regionsById .countryId }}
-      {{ $flag := "" }}
-      {{ $countryName := .countryId }}
-      {{ $risk := "unknown" }}
-      {{ if $country }}
-        {{ $flag = $country.flag }}
-        {{ $countryName = $country.name }}
-        {{ $risk = $country.riskLevel }}
-      {{ end }}
-
-      {{ $dot := "bg-neutral-400" }}
-      {{ if eq $risk "low" }}{{ $dot = "bg-green-500" }}{{ end }}
-      {{ if eq $risk "moderate" }}{{ $dot = "bg-yellow-500" }}{{ end }}
-      {{ if eq $risk "elevated" }}{{ $dot = "bg-orange-500" }}{{ end }}
-      {{ if eq $risk "high" }}{{ $dot = "bg-red-500" }}{{ end }}
-      {{ if eq $risk "sanctioned" }}{{ $dot = "bg-red-700" }}{{ end }}
-
-      <a class="dc-provider-region-chip inline-flex items-center gap-2 no-underline px-3 py-1 rounded-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-500 transition-colors text-sm"
-        href="/datacenters/{{ .countryId | lower }}/"
-        data-country="{{ $countryName | lower }}"
-        data-region="{{ .regionName | lower }}"
-        title="{{ $countryName }} • {{ .regionName }} • Risk: {{ $risk }}">
-        <span class="inline-block w-2 h-2 rounded-full {{ $dot }}"></span>
-        {{ if $flag }}<span>{{ $flag }}</span>{{ end }}
-        <span class="font-medium">{{ $countryName }}</span>
-        <span class="text-xs text-neutral-400 dark:text-neutral-500">{{ .regionName }}</span>
-      </a>
+      <div class="dc-provider-region-card p-2.5 rounded-lg border border-base-200 bg-base-100"
+           data-name="{{ .name | lower }}"
+           data-city="{{ .city | lower }}">
+        <div class="text-sm font-medium text-base-content truncate">{{ .name }}</div>
+        {{ with .city }}
+        <div class="text-xs text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">{{ . }}</div>
+        {{ end }}
+      </div>
       {{ end }}
     </div>
   </div>
@@ -83,7 +96,7 @@ Includes search functionality.
 </div>
 
 <p class="mt-4 text-sm text-neutral-500 dark:text-neutral-400" id="dc-provider-region-count">
-  Showing <span id="dc-provider-visible-count">{{ $totalRegions }}</span> of {{ $totalRegions }} datacenter regions in {{ len $cityOrder }} cities
+  Showing <span id="dc-provider-visible-count">{{ $totalRegions }}</span> of {{ $totalRegions }} datacenters in {{ len $sortedCountries }} countries
 </p>
 
 <script>
@@ -99,20 +112,20 @@ Includes search functionality.
     const query = this.value.toLowerCase().trim();
     let visibleCount = 0;
 
-    container.querySelectorAll('.dc-provider-city-group').forEach(function(group) {
-      const city = group.dataset.city;
-      const chips = group.querySelectorAll('.dc-provider-region-chip');
+    container.querySelectorAll('.dc-provider-country-group').forEach(function(group) {
+      const country = group.dataset.country;
+      const cards = group.querySelectorAll('.dc-provider-region-card');
       let groupVisible = false;
 
-      chips.forEach(function(chip) {
-        const country = chip.dataset.country;
-        const region = chip.dataset.region;
+      cards.forEach(function(card) {
+        const name = card.dataset.name;
+        const city = card.dataset.city;
         const matches = !query ||
-                       city.includes(query) ||
                        country.includes(query) ||
-                       region.includes(query);
+                       name.includes(query) ||
+                       city.includes(query);
 
-        chip.style.display = matches ? '' : 'none';
+        card.style.display = matches ? '' : 'none';
         if (matches) {
           groupVisible = true;
           visibleCount++;

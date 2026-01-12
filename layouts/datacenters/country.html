@@ -74,11 +74,9 @@
 
   {{/* Two-column layout */}}
   <section class="flex flex-col max-w-full mt-0 lg:flex-row">
-    {{ $topClass := cond (hasPrefix site.Params.header.layout "fixed") "lg:top-[140px]" "lg:top-10" }}
 
     {{/* Right Sidebar */}}
-    <div class="order-first px-0 lg:order-last lg:ps-8 lg:max-w-xs lg:min-w-[260px] lg:flex-shrink-0">
-      <div class="print:hidden lg:sticky {{ $topClass }} space-y-4">
+    {{ partial "sidebar/common-sidebar.html" . }}
 
         {{/* Country Details Card */}}
         {{ partial "sidebar/datacenter-country-details-card.html" (dict "country" $country "providerCount" (len $providerItems) "regionCount" $totalRegions) }}
@@ -116,8 +114,7 @@
         </div>
         {{ end }}
 
-      </div>
-    </div>
+    {{ partial "sidebar/common-sidebar-end.html" . }}
 
     {{/* Main Content */}}
     <div class="min-w-0 flex-1">
@@ -143,8 +140,8 @@
           <h2 id="providers">Datacenter Providers in {{ $countryName }}</h2>
           {{ partial "datacenter-country-providers-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
-          {{/* Regions - all datacenter locations */}}
-          <h2 id="regions">All Datacenter Locations in {{ $countryName }}</h2>
+          {{/* Regions - all datacenter locations by city */}}
+          <h2 id="regions">Locations by City</h2>
           {{ partial "datacenter-country-regions-inline.html" (dict "countryId" $countryId "regionsById" $regionsById) }}
 
           {{/* Render any custom markdown content */}}
@@ -164,5 +161,14 @@
     </div>
 
   </section>
+
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice
+      (dict "id" "datacenter-map-chart" "title" "Map" "icon" "🗺️")
+      (dict "id" "providers" "title" "Providers" "icon" "🖥️")
+      (dict "id" "regions" "title" "Locations" "icon" "📍")
+      (dict "id" "sidebar" "title" "Details" "icon" "📋")
+  }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
 </article>
 {{ end }}
