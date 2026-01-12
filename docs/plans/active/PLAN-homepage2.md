@@ -307,6 +307,13 @@ Tasks:
   - [ ] About page text still needs more contrast
   - [ ] Other pages may need testing
 - [x] Add error handling for missing data/invalid configs
+- [x] Add configurable card styles for content-cards sections
+  - [x] Create `card-vertical.html` partial (image on top, text below)
+  - [x] Update `content-cards.html` to support both `vertical` and `compact` styles
+  - [x] Blog uses `cardStyle: "vertical"` with 3 columns
+  - [x] Publications uses `cardStyle: "compact"` with 2 columns
+  - [x] Update schema with cardStyle documentation
+  - [x] Fix JSON number comparison for columns config (use `| int`)
 
 ### Phase 6: Cleanup
 - [ ] Remove hardcoded `custom.html` (or keep as backup)
