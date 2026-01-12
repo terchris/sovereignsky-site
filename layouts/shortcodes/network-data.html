@@ -37,7 +37,7 @@
 <div class="space-y-10">
   <section>
     <h3 class="text-xl font-semibold flex items-center gap-2">
-      {{ partial "icon.html" (dict "name" "bolt" "color" "info" "size" "6") }}
+      {{ partial "data-icon.html" (dict "name" "bolt" "color" "info" "size" "6") }}
       Subsea (Outside Norway)
     </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables running along the ocean floor connecting Norway to other countries. These cables are vulnerable to damage from fishing trawlers, anchors, and—in recent years—<a href="/tags/submarine-cables/" class="underline hover:text-primary-500">suspected sabotage</a>.</p>
@@ -85,9 +85,9 @@
               <td class="py-2 pr-4">
                 {{ $status := .status | default "active" }}
                 {{ if eq $status "active" }}
-                <span class="badge badge-success badge-sm gap-1">{{ partial "icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                <span class="badge badge-success badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
                 {{ else if eq $status "planned" }}
-                <span class="badge badge-warning badge-sm gap-1">{{ partial "icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
                 {{ else }}
                 <span class="badge badge-ghost badge-sm">{{ $status }}</span>
                 {{ end }}
@@ -104,7 +104,7 @@
 
   <section>
     <h3 class="text-xl font-semibold flex items-center gap-2">
-      {{ partial "icon.html" (dict "name" "location" "color" "secondary" "size" "6") }}
+      {{ partial "data-icon.html" (dict "name" "location" "color" "secondary" "size" "6") }}
       Terrestrial (Outside Norway)
     </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Land-based fibre routes crossing Norway's borders to Sweden, Finland, and beyond.</p>
@@ -143,9 +143,9 @@
               <td class="py-2 pr-4">
                 {{ $status := .status | default "active" }}
                 {{ if eq $status "active" }}
-                <span class="badge badge-success badge-sm gap-1">{{ partial "icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                <span class="badge badge-success badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
                 {{ else if eq $status "planned" }}
-                <span class="badge badge-warning badge-sm gap-1">{{ partial "icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
                 {{ else }}
                 <span class="badge badge-ghost badge-sm">{{ $status }}</span>
                 {{ end }}
@@ -162,7 +162,7 @@
 
   <section>
     <h3 class="text-xl font-semibold flex items-center gap-2">
-      {{ partial "icon.html" (dict "name" "flag" "color" "primary" "size" "6") }}
+      {{ partial "data-icon.html" (dict "name" "flag" "color" "primary" "size" "6") }}
       Domestic (Inside Norway)
     </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables and routes connecting regions within Norway—both undersea (coastal) and land-based.</p>
@@ -197,9 +197,9 @@
               <td class="py-2 pr-4">
                 {{ $status := .status | default "active" }}
                 {{ if eq $status "active" }}
-                <span class="badge badge-success badge-sm gap-1">{{ partial "icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                <span class="badge badge-success badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
                 {{ else if eq $status "planned" }}
-                <span class="badge badge-warning badge-sm gap-1">{{ partial "icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
                 {{ else }}
                 <span class="badge badge-ghost badge-sm">{{ $status }}</span>
                 {{ end }}
@@ -216,7 +216,7 @@
 
   <section>
     <h3 class="text-xl font-semibold flex items-center gap-2">
-      {{ partial "icon.html" (dict "name" "globe" "color" "accent" "size" "6") }}
+      {{ partial "data-icon.html" (dict "name" "globe" "color" "accent" "size" "6") }}
       Arctic Connectivity
     </h3>
     <p class="text-sm text-neutral-600 dark:text-neutral-300">Cables serving Svalbard and the Arctic region—critical for research, military, and civilian communications in the High North.</p>
@@ -244,9 +244,9 @@
               <td class="py-2 pr-4">
                 {{ $status := .status | default "active" }}
                 {{ if eq $status "active" }}
-                <span class="badge badge-success badge-sm gap-1">{{ partial "icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
+                <span class="badge badge-success badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "check-circle" "size" "3") }} Active</span>
                 {{ else if eq $status "planned" }}
-                <span class="badge badge-warning badge-sm gap-1">{{ partial "icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
+                <span class="badge badge-warning badge-sm gap-1">{{ partial "data-icon.html" (dict "name" "clock" "size" "3") }} Planned</span>
                 {{ else }}
                 <span class="badge badge-ghost badge-sm">{{ $status }}</span>
                 {{ end }}

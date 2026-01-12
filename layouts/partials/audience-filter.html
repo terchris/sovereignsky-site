@@ -15,12 +15,12 @@
   <div class="text-sm font-semibold opacity-70 mb-3">Filter by Audience:</div>
   <div class="flex flex-wrap gap-2" data-filter-group="audience">
     <button class="btn btn-sm btn-active gap-1" data-filter="all">
-      {{ partial "icon.html" (dict "name" "users" "size" "4") }}
+      {{ partial "data-icon.html" (dict "name" "users" "size" "4") }}
       All
     </button>
     {{- range $audienceData.itemListElement }}
     <button class="btn btn-sm btn-ghost gap-1" data-filter="{{ .identifier }}">
-      {{ partial "icon.html" (dict "name" .icon "size" "4") }}
+      {{ partial "data-icon.html" (dict "name" .icon "size" "4") }}
       {{ .name }}
     </button>
     {{- end }}

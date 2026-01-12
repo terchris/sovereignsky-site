@@ -72,7 +72,7 @@
     {{ with $cta }}
     <div class="mt-8">
       <a href="{{ .url }}" class="btn {{ if eq .style "primary" }}btn-primary{{ else if eq .style "secondary" }}btn-secondary{{ else }}btn-outline btn-white{{ end }} btn-lg">
-        {{ with .icon }}{{ partial "icon.html" (dict "name" . "size" "5" "class" "mr-2") }}{{ end }}
+        {{ with .icon }}{{ partial "data-icon.html" (dict "name" . "size" "5" "class" "mr-2") }}{{ end }}
         {{ .text }}
       </a>
     </div>

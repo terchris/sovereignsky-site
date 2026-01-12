@@ -22,7 +22,7 @@
   <div class="stats stats-vertical lg:stats-horizontal shadow-lg w-full bg-base-100 mb-8">
     <div class="stat">
       <div class="stat-figure text-primary">
-        {{ partial "icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "globe" "color" "primary" "size" "8") }}
       </div>
       <div class="stat-title">Total Connections</div>
       <div class="stat-value text-primary">{{ $total }}</div>
@@ -30,7 +30,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-info">
-        {{ partial "icon.html" (dict "name" "bolt" "color" "info" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "bolt" "color" "info" "size" "8") }}
       </div>
       <div class="stat-title">Submarine Cables</div>
       <div class="stat-value text-info">{{ $subsea }}</div>
@@ -38,7 +38,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-secondary">
-        {{ partial "icon.html" (dict "name" "location" "color" "secondary" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "location" "color" "secondary" "size" "8") }}
       </div>
       <div class="stat-title">Land Connections</div>
       <div class="stat-value text-secondary">{{ $terrestrial }}</div>
@@ -46,7 +46,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-success">
-        {{ partial "icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
       </div>
       <div class="stat-title">Active</div>
       <div class="stat-value text-success">{{ $active }}</div>

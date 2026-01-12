@@ -106,7 +106,7 @@
          class="btn btn-outline btn-primary"
          {{ if .external }}target="_blank" rel="noopener"{{ end }}>
         {{ with .icon }}
-        {{ partial "icon.html" (dict "name" . "size" "5" "class" "mr-2") }}
+        {{ partial "data-icon.html" (dict "name" . "size" "5" "class" "mr-2") }}
         {{ end }}
         {{ .text }}
       </a>

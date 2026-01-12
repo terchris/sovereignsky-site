@@ -80,7 +80,7 @@
               {{/* Date */}}
               <td class="whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  {{ partial "icon.html" (dict "name" "calendar" "size" "4" "class" "text-secondary opacity-70") }}
+                  {{ partial "data-icon.html" (dict "name" "calendar" "size" "4" "class" "text-secondary opacity-70") }}
                   <span class="font-medium">{{ $dateDisplay }}</span>
                 </div>
               </td>
@@ -90,7 +90,7 @@
                 {{ if $url }}
                 <a href="{{ $url }}" class="link link-hover font-semibold" target="_blank" rel="noopener">
                   {{ $name }}
-                  {{ partial "icon.html" (dict "name" "external" "size" "3" "class" "inline-block ml-1 opacity-50") }}
+                  {{ partial "data-icon.html" (dict "name" "external" "size" "3" "class" "inline-block ml-1 opacity-50") }}
                 </a>
                 {{ else if $identifier }}
                 <a href="/events/{{ $identifier }}/" class="link link-hover font-semibold">
@@ -105,7 +105,7 @@
               <td class="hidden sm:table-cell">
                 {{ with $location }}
                 <div class="flex items-center gap-1 opacity-70">
-                  {{ partial "icon.html" (dict "name" "location" "size" "4") }}
+                  {{ partial "data-icon.html" (dict "name" "location" "size" "4") }}
                   <span>{{ .name }}</span>
                 </div>
                 {{ end }}
@@ -133,7 +133,7 @@
     <div class="text-center mt-8">
       <a href="{{ . }}" class="btn btn-outline btn-secondary">
         {{ $showMoreText }}
-        {{ partial "icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+        {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
       </a>
     </div>
     {{ end }}

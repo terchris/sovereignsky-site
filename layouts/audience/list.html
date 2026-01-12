@@ -42,7 +42,7 @@
   <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
     <div class="stat">
       <div class="stat-figure text-primary">
-        {{ partial "icon.html" (dict "name" "users" "color" "primary" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "users" "color" "primary" "size" "8") }}
       </div>
       <div class="stat-title">Audiences</div>
       <div class="stat-value text-primary">{{ $totalAudiences }}</div>
@@ -50,7 +50,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-secondary">
-        {{ partial "icon.html" (dict "name" "document" "color" "secondary" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "document" "color" "secondary" "size" "8") }}
       </div>
       <div class="stat-title">Tagged Content</div>
       <div class="stat-value text-secondary">{{ $totalContent }}</div>

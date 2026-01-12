@@ -48,7 +48,7 @@
       data-filter="{{ .id }}"
     >
       {{- if and $showIcons .icon }}
-      {{ partial "icon.html" (dict "name" .icon "size" "4") }}
+      {{ partial "data-icon.html" (dict "name" .icon "size" "4") }}
       {{- end }}
       {{ .name }}
     </button>

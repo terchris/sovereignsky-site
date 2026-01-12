@@ -49,7 +49,7 @@
   <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
     <div class="stat">
       <div class="stat-figure text-primary">
-        {{ partial "icon.html" (dict "name" "code" "color" "primary" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "code" "color" "primary" "size" "8") }}
       </div>
       <div class="stat-title">Projects</div>
       <div class="stat-value text-primary">{{ $total }}</div>
@@ -57,7 +57,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-success">
-        {{ partial "icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
       </div>
       <div class="stat-title">Active</div>
       <div class="stat-value text-success">{{ $activeCount }}</div>
@@ -65,7 +65,7 @@
     </div>
     <div class="stat">
       <div class="stat-figure text-accent">
-        {{ partial "icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
+        {{ partial "data-icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
       </div>
       <div class="stat-title">Topics Covered</div>
       <div class="stat-value text-accent">{{ len $uniqueTopics }}</div>
@@ -137,7 +137,7 @@
         {{/* Placeholder if no image */}}
         <figure class="h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
           <div class="text-primary/30">
-            {{ partial "icon.html" (dict "name" "code" "size" "16" "class" "w-16 h-16") }}
+            {{ partial "data-icon.html" (dict "name" "code" "size" "16" "class" "w-16 h-16") }}
           </div>
         </figure>
         {{ end }}

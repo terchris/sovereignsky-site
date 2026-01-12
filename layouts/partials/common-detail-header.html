@@ -46,7 +46,7 @@
     <span class="text-5xl">{{ $flag }}</span>
     {{ else if $icon }}
     <div class="text-primary">
-      {{ partial "icon.html" (dict "name" $icon "size" "10" "class" "w-10 h-10") }}
+      {{ partial "data-icon.html" (dict "name" $icon "size" "10" "class" "w-10 h-10") }}
     </div>
     {{ end }}
     <h1 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-neutral break-words hyphens-auto">

@@ -12,7 +12,7 @@
 <div class="card bg-base-100 shadow-sm border border-base-300">
   <div class="card-body p-4">
     <h3 class="card-title text-sm font-semibold flex items-center gap-2">
-      {{ partial "icon.html" (dict "name" "link" "color" "neutral" "size" "4") }}
+      {{ partial "data-icon.html" (dict "name" "link" "color" "neutral" "size" "4") }}
       External Links
     </h3>
     <ul class="mt-2 space-y-0.5">
@@ -22,7 +22,7 @@
            target="_blank"
            rel="noopener noreferrer"
            class="text-sm block px-2 py-1 -mx-2 rounded hover:bg-base-200 dark:hover:bg-neutral-800 no-underline flex items-center gap-1">
-          {{ partial "icon.html" (dict "name" "external" "size" "3") }}
+          {{ partial "data-icon.html" (dict "name" "external" "size" "3") }}
           {{ .title }}
         </a>
       </li>

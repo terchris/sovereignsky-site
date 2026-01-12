@@ -53,7 +53,7 @@
       <div class="flex-shrink-0">
         <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center shadow-lg">
           <div class="text-primary">
-            {{ partial "icon.html" (dict "name" $icon "size" "10" "class" "w-10 h-10") }}
+            {{ partial "data-icon.html" (dict "name" $icon "size" "10" "class" "w-10 h-10") }}
           </div>
         </div>
       </div>
@@ -74,7 +74,7 @@
             {{ $config := index $typeConfig $section }}
             {{ if $config }}
             <span class="badge badge-lg badge-outline gap-1">
-              {{ partial "icon.html" (dict "name" $config.icon "size" "4") }}
+              {{ partial "data-icon.html" (dict "name" $config.icon "size" "4") }}
               {{ $count }} {{ if eq $count 1 }}{{ $config.label }}{{ else }}{{ $config.label }}s{{ end }}
             </span>
             {{ end }}
@@ -103,7 +103,7 @@
             {{/* Type badge overlay */}}
             <div class="absolute top-2 left-2">
               <span class="badge badge-{{ $config.color }} gap-1 shadow">
-                {{ partial "icon.html" (dict "name" $config.icon "size" "3") }}
+                {{ partial "data-icon.html" (dict "name" $config.icon "size" "3") }}
                 {{ $config.label }}
               </span>
             </div>
@@ -112,12 +112,12 @@
           {{/* Placeholder with icon */}}
           <figure class="h-36 overflow-hidden bg-gradient-to-br from-{{ $config.color }}/10 to-{{ $config.color }}/5 flex items-center justify-center relative">
             <div class="text-{{ $config.color }}/30">
-              {{ partial "icon.html" (dict "name" $config.icon "size" "16" "class" "w-16 h-16") }}
+              {{ partial "data-icon.html" (dict "name" $config.icon "size" "16" "class" "w-16 h-16") }}
             </div>
             {{/* Type badge overlay */}}
             <div class="absolute top-2 left-2">
               <span class="badge badge-{{ $config.color }} gap-1 shadow">
-                {{ partial "icon.html" (dict "name" $config.icon "size" "3") }}
+                {{ partial "data-icon.html" (dict "name" $config.icon "size" "3") }}
                 {{ $config.label }}
               </span>
             </div>
@@ -136,7 +136,7 @@
                 <span>{{ $eventDate.Format "Jan 2, 2006" }}</span>
                 {{ with .Params.locationCity }}
                 <span class="flex items-center gap-1">
-                  {{ partial "icon.html" (dict "name" "location" "size" "3") }}
+                  {{ partial "data-icon.html" (dict "name" "location" "size" "3") }}
                   {{ . }}
                 </span>
                 {{ end }}

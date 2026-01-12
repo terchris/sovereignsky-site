@@ -223,6 +223,8 @@
   .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .lg\:w-\[340px\] { width: 340px; }
   .lg\:flex-shrink-0 { flex-shrink: 0; }
+  .lg\:flex-row { flex-direction: row !important; }
+  .lg\:ps-8 { padding-inline-start: 2rem; }
 }
 
 /* Footer separation - using more specific selectors */

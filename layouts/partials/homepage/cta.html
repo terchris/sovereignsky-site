@@ -58,7 +58,7 @@
         {{ range $features }}
         <div class="flex items-center gap-2 opacity-90">
           {{ with .icon }}
-          {{ partial "icon.html" (dict "name" . "size" "5") }}
+          {{ partial "data-icon.html" (dict "name" . "size" "5") }}
           {{ end }}
           <span>{{ .text }}</span>
         </div>
@@ -95,7 +95,7 @@
              class="{{ $btnClass }} btn-lg"
              {{ if .external }}target="_blank" rel="noopener"{{ end }}>
             {{ with .icon }}
-            {{ partial "icon.html" (dict "name" . "size" "5" "class" "mr-2") }}
+            {{ partial "data-icon.html" (dict "name" . "size" "5" "class" "mr-2") }}
             {{ end }}
             {{ .text }}
           </a>

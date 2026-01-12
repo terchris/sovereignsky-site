@@ -82,7 +82,7 @@
           <div class="card-body p-5">
             {{/* Icon and date row */}}
             <div class="flex items-center gap-2 text-sm opacity-70 mb-2">
-              {{ partial "icon.html" (dict "name" $icon "size" "4" "class" (printf "text-[%s]" $color)) }}
+              {{ partial "data-icon.html" (dict "name" $icon "size" "4" "class" (printf "text-[%s]" $color)) }}
               <time datetime="{{ $pageDate.Format "2006-01-02" }}">
                 {{ $pageDate.Format "Jan 2, 2006" }}
               </time>
@@ -105,7 +105,7 @@
     <div class="text-center mt-8">
       <a href="{{ . }}" class="btn btn-outline btn-primary">
         {{ $showMoreText }}
-        {{ partial "icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+        {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
       </a>
     </div>
     {{ end }}
