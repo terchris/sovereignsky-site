@@ -1,0 +1,81 @@
+{{/*
+  icon.html - Reusable icon partial that reads from data/icons/icons.json
+
+  Renders SVG icons from the centralized icon library.
+  Icons are defined in data/icons/icons.json with SVG path data.
+
+  Usage:
+    partial "data-icon.html" (dict "name" "scale")
+    partial "data-icon.html" (dict "name" "book" "color" "warning")
+    partial "data-icon.html" (dict "name" "calendar" "size" "6" "class" "inline-block")
+    partial "data-icon.html" "chevron-down" (simple string also works)
+
+  Parameters (when using dict):
+    name: Icon identifier from icons.json (required)
+    color: DaisyUI color name (primary, secondary, accent, info, success, warning, error) - optional
+    size: Icon size in Tailwind units (4, 5, 6, 8, etc.) - default: 4
+    class: Additional CSS classes - optional
+
+  Falls back to document icon if the requested icon is not found.
+*/}}
+
+{{/* Handle both string and dict input */}}
+{{ $name := "document" }}
+{{ $color := "" }}
+{{ $size := "4" }}
+{{ $extraClass := "" }}
+
+{{ if reflect.IsMap . }}
+  {{ $name = .name | default "document" }}
+  {{ $color = .color | default "" }}
+  {{ $size = .size | default "4" }}
+  {{ $extraClass = .class | default "" }}
+{{ else }}
+  {{/* Input is a string (icon name) */}}
+  {{ $name = . | default "document" }}
+{{ end }}
+
+{{/* Find icon in data */}}
+{{ $icon := false }}
+{{ range site.Data.icons.icons.itemListElement }}
+  {{ if eq .identifier $name }}
+    {{ $icon = . }}
+  {{ end }}
+{{ end }}
+
+{{/* Fall back to document icon if not found */}}
+{{ if not $icon }}
+  {{ range site.Data.icons.icons.itemListElement }}
+    {{ if eq .identifier "document" }}
+      {{ $icon = . }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/* Build color class */}}
+{{ $colorClass := "" }}
+{{ if $color }}
+  {{ $colorClass = printf "text-%s" $color }}
+{{ end }}
+
+{{ $sizeClass := printf "w-%s h-%s" $size $size }}
+
+{{/* Determine if icon uses stroke or fill */}}
+{{ $strokeWidth := $icon.strokeWidth | default "2" }}
+{{ $isFilled := eq ($icon.style | default "outline") "fill" }}
+
+{{/* Render SVG */}}
+{{ if $icon }}
+<svg class="{{ $sizeClass }} {{ $colorClass }} {{ $extraClass }}"
+     {{ if not $isFilled }}fill="none" stroke="currentColor"{{ else }}fill="currentColor"{{ end }}
+     viewBox="{{ $icon.viewBox | default "0 0 24 24" }}"
+     xmlns="http://www.w3.org/2000/svg">
+  {{ range $icon.paths }}
+    <path
+      {{ if not $isFilled }}stroke-linecap="round" stroke-linejoin="round" stroke-width="{{ $strokeWidth }}"{{ end }}
+      {{ with .fill }}fill="{{ . }}"{{ end }}
+      d="{{ .d }}"
+    />
+  {{ end }}
+</svg>
+{{ end }}

@@ -1,0 +1,131 @@
+{{/*
+  content-cards.html - Grid of content cards from Hugo pages
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    source: Content source configuration
+    cardStyle: "vertical" (image on top) | "compact" (horizontal)
+    columns: Number of columns (1-4)
+    showMoreLink: Link to full list page
+    showMoreText: Text for show more link
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "content" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $cardStyle := $config.cardStyle | default "compact" }}
+{{ $columns := $config.columns | default 3 | int }}
+{{ $footer := $config.footer }}
+
+{{/* Resolve items from source */}}
+{{ $items := partial "homepage/resolve-source.html" $config.source }}
+
+{{/* Build grid columns class */}}
+{{ $gridCols := "lg:grid-cols-3" }}
+{{ if eq $columns 2 }}{{ $gridCols = "lg:grid-cols-2" }}{{ end }}
+{{ if eq $columns 4 }}{{ $gridCols = "lg:grid-cols-4" }}{{ end }}
+
+{{/* Section wrapper */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Content grid */}}
+    <div class="grid grid-cols-1 sm:grid-cols-2 {{ $gridCols }} gap-4">
+      {{ range $items }}
+        {{ $section := .Section }}
+
+        {{/* Get content type info */}}
+        {{ $icon := "document" }}
+        {{ $iconColor := "#6366f1" }}
+        {{ range site.Data.content_types.content_types.itemListElement }}
+          {{ if eq .identifier $section }}
+            {{ $icon = .icon }}
+            {{ $iconColor = .color }}
+          {{ end }}
+        {{ end }}
+
+        {{/* Use page params for icon if available */}}
+        {{ with .Params.icon }}{{ $icon = . }}{{ end }}
+
+        {{/* Get thumbnail */}}
+        {{ $thumbnail := .Resources.GetMatch "{feature*,thumbnail*,cover*}" }}
+
+        {{/* Choose card partial based on cardStyle */}}
+        {{ if eq $cardStyle "vertical" }}
+          {{/* Vertical card: image on top, text below */}}
+          {{ partial "card-vertical.html" (dict
+              "title" .Title
+              "url" .RelPermalink
+              "thumbnail" $thumbnail
+              "date" .Date
+              "summary" (.Summary | plainify | truncate 100)
+              "icon" $icon
+              "iconColor" $iconColor
+          ) }}
+        {{ else }}
+          {{/* Compact card: horizontal layout */}}
+          {{ $category := "" }}
+          {{ $subcategory := "" }}
+          {{ if eq $section "publications" }}
+            {{ with .Params.publication_type }}
+              {{ if eq . "book" }}{{ $category = "Book" }}
+              {{ else if eq . "report" }}{{ $category = "Report" }}
+              {{ else if eq . "paper" }}{{ $category = "Paper" }}
+              {{ else if eq . "guide" }}{{ $category = "Guide" }}
+              {{ else }}{{ $category = . | humanize | title }}{{ end }}
+            {{ end }}
+            {{ with .Params.publisher }}{{ $subcategory = . }}{{ else }}{{ with .Params.institutions }}{{ $subcategory = index . 0 }}{{ end }}{{ end }}
+          {{ else if eq $section "blog" }}
+            {{ $category = "Blog" }}
+            {{ $subcategory = .Date.Format "Jan 2, 2006" }}
+          {{ else }}
+            {{ $category = $section | humanize | title }}
+          {{ end }}
+
+          {{ partial "card-compact.html" (dict
+              "title" .Title
+              "url" .RelPermalink
+              "category" $category
+              "subcategory" $subcategory
+              "thumbnail" $thumbnail
+              "year" .Params.year
+              "icon" $icon
+          ) }}
+        {{ end }}
+      {{ end }}
+    </div>
+
+    {{/* Footer */}}
+    {{ with $footer }}
+    <div class="text-center mt-8">
+      {{ with .text }}
+      <p class="text-base-content/70 mb-4">{{ . }}</p>
+      {{ end }}
+      {{ with .button }}
+      <a href="{{ .url }}" class="btn btn-outline btn-primary">
+        {{ .text }}
+        {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+  </div>
+</section>

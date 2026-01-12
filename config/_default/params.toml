@@ -24,7 +24,7 @@ backgroundImageWidth = 1200
   showScrollToTop = true
 
 [homepage]
-  layout = "custom"
+  layout = "json-driven"
   homepageImage = "featured.png"
   showRecent = false
   showRecentItems = 5

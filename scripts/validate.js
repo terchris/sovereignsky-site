@@ -78,6 +78,18 @@ const validations = [
     schema: "data/schemas/sovereignsky-projects.schema.json",
     data: "data/sovereignsky/projects.json",
   },
+  {
+    schema: "data/schemas/homepage.schema.json",
+    data: "data/homepage/sections.json",
+  },
+  {
+    schema: "data/schemas/icons.schema.json",
+    data: "data/icons/icons.json",
+  },
+  {
+    schema: "data/schemas/content-types.schema.json",
+    data: "data/content-types/content-types.json",
+  },
 ];
 
 // Load JSON file with error handling

@@ -36,7 +36,7 @@
       "description": "Array of audience entries",
       "items": {
         "type": "object",
-        "required": ["identifier", "name", "description", "icon", "iconPath"],
+        "required": ["identifier", "name", "description", "icon"],
         "properties": {
           "identifier": {
             "type": "string",
@@ -57,11 +57,8 @@
           },
           "icon": {
             "type": "string",
-            "description": "Icon name for reference (e.g., 'code', 'server', 'flag')"
-          },
-          "iconPath": {
-            "type": "string",
-            "description": "SVG path data for the icon (Heroicons outline style, stroke-based)"
+            "description": "Icon identifier from icons.json",
+            "x-validates-against": "data/icons/icons.json"
           },
           "topics": {
             "type": "array",

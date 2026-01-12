@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "icons.schema.json",
+  "title": "Site Icons",
+  "description": "SVG icon definitions for use across the site, following schema.org ItemList pattern",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the icon collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the icon collection"
+    },
+    "itemListElement": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/iconItem"
+      },
+      "minItems": 1
+    }
+  },
+  "$defs": {
+    "iconItem": {
+      "type": "object",
+      "required": ["@type", "identifier", "name", "viewBox", "paths"],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "const": "ImageObject",
+          "description": "schema.org type for images"
+        },
+        "identifier": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Unique identifier used to reference the icon"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name of the icon"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of icon usage and meaning"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["heroicons", "simple-icons", "custom"],
+          "description": "Icon source library"
+        },
+        "style": {
+          "type": "string",
+          "enum": ["outline", "solid", "fill"],
+          "description": "Icon style variant"
+        },
+        "viewBox": {
+          "type": "string",
+          "pattern": "^[0-9]+ [0-9]+ [0-9]+ [0-9]+$",
+          "description": "SVG viewBox attribute"
+        },
+        "strokeWidth": {
+          "type": "string",
+          "pattern": "^[0-9.]+$",
+          "description": "Stroke width for outline icons"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pathItem"
+          },
+          "minItems": 1,
+          "description": "SVG path elements"
+        }
+      },
+      "additionalProperties": false
+    },
+    "pathItem": {
+      "type": "object",
+      "required": ["d"],
+      "properties": {
+        "d": {
+          "type": "string",
+          "description": "SVG path data"
+        },
+        "fill": {
+          "type": "string",
+          "description": "Fill attribute for filled icons"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

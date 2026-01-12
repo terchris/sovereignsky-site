@@ -5,6 +5,255 @@
 .h-16 { height: 4rem; }
 .max-h-24 { max-height: 6rem; }
 
+/* Grid utilities - Tailwind purges these so we need to define them */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+@media (min-width: 640px) {
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sm\:gap-6 { gap: 1.5rem; }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .md\:flex { display: flex !important; }
+  .md\:hidden { display: none !important; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .lg\:col-span-2 { grid-column: span 2 / span 2; }
+}
+
+/* DaisyUI-like card component */
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 0.5rem;
+}
+.card-body.items-center { align-items: center; }
+.card-title { font-weight: 600; font-size: 1.25rem; }
+
+/* Shadow utilities */
+.shadow-md {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+.shadow-xl {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+.hover\:shadow-xl:hover {
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Background colors with proper text colors for dark mode */
+.bg-base-100 { background-color: #fff; }
+.bg-base-200 { background-color: #f2f2f2; }
+.bg-base-300 { background-color: #e5e5e5; }
+.dark .bg-base-100 { background-color: #1d232a; }
+.dark .bg-base-200 { background-color: #191e24; }
+.dark .bg-base-300 { background-color: #15191e; }
+
+/* DaisyUI text-base-content for proper text colors */
+.text-base-content { color: #1f2937; }
+.dark .text-base-content { color: #e5e7eb; }
+.text-base-content\/70 { color: rgba(31, 41, 55, 0.7); }
+.dark .text-base-content\/70 { color: rgba(229, 231, 235, 0.7); }
+
+/* Border colors */
+.border-base-200 { border-color: #f2f2f2; }
+.dark .border-base-200 { border-color: #191e24; }
+.border-base-300 { border-color: #e5e5e5; }
+.dark .border-base-300 { border-color: #374151; }
+
+/* Dark mode background utilities for TOC and other components */
+.dark .dark\:bg-neutral-800\/50 { background-color: rgba(38, 38, 38, 0.5); }
+.dark .dark\:hover\:bg-neutral-700\/50:hover { background-color: rgba(64, 64, 64, 0.5); }
+
+/* Fix prose/article body background in dark mode */
+.dark .prose { background-color: transparent; }
+.dark article { background-color: transparent; }
+.dark .not-prose { color: #e5e7eb; }
+
+/* Fix article content text color in dark mode */
+.dark .article-content,
+.dark .article-content p,
+.dark .article-content li,
+.dark .article-content td,
+.dark .article-content th {
+  color: #e5e7eb;
+}
+
+/* Fix headings and strong text in dark mode */
+.dark .article-content h2,
+.dark .article-content h3,
+.dark .article-content h4,
+.dark .article-content h5,
+.dark .article-content h6 {
+  color: #f3f4f6;
+}
+
+.dark .article-content strong,
+.dark .article-content b {
+  color: #f9fafb;
+}
+
+/* Fix HTML root element background in dark mode - theme sets oklch(1 0 0) which is white */
+html.dark {
+  background-color: rgb(30, 41, 59) !important;
+}
+
+/* Ensure card text is readable in dark mode */
+.dark .card { color: #d1d5db; }
+.dark .card-body { color: #d1d5db; }
+.dark .card h3, .dark .card h4, .dark .card .font-semibold { color: #f3f4f6; }
+
+/* Transform utilities */
+.hover\:-translate-y-1:hover { transform: translateY(-0.25rem); }
+.transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+.duration-300 { transition-duration: 300ms; }
+
+/* Flexbox utilities */
+.flex { display: flex; }
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.flex-shrink-0 { flex-shrink: 0; }
+.flex-1 { flex: 1 1 0%; }
+.min-w-0 { min-width: 0; }
+
+/* Size utilities */
+.w-14 { width: 3.5rem; }
+.h-14 { height: 3.5rem; }
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.h-40 { height: 10rem; }
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+.text-xs { font-size: 0.75rem; line-height: 1rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.leading-none { line-height: 1; }
+.truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.opacity-70 { opacity: 0.7; }
+.opacity-80 { opacity: 0.8; }
+.opacity-90 { opacity: 0.9; }
+
+/* Spacing utilities */
+.p-4 { padding: 1rem; }
+.p-5 { padding: 1.25rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-1 { margin-top: 0.25rem; }
+.mt-4 { margin-top: 1rem; }
+.mr-2 { margin-right: 0.5rem; }
+.gap-2 { gap: 0.5rem; }
+
+/* Border utilities */
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-full { border-radius: 9999px; }
+
+/* Image utilities */
+.object-cover { object-fit: cover; }
+
+/* Progress bar */
+.progress {
+  appearance: none;
+  height: 0.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  background-color: #e5e7eb;
+}
+.progress::-webkit-progress-bar { background-color: #e5e7eb; border-radius: 9999px; }
+.progress::-webkit-progress-value { background-color: #3b82f6; border-radius: 9999px; }
+.progress::-moz-progress-bar { background-color: #3b82f6; border-radius: 9999px; }
+.progress-primary::-webkit-progress-value { background-color: #3b82f6; }
+.progress-primary::-moz-progress-bar { background-color: #3b82f6; }
+
+/* Button styles */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-lg { padding: 0.75rem 1.5rem; font-size: 1.125rem; }
+.btn-primary { background-color: #3b82f6; color: white; border: none; }
+.btn-primary:hover { background-color: #2563eb; }
+.btn-secondary { background-color: #6b7280; color: white; border: none; }
+.btn-outline { background: transparent; border: 1px solid currentColor; }
+.btn-outline.btn-primary { color: #3b82f6; border-color: #3b82f6; }
+.btn-outline.btn-primary:hover { background-color: #3b82f6; color: white; }
+.btn-outline.btn-secondary { color: #6b7280; border-color: #6b7280; }
+.btn-white { background-color: white; color: #3b82f6; border: none; }
+.btn-white:hover { background-color: #f3f4f6; }
+
+/* Table styles */
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 0.75rem 1rem; text-align: left; }
+.table thead tr { border-bottom: 1px solid #e5e7eb; }
+.table tbody tr { border-bottom: 1px solid #f3f4f6; }
+.table tbody tr.hover:hover { background-color: #f9fafb; }
+.dark .table thead tr { border-bottom-color: #374151; }
+.dark .table tbody tr { border-bottom-color: #1f2937; }
+.dark .table tbody tr.hover:hover { background-color: #1f2937; }
+
+/* Link styles */
+.link { text-decoration: underline; }
+.link-hover:hover { text-decoration: underline; }
+
+/* Inline block */
+.inline-block { display: inline-block; }
+.inline-flex { display: inline-flex; }
+
+/* Hidden utilities */
+.hidden { display: none; }
+
+/* Dark mode visibility utilities for theme icon switcher */
+.dark .dark\:hidden { display: none !important; }
+.dark .dark\:flex { display: flex !important; }
+
+@media (min-width: 640px) { .sm\:table-cell { display: table-cell; } }
+@media (min-width: 768px) { .md\:table-cell { display: table-cell; } }
+
 /* Long word handling for titles */
 .break-words {
   overflow-wrap: break-word;
@@ -35,6 +284,8 @@
   .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .lg\:w-\[340px\] { width: 340px; }
   .lg\:flex-shrink-0 { flex-shrink: 0; }
+  .lg\:flex-row { flex-direction: row !important; }
+  .lg\:ps-8 { padding-inline-start: 2rem; }
 }
 
 /* Footer separation - using more specific selectors */

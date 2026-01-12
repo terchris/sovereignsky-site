@@ -1,0 +1,44 @@
+{{/*
+  section-wrapper.html - Common wrapper for all homepage sections
+
+  Usage:
+    {{ partial "homepage/section-wrapper.html" (dict
+      "id" "hero"
+      "background" "base-200"
+      "class" "py-16"
+      "content" $innerContent
+    ) }}
+
+  Parameters:
+    id: Section identifier for anchor links (optional)
+    background: DaisyUI background color name (base-100, base-200, base-300) or "gradient" (optional)
+    gradient: CSS gradient value (when background is "gradient") (optional)
+    class: Additional CSS classes (optional)
+    content: Inner HTML content (required)
+*/}}
+
+{{ $id := .id | default "" }}
+{{ $background := .background | default "" }}
+{{ $gradient := .gradient | default "" }}
+{{ $extraClass := .class | default "" }}
+{{ $content := .content | default "" }}
+
+{{/* Build background class */}}
+{{ $bgClass := "" }}
+{{ $bgStyle := "" }}
+
+{{ if eq $background "gradient" }}
+  {{ $bgStyle = printf "background: %s;" $gradient }}
+{{ else if $background }}
+  {{ $bgClass = printf "bg-%s" $background }}
+{{ end }}
+
+<section
+  {{ with $id }}id="{{ . }}"{{ end }}
+  class="w-full {{ $bgClass }} {{ $extraClass }}"
+  {{ with $bgStyle }}style="{{ . | safeCSS }}"{{ end }}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{ $content | safeHTML }}
+  </div>
+</section>

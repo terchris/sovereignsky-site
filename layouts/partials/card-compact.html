@@ -46,7 +46,7 @@
       <img src="{{ $img.RelPermalink }}" alt="{{ $title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
       {{- else }}
       <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-secondary/10">
-        {{ partial "content-icon.html" (dict "name" $icon "size" "8" "class" "text-primary/30") }}
+        {{ partial "data-icon.html" (dict "name" $icon "size" "8" "class" "text-primary/30") }}
       </div>
       {{- end }}
     </div>

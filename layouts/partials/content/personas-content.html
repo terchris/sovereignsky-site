@@ -29,7 +29,7 @@
 {{/* Placeholder gradient */}}
 <div class="not-prose mb-8 rounded-lg overflow-hidden h-48 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 flex items-center justify-center">
   <div class="text-primary/40">
-    {{ partial "content-icon.html" (dict "name" $personaIcon "size" "24" "class" "w-24 h-24") }}
+    {{ partial "data-icon.html" (dict "name" $personaIcon "size" "24" "class" "w-24 h-24") }}
   </div>
 </div>
 {{ end }}
@@ -93,7 +93,7 @@
         <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-24 h-auto max-h-24 object-contain rounded" loading="lazy" />
         {{ else }}
         <div class="w-16 h-16 bg-base-200 rounded flex items-center justify-center">
-          {{ partial "content-icon.html" (dict "name" "book" "size" "6" "class" "text-base-content/30") }}
+          {{ partial "data-icon.html" (dict "name" "book" "size" "6" "class" "text-base-content/30") }}
         </div>
         {{ end }}
         <div class="flex-1 min-w-0">

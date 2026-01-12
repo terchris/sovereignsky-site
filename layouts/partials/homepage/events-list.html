@@ -1,0 +1,146 @@
+{{/*
+  events-list.html - List of upcoming events
+
+  Config options:
+    title: Section title
+    description: Section description
+    background: DaisyUI background color name
+    source: Content source configuration
+    showMoreLink: Link to full calendar
+    showMoreText: Text for show more link
+*/}}
+
+{{ $config := .config }}
+{{ $id := .identifier | default "events" }}
+
+{{ $title := $config.title }}
+{{ $description := $config.description }}
+{{ $background := $config.background | default "" }}
+{{ $footer := $config.footer }}
+
+{{/* Resolve items from source */}}
+{{ $items := partial "homepage/resolve-source.html" $config.source }}
+
+{{/* Section wrapper */}}
+<section id="{{ $id }}" class="py-16 {{ with $background }}bg-{{ . }}{{ end }} -mx-6 sm:-mx-14 md:-mx-24 lg:-mx-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-14 md:px-24 lg:px-32">
+
+    {{/* Section header */}}
+    {{ if or $title $description }}
+    <div class="text-center mb-12">
+      {{ with $title }}
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">{{ . }}</h2>
+      {{ end }}
+      {{ with $description }}
+      <p class="text-lg opacity-80 max-w-2xl mx-auto">{{ . }}</p>
+      {{ end }}
+    </div>
+    {{ end }}
+
+    {{/* Events table */}}
+    {{ if $items }}
+    <div class="overflow-x-auto">
+      <table class="table bg-base-100 shadow-md rounded-xl">
+        <thead>
+          <tr>
+            <th class="text-left">Date</th>
+            <th class="text-left">Event</th>
+            <th class="text-left hidden sm:table-cell">Location</th>
+            <th class="text-left hidden md:table-cell">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ range $items }}
+            {{ $name := .name }}
+            {{ $startDate := .startDate | default "" }}
+            {{ $endDate := .endDate | default "" }}
+            {{ $location := .location | default "" }}
+            {{ $eventType := .eventType | default "" }}
+            {{ $url := .url | default "" }}
+            {{ $identifier := .identifier | default "" }}
+
+            {{/* Format dates */}}
+            {{ $dateDisplay := "" }}
+            {{ if $startDate }}
+              {{ $start := time $startDate }}
+              {{ if $endDate }}
+                {{ $end := time $endDate }}
+                {{ if eq ($start.Format "Jan 2006") ($end.Format "Jan 2006") }}
+                  {{ $dateDisplay = printf "%s-%s" ($start.Format "Jan 2") ($end.Format "2, 2006") }}
+                {{ else }}
+                  {{ $dateDisplay = printf "%s - %s" ($start.Format "Jan 2") ($end.Format "Jan 2, 2006") }}
+                {{ end }}
+              {{ else }}
+                {{ $dateDisplay = $start.Format "Jan 2, 2006" }}
+              {{ end }}
+            {{ end }}
+
+            <tr class="hover">
+              {{/* Date */}}
+              <td class="whitespace-nowrap">
+                <div class="flex items-center gap-2">
+                  {{ partial "data-icon.html" (dict "name" "calendar" "size" "4" "class" "text-secondary opacity-70") }}
+                  <span class="font-medium">{{ $dateDisplay }}</span>
+                </div>
+              </td>
+
+              {{/* Event name */}}
+              <td>
+                {{ if $url }}
+                <a href="{{ $url }}" class="link link-hover font-semibold" target="_blank" rel="noopener">
+                  {{ $name }}
+                  {{ partial "data-icon.html" (dict "name" "external" "size" "3" "class" "inline-block ml-1 opacity-50") }}
+                </a>
+                {{ else if $identifier }}
+                <a href="/events/{{ $identifier }}/" class="link link-hover font-semibold">
+                  {{ $name }}
+                </a>
+                {{ else }}
+                <span class="font-semibold">{{ $name }}</span>
+                {{ end }}
+              </td>
+
+              {{/* Location */}}
+              <td class="hidden sm:table-cell">
+                {{ with $location }}
+                <div class="flex items-center gap-1 opacity-70">
+                  {{ partial "data-icon.html" (dict "name" "location" "size" "4") }}
+                  <span>{{ .name }}</span>
+                </div>
+                {{ end }}
+              </td>
+
+              {{/* Event type */}}
+              <td class="hidden md:table-cell">
+                {{ with $eventType }}
+                <span class="badge badge-outline badge-sm">{{ . }}</span>
+                {{ end }}
+              </td>
+            </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+    {{ else }}
+    <div class="text-center py-8 opacity-70">
+      <p>No upcoming events scheduled.</p>
+    </div>
+    {{ end }}
+
+    {{/* Footer */}}
+    {{ with $footer }}
+    <div class="text-center mt-8">
+      {{ with .text }}
+      <p class="text-base-content/70 mb-4">{{ . }}</p>
+      {{ end }}
+      {{ with .button }}
+      <a href="{{ .url }}" class="btn btn-outline btn-secondary">
+        {{ .text }}
+        {{ partial "data-icon.html" (dict "name" "arrow-right" "size" "4" "class" "ml-2") }}
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+
+  </div>
+</section>

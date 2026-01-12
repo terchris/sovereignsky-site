@@ -117,14 +117,14 @@
           {{- $name := .name | default "" -}}
           {{- if or $city $name -}}
           <span class="flex items-center gap-1">
-            {{ partial "content-icon.html" (dict "name" "location" "size" "4") }}
+            {{ partial "data-icon.html" (dict "name" "location" "size" "4") }}
             {{- if $city -}}{{ $city }}{{- if and $name (ne $name $city) -}}, {{ $name }}{{- end -}}{{- else -}}{{ $name }}{{- end -}}
           </span>
           {{- end -}}
         {{- else -}}
           {{- if . -}}
           <span class="flex items-center gap-1">
-            {{ partial "content-icon.html" (dict "name" "location" "size" "4") }}
+            {{ partial "data-icon.html" (dict "name" "location" "size" "4") }}
             {{ . }}
           </span>
           {{- end -}}
@@ -142,7 +142,7 @@
         {{- end -}}
         {{- if and $orgName (ne $orgName "TBA") }}
         <span class="flex items-center gap-1">
-          {{ partial "content-icon.html" (dict "name" "users" "size" "4") }}
+          {{ partial "data-icon.html" (dict "name" "users" "size" "4") }}
           {{- if $orgURL -}}
           <a href="{{ $orgURL }}" rel="noopener" target="_blank" class="link link-hover">{{ $orgName }}</a>
           {{- else -}}

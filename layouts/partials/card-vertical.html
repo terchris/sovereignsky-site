@@ -1,0 +1,57 @@
+{{/*
+  card-vertical.html
+  Vertical card with image on top, text below
+
+  Usage:
+    {{ partial "card-vertical.html" (dict
+        "title" "Article Title"
+        "url" "/path/to/page/"
+        "thumbnail" $imageResource
+        "date" .Date
+        "summary" "Brief description..."
+        "icon" "book"
+        "iconColor" "#3b82f6"
+    ) }}
+*/}}
+
+{{- $title := .title | default "Untitled" -}}
+{{- $url := .url | default "#" -}}
+{{- $thumbnail := .thumbnail -}}
+{{- $date := .date -}}
+{{- $summary := .summary | default "" -}}
+{{- $icon := .icon | default "document" -}}
+{{- $iconColor := .iconColor | default "#6366f1" -}}
+
+<a href="{{ $url }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+  {{/* Thumbnail */}}
+  {{- if $thumbnail }}
+  <figure class="h-40 overflow-hidden">
+    {{ $resized := $thumbnail.Fill "600x320" }}
+    <img src="{{ $resized.RelPermalink }}" alt="{{ $title }}" class="w-full h-full object-cover" loading="lazy">
+  </figure>
+  {{- else }}
+  <figure class="h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+    {{ partial "data-icon.html" (dict "name" $icon "size" "12" "class" "text-primary/30") }}
+  </figure>
+  {{- end }}
+
+  <div class="card-body p-4">
+    {{/* Icon and date row */}}
+    {{- if $date }}
+    <div class="flex items-center gap-2 text-xs opacity-70 mb-1">
+      {{ partial "data-icon.html" (dict "name" $icon "size" "4" "class" (printf "text-[%s]" $iconColor)) }}
+      <time datetime="{{ $date.Format "2006-01-02" }}">
+        {{ $date.Format "Jan 2, 2006" }}
+      </time>
+    </div>
+    {{- end }}
+
+    {{/* Title */}}
+    <h3 class="text-sm font-semibold line-clamp-2 mb-1">{{ $title }}</h3>
+
+    {{/* Summary */}}
+    {{- if $summary }}
+    <p class="text-xs opacity-70 line-clamp-2">{{ $summary }}</p>
+    {{- end }}
+  </div>
+</a>

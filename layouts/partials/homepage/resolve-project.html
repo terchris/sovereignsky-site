@@ -1,0 +1,24 @@
+{{/*
+  resolve-project.html - Resolve project data by identifier
+
+  Input: project identifier string (e.g., "software-database")
+  Output: project object from data/sovereignsky/projects.json or nil if not found
+
+  Usage:
+    {{ $project := partial "homepage/resolve-project.html" "software-database" }}
+    {{ with $project }}
+      Title: {{ .name }}
+      URL: {{ .url }}
+    {{ end }}
+*/}}
+
+{{ $identifier := . }}
+{{ $result := dict }}
+
+{{ range site.Data.sovereignsky.projects.itemListElement }}
+  {{ if eq .identifier $identifier }}
+    {{ $result = . }}
+  {{ end }}
+{{ end }}
+
+{{ return $result }}

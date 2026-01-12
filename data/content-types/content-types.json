@@ -1,0 +1,129 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Content Types",
+  "description": "Maps content sections to icons, colors, and display properties for consistent styling across the site",
+  "itemListElement": [
+    {
+      "@type": "WebPageElement",
+      "identifier": "publications",
+      "name": "Publication",
+      "namePlural": "Publications",
+      "description": "Research papers, reports, and guides",
+      "icon": "book",
+      "color": "#fbbf24",
+      "colorName": "warning",
+      "urlPath": "/publications/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "blog",
+      "name": "Blog Post",
+      "namePlural": "Blog",
+      "description": "Articles, analysis, and commentary",
+      "icon": "pencil",
+      "color": "#a855f7",
+      "colorName": "accent",
+      "urlPath": "/blog/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "laws",
+      "name": "Law",
+      "namePlural": "Laws",
+      "description": "Legal frameworks and regulations",
+      "icon": "scale",
+      "color": "#38bdf8",
+      "colorName": "info",
+      "urlPath": "/laws/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "countries",
+      "name": "Country",
+      "namePlural": "Countries",
+      "description": "Jurisdictions and their data governance",
+      "icon": "globe",
+      "color": "#34d399",
+      "colorName": "success",
+      "urlPath": "/countries/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "networks",
+      "name": "Network",
+      "namePlural": "Networks",
+      "description": "Submarine cables and network infrastructure",
+      "icon": "link",
+      "color": "#f87171",
+      "colorName": "error",
+      "urlPath": "/networks/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "datacenters",
+      "name": "Datacenter",
+      "namePlural": "Datacenters",
+      "description": "Cloud regions and data center locations",
+      "icon": "server",
+      "color": "#f472b6",
+      "colorName": "pink",
+      "urlPath": "/datacenters/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "events",
+      "name": "Event",
+      "namePlural": "Events",
+      "description": "Conferences, exercises, and gatherings",
+      "icon": "calendar",
+      "color": "#6366f1",
+      "colorName": "secondary",
+      "urlPath": "/events/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "software",
+      "name": "Software",
+      "namePlural": "Software",
+      "description": "Applications and tools",
+      "icon": "code",
+      "color": "#3b82f6",
+      "colorName": "primary",
+      "urlPath": "/software/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "blocs",
+      "name": "Regional Bloc",
+      "namePlural": "Regional Blocs",
+      "description": "Data governance frameworks by region",
+      "icon": "building",
+      "color": "#14b8a6",
+      "colorName": "teal",
+      "urlPath": "/blocs/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "sovereignsky",
+      "name": "Project",
+      "namePlural": "SovereignSky Projects",
+      "description": "Open-source tools for digital sovereignty",
+      "icon": "rocket",
+      "color": "#22c55e",
+      "colorName": "success",
+      "urlPath": "/sovereignsky/"
+    },
+    {
+      "@type": "WebPageElement",
+      "identifier": "personas",
+      "name": "Persona",
+      "namePlural": "Personas",
+      "description": "Target audience profiles",
+      "icon": "user",
+      "color": "#8b5cf6",
+      "colorName": "violet",
+      "urlPath": "/personas/"
+    }
+  ]
+}

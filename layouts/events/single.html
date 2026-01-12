@@ -79,7 +79,7 @@
         <div class="card-body p-4">
           <div class="flex items-center gap-3">
             <div class="text-primary">
-              {{ partial "content-icon.html" (dict "name" "location" "size" "6") }}
+              {{ partial "data-icon.html" (dict "name" "location" "size" "6") }}
             </div>
             <div>
               <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Location</div>
@@ -98,7 +98,7 @@
         <div class="card-body p-4">
           <div class="flex items-center gap-3">
             <div class="text-primary">
-              {{ partial "content-icon.html" (dict "name" "users" "size" "6") }}
+              {{ partial "data-icon.html" (dict "name" "users" "size" "6") }}
             </div>
             <div>
               <div class="text-xs uppercase tracking-wide text-neutral-500 dark:text-neutral-400">Organizer</div>
@@ -121,9 +121,9 @@
           <div class="flex items-center gap-3">
             <div class="text-primary">
               {{ if eq $attendanceMode "online" }}
-              {{ partial "content-icon.html" (dict "name" "globe" "size" "6") }}
+              {{ partial "data-icon.html" (dict "name" "globe" "size" "6") }}
               {{ else }}
-              {{ partial "content-icon.html" (dict "name" "calendar" "size" "6") }}
+              {{ partial "data-icon.html" (dict "name" "calendar" "size" "6") }}
               {{ end }}
             </div>
             <div>
@@ -172,7 +172,7 @@
     {{/* CTA Button */}}
     {{ if $externalUrl }}
     <a href="{{ $externalUrl }}" target="_blank" rel="noopener" class="btn btn-primary btn-lg gap-2">
-      {{ partial "content-icon.html" (dict "name" "external" "size" "5") }}
+      {{ partial "data-icon.html" (dict "name" "external" "size" "5") }}
       Visit Event Website
     </a>
     {{ end }}
