@@ -6,7 +6,7 @@
     description: Section description
     background: DaisyUI background color name
     source: Content source configuration
-    cardStyle: "compact" | "featured" | "minimal" | "detailed"
+    cardStyle: "vertical" (image on top) | "compact" (horizontal)
     columns: Number of columns (1-4)
     showMoreLink: Link to full list page
     showMoreText: Text for show more link
@@ -19,7 +19,7 @@
 {{ $description := $config.description }}
 {{ $background := $config.background | default "" }}
 {{ $cardStyle := $config.cardStyle | default "compact" }}
-{{ $columns := $config.columns | default 3 }}
+{{ $columns := $config.columns | default 3 | int }}
 {{ $showMoreLink := $config.showMoreLink }}
 {{ $showMoreText := $config.showMoreText | default "View all" }}
 
@@ -48,55 +48,68 @@
     {{ end }}
 
     {{/* Content grid */}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 {{ $gridCols }} gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 {{ $gridCols }} gap-4">
       {{ range $items }}
-        {{ $pageTitle := .Title }}
-        {{ $pageDate := .Date }}
-        {{ $pageSummary := .Summary | truncate 120 }}
-        {{ $pageLink := .RelPermalink }}
         {{ $section := .Section }}
 
         {{/* Get content type info */}}
         {{ $icon := "document" }}
-        {{ $color := "#6366f1" }}
+        {{ $iconColor := "#6366f1" }}
         {{ range site.Data.content_types.content_types.itemListElement }}
           {{ if eq .identifier $section }}
             {{ $icon = .icon }}
-            {{ $color = .color }}
+            {{ $iconColor = .color }}
           {{ end }}
         {{ end }}
 
         {{/* Use page params for icon if available */}}
         {{ with .Params.icon }}{{ $icon = . }}{{ end }}
 
-        <a href="{{ $pageLink }}" class="card bg-base-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-          {{/* Card with thumbnail if available */}}
-          {{ $image := .Resources.GetMatch "{feature*,thumbnail*,cover*}" }}
-          {{ with $image }}
-          <figure class="h-40 overflow-hidden">
-            {{ $resized := .Fill "600x320" }}
-            <img src="{{ $resized.RelPermalink }}" alt="{{ $pageTitle }}" class="w-full h-full object-cover" loading="lazy">
-          </figure>
+        {{/* Get thumbnail */}}
+        {{ $thumbnail := .Resources.GetMatch "{feature*,thumbnail*,cover*}" }}
+
+        {{/* Choose card partial based on cardStyle */}}
+        {{ if eq $cardStyle "vertical" }}
+          {{/* Vertical card: image on top, text below */}}
+          {{ partial "card-vertical.html" (dict
+              "title" .Title
+              "url" .RelPermalink
+              "thumbnail" $thumbnail
+              "date" .Date
+              "summary" (.Summary | plainify | truncate 100)
+              "icon" $icon
+              "iconColor" $iconColor
+          ) }}
+        {{ else }}
+          {{/* Compact card: horizontal layout */}}
+          {{ $category := "" }}
+          {{ $subcategory := "" }}
+          {{ if eq $section "publications" }}
+            {{ with .Params.publication_type }}
+              {{ if eq . "book" }}{{ $category = "Book" }}
+              {{ else if eq . "report" }}{{ $category = "Report" }}
+              {{ else if eq . "paper" }}{{ $category = "Paper" }}
+              {{ else if eq . "guide" }}{{ $category = "Guide" }}
+              {{ else }}{{ $category = . | humanize | title }}{{ end }}
+            {{ end }}
+            {{ with .Params.publisher }}{{ $subcategory = . }}{{ else }}{{ with .Params.institutions }}{{ $subcategory = index . 0 }}{{ end }}{{ end }}
+          {{ else if eq $section "blog" }}
+            {{ $category = "Blog" }}
+            {{ $subcategory = .Date.Format "Jan 2, 2006" }}
+          {{ else }}
+            {{ $category = $section | humanize | title }}
           {{ end }}
 
-          <div class="card-body p-5">
-            {{/* Icon and date row */}}
-            <div class="flex items-center gap-2 text-sm opacity-70 mb-2">
-              {{ partial "data-icon.html" (dict "name" $icon "size" "4" "class" (printf "text-[%s]" $color)) }}
-              <time datetime="{{ $pageDate.Format "2006-01-02" }}">
-                {{ $pageDate.Format "Jan 2, 2006" }}
-              </time>
-            </div>
-
-            {{/* Title */}}
-            <h3 class="card-title text-lg line-clamp-2 mb-2">{{ $pageTitle }}</h3>
-
-            {{/* Summary */}}
-            {{ if ne $cardStyle "minimal" }}
-            <p class="text-sm opacity-70 line-clamp-2">{{ $pageSummary }}</p>
-            {{ end }}
-          </div>
-        </a>
+          {{ partial "card-compact.html" (dict
+              "title" .Title
+              "url" .RelPermalink
+              "category" $category
+              "subcategory" $subcategory
+              "thumbnail" $thumbnail
+              "year" .Params.year
+              "icon" $icon
+          ) }}
+        {{ end }}
       {{ end }}
     </div>
 

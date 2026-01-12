@@ -164,11 +164,14 @@
         "source": {
           "type": "section",
           "path": "blog",
-          "select": "query",
-          "sort": "date",
-          "limit": 3
+          "select": "explicit",
+          "identifiers": [
+            "2025-12-10-developer-power-sovereignty",
+            "2025-12-11-digital-sovereignty-moral-independence",
+            "2025-12-01-norway-exit-strategy"
+          ]
         },
-        "cardStyle": "compact",
+        "cardStyle": "vertical",
         "columns": 3,
         "showMoreLink": "/blog/",
         "showMoreText": "View all articles"
@@ -187,12 +190,16 @@
         "source": {
           "type": "section",
           "path": "publications",
-          "select": "query",
-          "sort": "date",
-          "limit": 3
+          "select": "explicit",
+          "identifiers": [
+            "totalberedskapsmeldingen-2025",
+            "ffi-frivillige-beredskapsorganisasjoner-totalforsvar",
+            "safeguarding-humanitarian-digital-threats",
+            "eu-cloud-sovereignty-framework"
+          ]
         },
         "cardStyle": "compact",
-        "columns": 3,
+        "columns": 2,
         "showMoreLink": "/publications/",
         "showMoreText": "View all publications"
       }
@@ -230,10 +237,22 @@
         "title": "Help make Norway digitally sovereign",
         "description": "SovereignSky is an open initiative by helpers.no. We believe digital sovereignty is a shared responsibility. Join us in mapping, documenting, and building alternatives.",
         "features": [
-          { "icon": "chart", "text": "Contribute research" },
-          { "icon": "lightbulb", "text": "Suggest improvements" },
-          { "icon": "megaphone", "text": "Share with your network" },
-          { "icon": "chat", "text": "Join the conversation" }
+          {
+            "icon": "chart",
+            "text": "Contribute research"
+          },
+          {
+            "icon": "lightbulb",
+            "text": "Suggest improvements"
+          },
+          {
+            "icon": "megaphone",
+            "text": "Share with your network"
+          },
+          {
+            "icon": "chat",
+            "text": "Join the conversation"
+          }
         ],
         "buttons": [
           {

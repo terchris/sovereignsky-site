@@ -292,8 +292,9 @@
         },
         "cardStyle": {
           "type": "string",
-          "enum": ["compact", "featured", "minimal", "detailed"],
-          "description": "Card display style"
+          "enum": ["vertical", "compact"],
+          "default": "compact",
+          "description": "Card layout style: 'vertical' = image on top with text below (best for blog posts, featured content), 'compact' = horizontal layout with small thumbnail left and text right (best for publications, lists)"
         },
         "columns": {
           "type": "integer",
