@@ -1,0 +1,41 @@
+{{/* Project Details Card - displays status, maturity, start date */}}
+
+{{/* Status label mapping */}}
+{{ $statusLabel := .Params.status | default "Unknown" | title }}
+
+{{/* Maturity label mapping */}}
+{{ $maturityLabel := .Params.maturity | default "" | title }}
+
+<div class="card bg-base-100 shadow-sm border border-base-300">
+  <div class="card-body p-4">
+    <h3 class="card-title text-sm font-semibold flex items-center gap-2">
+      {{ partial "content-icon.html" (dict "name" "info" "color" "primary" "size" "4") }}
+      Details
+    </h3>
+    <dl class="mt-2 text-sm space-y-2">
+      {{/* Status */}}
+      {{ with .Params.status }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Status</dt>
+        <dd class="font-medium">{{ $statusLabel }}</dd>
+      </div>
+      {{ end }}
+
+      {{/* Maturity */}}
+      {{ with .Params.maturity }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Maturity</dt>
+        <dd class="font-medium">{{ $maturityLabel }}</dd>
+      </div>
+      {{ end }}
+
+      {{/* Started Date */}}
+      {{ with .Date }}
+      <div class="flex justify-between">
+        <dt class="text-neutral-500 dark:text-neutral-400">Started</dt>
+        <dd class="font-medium">{{ .Format "Jan 2006" }}</dd>
+      </div>
+      {{ end }}
+    </dl>
+  </div>
+</div>

@@ -22,7 +22,7 @@
  * Image handling:
  * - If image starts with http, downloads from URL
  * - Otherwise, copies from images/publications/{filename}
- * - Saves as featured.png in content folder
+ * - Saves as featured.{ext} in content folder (preserves original extension)
  *
  * Usage: node scripts/generate-publications-pages.js
  */
@@ -97,12 +97,23 @@ function downloadImage(url, dest) {
 /**
  * Handle image for a publication
  * - Downloads from URL or copies from images folder
- * - Saves as featured.png in content folder
+ * - Saves as featured.{ext} in content folder (preserves original extension)
  */
 async function handleImage(pub, pubDir) {
   if (!pub.image) return false;
 
-  const destPath = path.join(pubDir, 'featured.png');
+  // Determine extension from source
+  const ext = path.extname(pub.image) || '.png';
+  const destPath = path.join(pubDir, `featured${ext}`);
+
+  // Remove any existing featured.* files with different extensions
+  const existingFiles = fs.readdirSync(pubDir).filter(f => f.startsWith('featured.'));
+  existingFiles.forEach(f => {
+    const existingPath = path.join(pubDir, f);
+    if (existingPath !== destPath) {
+      fs.unlinkSync(existingPath);
+    }
+  });
 
   // Check if it's a URL
   if (pub.image.startsWith('http://') || pub.image.startsWith('https://')) {
@@ -232,6 +243,10 @@ function buildFrontmatter(pub) {
 
   // Hugo type
   lines.push(`type: publications`);
+
+  // Hero settings (big banner image like sovereignsky pages)
+  lines.push(`showHero: true`);
+  lines.push(`heroStyle: "big"`);
 
   return lines.join('\n');
 }

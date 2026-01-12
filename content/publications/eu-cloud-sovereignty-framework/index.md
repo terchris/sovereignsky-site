@@ -21,6 +21,8 @@ tags:
   - "cloud"
   - "assessment"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

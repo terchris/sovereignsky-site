@@ -17,6 +17,8 @@ tags:
   - "legal-frameworks"
   - "norway"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

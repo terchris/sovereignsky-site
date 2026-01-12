@@ -1,0 +1,299 @@
+{{ define "main" }}
+{{/* Get display config from frontmatter */}}
+{{ $sorting := .Params.sorting | default (dict "field" "date" "direction" "desc" "fallback" "title") }}
+{{ $display := .Params.display | default (dict "cardStyle" "default" "gridColumns" 2 "showAudienceFilter" true "showTopicFilter" true "showStats" true) }}
+
+{{/* Build lookup maps */}}
+{{ $topicsLookup := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicsLookup = merge $topicsLookup (dict .identifier .) }}
+{{ end }}
+
+{{ $topicLabels := dict }}
+{{ range site.Data.topics.topics.itemListElement }}
+  {{ $topicLabels = merge $topicLabels (dict .identifier .name) }}
+{{ end }}
+
+<article class="max-w-full">
+  {{/* Section Header */}}
+  {{ partial "section-header.html" (dict
+      "title" .Title
+      "description" .Description
+      "icon" "code"
+  ) }}
+
+  {{/* Stats cards */}}
+  {{ $total := len .Pages }}
+  {{ $activeCount := 0 }}
+  {{ $uniqueTopics := slice }}
+  {{ range .Pages }}
+    {{ if eq .Params.status "active" }}
+      {{ $activeCount = add $activeCount 1 }}
+    {{ end }}
+    {{ range .Params.topics }}
+      {{ if not (in $uniqueTopics .) }}
+        {{ $uniqueTopics = $uniqueTopics | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{/* Build topic items for filter-pills partial */}}
+  {{ $topicItems := slice }}
+  {{ range $uniqueTopics }}
+    {{ $label := index $topicLabels . | default (. | humanize | title) }}
+    {{ $topicItems = $topicItems | append (dict "id" . "name" $label) }}
+  {{ end }}
+
+  {{/* Stats cards - conditional */}}
+  {{ if $display.showStats }}
+  <div class="stats stats-vertical sm:stats-horizontal shadow-lg w-full mb-8 bg-base-100">
+    <div class="stat">
+      <div class="stat-figure text-primary">
+        {{ partial "content-icon.html" (dict "name" "code" "color" "primary" "size" "8") }}
+      </div>
+      <div class="stat-title">Projects</div>
+      <div class="stat-value text-primary">{{ $total }}</div>
+      <div class="stat-desc">Open source tools</div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-success">
+        {{ partial "content-icon.html" (dict "name" "check-circle" "color" "success" "size" "8") }}
+      </div>
+      <div class="stat-title">Active</div>
+      <div class="stat-value text-success">{{ $activeCount }}</div>
+      <div class="stat-desc">In development</div>
+    </div>
+    <div class="stat">
+      <div class="stat-figure text-accent">
+        {{ partial "content-icon.html" (dict "name" "tag" "color" "accent" "size" "8") }}
+      </div>
+      <div class="stat-title">Topics Covered</div>
+      <div class="stat-value text-accent">{{ len $uniqueTopics }}</div>
+      <div class="stat-desc">Subject areas</div>
+    </div>
+  </div>
+  {{ end }}
+
+  {{/* Audience filter - conditional */}}
+  {{ if $display.showAudienceFilter }}
+  {{ partial "audience-filter.html" . }}
+  {{ end }}
+
+  {{/* Topic filter - conditional */}}
+  {{ if $display.showTopicFilter }}
+  {{ partial "filter-pills.html" (dict
+      "label" "Topic"
+      "filterGroup" "topics"
+      "items" $topicItems
+      "allLabel" "All"
+  ) }}
+  {{ end }}
+
+  {{/* Project Grid - dynamic sorting based on config */}}
+  {{ $sortField := $sorting.field | default "date" }}
+  {{ $sortDir := $sorting.direction | default "desc" }}
+  {{ $pages := .Pages }}
+
+  {{/* Apply sorting based on field */}}
+  {{ if eq $sortField "weight" }}
+    {{ $pages = .Pages.ByWeight }}
+  {{ else if eq $sortField "title" }}
+    {{ $pages = .Pages.ByTitle }}
+  {{ else if eq $sortField "publishDate" }}
+    {{ $pages = .Pages.ByPublishDate }}
+  {{ else }}
+    {{ $pages = .Pages.ByDate }}
+  {{ end }}
+
+  {{/* Reverse if descending (except weight which is naturally ascending) */}}
+  {{ if and (eq $sortDir "desc") (ne $sortField "weight") }}
+    {{ $pages = $pages.Reverse }}
+  {{ else if and (eq $sortDir "asc") (eq $sortField "weight") }}
+    {{/* weight is already ascending by default */}}
+  {{ else if and (eq $sortDir "desc") (eq $sortField "weight") }}
+    {{ $pages = $pages.Reverse }}
+  {{ end }}
+
+  <div id="projects-grid" class="grid sm:grid-cols-{{ $display.gridColumns | default 2 }}" style="gap: 2.5rem;">
+    {{ range $pages }}
+    {{ $featured := .Resources.GetMatch "featured*" }}
+    {{ $topics := .Params.topics | default (slice) }}
+    {{ $audiences := .Params.audience | default (slice) }}
+    {{ $status := .Params.status | default "active" }}
+
+    <article
+      class="project-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200 h-full flex flex-col"
+      data-topics="{{ delimit $topics "," }}"
+      data-audience="{{ delimit $audiences "," }}"
+    >
+      <a href="{{ .RelPermalink }}" class="flex flex-col h-full no-underline">
+        {{/* Cover image */}}
+        {{ if $featured }}
+        {{ $img := $featured.Fill "600x280 webp" }}
+        <figure class="h-40 overflow-hidden bg-base-200">
+          <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+        </figure>
+        {{ else }}
+        {{/* Placeholder if no image */}}
+        <figure class="h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+          <div class="text-primary/30">
+            {{ partial "content-icon.html" (dict "name" "code" "size" "16" "class" "w-16 h-16") }}
+          </div>
+        </figure>
+        {{ end }}
+
+        <div class="card-body p-4 flex-grow flex flex-col">
+          {{/* Status badge and date row */}}
+          <div class="flex items-center justify-between gap-2 mb-2">
+            {{/* Status badge */}}
+            {{ if eq $status "active" }}
+            <span class="badge badge-success badge-sm">Active</span>
+            {{ else if eq $status "planned" }}
+            <span class="badge badge-warning badge-sm">Planned</span>
+            {{ else if eq $status "completed" }}
+            <span class="badge badge-info badge-sm">Completed</span>
+            {{ else if eq $status "archived" }}
+            <span class="badge badge-ghost badge-sm">Archived</span>
+            {{ end }}
+
+            {{/* Date */}}
+            {{ with .Date }}
+            <time datetime="{{ .Format "2006-01-02" }}" class="text-xs text-neutral-500 dark:text-neutral-400">
+              {{ .Format "Jan 2006" }}
+            </time>
+            {{ end }}
+          </div>
+
+          {{/* Title */}}
+          <h2 class="card-title text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">{{ .Title }}</h2>
+
+          {{/* Description */}}
+          {{ with .Description }}
+          <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
+          {{ end }}
+
+          {{/* Topics */}}
+          <div class="mt-auto pt-2">
+            <div class="flex flex-wrap gap-1.5">
+              {{ range first 2 $topics }}
+                {{ $topicInfo := index $topicsLookup . }}
+                {{ if $topicInfo }}
+                <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary-700 dark:text-primary-300">{{ $topicInfo.name }}</span>
+                {{ end }}
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </article>
+    {{ end }}
+  </div>
+
+  {{/* No results message */}}
+  <div id="no-results" class="hidden alert alert-warning my-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+    <span>No projects match the selected filters.</span>
+  </div>
+
+</article>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterButtons = document.querySelectorAll('[data-filter-group] button[data-filter]');
+  const projectCards = document.querySelectorAll('.project-card');
+  const noResults = document.getElementById('no-results');
+
+  let activeFilters = {
+    topics: 'all',
+    audience: 'all'
+  };
+
+  function setActiveButton(filterGroup, filterValue) {
+    const groupEl = document.querySelector(`[data-filter-group="${filterGroup}"]`);
+    if (!groupEl) return;
+    const btn = groupEl.querySelector(`button[data-filter="${filterValue}"]`);
+    const fallback = groupEl.querySelector(`button[data-filter="all"]`);
+    const target = btn || fallback;
+    if (!target) return;
+
+    // Update active state
+    groupEl.querySelectorAll('button').forEach(b => {
+      b.classList.remove('btn-active', 'btn-primary');
+      b.classList.add('btn-ghost');
+      if (!b.classList.contains('border')) {
+        b.classList.add('border', 'border-base-300');
+      }
+    });
+    target.classList.add('btn-primary');
+    target.classList.remove('btn-ghost', 'border', 'border-base-300');
+
+    activeFilters[filterGroup] = target.dataset.filter;
+  }
+
+  function updateURL() {
+    const params = new URLSearchParams();
+    if (activeFilters.topics && activeFilters.topics !== 'all') params.set('topic', activeFilters.topics);
+    if (activeFilters.audience && activeFilters.audience !== 'all') params.set('audience', activeFilters.audience);
+    const qs = params.toString();
+    const newURL = qs ? `?${qs}` : window.location.pathname;
+    history.replaceState(null, '', newURL);
+  }
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    projectCards.forEach(card => {
+      const cardTopics = card.dataset.topics || '';
+      const cardAudience = card.dataset.audience || '';
+
+      const matchesTopics = activeFilters.topics === 'all' || cardTopics.includes(activeFilters.topics);
+      const matchesAudience = activeFilters.audience === 'all' || cardAudience.includes(activeFilters.audience);
+
+      if (matchesTopics && matchesAudience) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (visibleCount === 0) {
+      noResults.classList.remove('hidden');
+    } else {
+      noResults.classList.add('hidden');
+    }
+  }
+
+  // Initialize from URL
+  const params = new URLSearchParams(window.location.search);
+  const urlAudience = params.get('audience') || 'all';
+  const urlTopic = params.get('topic') || params.get('topics') || 'all';
+  setActiveButton('audience', urlAudience);
+  setActiveButton('topics', urlTopic);
+  applyFilters();
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const groupEl = this.closest('[data-filter-group]');
+      const filterGroup = groupEl.dataset.filterGroup;
+      const filterValue = this.dataset.filter;
+
+      // Update active state
+      groupEl.querySelectorAll('button').forEach(b => {
+        b.classList.remove('btn-active', 'btn-primary');
+        b.classList.add('btn-ghost');
+        if (!b.classList.contains('border')) {
+          b.classList.add('border', 'border-base-300');
+        }
+      });
+      this.classList.add('btn-primary');
+      this.classList.remove('btn-ghost', 'border', 'border-base-300');
+
+      activeFilters[filterGroup] = filterValue;
+      applyFilters();
+      updateURL();
+    });
+  });
+});
+</script>
+{{ end }}

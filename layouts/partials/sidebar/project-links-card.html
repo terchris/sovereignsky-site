@@ -1,0 +1,40 @@
+{{/* Project Links Card - displays repository, documentation, and website buttons */}}
+
+{{ $hasLinks := or .Params.repository .Params.documentation .Params.externalUrl }}
+
+{{ if $hasLinks }}
+<div class="flex flex-col gap-2 mb-4">
+  {{/* Repository Button */}}
+  {{ with .Params.repository }}
+  <a class="btn btn-primary w-full gap-2"
+     href="{{ . }}"
+     target="_blank"
+     rel="noopener noreferrer">
+    {{ partial "content-icon.html" (dict "name" "github" "size" "4") }}
+    View Repository
+  </a>
+  {{ end }}
+
+  {{/* Documentation Button */}}
+  {{ with .Params.documentation }}
+  <a class="btn btn-secondary btn-outline w-full gap-2"
+     href="{{ . }}"
+     target="_blank"
+     rel="noopener noreferrer">
+    {{ partial "content-icon.html" (dict "name" "book" "size" "4") }}
+    Documentation
+  </a>
+  {{ end }}
+
+  {{/* External URL Button */}}
+  {{ with .Params.externalUrl }}
+  <a class="btn btn-outline w-full gap-2"
+     href="{{ . }}"
+     target="_blank"
+     rel="noopener noreferrer">
+    {{ partial "content-icon.html" (dict "name" "external" "size" "4") }}
+    Project Website
+  </a>
+  {{ end }}
+</div>
+{{ end }}

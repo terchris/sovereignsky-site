@@ -19,6 +19,8 @@ tags:
   - "mobile-money"
   - "encryption"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

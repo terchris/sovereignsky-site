@@ -11,6 +11,7 @@ enableSearch = true
 enableCodeCopy = true
 
 disableImageOptimization = false
+backgroundImageWidth = 1200
 
 [header]
   layout = "basic"
