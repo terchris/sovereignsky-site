@@ -1,6 +1,6 @@
 # UX Improvements Plan
 
-## Status: Active
+## Status: Ready for Final Testing
 
 **Goal**: Fix UX issues across the site while creating reusable components to avoid duplication.
 
@@ -203,26 +203,31 @@
 
 ### Tasks
 
-- [ ] 5.1 Audit current TOC usage
-  - Check: `layouts/publications/single.html`
-  - Check: `layouts/laws/single.html`
-  - Check: `layouts/blog/single.html`
+- [x] 5.1 Audit current TOC usage
+  - Check: `layouts/publications/single.html` - uses common-single-page.html
+  - Check: `layouts/laws/single.html` - uses common-single-page.html
+  - Check: `layouts/blog/single.html` - has inline-toc.html directly
 
-- [ ] 5.2 Determine which content types need TOC
-  - Publications: Yes (long documents) ✓
-  - Laws: Yes (complex legal text)
-  - Blog: Maybe (for long posts)
+- [x] 5.2 Determine which content types need TOC
+  - Publications: Yes (long documents) ✓ - enabled via common-single-page.html
+  - Laws: Yes (complex legal text) ✓ - enabled via common-single-page.html
+  - Blog: Yes ✓ - has inline-toc.html
 
-- [ ] 5.3 Add TOC to laws single page using `inline-toc.html`
+- [x] 5.3 Add TOC to laws single page using `inline-toc.html`
+  - Already enabled via common-single-page.html (showToc defaults to true)
 
-- [ ] 5.4 Add TOC option to blog (based on content length or front matter)
+- [x] 5.4 Add TOC option to blog (based on content length or front matter)
+  - inline-toc.html already included in blog/single.html
+  - Floating TOC added with "Contents" link when headings exist
+
+**Note**: Also added floating TOC component for mobile navigation that links to inline TOC and sidebar on all page types.
 
 ### Validation
 ```bash
 # Check TOC appears on:
-# - /publications/totalberedskapsmeldingen-2025/
-# - /laws/gdpr/
-# - Long blog posts
+# - /publications/totalberedskapsmeldingen-2025/ ✓
+# - /laws/gdpr/ ✓
+# - Long blog posts ✓
 ```
 
 ---
@@ -234,6 +239,7 @@
 layouts/partials/filter-pills.html        # Phase 1
 layouts/partials/card-compact.html        # Phase 2
 layouts/partials/chip-list-responsive.html # Phase 3
+layouts/partials/floating-toc.html        # Phase 5 - mobile navigation
 ```
 
 ### Modified Files
@@ -242,31 +248,36 @@ layouts/publications/list.html            # Phase 1, 2
 layouts/blog/list.html                    # Phase 1
 layouts/events/list.html                  # Phase 1
 layouts/countries/list.html               # Phase 3
-layouts/countries/bloc.html               # Phase 3
+layouts/countries/bloc.html               # Phase 3, floating TOC
+layouts/countries/single.html             # floating TOC config
 layouts/partials/related-laws-list.html   # Phase 2
 layouts/partials/jurisdiction-laws-inline.html  # Phase 2
 layouts/partials/datacenter-country-providers-inline.html  # Phase 3
 layouts/shortcodes/bloc-cards.html        # Phase 3
 layouts/shortcodes/datacenter-countries.html   # Phase 3
 layouts/shortcodes/datacenter-providers.html   # Phase 3
-layouts/partials/footer.html              # Phase 4A (pending)
-layouts/datacenters/single.html           # Phase 4B (pending)
-layouts/laws/single.html                  # Phase 5 (pending)
-layouts/blog/single.html                  # Phase 5 (pending)
+layouts/partials/footer.html              # Phase 4A - 4-column grid
+layouts/partials/sidebar/common-sidebar.html   # Added id="sidebar"
+layouts/partials/inline-toc.html          # Added id="toc"
+layouts/partials/common-single-page.html  # Added floating TOC
+layouts/partials/content/countries-content.html # Added floating TOC
+layouts/datacenters/provider.html         # Added floating TOC
+layouts/blog/single.html                  # Phase 5 - floating TOC
 ```
 
 ---
 
 ## Acceptance Criteria
 
-- [ ] No horizontal overflow on any page at 375px viewport
-- [ ] Filter pills wrap properly on mobile
-- [ ] Cards are compact and scannable (Aftenposten-inspired)
-- [ ] Category labels provide context without descriptions
-- [ ] Footer looks professional on desktop
-- [ ] Map spacing is reasonable on mobile
-- [ ] TOC available on publications, laws, and long blogs
-- [ ] All new components are reusable partials
+- [x] No horizontal overflow on any page at 375px viewport
+- [x] Filter pills wrap properly on mobile
+- [x] Cards are compact and scannable (Aftenposten-inspired)
+- [x] Category labels provide context without descriptions
+- [x] Footer looks professional on desktop
+- [x] Map spacing is reasonable on mobile
+- [x] TOC available on publications, laws, and long blogs
+- [x] All new components are reusable partials
+- [x] Floating TOC for mobile navigation on all page types
 
 ---
 

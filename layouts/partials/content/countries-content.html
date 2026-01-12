@@ -24,8 +24,8 @@
 
 {{/* Always auto-generate the standard sections */}}
 {{ if $countryId }}
-  {{/* Map */}}
-  <div id="map">
+  {{/* Map - use not-prose to reset spacing */}}
+  <div id="map" class="not-prose mt-4">
   {{ $mapShortcode := printf "{{< datacenter-map countries=\"%s\" showFilters=\"false\" >}}" $countryId }}
   {{ $mapShortcode | $page.RenderString }}
   </div>

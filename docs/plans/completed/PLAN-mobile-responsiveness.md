@@ -14,6 +14,16 @@
 - Footer uses `footer-center md:footer-horizontal` for proper stacking
 - Touch targets are adequate (88px min height on action items)
 
+**Session 2 (2026-01-12) - Additional UX fixes**:
+- Fixed footer gap by combining two `<footer>` elements into one with nested divs
+- Added floating TOC for mobile navigation to list pages (datacenters, countries, laws)
+- Fixed datacenter filter quick-select buttons overflow with `flex flex-wrap`
+- Fixed map whitespace on `/datacenters/` by making height responsive and using ECharts layoutCenter/layoutSize
+- Improved datacenter country page layout to group locations by city instead of provider
+- Added floating TOC to datacenter country pages
+
+**UNRESOLVED**: Map whitespace on `/countries/` page - the jurisdiction-map shortcode still has whitespace above the map on mobile. Attempted fixes with layoutCenter/layoutSize did not fully resolve the issue.
+
 ---
 
 ## Problem Summary
