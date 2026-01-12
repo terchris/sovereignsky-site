@@ -21,6 +21,8 @@ tags:
   - "swiss-jurisdiction"
   - "vendor-jurisdiction"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

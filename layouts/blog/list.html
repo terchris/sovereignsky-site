@@ -77,7 +77,7 @@
   ) }}
 
   {{/* Blog Grid */}}
-  <div id="blog-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <div id="blog-grid" class="grid sm:grid-cols-2" style="gap: 2.5rem;">
     {{ range .Pages.ByDate.Reverse }}
     {{ $featured := .Resources.GetMatch "featured*" }}
     {{ $topics := .Params.topics | default (slice) }}
@@ -85,27 +85,27 @@
     {{ $tags := .Params.tags | default (slice) }}
 
     <article
-      class="blog-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200"
+      class="blog-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200 h-full flex flex-col"
       data-topics="{{ delimit $topics "," }}"
       data-audience="{{ delimit $audiences "," }}"
     >
-      <a href="{{ .RelPermalink }}" class="block no-underline">
+      <a href="{{ .RelPermalink }}" class="flex flex-col h-full no-underline">
         {{/* Cover image */}}
         {{ if $featured }}
-        {{ $img := $featured.Fill "600x300 webp" }}
-        <figure class="h-48 overflow-hidden bg-base-200">
+        {{ $img := $featured.Fill "600x280 webp" }}
+        <figure class="h-40 overflow-hidden bg-base-200">
           <img src="{{ $img.RelPermalink }}" alt="{{ .Title }}" width="{{ $img.Width }}" height="{{ $img.Height }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
         </figure>
         {{ else }}
         {{/* Placeholder if no image */}}
-        <figure class="h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+        <figure class="h-40 overflow-hidden bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
           <div class="text-primary/30">
             {{ partial "content-icon.html" (dict "name" "pencil" "size" "16" "class" "w-16 h-16") }}
           </div>
         </figure>
         {{ end }}
 
-        <div class="card-body p-4">
+        <div class="card-body p-4 flex-grow flex flex-col">
           {{/* Date and reading time row */}}
           <div class="flex items-center justify-between gap-2 mb-2">
             {{/* Date */}}
@@ -129,17 +129,14 @@
           <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 mt-1">{{ . }}</p>
           {{ end }}
 
-          {{/* Topics and tags */}}
-          <div class="mt-auto pt-3 border-t border-base-200">
-            <div class="flex flex-wrap gap-1">
+          {{/* Topics only - cleaner look */}}
+          <div class="mt-auto pt-2">
+            <div class="flex flex-wrap gap-1.5">
               {{ range first 2 $topics }}
                 {{ $topicInfo := index $topicsLookup . }}
                 {{ if $topicInfo }}
-                <span class="text-xs px-1.5 py-0.5 rounded bg-primary/10 text-primary-700 dark:text-primary-300">{{ $topicInfo.name }}</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary-700 dark:text-primary-300">{{ $topicInfo.name }}</span>
                 {{ end }}
-              {{ end }}
-              {{ range first 2 $tags }}
-              <span class="text-xs px-1.5 py-0.5 rounded bg-base-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400">{{ . }}</span>
               {{ end }}
             </div>
           </div>

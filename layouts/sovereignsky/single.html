@@ -1,0 +1,118 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "single" }}
+  <article>
+    {{/* Hero */}}
+    {{ if .Params.showHero | default (site.Params.article.showHero | default false) }}
+      {{ $heroStyle := .Params.heroStyle }}
+      {{ if not $heroStyle }}{{ $heroStyle = site.Params.article.heroStyle }}{{ end }}
+      {{ $heroStyle := print "hero/" $heroStyle ".html" }}
+      {{ if templates.Exists ( printf "partials/%s" $heroStyle ) }}
+        {{ partial $heroStyle . }}
+      {{ else }}
+        {{ partial "hero/basic.html" . }}
+      {{ end }}
+    {{ end }}
+
+    {{/* Header */}}
+    <header id="single_header" class="mt-5 max-w-prose">
+      {{ if .Params.showBreadcrumbs | default (site.Params.article.showBreadcrumbs | default false) }}
+        {{ partial "breadcrumbs.html" . }}
+      {{ end }}
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        {{ .Title | emojify }}
+      </h1>
+      {{/* Status badge */}}
+      <div class="mt-2 mb-4 flex items-center gap-3">
+        {{ with .Params.status }}
+          {{ if eq . "active" }}
+          <span class="badge badge-success">Active</span>
+          {{ else if eq . "planned" }}
+          <span class="badge badge-warning">Planned</span>
+          {{ else if eq . "completed" }}
+          <span class="badge badge-info">Completed</span>
+          {{ else if eq . "archived" }}
+          <span class="badge badge-ghost">Archived</span>
+          {{ end }}
+        {{ end }}
+        {{ with .Params.maturity }}
+          <span class="badge badge-outline">{{ . | title }}</span>
+        {{ end }}
+        {{ with .Date }}
+        <span class="text-sm text-neutral-500 dark:text-neutral-400">Started {{ .Format "January 2006" }}</span>
+        {{ end }}
+      </div>
+    </header>
+
+    {{/* Body with sidebar */}}
+    <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+
+      {{/* Right Sidebar */}}
+      {{ partial "sidebar/common-sidebar.html" . }}
+
+          {{/* Project Links */}}
+          {{ partial "sidebar/project-links-card.html" . }}
+
+          {{/* Project Details Card */}}
+          {{ partial "sidebar/project-details-card.html" . }}
+
+          {{/* Relevant For (Audiences) */}}
+          {{ partial "sidebar/common-audience-card.html" . }}
+
+          {{/* Topics */}}
+          {{ partial "sidebar/common-topics-card.html" . }}
+
+          {{/* Tags */}}
+          {{ partial "sidebar/common-tags-card.html" . }}
+
+          {{/* Related content */}}
+          {{ partial "related-content-sidebar.html" . }}
+
+      {{ partial "sidebar/common-sidebar-end.html" . }}
+
+      {{/* Main Content */}}
+      <div class="min-w-0 min-h-0 max-w-fit">
+        <div class="article-content max-w-prose mb-20">
+          {{/* Inline Table of Contents (collapsed by default) */}}
+          {{ partial "inline-toc.html" . }}
+
+          {{ .Content }}
+
+          {{/* Subpages (if any) */}}
+          {{ partial "subpages-cards.html" . }}
+        </div>
+        {{ partial "sharing-links.html" . }}
+        {{ partial "related.html" . }}
+      </div>
+
+      {{ $translations := .AllTranslations }}
+      {{ with .File }}
+        {{ $path := .Path }}
+        {{ range $translations }}
+          {{ $lang := print "."  .Lang  ".md" }}
+          {{ $path = replace $path $lang ".md" }}
+        {{ end }}
+        {{ $jsPage := resources.Get "js/page.js" }}
+        {{ $jsPage = $jsPage | resources.Minify | resources.Fingerprint (site.Params.fingerprintAlgorithm | default "sha512") }}
+        <script
+          type="text/javascript"
+          src="{{ $jsPage.RelPermalink }}"
+          integrity="{{ $jsPage.Data.Integrity }}"
+          data-oid="views_{{ $path }}"
+          data-oid-likes="likes_{{ $path }}"></script>
+      {{ end }}
+    </section>
+
+  {{/* Floating TOC for mobile */}}
+  {{ $tocSections := slice }}
+  {{ if in .TableOfContents "<ul" }}
+    {{ $tocSections = $tocSections | append (dict "id" "toc" "title" "Contents" "icon" "📑") }}
+  {{ end }}
+  {{ $tocSections = $tocSections | append (dict "id" "sidebar" "title" "Details" "icon" "📋") }}
+  {{ partial "floating-toc.html" (dict "sections" $tocSections) }}
+
+    {{/* Footer */}}
+    <footer class="pt-8 max-w-prose print:hidden">
+      {{ partial "article-pagination.html" . }}
+    </footer>
+  </article>
+{{ end }}

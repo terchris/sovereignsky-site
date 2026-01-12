@@ -211,5 +211,37 @@
       "legal-frameworks",
       "norway"
     ]
+  },
+  {
+    "identifier": "eu-cloud-sovereignty-framework",
+    "name": "EU Cloud Sovereignty Framework",
+    "description": "Understanding the European Commission's framework for measuring and achieving cloud sovereignty",
+    "abstract": "The EU Cloud Sovereignty Framework provides a structured approach to assess and improve digital sovereignty when using cloud services.",
+    "summary": "A comprehensive methodology developed by the European Commission to help organizations assess their digital sovereignty posture across eight dimensions: Strategic, Legal, Data, Operational, Supply Chain, Technology, Security, and Environmental sovereignty. This framework forms the foundation for the Norwegian Digital Sovereignty Index (NDSI).",
+    "body": "## Why Cloud Sovereignty Matters\n\nEuropean organizations face increasing pressure to maintain control over their digital infrastructure and data. Key drivers include:\n\n- **Regulatory compliance** - GDPR, NIS2, and sector-specific regulations\n- **Geopolitical risks** - Dependency on non-EU technology providers\n- **Data protection** - Ensuring data remains under European jurisdiction\n- **Operational resilience** - Reducing single points of failure\n\n## The Eight Dimensions\n\nThe EU framework evaluates cloud sovereignty across eight dimensions:\n\n### SOV-1: Strategic Sovereignty\n\nAssesses the strategic alignment and control over cloud services, including vendor independence and long-term viability.\n\n**Key questions:**\n- Where is the vendor headquartered?\n- What is the ownership structure?\n- How dependent is your organization on this single vendor?\n\n### SOV-2: Legal Sovereignty\n\nEvaluates the legal framework governing data access and protection, particularly regarding foreign jurisdiction claims.\n\n**Key questions:**\n- Is the vendor subject to the US CLOUD Act?\n- Does the vendor comply with GDPR?\n- Can foreign authorities compel data disclosure?\n\n### SOV-3: Data Sovereignty\n\nMeasures control over data location, processing, and access.\n\n**Key questions:**\n- Where is data stored and processed?\n- Can you choose data residency?\n- Who has access to your data?\n\n### SOV-4: Operational Sovereignty\n\nAssesses operational control and the ability to manage and migrate services.\n\n**Key questions:**\n- Can you self-host the solution?\n- What export options exist?\n- How complex is migration to alternatives?\n\n### SOV-5: Supply Chain Sovereignty\n\nEvaluates dependencies on third-party components and infrastructure.\n\n**Key questions:**\n- What are the key infrastructure dependencies?\n- Are there European alternatives for critical components?\n- How transparent is the supply chain?\n\n### SOV-6: Technology Sovereignty\n\nMeasures control over underlying technology, including open source availability and interoperability.\n\n**Key questions:**\n- Is the source code available?\n- Does it use open standards?\n- Can you modify or extend the solution?\n\n### SOV-7: Security Sovereignty\n\nAssesses security controls and the ability to implement organization-specific security measures.\n\n**Key questions:**\n- What certifications does the vendor hold?\n- Can you use your own encryption keys?\n- What security controls can you configure?\n\n### SOV-8: Environmental Sovereignty\n\nEvaluates environmental sustainability and alignment with European climate goals.\n\n**Key questions:**\n- What is the carbon footprint?\n- Does the vendor use renewable energy?\n- Is there transparency in environmental reporting?\n\n## Scoring Methodology\n\nEach dimension is scored on a scale of 1-5:\n\n| Score | Risk Level | Description |\n|-------|------------|-------------|\n| 1.0-1.5 | Low | Full sovereignty control |\n| 1.5-2.5 | Moderate | Acceptable with mitigations |\n| 2.5-3.5 | Elevated | Significant concerns |\n| 3.5-4.5 | High | Major sovereignty gaps |\n| 4.5-5.0 | Critical | Unacceptable for sensitive use |\n\nThe overall score is a weighted average, with SOV-2 (Legal) often serving as a \"gate\" - if legal sovereignty fails, the overall assessment is flagged regardless of other scores.\n\n## Applying the Framework\n\n### For Organizations\n\n1. **Inventory your software** - List all cloud services in use\n2. **Assess each service** - Use the eight dimensions\n3. **Identify risks** - Focus on high-scoring (risky) areas\n4. **Plan mitigations** - Implement controls where possible\n5. **Consider alternatives** - Evaluate European alternatives for high-risk services\n\n### For Procurement\n\nWhen evaluating new software:\n\n- Include sovereignty requirements in RFPs\n- Weight sovereignty alongside price and features\n- Consider total cost including migration risk\n- Prefer vendors with clear European commitment\n\n## Norwegian Context\n\nFor Norwegian organizations, additional considerations apply:\n\n- **Schrems II implications** - US-EU data transfers remain problematic\n- **National security** - Critical infrastructure has stricter requirements\n- **Sector regulations** - Finance, health, and government have specific rules\n- **Nordic alternatives** - Consider Norwegian and Nordic vendors first",
+    "image": "eu-cloud-sovereignty-framework.jpg",
+    "datePublished": "2025-01-15",
+    "url": "https://commission.europa.eu/document/download/09579818-64a6-4dd5-9577-446ab6219113_en",
+    "author": [
+      "European Commission",
+      "Directorate-General for Digital Services"
+    ],
+    "publisher": "European Commission",
+    "topics": [
+      "digital-sovereignty",
+      "compliance"
+    ],
+    "audience": [
+      "public-sector",
+      "enterprise",
+      "it-ops"
+    ],
+    "tags": [
+      "eu",
+      "framework",
+      "sovereignty",
+      "cloud",
+      "assessment"
+    ]
   }
 ]

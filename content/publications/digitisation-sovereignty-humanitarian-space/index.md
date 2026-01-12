@@ -30,6 +30,8 @@ tags:
   - "biometric-data"
   - "blockchain-payments"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

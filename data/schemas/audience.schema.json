@@ -68,14 +68,16 @@
             "description": "Topic identifiers relevant to this audience",
             "items": {
               "type": "string"
-            }
+            },
+            "x-validates-against": "data/topics/topics.json"
           },
           "lawTypes": {
             "type": "array",
             "description": "Law type identifiers relevant to this audience",
             "items": {
               "type": "string"
-            }
+            },
+            "x-validates-against": "data/laws/law_types.json"
           }
         },
         "additionalProperties": false

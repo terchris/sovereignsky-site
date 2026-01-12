@@ -70,7 +70,16 @@
 {{/* Build context for content partials */}}
 {{ $contentContext := dict "page" $page "data" $pageData }}
 
+{{/* Hero settings from frontmatter */}}
+{{ $showHero := $page.Params.showHero | default false }}
+{{ $heroStyle := $page.Params.heroStyle | default "basic" }}
+
 <article class="max-w-full">
+  {{/* Big Hero Image (Blowfish-style, full width above header) */}}
+  {{ if and $showHero (eq $heroStyle "big") }}
+    {{ partial "hero/big.html" $page }}
+  {{ end }}
+
   {{/* Detail Header with breadcrumbs */}}
   {{ partial "common-detail-header.html" (dict
       "title" $page.Title
@@ -82,8 +91,8 @@
       )
   ) }}
 
-  {{/* Featured Image (if exists and enabled) */}}
-  {{ if $showFeaturedImage }}
+  {{/* Featured Image - only show if NOT using big hero */}}
+  {{ if and $showFeaturedImage (not (and $showHero (eq $heroStyle "big"))) }}
   {{ $featured := $page.Resources.GetMatch "featured*" }}
   {{ with $featured }}
   {{ $img := .Fit "800x400 webp" }}

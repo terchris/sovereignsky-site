@@ -1,0 +1,271 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sovereignsky-projects.schema.json",
+  "title": "SovereignSky Projects",
+  "description": "SovereignSky project definitions with schema.org ItemList wrapper and separated common/project-specific fields",
+  "type": "object",
+  "required": ["@context", "@type", "name", "itemListElement"],
+  "properties": {
+    "@context": {
+      "type": "string",
+      "const": "https://schema.org"
+    },
+    "@type": {
+      "type": "string",
+      "const": "ItemList"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the project collection"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description for SEO and meta tags"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Medium description for display (2-3 sentences)"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Longer detailed text for the page body"
+    },
+    "listConfig": {
+      "$ref": "#/$defs/listConfig",
+      "description": "Configuration for list display and sorting"
+    },
+    "itemListElement": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/projectItem"
+      }
+    }
+  },
+  "$defs": {
+    "projectItem": {
+      "type": "object",
+      "required": ["@type", "identifier", "name", "description", "project"],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "const": "SoftwareSourceCode",
+          "description": "schema.org type for software projects"
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sort order weight (lower = first)"
+        },
+        "identifier": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Stable identifier for the project (used in URLs)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description (1-2 sentences)"
+        },
+        "abstract": {
+          "type": "string",
+          "description": "Medium summary for previews (2-3 sentences)"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Longer detailed summary"
+        },
+        "body": {
+          "type": "string",
+          "description": "Markdown body content for the project page"
+        },
+        "image": {
+          "type": "string",
+          "description": "Image filename in images/sovereignsky/"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Primary project URL (website or landing page)"
+        },
+        "topics": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Topic identifiers for categorization",
+          "x-validates-against": "data/topics/topics.json"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Free-form tags for discovery"
+        },
+        "audience": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Target audience identifiers",
+          "x-validates-against": "data/audience/audience.json"
+        },
+        "project": {
+          "$ref": "#/$defs/projectDetails",
+          "description": "Project-specific fields"
+        },
+        "shortcodes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/shortcode" },
+          "description": "Hugo shortcodes to render after body content"
+        },
+        "subpages": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/subpage" },
+          "description": "Child pages under this project"
+        }
+      },
+      "additionalProperties": false
+    },
+    "shortcode": {
+      "type": "object",
+      "required": ["name", "id", "config"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Hugo shortcode name (e.g., 'survey')"
+        },
+        "id": {
+          "type": "string",
+          "description": "Unique identifier passed to the shortcode"
+        },
+        "config": {
+          "type": "object",
+          "description": "JSON configuration passed to the shortcode"
+        }
+      },
+      "additionalProperties": false
+    },
+    "subpage": {
+      "type": "object",
+      "required": ["identifier", "title"],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "URL slug for the subpage"
+        },
+        "title": {
+          "type": "string",
+          "description": "Page title"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description for SEO"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Summary text"
+        },
+        "weight": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Sort order within parent"
+        },
+        "body": {
+          "type": "string",
+          "description": "Markdown body content"
+        },
+        "shortcodes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/shortcode" },
+          "description": "Hugo shortcodes to render after body content"
+        }
+      },
+      "additionalProperties": false
+    },
+    "projectDetails": {
+      "type": "object",
+      "required": ["dateStarted", "status"],
+      "properties": {
+        "dateStarted": {
+          "type": "string",
+          "format": "date",
+          "description": "Project start date (YYYY-MM-DD)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "planned", "completed", "archived"],
+          "description": "Project lifecycle status"
+        },
+        "maturity": {
+          "type": "string",
+          "enum": ["concept", "prototype", "alpha", "beta", "stable", "mature"],
+          "description": "Development maturity level"
+        },
+        "repository": {
+          "type": "string",
+          "description": "Source code repository URL (GitHub, GitLab, etc.). Empty string if not applicable."
+        },
+        "documentation": {
+          "type": "string",
+          "description": "Documentation URL. Empty string if not applicable."
+        }
+      },
+      "additionalProperties": false
+    },
+    "listConfig": {
+      "type": "object",
+      "description": "Configuration for list page display and sorting",
+      "properties": {
+        "sorting": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "enum": ["weight", "date", "title", "publishDate"],
+              "description": "Primary sort field"
+            },
+            "direction": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "description": "Sort direction"
+            },
+            "fallback": {
+              "type": "string",
+              "enum": ["weight", "date", "title"],
+              "description": "Fallback sort if primary field is missing"
+            }
+          },
+          "additionalProperties": false
+        },
+        "display": {
+          "type": "object",
+          "properties": {
+            "cardStyle": {
+              "type": "string",
+              "description": "Card template to use for list items"
+            },
+            "gridColumns": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4,
+              "description": "Number of columns in grid layout"
+            },
+            "showAudienceFilter": {
+              "type": "boolean",
+              "description": "Show audience filter pills"
+            },
+            "showTopicFilter": {
+              "type": "boolean",
+              "description": "Show topic filter pills"
+            },
+            "showStats": {
+              "type": "boolean",
+              "description": "Show stats cards at top of list"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

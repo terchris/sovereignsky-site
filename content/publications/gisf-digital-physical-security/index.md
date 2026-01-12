@@ -18,6 +18,8 @@ tags:
   - "supply-chain"
   - "hybrid-threats"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

@@ -32,7 +32,7 @@
   {{/* Audience Cards Grid */}}
   <section class="mt-8">
     {{ if gt (len $audiences) 0 }}
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3" style="gap: 1.5rem;">
       {{ range $audiences }}
         {{ $p := . }}
         {{ $term := $p.identifier | default "" }}

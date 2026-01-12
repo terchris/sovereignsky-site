@@ -22,6 +22,8 @@ tags:
   - "digital-emblem"
   - "law-of-war"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract

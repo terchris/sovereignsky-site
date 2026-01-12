@@ -107,14 +107,16 @@
             "items": {
               "type": "string"
             },
-            "description": "Topic tags for the event"
+            "description": "Topic identifiers for categorization",
+            "x-validates-against": "data/topics/topics.json"
           },
           "audience": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Target audience tags"
+            "description": "Target audience identifiers",
+            "x-validates-against": "data/audience/audience.json"
           },
           "itRelevance": {
             "type": "string",

@@ -1,0 +1,622 @@
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "SovereignSky Projects",
+  "description": "Open-source tools and resources for digital sovereignty, security, and infrastructure independence",
+  "abstract": "Open-source tools and resources developed by the SovereignSky community to help organizations achieve digital sovereignty, improve security, and build independent infrastructure.",
+  "summary": "Explore our collection of open-source projects focused on digital sovereignty, security, and infrastructure independence. These tools are designed to help organizations reduce dependency on foreign-controlled services and maintain control over their digital infrastructure.",
+  "listConfig": {
+    "sorting": {
+      "field": "weight",
+      "direction": "asc",
+      "fallback": "date"
+    },
+    "display": {
+      "cardStyle": "project",
+      "gridColumns": 2,
+      "showAudienceFilter": true,
+      "showTopicFilter": true,
+      "showStats": true
+    }
+  },
+  "itemListElement": [
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 50,
+      "identifier": "securenet",
+      "name": "SecureNet",
+      "description": "Remote workers are prime targets for state-sponsored attacks. SecureNet ensures that even if a developer's laptop is compromised, attackers cannot pivot into your critical infrastructure - essential protection against foreign cyber operations targeting your organization.",
+      "abstract": "Secure developer access to internal services without exposing your network",
+      "summary": "A 'clean computer within an infected computer' - isolate developer access to internal services through zero trust networking and containers. Malware on the host cannot reach your network.",
+      "image": "securenet.png",
+      "url": "https://sovereignsky.no/sovereignsky/securenet/",
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "zero-trust",
+        "isolation",
+        "containers",
+        "developer-access"
+      ],
+      "audience": [
+        "developer",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2025-12-01",
+        "status": "planned",
+        "repository": "",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 10,
+      "identifier": "software-database",
+      "name": "Software Database",
+      "description": "Every foreign SaaS tool is a potential backdoor for extraterritorial data access. This database helps organizations identify European and open-source alternatives to reduce dependency on US Cloud Act-subject vendors and maintain data sovereignty.",
+      "abstract": "4,400+ software products categorized, validated, and mapped with sovereign alternatives",
+      "summary": "Find replacements for foreign-controlled tools. European and open-source alternatives mapped to common proprietary tools.",
+      "body": "## What It Does\n\nThe Software Database aggregates software from multiple government-vetted and expert-curated catalogs into a unified, searchable catalog. Each product is deduplicated, categorized across four taxonomies, and enriched with vendor information, alternatives mappings, and sovereignty assessments.\n\n## Data Sources\n\nWe prioritize government-vetted catalogs for quality and legal compliance:\n\n| Source | Products | Publisher | Trust Level |\n|--------|----------|-----------|-------------|\n| SILL France | 626 | DINUM - French Government | Government-vetted |\n| CNCF Cloud Native Landscape | 1,358 | Cloud Native Computing Foundation | Foundation-backed |\n| Euro Stack | 1,103 | Abilian SAS / EuroStack Initiative (FR) | Expert-curated |\n| OpenAlternative | 649 | OpenAlternative | Community-curated |\n| Cloud Service Map | 582 | Google Cloud | Expert-curated |\n| switching.software | 130 | Datenpunks (DE) | Expert-curated |\n\n### Planned Sources\n\n| Source | Publisher | Trust Level |\n|--------|-----------|-------------|\n| openCode / ZenDiS | German Government (ZenDiS) | Government-vetted |\n| Developers Italia | Italian Government | Government-vetted |\n| EU OSS Catalogue | European Commission | Government-vetted |\n\n## The Challenges\n\n### Deduplication: One Product, Many Identities\n\nThe same software appears across catalogs with different identifiers. For example, Ansible appears as `ansible`, `red-hat-ansible`, and `ansible-automation-platform` depending on the source. We maintain a canonical registry with 942 product mappings that resolve duplicates across the 4,400+ raw entries from all sources.\n\n### Category Harmonization\n\nEach catalog uses its own category system - CNCF uses technical hierarchies, SILL France uses publiccode.yml categories, Euro-Stack uses business focus. We map all source categories to four standardized taxonomies:\n\n- **Technical** (43 categories): Infrastructure capabilities\n- **Developer** (26 categories): Development tools and frameworks\n- **Business** (28 categories): Use cases and departments\n- **Platforms** (8 categories): Operating systems and clouds\n\nThis requires 10,415+ lines of category mappings.\n\n### Data Enrichment\n\nRaw catalog data lacks context. We enrich products using Wikidata for vendor information (headquarters, founding date) and web search to validate descriptions and find missing homepages.\n\n## Goal: Fully Automated Pipeline\n\nThe target is a weekly automated pipeline that scrapes all sources, auto-suggests canonical ID mappings using fuzzy matching, and publishes the updated catalog - flagging conflicts for human review without blocking the pipeline.",
+      "image": "software-database.png",
+      "url": "https://sovereignsky.no/software/",
+      "topics": [
+        "digital-sovereignty",
+        "data-protection"
+      ],
+      "tags": [
+        "software",
+        "alternatives",
+        "open-source",
+        "european",
+        "catalog"
+      ],
+      "audience": [
+        "developer",
+        "public-sector",
+        "it-ops",
+        "enterprise",
+        "humanitarian"
+      ],
+      "project": {
+        "dateStarted": "2024-12-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/software-scrape",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 30,
+      "identifier": "sovdev-logger",
+      "name": "sovdev-logger",
+      "description": "Application telemetry often flows to foreign cloud providers, exposing operational patterns and sensitive metadata. sovdev-logger works with self-hosted backends like Grafana and Loki, keeping your observability data under your control and jurisdiction.",
+      "abstract": "Multi-language structured logging with zero-effort observability - one log call, complete observability",
+      "summary": "Stop writing separate code for logs, metrics, and traces. Write one log entry and automatically get structured logs, metrics dashboards, distributed traces, and service dependency maps.",
+      "body": "## The Problem\n\nTraditional observability requires 20+ lines per operation - separate logger calls, metric counters, trace spans, manual correlation.\n\n## The Solution\n\n```typescript\nsovdev_log(INFO, FUNCTIONNAME, 'Payment processed', PEER_SERVICES.PAYMENT_GATEWAY, input, output);\n// ↑ Automatic logs + metrics + traces + correlation\n```\n\n**Result**: 95% less instrumentation code, complete observability out of the box.\n\n## What You Get Automatically\n\n| Output | Backends |\n|--------|----------|\n| Structured Logs | Azure Log Analytics, Loki, JSON files |\n| Metrics | Azure Monitor, Prometheus, Grafana |\n| Distributed Traces | Application Insights, Tempo |\n| Service Maps | Automatic dependency graphs |\n\n## Supported Languages\n\n| Language | Status |\n|----------|--------|\n| TypeScript | ✅ Available |\n| Go, Python, C#, Rust, PHP | 📅 Planned |\n\nWorks with any OpenTelemetry-compatible backend: Azure Monitor, Grafana Cloud, Datadog, New Relic, or self-hosted.",
+      "image": "sovdev-logger.png",
+      "url": "https://github.com/terchris/sovdev-logger",
+      "topics": [
+        "cybersecurity",
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "logging",
+        "observability",
+        "opentelemetry",
+        "metrics",
+        "tracing",
+        "typescript"
+      ],
+      "audience": [
+        "developer",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2025-01-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/sovdev-logger",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 45,
+      "identifier": "docuwrite",
+      "name": "DocuWrite",
+      "description": "Cloud document services scan your content and may share data with foreign authorities. DocuWrite runs entirely locally, ensuring sensitive documentation never leaves your infrastructure - critical for classified, legal, or confidential materials.",
+      "abstract": "Swiss army knife for converting Markdown to professional PDFs, Word documents, and presentations",
+      "summary": "Generate professional documentation from Markdown files and Azure DevOps Wikis. Containerized toolbox combining Pandoc, Mermaid, and Marp for cross-platform document generation.",
+      "body": "## The Problem It Solves\n\nOutdated documentation that stakeholders can't access. DocuWrite creates snapshot PDFs from your Wiki that everyone can share - same version, same meeting, delete after.\n\n## Output Features\n\n- Professional table of contents\n- Numbered pages with generation timestamp\n- Fully searchable PDF\n- Auto-generated TODO list appendix\n- Figures appendix\n- Mermaid diagram support\n\n## Included Tools\n\n| Tool | Purpose |\n|------|--------|\n| Pandoc | Markdown to PDF, DOCX, and other formats |\n| Mermaid CLI | Diagrams from text descriptions |\n| Marp CLI | Slide decks (PDF, PowerPoint) from Markdown |\n| Puppeteer | PDF from HTML |\n| Firefox | PDF from HTML |\n\n## Repositories\n\n- **docuwrite-base** - Container with all tools (AMD64 + ARM64)\n- **bifrost-docuwrite** - Wiki-to-PDF workflow automation",
+      "image": "docuwrite.png",
+      "url": "https://github.com/terchris/docuwrite-base",
+      "topics": [
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "documentation",
+        "markdown",
+        "pdf",
+        "pandoc",
+        "mermaid",
+        "presentations"
+      ],
+      "audience": [
+        "developer",
+        "public-sector",
+        "it-ops",
+        "enterprise",
+        "humanitarian"
+      ],
+      "project": {
+        "dateStarted": "2024-01-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/docuwrite-base",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 35,
+      "identifier": "bifrost",
+      "name": "Bifrost",
+      "description": "You cannot secure what you cannot see. Bifrost maps your entire application landscape and data flows, revealing hidden dependencies on foreign services - the essential first step in any sovereignty assessment or migration planning.",
+      "abstract": "Gain full visibility into your organization's application landscape, integrations, and ownership",
+      "summary": "A Configuration Management Database (CMDB) designed to map, document, and govern how applications, APIs, data flows, and stakeholders connect across an organization.",
+      "body": "## What Is Bifrost?\n\nBifrost provides a structured, authoritative view of the IT landscape—combining technical dependencies with clear accountability and ownership.\n\n> **What sets this CMDB apart:** Unlike traditional CMDBs that focus primarily on infrastructure, Bifrost treats applications, APIs, integrations, and stakeholders as equal first-class entities—each with unique identities, ownership, and lifecycle management.\n\n## Application Registry\n\nAt its core, Bifrost maintains a comprehensive application registry where each application is assigned a unique, persistent identifier and enriched with business, technical, and operational metadata. Applications are linked to business owners, technical owners, and other stakeholders, ensuring that responsibility is explicit rather than implicit.\n\nStakeholders are mapped to real identities through integration with Microsoft Entra ID, enabling accurate ownership, role-based access, and traceability over time—even as personnel change.\n\n## Integrations & APIs as First-Class Items\n\nBeyond applications, Bifrost models integrations and APIs as first-class configuration items. Every integration and API is assigned a unique integration identifier (INT number) and documented with:\n\n- Purpose and direction\n- Data classification\n- Lifecycle status\n- Independent stakeholders and owners\n\nAPIs can have their own stakeholders and owners, independent of the applications they connect, reflecting real-world responsibility for interface contracts, security, and availability.\n\n## Dependency Visualization\n\nUsing interactive dependency and integration visualizations, Bifrost shows:\n\n- How applications and APIs are interconnected\n- Which systems depend on which interfaces\n- Where critical business processes are exposed to risk\n\nThis enables accurate impact analysis, supports change management, and reduces uncertainty during incidents or modernization efforts.\n\n## Automation & Integration\n\nTo reduce manual effort and ensure adoption, Bifrost supports:\n\n- **Bulk Import** - Synchronization with Excel and ServiceNow\n- **Documentation Generation** - Auto-generate wikis and PDF catalogs\n- **Living Source of Truth** - Continuously updated model rather than static inventory\n\n## Technical Stack\n\n| Component | Technology |\n|-----------|------------|\n| Frontend | Next.js 14 (App Router) |\n| Backend | Strapi CMS |\n| API | TypeScript |\n| Database | SQLite (dev) / PostgreSQL (prod) |\n| Deployment | Kubernetes, Docker |",
+      "image": "bifrost.png",
+      "url": "https://github.com/terchris/bifrost",
+      "topics": [
+        "critical-infrastructure"
+      ],
+      "tags": [
+        "application-portfolio",
+        "integration",
+        "cmdb",
+        "documentation",
+        "visualization"
+      ],
+      "audience": [
+        "developer",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2024-01-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/bifrost",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 25,
+      "identifier": "urbalurba-infrastructure",
+      "name": "Urbalurba Infrastructure",
+      "description": "Cloud lock-in is sovereignty lock-in. Urbalurba provides identical infrastructure locally, on-premises, and in any cloud - giving you true portability and the freedom to move workloads to sovereign providers without rewriting applications.",
+      "abstract": "A complete datacenter environment on your laptop - Kubernetes, databases, AI, and cloud services running locally",
+      "summary": "Zero-friction developer platform for building, testing, and deploying modern apps without needing to know Kubernetes, GitOps, or the cloud. Same infrastructure locally, in cloud, and on-premises.",
+      "body": "## The Problem It Solves\n\n- **'It works on my machine' syndrome** - Applications behave differently in development vs production\n- **Complex cloud setup** - Developers waste time configuring cloud services\n- **Permission bottlenecks** - Waiting for cloud access slows development\n- **Expensive development** - Cloud costs accumulate during development\n- **Data privacy concerns** - Sensitive data must leave your environment for cloud AI\n\n## What's Included\n\n| Category | Services |\n|----------|----------|\n| Core Infrastructure | Kubernetes cluster, Docker runtime, Provision Host |\n| Data Services | PostgreSQL, Redis, message queues, object storage |\n| AI & Machine Learning | Local ChatGPT-like system, private AI models, local LLM execution |\n| Development Tools | GitOps workflows, dev containers, Infrastructure as Code |\n\n## Key Benefits\n\n- **Rapid Development** - Everything ready out of the box\n- **True Portability** - Same environment everywhere\n- **Data Privacy** - Nothing leaves your machine\n- **Cost Effective** - No cloud charges during development\n- **Production Confidence** - Test with real infrastructure locally",
+      "image": "urbalurba-infrastructure.png",
+      "url": "https://github.com/terchris/urbalurba-infrastructure",
+      "topics": [
+        "critical-infrastructure",
+        "cybersecurity"
+      ],
+      "tags": [
+        "kubernetes",
+        "docker",
+        "local-development",
+        "ai",
+        "infrastructure-as-code"
+      ],
+      "audience": [
+        "developer",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2024-01-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/urbalurba-infrastructure",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 20,
+      "identifier": "devcontainer-toolbox",
+      "name": "DevContainer Toolbox",
+      "description": "Cloud-based IDEs like GitHub Codespaces send your code through foreign infrastructure. DevContainer Toolbox provides the same convenience locally, keeping your source code and development activity within your own security perimeter.",
+      "abstract": "A standardized, cross-platform development environment for fast, reliable onboarding and consistent delivery",
+      "summary": "A pre-configured development container providing all tools, libraries, and runtime dependencies required to build software—works identically on Windows, macOS, and Linux.",
+      "body": "## What Is DevContainer Toolbox?\n\nDevContainer Toolbox establishes a single, reproducible development environment that works identically on Windows, macOS, and Linux—eliminating environment drift and the classic \"it works on my machine\" problem.\n\nBy using the Dev Container standard, the entire development environment is defined as code and version-controlled alongside the application source. When a developer checks out a repository, they get not only the code, but also the exact tools, runtimes, CLI utilities, and configurations required to build, run, debug, and test it—ready to use in minutes.\n\n## Fast and Predictable Onboarding\n\nOnboarding new developers becomes trivial. There is no need for lengthy setup guides, local tool installation, or troubleshooting OS-specific issues. Opening the project in a supported IDE automatically builds and launches the devcontainer with everything installed and configured.\n\nThis enables:\n\n- New developers to be productive on day one\n- External consultants to work in a controlled, compliant environment\n- Teams to scale without increasing setup and support overhead\n\n## A Toolbox, Not a Single-Purpose Container\n\nDevContainer Toolbox is designed as a shared foundation for many types of development work. It includes a rich base environment and a modular architecture for extending functionality as needed.\n\nThe `.devcontainer` directory is structured to support this:\n\n| Directory | Purpose |\n|-----------|----------|\n| `manage/` | Commands and orchestration logic for setup, extension, and maintenance |\n| `additions/` | Scripts that install and configure tools for specific languages and use cases |\n\nThis approach allows teams to enable support for multiple programming languages and technology stacks from a single, standardized container image.\n\n## Multi-Language Support\n\nThe toolbox includes commands and templates for:\n\n| Languages | Frameworks |\n|-----------|------------|\n| C# / .NET | Next.js, React |\n| Python | Express, Spring Boot |\n| Node.js / TypeScript | Web APIs |\n| Go, Java, PHP | Backend services |\n\n## IDE and Platform Support\n\nWorks consistently across Windows, macOS, and Linux with:\n\n- Visual Studio Code\n- JetBrains Rider\n- Visual Studio\n\nThe container abstracts away host OS differences, ensuring that builds, scripts, and tooling behave the same for every developer.\n\n## Security and Stability\n\nBecause all tooling runs inside the container:\n\n- The local machine remains clean and unaffected\n- Developers can safely experiment without breaking their host system\n- Tool versions and dependencies are pinned and auditable\n- Security teams gain better control and predictability\n\nThe base image is built on **Debian 12 (Bookworm)** and includes essential CLI tools such as Azure CLI, Python, Node.js, and common utilities required for modern cloud-native development.\n\n## Key Benefits\n\n- **Consistent environments** across all developers and platforms\n- **Ultra-fast onboarding** with no manual setup\n- **Environment-as-code** checked in alongside application source\n- **Modular architecture** for diverse development needs\n- **Reduced support overhead** and troubleshooting\n- **Improved collaboration** through identical tooling and workflows",
+      "image": "devcontainer-toolbox.png",
+      "url": "https://github.com/terchris/devcontainer-toolbox",
+      "topics": [
+        "cybersecurity"
+      ],
+      "tags": [
+        "devcontainer",
+        "docker",
+        "development",
+        "cross-platform",
+        "vscode"
+      ],
+      "audience": [
+        "developer",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2024-01-01",
+        "status": "active",
+        "repository": "https://github.com/terchris/devcontainer-toolbox",
+        "documentation": ""
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "weight": 15,
+      "identifier": "ndsi",
+      "name": "Norwegian Digital Sovereignty Index (NDSI)",
+      "description": "What gets measured gets managed. NDSI provides a structured framework to assess your organization's sovereignty posture, identify vulnerabilities to foreign control, and track improvement over time - aligned with EU standards and Norwegian regulations.",
+      "abstract": "A community-driven framework for measuring and improving digital sovereignty readiness in Norwegian organizations",
+      "summary": "Measure your organization's digital sovereignty readiness. Based on the EU Cloud Sovereignty Framework.",
+      "body": "## What Is NDSI?\n\nThe Norwegian Digital Sovereignty Index is a practical framework for measuring how dependent your organization is on foreign-controlled digital infrastructure. Based on the EU Cloud Sovereignty Framework, it provides a standardized way to assess, compare, and improve your sovereignty posture.\n\n## NDSI Levels\n\nOrganizations are scored from Level 0 to Level 4:\n\n| Level | Name | Score | What It Means |\n|-------|------|-------|---------------|\n| 4 | Sovereign | 35-44 | Strong control over digital infrastructure |\n| 3 | Resilient | 26-34 | Good awareness, some dependencies to address |\n| 2 | Aware | 18-25 | Significant dependencies, exit strategies needed |\n| 1 | Dependent | 9-17 | High foreign dependency, priority action needed |\n| 0 | Unassessed | 0-8 | Critical gaps, immediate investigation required |\n\n## Components\n\n### [NDSI Quick Scan Survey](survey/)\n\n11 questions covering:\n- **Provider & Jurisdiction** - Who provides your cloud services? Are they subject to the US CLOUD Act?\n- **Data Control** - Where is your data stored? Do you have visibility into all SaaS tools?\n- **Exit Readiness** - Can you migrate away? How long would it take?\n- **Operational Resilience** - Backup procedures tested? Alternative providers identified?\n\n### [Software Risk Check](software-risk-check/)\n\nSelect the tools your organization uses and get an instant risk assessment. Each tool is scored based on:\n- Provider jurisdiction and ownership\n- Data location guarantees\n- Exit capability and portability\n- Availability of sovereign alternatives\n\n## Dependencies\n\nNDSI depends on the **Software Database** to provide:\n- Risk scores for individual software products\n- Mapping to European and open-source alternatives\n- Vendor ownership and jurisdiction data\n\n## Current Status\n\nThe framework is in planning phase. The survey and basic scoring are functional, but full integration with the Software Database for automated risk assessment is under development.",
+      "image": "ndsi.png",
+      "url": "https://sovereignsky.no/sovereignsky/ndsi/",
+      "topics": [
+        "digital-sovereignty",
+        "data-protection"
+      ],
+      "tags": [
+        "norway",
+        "index",
+        "assessment",
+        "framework"
+      ],
+      "audience": [
+        "public-sector",
+        "enterprise",
+        "it-ops"
+      ],
+      "project": {
+        "dateStarted": "2024-01-01",
+        "status": "planned",
+        "repository": "",
+        "documentation": ""
+      },
+      "subpages": [
+        {
+          "identifier": "survey",
+          "title": "Norwegian Digital Sovereignty Survey",
+          "description": "Find out how dependent your organization is on foreign cloud providers",
+          "summary": "Answer 11 questions and discover your NDSI level. Get a clear picture of your digital sovereignty risks and concrete recommendations for improvement.",
+          "weight": 1,
+          "body": "## How Sovereign Is Your Organization?\n\nTake this 5-minute survey to find out:\n- Your **NDSI Level** (0-4) based on the EU Cloud Sovereignty Framework\n- **Risk areas** where you're most exposed to foreign dependencies\n- **Concrete recommendations** to improve your sovereignty posture\n\nNo signup. No data collection. All answers stay in your browser.\n\n---",
+          "shortcodes": [
+            {
+              "name": "survey",
+              "id": "ndsi-quickscan",
+              "config": {
+                "title": "NDSI Quick Scan",
+                "description": "Assess your organization's digital sovereignty readiness",
+                "showProgressBar": "top",
+                "progressBarType": "questions",
+                "showQuestionNumbers": "on",
+                "questionErrorLocation": "bottom",
+                "showCompletedPage": true,
+                "pages": [
+                  {
+                    "name": "page1",
+                    "title": "Provider & Jurisdiction",
+                    "elements": [
+                      {
+                        "type": "radiogroup",
+                        "name": "q1_provider",
+                        "title": "Who provides your organization's primary cloud services (email, documents, collaboration)?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Norwegian company (e.g., Tietoevry, Basefarm)" },
+                          { "value": 3, "text": "EU/EEA company (non-Norwegian)" },
+                          { "value": 1, "text": "US company with EU data centers (Microsoft, Google, AWS)" },
+                          { "value": 0, "text": "US company, unknown data location" },
+                          { "value": 0, "text": "Don't know" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q2_cloudact",
+                        "title": "Are your critical cloud providers subject to the US CLOUD Act or similar foreign laws that could compel data access?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "No - all providers are EU/EEA companies not subject to foreign access laws" },
+                          { "value": 2, "text": "Partially - some services are, but critical data is on EU-only providers" },
+                          { "value": 1, "text": "Yes - primary providers (Microsoft 365, Google Workspace, AWS) are US companies" },
+                          { "value": 0, "text": "Don't know" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q9_contracts",
+                        "title": "Are your cloud service contracts governed by Norwegian or EU law?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - Norwegian law exclusively" },
+                          { "value": 3, "text": "Yes - EU/EEA law" },
+                          { "value": 1, "text": "Mixed - some contracts under foreign law" },
+                          { "value": 0, "text": "Don't know" }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "page2",
+                    "title": "Data Control",
+                    "elements": [
+                      {
+                        "type": "radiogroup",
+                        "name": "q3_location_core",
+                        "title": "For your core systems (email, documents, CRM, HR, ERP) - do you know where data is stored?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - all in Norway" },
+                          { "value": 3, "text": "Yes - all in EU/EEA" },
+                          { "value": 1, "text": "Yes - some outside EU/EEA" },
+                          { "value": 0, "text": "No - we don't have full visibility" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q3b_location_saas",
+                        "title": "Do you have visibility into all SaaS tools used in your organization (Miro, Slack, Notion, Figma, etc.)?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - complete inventory, all approved and tracked by IT" },
+                          { "value": 2, "text": "Mostly - core tools tracked, but some shadow IT exists" },
+                          { "value": 1, "text": "Limited - teams adopt tools without central oversight" },
+                          { "value": 0, "text": "No - we don't know what SaaS tools are being used" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q4_export",
+                        "title": "Can you fully migrate your critical systems (CRM, ERP, collaboration) to another provider - including data, configurations, and integrations?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - complete export possible with documented APIs and standard formats" },
+                          { "value": 2, "text": "Mostly - data exportable but would lose some configurations/integrations" },
+                          { "value": 1, "text": "Limited - can export raw data but system logic/workflows are locked in" },
+                          { "value": 0, "text": "Don't know" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q10_ownership",
+                        "title": "Do you know the ownership structure of your critical cloud providers?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - Norwegian/EU owned, no foreign controlling interests" },
+                          { "value": 3, "text": "Yes - EU owned but with some foreign investment" },
+                          { "value": 1, "text": "Yes - US/foreign owned (Microsoft, Google, Amazon, etc.)" },
+                          { "value": 0, "text": "Don't know" }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "page3",
+                    "title": "Exit Readiness",
+                    "elements": [
+                      {
+                        "type": "radiogroup",
+                        "name": "q5_exit",
+                        "title": "Do you have a documented exit strategy for your most critical cloud service?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - documented, tested, with timeline and alternative providers identified" },
+                          { "value": 2, "text": "Partially - documented but not tested" },
+                          { "value": 1, "text": "Informally - we've thought about it but nothing documented" },
+                          { "value": 0, "text": "No" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q6_migration",
+                        "title": "How long would it take to migrate away from your primary cloud provider?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Less than 1 month" },
+                          { "value": 3, "text": "1-3 months" },
+                          { "value": 2, "text": "3-6 months" },
+                          { "value": 1, "text": "6-12 months" },
+                          { "value": 0, "text": "More than 12 months / Don't know" }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "page4",
+                    "title": "Operational Resilience",
+                    "elements": [
+                      {
+                        "type": "radiogroup",
+                        "name": "q7_backup",
+                        "title": "Have you tested backup and recovery procedures for your cloud services in the past 12 months?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - full recovery test completed successfully" },
+                          { "value": 2, "text": "Yes - partial test (some systems)" },
+                          { "value": 1, "text": "No - but we have documented procedures" },
+                          { "value": 0, "text": "No - no testing or documentation" }
+                        ]
+                      },
+                      {
+                        "type": "radiogroup",
+                        "name": "q8_alternatives",
+                        "title": "Do you have alternative providers identified for your critical services?",
+                        "isRequired": true,
+                        "choices": [
+                          { "value": 4, "text": "Yes - alternatives identified, evaluated, and ready to activate" },
+                          { "value": 2, "text": "Yes - alternatives identified but not evaluated" },
+                          { "value": 1, "text": "No - but we could find alternatives" },
+                          { "value": 0, "text": "No - we're locked in / Don't know" }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "calculatedValues": [
+                  {
+                    "name": "totalScore",
+                    "expression": "{q1_provider} + {q2_cloudact} + {q3_location_core} + {q3b_location_saas} + {q4_export} + {q5_exit} + {q6_migration} + {q7_backup} + {q8_alternatives} + {q9_contracts} + {q10_ownership}"
+                  }
+                ],
+                "completedHtmlOnCondition": [
+                  {
+                    "expression": "{totalScore} >= 35",
+                    "html": "<div class='alert alert-success'><h2>Level 4: Sovereign</h2><p><strong>Score: {totalScore} / 44</strong></p><p>Strong sovereignty posture. You have good control over your digital infrastructure and clear exit strategies.</p><h4>Recommended Actions:</h4><ul><li>Maintain your current position through regular re-assessment</li><li>Monitor for changes in provider ownership or terms</li><li>Share your approach with peers to help others improve</li></ul></div>"
+                  },
+                  {
+                    "expression": "{totalScore} >= 26 and {totalScore} < 35",
+                    "html": "<div class='alert alert-warning'><h2>Level 3: Resilient</h2><p><strong>Score: {totalScore} / 44</strong></p><p>Good awareness with some dependencies to address.</p><h4>Recommended Actions:</h4><ul><li>Document and test exit strategies for critical services</li><li>Evaluate EU/Norwegian alternatives for highest-risk services</li><li>Review contracts for jurisdiction and termination clauses</li></ul></div>"
+                  },
+                  {
+                    "expression": "{totalScore} >= 18 and {totalScore} < 26",
+                    "html": "<div class='alert alert-warning'><h2>Level 2: Aware</h2><p><strong>Score: {totalScore} / 44</strong></p><p>Significant dependencies identified. You need exit strategies and contingency planning.</p><h4>Recommended Actions:</h4><ul><li>Map all cloud dependencies and their jurisdictions</li><li>Create exit strategy for your most critical service</li><li>Test backup recovery procedures</li></ul></div>"
+                  },
+                  {
+                    "expression": "{totalScore} >= 9 and {totalScore} < 18",
+                    "html": "<div class='alert alert-error'><h2>Level 1: Dependent</h2><p><strong>Score: {totalScore} / 44</strong></p><p>High dependency on foreign providers with limited resilience. Priority action needed.</p><h4>Recommended Actions:</h4><ul><li>Identify where your critical data is actually stored</li><li>Understand CLOUD Act implications for your organization</li><li>Start contingency planning immediately</li></ul></div>"
+                  },
+                  {
+                    "expression": "{totalScore} < 9",
+                    "html": "<div class='alert'><h2>Level 0: Unassessed</h2><p><strong>Score: {totalScore} / 44</strong></p><p>Critical gaps identified. Many 'Don't know' answers indicate areas needing immediate investigation.</p><h4>Recommended Actions:</h4><ul><li>Map all cloud services your organization uses</li><li>Identify the legal jurisdiction of each provider</li><li>Determine where your data is physically stored</li></ul></div>"
+                  }
+                ],
+                "completedHtml": "<div class='alert'><h2>Assessment Complete</h2><p>Your score: {totalScore} / 44</p></div>"
+              }
+            }
+          ]
+        },
+        {
+          "identifier": "software-risk-check",
+          "title": "Software Risk Check",
+          "description": "Check the sovereignty risk of your software tools",
+          "summary": "Select the tools your organization uses. Get an instant risk assessment showing which tools expose you to foreign dependencies.",
+          "weight": 2,
+          "body": "## Which Tools Does Your Organization Use?\n\nSelect all that apply. We'll show you the sovereignty risk of your software portfolio.\n\nNo signup. No data collection. All answers stay in your browser.\n\n---",
+          "shortcodes": [
+            {
+              "name": "survey",
+              "id": "portfolio-check",
+              "config": {
+                "title": "Software Portfolio Check",
+                "description": "Select the tools your organization uses",
+                "showProgressBar": "top",
+                "progressBarType": "pages",
+                "showQuestionNumbers": "off",
+                "questionErrorLocation": "bottom",
+                "showCompletedPage": true,
+                "pages": [
+                  {
+                    "name": "communication",
+                    "title": "Communication Tools",
+                    "description": "Email, chat, video and meetings",
+                    "elements": [
+                      {
+                        "type": "checkbox",
+                        "name": "communication_tools",
+                        "title": "Which communication tools does your organization use?",
+                        "isRequired": false,
+                        "choices": [
+                          { "value": "ms-teams:2.4", "text": "Microsoft Teams (Microsoft 365 chat, video, collaboration)" },
+                          { "value": "slack:2.5", "text": "Slack (Team messaging with channels and integrations)" },
+                          { "value": "pexip:0.8", "text": "Pexip (Norwegian video conferencing)" },
+                          { "value": "whereby:0.9", "text": "Whereby (Norwegian simple video meetings)" },
+                          { "value": "element:0.7", "text": "Element/Matrix (Open source chat and video)" }
+                        ],
+                        "colCount": 1
+                      }
+                    ]
+                  },
+                  {
+                    "name": "devtools",
+                    "title": "Development & IT",
+                    "description": "Code hosting, CI/CD, version control",
+                    "elements": [
+                      {
+                        "type": "checkbox",
+                        "name": "dev_tools",
+                        "title": "Which development tools does your organization use?",
+                        "isRequired": false,
+                        "choices": [
+                          { "value": "github:2.3", "text": "GitHub (Code hosting, CI/CD, Microsoft-owned)" },
+                          { "value": "gitlab:1.8", "text": "GitLab (Code hosting, CI/CD, self-host option)" }
+                        ],
+                        "colCount": 1
+                      }
+                    ]
+                  },
+                  {
+                    "name": "project",
+                    "title": "Project Management",
+                    "description": "Task tracking, agile, scrum",
+                    "elements": [
+                      {
+                        "type": "checkbox",
+                        "name": "project_tools",
+                        "title": "Which project management tools does your organization use?",
+                        "isRequired": false,
+                        "choices": [
+                          { "value": "jira:2.2", "text": "Jira (Atlassian project and issue tracking)" }
+                        ],
+                        "colCount": 1
+                      }
+                    ]
+                  },
+                  {
+                    "name": "crm",
+                    "title": "Sales & CRM",
+                    "description": "Customer relationship management",
+                    "elements": [
+                      {
+                        "type": "checkbox",
+                        "name": "crm_tools",
+                        "title": "Which CRM tools does your organization use?",
+                        "isRequired": false,
+                        "choices": [
+                          { "value": "salesforce:2.8", "text": "Salesforce (CRM, sales and marketing platform)" },
+                          { "value": "superoffice:0.9", "text": "SuperOffice (Norwegian/Scandinavian CRM)" }
+                        ],
+                        "colCount": 1
+                      }
+                    ]
+                  },
+                  {
+                    "name": "finance",
+                    "title": "Finance & Accounting",
+                    "description": "Invoicing, accounting, payroll",
+                    "elements": [
+                      {
+                        "type": "checkbox",
+                        "name": "finance_tools",
+                        "title": "Which finance tools does your organization use?",
+                        "isRequired": false,
+                        "choices": [
+                          { "value": "tripletex:0.6", "text": "Tripletex (Norwegian cloud accounting)" }
+                        ],
+                        "colCount": 1
+                      }
+                    ]
+                  }
+                ],
+                "completedHtml": "<div id='portfolio-results-placeholder'><p>Calculating your results...</p></div>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

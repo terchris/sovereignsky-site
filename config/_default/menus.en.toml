@@ -2,28 +2,6 @@
 # This overrides the theme's default menu
 
 [[main]]
-  name = "Tools"
-  weight = 57
-
-[[main]]
-  name = "NDSI"
-  parent = "Tools"
-  pageRef = "ndsi"
-  weight = 11
-
-[[main]]
-  name = "NDSI survey"
-  parent = "Tools"
-  pageRef = "ndsi/survey"
-  weight = 12
-
-[[main]]
-  name = "Software risk check"
-  parent = "Tools"
-  pageRef = "ndsi/software-risk-check"
-  weight = 13
-
-[[main]]
   name = "Databases"
   weight = 20
 
@@ -96,7 +74,7 @@
 
 [[main]]
   name = "SovereignSky"
-  pageRef = "sovereginsky"
+  pageRef = "sovereignsky"
   weight = 55
 
 [[main]]

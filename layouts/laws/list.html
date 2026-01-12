@@ -237,7 +237,7 @@
   </div>
 
   {{/* Laws Grid */}}
-  <div id="laws-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="gap: 2.5rem 1.5rem;">
+  <div id="laws-grid" class="grid sm:grid-cols-2" style="gap: 1.5rem;">
     {{ range .Pages }}
       {{ $category := .Params.category | default "privacy" }}
       {{ $categoryInfo := index $lawTypes $category }}
@@ -245,7 +245,7 @@
       {{ $jurisdictions := .Params.legislationJurisdiction | default (slice) }}
 
       <article
-        class="law-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200"
+        class="law-card card bg-base-100 shadow-md hover:shadow-lg transition-all group border border-base-200 h-full"
         data-identifier="{{ .Params.identifier }}"
         data-category="{{ $category }}"
         data-jurisdictions="{{ delimit $jurisdictions "," }}"

@@ -22,7 +22,7 @@
  * Image handling:
  * - If image starts with http, downloads from URL
  * - Otherwise, copies from images/publications/{filename}
- * - Saves as featured.png in content folder
+ * - Saves as featured.{ext} in content folder (preserves original extension)
  *
  * Usage: node scripts/generate-publications-pages.js
  */
@@ -97,12 +97,23 @@ function downloadImage(url, dest) {
 /**
  * Handle image for a publication
  * - Downloads from URL or copies from images folder
- * - Saves as featured.png in content folder
+ * - Saves as featured.{ext} in content folder (preserves original extension)
  */
 async function handleImage(pub, pubDir) {
   if (!pub.image) return false;
 
-  const destPath = path.join(pubDir, 'featured.png');
+  // Determine extension from source
+  const ext = path.extname(pub.image) || '.png';
+  const destPath = path.join(pubDir, `featured${ext}`);
+
+  // Remove any existing featured.* files with different extensions
+  const existingFiles = fs.readdirSync(pubDir).filter(f => f.startsWith('featured.'));
+  existingFiles.forEach(f => {
+    const existingPath = path.join(pubDir, f);
+    if (existingPath !== destPath) {
+      fs.unlinkSync(existingPath);
+    }
+  });
 
   // Check if it's a URL
   if (pub.image.startsWith('http://') || pub.image.startsWith('https://')) {
@@ -233,10 +244,14 @@ function buildFrontmatter(pub) {
   // Hugo type
   lines.push(`type: publications`);
 
+  // Hero settings (big banner image like sovereignsky pages)
+  lines.push(`showHero: true`);
+  lines.push(`heroStyle: "big"`);
+
   return lines.join('\n');
 }
 
-// Build the abstract and summary sections from JSON
+// Build the abstract, summary, and body sections from JSON
 function buildAbstractAndSummary(pub) {
   const parts = [];
 
@@ -246,6 +261,11 @@ function buildAbstractAndSummary(pub) {
 
   if (pub.summary) {
     parts.push(`## Summary\n\n${pub.summary}`);
+  }
+
+  // Add body content if present (full markdown content)
+  if (pub.body) {
+    parts.push(`---\n\n${pub.body}`);
   }
 
   return parts.join('\n\n');
@@ -285,24 +305,28 @@ async function main() {
     let customBody = '';
 
     // Check if file exists and has custom content after the summary
+    // Only preserve custom content if there's NO body field in JSON
     if (fs.existsSync(indexPath)) {
-      const existing = fs.readFileSync(indexPath, 'utf8');
-      const parsed = parseMarkdown(existing);
+      if (!pub.body) {
+        // No body in JSON, so preserve any custom content from existing file
+        const existing = fs.readFileSync(indexPath, 'utf8');
+        const parsed = parseMarkdown(existing);
 
-      // Extract content after the Summary section
-      customBody = extractBodyAfterSummary(parsed.body);
+        // Extract content after the Summary section
+        customBody = extractBodyAfterSummary(parsed.body);
 
-      if (customBody && !customBody.includes('No additional commentary yet')) {
-        console.log(`  Preserving custom content for: ${pub.identifier}`);
-      } else {
-        customBody = '';
+        if (customBody && !customBody.includes('No additional commentary yet')) {
+          console.log(`  Preserving custom content for: ${pub.identifier}`);
+        } else {
+          customBody = '';
+        }
       }
       updated++;
     } else {
       created++;
     }
 
-    // Build full body: Abstract + Summary from JSON, then custom content
+    // Build full body: Abstract + Summary (+ body from JSON), then any custom content
     let body = abstractSummary;
     if (customBody) {
       body += '\n\n---\n\n' + customBody;

@@ -20,6 +20,8 @@ tags:
   - "public-private"
   - "norway"
 type: publications
+showHero: true
+heroStyle: "big"
 ---
 
 ## Abstract
