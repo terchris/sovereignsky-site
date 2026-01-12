@@ -1,6 +1,8 @@
 # Plan: Consolidate Sidebar Implementations
 
-## Status: Backlog
+## Status: Completed
+
+**Completed**: 2026-01-12
 
 ## Goal
 Refactor all templates to use the `common-sidebar.html` partial instead of custom inline sidebar divs, ensuring consistent sidebar behavior across all pages.

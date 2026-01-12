@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Validate data files against JSON schemas
+ * Validate data files against JSON schemas and cross-file references
+ *
+ * Validates:
+ * 1. JSON Schema compliance (structure, types, required fields)
+ * 2. Cross-file references via x-validates-against annotations in schemas
  *
  * Usage: node scripts/validate.js
  */
@@ -10,15 +14,19 @@ const Ajv = require("ajv");
 const addFormats = require("ajv-formats");
 const fs = require("fs");
 const path = require("path");
+const { ReferenceValidator } = require("./lib/reference-validator");
 
 // Initialize AJV with options
 const ajv = new Ajv({
   allErrors: true,    // Report all errors, not just first
-  strict: false       // Allow additional keywords
+  strict: false       // Allow additional keywords (like x-validates-against)
 });
 addFormats(ajv);      // Enable format validation (uri, date-time, etc.)
 
 const ROOT = process.cwd();
+
+// Initialize reference validator
+const refValidator = new ReferenceValidator(ROOT);
 
 // Define schema-to-data mappings
 const validations = [
@@ -66,45 +74,11 @@ const validations = [
     schema: "data/schemas/events.schema.json",
     data: "data/events/events.json",
   },
+  {
+    schema: "data/schemas/sovereignsky-projects.schema.json",
+    data: "data/sovereignsky/projects.json",
+  },
 ];
-
-// Load valid audience identifiers from audience.json
-function loadValidAudiences() {
-  const audiencePath = path.join(ROOT, "data/audience/audience.json");
-  if (!fs.existsSync(audiencePath)) {
-    console.warn("Warning: audience.json not found, skipping audience validation");
-    return null;
-  }
-  try {
-    const data = JSON.parse(fs.readFileSync(audiencePath, "utf8"));
-    return (data.itemListElement || []).map(item => item.identifier);
-  } catch (e) {
-    console.warn(`Warning: Could not parse audience.json: ${e.message}`);
-    return null;
-  }
-}
-
-// Validate audience values in a data file against valid audiences
-function validateAudiences(dataFile, data, validAudiences) {
-  if (!validAudiences) return [];
-  const errors = [];
-
-  // Handle ItemList format (blog, laws, etc.)
-  const items = data.itemListElement || data || [];
-  const itemArray = Array.isArray(items) ? items : [];
-
-  itemArray.forEach((item, index) => {
-    if (item.audience && Array.isArray(item.audience)) {
-      item.audience.forEach(aud => {
-        if (!validAudiences.includes(aud)) {
-          errors.push(`  Item[${index}] "${item.identifier || item.name}": invalid audience "${aud}"`);
-        }
-      });
-    }
-  });
-
-  return errors;
-}
 
 // Load JSON file with error handling
 function loadJson(filePath) {
@@ -120,8 +94,8 @@ function loadJson(filePath) {
   }
 }
 
-// Format validation errors for readable output
-function formatErrors(errors) {
+// Format schema validation errors for readable output
+function formatSchemaErrors(errors) {
   return errors
     .slice(0, 10)  // Limit output
     .map((err) => {
@@ -140,15 +114,6 @@ console.log("Validating data files against schemas...\n");
 
 let hasErrors = false;
 const results = [];
-const validAudiences = loadValidAudiences();
-
-// Files that should have audience validation
-const audienceValidatedFiles = [
-  "data/blog/blog.json",
-  "data/laws/laws.json",
-  "data/publications/publications.json",
-  "data/events/events.json",
-];
 
 for (const { schema, data } of validations) {
   const schemaResult = loadJson(schema);
@@ -166,33 +131,32 @@ for (const { schema, data } of validations) {
     continue;
   }
 
+  // Schema validation
   const validate = ajv.compile(schemaResult.data);
-  const valid = validate(dataResult.data);
+  const schemaValid = validate(dataResult.data);
 
-  if (valid) {
-    // Check audience values if this file should be validated
-    if (audienceValidatedFiles.includes(data) && validAudiences) {
-      const audienceErrors = validateAudiences(data, dataResult.data, validAudiences);
-      if (audienceErrors.length > 0) {
-        results.push({
-          file: data,
-          status: "FAIL",
-          errors: `Schema valid, but invalid audience values:\n${audienceErrors.join("\n")}`,
-        });
-        hasErrors = true;
-      } else {
-        results.push({ file: data, status: "PASS" });
-      }
-    } else {
-      results.push({ file: data, status: "PASS" });
-    }
-  } else {
+  if (!schemaValid) {
     results.push({
       file: data,
       status: "FAIL",
-      errors: formatErrors(validate.errors),
+      errors: formatSchemaErrors(validate.errors),
     });
     hasErrors = true;
+    continue;
+  }
+
+  // Cross-file reference validation (reads x-validates-against from schema)
+  const refErrors = refValidator.validateReferences(schema, data, dataResult.data);
+
+  if (refErrors.length > 0) {
+    results.push({
+      file: data,
+      status: "FAIL",
+      errors: `Schema valid, but invalid references:\n${refValidator.formatErrors(refErrors)}`,
+    });
+    hasErrors = true;
+  } else {
+    results.push({ file: data, status: "PASS" });
   }
 }
 

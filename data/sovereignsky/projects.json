@@ -1,0 +1,207 @@
+[
+  {
+    "identifier": "securenet",
+    "name": "SecureNet",
+    "description": "Secure developer access to internal services without exposing your network",
+    "summary": "A 'clean computer within an infected computer' - isolate developer access to internal services through zero trust networking and containers. Malware on the host cannot reach your network.",
+    "image": "securenet.png",
+    "dateStarted": "2025-12-01",
+    "status": "active",
+    "url": "https://sovereignsky.no/sovereignsky/securenet/",
+    "topics": [
+      "cybersecurity",
+      "critical-infrastructure"
+    ],
+    "tags": [
+      "zero-trust",
+      "isolation",
+      "containers",
+      "developer-access"
+    ],
+    "audience": [
+      "developer",
+      "it-ops"
+    ]
+  },
+  {
+    "identifier": "software-database",
+    "name": "Software Database",
+    "description": "4,400+ software products categorized, validated, and mapped with sovereign alternatives",
+    "summary": "Find replacements for foreign-controlled tools. European and open-source alternatives mapped to common proprietary tools.",
+    "body": "## Data Sources\n\nWe aggregate software from government-vetted and expert-curated catalogs:\n\n### Implemented Sources\n\n| Source | Products | Publisher | Trust Level |\n|--------|----------|-----------|-------------|\n| CNCF Cloud Native Landscape | 1,358 | Cloud Native Computing Foundation | Foundation-backed |\n| Euro Stack | 1,103 | Abilian SAS / EuroStack Initiative (FR) | Expert-curated |\n| OpenAlternative | 649 | OpenAlternative | Community-curated |\n| SILL France | 626 | DINUM - French Government | Government-vetted |\n| Cloud Service Map | 582 | Google Cloud | Expert-curated |\n| switching.software | 130 | Datenpunks (DE) | Expert-curated |\n\n### Planned Sources\n\n| Source | Publisher | Trust Level |\n|--------|-----------|-------------|\n| openCode / ZenDiS | German Government (ZenDiS) | Government-vetted |\n| Developers Italia | Italian Government | Government-vetted |\n| EU OSS Catalogue | European Commission | Government-vetted |",
+    "image": "software-database.png",
+    "dateStarted": "2024-12-01",
+    "status": "active",
+    "url": "https://sovereignsky.no/software/",
+    "topics": [
+      "digital-sovereignty",
+      "data-protection"
+    ],
+    "tags": [
+      "software",
+      "alternatives",
+      "open-source",
+      "european",
+      "catalog"
+    ],
+    "audience": [
+      "developer",
+      "public-sector",
+      "it-ops",
+      "enterprise",
+      "humanitarian"
+    ]
+  },
+  {
+    "identifier": "sovdev-logger",
+    "name": "sovdev-logger",
+    "description": "Multi-language structured logging with zero-effort observability - one log call, complete observability",
+    "summary": "Stop writing separate code for logs, metrics, and traces. Write one log entry and automatically get structured logs, metrics dashboards, distributed traces, and service dependency maps.",
+    "body": "## The Problem\n\nTraditional observability requires 20+ lines per operation - separate logger calls, metric counters, trace spans, manual correlation.\n\n## The Solution\n\n```typescript\nsovdev_log(INFO, FUNCTIONNAME, 'Payment processed', PEER_SERVICES.PAYMENT_GATEWAY, input, output);\n// ↑ Automatic logs + metrics + traces + correlation\n```\n\n**Result**: 95% less instrumentation code, complete observability out of the box.\n\n## What You Get Automatically\n\n| Output | Backends |\n|--------|----------|\n| Structured Logs | Azure Log Analytics, Loki, JSON files |\n| Metrics | Azure Monitor, Prometheus, Grafana |\n| Distributed Traces | Application Insights, Tempo |\n| Service Maps | Automatic dependency graphs |\n\n## Supported Languages\n\n| Language | Status |\n|----------|--------|\n| TypeScript | ✅ Available |\n| Go, Python, C#, Rust, PHP | 📅 Planned |\n\nWorks with any OpenTelemetry-compatible backend: Azure Monitor, Grafana Cloud, Datadog, New Relic, or self-hosted.",
+    "image": "sovdev-logger.png",
+    "dateStarted": "2025-01-01",
+    "status": "active",
+    "url": "https://github.com/terchris/sovdev-logger",
+    "topics": [
+      "cybersecurity",
+      "critical-infrastructure"
+    ],
+    "tags": [
+      "logging",
+      "observability",
+      "opentelemetry",
+      "metrics",
+      "tracing",
+      "typescript"
+    ],
+    "audience": [
+      "developer",
+      "it-ops"
+    ]
+  },
+  {
+    "identifier": "docuwrite",
+    "name": "DocuWrite",
+    "description": "Swiss army knife for converting Markdown to professional PDFs, Word documents, and presentations",
+    "summary": "Generate professional documentation from Markdown files and Azure DevOps Wikis. Containerized toolbox combining Pandoc, Mermaid, and Marp for cross-platform document generation.",
+    "body": "## The Problem It Solves\n\nOutdated documentation that stakeholders can't access. DocuWrite creates snapshot PDFs from your Wiki that everyone can share - same version, same meeting, delete after.\n\n## Output Features\n\n- Professional table of contents\n- Numbered pages with generation timestamp\n- Fully searchable PDF\n- Auto-generated TODO list appendix\n- Figures appendix\n- Mermaid diagram support\n\n## Included Tools\n\n| Tool | Purpose |\n|------|--------|\n| Pandoc | Markdown to PDF, DOCX, and other formats |\n| Mermaid CLI | Diagrams from text descriptions |\n| Marp CLI | Slide decks (PDF, PowerPoint) from Markdown |\n| Puppeteer | PDF from HTML |\n| Firefox | PDF from HTML |\n\n## Repositories\n\n- **docuwrite-base** - Container with all tools (AMD64 + ARM64)\n- **bifrost-docuwrite** - Wiki-to-PDF workflow automation",
+    "image": "docuwrite.png",
+    "dateStarted": "2024-01-01",
+    "status": "active",
+    "url": "https://github.com/terchris/docuwrite-base",
+    "topics": [
+      "critical-infrastructure"
+    ],
+    "tags": [
+      "documentation",
+      "markdown",
+      "pdf",
+      "pandoc",
+      "mermaid",
+      "presentations"
+    ],
+    "audience": [
+      "developer",
+      "public-sector",
+      "it-ops",
+      "enterprise",
+      "humanitarian"
+    ]
+  },
+  {
+    "identifier": "bifrost",
+    "name": "Bifrost",
+    "description": "Application portfolio management - track all applications in your organization and their integrations",
+    "summary": "System for keeping track of applications in an organization and all integrations between them. Visualize dependencies, automate documentation, and understand your IT landscape.",
+    "body": "## Features\n\n- **Application Registry** - Catalog all applications in your organization\n- **Integration Mapping** - Track connections and data flows between systems\n- **Dependency Visualization** - Force-directed graphs showing relationships\n- **Documentation Generation** - Auto-generate wiki and PDF catalogs\n- **Import/Export** - Bulk import from Excel, ServiceNow integration\n\n## Technical Stack\n\n| Component | Technology |\n|-----------|------------|\n| Frontend | Next.js 14 (App Router) |\n| Backend | Strapi CMS |\n| API | TypeScript |\n| Database | SQLite (dev) / PostgreSQL (prod) |\n| Deployment | Kubernetes, Docker |",
+    "image": "bifrost.png",
+    "dateStarted": "2024-01-01",
+    "status": "active",
+    "url": "https://github.com/terchris/bifrost",
+    "topics": [
+      "critical-infrastructure"
+    ],
+    "tags": [
+      "application-portfolio",
+      "integration",
+      "cmdb",
+      "documentation",
+      "visualization"
+    ],
+    "audience": [
+      "developer",
+      "it-ops"
+    ]
+  },
+  {
+    "identifier": "urbalurba-infrastructure",
+    "name": "Urbalurba Infrastructure",
+    "description": "A complete datacenter environment on your laptop - Kubernetes, databases, AI, and cloud services running locally",
+    "summary": "Zero-friction developer platform for building, testing, and deploying modern apps without needing to know Kubernetes, GitOps, or the cloud. Same infrastructure locally, in cloud, and on-premises.",
+    "body": "## The Problem It Solves\n\n- **'It works on my machine' syndrome** - Applications behave differently in development vs production\n- **Complex cloud setup** - Developers waste time configuring cloud services\n- **Permission bottlenecks** - Waiting for cloud access slows development\n- **Expensive development** - Cloud costs accumulate during development\n- **Data privacy concerns** - Sensitive data must leave your environment for cloud AI\n\n## What's Included\n\n| Category | Services |\n|----------|----------|\n| Core Infrastructure | Kubernetes cluster, Docker runtime, Provision Host |\n| Data Services | PostgreSQL, Redis, message queues, object storage |\n| AI & Machine Learning | Local ChatGPT-like system, private AI models, local LLM execution |\n| Development Tools | GitOps workflows, dev containers, Infrastructure as Code |\n\n## Key Benefits\n\n- **Rapid Development** - Everything ready out of the box\n- **True Portability** - Same environment everywhere\n- **Data Privacy** - Nothing leaves your machine\n- **Cost Effective** - No cloud charges during development\n- **Production Confidence** - Test with real infrastructure locally",
+    "image": "urbalurba-infrastructure.png",
+    "dateStarted": "2024-01-01",
+    "status": "active",
+    "url": "https://github.com/terchris/urbalurba-infrastructure",
+    "topics": [
+      "critical-infrastructure",
+      "cybersecurity"
+    ],
+    "tags": [
+      "kubernetes",
+      "docker",
+      "local-development",
+      "ai",
+      "infrastructure-as-code"
+    ],
+    "audience": [
+      "developer",
+      "it-ops"
+    ]
+  },
+  {
+    "identifier": "devcontainer-toolbox",
+    "name": "DevContainer Toolbox",
+    "description": "Consistent development environments across Windows, Mac, and Linux using containers",
+    "summary": "Eliminate 'it works on my machine' issues with a standardized, containerized development setup. Pre-configured with Azure CLI, Python, Node.js, and essential tools.",
+    "body": "## Features\n\n- Pre-configured development environment using Debian 12 Bookworm\n- Essential tools: Azure CLI, Python, Node.js, common CLI utilities\n- VS Code extensions for Azure, PowerShell, Markdown, YAML\n- Extensible architecture for role-specific tools\n- Works with VS Code, JetBrains Rider, and Visual Studio\n\n## Problems Solved\n\n- Eliminates environment inconsistencies across team members\n- Simplifies onboarding with ready-to-use setup\n- Safe experimentation without affecting local machine\n- Modular approach for adding development tools\n\n## Template Library\n\nIncludes templates for web applications in C#, Python, Go, Java, PHP, TypeScript with frameworks like Next.js, React, Spring Boot, and Express.",
+    "image": "devcontainer-toolbox.png",
+    "dateStarted": "2024-01-01",
+    "status": "active",
+    "url": "https://github.com/terchris/devcontainer-toolbox",
+    "topics": [
+      "cybersecurity"
+    ],
+    "tags": [
+      "devcontainer",
+      "docker",
+      "development",
+      "cross-platform",
+      "vscode"
+    ]
+  },
+  {
+    "identifier": "ndsi",
+    "name": "Norwegian Digital Sovereignty Index (NDSI)",
+    "description": "A community-driven framework for measuring and improving digital sovereignty readiness in Norwegian organizations",
+    "summary": "Measure your organization's digital sovereignty readiness. Based on the EU Cloud Sovereignty Framework.",
+    "image": "ndsi.png",
+    "dateStarted": "2024-01-01",
+    "status": "active",
+    "url": "https://sovereignsky.no/sovereignsky/ndsi/",
+    "topics": [
+      "digital-sovereignty",
+      "data-protection"
+    ],
+    "tags": [
+      "norway",
+      "index",
+      "assessment",
+      "framework"
+    ],
+    "audience": [
+      "developer",
+      "it-ops"
+    ]
+  }
+]

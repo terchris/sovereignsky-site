@@ -236,7 +236,7 @@ function buildFrontmatter(pub) {
   return lines.join('\n');
 }
 
-// Build the abstract and summary sections from JSON
+// Build the abstract, summary, and body sections from JSON
 function buildAbstractAndSummary(pub) {
   const parts = [];
 
@@ -246,6 +246,11 @@ function buildAbstractAndSummary(pub) {
 
   if (pub.summary) {
     parts.push(`## Summary\n\n${pub.summary}`);
+  }
+
+  // Add body content if present (full markdown content)
+  if (pub.body) {
+    parts.push(`---\n\n${pub.body}`);
   }
 
   return parts.join('\n\n');
@@ -285,24 +290,28 @@ async function main() {
     let customBody = '';
 
     // Check if file exists and has custom content after the summary
+    // Only preserve custom content if there's NO body field in JSON
     if (fs.existsSync(indexPath)) {
-      const existing = fs.readFileSync(indexPath, 'utf8');
-      const parsed = parseMarkdown(existing);
+      if (!pub.body) {
+        // No body in JSON, so preserve any custom content from existing file
+        const existing = fs.readFileSync(indexPath, 'utf8');
+        const parsed = parseMarkdown(existing);
 
-      // Extract content after the Summary section
-      customBody = extractBodyAfterSummary(parsed.body);
+        // Extract content after the Summary section
+        customBody = extractBodyAfterSummary(parsed.body);
 
-      if (customBody && !customBody.includes('No additional commentary yet')) {
-        console.log(`  Preserving custom content for: ${pub.identifier}`);
-      } else {
-        customBody = '';
+        if (customBody && !customBody.includes('No additional commentary yet')) {
+          console.log(`  Preserving custom content for: ${pub.identifier}`);
+        } else {
+          customBody = '';
+        }
       }
       updated++;
     } else {
       created++;
     }
 
-    // Build full body: Abstract + Summary from JSON, then custom content
+    // Build full body: Abstract + Summary (+ body from JSON), then any custom content
     let body = abstractSummary;
     if (customBody) {
       body += '\n\n---\n\n' + customBody;

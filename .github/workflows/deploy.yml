@@ -31,6 +31,18 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate data files
+        run: npm run validate
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:

@@ -74,7 +74,8 @@
           "items": {
             "type": "string"
           },
-          "description": "Topic slugs from topics.json for categorization"
+          "description": "Topic identifiers for categorization",
+          "x-validates-against": "data/topics/topics.json"
         },
         "tags": {
           "type": "array",
@@ -88,7 +89,8 @@
           "items": {
             "type": "string"
           },
-          "description": "Target audience identifiers (validated against data/audience/audience.json)"
+          "description": "Target audience identifiers",
+          "x-validates-against": "data/audience/audience.json"
         },
         "url": {
           "type": "string",

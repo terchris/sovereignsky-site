@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "sovereignsky-projects.schema.json",
+  "title": "SovereignSky Projects",
+  "description": "SovereignSky project definitions. Root is an array of projects.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/project"
+  },
+  "$defs": {
+    "project": {
+      "type": "object",
+      "required": ["identifier", "name", "description"],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "description": "Stable identifier for the project (used in URLs)"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Longer summary for display"
+        },
+        "body": {
+          "type": "string",
+          "description": "Markdown body content for the project page"
+        },
+        "image": {
+          "type": "string",
+          "description": "Image filename in images/sovereignsky/"
+        },
+        "dateStarted": {
+          "type": "string",
+          "description": "Project start date (YYYY-MM-DD)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "planned", "completed", "archived"],
+          "default": "active",
+          "description": "Project lifecycle status"
+        },
+        "maturity": {
+          "type": "string",
+          "enum": ["concept", "prototype", "alpha", "beta", "stable", "mature"],
+          "description": "Development maturity level"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Primary project URL"
+        },
+        "repository": {
+          "type": "string",
+          "format": "uri",
+          "description": "Source code repository URL (GitHub, GitLab, etc.)"
+        },
+        "documentation": {
+          "type": "string",
+          "format": "uri",
+          "description": "Documentation URL"
+        },
+        "topics": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Topic identifiers for categorization",
+          "x-validates-against": "data/topics/topics.json"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Free-form tags for discovery"
+        },
+        "audience": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Target audience identifiers",
+          "x-validates-against": "data/audience/audience.json"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

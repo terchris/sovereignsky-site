@@ -1,6 +1,10 @@
 # UX Improvements Plan
 
-## Status: Ready for Final Testing
+## Status: Completed
+
+**Completed**: 2026-01-12
+
+**Note**: Map whitespace on `/countries/` page moved to `PLAN-ux-improvements2.md` as unresolved.
 
 **Goal**: Fix UX issues across the site while creating reusable components to avoid duplication.
 
